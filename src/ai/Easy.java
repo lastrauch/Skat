@@ -1,4 +1,4 @@
-package ki;
+package ai;
 
 public class Easy {
 
