@@ -5,7 +5,7 @@ public class Server {
   private int test1;
   private String test2;
   
-  public void Server(int test1, String test2){
+  public Server(int test1, String test2){
     this.test1 = test1;
     this.test2 = test2;
   }
