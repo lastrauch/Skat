@@ -1,6 +1,6 @@
 package logic;
 
-public class Game {
+public class Game implements GameInterface{
   private GameSettings gameSettings;
   private Player[] group; // gives us all the Players and the seating order
   private int pointerF; // supposed to always point on the Forehand

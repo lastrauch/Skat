@@ -1,6 +1,6 @@
 package logic;
 
-public class Trick {
+public class Trick implements TrickInterface{
   private Card[] trickCards = new Card[3];
 
   public Trick() {}
@@ -35,6 +35,30 @@ public class Trick {
 
   public void setCard3(Card card3) {
     this.trickCards[2] = card3;
+  }
+
+  @Override
+  public void playCard(Player player, Card card) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public Player calculateWinner() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean checkIfCardIsPossible(Card card) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  @Override
+  public void endTrick() {
+    // TODO Auto-generated method stub
+    
   }
 
 }

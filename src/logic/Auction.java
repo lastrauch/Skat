@@ -1,5 +1,5 @@
 package logic;
 
-public class Auction {
+public class Auction implements AuctionInterface{
 
 }
