@@ -9,12 +9,17 @@ public class Game implements GameInterface{
   private int[] gameScores; // for every player, same order as group
   
   public Game(Player[] group) {
-    this.gameSettings = new GameSettings();
+    this.gameSettings = new GameSettings(CountRule.NORMAL, group.length, 3);
     this.group = group;
     this.defineSeatingList(group);
-    this.setPointerF(0);  
-    
-    
+    this.setPointerF(0);
+  }
+  
+  public Game(Player[] group, CountRule countRule, int numberOfPlays) {
+    this.gameSettings = new GameSettings(countRule, group.length, numberOfPlays);
+    this.group = group;
+    this.defineSeatingList(group);
+    this.setPointerF(0);
   }
   
   public void setPointerF(int pointer) {
