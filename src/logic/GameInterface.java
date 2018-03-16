@@ -14,7 +14,7 @@ public interface GameInterface {
   public int checkNumberOfPlayers();
   
   /**
-   * defines random where the oplayer "sit"
+   * defines random where the players "sit"
    */
   public void defineSeatingList(Player[] group);
   
