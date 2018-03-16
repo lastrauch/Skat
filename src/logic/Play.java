@@ -1,22 +1,35 @@
 package logic;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Play implements PlayInterface {
+  private ArrayList<Player> groupPos; // gives us the Players and their position (first one is the
+                                      // forehand)
   private Card[] cards = new Card[32];
   private Trick[] tricks = new Trick[10];
   private PlayState ps;
 
-  public Play() {
+  public Play(Player[] group) {
+    for (int i = 0; i < group.length; i++) {
+      this.groupPos.add(group[i]);
+    }
+
+    this.updatePositions();
     this.initializeCards();
     this.shuffleCards();
-    this.printCardsTest();
+    // this.printCardsTest();
+    this.dealOutCards();
   }
 
   public void printCardsTest() {
     for (int i = 0; i < 32; i++) {
       System.out.println(this.cards[i].getColour() + " " + this.cards[i].getNumber());
     }
+  }
+
+  public void updatePositions() {
+
   }
 
   public void initializeCards() {
@@ -88,8 +101,13 @@ public class Play implements PlayInterface {
     }
   }
 
+  public void dealOutCards() {
+    // idea: deal out as in the original game,
+    // needed : position forehand, players of the game, how many players?,
+
+  }
+
   public static void main(String[] args) {
-    Play p = new Play();
 
   }
 }

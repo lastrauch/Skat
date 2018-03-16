@@ -11,7 +11,19 @@ public class PlayState {
   private Colour trump;
   private int playValue;
   private int betValue;
-  
-  //still missing all the getters and setters 
-  
+
+  // still missing all the getters and setters
+
+  public void addToStockSP(Trick t) {
+    for (int i = 0; i < 3; i++) {
+      this.stockSinglePlayer.add(t.getTrickCards()[i]);
+    }
+  }
+
+  public void addToStockTP(Trick t) {
+    for (int i = 0; i < 3; i++) {
+      this.stockTeamPlayers.add(t.getTrickCards()[i]);
+    }
+  }
+
 }
