@@ -55,7 +55,7 @@ public class Game implements GameInterface{
   @Override
   public void setNumberOfPlays(int nr) {
     // TODO Auto-generated method stub
-    
+        
   }
   @Override
   public void startPLay() {

@@ -11,4 +11,22 @@ public class GameSettings {
     this.NrOfPlayers = NrOfPlayers;
     this.NrOfPlays = NrOfPlays;
   }
+  
+  public CountRule getCountRule() {
+    return this.countRule;
+  }
+  
+  public int getNrOfPlayers() {
+    return this.NrOfPlayers;
+  }
+  
+  public int getNrOfPlays() {
+    return this.NrOfPlays;
+  }
+  
+  //i think we don't need setters here
+//  public void setCountRule(CountRule countRule) {
+//    this.countRule = countRule;
+//  }
+//  
 }
