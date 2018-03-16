@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.Random;
+
 public class Play implements PlayInterface {
   private Card[] cards = new Card[32];
   private Trick[] tricks = new Trick[10];
@@ -7,10 +9,18 @@ public class Play implements PlayInterface {
 
   public Play() {
     this.initializeCards();
+    this.shuffleCards();
+    this.printCardsTest();
+  }
+
+  public void printCardsTest() {
+    for (int i = 0; i < 32; i++) {
+      System.out.println(this.cards[i].getColour() + " " + this.cards[i].getNumber());
+    }
   }
 
   public void initializeCards() {
-    
+
     int counter = 0;
     for (int i = 1; i <= 4; i++) {
       Colour col = null;
@@ -56,14 +66,25 @@ public class Play implements PlayInterface {
             nr = Number.ASS;
             break;
         }
-        //cards are generated in the order of their value
-        
+        // cards are generated in the order of their value
+
         Card c = new Card(col, nr);
         cards[counter] = c;
         counter++;
 
-        System.out.println(counter + " " + col.toString() + " " + nr.toString());
+        // System.out.println(counter + " " + col.toString() + " " + nr.toString());
       }
+    }
+  }
+
+  public void shuffleCards() {
+    int index;
+    Card temp = null;
+    for (int i = 0; i < 32; i++) {
+      index = (int) (Math.random() * 32);
+      temp = this.cards[i];
+      this.cards[i] = this.cards[index];
+      this.cards[index] = temp;
     }
   }
 

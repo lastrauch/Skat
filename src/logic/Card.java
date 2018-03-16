@@ -20,23 +20,23 @@ public class Card {
     this.img = img;
   }
 
-  private Colour getColour() {
+  public Colour getColour() {
     return this.colour;
   }
 
-  private Number getNumber() {
+  public Number getNumber() {
     return this.number;
   }
 
-  private Image getImage() {
+  public Image getImage() {
     return this.img;
   }
 
-  private int getValue() {
+  public int getValue() {
     return this.number.getValue();
   }
 
-  private void setImage(Image img) {
+  public void setImage(Image img) {
     this.img = img;
   }
 
