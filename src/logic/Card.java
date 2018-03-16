@@ -6,6 +6,8 @@ public class Card {
   private Colour colour;
   private Number number;
   private Image img;
+  
+  
 
   public Card(Colour colour, Number number) {
     this.colour = colour;
