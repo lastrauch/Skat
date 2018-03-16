@@ -10,20 +10,23 @@ public class Game implements GameInterface{
   
   public Game(Player[] group) {
     this.gameSettings = new GameSettings(CountRule.NORMAL, group.length, 3);
-    this.group = group;
-    this.defineSeatingList(group);
-    this.setPointerF(0);
+    this.initializeGroupSettings(group);
   }
   
   public Game(Player[] group, CountRule countRule, int numberOfPlays) {
     this.gameSettings = new GameSettings(countRule, group.length, numberOfPlays);
+    this.initializeGroupSettings(group);
+  }
+  
+  public void initializeGroupSettings(Player[] group) {
     this.group = group;
     this.defineSeatingList(group);
     this.setPointerF(0);
+    this.updatePosition();
   }
   
   public void setPointerF(int pointer) {
-    
+    this.pointerF = pointer;
   }
   
   @Override
@@ -60,8 +63,18 @@ public class Game implements GameInterface{
     
   }
 
-  
-  //we need a method getPositin in here
+  @Override
+  public void updatePosition() {
+    // TODO Auto-generated method stub
+    this.group[this.pointerF].setPosition(Position.FOREHAND);
+    this.group[((this.pointerF + 1) % this.group.length)].setPosition(Position.MIDDLEHAND);
+    this.group[((this.pointerF + 2) % this.group.length)].setPosition(Position.REARHAND);
+    
+    
+    if(group.length == 4) {
+      this.group[((this.pointerF + 3) % this.group.length)].setPosition(Position.DEALER);
+    }
+  }
   
   
   public static void main(String [] args) {
@@ -80,4 +93,6 @@ public class Game implements GameInterface{
     }
     
     }
+
+
   }

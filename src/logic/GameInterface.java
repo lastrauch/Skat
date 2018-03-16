@@ -29,4 +29,8 @@ public interface GameInterface {
    */
   public void startPLay();
   
+  /**
+   * updates all positions of the group-members
+   */
+  public void updatePosition();
 }
