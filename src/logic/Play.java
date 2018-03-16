@@ -1,21 +1,19 @@
 package logic;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Play implements PlayInterface {
-  private ArrayList<Player> groupPos; // gives us the Players and their position (first one is the
-                                      // forehand)
+
+  private Player[] groupPos; // gives us the Players and their position (first one is the
+                             // forehand)
   private Card[] cards = new Card[32];
   private Trick[] tricks = new Trick[10];
   private PlayState ps;
 
+  // needs a 3 Player Array
   public Play(Player[] group) {
-    for (int i = 0; i < group.length; i++) {
-      this.groupPos.add(group[i]);
-    }
+    this.groupPos = group;
 
-    this.updatePositions();
     this.initializeCards();
     this.shuffleCards();
     // this.printCardsTest();
@@ -28,9 +26,6 @@ public class Play implements PlayInterface {
     }
   }
 
-  public void updatePositions() {
-
-  }
 
   public void initializeCards() {
 
@@ -105,7 +100,55 @@ public class Play implements PlayInterface {
     // idea: deal out as in the original game,
     // needed : position forehand, players of the game, how many players?,
 
+    // forehand is the position 0 of group array
+    ArrayList<Card> handF = new ArrayList<Card>();
+    ArrayList<Card> handM = new ArrayList<Card>();
+    ArrayList<Card> handR = new ArrayList<Card>();
+    ArrayList<ArrayList<Card>> crew = new ArrayList<ArrayList<Card>>();
+    crew.add(handF);
+    crew.add(handM);
+    crew.add(handR);
+    Card[] skat = new Card[3];
+    int counter = 0; // points on first card (next to deal out)
+
+    // deal out first 9 cards (3 each)
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        crew.get(i).add(cards[counter]);
+        counter++;
+      }
+    }
+
+    // deal out skat
+    for (int i = 0; i < 2; i++) {
+      skat[i] = cards[counter];
+      counter++;
+    }
+
+    // deal out 4 cards each
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 4; j++) {
+        crew.get(i).add(cards[counter]);
+        counter++;
+      }
+    }
+
+    // deal out 3 cards each
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        crew.get(i).add(cards[counter]);
+        counter++;
+      }
+    }
+
+    this.groupPos[0].setHand(handF);
+    this.groupPos[1].setHand(handM);
+    this.groupPos[3].setHand(handR);
+    this.ps.setSkat(skat);
+
   }
+
+
 
   public static void main(String[] args) {
 

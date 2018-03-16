@@ -11,8 +11,11 @@ public class PlayState {
   private Colour trump;
   private int playValue;
   private int betValue;
+  private int nrOfPlays;
+  
 
   // still missing all the getters and setters
+  //add method cardAlreadyPlayed
 
   public void addToStockSP(Trick t) {
     for (int i = 0; i < 3; i++) {
@@ -26,4 +29,20 @@ public class PlayState {
     }
   }
 
+  public void setSkat(Card[] skat) {
+    this.skat = skat;
+  }
+  
+  public Card[] getSkat() {
+    return this.skat;
+  }
+
+  public void setNrOfPlays(int nrOfPlays) {
+    this.nrOfPlays = nrOfPlays;
+  }
+
+  public int getNrOfPlays() {
+    return this.nrOfPlays;
+  }
 }
+
