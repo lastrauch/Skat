@@ -7,23 +7,14 @@ public interface GameInterface {
    * this has to be changed after a play 
    */
   public void setPointerF(int pointer);
-  
-  /**  
-   * @return 1, 2, 3, or 4 
-   */
-  public int checkNumberOfPlayers();
-  
+
+
   /**
    * defines random where the players "sit"
    */
   public void defineSeatingList(Player[] group);
   
-  /**
-   * @param 1, 3, 18, 36 
-   * (1 play is especially for us, to test faster)
-   */
-  public void setNumberOfPlays(int nr);
-  
+ 
   /**
    * starts new play if game is not over 
    */
@@ -33,4 +24,11 @@ public interface GameInterface {
    * updates all positions of the group-members
    */
   public void updatePosition();
+  
+   /**
+    * 
+    * @param indexPosition: position of the player in group whos score has to be set
+    * @param addThis
+    */
+  public void setGameScore(int indexPosition, int addThis);
 }
