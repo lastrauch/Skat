@@ -18,6 +18,7 @@ public class Play implements PlayInterface {
     this.shuffleCards();
     // this.printCardsTest();
     this.dealOutCards();
+    this.sortHands();
   }
 
   public void printCardsTest() {
@@ -148,7 +149,13 @@ public class Play implements PlayInterface {
 
   }
 
+  public void sortHands() {
+    
+  }
 
+  public void sortHand(ArrayList<Card> hand) {
+    
+  }
 
   public static void main(String[] args) {
 
