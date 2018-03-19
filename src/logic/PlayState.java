@@ -12,6 +12,7 @@ public class PlayState {
   private int playValue;
   private int betValue;
   private int nrOfPlays;
+  private PlayMode pm;
   
 
   // still missing all the getters and setters

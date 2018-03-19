@@ -14,6 +14,10 @@ public interface GameInterface {
    */
   public void defineSeatingList(Player[] group);
   
+  /**
+   * initializes plays etc.
+   */
+  public void organizeGame();
  
   /**
    * starts new play if game is not over 

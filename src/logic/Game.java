@@ -7,6 +7,7 @@ public class Game implements GameInterface {
   private Player[] group; // gives us all the Players and the seating order
   private int pointerF; // supposed to always point on the Forehand
   private int[] gameScores; // for every player, same order as group
+  private Play[] plays;
 
   public Game(Player[] group) {
     try {
@@ -15,16 +16,18 @@ public class Game implements GameInterface {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+    this.plays = new Play[3];
     this.initializeGroupSettings(group);
   }
 
-  public Game(Player[] group, CountRule countRule, int numberOfPlays) {
+  public Game(Player[] group, CountRule countRule, int nrOfPlays) {
     try {
-      this.gameSettings = new GameSettings(countRule, group.length, numberOfPlays);
+      this.gameSettings = new GameSettings(countRule, group.length, nrOfPlays);
     } catch (LogicException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+    this.plays = new Play[nrOfPlays];
     this.initializeGroupSettings(group);
   }
 
@@ -36,7 +39,7 @@ public class Game implements GameInterface {
     this.initializeGameScores();
   }
 
-  public void initializeGameScores() {7
+  public void initializeGameScores() {
     this.gameScores = new int[this.group.length];
     for (int i = 0; i < this.group.length; i++) {    
       this.gameScores[i] = 0;
@@ -46,7 +49,6 @@ public class Game implements GameInterface {
   @Override
   public void defineSeatingList(Player[] group) {
     // TODO Auto-generated method stub
-
     int randomIndex;
     Player temp;
 
@@ -57,6 +59,12 @@ public class Game implements GameInterface {
       group[randomIndex] = temp;
     }
     this.group = group;
+  }
+
+  @Override
+  public void organizeGame() {
+    // TODO Auto-generated method stub
+    
   }
 
 
@@ -108,6 +116,6 @@ public class Game implements GameInterface {
 
   }
 
-
+ 
 
 }
