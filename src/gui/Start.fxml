@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="800.0" prefWidth="1280.0" stylesheets="@hh.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.StartController">
+   <effect>
+      <ColorAdjust />
+   </effect>
+   <children>
+      <ImageView fx:id="hintergrundRT" fitHeight="800.0" fitWidth="1280.0" layoutX="-10.0" nodeOrientation="INHERIT" styleClass="myButton" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/WhatsApp%20Image%202018-03-13%20at%2015.27.20(4).jpeg" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" layoutY="130.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="label1" alignment="TOP_CENTER" text="Skat" textAlignment="CENTER" textOverrun="LEADING_WORD_ELLIPSIS">
+               <font>
+                  <Font name="Arial Bold" size="64.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endY="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <TextField fx:id="nutzername" alignment="CENTER" layoutX="108.0" layoutY="130.0" prefHeight="25.0" prefWidth="79.0" promptText="Nutzername" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+            <HBox fx:id="hbox" alignment="CENTER" layoutX="80.0" layoutY="182.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="182.0">
+               <children>
+                  <Button fx:id="neuanmelden" layoutX="80.0" layoutY="182.0" mnemonicParsing="false" onAction="#neuerAccount" styleClass="myButton" text="Neu anmelden" textAlignment="CENTER" textOverrun="CLIP" />
+                  <Button fx:id="submit" layoutX="213.0" layoutY="182.0" mnemonicParsing="false" onAction="#submit" text="Submit" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
