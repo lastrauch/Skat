@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -9,39 +10,81 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="800.0" prefWidth="1280.0" stylesheets="@hh.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.StartController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <effect>
       <ColorAdjust />
    </effect>
    <children>
-      <ImageView fx:id="hintergrundRT" fitHeight="800.0" fitWidth="1280.0" layoutX="-10.0" nodeOrientation="INHERIT" styleClass="myButton" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="hintergrundRT" fitHeight="800.0" fitWidth="1280.0" layoutX="-10.0" nodeOrientation="INHERIT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/WhatsApp%20Image%202018-03-13%20at%2015.27.20(4).jpeg" />
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/WhatsApp%20Image%202018-03-13%20at%2015.27.19.jpeg" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" layoutY="130.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="260.0" layoutY="36.0" prefHeight="726.0" prefWidth="742.0" styleClass="mystyle" stylesheets="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/git/SKAT_4/src/gui/background.css" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="36.0">
          <children>
-            <Label fx:id="label1" alignment="TOP_CENTER" text="Skat" textAlignment="CENTER" textOverrun="LEADING_WORD_ELLIPSIS">
-               <font>
-                  <Font name="Arial Bold" size="64.0" />
-               </font>
-               <textFill>
-                  <LinearGradient endY="1.0">
-                     <stops>
-                        <Stop color="RED" />
-                        <Stop color="WHITE" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </textFill>
-            </Label>
-            <TextField fx:id="nutzername" alignment="CENTER" layoutX="108.0" layoutY="130.0" prefHeight="25.0" prefWidth="79.0" promptText="Nutzername" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
-            <HBox fx:id="hbox" alignment="CENTER" layoutX="80.0" layoutY="182.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="182.0">
+            <AnchorPane layoutX="104.0" layoutY="62.0">
                <children>
-                  <Button fx:id="neuanmelden" layoutX="80.0" layoutY="182.0" mnemonicParsing="false" onAction="#neuerAccount" styleClass="myButton" text="Neu anmelden" textAlignment="CENTER" textOverrun="CLIP" />
-                  <Button fx:id="submit" layoutX="213.0" layoutY="182.0" mnemonicParsing="false" onAction="#submit" text="Submit" />
+                  <ImageView fitHeight="147.0" fitWidth="105.0" layoutX="262.0" layoutY="-14.0" rotate="1.8">
+                     <image>
+                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jdiamonds.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="147.0" fitWidth="105.0" layoutX="332.0" layoutY="9.0" rotate="26.6">
+                     <image>
+                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jhearts.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="147.0" fitWidth="105.0" layoutX="171.0" layoutY="-7.0" rotate="-11.3">
+                     <image>
+                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jspades.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="147.0" fitWidth="105.0" layoutX="97.0" layoutY="16.0" rotate="-36.9" AnchorPane.leftAnchor="97.0">
+                     <image>
+                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jclubs.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <JFXTextField focusColor="WHITE" layoutX="167.0" layoutY="426.0" prefHeight="31.0" prefWidth="427.0" promptText="Username" styleClass="prompttext" unFocusColor="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXTextField>
+            <ImageView fitHeight="51.0" fitWidth="55.0" layoutX="104.0" layoutY="426.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/icons8-benutzer-filled-50.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="285.0" layoutY="259.0" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="72.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" layoutX="173.0" layoutY="534.0" spacing="80.0" AnchorPane.bottomAnchor="161.0" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="534.0">
+               <children>
+                  <JFXButton buttonType="RAISED" layoutX="188.0" layoutY="545.0" prefHeight="31.0" prefWidth="110.0" style="-fx-border-color: Peru; -fx-background-color: tan;" text="Login" textFill="WHITE">
+                     <ripplerFill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop color="WHITE" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </ripplerFill></JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="401.0" layoutY="545.0" prefHeight="31.0" prefWidth="172.0" style="-fx-background-color: tan;" text="Create new account" textFill="WHITE">
+                     <ripplerFill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop color="WHITE" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </ripplerFill>
+                  </JFXButton>
                </children>
             </HBox>
          </children>
-      </VBox>
+      </AnchorPane>
    </children>
 </AnchorPane>
