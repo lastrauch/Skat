@@ -1,4 +1,4 @@
-package network;
+package network.client;
 
 public class Client {
 
