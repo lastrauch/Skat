@@ -7,7 +7,7 @@ public class Server extends Thread{
   private String serverName;
   private ServerSocket serverSocket;
   private int port;
-  private List<Connection> clientConnections;
+  private List<ClientConnection> clientConnections;
   
   
 }

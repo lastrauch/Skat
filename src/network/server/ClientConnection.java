@@ -5,7 +5,7 @@ import java.io.*;
 import java.net.Socket;
 
 
-public class Connection extends Thread{
+public class ClientConnection extends Thread{
   private Server server;
   private Socket socket;
   private ObjectInputStream input;
@@ -15,7 +15,7 @@ public class Connection extends Thread{
   private int playerID;
   private Player player;
   
-  public Connection(Server server, Socket socket, Player player){
+  public ClientConnection(Server server, Socket socket, Player player){
     this.server = server;
     this.player = player;
     
