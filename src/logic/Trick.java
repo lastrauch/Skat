@@ -1,7 +1,9 @@
 package logic;
 
-public class Trick implements TrickInterface{
+public class Trick {
   private Card[] trickCards = new Card[3];
+  private Player[] playersOfCards = new Player[3];
+  private int playedCards = 0; // gives us the nr of played cards
 
   public Trick() {}
 
@@ -37,28 +39,39 @@ public class Trick implements TrickInterface{
     this.trickCards[2] = card3;
   }
 
-  @Override
+
+
+  // Maybe add exception to throw instead of sysout
   public void playCard(Player player, Card card) {
-    // TODO Auto-generated method stub
-    
+
+    if (this.playedCards >= 3) {
+      System.out.println("the trick is already filled");
+    } else {
+      this.trickCards[this.playedCards] = card;
+      this.playersOfCards[this.playedCards] = player;
+      this.playedCards++;
+    }
+
   }
 
-  @Override
+
   public Player calculateWinner() {
     // TODO Auto-generated method stub
     return null;
   }
 
-  @Override
+
+
+  // cant be calculated here --> in play because we need the hand
   public boolean checkIfCardIsPossible(Card card) {
     // TODO Auto-generated method stub
     return false;
   }
 
-  @Override
+
   public void endTrick() {
     // TODO Auto-generated method stub
-    
+
   }
 
 }

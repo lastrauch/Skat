@@ -2,7 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 
-public class Play implements PlayInterface {
+public class Play {
 
   private Player[] groupPos; // gives us the Players and their position (first one is the
                              // forehand)
@@ -98,7 +98,7 @@ public class Play implements PlayInterface {
   }
 
   public void dealOutCards() {
-    // idea: deal out as in the original game,
+    // idea: deal out as in the original game, just because we want it intern
     // needed : position forehand, players of the game, how many players?,
 
     // forehand is the position 0 of group array
