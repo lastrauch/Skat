@@ -1,11 +1,14 @@
 package interfaces;
 
+import logic.Player;
+import network.server.Server;
+
 //Logic to Network, implemented by Network
 public interface LogicNetwork {
   //Host game
-  void hostGame();
+  void hostGame(Player player);
   //Join Lobby
-  void joinLobby();
+  void joinLobby(Server server, Player player);
   //Add bot
   void addBot();
   

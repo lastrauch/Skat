@@ -1,19 +1,16 @@
 package network;
 
+import logic.Player;
+import network.server.Server;
 
 public class LogicReciever implements interfaces.LogicNetwork{
 
-  public void hostGame() {
-    Controller.hostGame();
+  public void hostGame(Player player) {
+    Controller.hostGame(player);
   }
 
-  public void joinLobby() {
-    // TODO Auto-generated method stub
-    //Request Connection
-    //Create Client
-    //Forder GameSettings und andere Spieler an
-    //Sende an alle, dass neuer Client dabei
-    //Fordere letzten Chat an?
+  public void joinLobby(Server server, Player player) {
+    Controller.joinLobby(server, player);
   }
 
   public void addBot() {
