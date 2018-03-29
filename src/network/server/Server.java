@@ -19,7 +19,7 @@ public class Server extends Thread{
   public Server(String serverName, int port){
     this.serverName = serverName;
     this.port = port;
-    this.clientConnections = new ArrayList();
+    this.clientConnections = new ArrayList<ClientConnection>();
     this.serverRunning = false;
     this.chatRunning = false;
     this.lobbyRunning = false;
