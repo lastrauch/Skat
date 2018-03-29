@@ -1,11 +1,10 @@
 package network;
 
+
 public class LogicReciever implements interfaces.LogicNetwork{
 
   public void hostGame() {
-    // TODO Auto-generated method stub
-    //Create Server
-    //Create Client
+    Controller.hostGame();
   }
 
   public void joinLobby() {
