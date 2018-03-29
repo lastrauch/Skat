@@ -8,7 +8,8 @@ public class Play {
                              // forehand)
   private Card[] cards = new Card[32];
   private Trick[] tricks = new Trick[10];
-  private PlayState ps;
+  private PlayState ps = new PlayState();
+
 
   // needs a 3 Player Array
   public Play(Player[] group) {
@@ -16,8 +17,18 @@ public class Play {
 
     this.initializeCards();
     this.shuffleCards();
+    // Auction needs to tke place here
+
+    // as a test :
+    ps.setPlayMode(PlayMode.COLOUR);
+    ps.setTrump(Colour.HEARTS);
+
     // this.printCardsTest();
     this.dealOutCards();
+    this.printListCards(this.groupPos[0].getHand());
+    System.out.println("after testOrder n' stuff");
+    this.testOrderNStuff();
+
     this.sortHands();
   }
 
@@ -25,6 +36,25 @@ public class Play {
     for (int i = 0; i < 32; i++) {
       System.out.println(this.cards[i].getColour() + " " + this.cards[i].getNumber());
     }
+  }
+
+  public void printListCards(ArrayList<Card> list) {
+    for (int i = 0; i < list.size(); i++) {
+      System.out.println(list.get(i).getColour() + " " + list.get(i).getNumber());
+    }
+  }
+
+  // test only!
+  public void testOrderNStuff() {
+    for (int i = 0; i < 3; i++) {
+      this.sortHand(this.groupPos[i].getHand());
+      printListCards(this.groupPos[i].getHand());
+      System.out.println();
+    }
+    System.out.println();
+    System.out.println("Stack:");
+    System.out.println(this.ps.getSkat()[0].getColour() + " " + this.ps.getSkat()[0].getNumber());
+    System.out.println(this.ps.getSkat()[1].getColour() + " " + this.ps.getSkat()[1].getNumber());
   }
 
 
@@ -109,7 +139,7 @@ public class Play {
     crew.add(handF);
     crew.add(handM);
     crew.add(handR);
-    Card[] skat = new Card[3];
+    Card[] skat = new Card[2];
     int counter = 0; // points on first card (next to deal out)
 
     // deal out first 9 cards (3 each)
@@ -144,20 +174,189 @@ public class Play {
 
     this.groupPos[0].setHand(handF);
     this.groupPos[1].setHand(handM);
-    this.groupPos[3].setHand(handR);
+    this.groupPos[2].setHand(handR);
     this.ps.setSkat(skat);
 
   }
 
   public void sortHands() {
-    
+
   }
 
   public void sortHand(ArrayList<Card> hand) {
-    
+    // possible different orders : colour, grand, null(nullouvert)
+
+    int counter = 0; // saves nr of jacks/ nr of already sorted cards
+    ArrayList<Card> jacks = new ArrayList<Card>();
+
+    // first step: jacks at the beginning
+    if (this.ps.getPlayMode() == PlayMode.COLOUR | this.ps.getPlayMode() == PlayMode.GRAND) {
+      Card temp;
+      for (int i = 0; i < hand.size(); i++) {
+        if (hand.get(i).getNumber() == Number.JACK) {
+          jacks.add(hand.get(i));
+          temp = hand.get(counter);
+          hand.set(counter, hand.get(i));
+          hand.set(i, temp);
+          counter++;
+        }
+      }
+
+    }
+
+    this.sortCardsByColour(jacks);
+
+
+    // seperate different colours
+    ArrayList<Card> clubs = new ArrayList<Card>();
+    ArrayList<Card> spades = new ArrayList<Card>();
+    ArrayList<Card> hearts = new ArrayList<Card>();
+    ArrayList<Card> diamonds = new ArrayList<Card>();
+
+    for (int i = counter; i < hand.size(); i++) {
+      Colour c = hand.get(i).getColour();
+      switch (c) {
+        case CLUBS:
+          clubs.add(hand.get(i));
+          break;
+        case SPADES:
+          spades.add(hand.get(i));
+          break;
+        case HEARTS:
+          hearts.add(hand.get(i));
+          break;
+        case DIAMONDS:
+          diamonds.add(hand.get(i));
+          break;
+      }
+    }
+
+    // sort different colours depending on the Playmode by their numbers
+    if (this.ps.getPlayMode() == PlayMode.COLOUR | this.ps.getPlayMode() == PlayMode.GRAND) {
+      this.sortCardsValueNorm(clubs);
+      this.sortCardsValueNorm(spades);
+      this.sortCardsValueNorm(hearts);
+      this.sortCardsValueNorm(diamonds);
+    } else if (this.ps.getPlayMode() == PlayMode.NULL
+        | this.ps.getPlayMode() == PlayMode.NULLOUVERT) {
+      this.sortCardsValueHighTen(clubs);
+      this.sortCardsValueHighTen(spades);
+      this.sortCardsValueHighTen(hearts);
+      this.sortCardsValueHighTen(diamonds);
+    }
+
+    // put the different stacks back together in the right order
+    this.addToHand(jacks, hand, 0, jacks.size());
+
+    if (this.ps.getPlayMode() == PlayMode.COLOUR) {
+      Colour trump = this.ps.getTrump();
+      switch (trump) {
+        case CLUBS:
+          this.addToHand(clubs, hand, counter, clubs.size());
+          counter += clubs.size();
+          break;
+        case SPADES:
+          this.addToHand(spades, hand, counter, spades.size());
+          counter += spades.size();
+          break;
+        case HEARTS:
+          this.addToHand(hearts, hand, counter, hearts.size());
+          counter += hearts.size();
+          break;
+        case DIAMONDS:
+          this.addToHand(diamonds, hand, counter, diamonds.size());
+          counter += diamonds.size();
+          break;
+      }
+    }
+
+    System.out.println(clubs.toString());
+    if (this.ps.getTrump() != Colour.CLUBS) {
+      this.addToHand(clubs, hand, counter, clubs.size());
+      counter += clubs.size();
+    }
+
+    if (this.ps.getTrump() != Colour.SPADES) {
+      this.addToHand(spades, hand, counter, spades.size());
+      counter += spades.size();
+    }
+
+    if (this.ps.getTrump() != Colour.HEARTS) {
+      this.addToHand(hearts, hand, counter, hearts.size());
+      counter += hearts.size();
+    }
+
+    if (this.ps.getTrump() != Colour.DIAMONDS) {
+      this.addToHand(diamonds, hand, counter, diamonds.size());
+      counter += diamonds.size();
+    }
+
+  }
+
+  // Adds arrayList to ArrayList
+  public void addToHand(ArrayList<Card> cardsToAdd, ArrayList<Card> hand, int start, int length) {
+    int counter = 0;
+    for (int i = start; i < start + length; i++) {
+      hand.set(i, cardsToAdd.get(counter));
+      counter++;
+    }
+  }
+
+  // sorts cards by its value -- not colour!
+  public void sortCardsValueNorm(ArrayList<Card> cards) {
+    Card temp;
+    for (int i = 1; i < cards.size(); i++) {
+      for (int j = 0; j < cards.size() - 1; j++) {
+        if (cards.get(j).isLowerAsNorm(cards.get(j + 1))) {
+          temp = cards.get(j);
+          cards.set(j, cards.get(j + 1));
+          cards.set(j + 1, temp);
+        }
+      }
+    }
+  }
+
+  public void sortCardsValueHighTen(ArrayList<Card> cards) {
+    Card temp;
+    for (int i = 1; i < cards.size(); i++) {
+      for (int j = 0; j < cards.size() - 1; j++) {
+        if (cards.get(j).isHigherAsNorm(cards.get(j + 1))) {
+          temp = cards.get(j);
+          cards.set(j, cards.get(j + 1));
+          cards.set(j + 1, temp);
+        }
+      }
+    }
+  }
+
+  public void sortCardsByColour(ArrayList<Card> cards) {
+    Card temp;
+    for (int i = 0; i < cards.size(); i++) {
+      for (int j = 0; j < cards.size() - 1; j++) {
+        if (cards.get(j).getColour().compareColourIntern(cards.get(j + 1).getColour()) < 0) {
+          temp = cards.get(i);
+          cards.set(j, cards.get(j + 1));
+          cards.set(j + 1, temp);
+        }
+      }
+    }
+  }
+
+  public PlayState getPlayState() {
+    return this.ps;
   }
 
   public static void main(String[] args) {
+    Player sandra = new Player("Sandra");
+    Player larissa = new Player("Larissa");
+    Player felix = new Player("Felix");
+
+    Player[] crew = new Player[3];
+    crew[0] = sandra;
+    crew[1] = larissa;
+    crew[2] = felix;
+
+    Play test = new Play(crew);
 
   }
 }

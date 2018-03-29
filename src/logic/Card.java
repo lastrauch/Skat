@@ -52,17 +52,25 @@ public class Card {
       return false;
     }
   }
-
-  public boolean isHigherAsHighTen(Card comp) {
-    if (this.number.getRankingHighTen() > comp.getNumber().getRankingHighTen()) {
+  
+  public boolean isLowerAsNorm(Card comp) {
+    if (this.number.getRankingNorm() < comp.getNumber().getRankingNorm()) {
       return true;
     } else {
       return false;
     }
   }
 
-  public boolean isLowerAsHighTen(Card comp) {
-    if (this.number.getRankingHighTen() < comp.getNumber().getRankingHighTen()) {
+  public boolean isHigherAsLowTen(Card comp) {
+    if (this.number.getRankingLowTen() > comp.getNumber().getRankingLowTen()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean isLowerAsLowTen(Card comp) {
+    if (this.number.getRankingLowTen() < comp.getNumber().getRankingLowTen()) {
       return true;
     } else {
       return false;
