@@ -24,19 +24,19 @@ public class StartController {
 	private HBox hbox;
 
 	@FXML
-	public void submit() {
+	public void login() {
 		// Nutzernamen an Logik weitergeben
 		// Spielerprofil laden
 		Stage newStage = new Stage();
 		try {
-			root = (AnchorPane) FXMLLoader.load(getClass().getResource("Spielmodi.fxml"));
+			root = (AnchorPane) FXMLLoader.load(getClass().getResource("Neuanmelden.fxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(root);
 		newStage.setScene(scene);
-		newStage.setTitle("Spielmodi");
+		newStage.setTitle("Neuanmelden");
 		newStage.showAndWait();
 		System.exit(0);
 	}

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -9,41 +12,123 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="800.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.StartController">
-   <effect>
-      <ColorAdjust />
-   </effect>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="hintergrundRT" fitHeight="800.0" fitWidth="1350.0" layoutX="-10.0" nodeOrientation="INHERIT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="308.0" layoutY="403.0" opacity="0.67" style="-fx-text-fill: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/WhatsApp%20Image%202018-03-13%20at%2015.27.20(4).jpeg" />
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/WhatsApp%20Image%202018-03-13%20at%2015.27.20.jpeg" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" layoutY="130.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane minHeight="-Infinity" prefHeight="44.0" prefWidth="1280.0" style="-fx-background-color: tan; -fx-border-color: #611212;" stylesheets="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/git/SKAT_4/src/gui/background.css" AnchorPane.bottomAnchor="756.0">
          <children>
-            <Label fx:id="label1" alignment="TOP_CENTER" text="Skat" textAlignment="CENTER" textOverrun="LEADING_WORD_ELLIPSIS">
+            <JFXButton buttonType="RAISED" layoutX="31.0" layoutY="12.0" prefHeight="36.0" prefWidth="122.0" styleClass="buttonstyle" text="       Settings" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="1131.0" AnchorPane.topAnchor="6.0">
                <font>
-                  <Font name="Arial Bold" size="64.0" />
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="542.0" layoutY="8.0" prefHeight="35.0" prefWidth="141.0" styleClass="buttonstyle" text="     Account" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="541.0" AnchorPane.rightAnchor="598.0" AnchorPane.topAnchor="6.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="1156.0" layoutY="5.0" prefHeight="24.0" prefWidth="101.0" styleClass="buttonstyle" text="     Help" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="1155.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="6.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="28.0" fitWidth="24.0" layoutX="23.0" layoutY="9.0" style="-fx-background: Peru;" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <image>
+                  <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/icons8-einstellungen-50.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="554.0" layoutY="11.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <image>
+                  <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/management.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="1169.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <image>
+                  <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/info.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="201.0" fitWidth="142.0" layoutX="62.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" rotate="140.2">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jclubs.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="344.0" layoutY="184.0" prefHeight="424.0" prefWidth="562.0" style="-fx-background-color: tan; -fx-border-color: #611212; -fx-background-radius: 30; -fx-border-radius: 30;" styleClass="mystyle" stylesheets="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/git/SKAT_4/src/gui/background.css" AnchorPane.bottomAnchor="188.0" AnchorPane.leftAnchor="287.0" AnchorPane.rightAnchor="287.0" AnchorPane.topAnchor="188.0">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="53.0" prefWidth="546.0" text="Choose your game">
+               <font>
+                  <Font name="System Bold" size="36.0" />
                </font>
                <textFill>
-                  <LinearGradient endY="1.0">
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.8980582524271845">
                      <stops>
-                        <Stop color="RED" />
-                        <Stop color="WHITE" offset="1.0" />
+                        <Stop color="PERU" />
+                        <Stop color="#fcfcfc" offset="1.0" />
                      </stops>
                   </LinearGradient>
                </textFill>
             </Label>
-            <TextField fx:id="nutzername" alignment="CENTER" layoutX="108.0" layoutY="130.0" prefHeight="72.0" prefWidth="410.0" promptText="Neuer Nutzername" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
-               <font>
-                  <Font size="18.0" />
-               </font></TextField>
-            <HBox alignment="CENTER" layoutX="80.0" layoutY="182.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="182.0">
+            <Separator layoutX="2.0" layoutY="77.0" prefHeight="0.0" prefWidth="706.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <VBox layoutX="65.0" layoutY="132.0" prefHeight="241.0" prefWidth="425.0" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="132.0">
                <children>
-                  <Button fx:id="submit" layoutX="213.0" layoutY="182.0" mnemonicParsing="false" onAction="#submit" text="Submit" />
+                  <AnchorPane layoutX="65.0" layoutY="132.0" prefHeight="145.0" prefWidth="425.0" style="-fx-background-color: Peru; -fx-background-radius: 30;">
+                     <children>
+                        <ImageView fitHeight="76.0" fitWidth="80.0" layoutX="14.0" layoutY="15.0">
+                           <image>
+                              <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/console.png" />
+                           </image>
+                        </ImageView>
+                        <JFXButton layoutX="123.0" layoutY="25.0" text="Single Player Game" textFill="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <effect>
+                        <InnerShadow color="#611212" />
+                     </effect>
+                  </AnchorPane>
+                  <AnchorPane layoutX="65.0" layoutY="342.0" prefHeight="148.0" prefWidth="425.0" style="-fx-background-color: Peru; -fx-background-radius: 30;">
+                     <children>
+                        <JFXButton layoutX="128.0" layoutY="20.0" text="Online Multiplayer Game" textFill="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </JFXButton>
+                        <ImageView fitHeight="76.0" fitWidth="80.0" layoutX="18.0" layoutY="12.0">
+                           <image>
+                              <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/online-game.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <effect>
+                        <InnerShadow color="#611212" />
+                     </effect>
+                  </AnchorPane>
                </children>
-            </HBox>
+            </VBox>
+            <ImageView fx:id="profilbild" fitHeight="65.0" fitWidth="66.0" layoutX="610.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
          </children>
-      </VBox>
+      </AnchorPane>
+      <ImageView fitHeight="201.0" fitWidth="142.0" layoutX="61.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true" rotate="40.2">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jhearts.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="201.0" fitWidth="142.0" layoutX="1074.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" rotate="-140.2">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jspades.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="201.0" fitWidth="142.0" layoutX="1074.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true" rotate="-40.2">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jdiamonds.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
