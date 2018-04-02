@@ -96,7 +96,7 @@ public class Game {
   //#kackhaufen
   public void organizeGame() {
     for (int i = 0; i < this.plays.length; i++) {
-      this.auctions[i] = new Auction();
+      this.auctions[i] = new Auction(this.group); //we need a change here.. group means sometimes 4 people, but we need 3
       this.plays[i] = new Play(this.group);
     }
   }
