@@ -96,7 +96,7 @@ public class Game {
   public void organizeGame() {
     Player[] playingGroup = new Player[3]; // always three players who are actually playing
 
-    // if only three players then the playing group is the whloe group "at the table"
+    // if only three players then the playing group is the whole group "at the table"
     if (this.group.length == 3) {
       playingGroup = this.group;
     }
@@ -105,8 +105,7 @@ public class Game {
 
       // the playing group consists of forehand, middlehand, rarehand, NOT dealer
       if (this.group.length == 4) {
-        int index = 0; // where to save the player
-
+        int index = 0;
         for (int j = 0; j < this.group.length; j++) {
           if (this.group[j].getPosition() != Position.DEALER) {
             playingGroup[index] = this.group[j];
