@@ -13,6 +13,7 @@ public class Play {
 
   // needs a 3 Player Array
   public Play(Player[] group) {
+    System.out.println("play started");
     this.groupPos = group;
 
     this.initializeCards();

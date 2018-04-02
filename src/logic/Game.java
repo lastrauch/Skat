@@ -11,7 +11,6 @@ public class Game {
   private Play[] plays;
   private Auction[] auctions;
 
-
   /**
    * constructor #1
    * 
@@ -19,13 +18,13 @@ public class Game {
    */
   public Game(Player[] group) {
     try {
-      this.gameSettings = new GameSettings(CountRule.NORMAL, group.length, 3);
+      this.gameSettings = new GameSettings(CountRule.NORMAL, group.length, 18);
     } catch (LogicException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    this.plays = new Play[3];
-    this.auctions = new Auction[3];
+    this.plays = new Play[this.gameSettings.getNrOfPlays()];
+    this.auctions = new Auction[this.gameSettings.getNrOfPlays()];
     this.initializeGroupSettings(group);
     this.organizeGame();
   }
@@ -51,7 +50,7 @@ public class Game {
   }
 
   /**
-   * defines group settings for the start, some settings have to be updated during the game
+   * defines group settings for the start, some settings have to be updated during the game *
    * 
    * @param group
    */
@@ -89,16 +88,79 @@ public class Game {
     }
     this.group = group;
   }
-  
+
   /**
    * here is where the magic/game happens
    */
-  //#kackhaufen
+  // #kackhaufen
   public void organizeGame() {
-    for (int i = 0; i < this.plays.length; i++) {
-      this.auctions[i] = new Auction(this.group); //we need a change here.. group means sometimes 4 people, but we need 3
-      this.plays[i] = new Play(this.group);
+    Player[] playingGroup = new Player[3]; // always three players who are actually playing
+
+    // if only three players then the playing group is the whloe group "at the table"
+    if (this.group.length == 3) {
+      playingGroup = this.group;
     }
+
+    for (int i = 0; i < this.plays.length; i++) {
+
+      // the playing group consists of forehand, middlehand, rarehand, NOT dealer
+      if (this.group.length == 4) {
+        int index = 0; // where to save the player
+
+        for (int j = 0; j < this.group.length; j++) {
+          if (this.group[j].getPosition() != Position.DEALER) {
+            playingGroup[index] = this.group[j];
+            index++;
+          }
+        }
+      }
+
+      // //test: positions
+      // for (int k = 0; k < this.group.length; k++) {
+      // System.out.println(this.group[k].getName() + ": " + this.group[k].getPosition());
+      // }
+      // System.out.println("playing group:");
+      // for (int k = 0; k < playingGroup.length; k++) {
+      // System.out.println(playingGroup[k].getName());
+      // }
+      //
+      try {
+        this.auctions[i] = new Auction(this.sortPlayingGroup(playingGroup));
+        this.plays[i] = new Play(this.sortPlayingGroup(playingGroup));
+      } catch (LogicException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+
+      this.setPointerF((i + 1) % group.length);
+      this.updatePosition();
+    }
+  }
+
+  /**
+   * sorts a group (for my vegan honey): index 0 = forehand, index 1 = middlehand, index 2 =
+   * rarehand
+   * 
+   * @param group
+   * @return sorted group
+   * @throws LogicException
+   */
+  public Player[] sortPlayingGroup(Player[] group) throws LogicException {
+    Player[] sortedGroup = new Player[group.length];
+
+    for (int i = 0; i < group.length; i++) {
+      if (group[i].getPosition() == Position.FOREHAND) {
+        sortedGroup[0] = group[i];
+      } else if (group[i].getPosition() == Position.MIDDLEHAND) {
+        sortedGroup[1] = group[i];
+      } else if (group[i].getPosition() == Position.REARHAND) {
+        sortedGroup[2] = group[i];
+      } else {
+        throw new LogicException("sorting the group is not possible");
+      }
+    }
+
+    return sortedGroup;
   }
 
   /**
@@ -109,7 +171,7 @@ public class Game {
   }
 
   /**
-   * @param index: is ths idex of the player whose score has to be updated
+   * @param index: is the index of the player whose score has to be updated
    * @param addThis: points (goals of the play)
    */
   public void setGameScore(int index, int addThis) {
@@ -118,12 +180,13 @@ public class Game {
 
   /**
    * sets the index of the player who plays the first card in the next game
+   * 
    * @param index
    */
   public void setPlayerFirstCard(int index) {
     this.playerFirstCard = index;
   }
-  
+
   /**
    * position (forehand, middlehand, rearhand) changes ater every play
    */
@@ -141,15 +204,16 @@ public class Game {
 
   public static void main(String[] args) {
 
-    // // test
-    // Player anne = new Player("Anne");
-    // Player larissa = new Player("Larissa");
-    // Player felix = new Player("Felix");
-    //
-    //
-    // Player[] group = {anne, larissa, felix};
-    // Game game = new Game(group);
-    //
+    // test
+    Player anne = new Player("Anne");
+    Player larissa = new Player("Larissa");
+    Player felix = new Player("Felix");
+    Player duygu = new Player("Duygu");
+
+    Player[] group = {anne, larissa, felix, duygu};
+    Game game = new Game(group);
+
+    // test: define seatingList
     // for (int i = 0; i < group.length; i++) {
     // System.out.println(group[i].getName() + " ");
     // }

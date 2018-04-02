@@ -15,6 +15,9 @@ public class Auction {
     this.auctionMembers = auctionMembers;
     this.initializePossibleBets();
     this.initializeBets();
+    
+    System.out.println("auction started");
+    System.out.println();
   }
 
   /**
@@ -44,6 +47,10 @@ public class Auction {
     return this.possibleBets;
   }
 
+  public Player getWinner() {
+    return winner;
+  }
   
-
+  
+  
 }
