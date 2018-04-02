@@ -41,11 +41,12 @@ public class Trick {
 
 
 
-  // Maybe add exception to throw instead of sysout
-  public void playCard(Player player, Card card) {
+  // Maybe add exception to throw instead of sysout #done :*
+  public void playCard(Player player, Card card) throws LogicException {
 
     if (this.playedCards >= 3) {
-      System.out.println("the trick is already filled");
+      throw new LogicException("the trick is already filled");
+      //System.out.println("the trick is already filled");
     } else {
       this.trickCards[this.playedCards] = card;
       this.playersOfCards[this.playedCards] = player;
