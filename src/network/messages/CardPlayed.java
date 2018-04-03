@@ -13,19 +13,16 @@ public class CardPlayed extends Message{
     this.card = card;
   }
     
-  public void setPlayer(Player player){
-    this.player = player;
-  }
-    
   public Player getPlayer(Player player){
     return this.player;
   }
     
-  public void setCard(Card card){
-    this.card = card;
-  }
-    
   public Card getCard(){
     return this.card;
+  }
+  
+  // TODO card benötigt eine toString Methode
+  public String toString(){
+    return this.player.getName() + " played " + this.card.toString();
   }
 }

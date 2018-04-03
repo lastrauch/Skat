@@ -13,20 +13,16 @@ public class ChatMessage extends Message{
     this.msg = msg;
   }
   
-  public void setPlayer(Player player){
-    this.player = player;
-  }
-  
   public Player getPlayer(){
     return this.player;
   }
   
-  public void setMsg(String msg){
-    this.msg = msg;
-  }
-  
   public String getMsg(){
     return this.msg;
+  }
+  
+  public String toString(){
+    return player.getName() + ": " + this.msg;
   }
 
 }

@@ -13,19 +13,15 @@ public class Bet extends Message{
     this.bet = bet;
   }
   
-  public void setPlayer(Player player){
-    this.player = player;
-  }
-  
   public Player getPlayer(){
     return this.player;
   }
   
-  public void setBet(int bet){
-    this.bet = bet;
-  }
-  
   public int getBet(){
     return this.bet;
+  }
+  
+  public String toString(){
+    return this.player.getName() + " bet " + this.bet + ".";
   }
 }
