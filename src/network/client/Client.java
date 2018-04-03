@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import logic.Player;
-import network.messages.ClientDisconnect;
+import network.messages.*;
 import network.server.Server;
 
 public class Client {
@@ -19,13 +19,14 @@ public class Client {
   private ObjectInputStream input; //Eingabe vom Server
   
   public Client(Server server, Player player, Boolean isHost, int port){
+    this.server = server;
     this.owner = player;
     this.isHost = isHost;
     this.port = port;
     
     boolean connectionEstablished = connect();
     if (!connectionEstablished){
-      System.out.println("Sorry: No connection to " + server.getName() + ": " + port);
+      System.out.println("Sorry: No connection to " + server.getServerName() + ": " + port);
     }
   }
  
@@ -57,5 +58,11 @@ public class Client {
   }
   
   // TODO Nachrichten senden
-
+  public void sendChatMessageToServer(String msg){
+    try {
+      output.writeObject(new ChatMessage(owner, msg));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }
