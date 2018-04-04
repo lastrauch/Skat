@@ -34,7 +34,7 @@ public class MainClass extends Application {
 
 	public void mainWindow() {
 		try {
-			FXMLLoader loader = new FXMLLoader(MainClass.class.getResource("Start.fxml"));
+			FXMLLoader loader = new FXMLLoader(MainClass.class.getResource("Login.fxml"));
 			root = loader.load();
 
 			StartController startCon = new StartController();

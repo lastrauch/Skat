@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -22,6 +23,8 @@ public class StartController {
 	private AnchorPane root;
 	@FXML
 	private HBox hbox;
+	@FXML
+	private ImageView profilbild;
 
 	@FXML
 	public void login() {
@@ -34,6 +37,12 @@ public class StartController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		// Image im = new Image(getClass()
+		// .getResource(
+		// "C:/Users/Larissa/Documents/Uni/6.
+		// Semester/Praktikum_Software_Engeneering/Git/SKAT_4/src/gui/JClubs.jpg").toExternalForm());
+		// profilbild.setImage(im);
+
 		Scene scene = new Scene(root);
 		newStage.setScene(scene);
 		newStage.setTitle("Neuanmelden");

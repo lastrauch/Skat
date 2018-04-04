@@ -112,7 +112,10 @@
                   </AnchorPane>
                </children>
             </VBox>
-            <ImageView fx:id="profilbild" fitHeight="65.0" fitWidth="66.0" layoutX="610.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="profilbild" fitHeight="65.0" fitWidth="66.0" layoutX="610.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/git/SKAT_4/src/gui/Jclubs.jpg" />
+               </image></ImageView>
          </children>
       </AnchorPane>
       <ImageView fitHeight="201.0" fitWidth="142.0" layoutX="61.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true" rotate="40.2">
