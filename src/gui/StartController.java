@@ -1,7 +1,11 @@
 package gui;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -37,11 +41,18 @@ public class StartController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// Image im = new Image(getClass()
-		// .getResource(
-		// "C:/Users/Larissa/Documents/Uni/6.
-		// Semester/Praktikum_Software_Engeneering/Git/SKAT_4/src/gui/JClubs.jpg").toExternalForm());
-		// profilbild.setImage(im);
+		// Image ima = new
+		// Image(getClass().getResource("/SKAT_4/resources/Jclubs.jpg").toExternalForm());
+		// profilbild.setImage(ima);
+
+		BufferedImage im;
+		try {
+			im = ImageIO.read(getClass().getResource("/SKAT_4/resources/Jclubs.jpg"));
+			profilbild.setImage(SwingFXUtils.toFXImage(im, null));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		Scene scene = new Scene(root);
 		newStage.setScene(scene);
