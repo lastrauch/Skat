@@ -24,7 +24,9 @@ public class Game {
       e.printStackTrace();
     }
     this.plays = new Play[this.gameSettings.getNrOfPlays()];
-    this.auctions = new Auction[this.gameSettings.getNrOfPlays()];
+
+    // i would not initiate them here - in play!
+    // this.auctions = new Auction[this.gameSettings.getNrOfPlays()];
     this.initializeGroupSettings(group);
     this.organizeGame();
   }
@@ -44,7 +46,7 @@ public class Game {
       e.printStackTrace();
     }
     this.plays = new Play[nrOfPlays];
-    this.auctions = new Auction[nrOfPlays];
+    // this.auctions = new Auction[nrOfPlays];
     this.initializeGroupSettings(group);
     this.organizeGame();
   }
@@ -124,7 +126,7 @@ public class Game {
       // }
       //
       try {
-        this.auctions[i] = new Auction(this.sortPlayingGroup(playingGroup));
+//        this.auctions[i] = new Auction(this.sortPlayingGroup(playingGroup));
         this.plays[i] = new Play(this.sortPlayingGroup(playingGroup));
       } catch (LogicException e) {
         // TODO Auto-generated catch block
@@ -140,6 +142,7 @@ public class Game {
    * sorts a group (for my vegan honey): index 0 = forehand, index 1 = middlehand, index 2 =
    * rarehand
    * 
+   * (thank you my honey <3<3)
    * @param group
    * @return sorted group
    * @throws LogicException

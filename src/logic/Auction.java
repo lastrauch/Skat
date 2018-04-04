@@ -5,6 +5,8 @@ public class Auction {
   private Player winner; // winner of the auction
   private Player[] auctionMembers = new Player[3]; // always 3 members of the auction, first one is
                                                    // forehand
+  private Player says;
+  private Player hears;
   private int[] possibleBets; // list of the possible bets
   private int[] bets = new int[3]; // bets of the players, index: same as auctionMembers
  
@@ -12,10 +14,11 @@ public class Auction {
    * constructor  
    * @param auctionMembers
    */
-  public Auction(Player[] auctionMembers) {
+  public Auction(Player[] auctionMembers, PlayState ps) {
     this.auctionMembers = auctionMembers;
     this.initializePossibleBets();
     this.initializeBets();
+    this.updatePlaystate(ps);
 
     System.out.println("auction started");
     System.out.println();
@@ -80,6 +83,10 @@ public class Auction {
    
   }
   
+  public void updatePlaystate(PlayState ps) {
+    
+  }
+  
   public void organizeAuction() {
 //
 //    The first part of the auction takes place between F and M. M speaks first, either passing or bidding a
@@ -97,5 +104,6 @@ public class Auction {
 //    said or accepted.
     
   }
+  
 
 }

@@ -9,53 +9,61 @@ public class Play {
   private Card[] cards = new Card[32];
   private Trick[] tricks = new Trick[10];
   private PlayState ps = new PlayState();
-
+  private Auction auction;
 
   // needs a 3 Player Array
   public Play(Player[] group) {
-    System.out.println("play started");
-    this.groupPos = group;
 
+    this.groupPos = group;
+    this.runPlay();
+  }
+
+  public void runPlay() {
+
+    // pepearation
     this.initializeCards();
     this.shuffleCards();
-    // Auction needs to tke place here
-
-    // as a test :
-    ps.setPlayMode(PlayMode.COLOUR);
-    ps.setTrump(Colour.HEARTS);
-
-    // this.printCardsTest();
     this.dealOutCards();
-    this.printListCards(this.groupPos[0].getHand());
-    System.out.println("after testOrder n' stuff");
-    this.testOrderNStuff();
+    // test:
+    this.printHands("after dealOutCards:");
 
     this.sortHands();
-  }
+    // test:
+    this.printHands("after first sortCards:");
 
-  public void printCardsTest() {
-    for (int i = 0; i < 32; i++) {
-      System.out.println(this.cards[i].getColour() + " " + this.cards[i].getNumber());
+    auction = new Auction(this.groupPos, this.ps);
+    // as a test:
+    this.ps.setPlayMode(PlayMode.COLOUR);
+    this.ps.setTrump(Colour.DIAMONDS);
+
+    this.sortHands();
+    // test:
+    this.printHands("after second sortCards:");
+
+    // doing 10 tricks
+    for (int i = 0; i < 10; i++) {
+      Trick t = new Trick();
+      this.tricks[i] = t;
     }
+
   }
 
+
+  // print methods to test the others
   public void printListCards(ArrayList<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       System.out.println(list.get(i).getColour() + " " + list.get(i).getNumber());
     }
   }
 
-  // test only!
-  public void testOrderNStuff() {
-    for (int i = 0; i < 3; i++) {
-      this.sortHand(this.groupPos[i].getHand());
-      printListCards(this.groupPos[i].getHand());
+  public void printHands(String text) {
+    System.out.println(text);
+    for (int i = 0; i < this.groupPos.length; i++) {
+      System.out.println("Hand" + (i + 1));
+      this.printListCards(this.groupPos[i].getHand());
       System.out.println();
     }
     System.out.println();
-    System.out.println("Stack:");
-    System.out.println(this.ps.getSkat()[0].getColour() + " " + this.ps.getSkat()[0].getNumber());
-    System.out.println(this.ps.getSkat()[1].getColour() + " " + this.ps.getSkat()[1].getNumber());
   }
 
 
@@ -181,7 +189,9 @@ public class Play {
   }
 
   public void sortHands() {
-
+    for (int i = 0; i < this.groupPos.length; i++) {
+      this.sortHand(this.groupPos[i].getHand());
+    }
   }
 
   public void sortHand(ArrayList<Card> hand) {
@@ -191,7 +201,8 @@ public class Play {
     ArrayList<Card> jacks = new ArrayList<Card>();
 
     // first step: jacks at the beginning
-    if (this.ps.getPlayMode() == PlayMode.COLOUR | this.ps.getPlayMode() == PlayMode.GRAND) {
+    if (this.ps.getPlayMode() == PlayMode.COLOUR | this.ps.getPlayMode() == PlayMode.GRAND
+        | this.ps.getPlayMode() == null) {
       Card temp;
       for (int i = 0; i < hand.size(); i++) {
         if (hand.get(i).getNumber() == Number.JACK) {
@@ -233,7 +244,8 @@ public class Play {
     }
 
     // sort different colours depending on the Playmode by their numbers
-    if (this.ps.getPlayMode() == PlayMode.COLOUR | this.ps.getPlayMode() == PlayMode.GRAND) {
+    if (this.ps.getPlayMode() == PlayMode.COLOUR | this.ps.getPlayMode() == PlayMode.GRAND
+        | this.ps.getPlayMode() == null) {
       this.sortCardsValueNorm(clubs);
       this.sortCardsValueNorm(spades);
       this.sortCardsValueNorm(hearts);
@@ -247,8 +259,10 @@ public class Play {
     }
 
     // put the different stacks back together in the right order
+    // first: jacks - filled only if playmode colour grand or null(before mode is chosen)
     this.addToHand(jacks, hand, 0, jacks.size());
 
+    // second: trump - only if PlayMode colour
     if (this.ps.getPlayMode() == PlayMode.COLOUR) {
       Colour trump = this.ps.getTrump();
       switch (trump) {
@@ -271,7 +285,8 @@ public class Play {
       }
     }
 
-    System.out.println(clubs.toString());
+
+    // add all other colours (if not trump)
     if (this.ps.getTrump() != Colour.CLUBS) {
       this.addToHand(clubs, hand, counter, clubs.size());
       counter += clubs.size();
@@ -321,7 +336,7 @@ public class Play {
     Card temp;
     for (int i = 1; i < cards.size(); i++) {
       for (int j = 0; j < cards.size() - 1; j++) {
-        if (cards.get(j).isHigherAsNorm(cards.get(j + 1))) {
+        if (cards.get(j).isLowerAsLowTen(cards.get(j + 1))) {
           temp = cards.get(j);
           cards.set(j, cards.get(j + 1));
           cards.set(j + 1, temp);
