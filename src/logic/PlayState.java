@@ -13,6 +13,7 @@ public class PlayState {
   private int betValue;
   private int nrOfPlays;
   private PlayMode pm;
+  private boolean auctionPossible = true;
 
 
   // still missing all the getters and setters
@@ -22,6 +23,14 @@ public class PlayState {
     for (int i = 0; i < 3; i++) {
       this.declarerPlayer.add(t.getTrickCards()[i]);
     }
+  }
+
+  public void setAuctionPossible(boolean auctionNotPossible) {
+    this.auctionPossible = auctionNotPossible;
+  }
+
+  public boolean getAuctionPossible() {
+    return this.auctionPossible;
   }
 
   public void addToStockOpponents(Trick t) {

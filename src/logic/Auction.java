@@ -19,14 +19,20 @@ public class Auction {
     this.initializeBets();
     try {
       this.organizeAuction();
+      this.updatePlayState(ps);
+      // test print
+      System.out.println("We will now play: " + ps.getPlayMode().toString());
+      ps.setAuctionPossible(true);
     } catch (LogicException e) {
       // TODO Auto-generated catch block
-      e.printStackTrace();
+      // e.printStackTrace();
+      System.out.println("The aution did not go well.. we'll restart the play!");
+      ps.setAuctionPossible(false);
     }
-    this.updatePlayState(ps);
-
-    // test print
-    System.out.println("We will now play: " + ps.getPlayMode().toString());
+  }
+  
+  public void startAuction() {
+    
   }
 
   /**
@@ -234,7 +240,7 @@ public class Auction {
     for (int i = 0; i < this.bets.length; i++) {
       if (this.bets[i] != 0) {
         this.winner = this.auctionMembers[i];
-        System.out.println("wir haben einen gewinner");
+        System.out.println("wir haben einen Gewinner - " + this.winner.getName());
       }
     }
   }
@@ -274,19 +280,19 @@ public class Auction {
 
   }
 
-  public static void main(String[] args) {
-    Player sandra = new Player("Sandra");
-    Player larissa = new Player("Larissa");
-    Player felix = new Player("Felix");
-
-    Player[] crew = new Player[3];
-    crew[0] = sandra;
-    crew[1] = larissa;
-    crew[2] = felix;
-
-    PlayState ps = new PlayState();
-    Auction test = new Auction(crew, ps);
-  }
+//  public static void main(String[] args) {
+//    Player sandra = new Player("Sandra");
+//    Player larissa = new Player("Larissa");
+//    Player felix = new Player("Felix");
+//
+//    Player[] crew = new Player[3];
+//    crew[0] = sandra;
+//    crew[1] = larissa;
+//    crew[2] = felix;
+//
+//    PlayState ps = new PlayState();
+//    Auction test = new Auction(crew, ps);
+//  }
 
 
 }

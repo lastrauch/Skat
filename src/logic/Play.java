@@ -29,21 +29,21 @@ public class Play {
 
   public void runPlay() {
 
-    // pepearation
-    this.initializeCards();
-    this.shuffleCards();
-    this.dealOutCards();
-    // test:
-    // this.printHands("after dealOutCards:");
 
-    this.sortHands();
-    // test:
-    // this.printHands("after first sortCards:");
+    do {
+      // pepearation
+      this.initializeCards();
+      this.shuffleCards();
+      this.dealOutCards();
+      // test:
+      // this.printHands("after dealOutCards:");
 
-    // auction = new Auction(this.group, this.ps);
-    // as a test:
-    // this.ps.setPlayMode(PlayMode.COLOUR);
-    // this.ps.setTrump(Colour.DIAMONDS);
+      this.sortHands();
+      // test:
+      // this.printHands("after first sortCards:");
+      auction = new Auction(this.group, this.ps);
+    } while (!this.ps.getAuctionPossible());
+
 
     this.sortHands();
     // test:
