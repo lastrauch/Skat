@@ -63,6 +63,7 @@ public class Play {
         // first player plays card
         card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
         this.group[(this.indexWinnerLastTrick) % 3].removeCard(card1);
+
         this.tricks[i].setCard1(card1);
 
         // second player plays card
@@ -73,6 +74,7 @@ public class Play {
 
         // remove card from second players hand
         this.group[(this.indexWinnerLastTrick + 1) % 3].removeCard(card2);
+
         // add the second card to trick
         this.tricks[i].setCard2(card2);
 
@@ -80,7 +82,7 @@ public class Play {
         do {
           card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
         } while (!this.checkIfCardPossible(card3, this.tricks[i].getFirstCard(),
-            this.group[(this.indexWinnerLastTrick + 1) % 3]));
+            this.group[(this.indexWinnerLastTrick + 2) % 3]));
 
         // remove card from third players hand
         this.group[(this.indexWinnerLastTrick + 2) % 3].removeCard(card3);
@@ -579,9 +581,9 @@ public class Play {
     crew[2] = felix;
 
     Play test = new Play(crew);
-    test.getPlayState().setPlayMode(PlayMode.NULLOUVERT);
-    test.getPlayState().setTrump(Colour.CLUBS);
-    test.getPlayState().setNrOfPlays(1);
+//    test.getPlayState().setPlayMode(PlayMode.NULLOUVERT);
+//    test.getPlayState().setTrump(Colour.CLUBS);
+//    test.getPlayState().setNrOfPlays(1);
     test.runPlay();
   }
 }
