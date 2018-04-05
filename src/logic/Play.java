@@ -12,12 +12,12 @@ public class Play {
   private int currentTrick;
   private int indexWinnerLastTrick;
   private PlayState ps;
-
+  private final int nrTricks = 10;
 
   // needs a 3 Player Array
   public Play(Player[] group) {
     cards = new Card[32];
-    tricks = new Trick[10];
+    tricks = new Trick[this.nrTricks];
     this.group = group;
     // this.runPlay();
     this.indexWinnerLastTrick = 0; // forehand starts the first trick
@@ -54,7 +54,7 @@ public class Play {
     Card card2 = null;
     Card card3 = null;
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < this.nrTricks; i++) {
 
       // start new trick
       this.tricks[i] = new Trick(this.ps);
