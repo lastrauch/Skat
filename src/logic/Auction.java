@@ -88,13 +88,61 @@ public class Auction {
 
   public void organizeAuction() {
     Player says;
+    int indexSays;
     Player hears;
-    int lastBet;
-    
-    //check Ms bet (first part of the auction takes place between F and M. M speaks first)
-    if(this.auctionMembers[1].getBet() != 0) {
-      
+    int indexHears;
+    int indexLastBet = 1;
+
+    // Players sit : F(0), M(1), R(2)
+    // .askForBet(18) gives back true if player bets 18 and false if he passes
+
+    // (first part of the auction takes place between F and M. M speaks first)
+    // check if M wants to bet or pass (1. if --> pass)
+    says = this.auctionMembers[1];
+    indexSays = 1;
+    hears = this.auctionMembers[0];
+    indexHears = 0;
+
+    if (says.askForBet(this.possibleBets[indexLastBet]) == false) {
+      this.bets[indexSays] = this.possibleBets[0];
+      says = this.auctionMembers[2];
+      indexSays = 2;
     }
+    else {
+      if(hears.askForBet(this.possibleBets[indexLastBet])==false) {
+        this.bets[indexHears]=this.possibleBets[0];
+        says = this.auctionMembers[2];
+        hears = this.auctionMembers[indexSays];
+        indexSays = 2;
+        
+      }
+    }
+    if (hears.askForBet(this.possibleBets[indexLastBet + 1])) {
+      indexLastBet++;
+      
+
+
+    }
+
+
+
+    // else {
+    // // organize conversation between M and F
+    // for (int i = 1; i < this.possibleBets.length; i++) {
+    // // check Ms bet
+    // if (this.auctionMembers[1].askForBet(this.possibleBets[i])) {
+    // this.bets[1] = this.possibleBets[i];
+    // // check Fs bet
+    // if (this.auctionMembers[0].askForBet(this.possibleBets[i])) {
+    // this.bets[0] = this.possibleBets[i];
+    // }
+    // else {
+    // this.bets[0] =
+    // }
+    // }
+    // }
+    // }
+
 
     // The first part of the auction takes place between F and M. M speaks first, either passing or
     // bidding a
@@ -126,3 +174,4 @@ public class Auction {
 
 
 }
+
