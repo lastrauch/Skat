@@ -16,7 +16,7 @@ public class Player {
 
   // pos is the position of the card in the hand of the player
   public void playCard(int pos) {
-    
+
   }
 
   // We assume the hand to be sorted the first time (before the PlayMode was set)
@@ -31,11 +31,16 @@ public class Player {
 
   // methods needed for the auction.. say,
 
-  //maybe something for the logic gui interface???
+  // maybe something for the logic gui interface???
   public boolean askForBet(int bet) {
-    return true;
+    int whatTheySaid = IOTools.readInteger(bet + "or PASS(0)?");
+    if (whatTheySaid == bet) {
+      return true;
+    } else {
+      return false;
+    }
   }
-  
+
   public int getBet() {
     return this.bet;
   }
