@@ -17,8 +17,16 @@ public class Auction {
     this.auctionMembers = auctionMembers;
     this.initializePossibleBets();
     this.initializeBets();
-    this.organizeAuction();
+    try {
+      this.organizeAuction();
+    } catch (LogicException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     this.updatePlayState(ps);
+
+    // test print
+    System.out.println("We will now play: " + ps.getPlayMode().toString());
   }
 
   /**
@@ -89,7 +97,7 @@ public class Auction {
    * 
    * @author awesch
    */
-  public void organizeAuction() {
+  public void organizeAuction() throws LogicException {
     Player says;
     int indexSays;
     Player hears;
@@ -110,19 +118,23 @@ public class Auction {
       this.bets[indexSays] = this.possibleBets[0];
       says = this.auctionMembers[2];
       indexSays = 2;
+      indexLastBet = 0;
     }
     // if M doesn't want to pass:
     else {
       // check if F wants to pass or bet (if --> pass)
+      this.bets[indexSays] = this.possibleBets[indexLastBet];
       if (hears.askForBet(this.possibleBets[indexLastBet]) == false) {
         this.bets[indexHears] = this.possibleBets[0];
         says = this.auctionMembers[2];
         hears = this.auctionMembers[indexSays];
         indexHears = indexSays;
         indexSays = 2;
+        indexLastBet = 0;
       }
       // they both did not pass
       else {
+        this.bets[indexHears] = this.possibleBets[indexLastBet];
         // do for all possible bets
         for (int i = 2; i < possibleBets.length; i++) {
           // check if says passes
@@ -150,27 +162,64 @@ public class Auction {
       }
     }
 
-    // first "conversation" is over, now: between winner and R
-    // now R says and the surviver of the first conversation hears
+    // first "conversation" is over, now: between survivor and R
+    // now R says and the survivor of the first conversation hears
 
+    System.out.println("says: " + says.getName() + " and hears: " + hears.getName());
     // check if R wants to bet or pass (1. if --> pass)
-    for (int i = indexLastBet + 1; i < this.possibleBets.length; i++) {
-      // checks if says want to pass
-      if (says.askForBet(this.possibleBets[i]) == false) {
-        this.bets[indexSays] = this.possibleBets[0];
-        this.bets[indexHears] = this.possibleBets[indexLastBet];
-        break;
-      }
-      // checks if hears wants to pass
-      else if (hears.askForBet(this.possibleBets[i]) == false) {
-        this.bets[indexHears] = this.possibleBets[0];
-        this.bets[indexSays] = this.possibleBets[indexLastBet];
-        break;
+    if (says.askForBet(this.possibleBets[indexLastBet + 1]) == false) {
+      this.bets[indexSays] = this.possibleBets[0];
+      // check if they both pass / if hears has bit
+      System.out.println("this.bets[indexHears]: " + this.bets[indexHears]);
+      if (this.bets[indexHears] == 0) {
+        if (hears.askForBet(this.possibleBets[indexLastBet + 1]) == false) {
+          // check if everyone passed now
+          // throws exception if everyone passes
+          throw new LogicException(
+              "The game is not possible, because everyone passed! RESTART PLAY!");
+        } else {
+          // the suvivor of the first conversation becomes declarer
+          System.out.println("she does NOT want to pass");
+          this.bets[indexHears] = this.possibleBets[indexLastBet + 1];
+          indexLastBet++;
+        }
       } else {
+        // the suvivor of the first conversation becomes declarer
+        System.out.println("she does NOT want to pass");
+        this.bets[indexHears] = this.possibleBets[indexLastBet + 1];
         indexLastBet++;
       }
+    } // "says" did not want to pass
+    else {
+      indexLastBet++;
+      for (int i = indexLastBet; i < this.possibleBets.length - 1; i++) {
+        // checks if "hears" wants to pass
+        if (hears.askForBet(this.possibleBets[i]) == false) {
+          this.bets[indexHears] = this.possibleBets[0];
+          this.bets[indexSays] = this.possibleBets[indexLastBet];
+          break;
+        }
+        // checks if "says" wants to pass
+        else if (says.askForBet(this.possibleBets[i + 1]) == false) {
+          this.bets[indexSays] = this.possibleBets[0];
+          this.bets[indexHears] = this.possibleBets[indexLastBet];
+          break;
+        } else {
+          indexLastBet++;
+        }
 
+      }
     }
+
+    // if they bet to the last bit Value the player who hears becomes the declarer (very unlikely to
+    // happen
+    if (indexLastBet == this.possibleBets.length - 1) {
+      if (hears.askForBet(this.possibleBets[indexLastBet])) {
+        this.bets[indexSays] = this.possibleBets[0];
+        this.bets[indexHears] = this.possibleBets[indexLastBet];
+      }
+    }
+    System.out.println("betValue is:" + this.possibleBets[indexLastBet]);
 
     this.calculateWinner();
 
@@ -185,12 +234,14 @@ public class Auction {
     for (int i = 0; i < this.bets.length; i++) {
       if (this.bets[i] != 0) {
         this.winner = this.auctionMembers[i];
+        System.out.println("wir haben einen gewinner");
       }
     }
   }
-  
+
   /**
    * updates the PlayState of the Play after the auction it self took place
+   * 
    * @param ps
    * @author awesch
    */
@@ -198,14 +249,15 @@ public class Auction {
   public void updatePlayState(PlayState ps) {
     // set declarer
     ps.setDeclarer(this.winner);
-    // set opponents
+    // set opponents (check bit where 0 --> add to opponents)
     Player[] opponents = new Player[2];
     int indexOp = 0;
-    for (int i = 0; i < this.auctionMembers.length; i++) {
-      if (this.auctionMembers.equals(this.winner) == false) {
+    for (int i = 0; i < this.bets.length; i++) {
+      if (this.bets[i] == 0) {
         opponents[indexOp] = this.auctionMembers[i];
         indexOp++;
       }
+
     }
     ps.setOpponents(opponents);
     // ask the declarer for other settings (PlayMode und maybe trump)
@@ -218,7 +270,8 @@ public class Auction {
       }
     }
     ps.setBetValue(bV);
-    
+
+
   }
 
   public static void main(String[] args) {
