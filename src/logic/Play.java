@@ -95,7 +95,7 @@ public class Play {
       try {
         this.tricks[i].calculateWinner();
         this.indexWinnerLastTrick = this.tricks[i].getIndexWinner();
-    //    System.out.println("winner: " + this.group[this.indexWinnerLastTrick].getName());
+        // System.out.println("winner: " + this.group[this.indexWinnerLastTrick].getName());
       } catch (LogicException e) {
         e.printStackTrace();
       }
@@ -120,7 +120,8 @@ public class Play {
       return this.checkIfCardPossibleColour(card, firstCard, player);
     } else if (this.ps.getPlayMode() == PlayMode.GRAND) {
       return this.checkIfCardPossibleGrand(card, firstCard, player);
-    } else if (this.ps.getPlayMode() == PlayMode.NULL) {
+    } else if (this.ps.getPlayMode() == PlayMode.NULL
+        || this.ps.getPlayMode() == PlayMode.NULLOUVERT) {
       return this.checkIfCardPossibleNull(card, firstCard, player);
     } else {
       throw new LogicException(
@@ -240,7 +241,18 @@ public class Play {
    * @return if card is possible in PlayMode Null or NullOuvert
    */
   public boolean checkIfCardPossibleNull(Card card, Card firstCard, Player player) {
-    return false;
+
+    if (card.getColour() == firstCard.getColour()) {
+      return true;
+
+    } else {
+      for (int i = 0; i < player.getHand().size(); i++) {
+        if (player.getHand().get(i).getColour() == firstCard.getColour()) {
+          return false;
+        }
+      }
+      return true;
+    }
   }
 
   // print methods to test the others
@@ -556,11 +568,6 @@ public class Play {
     return this.ps;
   }
 
-  // public boolean checkIfCardIsPossible(Card card) {
-  //
-  //
-  // }
-
   public static void main(String[] args) {
     Player sandra = new Player("Sandra");
     Player larissa = new Player("Larissa");
@@ -572,7 +579,7 @@ public class Play {
     crew[2] = felix;
 
     Play test = new Play(crew);
-    test.getPlayState().setPlayMode(PlayMode.GRAND);
+    test.getPlayState().setPlayMode(PlayMode.NULLOUVERT);
     test.getPlayState().setTrump(Colour.CLUBS);
     test.getPlayState().setNrOfPlays(1);
     test.runPlay();
