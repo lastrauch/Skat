@@ -19,13 +19,14 @@ public class Auction {
     this.ps = ps;
     this.initializePossibleBets();
     this.initializeBets();
+    this.organizeAuction();
   }
 
   /**
    * initializes the array of possible bets
    */
   public void initializePossibleBets() {
-    possibleBets = new int[] {18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, 44, 45, 46, 48, 50, 54,
+    possibleBets = new int[] {0, 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, 44, 45, 46, 48, 50, 54,
         55, 59, 60, 63, 66, 70, 72, 77, 80, 81, 84, 88, 90, 96, 99, 100, 108, 110, 117, 120, 121,
         126, 130, 132, 135, 141, 143, 144, 150, 153, 154, 156, 160, 162, 165, 168, 170, 176, 180,
         187, 192, 198, 204, 216, 240, 264};
@@ -52,6 +53,10 @@ public class Auction {
     return winner;
   }
 
+  /**
+   * 
+   * @param winner
+   */
   public void setWinner(Player winner) {
     this.winner = winner;
   }
@@ -83,9 +88,12 @@ public class Auction {
   public void updatePlayState(PlayState ps) {
 
   }
-  
-  
 
+  /**
+   * organizes the actual talk between the players seperated in first and secound conversation
+   * 
+   * @author awesch
+   */
   public void organizeAuction() {
     Player says;
     int indexSays;
@@ -95,81 +103,110 @@ public class Auction {
 
     // Players sit : F(0), M(1), R(2)
     // .askForBet(18) gives back true if player bets 18 and false if he passes
-
     // (first part of the auction takes place between F and M. M speaks first)
-    // check if M wants to bet or pass (1. if --> pass)
+
     says = this.auctionMembers[1];
     indexSays = 1;
     hears = this.auctionMembers[0];
     indexHears = 0;
 
+    // check if M wants to bet or pass (1. if --> pass)
     if (says.askForBet(this.possibleBets[indexLastBet]) == false) {
       this.bets[indexSays] = this.possibleBets[0];
       says = this.auctionMembers[2];
       indexSays = 2;
     }
+    // if M doesn't want to pass:
     else {
-      if(hears.askForBet(this.possibleBets[indexLastBet])==false) {
-        this.bets[indexHears]=this.possibleBets[0];
+      // check if F wants to pass or bet (if --> pass)
+      if (hears.askForBet(this.possibleBets[indexLastBet]) == false) {
+        this.bets[indexHears] = this.possibleBets[0];
         says = this.auctionMembers[2];
         hears = this.auctionMembers[indexSays];
+        indexHears = indexSays;
         indexSays = 2;
-        
+      }
+      // they both did not pass
+      else {
+        // do for all possible bets
+        for (int i = 2; i < possibleBets.length; i++) {
+          // check if says passes
+          if (says.askForBet(this.possibleBets[i]) == false) {
+            this.bets[indexSays] = this.possibleBets[0];
+            says = this.auctionMembers[2];
+            indexSays = 2;
+            this.bets[indexHears] = this.possibleBets[indexLastBet];
+            indexLastBet++;
+            break;
+          }
+          // check if hears passes
+          else if (hears.askForBet(this.possibleBets[i]) == false) {
+            this.bets[indexHears] = this.possibleBets[0];
+            says = this.auctionMembers[2];
+            hears = this.auctionMembers[indexSays];
+            indexHears = indexSays;
+            indexSays = 2;
+            this.bets[indexSays] = this.possibleBets[indexLastBet];
+            indexLastBet++;
+            break;
+          } else {
+            indexLastBet++;
+          }
+        }
       }
     }
-    if (hears.askForBet(this.possibleBets[indexLastBet + 1])) {
-      indexLastBet++;
-      
 
+    // first "conversation" is over, now: between winner and R
+    // now R says and the surviver of the first conversation hears
+
+    // check if R wants to bet or pass (1. if --> pass)
+    for (int i = indexLastBet + 1; i < this.possibleBets.length; i++) {
+      // checks if says want to pass
+      if (says.askForBet(this.possibleBets[i]) == false) {
+        this.bets[indexSays] = this.possibleBets[0];
+        this.bets[indexHears] = this.possibleBets[indexLastBet];
+        break;
+      }
+      // checks if hears wants to pass
+      else if (hears.askForBet(this.possibleBets[i]) == false) {
+        this.bets[indexHears] = this.possibleBets[0];
+        this.bets[indexSays] = this.possibleBets[indexLastBet];
+        break;
+      } else {
+        indexLastBet++;
+      }
 
     }
 
+    this.calculateWinner();
 
+  }
 
-    // else {
-    // // organize conversation between M and F
-    // for (int i = 1; i < this.possibleBets.length; i++) {
-    // // check Ms bet
-    // if (this.auctionMembers[1].askForBet(this.possibleBets[i])) {
-    // this.bets[1] = this.possibleBets[i];
-    // // check Fs bet
-    // if (this.auctionMembers[0].askForBet(this.possibleBets[i])) {
-    // this.bets[0] = this.possibleBets[i];
-    // }
-    // else {
-    // this.bets[0] =
-    // }
-    // }
-    // }
-    // }
+  /**
+   * winner sits at the position, where the bet is not null - means he has never passed
+   * 
+   * @author awesch
+   */
+  public void calculateWinner() {
+    for (int i = 0; i < this.bets.length; i++) {
+      if (this.bets[i] != 0) {
+        this.winner = this.auctionMembers[i];
+      }
+    }
+  }
 
+  public static void main(String[] args) {
+    Player sandra = new Player("Sandra");
+    Player larissa = new Player("Larissa");
+    Player felix = new Player("Felix");
 
-    // The first part of the auction takes place between F and M. M speaks first, either passing or
-    // bidding a
-    // number. There is no advantage in making a higher than necessary bid so M will normally either
-    // pass
-    // or begin with the lowest bid: 18. If M bids a number, F can either give up the chance to be
-    // declarer
-    // by saying "pass" or compete by saying "yes", which means that F bids the same number that M
-    // just
-    // bid. If F says "yes", M can say "pass", or continue the auction with a higher bid, to which F
-    // will
-    // again answer "yes" or "pass". This continues until either F or M drops out of the auction by
-    // passing
-    // - once having passed you get no further opportunity to bid on that hand.
-    // The second part of the auction is similar to the first part, but takes place between R and
-    // the survivor
-    // of the first part (i.e. whichever of F and M did not pass). As the junior player, R either
-    // passes or bids
-    // a succession of numbers, the first of which must be higher than any number mentioned in the
-    // first
-    // part of the auction. To each number bid by R, the survivor must answer "yes" or "pass". The
-    // winner
-    // of the second part of the auction becomes the declarer, and the bid is the last number the
-    // declarer
-    // said or accepted.
+    Player[] crew = new Player[3];
+    crew[0] = sandra;
+    crew[1] = larissa;
+    crew[2] = felix;
 
-
+    PlayState ps = new PlayState();
+    Auction test = new Auction(crew, ps);
   }
 
 
