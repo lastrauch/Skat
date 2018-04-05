@@ -7,9 +7,11 @@ public class Player {
   private String name;
   private Position position;
   private ArrayList<Card> hand = new ArrayList<Card>();
+  private int bet;
 
   public Player(String name) {
     this.name = name;
+    this.bet = 0;
   }
 
   // pos is the position of the card in the hand of the player
@@ -26,8 +28,16 @@ public class Player {
     // index ++;
     // }
   }
-  
-  //methods needed for the auction.. say, 
+
+  // methods needed for the auction.. say,
+
+  public int getBet() {
+    return this.bet;
+  }
+
+  public void setBet(int bet) {
+    this.bet = bet;
+  }
 
   public void setName(String name) {
     this.name = name;
