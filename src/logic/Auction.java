@@ -19,9 +19,6 @@ public class Auction {
     this.ps = ps;
     this.initializePossibleBets();
     this.initializeBets();
-
-    System.out.println("auction started");
-    System.out.println();
   }
 
   /**
