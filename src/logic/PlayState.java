@@ -3,10 +3,10 @@ package logic;
 import java.util.ArrayList;
 
 public class PlayState {
-  private Player singlePlayer;
-  private Player[] teamPlayers = new Player[2];
-  private ArrayList<Card> stockSinglePlayer;
-  private ArrayList<Card> stockTeamPlayers;
+  private Player declarer; // single player
+  private Player[] opponents = new Player[2]; // team Players
+  private ArrayList<Card> declarerPlayer;
+  private ArrayList<Card> opponentsPlayers;
   private Card[] skat = new Card[2];
   private Colour trump;
   private int playValue;
@@ -18,15 +18,15 @@ public class PlayState {
   // still missing all the getters and setters
   // add method cardAlreadyPlayed
 
-  public void addToStockSP(Trick t) {
+  public void addToStockDeclarer(Trick t) {
     for (int i = 0; i < 3; i++) {
-      this.stockSinglePlayer.add(t.getTrickCards()[i]);
+      this.declarerPlayer.add(t.getTrickCards()[i]);
     }
   }
 
-  public void addToStockTP(Trick t) {
+  public void addToStockOpponents(Trick t) {
     for (int i = 0; i < 3; i++) {
-      this.stockTeamPlayers.add(t.getTrickCards()[i]);
+      this.opponentsPlayers.add(t.getTrickCards()[i]);
     }
   }
 
@@ -53,13 +53,25 @@ public class PlayState {
   public void setPlayMode(PlayMode pm) {
     this.pm = pm;
   }
-  
+
   public void setTrump(Colour trump) {
     this.trump = trump;
   }
-  
+
   public Colour getTrump() {
     return this.trump;
+  }
+
+  public void setDeclarer(Player declarer) {
+    this.declarer = declarer;
+  }
+
+  public void setOpponents(Player[] opponents) {
+    this.opponents = opponents;
+  }
+
+  public void setBetValue(int betValue) {
+    this.betValue = betValue;
   }
 }
 

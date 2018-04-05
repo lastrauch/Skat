@@ -7,7 +7,6 @@ public class Auction {
                                                    // forehand
   private int[] possibleBets; // list of the possible bets
   private int[] bets = new int[3]; // bets of the players, index: same as auctionMembers
-  private PlayState ps;
 
   /**
    * constructor
@@ -16,10 +15,10 @@ public class Auction {
    */
   public Auction(Player[] auctionMembers, PlayState ps) {
     this.auctionMembers = auctionMembers;
-    this.ps = ps;
     this.initializePossibleBets();
     this.initializeBets();
     this.organizeAuction();
+    this.updatePlayState(ps);
   }
 
   /**
@@ -85,10 +84,6 @@ public class Auction {
 
   }
 
-  public void updatePlayState(PlayState ps) {
-
-  }
-
   /**
    * organizes the actual talk between the players seperated in first and secound conversation
    * 
@@ -136,7 +131,6 @@ public class Auction {
             says = this.auctionMembers[2];
             indexSays = 2;
             this.bets[indexHears] = this.possibleBets[indexLastBet];
-            indexLastBet++;
             break;
           }
           // check if hears passes
@@ -193,6 +187,38 @@ public class Auction {
         this.winner = this.auctionMembers[i];
       }
     }
+  }
+  
+  /**
+   * updates the PlayState of the Play after the auction it self took place
+   * @param ps
+   * @author awesch
+   */
+
+  public void updatePlayState(PlayState ps) {
+    // set declarer
+    ps.setDeclarer(this.winner);
+    // set opponents
+    Player[] opponents = new Player[2];
+    int indexOp = 0;
+    for (int i = 0; i < this.auctionMembers.length; i++) {
+      if (this.auctionMembers.equals(this.winner) == false) {
+        opponents[indexOp] = this.auctionMembers[i];
+        indexOp++;
+      }
+    }
+    ps.setOpponents(opponents);
+    // ask the declarer for other settings (PlayMode und maybe trump)
+    this.winner.askForPlaySettings(ps);
+    // set betValue
+    int bV = 0;
+    for (int i = 0; i < bets.length; i++) {
+      if (bets[i] != 0) {
+        bV = bets[i];
+      }
+    }
+    ps.setBetValue(bV);
+    
   }
 
   public static void main(String[] args) {

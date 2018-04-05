@@ -15,14 +15,16 @@ public class Player {
   }
 
   // pos is the position of the card in the hand of the player
-  public void playCard(int pos) {  
-  }
-  
+  public void playCard(int pos) {}
+
   public Card playCard() {
     int index = IOTools.readInteger("index of played card: ");
     Card playedCard = this.hand.get(index);
-    this.hand.remove(index);
     return playedCard;
+  }
+  
+  public void removeCard(int index) {
+    this.hand.remove(index);
   }
 
   // We assume the hand to be sorted the first time (before the PlayMode was set)
@@ -45,6 +47,62 @@ public class Player {
     } else {
       return false;
     }
+  }
+
+  /**
+   * needs to be changed for the final version
+   * probably a method for the logicGui/logicNetwork interface
+   * @param ps
+   * @author awesch
+   */
+  public void askForPlaySettings(PlayState ps) {
+    
+    //set playmode
+    String pm = IOTools.readLine("Set the PlayMode (colour, grand, null or nullouvert): ");
+    PlayMode playMode;
+    switch (pm) {
+      case "colour":
+        playMode = PlayMode.COLOUR;
+        break;
+      case "grand":
+        playMode = PlayMode.GRAND;
+        break;
+      case "null":
+        playMode = PlayMode.NULL;
+        break;
+      case "nullouvert":
+        playMode = PlayMode.NULLOUVERT;
+        break;
+      default:
+        System.out.println("your PlayMode could not be identificated, you will play Null now.");
+        playMode = PlayMode.NULL;
+    }
+    ps.setPlayMode(playMode);
+
+    //set Trump
+    if (playMode == PlayMode.COLOUR) {
+      String t = IOTools.readLine("Set the Trump (clubs, spades, hearts, diamonds): ");
+      Colour trump;
+      switch (t) {
+        case "clubs":
+          trump = Colour.CLUBS;
+          break;
+        case "spades":
+          trump = Colour.SPADES;
+          break;
+        case "hearts":
+          trump = Colour.HEARTS;
+          break;
+        case "diamonds":
+          trump = Colour.DIAMONDS;
+          break;
+        default:
+          System.out.println("your Trump could not be identificated, you will play Clubs now.");
+          trump = Colour.CLUBS;
+      }
+      ps.setTrump(trump);
+    }
+    //add other features and settings later
   }
 
   public int getBet() {
