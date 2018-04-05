@@ -16,7 +16,7 @@ public class Player {
 
   // pos is the position of the card in the hand of the player
   public void playCard(int pos) {
-
+    
   }
 
   // We assume the hand to be sorted the first time (before the PlayMode was set)

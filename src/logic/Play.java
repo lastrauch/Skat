@@ -8,6 +8,7 @@ public class Play {
                              // forehand)
   private Card[] cards = new Card[32];
   private Trick[] tricks = new Trick[10];
+  private int currentTrick;
   private PlayState ps = new PlayState();
   private Auction auction;
 
@@ -25,25 +26,25 @@ public class Play {
     this.shuffleCards();
     this.dealOutCards();
     // test:
-    this.printHands("after dealOutCards:");
+    // this.printHands("after dealOutCards:");
 
     this.sortHands();
     // test:
-    this.printHands("after first sortCards:");
+    // this.printHands("after first sortCards:");
 
     auction = new Auction(this.groupPos, this.ps);
     // as a test:
-    this.ps.setPlayMode(PlayMode.COLOUR);
-    this.ps.setTrump(Colour.DIAMONDS);
+    // this.ps.setPlayMode(PlayMode.COLOUR);
+    // this.ps.setTrump(Colour.DIAMONDS);
 
     this.sortHands();
     // test:
-    this.printHands("after second sortCards:");
+    // this.printHands("after second sortCards:");
 
     // doing 10 tricks
-    for (int i = 0; i < 10; i++) {
-      Trick t = new Trick();
-      this.tricks[i] = t;
+    
+    for (int i = 0; i < 10; i++) {;
+      this.tricks[i] = new Trick();
     }
 
   }
@@ -361,6 +362,11 @@ public class Play {
   public PlayState getPlayState() {
     return this.ps;
   }
+
+  // public boolean checkIfCardIsPossible(Card card) {
+  //
+  //
+  // }
 
   public static void main(String[] args) {
     Player sandra = new Player("Sandra");

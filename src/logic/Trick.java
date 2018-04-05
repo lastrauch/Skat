@@ -1,21 +1,17 @@
 package logic;
 
 public class Trick {
-  private Card[] trickCards = new Card[3];
-  private Player[] playersOfCards = new Player[3];
-  private int playedCards = 0; // gives us the nr of played cards
+  private Card[] trickCards;
+  private Player[] playersOfCards;
+  private int playedCards; // gives us the nr of played cards
 
-  public Trick() {}
 
-  public Trick(Card[] trickCards) {
-    this.trickCards = trickCards;
+  public Trick() {
+    trickCards = new Card[3];
+    playersOfCards = new Player[3];
+    playedCards = 0;
   }
 
-  public Trick(Card card1, Card card2, Card card3) {
-    this.trickCards[0] = card1;
-    this.trickCards[1] = card2;
-    this.trickCards[2] = card3;
-  }
 
   // maybe add methods like calculate highest card in trick, depending on the PlayMode
 
@@ -41,12 +37,11 @@ public class Trick {
 
 
 
-  // Maybe add exception to throw instead of sysout #done :*
+  
   public void playCard(Player player, Card card) throws LogicException {
 
     if (this.playedCards >= 3) {
       throw new LogicException("the trick is already filled");
-      //System.out.println("the trick is already filled");
     } else {
       this.trickCards[this.playedCards] = card;
       this.playersOfCards[this.playedCards] = player;
