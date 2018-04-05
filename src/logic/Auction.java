@@ -31,9 +31,6 @@ public class Auction {
     }
   }
   
-  public void startAuction() {
-    
-  }
 
   /**
    * initializes the array of possible bets
@@ -120,7 +117,7 @@ public class Auction {
     indexHears = 0;
 
     // check if M wants to bet or pass (1. if --> pass)
-    if (says.askForBet(this.possibleBets[indexLastBet]) == false) {
+    if (!says.askForBet(this.possibleBets[indexLastBet])) {
       this.bets[indexSays] = this.possibleBets[0];
       says = this.auctionMembers[2];
       indexSays = 2;
@@ -130,7 +127,7 @@ public class Auction {
     else {
       // check if F wants to pass or bet (if --> pass)
       this.bets[indexSays] = this.possibleBets[indexLastBet];
-      if (hears.askForBet(this.possibleBets[indexLastBet]) == false) {
+      if (!hears.askForBet(this.possibleBets[indexLastBet])) {
         this.bets[indexHears] = this.possibleBets[0];
         says = this.auctionMembers[2];
         hears = this.auctionMembers[indexSays];
@@ -144,7 +141,7 @@ public class Auction {
         // do for all possible bets
         for (int i = 2; i < possibleBets.length; i++) {
           // check if says passes
-          if (says.askForBet(this.possibleBets[i]) == false) {
+          if (!says.askForBet(this.possibleBets[i])) {
             this.bets[indexSays] = this.possibleBets[0];
             says = this.auctionMembers[2];
             indexSays = 2;
@@ -152,7 +149,7 @@ public class Auction {
             break;
           }
           // check if hears passes
-          else if (hears.askForBet(this.possibleBets[i]) == false) {
+          else if (!hears.askForBet(this.possibleBets[i])) {
             this.bets[indexHears] = this.possibleBets[0];
             says = this.auctionMembers[2];
             hears = this.auctionMembers[indexSays];
@@ -171,14 +168,13 @@ public class Auction {
     // first "conversation" is over, now: between survivor and R
     // now R says and the survivor of the first conversation hears
 
-    System.out.println("says: " + says.getName() + " and hears: " + hears.getName());
     // check if R wants to bet or pass (1. if --> pass)
-    if (says.askForBet(this.possibleBets[indexLastBet + 1]) == false) {
+    if (!says.askForBet(this.possibleBets[indexLastBet + 1])) {
       this.bets[indexSays] = this.possibleBets[0];
       // check if they both pass / if hears has bit
       System.out.println("this.bets[indexHears]: " + this.bets[indexHears]);
       if (this.bets[indexHears] == 0) {
-        if (hears.askForBet(this.possibleBets[indexLastBet + 1]) == false) {
+        if (!hears.askForBet(this.possibleBets[indexLastBet + 1])) {
           // check if everyone passed now
           // throws exception if everyone passes
           throw new LogicException(
@@ -200,13 +196,13 @@ public class Auction {
       indexLastBet++;
       for (int i = indexLastBet; i < this.possibleBets.length - 1; i++) {
         // checks if "hears" wants to pass
-        if (hears.askForBet(this.possibleBets[i]) == false) {
+        if (!hears.askForBet(this.possibleBets[i])) {
           this.bets[indexHears] = this.possibleBets[0];
           this.bets[indexSays] = this.possibleBets[indexLastBet];
           break;
         }
         // checks if "says" wants to pass
-        else if (says.askForBet(this.possibleBets[i + 1]) == false) {
+        else if (!says.askForBet(this.possibleBets[i + 1])) {
           this.bets[indexSays] = this.possibleBets[0];
           this.bets[indexHears] = this.possibleBets[indexLastBet];
           break;
@@ -240,7 +236,6 @@ public class Auction {
     for (int i = 0; i < this.bets.length; i++) {
       if (this.bets[i] != 0) {
         this.winner = this.auctionMembers[i];
-        System.out.println("wir haben einen Gewinner - " + this.winner.getName());
       }
     }
   }
