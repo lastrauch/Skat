@@ -19,7 +19,7 @@ public class Play {
     cards = new Card[32];
     tricks = new Trick[10];
     this.group = group;
-    this.runPlay();
+//    this.runPlay();
     this.indexWinnerLastTrick = 0; // forehand starts the first trick
     this.currentTrick = 0;
     
@@ -397,6 +397,9 @@ public class Play {
     crew[2] = felix;
 
     Play test = new Play(crew);
-
+    test.getPlayState().setPlayMode(PlayMode.COLOUR);
+    test.getPlayState().setTrump(Colour.CLUBS);
+    test.getPlayState().setNrOfPlays(1);
+    test.runPlay();
   }
 }
