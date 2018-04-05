@@ -15,8 +15,14 @@ public class Player {
   }
 
   // pos is the position of the card in the hand of the player
-  public void playCard(int pos) {
-
+  public void playCard(int pos) {  
+  }
+  
+  public Card playCard() {
+    int index = IOTools.readInteger("index of played card: ");
+    Card playedCard = this.hand.get(index);
+    this.hand.remove(index);
+    return playedCard;
   }
 
   // We assume the hand to be sorted the first time (before the PlayMode was set)

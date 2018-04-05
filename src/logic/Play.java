@@ -9,6 +9,7 @@ public class Play {
   private Card[] cards = new Card[32];
   private Trick[] tricks = new Trick[10];
   private int currentTrick;
+  private int indexWinnerLastTrick;
   private PlayState ps = new PlayState();
   private Auction auction;
 
@@ -17,6 +18,7 @@ public class Play {
 
     this.groupPos = group;
     this.runPlay();
+    this.indexWinnerLastTrick = 0; // forehand starts the first trick
   }
 
   public void runPlay() {
@@ -44,7 +46,10 @@ public class Play {
     // doing 10 tricks
     
     for (int i = 0; i < 10; i++) {;
-      this.tricks[i] = new Trick();
+      this.tricks[i] = new Trick(this.ps);
+      this.tricks[i].setCard1(this.groupPos[(this.indexWinnerLastTrick) % 3].playCard());
+      this.tricks[i].setCard2(this.groupPos[(this.indexWinnerLastTrick + 1) % 3].playCard());
+      this.tricks[i].setCard3(this.groupPos[(this.indexWinnerLastTrick + 2) % 3].playCard());
     }
 
   }
