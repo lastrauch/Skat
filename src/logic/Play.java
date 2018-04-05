@@ -39,7 +39,7 @@ public class Play {
     // test:
     // this.printHands("after first sortCards:");
 
-    auction = new Auction(this.group, this.ps);
+    // auction = new Auction(this.group, this.ps);
     // as a test:
     // this.ps.setPlayMode(PlayMode.COLOUR);
     // this.ps.setTrump(Colour.DIAMONDS);
@@ -49,18 +49,53 @@ public class Play {
     // this.printHands("after second sortCards:");
 
     // doing 10 tricks
-    for (int i = 0; i < 10; i++) {
-      ;
-      this.tricks[i] = new Trick(this.ps);
-      this.tricks[i].setCard1(this.group[(this.indexWinnerLastTrick) % 3].playCard());
-      this.tricks[i].setCard2(this.group[(this.indexWinnerLastTrick + 1) % 3].playCard());
-      this.tricks[i].setCard3(this.group[(this.indexWinnerLastTrick + 2) % 3].playCard());
+    Card card1 = null;
+    Card card2 = null;
+    Card card3 = null;
 
+    for (int i = 0; i < 10; i++) {
+
+      // start new trick
+      this.tricks[i] = new Trick(this.ps);
+
+      try {
+        // first player plays card
+        card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
+        this.group[(this.indexWinnerLastTrick) % 3].removeCard(card1);
+        this.tricks[i].setCard1(card1);
+
+        // second player plays card
+        do {
+          card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
+        } while (!this.checkIfCardPossible(card2, this.tricks[i].getFirstCard(),
+            this.group[(this.indexWinnerLastTrick + 1) % 3]));
+
+        // remove card from second players hand
+        this.group[(this.indexWinnerLastTrick + 1) % 3].removeCard(card2);
+        // add the second card to trick
+        this.tricks[i].setCard2(card2);
+
+        // third player plays card
+        do {
+          card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
+        } while (!this.checkIfCardPossible(card3, this.tricks[i].getFirstCard(),
+            this.group[(this.indexWinnerLastTrick + 1) % 3]));
+
+        // remove card from third players hand
+        this.group[(this.indexWinnerLastTrick + 2) % 3].removeCard(card3);
+        // add the third card to trick
+        this.tricks[i].setCard3(card3);
+
+      } catch (LogicException e1) {
+        e1.printStackTrace();
+      }
+
+      // the winner is calculated and his/her index is saved in indexWinnerLastTrick
       try {
         this.tricks[i].calculateWinner();
         this.indexWinnerLastTrick = this.tricks[i].getIndexWinner();
+        System.out.println("winner: " + this.group[this.indexWinnerLastTrick].getName());
       } catch (LogicException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
 
@@ -102,18 +137,36 @@ public class Play {
    * @return if card is possible in PlayMode Colour
    */
   public boolean checkIfCardPossibleColour(Card card, Card firstCard, Player player) {
-    
-  
-    
-//    if (card.getColour() == colour) {
-//      return true;
-//    } else if (this.ps.getTrump() == card.getColour()) {
-//      return true;
-//    } else if (card.getNumber() == Number.JACK) {
-//      return true;
-//    } else {
-//      return false;
-//    }
+
+    // check if card serves first played card
+    if (this.checkIfServed(card, firstCard)) {
+      return true;
+    }
+
+    // check if the player has a card which would serve the first card
+    for (int i = 0; i < player.getHand().size(); i++) {
+      if (this.checkIfServed(player.getHand().get(i), firstCard)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public boolean checkIfServed(Card servingCard, Card servedCard) {
+
+    if (servedCard.getColour() == this.ps.getTrump() || servedCard.getNumber() == Number.JACK) {
+      // first card is trump
+      if (servingCard.getColour() == servedCard.getColour()
+          || servingCard.getNumber() == Number.JACK) {
+        return true;
+      }
+    } else {
+      // first card is not trump
+      if (servingCard.getColour() == servedCard.getColour()
+          && servingCard.getNumber() != Number.JACK) {
+        return true;
+      }
+    }
     return false;
   }
 

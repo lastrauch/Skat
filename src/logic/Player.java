@@ -18,13 +18,35 @@ public class Player {
   public void playCard(int pos) {}
 
   public Card playCard() {
+    System.out.println(this.name);
     int index = IOTools.readInteger("index of played card: ");
     Card playedCard = this.hand.get(index);
     return playedCard;
   }
-  
-  public void removeCard(int index) {
-    this.hand.remove(index);
+
+  /**
+   * removes a given card from the hand
+   * 
+   * @author sandfisc
+   * @param card
+   * @throws LogicException
+   */
+  public void removeCard(Card card) throws LogicException {
+
+    boolean found = false;
+        
+    for (int i = 0; i < this.hand.size(); i++) {
+      if (this.hand.get(i).equals(card)) {
+      //  System.out.println("found index for remove : " + i);
+        found = true;
+        this.hand.remove(i);
+        break;
+      }
+    }
+        
+    if (!found) {
+      throw new LogicException("Removing the played card from the hand was not possible!");
+    }
   }
 
   // We assume the hand to be sorted the first time (before the PlayMode was set)
@@ -50,14 +72,15 @@ public class Player {
   }
 
   /**
-   * needs to be changed for the final version
-   * probably a method for the logicGui/logicNetwork interface
+   * needs to be changed for the final version probably a method for the logicGui/logicNetwork
+   * interface
+   * 
    * @param ps
    * @author awesch
    */
   public void askForPlaySettings(PlayState ps) {
-    
-    //set playmode
+
+    // set playmode
     String pm = IOTools.readLine("Set the PlayMode (colour, grand, null or nullouvert): ");
     PlayMode playMode;
     switch (pm) {
@@ -79,7 +102,7 @@ public class Player {
     }
     ps.setPlayMode(playMode);
 
-    //set Trump
+    // set Trump
     if (playMode == PlayMode.COLOUR) {
       String t = IOTools.readLine("Set the Trump (clubs, spades, hearts, diamonds): ");
       Colour trump;
@@ -102,7 +125,7 @@ public class Player {
       }
       ps.setTrump(trump);
     }
-    //add other features and settings later
+    // add other features and settings later
   }
 
   public int getBet() {
