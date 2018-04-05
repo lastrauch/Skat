@@ -31,6 +31,11 @@ public class Player {
 
   // methods needed for the auction.. say,
 
+  //maybe something for the logic gui interface???
+  public boolean askForBet(int bet) {
+    return true;
+  }
+  
   public int getBet() {
     return this.bet;
   }
