@@ -21,6 +21,14 @@ public class Trick {
   public int getIndexWinner() {
     return this.indexWinner;
   }
+  
+  public Colour getFirstColour() {
+    return this.trickCards[0].getColour();
+  }
+  
+  public Card getFirstCard() {
+    return this.trickCards[0];
+  }
   // public void setTrickCards(Card[] trickCards) {
   // this.trickCards = trickCards;
   // }
@@ -61,20 +69,29 @@ public class Trick {
    */
   public void calculateWinner() throws LogicException {
 
+    System.out.println(this.ps.getPlayMode().toString());
     // calculate winner when PlayMode is Colour
     if (this.ps.getPlayMode() == PlayMode.COLOUR) {
       this.indexWinner = this.calculateWinnerColour();
+      //test
       System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
           + this.trickCards[this.indexWinner].getColour());
 
       // calculate winner when PlayMode is Grand
     } else if (this.ps.getPlayMode() == PlayMode.GRAND) {
       this.indexWinner = this.calculateWinnerGrand();
+      //test
+      System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
+          + this.trickCards[this.indexWinner].getColour());
+
 
       // calculate winner when PlayMode is Null or NullOuvert
     } else if (this.ps.getPlayMode() == PlayMode.NULL
         || this.ps.getPlayMode() == PlayMode.NULLOUVERT) {
       this.indexWinner = this.calculateWinnerNull();
+      //test
+      System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
+          + this.trickCards[this.indexWinner].getColour());
 
     } else {
       throw new LogicException("Calculating the winner is not possible! (No PlayMode found)");
@@ -193,13 +210,18 @@ public class Trick {
   }
 
 
-/**
- * calculates the winner when the PlayMode is Grand
- * 
- * @author Sandra Beate Angelika Fischer
- * @return index of the winning card
- */
+  /**
+   * calculates the winner when the PlayMode is Grand
+   * 
+   * @author Sandra Beate Angelika Fischer
+   * @return index of the winning card
+   */
   public int calculateWinnerGrand() {
+
+    // test
+    System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
+    System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
+    System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
 
     if (this.compareCardsGrand(this.trickCards[0], this.trickCards[1]) == 0) {
       if (this.compareCardsGrand(this.trickCards[0], this.trickCards[2]) == 0) {
@@ -219,6 +241,7 @@ public class Trick {
   /**
    * compares two cards when the only trump cards are jacks
    * 
+   * @author Sandra Beate Angelika Fischer
    * @param card1
    * @param card2
    * @return which card won (0 = card1, 1= card2)
@@ -241,9 +264,58 @@ public class Trick {
     }
   }
 
+  /**
+   * calculates the winner when the PlayMode is Null/NullOuvert
+   * 
+   * @return index of the winning card
+   */
   public int calculateWinnerNull() {
-    return 0;
+
+    // test
+    System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
+    System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
+    System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
+
+    if (this.compareNumberLowTen(this.trickCards[0], this.trickCards[1]) == 0) {
+      if (this.compareNumberLowTen(this.trickCards[0], this.trickCards[2]) == 0) {
+        return 0;
+      } else {
+        return 2;
+      }
+    } else {
+      if (this.compareNumberLowTen(this.trickCards[1], this.trickCards[2]) == 0) {
+        return 1;
+      } else {
+        return 2;
+      }
+    }
   }
+
+  /**
+   * checks if the player watched out for the first played cards colour and which cards number is
+   * higher (with low ten)
+   * 
+   * @param card1
+   * @param card2
+   * @return which card won (0 = card1, 1= card2)
+   */
+  public int compareNumberLowTen(Card card1, Card card2) {
+
+    if (card1.getColour() != this.trickCards[0].getColour()
+        && card2.getColour() == this.trickCards[0].getColour()) {
+      return 1;
+
+    } else if (card1.getColour() == this.trickCards[0].getColour()
+        && card2.getColour() != this.trickCards[0].getColour()) {
+      return 0;
+
+    } else if (card1.getNumber().getRankingLowTen() > card2.getNumber().getRankingLowTen()) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
 
 
   // cant be calculated here --> in play because we need the hand

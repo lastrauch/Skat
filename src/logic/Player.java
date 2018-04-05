@@ -39,7 +39,7 @@ public class Player {
 
   // maybe something for the logic gui interface???
   public boolean askForBet(int bet) {
-    int whatTheySaid = IOTools.readInteger(bet + "or PASS(0)?");
+    int whatTheySaid = IOTools.readInteger(this.name + " " + bet + " or PASS(0)?");
     if (whatTheySaid == bet) {
       return true;
     } else {
