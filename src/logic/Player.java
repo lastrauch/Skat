@@ -17,9 +17,13 @@ public class Player {
   // pos is the position of the card in the hand of the player
   public void playCard(int pos) {}
 
-  public Card playCard() {
+  public Card playCard() throws LogicException {
     System.out.println(this.name);
     int index = IOTools.readInteger("index of played card: ");
+    
+    if (index >= this.hand.size()) {
+      throw new LogicException("the given index is too high!");
+    }
     Card playedCard = this.hand.get(index);
     return playedCard;
   }

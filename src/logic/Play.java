@@ -26,6 +26,7 @@ public class Play {
 
   }
 
+
   public void runPlay() {
 
     // pepearation
@@ -53,7 +54,7 @@ public class Play {
     Card card2 = null;
     Card card3 = null;
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 5; i++) {
 
       // start new trick
       this.tricks[i] = new Trick(this.ps);
@@ -94,7 +95,7 @@ public class Play {
       try {
         this.tricks[i].calculateWinner();
         this.indexWinnerLastTrick = this.tricks[i].getIndexWinner();
-        System.out.println("winner: " + this.group[this.indexWinnerLastTrick].getName());
+    //    System.out.println("winner: " + this.group[this.indexWinnerLastTrick].getName());
       } catch (LogicException e) {
         e.printStackTrace();
       }
@@ -139,20 +140,29 @@ public class Play {
   public boolean checkIfCardPossibleColour(Card card, Card firstCard, Player player) {
 
     // check if card serves first played card
-    if (this.checkIfServed(card, firstCard)) {
+    if (this.checkIfServedColour(card, firstCard)) {
       return true;
     }
 
     // check if the player has a card which would serve the first card
     for (int i = 0; i < player.getHand().size(); i++) {
-      if (this.checkIfServed(player.getHand().get(i), firstCard)) {
+      if (this.checkIfServedColour(player.getHand().get(i), firstCard)) {
         return false;
       }
     }
     return true;
   }
 
-  public boolean checkIfServed(Card servingCard, Card servedCard) {
+  /**
+   * checks if the serving card serves the served card --> checks is both are trump/jack or have the
+   * same color
+   * 
+   * @author sandfisc
+   * @param servingCard
+   * @param servedCard
+   * @return
+   */
+  public boolean checkIfServedColour(Card servingCard, Card servedCard) {
 
     if (servedCard.getColour() == this.ps.getTrump() || servedCard.getNumber() == Number.JACK) {
       // first card is trump
@@ -180,6 +190,43 @@ public class Play {
    * @return if card is possible in PlayMode Grand
    */
   public boolean checkIfCardPossibleGrand(Card card, Card firstCard, Player player) {
+
+    // check if card serves first played card
+    if (this.checkIfServedColour(card, firstCard)) {
+      return true;
+    }
+
+    // check if the player has a card which would serve the first card
+    for (int i = 0; i < player.getHand().size(); i++) {
+      if (this.checkIfServedGrand(player.getHand().get(i), firstCard)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * checks if the serving card serves the served card --> checks is both are jack or have the same
+   * color
+   * 
+   * @author sandfisc
+   * @param servingCard
+   * @param servedCard
+   * @return
+   */
+  public boolean checkIfServedGrand(Card servingCard, Card servedCard) {
+
+    // both cards are jack
+    if (servedCard.getNumber() == Number.JACK && servingCard.getNumber() == Number.JACK) {
+      return true;
+    }
+
+    // both cards are no jack
+    if (servedCard.getNumber() != Number.JACK && servingCard.getNumber() != Number.JACK) {
+      if (servedCard.getColour() == servingCard.getColour()) {
+        return true;
+      }
+    }
     return false;
   }
 
@@ -525,7 +572,7 @@ public class Play {
     crew[2] = felix;
 
     Play test = new Play(crew);
-    test.getPlayState().setPlayMode(PlayMode.COLOUR);
+    test.getPlayState().setPlayMode(PlayMode.GRAND);
     test.getPlayState().setTrump(Colour.CLUBS);
     test.getPlayState().setNrOfPlays(1);
     test.runPlay();

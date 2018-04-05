@@ -81,8 +81,8 @@ public class Trick {
     } else if (this.ps.getPlayMode() == PlayMode.GRAND) {
       this.indexWinner = this.calculateWinnerGrand();
       // test
-      // System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
-      // + this.trickCards[this.indexWinner].getColour());
+       System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
+       + this.trickCards[this.indexWinner].getColour());
 
 
       // calculate winner when PlayMode is Null or NullOuvert
