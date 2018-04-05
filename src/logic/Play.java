@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Play {
 
   private Player[] group; // gives us the Players and their position (first one is the
-                             // forehand)
+                          // forehand)
   private Card[] cards;
   private Trick[] tricks;
   private Auction auction;
   private int currentTrick;
   private int indexWinnerLastTrick;
-  private PlayState ps = new PlayState();
+  private PlayState ps;
 
 
   // needs a 3 Player Array
@@ -19,10 +19,11 @@ public class Play {
     cards = new Card[32];
     tricks = new Trick[10];
     this.group = group;
-//    this.runPlay();
+    // this.runPlay();
     this.indexWinnerLastTrick = 0; // forehand starts the first trick
     this.currentTrick = 0;
-    
+    ps = new PlayState();
+
   }
 
   public void runPlay() {
@@ -48,13 +49,13 @@ public class Play {
     // this.printHands("after second sortCards:");
 
     // doing 10 tricks
-    
-    for (int i = 0; i < 10; i++) {;
+    for (int i = 0; i < 10; i++) {
+      ;
       this.tricks[i] = new Trick(this.ps);
       this.tricks[i].setCard1(this.group[(this.indexWinnerLastTrick) % 3].playCard());
       this.tricks[i].setCard2(this.group[(this.indexWinnerLastTrick + 1) % 3].playCard());
       this.tricks[i].setCard3(this.group[(this.indexWinnerLastTrick + 2) % 3].playCard());
-      
+
       try {
         this.tricks[i].calculateWinner();
         this.indexWinnerLastTrick = this.tricks[i].getIndexWinner();
@@ -62,11 +63,85 @@ public class Play {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-      
+
     }
 
   }
 
+  /**
+   * its is checked if the card can be played by the player depending on his hand, the first Colour
+   * of the trick and the PlayMode
+   * 
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @param player (who wants to play the card)
+   * @return if card can be played
+   * @throws LogicException
+   */
+  public boolean checkIfCardPossible(Card card, Card firstCard, Player player)
+      throws LogicException {
+    if (this.ps.getPlayMode() == PlayMode.COLOUR) {
+      return this.checkIfCardPossibleColour(card, firstCard, player);
+    } else if (this.ps.getPlayMode() == PlayMode.GRAND) {
+      return this.checkIfCardPossibleGrand(card, firstCard, player);
+    } else if (this.ps.getPlayMode() == PlayMode.NULL) {
+      return this.checkIfCardPossibleNull(card, firstCard, player);
+    } else {
+      throw new LogicException(
+          "checking if the card is possible is not possible (no PlayMode found)");
+    }
+  }
+
+  /**
+   * submethod of checkIfCardPossible
+   * 
+   * @author sandfisc
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @param player (who wants to play the card)
+   * @return if card is possible in PlayMode Colour
+   */
+  public boolean checkIfCardPossibleColour(Card card, Card firstCard, Player player) {
+    
+  
+    
+//    if (card.getColour() == colour) {
+//      return true;
+//    } else if (this.ps.getTrump() == card.getColour()) {
+//      return true;
+//    } else if (card.getNumber() == Number.JACK) {
+//      return true;
+//    } else {
+//      return false;
+//    }
+    return false;
+  }
+
+  /**
+   * submethod of checkIfCardPossible
+   * 
+   * @author sandfisc
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @param player (who wants to play the card)
+   * @return if card is possible in PlayMode Grand
+   */
+  public boolean checkIfCardPossibleGrand(Card card, Card firstCard, Player player) {
+    return false;
+  }
+
+  /**
+   * submethod of checkIfCardPossible
+   * 
+   * @author sandfisc
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @param player (who wants to play the card)
+   * @return if card is possible in PlayMode Null or NullOuvert
+   */
+  public boolean checkIfCardPossibleNull(Card card, Card firstCard, Player player) {
+    return false;
+  }
 
   // print methods to test the others
   public void printListCards(ArrayList<Card> list) {

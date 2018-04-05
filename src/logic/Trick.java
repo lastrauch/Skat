@@ -64,7 +64,7 @@ public class Trick {
    * the winning card is calculated and the index of the winner is saved in indexWinner (submethods:
    * calculateWinnerColour(), calculateWinnerGrand(), calculateWinnerNull())
    * 
-   * @author Sandra Beate Angelika Fischer
+   * @author sandfisc
    * @throws LogicException
    */
   public void calculateWinner() throws LogicException {
@@ -102,7 +102,7 @@ public class Trick {
   /**
    * calulates the winning card in the playmode Colour
    * 
-   * @author Sandra Beate Angelika Fischer
+   * @author sandfisc
    * @return index of the winning card
    */
   public int calculateWinnerColour() {
@@ -130,7 +130,7 @@ public class Trick {
   /**
    * compares two cards with the trump which we have when playing in playmode colour
    * 
-   * @author Sandra Beate Angelika Fischer
+   * @author sandfisc
    * @param card1
    * @param card2
    * @return which card won (0 = card1, 1= card2)
@@ -171,7 +171,7 @@ public class Trick {
    * checks if the player watched out for the first played cards colour and which cards number is
    * higher
    * 
-   * @author Sandra Beate Angelika Fischer
+   * @author sandfisc
    * @param card1
    * @param card2
    * @return which card won (0 = card1, 1= card2)
@@ -196,7 +196,7 @@ public class Trick {
   /**
    * only used to compare jacks, the one with the higher Colour wins
    * 
-   * @author Sandra Beate Angelika Fischer
+   * @author sandfisc
    * @param card1
    * @param card2
    * @return which card won (0 = card1, 1= card2)
@@ -213,7 +213,7 @@ public class Trick {
   /**
    * calculates the winner when the PlayMode is Grand
    * 
-   * @author Sandra Beate Angelika Fischer
+   * @author sandfisc
    * @return index of the winning card
    */
   public int calculateWinnerGrand() {
@@ -241,7 +241,7 @@ public class Trick {
   /**
    * compares two cards when the only trump cards are jacks
    * 
-   * @author Sandra Beate Angelika Fischer
+   * @author sandfisc
    * @param card1
    * @param card2
    * @return which card won (0 = card1, 1= card2)
@@ -267,6 +267,7 @@ public class Trick {
   /**
    * calculates the winner when the PlayMode is Null/NullOuvert
    * 
+   * @author sandfisc
    * @return index of the winning card
    */
   public int calculateWinnerNull() {
@@ -295,6 +296,7 @@ public class Trick {
    * checks if the player watched out for the first played cards colour and which cards number is
    * higher (with low ten)
    * 
+   * @author sandfisc
    * @param card1
    * @param card2
    * @return which card won (0 = card1, 1= card2)
@@ -314,20 +316,6 @@ public class Trick {
     } else {
       return 1;
     }
-  }
-
-
-
-  // cant be calculated here --> in play because we need the hand
-  public boolean checkIfCardIsPossible(Card card) {
-    // TODO Auto-generated method stub
-    return false;
-  }
-
-
-  public void endTrick() {
-    // TODO Auto-generated method stub
-
   }
 
 }
