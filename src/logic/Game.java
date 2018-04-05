@@ -28,7 +28,7 @@ public class Game {
     // i would not initiate them here - in play!
     // this.auctions = new Auction[this.gameSettings.getNrOfPlays()];
     this.initializeGroupSettings(group);
-    this.organizeGame();
+    this.runGame();
   }
 
   /**
@@ -48,7 +48,7 @@ public class Game {
     this.plays = new Play[nrOfPlays];
     // this.auctions = new Auction[nrOfPlays];
     this.initializeGroupSettings(group);
-    this.organizeGame();
+    this.runGame();
   }
 
   /**
@@ -95,7 +95,7 @@ public class Game {
    * here is where the magic/game happens
    */
   // #kackhaufen
-  public void organizeGame() {
+  public void runGame() {
     Player[] playingGroup = new Player[3]; // always three players who are actually playing
 
     // if only three players then the playing group is the whole group "at the table"
