@@ -172,7 +172,6 @@ public class Auction {
     if (!says.askForBet(this.possibleBets[indexLastBet + 1])) {
       this.bets[indexSays] = this.possibleBets[0];
       // check if they both pass / if hears has bit
-      System.out.println("this.bets[indexHears]: " + this.bets[indexHears]);
       if (this.bets[indexHears] == 0) {
         if (!hears.askForBet(this.possibleBets[indexLastBet + 1])) {
           // check if everyone passed now
@@ -181,13 +180,11 @@ public class Auction {
               "The game is not possible, because everyone passed! RESTART PLAY!");
         } else {
           // the suvivor of the first conversation becomes declarer
-          System.out.println("she does NOT want to pass");
           this.bets[indexHears] = this.possibleBets[indexLastBet + 1];
           indexLastBet++;
         }
       } else {
         // the suvivor of the first conversation becomes declarer
-        System.out.println("she does NOT want to pass");
         this.bets[indexHears] = this.possibleBets[indexLastBet + 1];
         indexLastBet++;
       }
