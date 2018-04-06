@@ -10,6 +10,8 @@ public class Game {
   private int playerFirstCard; // switch every in every play --> depends on auction
   private Play[] plays;
   private Auction[] auctions;
+  private int[] lostGames;
+  private int[] wonGames;
 
   /**
    * constructor #1
@@ -189,6 +191,23 @@ public class Game {
     this.playerFirstCard = index;
   }
 
+
+  public int[] getLostGames() {
+    return this.lostGames;
+  }
+  
+  public void setLostGames(int[] lostGames) {
+    this.lostGames = lostGames;
+  }
+  
+  public int[] getWonGames() {
+    return this.lostGames;
+  }
+  
+  public void setWonGames(int[] lostGames) {
+    this.lostGames = lostGames;
+  }
+  
   /**
    * position (forehand, middlehand, rearhand) changes ater every play
    */

@@ -4,8 +4,17 @@ public class GameSettings {
   private CountRule countRule;
   private int NrOfPlayers;
   private int NrOfPlays;
+  private boolean inableKontra;
   // ... add all other possible settings
 
+  
+  public GameSettings() {
+    this.countRule = CountRule.NORMAL;
+    this.NrOfPlayers = 3;
+    this.NrOfPlays = 3;
+    this.inableKontra = false; 
+  }
+  
   public GameSettings(CountRule countRule, int NrOfPlayers, int NrOfPlays) throws LogicException {
     if (this.checkNrOfPlays(NrOfPlays)) {  
       this.NrOfPlays = NrOfPlays;
@@ -14,7 +23,7 @@ public class GameSettings {
     }
     this.countRule = countRule;
     this.NrOfPlayers = NrOfPlayers;
-
+    this.inableKontra = false;
   }
 
   public CountRule getCountRule() {

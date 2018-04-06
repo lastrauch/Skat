@@ -28,6 +28,11 @@ public class Player {
     return playedCard;
   }
 
+  public Card playRandomCard() {
+    int index = (int) (Math.random() * this.hand.size());
+    System.out.println(index);
+    return this.hand.get(index);
+  }
   /**
    * removes a given card from the hand
    * 
@@ -173,4 +178,13 @@ public class Player {
     return this.id;
   }
 
+  
+  public static void main(String [] args) {
+    Player anne = new Player("Anne");
+    
+    for(int i =0; i <50; i++) {
+       anne.playRandomCard();
+    }
+   
+  }
 }

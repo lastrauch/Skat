@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class PlayState {
   private Player declarer; // single player
   private Player[] opponents = new Player[2]; // team Players
-  private ArrayList<Card> declarerPlayer;
-  private ArrayList<Card> opponentsPlayers;
+  private ArrayList<Card> declarerStack;
+  private ArrayList<Card> opponentsStack;
   private Card[] skat = new Card[2];
   private Colour trump;
   private int playValue;
@@ -19,9 +19,9 @@ public class PlayState {
   // still missing all the getters and setters
   // add method cardAlreadyPlayed
 
-  public void addToStockDeclarer(Trick t) {
+  public void addToStackDeclarer(Trick t) {
     for (int i = 0; i < 3; i++) {
-      this.declarerPlayer.add(t.getTrickCards()[i]);
+      this.declarerStack.add(t.getTrickCards()[i]);
     }
   }
 
@@ -33,12 +33,17 @@ public class PlayState {
     return this.auctionPossible;
   }
 
-  public void addToStockOpponents(Trick t) {
+  public void addToStackOpponents(Trick t) {
     for (int i = 0; i < 3; i++) {
-      this.opponentsPlayers.add(t.getTrickCards()[i]);
+      this.opponentsStack.add(t.getTrickCards()[i]);
     }
   }
 
+
+  public Player getDeclarer() {
+    return this.declarer;
+  }
+  
   public void setSkat(Card[] skat) {
     this.skat = skat;
   }

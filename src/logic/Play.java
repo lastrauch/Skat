@@ -98,6 +98,13 @@ public class Play {
         this.tricks[i].calculateWinner();
         this.indexWinnerLastTrick = this.tricks[i].getIndexWinner();
         // System.out.println("winner: " + this.group[this.indexWinnerLastTrick].getName());
+        
+        // winner receives cards on his stack
+        if (this.group[this.indexWinnerLastTrick] == this.ps.getDeclarer()) {
+          ps.addToStackDeclarer(tricks[i]);
+        }else {
+          ps.addToStackOpponents(tricks[i]);
+        }
       } catch (LogicException e) {
         e.printStackTrace();
       }
