@@ -33,8 +33,6 @@ public class LoginController {
 
 	@FXML
 	public void login() {
-		// Nutzernamen an Logik weitergeben
-		// Spielerprofil laden
 		main.displayChooseGame();
 	}
 
