@@ -30,7 +30,6 @@ public class Player {
 
   public Card playRandomCard() {
     int index = (int) (Math.random() * this.hand.size());
-    System.out.println(index);
     return this.hand.get(index);
   }
   /**
@@ -178,13 +177,13 @@ public class Player {
     return this.id;
   }
 
-  
-  public static void main(String [] args) {
-    Player anne = new Player("Anne");
-    
-    for(int i =0; i <50; i++) {
-       anne.playRandomCard();
-    }
+//  
+//  public static void main(String [] args) {
+//    Player anne = new Player("Anne");
+//    
+//    for(int i =0; i <50; i++) {
+//       anne.playRandomCard();
+//    }
    
-  }
+//  }
 }

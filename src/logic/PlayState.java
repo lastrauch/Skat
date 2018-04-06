@@ -4,24 +4,38 @@ import java.util.ArrayList;
 
 public class PlayState {
   private Player declarer; // single player
-  private Player[] opponents = new Player[2]; // team Players
+  private Player[] opponents; // team Players
   private ArrayList<Card> declarerStack;
   private ArrayList<Card> opponentsStack;
-  private Card[] skat = new Card[2];
+  private Card[] skat;
   private Colour trump;
   private int playValue;
   private int betValue;
   private int nrOfPlays;
   private PlayMode pm;
-  private boolean auctionPossible = true;
+  private boolean auctionPossible;
 
 
   // still missing all the getters and setters
   // add method cardAlreadyPlayed
-
+  public PlayState () {
+    this.declarer = null;
+    this.opponents = new Player[2];
+    this.declarerStack = new ArrayList<Card>();
+    this.opponentsStack = new ArrayList<Card>();
+    this.skat = new Card[2];
+    this.trump = Colour.CLUBS;
+    this.playValue = 0;
+    this.betValue = 0;
+    this.nrOfPlays = 3;
+    this.pm = PlayMode.COLOUR;
+    this.auctionPossible = true;
+  }
+  
   public void addToStackDeclarer(Trick t) {
-    for (int i = 0; i < 3; i++) {
-      this.declarerStack.add(t.getTrickCards()[i]);
+    Card [] trick = t.getTrickCards();
+    for (int i = 0; i < trick.length; i++) {
+      this.declarerStack.add(trick[i]);
     }
   }
 
@@ -34,8 +48,9 @@ public class PlayState {
   }
 
   public void addToStackOpponents(Trick t) {
-    for (int i = 0; i < 3; i++) {
-      this.opponentsStack.add(t.getTrickCards()[i]);
+    Card [] trick = t.getTrickCards();
+    for (int i = 0; i < trick.length; i++) {
+      this.opponentsStack.add(trick[i]);
     }
   }
 

@@ -59,16 +59,28 @@ public class Play {
       // start new trick
       this.tricks[i] = new Trick(this.ps);
 
+      //test
+      System.out.println(this.group[(this.indexWinnerLastTrick) % 3].getName());
+      System.out.println(this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
+      System.out.println(this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
+      
+      
       try {
         // first player plays card
-        card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
+        // card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
+        
+        // test
+        card1 = this.group[(this.indexWinnerLastTrick) % 3].playRandomCard();
         this.group[(this.indexWinnerLastTrick) % 3].removeCard(card1);
 
         this.tricks[i].setCard1(card1);
 
         // second player plays card
         do {
-          card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
+          // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
+          
+          //test
+          card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playRandomCard();
         } while (!this.checkIfCardPossible(card2, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 1) % 3]));
 
@@ -80,7 +92,11 @@ public class Play {
 
         // third player plays card
         do {
-          card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
+         // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
+          
+          //test
+          card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playRandomCard();
+
         } while (!this.checkIfCardPossible(card3, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 2) % 3]));
 
@@ -97,7 +113,7 @@ public class Play {
       try {
         this.tricks[i].calculateWinner();
         this.indexWinnerLastTrick = this.tricks[i].getIndexWinner();
-        // System.out.println("winner: " + this.group[this.indexWinnerLastTrick].getName());
+        System.out.println("winner: " + this.group[this.indexWinnerLastTrick].getName());
         
         // winner receives cards on his stack
         if (this.group[this.indexWinnerLastTrick] == this.ps.getDeclarer()) {
