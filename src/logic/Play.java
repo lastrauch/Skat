@@ -6,6 +6,7 @@ public class Play {
 
   private Player[] group; // gives us the Players and their position (first one is the
                           // forehand)
+  
   private Card[] cards;
   private Trick[] tricks;
   private Auction auction;
