@@ -9,9 +9,8 @@
    <children>
       <ImageView fitHeight="800.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../resources/WhatsApp%20Image%202018-03-13%20at%2015.27.20%20222.jpeg" />
+            <Image url="@../../resources/spielansicht.jpeg" />
          </image>
       </ImageView>
-      <ImageView fx:id="c1" fitHeight="150.0" fitWidth="200.0" layoutX="158.0" layoutY="207.0" onMouseClicked="#setMouseEvents" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

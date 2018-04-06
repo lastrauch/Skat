@@ -51,7 +51,7 @@ public class GuiController extends Application {
 
 		try {
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("ChooseGame.fxml"));
-			Image jcc = new Image(getClass().getResource("/Jclubs.png").toExternalForm());
+			Image jcc = new Image(getClass().getResource("/Jclubs.jpg").toExternalForm());
 
 			profilepic = new ImageView(jcc);
 			profilepic.setFitHeight(65);
@@ -85,7 +85,7 @@ public class GuiController extends Application {
 		System.exit(0);
 	}
 
-	public void displayLobbyOn() {
+	public void displayLobbyOnline() {
 		Stage window = new Stage();
 		try {
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("LobbyOnline.fxml"));
