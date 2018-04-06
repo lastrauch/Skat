@@ -30,6 +30,10 @@ public class GameSettings {
     return this.countRule;
   }
 
+  public void setCountRule(CountRule countRule) {
+    this.countRule = countRule;
+  }
+  
   public int getNrOfPlayers() {
     return this.NrOfPlayers;
   }

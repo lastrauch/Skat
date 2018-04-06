@@ -11,21 +11,30 @@ public class Play {
   private Auction auction;
   private int currentTrick;
   private int indexWinnerLastTrick;
+  private int indexWinner; // winner of play
   private PlayState ps;
   private final int nrTricks = 10;
+  private GameSettings gameSettings;
 
   // needs a 3 Player Array
   public Play(Player[] group) {
-    cards = new Card[32];
-    tricks = new Trick[this.nrTricks];
+    this.cards = new Card[32];
+    this.tricks = new Trick[this.nrTricks];
     this.group = group;
     // this.runPlay();
     this.indexWinnerLastTrick = 0; // forehand starts the first trick
     this.currentTrick = 0;
-    ps = new PlayState();
-
+    this.ps = new PlayState();
+    this.gameSettings = new GameSettings();
   }
 
+  public GameSettings getGameSettings() {
+    return this.gameSettings;
+  }
+  
+  public void setGameSettings(GameSettings gameSettings) {
+    this.gameSettings = gameSettings;
+  }
 
   public void runPlay() {
 
@@ -59,16 +68,16 @@ public class Play {
       // start new trick
       this.tricks[i] = new Trick(this.ps);
 
-      //test
+      // test
       System.out.println(this.group[(this.indexWinnerLastTrick) % 3].getName());
       System.out.println(this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
       System.out.println(this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
-      
-      
+
+
       try {
         // first player plays card
         // card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
-        
+
         // test
         card1 = this.group[(this.indexWinnerLastTrick) % 3].playRandomCard();
         this.group[(this.indexWinnerLastTrick) % 3].removeCard(card1);
@@ -78,8 +87,8 @@ public class Play {
         // second player plays card
         do {
           // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
-          
-          //test
+
+          // test
           card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playRandomCard();
         } while (!this.checkIfCardPossible(card2, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 1) % 3]));
@@ -92,9 +101,9 @@ public class Play {
 
         // third player plays card
         do {
-         // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
-          
-          //test
+          // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
+
+          // test
           card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playRandomCard();
 
         } while (!this.checkIfCardPossible(card3, this.tricks[i].getFirstCard(),
@@ -114,12 +123,18 @@ public class Play {
         this.tricks[i].calculateWinner();
         this.indexWinnerLastTrick = this.tricks[i].getIndexWinner();
         System.out.println("winner: " + this.group[this.indexWinnerLastTrick].getName());
-        
+
         // winner receives cards on his stack
         if (this.group[this.indexWinnerLastTrick] == this.ps.getDeclarer()) {
           ps.addToStackDeclarer(tricks[i]);
-        }else {
+        } else {
           ps.addToStackOpponents(tricks[i]);
+        }
+
+        // declarer is not allowed to win a trick when playMode is NULL/NULLOUVERT
+        if (this.ps.getPlayMode() == PlayMode.NULL
+            || this.ps.getPlayMode() == PlayMode.NULLOUVERT) {
+          break;
         }
       } catch (LogicException e) {
         e.printStackTrace();
@@ -278,6 +293,22 @@ public class Play {
       }
       return true;
     }
+  }
+
+  public void calculateWinner() {
+    
+  }
+  
+  public int countPointsOnStack(ArrayList<Card> stack) {
+    return 0;
+  }
+
+  public int savePointsBierlachs() {
+    return 0;
+  }
+
+  public int savePointsSeegerfabian() {
+    return 0;
   }
 
   // print methods to test the others
@@ -593,6 +624,7 @@ public class Play {
     return this.ps;
   }
 
+
   public static void main(String[] args) {
     Player sandra = new Player("Sandra");
     Player larissa = new Player("Larissa");
@@ -604,9 +636,9 @@ public class Play {
     crew[2] = felix;
 
     Play test = new Play(crew);
-//    test.getPlayState().setPlayMode(PlayMode.NULLOUVERT);
-//    test.getPlayState().setTrump(Colour.CLUBS);
-//    test.getPlayState().setNrOfPlays(1);
+    // test.getPlayState().setPlayMode(PlayMode.NULLOUVERT);
+    // test.getPlayState().setTrump(Colour.CLUBS);
+    // test.getPlayState().setNrOfPlays(1);
     test.runPlay();
   }
 }

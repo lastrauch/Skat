@@ -21,7 +21,6 @@ public class Game {
   public Game(Player[] group) {
     this.gameSettings = new GameSettings();
     this.plays = new Play[this.gameSettings.getNrOfPlays()];
-
     // i would not initiate them here - in play!
     // this.auctions = new Auction[this.gameSettings.getNrOfPlays()];
     this.initializeGroupSettings(group);
@@ -125,6 +124,7 @@ public class Game {
       try {
 //        this.auctions[i] = new Auction(this.sortPlayingGroup(playingGroup));
         this.plays[i] = new Play(this.sortPlayingGroup(playingGroup));
+        this.plays[i].setGameSettings(this.gameSettings);
       } catch (LogicException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
