@@ -12,6 +12,8 @@ public class Auction {
    * constructor
    * 
    * @param auctionMembers
+   * @author sandfisc
+   * @author awesch
    */
   public Auction(Player[] auctionMembers, PlayState ps) {
     this.auctionMembers = auctionMembers;
