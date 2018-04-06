@@ -10,50 +10,46 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.StartController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
    <effect>
       <ColorAdjust />
    </effect>
    <children>
       <ImageView fx:id="hintergrundRT" fitHeight="800.0" fitWidth="1280.0" layoutX="-10.0" nodeOrientation="INHERIT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/WhatsApp%20Image%202018-03-13%20at%2015.27.19.jpeg" />
+            <Image url="@../../resources/vonbaraus.jpeg" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="260.0" layoutY="36.0" prefHeight="726.0" prefWidth="742.0" styleClass="mystyle" stylesheets="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/git/SKAT_4/src/gui/background.css" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="36.0">
+      <AnchorPane layoutX="260.0" layoutY="36.0" prefHeight="726.0" prefWidth="742.0" styleClass="background" stylesheets="@../../resources/mystyle.css" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="36.0">
          <children>
-            <AnchorPane layoutX="104.0" layoutY="62.0">
+            <AnchorPane layoutX="104.0" layoutY="62.0" AnchorPane.bottomAnchor="503.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="62.0">
                <children>
-                  <ImageView fitHeight="147.0" fitWidth="105.0" layoutX="262.0" layoutY="-14.0" rotate="1.8">
+                  <ImageView fx:id="jhearts" fitHeight="147.0" fitWidth="105.0" layoutX="263.0" layoutY="8.0" rotate="33.3" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="8.0">
                      <image>
-                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jdiamonds.jpg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="147.0" fitWidth="105.0" layoutX="332.0" layoutY="9.0" rotate="26.6">
+                        <Image url="@../../resources/Jdiamonds.jpg" />
+                     </image></ImageView>
+                  <ImageView fx:id="jspades" fitHeight="147.0" fitWidth="105.0" layoutX="195.0" layoutY="-18.0" rotate="5.2" AnchorPane.leftAnchor="195.0" AnchorPane.topAnchor="-18.0">
                      <image>
-                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jhearts.jpg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="147.0" fitWidth="105.0" layoutX="171.0" layoutY="-7.0" rotate="-11.3">
+                        <Image url="@../../resources/Jhearts.jpg" />
+                     </image></ImageView>
+                  <ImageView fx:id="jdiamonds" fitHeight="147.0" fitWidth="105.0" layoutX="113.0" layoutY="-18.0" rotate="-11.3">
                      <image>
-                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jspades.jpg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="147.0" fitWidth="105.0" layoutX="97.0" layoutY="16.0" rotate="-36.9" AnchorPane.leftAnchor="97.0">
+                        <Image url="@../../resources/Jspades.jpg" />
+                     </image></ImageView>
+                  <ImageView fx:id="jclubs" fitHeight="147.0" fitWidth="105.0" layoutX="47.0" layoutY="8.0" rotate="-29.1" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="8.0">
                      <image>
-                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Jclubs.jpg" />
-                     </image>
-                  </ImageView>
+                        <Image url="@../../resources/Jclubs.jpg" />
+                     </image></ImageView>
                </children>
             </AnchorPane>
-            <JFXTextField focusColor="WHITE" layoutX="167.0" layoutY="426.0" prefHeight="31.0" prefWidth="427.0" promptText="Username" styleClass="prompttext" unFocusColor="WHITE">
+            <JFXTextField focusColor="WHITE" layoutX="167.0" layoutY="426.0" prefHeight="31.0" prefWidth="427.0" promptText="Username" styleClass="prompttext" stylesheets="@../../resources/mystyle.css" unFocusColor="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </JFXTextField>
             <ImageView fitHeight="51.0" fitWidth="55.0" layoutX="104.0" layoutY="426.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/icons8-benutzer-filled-50.png" />
+                  <Image url="@../../resources/icons8-benutzer-filled-50.png" />
                </image>
             </ImageView>
             <Label layoutX="285.0" layoutY="259.0" text="Login" textFill="WHITE">

@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 public class StartController {
 
-	public MainClass main;
+	public GuiController main;
 	@FXML
 	private TextField nutzername;
 	@FXML
@@ -69,7 +69,7 @@ public class StartController {
 		hbox.getChildren().remove(neuanmelden);
 	}
 
-	public void setMain(MainClass main2) {
+	public void setMain(GuiController main2) {
 		// TODO Auto-generated method stub
 		this.main = main2;
 
