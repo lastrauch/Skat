@@ -19,12 +19,7 @@ public class Game {
    * @param group
    */
   public Game(Player[] group) {
-    try {
-      this.gameSettings = new GameSettings(CountRule.NORMAL, group.length, 18);
-    } catch (LogicException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    this.gameSettings = new GameSettings();
     this.plays = new Play[this.gameSettings.getNrOfPlays()];
 
     // i would not initiate them here - in play!

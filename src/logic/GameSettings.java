@@ -9,7 +9,7 @@ public class GameSettings {
 
   
   public GameSettings() {
-    this.countRule = CountRule.NORMAL;
+    this.countRule = CountRule.BIERLACHS;
     this.NrOfPlayers = 3;
     this.NrOfPlays = 3;
     this.inableKontra = false; 
