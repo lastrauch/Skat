@@ -14,11 +14,12 @@ public class PlayState {
   private int nrOfPlays;
   private PlayMode pm;
   private boolean auctionPossible;
+  private boolean handGame;
 
 
   // still missing all the getters and setters
   // add method cardAlreadyPlayed
-  public PlayState () {
+  public PlayState() {
     this.declarer = null;
     this.opponents = new Player[2];
     this.declarerStack = new ArrayList<Card>();
@@ -31,12 +32,28 @@ public class PlayState {
     this.pm = PlayMode.COLOUR;
     this.auctionPossible = true;
   }
-  
+
   public void addToStackDeclarer(Trick t) {
-    Card [] trick = t.getTrickCards();
+    Card[] trick = t.getTrickCards();
     for (int i = 0; i < trick.length; i++) {
       this.declarerStack.add(trick[i]);
     }
+  }
+
+  public void addToStackDeclarer(Card card) {
+    this.declarerStack.add(card);
+  }
+
+  public ArrayList<Card> getStackDeclarer() {
+    return this.declarerStack;
+  }
+
+  public boolean getHandGame() {
+    return this.handGame;
+  }
+
+  public void setHandGame(boolean handGame) {
+    this.handGame = handGame;
   }
 
   public void setAuctionPossible(boolean auctionNotPossible) {
@@ -48,17 +65,21 @@ public class PlayState {
   }
 
   public void addToStackOpponents(Trick t) {
-    Card [] trick = t.getTrickCards();
+    Card[] trick = t.getTrickCards();
     for (int i = 0; i < trick.length; i++) {
       this.opponentsStack.add(trick[i]);
     }
+  }
+
+  public ArrayList<Card> getStackOpponents() {
+    return this.opponentsStack;
   }
 
 
   public Player getDeclarer() {
     return this.declarer;
   }
-  
+
   public void setSkat(Card[] skat) {
     this.skat = skat;
   }
@@ -102,5 +123,63 @@ public class PlayState {
   public void setBetValue(int betValue) {
     this.betValue = betValue;
   }
+  
+  /**
+   * sorts cards by its value for normal values (high ten), created for sortHand(s)
+   * 
+   * @author awesch
+   * @param cards
+   */
+  public void sortCardsValueNorm(ArrayList<Card> cards) {
+    Card temp;
+    for (int i = 1; i < cards.size(); i++) {
+      for (int j = 0; j < cards.size() - 1; j++) {
+        if (cards.get(j).isLowerAsNorm(cards.get(j + 1))) {
+          temp = cards.get(j);
+          cards.set(j, cards.get(j + 1));
+          cards.set(j + 1, temp);
+        }
+      }
+    }
+  }
+
+  /**
+   * sorts cards by its value for a low ten playMode, created for sortHand(s)
+   * 
+   * @author awesch
+   * @param cards
+   */
+  public void sortCardsValueLowTen(ArrayList<Card> cards) {
+    Card temp;
+    for (int i = 1; i < cards.size(); i++) {
+      for (int j = 0; j < cards.size() - 1; j++) {
+        if (cards.get(j).isLowerAsLowTen(cards.get(j + 1))) {
+          temp = cards.get(j);
+          cards.set(j, cards.get(j + 1));
+          cards.set(j + 1, temp);
+        }
+      }
+    }
+  }
+
+  /**
+   * sorts cards bei their colour, order: clubs, spades, hearts, diamonds. created for sortHand(s)
+   * 
+   * @author awesch
+   * @param cards
+   */
+  public void sortCardsByColour(ArrayList<Card> cards) {
+    Card temp;
+    for (int i = 0; i < cards.size(); i++) {
+      for (int j = 0; j < cards.size() - 1; j++) {
+        if (cards.get(j).getColour().compareColourIntern(cards.get(j + 1).getColour()) < 0) {
+          temp = cards.get(i);
+          cards.set(j, cards.get(j + 1));
+          cards.set(j + 1, temp);
+        }
+      }
+    }
+  }
+
 }
 

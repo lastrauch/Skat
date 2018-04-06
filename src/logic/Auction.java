@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+
 public class Auction {
 
   private Player winner; // winner of the auction
@@ -12,8 +14,7 @@ public class Auction {
    * constructor
    * 
    * @param auctionMembers
-   * @author sandfisc
-   * @author awesch
+   * 
    */
   public Auction(Player[] auctionMembers, PlayState ps) {
     this.auctionMembers = auctionMembers;
@@ -22,6 +23,8 @@ public class Auction {
     try {
       this.organizeAuction();
       this.updatePlayState(ps);
+      this.mangageSkat(ps);
+      this.winner.askForPlaySettings(ps);
       // test print
       System.out.println("We will now play: " + ps.getPlayMode().toString());
       ps.setAuctionPossible(true);
@@ -32,7 +35,7 @@ public class Auction {
       ps.setAuctionPossible(false);
     }
   }
-  
+
 
   /**
    * initializes the array of possible bets
@@ -261,7 +264,7 @@ public class Auction {
     }
     ps.setOpponents(opponents);
     // ask the declarer for other settings (PlayMode und maybe trump)
-    this.winner.askForPlaySettings(ps);
+    // this.winner.askForPlaySettings(ps);
     // set betValue
     int bV = 0;
     for (int i = 0; i < bets.length; i++) {
@@ -274,19 +277,76 @@ public class Auction {
 
   }
 
-//  public static void main(String[] args) {
-//    Player sandra = new Player("Sandra");
-//    Player larissa = new Player("Larissa");
-//    Player felix = new Player("Felix");
-//
-//    Player[] crew = new Player[3];
-//    crew[0] = sandra;
-//    crew[1] = larissa;
-//    crew[2] = felix;
-//
-//    PlayState ps = new PlayState();
-//    Auction test = new Auction(crew, ps);
-//  }
+  public void mangageSkat(PlayState ps) {
+    // ask the declarer if he wants to take the skat or not and save the answer in the PlayState
+    ps.setHandGame(this.winner.askForHandGame());
+    // add the skat & lay it down!!
+    this.takeUpStack(ps);
+    this.putDownTwoCards(ps);
+  }
+
+  /**
+   * the two cards of the stack are added to the hand and the hand gets resorted, created for
+   * manageSkat
+   * 
+   * @author awesch
+   */
+  public void takeUpStack(PlayState ps) {
+    this.winner.getHand().add(ps.getSkat()[0]);
+    this.winner.getHand().add(ps.getSkat()[1]);
+    this.winner.sortHand(ps);
+    System.out.println("Your new hand:");
+    this.printlistOfCards(this.winner.getHand());
+  }
+
+  public void printlistOfCards(ArrayList<Card> cards) {
+    for (Card c : cards) {
+      System.out.println(c.getColour().toString() + " " + c.getNumber().toString());
+    }
+  }
+
+  /**
+   * two cards are chosen by the declarer and added to his stack, created for manageSkat
+   * 
+   * @author awesch
+   */
+  public void putDownTwoCards(PlayState ps) {
+    Card card1;
+    Card card2;
+    try {
+
+      card1 = this.winner.chooseCardFromHand();
+      ps.addToStackDeclarer(card1);
+      this.winner.removeCardFromHand(card1);
+
+      card2 = this.winner.chooseCardFromHand();
+      ps.addToStackDeclarer(card2);
+      this.winner.removeCardFromHand(card2);
+
+      System.out.println("Your new hand:");
+      this.printlistOfCards(this.winner.getHand());
+
+    } catch (LogicException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+
+
+  // public static void main(String[] args) {
+  // Player sandra = new Player("Sandra");
+  // Player larissa = new Player("Larissa");
+  // Player felix = new Player("Felix");
+  //
+  // Player[] crew = new Player[3];
+  // crew[0] = sandra;
+  // crew[1] = larissa;
+  // crew[2] = felix;
+  //
+  // PlayState ps = new PlayState();
+  // Auction test = new Auction(crew, ps);
+  // }
 
 
 }

@@ -11,10 +11,13 @@ public class Play {
   private Auction auction;
   private int currentTrick;
   private int indexWinnerLastTrick;
-  private int indexWinner; // winner of play
+  // private int indexWinner; // winner of play
+  // well we could have two winners right? thougt boolean singlePlayer could be better, what do you
+  // think honey?
   private PlayState ps;
   private final int nrTricks = 10;
   private GameSettings gameSettings;
+  private boolean singlePlayerWins;
 
   // needs a 3 Player Array
   public Play(Player[] group) {
@@ -31,7 +34,7 @@ public class Play {
   public GameSettings getGameSettings() {
     return this.gameSettings;
   }
-  
+
   public void setGameSettings(GameSettings gameSettings) {
     this.gameSettings = gameSettings;
   }
@@ -58,6 +61,7 @@ public class Play {
     // test:
     // this.printHands("after second sortCards:");
 
+
     // doing 10 tricks
     Card card1 = null;
     Card card2 = null;
@@ -79,8 +83,11 @@ public class Play {
         // card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
 
         // test
-        card1 = this.group[(this.indexWinnerLastTrick) % 3].playRandomCard();
-        this.group[(this.indexWinnerLastTrick) % 3].removeCard(card1);
+        // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
+        System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
+        this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
+        card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
+        this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
 
         this.tricks[i].setCard1(card1);
 
@@ -89,12 +96,16 @@ public class Play {
           // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
 
           // test
-          card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playRandomCard();
+          // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseRandomCardFromHand();
+          System.out
+              .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
+          this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
+          card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
         } while (!this.checkIfCardPossible(card2, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 1) % 3]));
 
         // remove card from second players hand
-        this.group[(this.indexWinnerLastTrick + 1) % 3].removeCard(card2);
+        this.group[(this.indexWinnerLastTrick + 1) % 3].removeCardFromHand(card2);
 
         // add the second card to trick
         this.tricks[i].setCard2(card2);
@@ -104,25 +115,34 @@ public class Play {
           // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
 
           // test
-          card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playRandomCard();
+          // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseRandomCardFromHand();
 
+          System.out
+              .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
+          this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
+          card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
         } while (!this.checkIfCardPossible(card3, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 2) % 3]));
 
         // remove card from third players hand
-        this.group[(this.indexWinnerLastTrick + 2) % 3].removeCard(card3);
+        this.group[(this.indexWinnerLastTrick + 2) % 3].removeCardFromHand(card3);
         // add the third card to trick
         this.tricks[i].setCard3(card3);
 
       } catch (LogicException e1) {
-        e1.printStackTrace();
+        // e1.printStackTrace();
+
       }
+
+      System.out.println("The trick:");
+      this.printArrayOfCards(this.tricks[i].getTrickCards());
 
       // the winner is calculated and his/her index is saved in indexWinnerLastTrick
       try {
         this.tricks[i].calculateWinner();
         this.indexWinnerLastTrick = this.tricks[i].getIndexWinner();
-        System.out.println("winner: " + this.group[this.indexWinnerLastTrick].getName());
+        System.out.println(
+            "Winner of the last Trick: " + this.group[this.indexWinnerLastTrick].getName());
 
         // winner receives cards on his stack
         if (this.group[this.indexWinnerLastTrick] == this.ps.getDeclarer()) {
@@ -138,10 +158,23 @@ public class Play {
         }
       } catch (LogicException e) {
         e.printStackTrace();
-      }
 
+      }
+      System.out.println("Declarer Stack:");
+      this.printListCards(this.ps.getStackDeclarer());
+      System.out.println();
+      System.out.println("Opponents Stack:");
+      this.printListCards(this.ps.getStackOpponents());
+      System.out.println();
     }
 
+  }
+
+  // to test stuff
+  public void printArrayOfCards(Card[] array) {
+    for (Card c : array) {
+      System.out.println(c.getColour().toString() + " " + c.getNumber().toString());
+    }
   }
 
   /**
@@ -153,6 +186,7 @@ public class Play {
    * @param player (who wants to play the card)
    * @return if card can be played
    * @throws LogicException
+   * @author sandfisc
    */
   public boolean checkIfCardPossible(Card card, Card firstCard, Player player)
       throws LogicException {
@@ -166,6 +200,7 @@ public class Play {
     } else {
       throw new LogicException(
           "checking if the card is possible is not possible (no PlayMode found)");
+
     }
   }
 
@@ -182,7 +217,9 @@ public class Play {
 
     // check if card serves first played card
     if (this.checkIfServedColour(card, firstCard)) {
+      
       return true;
+
     }
 
     // check if the player has a card which would serve the first card
@@ -196,7 +233,7 @@ public class Play {
 
   /**
    * checks if the serving card serves the served card --> checks is both are trump/jack or have the
-   * same color
+   * same color.
    * 
    * @author sandfisc
    * @param servingCard
@@ -207,7 +244,7 @@ public class Play {
 
     if (servedCard.getColour() == this.ps.getTrump() || servedCard.getNumber() == Number.JACK) {
       // first card is trump
-      if (servingCard.getColour() == servedCard.getColour()
+      if (servingCard.getColour() == this.ps.getTrump()
           || servingCard.getNumber() == Number.JACK) {
         return true;
       }
@@ -222,7 +259,7 @@ public class Play {
   }
 
   /**
-   * submethod of checkIfCardPossible
+   * submethod of checkIfCardPossible.
    * 
    * @author sandfisc
    * @param card (the player wants to play)
@@ -248,7 +285,7 @@ public class Play {
 
   /**
    * checks if the serving card serves the served card --> checks is both are jack or have the same
-   * color
+   * color.
    * 
    * @author sandfisc
    * @param servingCard
@@ -272,7 +309,7 @@ public class Play {
   }
 
   /**
-   * submethod of checkIfCardPossible
+   * submethod of checkIfCardPossible.
    * 
    * @author sandfisc
    * @param card (the player wants to play)
@@ -295,12 +332,45 @@ public class Play {
     }
   }
 
+  /**
+   * Calculates the winner of the play, and saves it in the boolean singlePlayerWins uses
+   * calculatePoinsOfStack
+   * 
+   * @author awesch
+   */
   public void calculateWinner() {
-    
+    // there are two possible states where the declarer wins (depends if he plays hand or not)
+    // if he plays hand: poinsD >= pointsO (1.), if not: pointsD > pointsO(2.)
+
+    int pointsD = this.calculatePointsOfStack(this.ps.getStackDeclarer());
+    int pointsO = this.calculatePointsOfStack(this.ps.getStackOpponents());
+    // 1.
+    if (pointsD >= pointsO && this.ps.getHandGame()) {
+      this.singlePlayerWins = true;
+    }
+    // 2.
+    else if (pointsD > pointsO && (!this.ps.getHandGame())) {
+      this.singlePlayerWins = true;
+    }
+    // in every other case the team wins
+    else {
+      this.singlePlayerWins = false;
+    }
   }
-  
-  public int countPointsOnStack(ArrayList<Card> stack) {
-    return 0;
+
+  /**
+   * Calculates the points of a variable stack of cards created for calculateWinner
+   * 
+   * @param stack
+   * @return
+   * @author awesch
+   */
+  public int calculatePointsOfStack(ArrayList<Card> stack) {
+    int sum = 0;
+    for (int i = 0; i < stack.size(); i++) {
+      sum += stack.get(i).getValue();
+    }
+    return sum;
   }
 
   public int savePointsBierlachs() {
@@ -318,6 +388,7 @@ public class Play {
     }
   }
 
+  // only to test stuff
   public void printHands(String text) {
     System.out.println(text);
     for (int i = 0; i < this.group.length; i++) {
@@ -328,7 +399,11 @@ public class Play {
     System.out.println();
   }
 
-
+  /**
+   * initializes the cards
+   * 
+   * @author awesch
+   */
   public void initializeCards() {
 
     int counter = 0;
@@ -387,6 +462,11 @@ public class Play {
     }
   }
 
+  /**
+   * shuffles the cards after they have been initialized
+   * 
+   * @author awesch
+   */
   public void shuffleCards() {
     int index;
     Card temp = null;
@@ -398,6 +478,12 @@ public class Play {
     }
   }
 
+  /**
+   * deals out the cards on a basic level as it is done in the original game we did it like this
+   * because we want it original intern as well
+   * 
+   * @author awesch
+   */
   public void dealOutCards() {
     // idea: deal out as in the original game, just because we want it intern
     // needed : position forehand, players of the game, how many players?,
@@ -450,175 +536,217 @@ public class Play {
 
   }
 
+  /**
+   * sorts the Hands of every player in the Play can be called before and after the PlayMode and all
+   * the other PlayState attributes are initialized uses sortHand
+   * 
+   * @author awesch
+   */
   public void sortHands() {
     for (int i = 0; i < this.group.length; i++) {
-      this.sortHand(this.group[i].getHand());
+      this.group[i].sortHand(this.ps);
     }
   }
 
-  public void sortHand(ArrayList<Card> hand) {
-    // possible different orders : colour, grand, null(nullouvert)
-
-    int counter = 0; // saves nr of jacks/ nr of already sorted cards
-    ArrayList<Card> jacks = new ArrayList<Card>();
-
-    // first step: jacks at the beginning
-    if (this.ps.getPlayMode() == PlayMode.COLOUR | this.ps.getPlayMode() == PlayMode.GRAND
-        | this.ps.getPlayMode() == null) {
-      Card temp;
-      for (int i = 0; i < hand.size(); i++) {
-        if (hand.get(i).getNumber() == Number.JACK) {
-          jacks.add(hand.get(i));
-          temp = hand.get(counter);
-          hand.set(counter, hand.get(i));
-          hand.set(i, temp);
-          counter++;
-        }
-      }
-
-    }
-
-    this.sortCardsByColour(jacks);
-
-
-    // seperate different colours
-    ArrayList<Card> clubs = new ArrayList<Card>();
-    ArrayList<Card> spades = new ArrayList<Card>();
-    ArrayList<Card> hearts = new ArrayList<Card>();
-    ArrayList<Card> diamonds = new ArrayList<Card>();
-
-    for (int i = counter; i < hand.size(); i++) {
-      Colour c = hand.get(i).getColour();
-      switch (c) {
-        case CLUBS:
-          clubs.add(hand.get(i));
-          break;
-        case SPADES:
-          spades.add(hand.get(i));
-          break;
-        case HEARTS:
-          hearts.add(hand.get(i));
-          break;
-        case DIAMONDS:
-          diamonds.add(hand.get(i));
-          break;
-      }
-    }
-
-    // sort different colours depending on the Playmode by their numbers
-    if (this.ps.getPlayMode() == PlayMode.COLOUR | this.ps.getPlayMode() == PlayMode.GRAND
-        | this.ps.getPlayMode() == null) {
-      this.sortCardsValueNorm(clubs);
-      this.sortCardsValueNorm(spades);
-      this.sortCardsValueNorm(hearts);
-      this.sortCardsValueNorm(diamonds);
-    } else if (this.ps.getPlayMode() == PlayMode.NULL
-        | this.ps.getPlayMode() == PlayMode.NULLOUVERT) {
-      this.sortCardsValueHighTen(clubs);
-      this.sortCardsValueHighTen(spades);
-      this.sortCardsValueHighTen(hearts);
-      this.sortCardsValueHighTen(diamonds);
-    }
-
-    // put the different stacks back together in the right order
-    // first: jacks - filled only if playmode colour grand or null(before mode is chosen)
-    this.addToHand(jacks, hand, 0, jacks.size());
-
-    // second: trump - only if PlayMode colour
-    if (this.ps.getPlayMode() == PlayMode.COLOUR) {
-      Colour trump = this.ps.getTrump();
-      switch (trump) {
-        case CLUBS:
-          this.addToHand(clubs, hand, counter, clubs.size());
-          counter += clubs.size();
-          break;
-        case SPADES:
-          this.addToHand(spades, hand, counter, spades.size());
-          counter += spades.size();
-          break;
-        case HEARTS:
-          this.addToHand(hearts, hand, counter, hearts.size());
-          counter += hearts.size();
-          break;
-        case DIAMONDS:
-          this.addToHand(diamonds, hand, counter, diamonds.size());
-          counter += diamonds.size();
-          break;
-      }
-    }
-
-
-    // add all other colours (if not trump)
-    if (this.ps.getTrump() != Colour.CLUBS) {
-      this.addToHand(clubs, hand, counter, clubs.size());
-      counter += clubs.size();
-    }
-
-    if (this.ps.getTrump() != Colour.SPADES) {
-      this.addToHand(spades, hand, counter, spades.size());
-      counter += spades.size();
-    }
-
-    if (this.ps.getTrump() != Colour.HEARTS) {
-      this.addToHand(hearts, hand, counter, hearts.size());
-      counter += hearts.size();
-    }
-
-    if (this.ps.getTrump() != Colour.DIAMONDS) {
-      this.addToHand(diamonds, hand, counter, diamonds.size());
-      counter += diamonds.size();
-    }
-
-  }
-
-  // Adds arrayList to ArrayList
-  public void addToHand(ArrayList<Card> cardsToAdd, ArrayList<Card> hand, int start, int length) {
-    int counter = 0;
-    for (int i = start; i < start + length; i++) {
-      hand.set(i, cardsToAdd.get(counter));
-      counter++;
-    }
-  }
-
-  // sorts cards by its value -- not colour!
-  public void sortCardsValueNorm(ArrayList<Card> cards) {
-    Card temp;
-    for (int i = 1; i < cards.size(); i++) {
-      for (int j = 0; j < cards.size() - 1; j++) {
-        if (cards.get(j).isLowerAsNorm(cards.get(j + 1))) {
-          temp = cards.get(j);
-          cards.set(j, cards.get(j + 1));
-          cards.set(j + 1, temp);
-        }
-      }
-    }
-  }
-
-  public void sortCardsValueHighTen(ArrayList<Card> cards) {
-    Card temp;
-    for (int i = 1; i < cards.size(); i++) {
-      for (int j = 0; j < cards.size() - 1; j++) {
-        if (cards.get(j).isLowerAsLowTen(cards.get(j + 1))) {
-          temp = cards.get(j);
-          cards.set(j, cards.get(j + 1));
-          cards.set(j + 1, temp);
-        }
-      }
-    }
-  }
-
-  public void sortCardsByColour(ArrayList<Card> cards) {
-    Card temp;
-    for (int i = 0; i < cards.size(); i++) {
-      for (int j = 0; j < cards.size() - 1; j++) {
-        if (cards.get(j).getColour().compareColourIntern(cards.get(j + 1).getColour()) < 0) {
-          temp = cards.get(i);
-          cards.set(j, cards.get(j + 1));
-          cards.set(j + 1, temp);
-        }
-      }
-    }
-  }
+  /**
+   * Sorts the hand depending on the playMode by seperating the hand in jacks(if it's not
+   * null(-ouvert)) and then in the different colours then orders different colours by number and
+   * puts them back together in the right order (again depending on the Playmode)
+   * 
+   * uses addToHand, sortCardsValueNorm, sortCardsValueLowTen, sortCardsByColour
+   * 
+   * @author awesch
+   * @param hand
+   */
+  // public void sortHand(ArrayList<Card> hand) {
+  // // possible different orders : colour, grand, null(nullouvert)
+  //
+  // int counter = 0; // saves nr of jacks/ nr of already sorted cards
+  // ArrayList<Card> jacks = new ArrayList<Card>();
+  //
+  // // first step: jacks at the beginning
+  // if (this.ps.getPlayMode() == PlayMode.COLOUR | this.ps.getPlayMode() == PlayMode.GRAND
+  // | this.ps.getPlayMode() == null) {
+  // Card temp;
+  // for (int i = 0; i < hand.size(); i++) {
+  // if (hand.get(i).getNumber() == Number.JACK) {
+  // jacks.add(hand.get(i));
+  // temp = hand.get(counter);
+  // hand.set(counter, hand.get(i));
+  // hand.set(i, temp);
+  // counter++;
+  // }
+  // }
+  //
+  // }
+  //
+  // this.sortCardsByColour(jacks);
+  //
+  //
+  // // seperate different colours
+  // ArrayList<Card> clubs = new ArrayList<Card>();
+  // ArrayList<Card> spades = new ArrayList<Card>();
+  // ArrayList<Card> hearts = new ArrayList<Card>();
+  // ArrayList<Card> diamonds = new ArrayList<Card>();
+  //
+  // for (int i = counter; i < hand.size(); i++) {
+  // Colour c = hand.get(i).getColour();
+  // switch (c) {
+  // case CLUBS:
+  // clubs.add(hand.get(i));
+  // break;
+  // case SPADES:
+  // spades.add(hand.get(i));
+  // break;
+  // case HEARTS:
+  // hearts.add(hand.get(i));
+  // break;
+  // case DIAMONDS:
+  // diamonds.add(hand.get(i));
+  // break;
+  // }
+  // }
+  //
+  // // sort different colours depending on the Playmode by their numbers
+  // if (this.ps.getPlayMode() == PlayMode.COLOUR | this.ps.getPlayMode() == PlayMode.GRAND
+  // | this.ps.getPlayMode() == null) {
+  // this.sortCardsValueNorm(clubs);
+  // this.sortCardsValueNorm(spades);
+  // this.sortCardsValueNorm(hearts);
+  // this.sortCardsValueNorm(diamonds);
+  // } else if (this.ps.getPlayMode() == PlayMode.NULL
+  // | this.ps.getPlayMode() == PlayMode.NULLOUVERT) {
+  // this.sortCardsValueLowTen(clubs);
+  // this.sortCardsValueLowTen(spades);
+  // this.sortCardsValueLowTen(hearts);
+  // this.sortCardsValueLowTen(diamonds);
+  // }
+  //
+  // // put the different stacks back together in the right order
+  // // first: jacks - filled only if playmode colour grand or null(before mode is chosen)
+  // this.addToHand(jacks, hand, 0, jacks.size());
+  //
+  // // second: trump - only if PlayMode colour
+  // if (this.ps.getPlayMode() == PlayMode.COLOUR) {
+  // Colour trump = this.ps.getTrump();
+  // switch (trump) {
+  // case CLUBS:
+  // this.addToHand(clubs, hand, counter, clubs.size());
+  // counter += clubs.size();
+  // break;
+  // case SPADES:
+  // this.addToHand(spades, hand, counter, spades.size());
+  // counter += spades.size();
+  // break;
+  // case HEARTS:
+  // this.addToHand(hearts, hand, counter, hearts.size());
+  // counter += hearts.size();
+  // break;
+  // case DIAMONDS:
+  // this.addToHand(diamonds, hand, counter, diamonds.size());
+  // counter += diamonds.size();
+  // break;
+  // }
+  // }
+  //
+  //
+  // // add all other colours (if not trump)
+  // if (this.ps.getTrump() != Colour.CLUBS) {
+  // this.addToHand(clubs, hand, counter, clubs.size());
+  // counter += clubs.size();
+  // }
+  //
+  // if (this.ps.getTrump() != Colour.SPADES) {
+  // this.addToHand(spades, hand, counter, spades.size());
+  // counter += spades.size();
+  // }
+  //
+  // if (this.ps.getTrump() != Colour.HEARTS) {
+  // this.addToHand(hearts, hand, counter, hearts.size());
+  // counter += hearts.size();
+  // }
+  //
+  // if (this.ps.getTrump() != Colour.DIAMONDS) {
+  // this.addToHand(diamonds, hand, counter, diamonds.size());
+  // counter += diamonds.size();
+  // }
+  //
+  // }
+  //
+  // /**
+  // * Adds arrayList to ArrayList, created for sortHand(s)
+  // *
+  // * @author awesch
+  // * @param cardsToAdd
+  // * @param hand
+  // * @param start
+  // * @param length
+  // */
+  // public void addToHand(ArrayList<Card> cardsToAdd, ArrayList<Card> hand, int start, int length)
+  // {
+  // int counter = 0;
+  // for (int i = start; i < start + length; i++) {
+  // hand.set(i, cardsToAdd.get(counter));
+  // counter++;
+  // }
+  // }
+  //
+  // /**
+  // * sorts cards by its value for normal values (high ten), created for sortHand(s)
+  // *
+  // * @author awesch
+  // * @param cards
+  // */
+  // public void sortCardsValueNorm(ArrayList<Card> cards) {
+  // Card temp;
+  // for (int i = 1; i < cards.size(); i++) {
+  // for (int j = 0; j < cards.size() - 1; j++) {
+  // if (cards.get(j).isLowerAsNorm(cards.get(j + 1))) {
+  // temp = cards.get(j);
+  // cards.set(j, cards.get(j + 1));
+  // cards.set(j + 1, temp);
+  // }
+  // }
+  // }
+  // }
+  //
+  // /**
+  // * sorts cards by its value for a low ten playMode, created for sortHand(s)
+  // *
+  // * @author awesch
+  // * @param cards
+  // */
+  // public void sortCardsValueLowTen(ArrayList<Card> cards) {
+  // Card temp;
+  // for (int i = 1; i < cards.size(); i++) {
+  // for (int j = 0; j < cards.size() - 1; j++) {
+  // if (cards.get(j).isLowerAsLowTen(cards.get(j + 1))) {
+  // temp = cards.get(j);
+  // cards.set(j, cards.get(j + 1));
+  // cards.set(j + 1, temp);
+  // }
+  // }
+  // }
+  // }
+  //
+  // /**
+  // * sorts cards bei their colour, order: clubs, spades, hearts, diamonds. created for sortHand(s)
+  // *
+  // * @author awesch
+  // * @param cards
+  // */
+  // public void sortCardsByColour(ArrayList<Card> cards) {
+  // Card temp;
+  // for (int i = 0; i < cards.size(); i++) {
+  // for (int j = 0; j < cards.size() - 1; j++) {
+  // if (cards.get(j).getColour().compareColourIntern(cards.get(j + 1).getColour()) < 0) {
+  // temp = cards.get(i);
+  // cards.set(j, cards.get(j + 1));
+  // cards.set(j + 1, temp);
+  // }
+  // }
+  // }
+  // }
 
   public PlayState getPlayState() {
     return this.ps;
