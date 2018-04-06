@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="308.0" layoutY="318.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../resources/vonaussen.jpg" />
+            <Image url="@../../resources/vonaussen.png" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TAN" height="632.0" layoutX="477.0" layoutY="96.0" opacity="0.55" stroke="WHITE" strokeType="INSIDE" style="-fx-ackground-color: tan;" width="795.0" AnchorPane.leftAnchor="477.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="96.0" />

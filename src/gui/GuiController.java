@@ -50,7 +50,7 @@ public class GuiController extends Application {
 		Stage window = new Stage();
 
 		try {
-			root = (AnchorPane) FXMLLoader.load(getClass().getResource("ChooseGame.fxml"));
+			root = (AnchorPane) FXMLLoader.load(getClass().getResource("GameMode.fxml"));
 			Image jcc = new Image(getClass().getResource("/Jclubs.jpg").toExternalForm());
 
 			profilepic = new ImageView(jcc);
