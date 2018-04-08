@@ -38,7 +38,7 @@
                   <Font size="27.0" />
                </font>
             </MenuButton>
-            <MenuButton layoutX="10.0" layoutY="31.0" lineSpacing="20.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="343.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Diificult" textFill="WHITE">
+            <MenuButton layoutX="10.0" layoutY="31.0" lineSpacing="20.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="343.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Difficult" textFill="WHITE">
                <items>
                   <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-text-fill: white;" text="Easy" />
                   <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
