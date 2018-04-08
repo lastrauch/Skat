@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HelpDealController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="282.0" layoutY="253.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../resources/bar.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="33.0" layoutY="22.0" opacity="0.95" prefHeight="743.0" prefWidth="1225.0" styleClass="background" stylesheets="@../../resources/mystyle.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <JFXButton fx:id="back" buttonType="RAISED" layoutX="1010.0" layoutY="686.0" onAction="#back" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXTextArea layoutX="27.0" layoutY="190.0" prefHeight="265.0" prefWidth="1176.0" style="-fx-text-fill: white;" text="The first dealer is chosen at random; thereafter the turn to deal rotates clockwise. The dealer shuffles and the player to dealer's right cuts. The dealer deals a batch of three cards to each player, then two cards face down in the centre of the table to form the skat, then a batch of four cards to each player, and finally another batch of three cards each. If there are four players at the table, the dealer deals to the other three players only, and takes no further part in the hand." unFocusColor="PERU">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </JFXTextArea>
+            <Label layoutX="520.0" layoutY="58.0" text="The Deal" textFill="WHITE" underline="true" AnchorPane.leftAnchor="520.0" AnchorPane.rightAnchor="520.0">
+               <font>
+                  <Font name="System Bold" size="42.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
