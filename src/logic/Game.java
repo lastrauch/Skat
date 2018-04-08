@@ -16,13 +16,12 @@ public class Game {
   /**
    * constructor #1
    * 
+   * @author sandfisc
    * @param group
    */
   public Game(Player[] group) {
     this.gameSettings = new GameSettings();
     this.plays = new Play[this.gameSettings.getNrOfPlays()];
-    // i would not initiate them here - in play!
-    // this.auctions = new Auction[this.gameSettings.getNrOfPlays()];
     this.initializeGroupSettings(group);
     this.runGame();
   }
@@ -30,6 +29,7 @@ public class Game {
   /**
    * constructor #2
    * 
+   * @author sandfisc
    * @param group
    * @param countRule
    * @param nrOfPlays
@@ -42,7 +42,6 @@ public class Game {
       e.printStackTrace();
     }
     this.plays = new Play[nrOfPlays];
-    // this.auctions = new Auction[nrOfPlays];
     this.initializeGroupSettings(group);
     this.runGame();
   }
@@ -50,6 +49,7 @@ public class Game {
   /**
    * defines group settings for the start, some settings have to be updated during the game *
    * 
+   * @author sandfisc
    * @param group
    */
   public void initializeGroupSettings(Player[] group) {
@@ -62,6 +62,8 @@ public class Game {
 
   /**
    * the scores of all players are initialized with 0 in the beginning
+   * 
+   * @author sandfisc
    */
   public void initializeGameScores() {
     this.gameScores = new int[this.group.length];
@@ -73,6 +75,8 @@ public class Game {
 
   /**
    * defines in which order players "sitting on a table" (random)
+   * 
+   * @author sandfisc
    */
   public void defineSeatingList(Player[] group) {
     int randomIndex;
@@ -89,8 +93,9 @@ public class Game {
 
   /**
    * here is where the magic/game happens
+   * 
+   * @author sandfisc
    */
-  // #kackhaufen
   public void runGame() {
     Player[] playingGroup = new Player[3]; // always three players who are actually playing
 
@@ -122,7 +127,6 @@ public class Game {
       // }
       //
       try {
-//        this.auctions[i] = new Auction(this.sortPlayingGroup(playingGroup));
         this.plays[i] = new Play(this.sortPlayingGroup(playingGroup));
         this.plays[i].setGameSettings(this.gameSettings);
       } catch (LogicException e) {
@@ -136,10 +140,9 @@ public class Game {
   }
 
   /**
-   * sorts a group (for my vegan honey): index 0 = forehand, index 1 = middlehand, index 2 =
-   * rarehand
+   * sorts a group: index 0 = forehand, index 1 = middlehand, index 2 = rarehand
    * 
-   * (thank you my honey <3<3)
+   * @author sandfisc
    * @param group
    * @return sorted group
    * @throws LogicException
@@ -164,12 +167,15 @@ public class Game {
 
   /**
    * setter: pointer on forehand
+   * 
+   * @author sandfisc
    */
   public void setPointerF(int pointer) {
     this.pointerF = pointer;
   }
 
   /**
+   * @author sandfisc
    * @param index: is the index of the player whose score has to be updated
    * @param addThis: points (goals of the play)
    */
@@ -180,6 +186,7 @@ public class Game {
   /**
    * sets the index of the player who plays the first card in the next game
    * 
+   * @author sandfisc
    * @param index
    */
   public void setPlayerFirstCard(int index) {
@@ -190,21 +197,23 @@ public class Game {
   public int[] getLostGames() {
     return this.lostGames;
   }
-  
+
   public void setLostGames(int[] lostGames) {
     this.lostGames = lostGames;
   }
-  
+
   public int[] getWonGames() {
     return this.lostGames;
   }
-  
+
   public void setWonGames(int[] lostGames) {
     this.lostGames = lostGames;
   }
-  
+
   /**
    * position (forehand, middlehand, rearhand) changes ater every play
+   * 
+   * @author sandfisc
    */
   public void updatePosition() {
     this.group[this.pointerF].setPosition(Position.FOREHAND);
@@ -216,7 +225,7 @@ public class Game {
       this.group[((this.pointerF + 3) % this.group.length)].setPosition(Position.DEALER);
     }
   }
-
+  
 
   public static void main(String[] args) {
 

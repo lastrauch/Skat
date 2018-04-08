@@ -13,11 +13,12 @@ public class Play {
   private int indexWinnerLastTrick;
   // private int indexWinner; // winner of play
   // well we could have two winners right? thougt boolean singlePlayer could be better, what do you
-  // think honey?
+  // think honey? ***** i like that :*
   private PlayState ps;
   private final int nrTricks = 10;
   private GameSettings gameSettings;
   private boolean singlePlayerWins;
+  private int value; // value of the play 
 
   // needs a 3 Player Array
   public Play(Player[] group) {
@@ -35,6 +36,10 @@ public class Play {
     return this.gameSettings;
   }
 
+  public int getValue() {
+    return this.value;
+  }
+  
   public void setGameSettings(GameSettings gameSettings) {
     this.gameSettings = gameSettings;
   }
@@ -168,8 +173,6 @@ public class Play {
       System.out.println();
     }
 
-    this.calculateWinner();
-
   }
 
   // to test stuff
@@ -219,6 +222,7 @@ public class Play {
 
     // check if card serves first played card
     if (this.checkIfServedColour(card, firstCard)) {
+      
       return true;
 
     }
@@ -245,7 +249,8 @@ public class Play {
 
     if (servedCard.getColour() == this.ps.getTrump() || servedCard.getNumber() == Number.JACK) {
       // first card is trump
-      if (servingCard.getColour() == this.ps.getTrump() || servingCard.getNumber() == Number.JACK) {
+      if (servingCard.getColour() == this.ps.getTrump()
+          || servingCard.getNumber() == Number.JACK) {
         return true;
       }
     } else {
@@ -751,17 +756,29 @@ public class Play {
   public PlayState getPlayState() {
     return this.ps;
   }
-
-  public Trick getLastTrick() {
-    Trick trick = new Trick(this.ps);
-    if (this.currentTrick > 0) {
-      trick = this.tricks[this.currentTrick - 1];
+  
+ /**
+  * calculates the value of the game
+  * 
+  * @author sandfisc
+  * @throws LogicException
+  */
+  public void calculateValue() throws LogicException {
+    if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
+      this.value = this.calculateScoreUpdateBierlachs();
+    }else if (this.gameSettings.getCountRule() == CountRule.SEEGERFABIAN){
+      this.value = this.calculateScoreSeegerfabian();
+    }else {
+      throw new LogicException("Calculating the score update was not possible (no countRule found)");
     }
-    return trick;
   }
 
-  public Trick getCurrentTrick() {
-    return this.tricks[this.currentTrick];
+  public int calculateScoreUpdateBierlachs() {    
+    return 0;
+  }
+  
+  public int calculateScoreSeegerfabian() {
+    return 0;
   }
 
   public static void main(String[] args) {
