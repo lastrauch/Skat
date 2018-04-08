@@ -21,4 +21,9 @@ public class ChooseGameController {
 		main.displayLobbyOnline();
 	}
 
+	@FXML
+	public void settings() {
+		main.displaySettings();
+	}
+
 }

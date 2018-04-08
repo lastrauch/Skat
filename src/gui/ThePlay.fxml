@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="282.0" layoutY="253.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../resources/bar.png" />
+         </image>
+      </ImageView>
+      <TabPane layoutX="27.0" layoutY="25.0" prefHeight="729.0" prefWidth="1208.0" styleClass="background" stylesheets="@../../resources/mystyle.css" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab style="-fx-background-color: tan;" text="6. The Play">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextArea editable="false" layoutX="41.0" layoutY="158.0" prefHeight="475.0" prefWidth="1124.0" style="-fx-text-fill: white;" text="Play is clockwise. No matter who is the declarer, forehand always leads to the first trick. Players must follow suit if they can. A player with no card of the suit led may play any card. Note that in Suit and Grand games the jacks belong to the trump suit, not to the suits marked on them. For example if hearts are trumps, the jack of clubs is the highest heart, and has nothing whatever to do with the club suit. A trick is won by the highest card of the suit led, unless it contains a trump, in which case the highest trump wins it. The winner of a trick leads to the next. " unFocusColor="PERU">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </JFXTextArea>
+                        <Label layoutX="515.0" layoutY="59.0" text="The Play" textFill="WHITE" underline="true">
+                           <font>
+                              <Font name="System Bold" size="44.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab style="-fx-background-color: tan;" text="6.1 Suit/Grand Game">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextArea editable="false" layoutX="41.0" layoutY="256.0" prefHeight="365.0" prefWidth="1103.0" style="-fx-text-fill: white;" text="If you are declarer in a Suit or Grand game you win if the cards in your tricks plus the skat containat least 61 card points. The opponents win if their combined tricks contain at least 60 card points. " unFocusColor="PERU">
+                           <font>
+                              <Font size="33.0" />
+                           </font>
+                        </JFXTextArea>
+                        <Label layoutX="425.0" layoutY="103.0" text="Suit/Grand Game" textFill="WHITE" underline="true">
+                           <font>
+                              <Font name="System Bold" size="44.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab style="-fx-background-color: tan;" text="6.2 Schneider/Schwarz">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextArea editable="false" layoutX="14.0" layoutY="188.0" prefHeight="399.0" prefWidth="1151.0" style="-fx-text-fill: white;" text="If the declarer's opponents take 30 points or fewer in tricks, they are Schneider. If they take 31 ormore they are said to be out of Schneider. If they take no tricks at all, they are Schwarz. The sameapplies to the declarer - as declarer, you are Schneider if you win 30 card points or less includingthe skat, and Schwarz if you lose every trick. Note that Schwarz depends on tricks not points - if aside wins just one trick and it has no card points in it, that is sufficient to get them out of Schwarz. " unFocusColor="PERU">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXTextArea>
+                        <Label layoutX="408.0" layoutY="67.0" text="Schneider/Schwarz" textFill="WHITE" underline="true">
+                           <font>
+                              <Font name="System Bold" size="44.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab style="-fx-background-color: tan;" text="6.3 Null/Null Ouvert">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextArea layoutX="27.0" layoutY="208.0" prefHeight="408.0" prefWidth="1147.0" style="-fx-text-fill: white;" text="If you are declarer in Null or Null Ouvert, you win the game if you manage to lose every trick. Ifyou take a trick, you have lost and the play of the hand ceases at that point.If you are declarer in an Open (Ouvert) contract - i.e. you are playing Null Ouvert or haveannounced Open in a Suit or Grand contract - you have to spread out your hand face up on the tablebefore the lead to the first trick. Play then proceeds normally, and you play from your exposed hand.The opponents are not allowed to discuss tactics. " unFocusColor="PERU">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </JFXTextArea>
+                        <Label layoutX="431.0" layoutY="79.0" text="Null/Null Ouvert" textFill="WHITE" underline="true">
+                           <font>
+                              <Font name="System Bold" size="44.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

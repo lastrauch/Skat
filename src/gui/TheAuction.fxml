@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="282.0" layoutY="253.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../resources/bar.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="33.0" layoutY="22.0" opacity="0.95" prefHeight="743.0" prefWidth="1225.0" styleClass="background" stylesheets="@../../resources/mystyle.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <JFXButton buttonType="RAISED" layoutX="27.0" layoutY="20.0" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXTextArea editable="false" layoutX="14.0" layoutY="120.0" prefHeight="85.0" prefWidth="1176.0" style="-fx-text-fill: white;" text="Each bid is a number which is the value in game points of some possible game (see Section 7 forcalculation of game values). The possible bids are therefore 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, 44, 45, 46, 48, 50, 54, 55, 59, 60, etc. If you bid or accept a bid it means you are prepared to play a contract of at least that value in game points." unFocusColor="#fffdfd">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextArea>
+            <Label layoutX="489.0" layoutY="20.0" prefHeight="62.0" prefWidth="253.0" text="The Auction" textFill="WHITE" underline="true" AnchorPane.leftAnchor="489.0" AnchorPane.rightAnchor="488.0">
+               <font>
+                  <Font name="System Bold" size="42.0" />
+               </font>
+            </Label>
+            <JFXTextArea editable="false" layoutX="14.0" layoutY="222.0" prefHeight="124.0" prefWidth="1176.0" style="-fx-text-fill: white;" text="The player to the dealer's left is called forehand (F), the player to forehand's left is middlehand (M),and the player to middlehand's left is rearhand (R). If there are three players at the table R is the dealer; if there are four R is to dealer's right. Throughout the bidding F is senior to M who is senior to R. The principle is that a senior player only has to equal a junior player's bid to win the auction, whereas a junior player has to bid higher than a senior player to win. " unFocusColor="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextArea>
+            <JFXTextArea editable="false" layoutX="14.0" layoutY="357.0" prefHeight="148.0" prefWidth="1176.0" style="-fx-text-fill: white;" text="The first part of the auction takes place between F and M. M speaks first, either passing or bidding a number. There is no advantage in making a higher than necessary bid so M will normally either pass or begin with the lowest bid: 18. If M bids a number, F can either give up the chance to be declarer by saying &quot;pass&quot; or compete by saying &quot;yes&quot;, which means that F bids the same number that M just bid. If F says &quot;yes&quot;, M can say &quot;pass&quot;, or continue the auction with a higher bid, to which F will again answer &quot;yes&quot; or &quot;pass&quot;. This continues until either F or M drops out of the auction by passing- once having passed you get no further opportunity to bid on that hand. " unFocusColor="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextArea>
+            <JFXTextArea editable="false" layoutX="14.0" layoutY="514.0" prefHeight="117.0" prefWidth="1176.0" style="-fx-text-fill: white;" text="The second part of the auction is similar to the first part, but takes place between R and the survivor of the first part (i.e. whichever of F and M did not pass). As the junior player, R either passes or bids a succession of numbers, the first of which must be higher than any number mentioned in the first part of the auction. To each number bid by R, the survivor must answer &quot;yes&quot; or &quot;pass&quot;. The winner of the second part of the auction becomes the declarer, and the bid is the last number the declarer said or accepted. " unFocusColor="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextArea>
+            <JFXTextArea editable="false" layoutX="14.0" layoutY="643.0" prefHeight="73.0" prefWidth="1176.0" style="-fx-text-fill: white;" text="If both M and R pass without having bid, then F can either be declarer at the lowest bid (18), or can throw in the cards without play. If the cards are thrown in there is no score for the hand, and the next dealer deals. " unFocusColor="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextArea>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

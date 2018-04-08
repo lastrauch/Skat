@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="282.0" layoutY="253.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../resources/bar.png" />
+         </image>
+      </ImageView>
+      <TabPane layoutX="33.0" layoutY="33.0" prefHeight="732.0" prefWidth="1220.0" styleClass="background" stylesheets="@../../resources/mystyle.css" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab style="-fx-background-color: tan; -fx-font-color: white;" text="5.1 Skat Game">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextArea editable="false" layoutX="11.0" layoutY="184.0" prefHeight="130.0" prefWidth="1198.0" style="-fx-text-fill: white;" text="If you win the bidding you are entitled to pick up the two skat cards, add them to your hand without showing them to the other players, and discard any two cards face down. The cards discarded may include one or both of the cards picked up, and their value counts along with your tricks. Having discarded, you declare your game. If you looked at the skat, your contract is a skat game. There are seven possibilities:" unFocusColor="PERU">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </JFXTextArea>
+                        <JFXTextField layoutX="19.0" layoutY="323.0" prefHeight="48.0" prefWidth="357.0" style="-fx-text-fill: white;" text="Diamonds, Hearts, Spades, Clubs" unFocusColor="PERU">
+                           <font>
+                              <Font name="System Bold" size="22.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField editable="false" layoutX="352.0" layoutY="323.0" prefHeight="48.0" prefWidth="855.0" style="-fx-text-fill: white;" text=" (in which the named suit is trumps and the declarer tries to take at least 61 card points), " unFocusColor="PERU">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField layoutX="19.0" layoutY="379.0" prefHeight="48.0" prefWidth="72.0" style="-fx-text-fill: white;" text="Grand" unFocusColor="PERU">
+                           <font>
+                              <Font name="System Bold" size="22.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField editable="false" layoutX="91.0" layoutY="379.0" prefHeight="48.0" prefWidth="895.0" style="-fx-text-fill: white;" text="(in which the jacks are the only trumps and the declarer tries to take at least 61 card points), " unFocusColor="PERU">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField editable="false" layoutX="19.0" layoutY="438.0" prefHeight="48.0" prefWidth="56.0" style="-fx-text-fill: white;" text="Null" unFocusColor="PERU">
+                           <font>
+                              <Font name="System Bold" size="22.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField editable="false" layoutX="65.0" layoutY="438.0" prefHeight="31.0" prefWidth="714.0" style="-fx-text-fill: white;" text="(in which there are no trumps and the declarer tries to lose every trick), " unFocusColor="PERU">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField layoutX="19.0" layoutY="501.0" prefHeight="48.0" prefWidth="128.0" style="-fx-text-fill: white;" text="Null Ouvert" unFocusColor="PERU">
+                           <font>
+                              <Font name="System Bold" size="22.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField editable="false" layoutX="142.0" layoutY="501.0" prefHeight="48.0" prefWidth="593.0" style="-fx-text-fill: white;" text="(Open Null) (like Null but with declarer's cards are exposed)." unFocusColor="PERU">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </JFXTextField>
+                        <Label layoutX="499.0" layoutY="67.0" text="Skat Game" textFill="WHITE" underline="true">
+                           <font>
+                              <Font name="System Bold" size="44.0" />
+                           </font>
+                        </Label>
+                        <JFXButton buttonType="RAISED" layoutX="999.0" layoutY="628.0" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab style="-fx-background-color: tan;" text="5.2 Hand Game">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextArea editable="false" layoutX="36.0" layoutY="241.0" prefHeight="212.0" prefWidth="1149.0" style="-fx-text-fill: white;" text="You may choose not to look at the skat cards, but to play with the 10 cards you were originally dealt. If you don't look at the skat you are playing a hand game, and again there are seven possibilities: Diamonds Hand, Hearts Hand, Spades Hand, Clubs Hand, Grand Hand, Null Hand and Null Ouvert Hand. In this case no one must look at the skat cards until after the play. " unFocusColor="PERU">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </JFXTextArea>
+                        <Label layoutX="489.0" layoutY="90.0" text="Hand Game" textFill="WHITE" underline="true">
+                           <font>
+                              <Font name="System Bold" size="44.0" />
+                           </font>
+                        </Label>
+                        <JFXButton buttonType="RAISED" layoutX="1004.0" layoutY="630.0" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab style="-fx-background-color: tan;" text="5.3 Increasing the value of the game">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextArea editable="false" layoutX="41.0" layoutY="226.0" prefHeight="315.0" prefWidth="1139.0" style="-fx-text-fill: white;" text="If you are declarer in a Suit Hand or Grand Hand game, you can increase the value of the game by announcing Schneider (undertaking to win at least 90 card points), or Schwarz (undertaking to win all the tricks), or Open (Ouvert) (undertaking to win all the tricks with your cards exposed). Note that the only Open game you can play without playing Hand is Null Ouvert, every other Open game implies a Hand game as well. Such announcements must be made before the lead to the first trick. These announcements are not allowed if declarer has looked at the skat. Also (obviously) they do not apply in Null games. " unFocusColor="PERU">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXTextArea>
+                        <Label layoutX="271.0" layoutY="59.0" text="Increasing the value of the game" textFill="WHITE" underline="true" AnchorPane.leftAnchor="271.0" AnchorPane.rightAnchor="271.0">
+                           <font>
+                              <Font name="System Bold" size="44.0" />
+                           </font>
+                        </Label>
+                        <JFXButton buttonType="RAISED" layoutX="1005.0" layoutY="627.0" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab style="-fx-background-color: tan;" text="Skat Games (Summary Table)">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="442.0" fitWidth="837.0" layoutX="201.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../resources/skatgametabelle.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="316.0" layoutY="57.0" text="Skat Games (Summary Table)" textFill="WHITE" underline="true">
+                           <font>
+                              <Font name="System Bold" size="44.0" />
+                           </font>
+                        </Label>
+                        <JFXButton buttonType="RAISED" layoutX="23.0" layoutY="28.0" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

@@ -22,26 +22,26 @@
             <Font name="System Bold" size="37.0" />
          </font>
       </Label>
-      <VBox layoutX="740.0" layoutY="284.0" prefHeight="317.0" prefWidth="297.0" spacing="35.0" style="-fx-border-color: white;">
+      <VBox layoutX="740.0" layoutY="284.0" prefHeight="317.0" prefWidth="297.0" spacing="35.0">
          <children>
-            <Label lineSpacing="20.0" prefHeight="95.0" prefWidth="295.0" style="-fx-border-radius: 0.3;" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" textFill="WHITE">
+            <Label alignment="CENTER" lineSpacing="20.0" prefHeight="57.0" prefWidth="334.0" style="-fx-border-radius: 0.3;" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Koenig$4" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <MenuButton lineSpacing="60.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="334.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Computer 1" textFill="WHITE">
+            <MenuButton lineSpacing="60.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="334.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Easy" textFill="WHITE">
               <items>
-                <MenuItem mnemonicParsing="false" text="Easy" />
-                <MenuItem mnemonicParsing="false" text="Difficult" />
+                <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-background-radius: 20; -fx-prefWdith: 334; -fx-prefHight: 47; -fx-text-fill: white;" text="Easy" />
+                <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
               </items>
                <font>
                   <Font size="27.0" />
                </font>
             </MenuButton>
-            <MenuButton layoutX="10.0" layoutY="31.0" lineSpacing="20.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="343.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Computer 2" textFill="WHITE">
+            <MenuButton layoutX="10.0" layoutY="31.0" lineSpacing="20.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="343.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Diificult" textFill="WHITE">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Easy" />
-                  <MenuItem mnemonicParsing="false" text="Difficult" />
+                  <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-text-fill: white;" text="Easy" />
+                  <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
                </items>
                <font>
                   <Font size="27.0" />
@@ -49,8 +49,8 @@
             </MenuButton>
             <MenuButton layoutX="10.0" layoutY="31.0" lineSpacing="20.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="315.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Disabled" textFill="WHITE">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Easy" />
-                  <MenuItem mnemonicParsing="false" text="Difficult" />
+                  <MenuItem mnemonicParsing="false" style="-fx-text-fill: white; -fx-background-color: peru;" text="Easy" />
+                  <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
                </items>
                <font>
                   <Font size="27.0" />
@@ -92,5 +92,10 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <JFXButton buttonType="RAISED" layoutX="1083.0" layoutY="144.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Start Game" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

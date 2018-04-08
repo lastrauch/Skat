@@ -13,90 +13,141 @@ import javafx.stage.Stage;
 
 public class GuiController extends Application {
 
-	private Stage primaryStage;
+	private static Stage mprimaryStage;
 	private AnchorPane root;
-	@FXML
-	private ImageView jclubs;
-	@FXML
-	private ImageView jdiamonds;
-	@FXML
-	private ImageView jhearts;
-	@FXML
-	private ImageView jspades;
-	@FXML
-	private AnchorPane ap;
-	@FXML
-	private ImageView profilepic;
+
+	private static InGameController inGameCon;
+	private AnchorPane inGame = null;
+
+	private static LoginController loginCon;
+	private AnchorPane login = null;
+
+	private static ChooseGameController gameModeCon;
+	private AnchorPane gameMode = null;
+
+	private static LobbyLocalController lobbyLocalCon;
+	private AnchorPane lobbyLocal = null;
+
+	private static LobbyOnlineController lobbyOnlineCon;
+	private AnchorPane lobbyOnline = null;
+
+	private static AccountSettingsController accountSettingsCon;
+	private AnchorPane accountSettings = null;
+
+	private static BettingController bettingCon;
+	private AnchorPane betting = null;
+
+	private static HelpController helpCon;
+	private AnchorPane help = null;
+
+	private static SettingsController settingsCon;
+	private AnchorPane settings = null;
 
 	@FXML
 	private ImageView c1;
 
-	public Stage getStage() {
-		return primaryStage;
-	}
-
 	@Override
 	public void start(Stage primaryStage) {
+		mprimaryStage = primaryStage;
 		try {
-			this.primaryStage = primaryStage;
-			mainWindow();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("Login.fxml"));
+			login = (AnchorPane) loader.load();
 
-		} catch (Exception e) {
+			Scene loginScene = new Scene(login);
+
+			loginCon = loader.getController();
+
+			mprimaryStage.setScene(loginScene);
+			mprimaryStage.show();
+
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void displayChooseGame() {
-		Stage window = new Stage();
-
 		try {
-			root = (AnchorPane) FXMLLoader.load(getClass().getResource("GameMode.fxml"));
-			Image jcc = new Image(getClass().getResource("/Jclubs.jpg").toExternalForm());
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("GameMode.fxml"));
+			this.gameMode = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(gameMode);
 
-			profilepic = new ImageView(jcc);
-			profilepic.setFitHeight(65);
-			profilepic.setFitWidth(65);
-			profilepic.setLayoutX(895);
-			profilepic.setLayoutY(196.5);
-			root.getChildren().add(profilepic);
-
+			gameModeCon = loader.getController();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		Scene scene = new Scene(root);
-		window.setScene(scene);
-		window.showAndWait();
-		System.exit(0);
 	}
 
 	public void displayLobbyLocal() {
-		Stage window = new Stage();
 		try {
-			root = (AnchorPane) FXMLLoader.load(getClass().getResource("LobbyLocal.fxml"));
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("LobbyLocal.fxml"));
+			this.lobbyLocal = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(lobbyLocal);
+
+			lobbyLocalCon = loader.getController();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Scene scene = new Scene(root);
-		window.setScene(scene);
-		window.showAndWait();
-		System.exit(0);
 	}
 
 	public void displayLobbyOnline() {
-		Stage window = new Stage();
 		try {
-			root = (AnchorPane) FXMLLoader.load(getClass().getResource("LobbyOnline.fxml"));
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("LobbyOnline.fxml"));
+			this.lobbyOnline = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(lobbyOnline);
+
+			lobbyOnlineCon = loader.getController();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Scene scene = new Scene(root);
-		window.setScene(scene);
-		window.showAndWait();
-		System.exit(0);
+	}
+
+	public void displayAccountSettings() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("AccountSettings.fxml"));
+			this.settings = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(settings);
+
+			accountSettingsCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void displayBetting() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("Betting.fxml"));
+			this.betting = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(betting);
+
+			bettingCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void displayHelp() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("Help.fxml"));
+			this.help = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(help);
+
+			helpCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void displayInGame() {
@@ -137,47 +188,16 @@ public class GuiController extends Application {
 		// Mitte: Größe: 132:205; Layout: 590:44; Rotation: 14.9
 		// Unten: Größe: 132:205; Layout: 553:59; Rotation: 125
 
-		Stage window = new Stage();
 		try {
-			root = (AnchorPane) FXMLLoader.load(getClass().getResource("InGame.fxml"));
-			Image jcc = new Image(getClass().getResource("/Jclubs.png").toExternalForm());
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("InGame.fxml"));
 
-			c1 = new ImageView(jcc);
-			c1.setFitHeight(227);
-			c1.setFitWidth(182);
-			c1.setLayoutX(125);
-			c1.setLayoutY(527);
-			c1.setRotate(-17.4);
-			c1.setId("c1");
+			InGameController con = new InGameController(
+					new Image(getClass().getResource("/Jhearts.jpg").toExternalForm()));
+			loader.setController(con);
+			this.inGame = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(inGame);
 
-			root.getChildren().add(c1);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Scene scene = new Scene(root);
-		window.setScene(scene);
-		window.showAndWait();
-		System.exit(0);
-
-	}
-
-	public AnchorPane getAnchorPane() {
-		return root;
-	}
-
-	public void mainWindow() {
-		try {
-			FXMLLoader loader = new FXMLLoader(GuiController.class.getResource("Login.fxml"));
-			root = loader.load();
-
-			LoginController startCon = new LoginController();
-			startCon.setMain(this);
-
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -185,12 +205,18 @@ public class GuiController extends Application {
 
 	}
 
-	public ImageView getC1() {
-		return c1;
-	}
+	public void displaySettings() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("Settings.fxml"));
+			this.settings = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(settings);
 
-	public AnchorPane getPane() {
-		return root;
+			settingsCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
