@@ -168,6 +168,8 @@ public class Play {
       System.out.println();
     }
 
+    this.calculateWinner();
+
   }
 
   // to test stuff
@@ -217,7 +219,6 @@ public class Play {
 
     // check if card serves first played card
     if (this.checkIfServedColour(card, firstCard)) {
-      
       return true;
 
     }
@@ -244,8 +245,7 @@ public class Play {
 
     if (servedCard.getColour() == this.ps.getTrump() || servedCard.getNumber() == Number.JACK) {
       // first card is trump
-      if (servingCard.getColour() == this.ps.getTrump()
-          || servingCard.getNumber() == Number.JACK) {
+      if (servingCard.getColour() == this.ps.getTrump() || servingCard.getNumber() == Number.JACK) {
         return true;
       }
     } else {
@@ -752,6 +752,17 @@ public class Play {
     return this.ps;
   }
 
+  public Trick getLastTrick() {
+    Trick trick = new Trick(this.ps);
+    if (this.currentTrick > 0) {
+      trick = this.tricks[this.currentTrick - 1];
+    }
+    return trick;
+  }
+
+  public Trick getCurrentTrick() {
+    return this.tricks[this.currentTrick];
+  }
 
   public static void main(String[] args) {
     Player sandra = new Player("Sandra");

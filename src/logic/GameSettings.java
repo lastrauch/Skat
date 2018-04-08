@@ -2,28 +2,30 @@ package logic;
 
 public class GameSettings {
   private CountRule countRule;
-  private int NrOfPlayers;
-  private int NrOfPlays;
-  private boolean inableKontra;
+  private int nrOfPlayers;
+  private int nrOfPlays;
+  private boolean enableKontra;
+  private boolean enableLimitedTime;
+  private int timeLimit;
   // ... add all other possible settings
 
-  
+
   public GameSettings() {
     this.countRule = CountRule.BIERLACHS;
-    this.NrOfPlayers = 3;
-    this.NrOfPlays = 3;
-    this.inableKontra = false; 
+    this.nrOfPlayers = 3;
+    this.nrOfPlays = 3;
+    this.enableKontra = false;
   }
-  
+
   public GameSettings(CountRule countRule, int NrOfPlayers, int NrOfPlays) throws LogicException {
-    if (this.checkNrOfPlays(NrOfPlays)) {  
-      this.NrOfPlays = NrOfPlays;
-    }else {
+    if (this.checkNrOfPlays(NrOfPlays)) {
+      this.nrOfPlays = NrOfPlays;
+    } else {
       throw new LogicException("The number of plays is not possible!");
     }
     this.countRule = countRule;
-    this.NrOfPlayers = NrOfPlayers;
-    this.inableKontra = false;
+    this.nrOfPlayers = NrOfPlayers;
+    this.enableKontra = false;
   }
 
   public CountRule getCountRule() {
@@ -33,13 +35,13 @@ public class GameSettings {
   public void setCountRule(CountRule countRule) {
     this.countRule = countRule;
   }
-  
+
   public int getNrOfPlayers() {
-    return this.NrOfPlayers;
+    return this.nrOfPlayers;
   }
 
   public int getNrOfPlays() {
-    return this.NrOfPlays;
+    return this.nrOfPlays;
   }
 
   public boolean checkNrOfPlays(int NrOfPlays) {
