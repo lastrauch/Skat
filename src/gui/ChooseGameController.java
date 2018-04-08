@@ -26,4 +26,14 @@ public class ChooseGameController {
 		main.displaySettings();
 	}
 
+	@FXML
+	public void help() {
+		main.displayHelp();
+	}
+
+	@FXML
+	public void accountSettings() {
+		main.displayAccountSettings();
+	}
+
 }

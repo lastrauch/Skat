@@ -68,7 +68,7 @@
                            </stops>
                         </LinearGradient>
                      </ripplerFill></JFXButton>
-                  <JFXButton fx:id="newaccount" buttonType="RAISED" layoutX="401.0" layoutY="545.0" prefHeight="31.0" prefWidth="172.0" style="-fx-background-color: tan;" text="Create new account" textFill="WHITE">
+                  <JFXButton fx:id="newaccount" buttonType="RAISED" layoutX="401.0" layoutY="545.0" onAction="#neuerAccount" prefHeight="31.0" prefWidth="172.0" style="-fx-background-color: tan;" text="Create new account" textFill="WHITE">
                      <ripplerFill>
                         <LinearGradient endX="1.0" endY="1.0">
                            <stops>

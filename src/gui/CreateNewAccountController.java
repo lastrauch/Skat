@@ -2,11 +2,11 @@ package gui;
 
 import javafx.fxml.FXML;
 
-public class AccountSettingsController {
+public class CreateNewAccountController {
 
 	private GuiController main;
 
-	public AccountSettingsController() {
+	public CreateNewAccountController() {
 		this.main = new GuiController();
 	}
 

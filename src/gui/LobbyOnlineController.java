@@ -20,4 +20,19 @@ public class LobbyOnlineController {
 		main.displayInGame();
 	}
 
+	@FXML
+	public void settings() {
+		main.displaySettings();
+	}
+
+	@FXML
+	public void help() {
+		main.displayHelp();
+	}
+
+	@FXML
+	public void accountSettings() {
+		main.displayAccountSettings();
+	}
+
 }

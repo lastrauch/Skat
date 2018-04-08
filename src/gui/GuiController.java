@@ -22,6 +22,9 @@ public class GuiController extends Application {
 	private static LoginController loginCon;
 	private AnchorPane login = null;
 
+	private static CreateNewAccountController newAccCon;
+	private AnchorPane newAcc = null;
+
 	private static ChooseGameController gameModeCon;
 	private AnchorPane gameMode = null;
 
@@ -43,6 +46,36 @@ public class GuiController extends Application {
 	private static SettingsController settingsCon;
 	private AnchorPane settings = null;
 
+	private static CalValueController calValCon;
+	private AnchorPane calVal = null;
+
+	private static HelpAuctionController helpAucCon;
+	private AnchorPane helpAuc = null;
+
+	private static HelpCardsController helpCardsCon;
+	private AnchorPane helpCards = null;
+
+	private static HelpDealController helpDealCon;
+	private AnchorPane helpDeal = null;
+
+	private static HelpOverviewController helpOverCon;
+	private AnchorPane helpOver = null;
+
+	private static HelpPlayController helpPlayCon;
+	private AnchorPane helpPlay = null;
+
+	private static HelpPosController helpPosCon;
+	private AnchorPane helpPos = null;
+
+	private static HelpScoringController helpScorCon;
+	private AnchorPane helpScor = null;
+
+	private static HelpVariationsController helpVarCon;
+	private AnchorPane helpVar;
+
+	private static LeaderboardController leaderbordCon;
+	private AnchorPane leaderbord;
+
 	@FXML
 	private ImageView c1;
 
@@ -62,6 +95,20 @@ public class GuiController extends Application {
 			mprimaryStage.show();
 
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void displayCreateNewAccount() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("CreateNewAccount.fxml"));
+			this.newAcc = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(newAcc);
+
+			newAccCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -150,6 +197,132 @@ public class GuiController extends Application {
 		}
 	}
 
+	public void displayHelp_Overview() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("Overview.fxml"));
+			this.helpOver = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(helpOver);
+
+			helpOverCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void displayHelp_Cards() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("TheCards.fxml"));
+			this.helpCards = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(helpCards);
+
+			helpCardsCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void displayHelp_Deal() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("TheDeal.fxml"));
+			this.helpDeal = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(helpDeal);
+
+			helpDealCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void displayHelp_Auction() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("TheAuction.fxml"));
+			this.helpAuc = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(helpAuc);
+
+			helpAucCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void displayHelp_PossibleContracts() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("ThePossibleContracts.fxml"));
+			this.helpPos = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(helpPos);
+
+			helpPosCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void displayHelp_Play() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("ThePlay.fxml"));
+			this.helpPlay = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(helpPlay);
+
+			helpPlayCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void displayHelp_CalculateValue() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("CalValue.fxml"));
+			this.calVal = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(calVal);
+
+			calValCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void displayHelp_Scoring() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("TheScoring.fxml"));
+			this.helpScor = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(helpScor);
+
+			helpScorCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void displayHelp_Variations() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("Variations.fxml"));
+			this.helpVar = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(helpVar);
+
+			helpVarCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public void displayInGame() {
 		// Layout Links:
 		// Alle:
@@ -213,6 +386,20 @@ public class GuiController extends Application {
 			mprimaryStage.getScene().setRoot(settings);
 
 			settingsCon = loader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void displayLeaderboard() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("Leaderboard.fxml"));
+			this.leaderbord = (AnchorPane) loader.load();
+			mprimaryStage.getScene().setRoot(leaderbord);
+
+			leaderbordCon = loader.getController();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

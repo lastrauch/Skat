@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HelpPlayController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="282.0" layoutY="253.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -31,6 +31,11 @@
                               <Font name="System Bold" size="44.0" />
                            </font>
                         </Label>
+                        <JFXButton fx:id="back1" buttonType="RAISED" layoutX="987.0" layoutY="625.0" onAction="#back" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
                      </children>
                   </AnchorPane>
             </content>
@@ -49,6 +54,11 @@
                               <Font name="System Bold" size="44.0" />
                            </font>
                         </Label>
+                        <JFXButton fx:id="back2" buttonType="RAISED" layoutX="987.0" layoutY="628.0" onAction="#back" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
                      </children>
                   </AnchorPane>
             </content>
@@ -67,6 +77,11 @@
                               <Font name="System Bold" size="44.0" />
                            </font>
                         </Label>
+                        <JFXButton buttonType="RAISED" layoutX="994.0" layoutY="624.0" onAction="#back" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
                      </children>
                   </AnchorPane>
               </content>
@@ -85,6 +100,11 @@
                               <Font name="System Bold" size="44.0" />
                            </font>
                         </Label>
+                        <JFXButton buttonType="RAISED" layoutX="989.0" layoutY="622.0" onAction="#back" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
                      </children>
                   </AnchorPane>
               </content>

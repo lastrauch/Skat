@@ -39,12 +39,7 @@ public class LoginController {
 	@FXML
 	public void neuerAccount() {
 		// Settingsfeld für neuen Benutzernamen anzeigen
-	}
-
-	public void setMain(GuiController main2) {
-		// TODO Auto-generated method stub
-		this.main = main2;
-
+		main.displayCreateNewAccount();
 	}
 
 }
