@@ -8,4 +8,7 @@ public interface LogicGui {
 	// Bilder der Karten erhalten
 	public Image[] getCards();
 
+	// Checken ob Karte gespielt werden darf
+	public boolean abletoPlay();
+
 }
