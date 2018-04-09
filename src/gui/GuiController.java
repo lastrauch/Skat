@@ -364,9 +364,9 @@ public class GuiController extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("InGame.fxml"));
+			Image jc = new Image(getClass().getResource("/Jhearts.jpg").toExternalForm());
 
-			InGameController con = new InGameController(
-					new Image(getClass().getResource("/Jhearts.jpg").toExternalForm()));
+			InGameController con = new InGameController(jc, jc, jc, jc, jc, jc, jc, jc, jc, jc);
 			loader.setController(con);
 			this.inGame = (AnchorPane) loader.load();
 			mprimaryStage.getScene().setRoot(inGame);
