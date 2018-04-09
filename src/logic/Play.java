@@ -159,7 +159,10 @@ public class Play {
         // declarer is not allowed to win a trick when playMode is NULL/NULLOUVERT
         if (this.ps.getPlayMode() == PlayMode.NULL
             || this.ps.getPlayMode() == PlayMode.NULLOUVERT) {
-          break;
+
+          if (this.ps.getDeclarer().equals(this.group[this.indexWinnerLastTrick])) {
+            break;
+          }
         }
       } catch (LogicException e) {
         e.printStackTrace();
