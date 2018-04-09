@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HelpCardsController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="282.0" layoutY="253.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../resources/bar.png" />
+         </image>
+      </ImageView>
+      <TabPane layoutX="28.0" layoutY="28.0" prefHeight="754.0" prefWidth="1237.0" styleClass="background" stylesheets="@../../resources/mystyle.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+        <tabs>
+          <Tab style="-fx-background-color: tan;" text="2. The Cards">
+               <content>
+                  <AnchorPane prefHeight="658.0" prefWidth="1250.0">
+                     <children>
+                        <JFXTextArea prefHeight="167.0" prefWidth="1250.0" style="-fx-text-fill: white; -fx-prompttext-fill: white;" text="Skat was originally played with German suited cards, and these are still in general use in South and East Germany, including Altenburg. Elsewhere, Skat is played with French suited cards. 32 cards are used: A K Q J 10 9 8 7 in each suit. In this article French suits are assumed, but in case you are using German suited cards the correspondence is as follows: " unFocusColor="PERU" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXTextArea>
+                        <JFXTextField layoutX="36.0" layoutY="220.0" prefHeight="51.0" prefWidth="470.0" style="-fx-text-fill: white;" text="Abbreviation  French Suits    German Suits" unFocusColor="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </JFXTextField>
+                        <HBox layoutX="48.0" layoutY="292.0" spacing="100.0">
+                           <children>
+                              <VBox layoutX="48.0" layoutY="292.0" spacing="9.0">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="56.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../resources/icons8-kreuz-filled-50.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="62.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../resources/icons8-pik-26.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="56.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../resources/icons8-herzen-26.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="48.0" layoutY="458.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../resources/diamond.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="48.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../resources/icons8-k-26.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="48.0" layoutY="571.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../resources/icons8-q-26.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="56.0" layoutY="626.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../resources/icons8-j-26.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="196.0" layoutY="312.0" spacing="20.0">
+                                 <children>
+                                    <Text fill="#fffbfb" layoutX="203.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clubs">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#fffbfb" layoutX="203.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spades">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#fffbfb" layoutX="203.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hearts">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#fffbfb" layoutX="203.0" layoutY="502.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diamonds">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#fffbfb" layoutX="203.0" layoutY="553.0" lineSpacing="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="King">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#fffbfb" layoutX="196.0" layoutY="594.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Queen">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#fffbfb" layoutX="196.0" layoutY="649.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jack">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="358.0" layoutY="320.8134765625" spacing="20.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="372.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acorns">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="372.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaves">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="372.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hearts">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="364.0" layoutY="502.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bells">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="364.0" layoutY="564.0" strokeType="OUTSIDE" strokeWidth="0.0" text="King">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="358.0" layoutY="615.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ober">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="358.0" layoutY="679.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Untern">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <JFXButton fx:id="back1" buttonType="RAISED" layoutX="1021.0" layoutY="664.0" onAction="#back" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab style="-fx-background-color: tan;" text="2.1 Ranking of the Cards">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Text fill="#fcfcfc" layoutX="26.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The ranking of the cards depends on the game the declarer chooses to play.">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="26.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suit games" underline="true">
+                           <font>
+                              <Font name="System Italic" size="32.0" />
+                           </font>
+                        </Text>
+                        <JFXTextArea layoutX="53.0" layoutY="153.0" prefHeight="155.0" prefWidth="1174.0" style="-fx-text-fill: white;" text="Irrespective of the suit chosen as trumps, the four jacks are the top four trumps, ranking in thefixed order: clubs, spades, hearts, diamonds. Then follow the remaning seven cards of the chosen suit, making elen trumps in all, ranking from highest to lowest: JClubs, JSpades, JHearts, JDiamonds, Ass, 10, K, Q, 9, 8, 7. The other three suits each contain just seven cards ranking from high to low: A, 10, K, Q, 9, 8, 7." unFocusColor="#fcfcfc">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </JFXTextArea>
+                        <Text fill="WHITE" layoutX="26.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grand" underline="true">
+                           <font>
+                              <Font name="System Italic" size="32.0" />
+                           </font>
+                        </Text>
+                        <JFXTextArea layoutX="56.0" layoutY="381.0" prefHeight="109.0" prefWidth="1167.0" style="-fx-text-fill: white;" text="The four jacks are the only trumps. They form a suit by themselves ranking from high to low: Jclubs, JSpades, JHearts, JDiamonds. The remaining four suits each contain seven cards ranking from high to low: A, 10, K, Q, 9, 8, 7." unFocusColor="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </JFXTextArea>
+                        <Text fill="WHITE" layoutX="22.0" layoutY="564.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Null" underline="true" wrappingWidth="68.83984375">
+                           <font>
+                              <Font name="System Italic" size="32.0" />
+                           </font>
+                        </Text>
+                        <JFXTextArea layoutX="53.0" layoutY="583.0" prefHeight="63.0" prefWidth="1175.0" style="-fx-text-fill: white;" text="There are no trumps. The eight cards of each suit rank from high to low: A, K, Q, J, 10, 9, 8, 7." unFocusColor="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </JFXTextArea>
+                        <JFXButton fx:id="back2" buttonType="RAISED" layoutX="1024.0" layoutY="669.0" onAction="#back" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+            <Tab style="-fx-background-color: tan;" text=" Value of the Cards">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text fill="WHITE" layoutX="14.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In suit games and Grand, the cards have the following values:">
+                           <font>
+                              <Font size="45.0" />
+                           </font>
+                        </Text>
+                        <HBox layoutX="78.0" layoutY="182.0" spacing="20.0">
+                           <children>
+                              <VBox layoutX="13.0" layoutY="267.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="14.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card:">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="13.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="50.0" layoutY="266.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="67.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="158.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="11">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="71.0" layoutY="267.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="166.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="71.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="87.0" layoutY="267.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="87.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="K">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="234.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="96.0" layoutY="267.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="125.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Q">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="251.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="116.0" layoutY="268.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="212.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="J">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="183.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="141.0" layoutY="267.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="147.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="141.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="166.0" layoutY="268.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="193.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="217.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="184.0" layoutY="269.0" prefHeight="40.0" prefWidth="8.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="106.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="7">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="200.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                       <font>
+                                          <Font size="45.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Text fill="WHITE" layoutX="14.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The total value in the pack is 120 card points.">
+                           <font>
+                              <Font size="45.0" />
+                           </font>
+                        </Text>
+                        <JFXButton fx:id="back3" buttonType="RAISED" layoutX="1021.0" layoutY="664.0" onAction="#back" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

@@ -6,8 +6,8 @@ public class Card {
   private Colour colour;
   private Number number;
   private Image img;
-  
-  
+
+
 
   public Card(Colour colour, Number number) {
     this.colour = colour;
@@ -20,24 +20,61 @@ public class Card {
     this.img = img;
   }
 
-  private Colour getColour() {
+  public Colour getColour() {
     return this.colour;
   }
 
-  private Number getNumber() {
+  public Number getNumber() {
     return this.number;
   }
 
-  private Image getImage() {
+  public Image getImage() {
     return this.img;
   }
 
-  private int getValue() {
+  public int getValue() {
     return this.number.getValue();
   }
 
-  private void setImage(Image img) {
+  public void setImage(Image img) {
     this.img = img;
+  }
+
+  // reurns 0 for same Colour -1
+  public int compareColour(Card comp) {
+    return this.colour.compareColourIntern(comp.getColour());
+  }
+
+  public boolean isHigherAsNorm(Card comp) {
+    if (this.number.getRankingNorm() > comp.getNumber().getRankingNorm()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  public boolean isLowerAsNorm(Card comp) {
+    if (this.number.getRankingNorm() < comp.getNumber().getRankingNorm()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean isHigherAsLowTen(Card comp) {
+    if (this.number.getRankingLowTen() > comp.getNumber().getRankingLowTen()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean isLowerAsLowTen(Card comp) {
+    if (this.number.getRankingLowTen() < comp.getNumber().getRankingLowTen()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
