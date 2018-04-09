@@ -280,9 +280,11 @@ public class Auction {
   public void mangageSkat(PlayState ps) {
     // ask the declarer if he wants to take the skat or not and save the answer in the PlayState
     ps.setHandGame(this.winner.askForHandGame());
-    // add the skat & lay it down!!
-    this.takeUpStack(ps);
-    this.putDownTwoCards(ps);
+    // add the skat & lay it down if answer yes
+    if (ps.getHandGame()) {
+      this.takeUpStack(ps);
+      this.putDownTwoCards(ps);
+    }
   }
 
   /**

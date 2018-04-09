@@ -18,7 +18,7 @@ public class Play {
   private final int nrTricks = 10;
   private GameSettings gameSettings;
   private boolean singlePlayerWins;
-  private int value; // value of the play 
+  private int value; // value of the play
 
   // needs a 3 Player Array
   public Play(Player[] group) {
@@ -39,7 +39,7 @@ public class Play {
   public int getValue() {
     return this.value;
   }
-  
+
   public void setGameSettings(GameSettings gameSettings) {
     this.gameSettings = gameSettings;
   }
@@ -222,7 +222,7 @@ public class Play {
 
     // check if card serves first played card
     if (this.checkIfServedColour(card, firstCard)) {
-      
+
       return true;
 
     }
@@ -249,8 +249,7 @@ public class Play {
 
     if (servedCard.getColour() == this.ps.getTrump() || servedCard.getNumber() == Number.JACK) {
       // first card is trump
-      if (servingCard.getColour() == this.ps.getTrump()
-          || servingCard.getNumber() == Number.JACK) {
+      if (servingCard.getColour() == this.ps.getTrump() || servingCard.getNumber() == Number.JACK) {
         return true;
       }
     } else {
@@ -756,30 +755,44 @@ public class Play {
   public PlayState getPlayState() {
     return this.ps;
   }
-  
- /**
-  * calculates the value of the game
-  * 
-  * @author sandfisc
-  * @throws LogicException
-  */
+
+  /**
+   * calculates the value of the game
+   * 
+   * @author sandfisc
+   * @throws LogicException
+   */
   public void calculateValue() throws LogicException {
     if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
       this.value = this.calculateScoreUpdateBierlachs();
-    }else if (this.gameSettings.getCountRule() == CountRule.SEEGERFABIAN){
+    } else if (this.gameSettings.getCountRule() == CountRule.SEEGERFABIAN) {
       this.value = this.calculateScoreSeegerfabian();
-    }else {
-      throw new LogicException("Calculating the score update was not possible (no countRule found)");
+    } else {
+      throw new LogicException(
+          "Calculating the score update was not possible (no countRule found)");
     }
   }
 
-  public int calculateScoreUpdateBierlachs() {    
+  public int calculateScoreUpdateBierlachs() {
     return 0;
   }
-  
+
   public int calculateScoreSeegerfabian() {
     return 0;
   }
+
+  public Trick getLastTrick() {
+    Trick lastTrick = new Trick(ps);
+    if (this.currentTrick > 0) {
+      lastTrick = this.tricks[this.currentTrick - 1];
+    }
+    return lastTrick;
+  }
+
+  public Trick getCurrentTrick() {
+    return this.tricks[this.currentTrick];
+  }
+
 
   public static void main(String[] args) {
     Player sandra = new Player("Sandra");
