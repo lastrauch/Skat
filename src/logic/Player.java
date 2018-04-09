@@ -107,9 +107,11 @@ public class Player {
         break;
       case "null":
         playMode = PlayMode.NULL;
+        ps.setTrump(null);
         break;
       case "nullouvert":
         playMode = PlayMode.NULLOUVERT;
+        ps.setTrump(null);
         break;
       default:
         System.out.println("your PlayMode could not be identificated, you will play Null now.");
