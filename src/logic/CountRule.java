@@ -1,7 +1,7 @@
 package logic;
 
 public enum CountRule {
-  BIERLACHS(1), SEEGERFABIAN(2);
+  NORMAL(1), BIERLACHS(2), SEEGERFABIAN(3);
 
   private CountRule(int i) {}
 

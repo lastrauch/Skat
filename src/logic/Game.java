@@ -117,18 +117,18 @@ public class Game {
         }
       }
 
-      // //test: positions
-      // for (int k = 0; k < this.group.length; k++) {
-      // System.out.println(this.group[k].getName() + ": " + this.group[k].getPosition());
-      // }
-      // System.out.println("playing group:");
-      // for (int k = 0; k < playingGroup.length; k++) {
-      // System.out.println(playingGroup[k].getName());
-      // }
-      //
+//       //test: positions
+//       for (int k = 0; k < this.group.length; k++) {
+//       System.out.println(this.group[k].getName() + ": " + this.group[k].getPosition());
+//       }
+//       System.out.println("playing group:");
+//       for (int k = 0; k < playingGroup.length; k++) {
+//       System.out.println(playingGroup[k].getName());
+//       }
+      
       try {
-        this.plays[i] = new Play(this.sortPlayingGroup(playingGroup));
-        this.plays[i].setGameSettings(this.gameSettings);
+      this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings);
+        this.plays[i].runPlay();
       } catch (LogicException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();

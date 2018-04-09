@@ -21,7 +21,7 @@ public class Play {
   private int value; // value of the play
 
   // needs a 3 Player Array
-  public Play(Player[] group) {
+  public Play(Player[] group, GameSettings gameSettings) {
     this.cards = new Card[32];
     this.tricks = new Trick[this.nrTricks];
     this.group = group;
@@ -29,7 +29,7 @@ public class Play {
     this.indexWinnerLastTrick = 0; // forehand starts the first trick
     this.currentTrick = 0;
     this.ps = new PlayState();
-    this.gameSettings = new GameSettings();
+    this.gameSettings = gameSettings;
   }
 
   public GameSettings getGameSettings() {
@@ -88,10 +88,10 @@ public class Play {
         // card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
 
         // test
-        // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
+        card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
         System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
         this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
-        card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
+        //card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
         this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
 
         this.tricks[i].setCard1(card1);
@@ -101,11 +101,11 @@ public class Play {
           // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
 
           // test
-          // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseRandomCardFromHand();
+          card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseRandomCardFromHand();
           System.out
               .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
           this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
-          card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
+          //card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
         } while (!this.checkIfCardPossible(card2, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 1) % 3]));
 
@@ -120,12 +120,12 @@ public class Play {
           // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
 
           // test
-          // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseRandomCardFromHand();
+          card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseRandomCardFromHand();
 
           System.out
               .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
           this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
-          card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
+          //card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
         } while (!this.checkIfCardPossible(card3, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 2) % 3]));
 
@@ -380,14 +380,6 @@ public class Play {
     return sum;
   }
 
-  public int savePointsBierlachs() {
-    return 0;
-  }
-
-  public int savePointsSeegerfabian() {
-    return 0;
-  }
-
   // print methods to test the others
   public void printListCards(ArrayList<Card> list) {
     for (int i = 0; i < list.size(); i++) {
@@ -577,21 +569,27 @@ public class Play {
    * @throws LogicException
    */
   public void calculateValue() throws LogicException {
+    if (this.gameSettings.getCountRule() == CountRule.NORMAL) {
+      this.value = this.calculateValueNormal();
+    }
     if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
-      this.value = this.calculateScoreUpdateBierlachs();
+      this.value = this.calculateValueBierlachs();
     } else if (this.gameSettings.getCountRule() == CountRule.SEEGERFABIAN) {
-      this.value = this.calculateScoreSeegerfabian();
+      this.value = this.calculateValueSeegerfabian();
     } else {
       throw new LogicException(
           "Calculating the score update was not possible (no countRule found)");
     }
   }
 
-  public int calculateScoreUpdateBierlachs() {
+  public int calculateValueNormal() {
+    return 0;
+  }
+  public int calculateValueBierlachs() {    
     return 0;
   }
 
-  public int calculateScoreSeegerfabian() {
+  public int calculateValueSeegerfabian() {
     return 0;
   }
 
@@ -618,10 +616,10 @@ public class Play {
     crew[1] = larissa;
     crew[2] = felix;
 
-    Play test = new Play(crew);
+    //Play test = new Play(crew);
     // test.getPlayState().setPlayMode(PlayMode.NULLOUVERT);
     // test.getPlayState().setTrump(Colour.CLUBS);
     // test.getPlayState().setNrOfPlays(1);
-    test.runPlay();
+    //test.runPlay();
   }
 }

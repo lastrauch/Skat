@@ -108,9 +108,9 @@ public class Trick {
   public int calculateWinnerColour() {
 
     // test
-    System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
-    System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
-    System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
+//    System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
+//    System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
+//    System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
 
     if (this.compareCardsColour(this.trickCards[0], this.trickCards[1]) == 0) {
       if (this.compareCardsColour(this.trickCards[0], this.trickCards[2]) == 0) {
@@ -219,9 +219,9 @@ public class Trick {
   public int calculateWinnerGrand() {
 
     // test
-    System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
-    System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
-    System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
+//    System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
+//    System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
+//    System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
 
     if (this.compareCardsGrand(this.trickCards[0], this.trickCards[1]) == 0) {
       if (this.compareCardsGrand(this.trickCards[0], this.trickCards[2]) == 0) {
@@ -273,9 +273,9 @@ public class Trick {
   public int calculateWinnerNull() {
 
     // test
-    System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
-    System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
-    System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
+//    System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
+//    System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
+//    System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
 
     if (this.compareNumberLowTen(this.trickCards[0], this.trickCards[1]) == 0) {
       if (this.compareNumberLowTen(this.trickCards[0], this.trickCards[2]) == 0) {
