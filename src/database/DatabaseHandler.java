@@ -63,8 +63,18 @@ public class DatabaseHandler extends database {
         e.printStackTrace();
     }
 }
+  //selectPlayer: Hier soll der der Spieler aus der Datenbank ausgewählt werden
   
-//deletePlayer: Hier soll der übergebene Kontakt aus der Datenbank gelöscht werden.
+  public void selectPlayer(Player player) {
+    try {
+      selectPlayer.setInt(1, player.getId());
+      selectPlayer.executeUpdate();
+    }catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+  
+//deletePlayer: Hier soll der übergebene Spieler aus der Datenbank gelöscht werden.
   
   public void deletePlayer(Player player) {
     
