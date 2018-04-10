@@ -16,6 +16,11 @@ public class PlayState {
   private PlayMode pm;
   private boolean auctionPossible;
   private boolean handGame;
+  private boolean schneider;
+  private boolean schneiderAnnounced;
+  private boolean schwarz;
+  private boolean schwarzAnnounced;
+  private boolean open;
 
 
   // still missing all the getters and setters
@@ -196,6 +201,46 @@ public class PlayState {
         }
       }
     }
+  }
+
+  public boolean isSchneider() {
+    return schneider;
+  }
+
+  public void setSchneider(boolean schneider) {
+    this.schneider = schneider;
+  }
+
+  public boolean getSchneiderAnnounced() {
+    return schneiderAnnounced;
+  }
+
+  public void setSchneiderAnnounced(boolean schneiderAnnounced) {
+    this.schneiderAnnounced = schneiderAnnounced;
+  }
+
+  public boolean isSchwarz() {
+    return schwarz;
+  }
+
+  public void setSchwarz(boolean schwarz) {
+    this.schwarz = schwarz;
+  }
+
+  public boolean getSchwarzAnnounced() {
+    return schwarzAnnounced;
+  }
+
+  public void setSchwarzAnnounced(boolean schwarzAnnounced) {
+    this.schwarzAnnounced = schwarzAnnounced;
+  }
+
+  public boolean isOpen() {
+    return open;
+  }
+
+  public void setOpen(boolean open) {
+    this.open = open;
   }
 
 }
