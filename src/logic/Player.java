@@ -404,6 +404,53 @@ public class Player {
     return result;
   }
 
+  /**
+   * calculates the play value for suit or grand plays
+   * 
+   * @param ps
+   * @return
+   */
+  public int calculatePlayValueSuitorGrand(PlayState ps) {
+    int multiplier = this.calculateMultiplier(ps);
+    return ps.getBaseValue() * multiplier;
+  }
+
+  /**
+   * initializes the play value for a null play
+   * 
+   * @param ps
+   * @return
+   */
+  public int calculatePlayValueNull(PlayState ps) {
+    int result = 23;
+    if (ps.getHandGame()) {
+      result = 35;
+    }
+    if (ps.isOpen()) {
+      result = 46;
+    }
+    if (ps.getHandGame() && ps.isOpen()) {
+      result = 59;
+    }
+    return result;
+  }
+
+  /**
+   * calculates the play value with the other methods implemented for the special contracts
+   * 
+   * @param ps
+   * @return
+   */
+  public int calculatePlayValue(PlayState ps) {
+    int result = 0;
+    if (ps.getPlayMode() == PlayMode.NULL) {
+      result = this.calculatePlayValue(ps);
+    } else {
+      result = this.calculatePlayValueSuitorGrand(ps);
+    }
+    return result;
+  }
+
   public void addToGamePoints(int points) {
     this.gamePoints += points;
   }

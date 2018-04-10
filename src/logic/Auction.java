@@ -273,7 +273,7 @@ public class Auction {
       }
     }
     ps.setBetValue(bV);
-
+    ps.initializeBaseValue();
 
   }
 
