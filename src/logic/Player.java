@@ -8,6 +8,7 @@ public class Player {
   private Position position;
   private ArrayList<Card> hand = new ArrayList<Card>();
   private int bet;
+  private int gamePoints; // saves the pionts of every Play until the whole game is over
 
   public Player(String name) {
     this.name = name;
@@ -152,6 +153,14 @@ public class Player {
     } else {
       return false;
     }
+  }
+
+  public int getGamePoints() {
+    return this.gamePoints;
+  }
+
+  public void setGamePoints(int gamePoints) {
+    this.gamePoints = gamePoints;
   }
 
   public int getBet() {
@@ -326,62 +335,32 @@ public class Player {
     }
   }
 
-  // /**
-  // * sorts cards by its value for normal values (high ten), created for sortHand(s)
-  // *
-  // * @author awesch
-  // * @param cards
-  // */
-  // public void sortCardsValueNorm(ArrayList<Card> cards) {
-  // Card temp;
-  // for (int i = 1; i < cards.size(); i++) {
-  // for (int j = 0; j < cards.size() - 1; j++) {
-  // if (cards.get(j).isLowerAsNorm(cards.get(j + 1))) {
-  // temp = cards.get(j);
-  // cards.set(j, cards.get(j + 1));
-  // cards.set(j + 1, temp);
-  // }
-  // }
-  // }
-  // }
-  //
-  // /**
-  // * sorts cards by its value for a low ten playMode, created for sortHand(s)
-  // *
-  // * @author awesch
-  // * @param cards
-  // */
-  // public void sortCardsValueLowTen(ArrayList<Card> cards) {
-  // Card temp;
-  // for (int i = 1; i < cards.size(); i++) {
-  // for (int j = 0; j < cards.size() - 1; j++) {
-  // if (cards.get(j).isLowerAsLowTen(cards.get(j + 1))) {
-  // temp = cards.get(j);
-  // cards.set(j, cards.get(j + 1));
-  // cards.set(j + 1, temp);
-  // }
-  // }
-  // }
-  // }
-  //
-  // /**
-  // * sorts cards bei their colour, order: clubs, spades, hearts, diamonds. created for sortHand(s)
-  // *
-  // * @author awesch
-  // * @param cards
-  // */
-  // public void sortCardsByColour(ArrayList<Card> cards) {
-  // Card temp;
-  // for (int i = 0; i < cards.size(); i++) {
-  // for (int j = 0; j < cards.size() - 1; j++) {
-  // if (cards.get(j).getColour().compareColourIntern(cards.get(j + 1).getColour()) < 0) {
-  // temp = cards.get(i);
-  // cards.set(j, cards.get(j + 1));
-  // cards.set(j + 1, temp);
-  // }
-  // }
-  // }
-  // }
+  /**
+   * calculates
+   * 
+   * @return
+   */
+  public int calculateMatador() {
+    // seperated to give a better overview and to have the possibility to give "with i" / "against
+    // i"
+    int with = 0;
+    int against = 0;
+    // play with(if first card is the clubs jack)
+    if (this.hand.get(0).getMatadorValue() == 0) {
+      // go through the hand until the row of trumps stops
+      for (int i = 0; i < this.hand.size(); i++) {
+        if (this.hand.get(i).getMatadorValue() == i) {
+          with++;
+        } else {
+          break;
+        }
+      }
+    }
+    // play against(if first card is not clubs jack)
+    // else if(this.)
+
+    return 0;
+  }
 
   //
   // public static void main(String [] args) {
