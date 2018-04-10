@@ -242,6 +242,10 @@ public class PlayState {
   public void setOpen(boolean open) {
     this.open = open;
   }
+  
+  public Player[] getOpponents() {
+    return this.opponents;
+  }
 
 }
 

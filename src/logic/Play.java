@@ -364,11 +364,11 @@ public class Play {
 
       // check "schneider"
       if (pointsD >= 90) {
-        this.ps.setSchneider(true);        
+        this.ps.setSchneider(true);
       } else if (this.ps.getSchneiderAnnounced()) {
         return false;
       }
-      
+
       // check "schwarz"
       if (pointsO == 0) {
         this.ps.setSchwarz(true);
@@ -549,16 +549,45 @@ public class Play {
     }
   }
 
+  /**
+   * if declarer won he/she the value of the game is added to his/her gamePoints else twice the
+   * value is subtracted from his/her score 
+   * 
+   * @author sandfisc
+   */
   public void calculatePointsNormal() {
-
+    if (this.singlePlayerWins) {
+      this.ps.getDeclarer().addToGamePoints(this.ps.getPlayValue());
+    } else {
+      this.ps.getDeclarer().addToGamePoints((-2) * (this.ps.getPlayValue()));
+    }
   }
 
+  /**
+   * only minuspoints here for the player/s who won
+   * 
+   * @author sandfisc
+   */
   public void calculatePointsBierlachs() {
-
+    if (this.singlePlayerWins) {
+      this.ps.getOpponents()[0].addToGamePoints((-1) * (this.ps.getPlayValue()));
+      this.ps.getOpponents()[1].addToGamePoints((-1) * (this.ps.getPlayValue()));
+    } else {
+      this.ps.getDeclarer().addToGamePoints((-2) * (this.ps.getPlayValue()));
+    }
   }
 
+  /**
+   * declarer gets or losses (the playValue + 50) *
+   * 
+   * @author sandfisc
+   */
   public void calculatePointsSeegerfabian() {
-
+    if (this.singlePlayerWins) {
+      this.ps.getDeclarer().addToGamePoints(this.ps.getPlayValue() + 50);
+    } else {
+      this.ps.getDeclarer().addToGamePoints((-1) * (this.ps.getPlayValue() + 50));
+    }
   }
 
   public Trick getLastTrick() {
