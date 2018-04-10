@@ -335,6 +335,7 @@ public class Player {
    * calculates the the Matadors the hand has to be sorted before! with the (chosen/possible) trump
    * 
    * @return
+   * @author awesch
    */
   public int calculateMatador() {
     // seperated to give a better overview and to have the possibility to give "with i" / "against
@@ -359,6 +360,40 @@ public class Player {
       return against;
     }
     return 0;
+  }
+
+  public int calculateMultiplier(PlayState ps) {
+    int result = 1; // 1 for the game
+    result += this.calculateMatador(); // + matadors
+    // 1 point for schneider
+    if (ps.isSchneider()) {
+      result++;
+      // 1 point for schwarz
+      if (ps.isSchwarz()) {
+        result++;
+      }
+    }
+
+
+    // possibilities if the Player plays hand
+    if (ps.getHandGame()) {
+      // 1 point for hand game
+      result++;
+      // 1 point for schneider announced
+      if (ps.getSchneiderAnnounced()) {
+        result++;
+      }
+      // 1 point for schwarz announced AND for schneider announced
+      if (ps.getSchwarzAnnounced()) {
+        result += 2;;
+      }
+      // 1 point for open
+      if (ps.isOpen()) {
+        result += 1;
+      }
+    }
+
+    return result;
   }
 
   // test method create random hand

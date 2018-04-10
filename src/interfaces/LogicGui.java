@@ -2,6 +2,7 @@ package interfaces;
 
 import logic.Card;
 import logic.PlayMode;
+import logic.PlayState;
 import logic.Player;
 
 //Logic to GUI, implemented by GUI
@@ -55,4 +56,5 @@ public interface LogicGui {
    */
   public String setTrump(Player player);
   
+  //add all other play settings and the conditions (when the could be set)
 }
