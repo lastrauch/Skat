@@ -18,7 +18,6 @@ public class Play {
   private final int nrTricks = 10;
   private GameSettings gameSettings;
   private boolean singlePlayerWins;
-  private int value; // value of the play
 
   // needs a 3 Player Array
   public Play(Player[] group, GameSettings gameSettings, Card[] cards) {
@@ -35,10 +34,6 @@ public class Play {
 
   public GameSettings getGameSettings() {
     return this.gameSettings;
-  }
-
-  public int getValue() {
-    return this.value;
   }
 
   public void setGameSettings(GameSettings gameSettings) {
@@ -70,6 +65,7 @@ public class Play {
     // test:
     // this.printHands("after second sortCards:");
 
+    // test player kr‰‰‰m
 
     // doing 10 tricks
     Card card1 = null;
@@ -511,28 +507,28 @@ public class Play {
    * @author sandfisc
    * @throws LogicException
    */
-  public void calculateValue() throws LogicException {
+  public void calculatePoints() throws LogicException {
     if (this.gameSettings.getCountRule() == CountRule.NORMAL) {
-      this.value = this.calculateValueNormal();
+      this.ps.setPlayValue(this.calculatePointsNormal());
     }
     if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
-      this.value = this.calculateValueBierlachs();
+      this.ps.setPlayValue(this.calculatePointsBierlachs());
     } else if (this.gameSettings.getCountRule() == CountRule.SEEGERFABIAN) {
-      this.value = this.calculateValueSeegerfabian();
+      this.ps.setPlayValue(this.calculatePointsSeegerfabian());
     } else {
       throw new LogicException(
           "Calculating the score update was not possible (no countRule found)");
     }
   }
 
-  public int calculateValueNormal() {
+  public int calculatePointsNormal() {
     return 0;
   }
-  public int calculateValueBierlachs() {    
+  public int calculatePointsBierlachs() {    
     return 0;
   }
 
-  public int calculateValueSeegerfabian() {
+  public int calculatePointsSeegerfabian() {
     return 0;
   }
 

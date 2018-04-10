@@ -10,6 +10,7 @@ public class PlayState {
   private Card[] skat;
   private Colour trump;
   private int playValue;
+  private int playPoints;
   private int betValue;
   private int nrOfPlays;
   private PlayMode pm;
@@ -48,6 +49,22 @@ public class PlayState {
     return this.declarerStack;
   }
 
+  public int getPlayValue() {
+    return this.playValue;
+  }
+  
+  public void setPlayValue(int playValue) {
+    this.playValue = playValue;
+  }
+  
+  public int getPlayPoints() {
+    return this.playPoints;
+  }
+  
+  public void setPlayPoints(int playPoints) {
+    this.playPoints = playPoints;
+  }
+  
   public boolean getHandGame() {
     return this.handGame;
   }
