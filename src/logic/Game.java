@@ -9,9 +9,7 @@ public class Game {
   private int[] gameScores; // for every player, same order as group
   private int playerFirstCard; // switch every in every play --> depends on auction
   private Play[] plays;
-  private Auction[] auctions;
-  private int[] lostGames;
-  private int[] wonGames;
+  private Card[] cards;
 
   /**
    * constructor #1
@@ -23,6 +21,7 @@ public class Game {
     this.gameSettings = new GameSettings();
     this.plays = new Play[this.gameSettings.getNrOfPlays()];
     this.initializeGroupSettings(group);
+    this.initializeCards();
     this.runGame();
   }
 
@@ -43,6 +42,7 @@ public class Game {
     }
     this.plays = new Play[nrOfPlays];
     this.initializeGroupSettings(group);
+    this.initializeCards();
     this.runGame();
   }
 
@@ -72,6 +72,68 @@ public class Game {
     }
   }
 
+  /**
+   * initializes the cards
+   * 
+   * @author awesch
+   */
+  public void initializeCards() {
+
+    int counter = 0;
+    for (int i = 1; i <= 4; i++) {
+      Colour col = null;
+      switch (i) {
+        case 1:
+          col = Colour.DIAMONDS;
+          break;
+        case 2:
+          col = Colour.HEARTS;
+          break;
+        case 3:
+          col = Colour.SPADES;
+          break;
+        case 4:
+          col = Colour.CLUBS;
+          break;
+      }
+      for (int j = 1; j <= 8; j++) {
+        Number nr = null;
+        switch (j) {
+          case 1:
+            nr = Number.SEVEN;
+            break;
+          case 2:
+            nr = Number.EIGHT;
+            break;
+          case 3:
+            nr = Number.NINE;
+            break;
+          case 4:
+            nr = Number.JACK;
+            break;
+          case 5:
+            nr = Number.QUEEN;
+            break;
+          case 6:
+            nr = Number.KING;
+            break;
+          case 7:
+            nr = Number.TEN;
+            break;
+          case 8:
+            nr = Number.ASS;
+            break;
+        }
+        // cards are generated in the order of their value
+
+        Card c = new Card(col, nr);
+        cards[counter] = c;
+        counter++;
+
+        // System.out.println(counter + " " + col.toString() + " " + nr.toString());
+      }
+    }
+  }
 
   /**
    * defines in which order players "sitting on a table" (random)
@@ -127,7 +189,7 @@ public class Game {
 //       }
       
       try {
-      this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings);
+      this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings, this.cards);
         this.plays[i].runPlay();
       } catch (LogicException e) {
         // TODO Auto-generated catch block
@@ -193,22 +255,6 @@ public class Game {
     this.playerFirstCard = index;
   }
 
-
-  public int[] getLostGames() {
-    return this.lostGames;
-  }
-
-  public void setLostGames(int[] lostGames) {
-    this.lostGames = lostGames;
-  }
-
-  public int[] getWonGames() {
-    return this.lostGames;
-  }
-
-  public void setWonGames(int[] lostGames) {
-    this.lostGames = lostGames;
-  }
 
   /**
    * position (forehand, middlehand, rearhand) changes ater every play
