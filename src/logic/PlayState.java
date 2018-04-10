@@ -21,6 +21,7 @@ public class PlayState {
   private boolean schwarz;
   private boolean schwarzAnnounced;
   private boolean open;
+  private int baseValue;
 
 
   // still missing all the getters and setters
@@ -246,6 +247,37 @@ public class PlayState {
   public Player[] getOpponents() {
     return this.opponents;
   }
+  
+  public int getBaseValue() {
+    return this.baseValue;
+  }
+
+  public void initializeBaseValue() {
+    if (this.pm == PlayMode.SUIT) {
+      switch (this.trump) {
+        case DIAMONDS:
+          this.baseValue = 9;
+          break;
+        case HEARTS:
+          this.baseValue = 10;
+          break;
+        case SPADES:
+          this.baseValue = 11;
+          break;
+        case CLUBS:
+          this.baseValue = 12;
+          break;
+      }
+    }
+    if (this.pm == PlayMode.GRAND) {
+      this.baseValue = 24;
+    }
+  }
+
+  public int getBetValue() {
+    return this.betValue;
+  }
+
 
 }
 
