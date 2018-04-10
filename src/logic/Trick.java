@@ -71,7 +71,7 @@ public class Trick {
 
     // System.out.println(this.ps.getPlayMode().toString());
     // calculate winner when PlayMode is Colour
-    if (this.ps.getPlayMode() == PlayMode.COLOUR) {
+    if (this.ps.getPlayMode() == PlayMode.SUIT) {
       this.indexWinner = this.calculateWinnerColour();
       // test
        System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "

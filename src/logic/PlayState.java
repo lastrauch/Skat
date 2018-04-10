@@ -35,7 +35,7 @@ public class PlayState {
     this.playValue = 0;
     this.betValue = 0;
     this.nrOfPlays = 3;
-    this.pm = PlayMode.COLOUR;
+    this.pm = PlayMode.SUIT;
     this.auctionPossible = true;
   }
 

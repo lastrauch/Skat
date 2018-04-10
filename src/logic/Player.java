@@ -101,7 +101,7 @@ public class Player {
     PlayMode playMode;
     switch (pm) {
       case "colour":
-        playMode = PlayMode.COLOUR;
+        playMode = PlayMode.SUIT;
         break;
       case "grand":
         playMode = PlayMode.GRAND;
@@ -117,7 +117,7 @@ public class Player {
     ps.setPlayMode(playMode);
 
     // set Trump
-    if (playMode == PlayMode.COLOUR) {
+    if (playMode == PlayMode.SUIT) {
       String t = IOTools.readLine("Set the Trump (clubs, spades, hearts, diamonds): ");
       Colour trump;
       switch (t) {
@@ -207,7 +207,7 @@ public class Player {
     ArrayList<Card> jacks = new ArrayList<Card>();
 
     // first step: jacks at the beginning
-    if (ps.getPlayMode() == PlayMode.COLOUR | ps.getPlayMode() == PlayMode.GRAND
+    if (ps.getPlayMode() == PlayMode.SUIT | ps.getPlayMode() == PlayMode.GRAND
         | ps.getPlayMode() == null) {
       Card temp;
       for (int i = 0; i < this.hand.size(); i++) {
@@ -250,7 +250,7 @@ public class Player {
     }
 
     // sort different colours depending on the Playmode by their numbers
-    if (ps.getPlayMode() == PlayMode.COLOUR | ps.getPlayMode() == PlayMode.GRAND
+    if (ps.getPlayMode() == PlayMode.SUIT | ps.getPlayMode() == PlayMode.GRAND
         | ps.getPlayMode() == null) {
       ps.sortCardsValueNorm(clubs);
       ps.sortCardsValueNorm(spades);
@@ -268,7 +268,7 @@ public class Player {
     this.addToHand(jacks, this.hand, 0, jacks.size());
 
     // second: trump - only if PlayMode colour
-    if (ps.getPlayMode() == PlayMode.COLOUR) {
+    if (ps.getPlayMode() == PlayMode.SUIT) {
       Colour trump = ps.getTrump();
       switch (trump) {
         case CLUBS:
@@ -481,7 +481,7 @@ public class Player {
 
   public static void main(String[] args) {
     PlayState ps = new PlayState();
-    ps.setPlayMode(PlayMode.COLOUR);
+    ps.setPlayMode(PlayMode.SUIT);
     ps.setTrump(Colour.HEARTS);
     Player anne = new Player("Anne");
     anne.setHand(anne.createRandomHand());

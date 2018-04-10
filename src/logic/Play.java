@@ -71,7 +71,7 @@ public class Play {
     // test:
     // this.printHands("after second sortCards:");
 
-    // test player kräääm
+    // test player krï¿½ï¿½ï¿½m
     this.group[0].setGamePoints(this.group[0].getGamePoints() + 1);
 
     // doing 10 tricks
@@ -204,7 +204,7 @@ public class Play {
    */
   public boolean checkIfCardPossible(Card card, Card firstCard, Player player)
       throws LogicException {
-    if (this.ps.getPlayMode() == PlayMode.COLOUR) {
+    if (this.ps.getPlayMode() == PlayMode.SUIT) {
       return this.checkIfCardPossibleColour(card, firstCard, player);
     } else if (this.ps.getPlayMode() == PlayMode.GRAND) {
       return this.checkIfCardPossibleGrand(card, firstCard, player);
