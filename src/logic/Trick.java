@@ -86,8 +86,7 @@ public class Trick {
 
 
       // calculate winner when PlayMode is Null or NullOuvert
-    } else if (this.ps.getPlayMode() == PlayMode.NULL
-        || this.ps.getPlayMode() == PlayMode.NULLOUVERT) {
+    } else if (this.ps.getPlayMode() == PlayMode.NULL) {
       this.indexWinner = this.calculateWinnerNull();
       // test
       // System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "

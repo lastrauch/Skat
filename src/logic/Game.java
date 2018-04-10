@@ -78,7 +78,8 @@ public class Game {
    * @author awesch
    */
   public void initializeCards() {
-
+    this.cards = new Card[32];
+    
     int counter = 0;
     for (int i = 1; i <= 4; i++) {
       Colour col = null;
@@ -159,6 +160,7 @@ public class Game {
    * @author sandfisc
    */
   public void runGame() {
+      
     Player[] playingGroup = new Player[3]; // always three players who are actually playing
 
     // if only three players then the playing group is the whole group "at the table"

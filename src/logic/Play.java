@@ -58,6 +58,12 @@ public class Play {
       // test:
       // this.printHands("after first sortCards:");
       auction = new Auction(this.group, this.ps);
+
+      // // test (without auction)
+      // this.ps.setPlayMode(PlayMode.NULLOUVERT);
+      // this.ps.setTrump(Colour.CLUBS);
+      // this.ps.setNrOfPlays(6);
+      // this.ps.setDeclarer(this.group[0]);
     } while (!this.ps.getAuctionPossible());
 
 
@@ -66,6 +72,7 @@ public class Play {
     // this.printHands("after second sortCards:");
 
     // test player kr‰‰‰m
+    this.group[0].setGamePoints(this.group[0].getGamePoints() + 1);
 
     // doing 10 tricks
     Card card1 = null;
@@ -87,11 +94,11 @@ public class Play {
         // first player plays card
         // card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
 
-        // test
+        // test random card
         card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
         System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
         this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
-        //card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
+        // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
         this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
 
         this.tricks[i].setCard1(card1);
@@ -100,12 +107,12 @@ public class Play {
         do {
           // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
 
-          // test
+          // test random card
           card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseRandomCardFromHand();
           System.out
               .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
           this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
-          //card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
+          // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
         } while (!this.checkIfCardPossible(card2, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 1) % 3]));
 
@@ -119,13 +126,13 @@ public class Play {
         do {
           // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
 
-          // test
+          // test random card
           card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseRandomCardFromHand();
 
           System.out
               .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
           this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
-          //card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
+          // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
         } while (!this.checkIfCardPossible(card3, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 2) % 3]));
 
@@ -157,8 +164,7 @@ public class Play {
         }
 
         // declarer is not allowed to win a trick when playMode is NULL/NULLOUVERT
-        if (this.ps.getPlayMode() == PlayMode.NULL
-            || this.ps.getPlayMode() == PlayMode.NULLOUVERT) {
+        if (this.ps.getPlayMode() == PlayMode.NULL) {
 
           if (this.ps.getDeclarer().equals(this.group[this.indexWinnerLastTrick])) {
             break;
@@ -202,8 +208,7 @@ public class Play {
       return this.checkIfCardPossibleColour(card, firstCard, player);
     } else if (this.ps.getPlayMode() == PlayMode.GRAND) {
       return this.checkIfCardPossibleGrand(card, firstCard, player);
-    } else if (this.ps.getPlayMode() == PlayMode.NULL
-        || this.ps.getPlayMode() == PlayMode.NULLOUVERT) {
+    } else if (this.ps.getPlayMode() == PlayMode.NULL) {
       return this.checkIfCardPossibleNull(card, firstCard, player);
     } else {
       throw new LogicException(
@@ -398,7 +403,7 @@ public class Play {
     System.out.println();
   }
 
-  
+
 
   /**
    * shuffles the cards after they have been initialized
@@ -509,27 +514,29 @@ public class Play {
    */
   public void calculatePoints() throws LogicException {
     if (this.gameSettings.getCountRule() == CountRule.NORMAL) {
-      this.ps.setPlayValue(this.calculatePointsNormal());
+      this.calculatePointsNormal();
     }
     if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
-      this.ps.setPlayValue(this.calculatePointsBierlachs());
+      this.calculatePointsBierlachs();
     } else if (this.gameSettings.getCountRule() == CountRule.SEEGERFABIAN) {
-      this.ps.setPlayValue(this.calculatePointsSeegerfabian());
+      this.calculatePointsSeegerfabian();
     } else {
       throw new LogicException(
           "Calculating the score update was not possible (no countRule found)");
     }
   }
 
-  public int calculatePointsNormal() {
-    return 0;
-  }
-  public int calculatePointsBierlachs() {    
-    return 0;
+  public void calculatePointsNormal() {
+    if (this.ps.getPlayValue() < this.ps.getDeclarer().getBet()){
+    }
   }
 
-  public int calculatePointsSeegerfabian() {
-    return 0;
+  public void calculatePointsBierlachs() {
+
+  }
+
+  public void calculatePointsSeegerfabian() {
+
   }
 
   public Trick getLastTrick() {
@@ -542,23 +549,5 @@ public class Play {
 
   public Trick getCurrentTrick() {
     return this.tricks[this.currentTrick];
-  }
-
-
-  public static void main(String[] args) {
-    Player sandra = new Player("Sandra");
-    Player larissa = new Player("Larissa");
-    Player felix = new Player("Felix");
-
-    Player[] crew = new Player[3];
-    crew[0] = sandra;
-    crew[1] = larissa;
-    crew[2] = felix;
-
-    //Play test = new Play(crew);
-    // test.getPlayState().setPlayMode(PlayMode.NULLOUVERT);
-    // test.getPlayState().setTrump(Colour.CLUBS);
-    // test.getPlayState().setNrOfPlays(1);
-    //test.runPlay();
   }
 }
