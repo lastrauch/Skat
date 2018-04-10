@@ -347,8 +347,7 @@ public class Play {
   }
 
   /**
-   * true if declarer over bid 
-   * false if not
+   * true if declarer over bid false if not
    * 
    * @author sandfisc
    * @return
@@ -552,25 +551,38 @@ public class Play {
    * @throws LogicException
    */
   public void calculatePoints() throws LogicException {
-    if (this.gameSettings.getCountRule() == CountRule.NORMAL) {
-      this.calculatePointsNormal();
-    }
-    if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
-      this.calculatePointsBierlachs();
-    } else if (this.gameSettings.getCountRule() == CountRule.SEEGERFABIAN) {
-      this.calculatePointsSeegerfabian();
+    
+    //check if the declarer over bid
+    if (this.checkOverBid()) {
+      this.calculatePointsOverBit();
+      
+    // calculate the players points with the countRule  
     } else {
-      throw new LogicException(
-          "Calculating the score update was not possible (no countRule found)");
+      if (this.gameSettings.getCountRule() == CountRule.NORMAL) {
+        this.calculatePointsNormal();
+      } else if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
+        this.calculatePointsBierlachs();
+      } else if (this.gameSettings.getCountRule() == CountRule.SEEGERFABIAN) {
+        this.calculatePointsSeegerfabian();
+      } else {
+        throw new LogicException(
+            "Calculating the score update was not possible (no countRule found)");
+      }
     }
   }
 
+  /**
+   * The amount subtracted from the declarer's score is twice the least multiple of the base value
+   * of the game actually played which would have fulfilled the bid
+   */
   public void calculatePointsOverBit() {
-    int points = 0; // base value
- //   while (points < this.ps.b)
-    
+    int points = this.ps.getBaseValue();
+    while (points < this.ps.getBetValue()) {
+      points += points;
+    }
+    this.ps.getDeclarer().addToGamePoints(points * (-2));
   }
-  
+
   /**
    * if declarer won he/she the value of the game is added to his/her gamePoints else twice the
    * value is subtracted from his/her score

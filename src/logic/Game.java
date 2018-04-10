@@ -6,11 +6,11 @@ public class Game {
   private GameSettings gameSettings;
   private Player[] group; // gives us all the Players and the seating order
   private int pointerF; // supposed to always point on the Forehand
-  private int[] gameScores; // for every player, same order as group
   private int playerFirstCard; // switch every in every play --> depends on auction
   private Play[] plays;
   private Card[] cards;
-
+  private Player winner;
+  
   /**
    * constructor #1
    * 
@@ -22,7 +22,6 @@ public class Game {
     this.plays = new Play[this.gameSettings.getNrOfPlays()];
     this.initializeGroupSettings(group);
     this.initializeCards();
-    this.runGame();
   }
 
   /**
@@ -43,7 +42,6 @@ public class Game {
     this.plays = new Play[nrOfPlays];
     this.initializeGroupSettings(group);
     this.initializeCards();
-    this.runGame();
   }
 
   /**
@@ -57,20 +55,8 @@ public class Game {
     this.defineSeatingList(group);
     this.setPointerF(0);
     this.updatePosition();
-    this.initializeGameScores();
   }
 
-  /**
-   * the scores of all players are initialized with 0 in the beginning
-   * 
-   * @author sandfisc
-   */
-  public void initializeGameScores() {
-    this.gameScores = new int[this.group.length];
-    for (int i = 0; i < this.group.length; i++) {
-      this.gameScores[i] = 0;
-    }
-  }
 
   /**
    * initializes the cards
@@ -167,6 +153,11 @@ public class Game {
     if (this.group.length == 3) {
       playingGroup = this.group;
     }
+    
+    // set all points of the players 0
+    for (int i = 0; i < this.group.length; i++) {
+      this.group[i].setGamePoints(0);
+    }
 
     for (int i = 0; i < this.plays.length; i++) {
 
@@ -180,16 +171,6 @@ public class Game {
           }
         }
       }
-
-//       //test: positions
-//       for (int k = 0; k < this.group.length; k++) {
-//       System.out.println(this.group[k].getName() + ": " + this.group[k].getPosition());
-//       }
-//       System.out.println("playing group:");
-//       for (int k = 0; k < playingGroup.length; k++) {
-//       System.out.println(playingGroup[k].getName());
-//       }
-      
       try {
       this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings, this.cards);
         this.plays[i].runPlay();
@@ -239,15 +220,6 @@ public class Game {
   }
 
   /**
-   * @author sandfisc
-   * @param index: is the index of the player whose score has to be updated
-   * @param addThis: points (goals of the play)
-   */
-  public void setGameScore(int index, int addThis) {
-    this.gameScores[index] += addThis;
-  }
-
-  /**
    * sets the index of the player who plays the first card in the next game
    * 
    * @author sandfisc
@@ -285,7 +257,7 @@ public class Game {
 
     Player[] group = {anne, larissa, felix, duygu};
     Game game = new Game(group);
-
+    game.runGame();
     // test: define seatingList
     // for (int i = 0; i < group.length; i++) {
     // System.out.println(group[i].getName() + " ");
