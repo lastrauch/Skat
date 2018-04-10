@@ -110,10 +110,6 @@ public class Player {
         playMode = PlayMode.NULL;
         ps.setTrump(null);
         break;
-      case "nullouvert":
-        playMode = PlayMode.NULLOUVERT;
-        ps.setTrump(null);
-        break;
       default:
         System.out.println("your PlayMode could not be identificated, you will play Null now.");
         playMode = PlayMode.NULL;
@@ -260,7 +256,7 @@ public class Player {
       ps.sortCardsValueNorm(spades);
       ps.sortCardsValueNorm(hearts);
       ps.sortCardsValueNorm(diamonds);
-    } else if (ps.getPlayMode() == PlayMode.NULL | ps.getPlayMode() == PlayMode.NULLOUVERT) {
+    } else if (ps.getPlayMode() == PlayMode.NULL) {
       ps.sortCardsValueLowTen(clubs);
       ps.sortCardsValueLowTen(spades);
       ps.sortCardsValueLowTen(hearts);
@@ -336,7 +332,7 @@ public class Player {
   }
 
   /**
-   * calculates
+   * calculates the the Matadors the hand has to be sorted before! with the (chosen/possible) trump
    * 
    * @return
    */
@@ -352,23 +348,110 @@ public class Player {
         if (this.hand.get(i).getMatadorValue() == i) {
           with++;
         } else {
-          break;
+          return with;
         }
       }
     }
     // play against(if first card is not clubs jack)
-    // else if(this.)
-
+    else {
+      // matadorValue of first card is number
+      against = this.hand.get(0).getMatadorValue();
+      return against;
+    }
     return 0;
   }
 
-  //
-  // public static void main(String [] args) {
-  // Player anne = new Player("Anne");
-  //
-  // for(int i =0; i <50; i++) {
-  // anne.playRandomCard();
-  // }
+  // test method create random hand
+  public ArrayList<Card> createRandomHand() {
+    ArrayList<Card> randomHand = new ArrayList<Card>();
+    // initialize Cards
+    Card cards[] = new Card[32];
+    int counter = 0;
+    for (int i = 1; i <= 4; i++) {
+      Colour col = null;
+      switch (i) {
+        case 1:
+          col = Colour.DIAMONDS;
+          break;
+        case 2:
+          col = Colour.HEARTS;
+          break;
+        case 3:
+          col = Colour.SPADES;
+          break;
+        case 4:
+          col = Colour.CLUBS;
+          break;
+      }
+      for (int j = 1; j <= 8; j++) {
+        Number nr = null;
+        switch (j) {
+          case 1:
+            nr = Number.SEVEN;
+            break;
+          case 2:
+            nr = Number.EIGHT;
+            break;
+          case 3:
+            nr = Number.NINE;
+            break;
+          case 4:
+            nr = Number.JACK;
+            break;
+          case 5:
+            nr = Number.QUEEN;
+            break;
+          case 6:
+            nr = Number.KING;
+            break;
+          case 7:
+            nr = Number.TEN;
+            break;
+          case 8:
+            nr = Number.ASS;
+            break;
+        }
+        // cards are generated in the order of their value
 
-  // }
+        Card c = new Card(col, nr);
+        cards[counter] = c;
+        counter++;
+
+        // System.out.println(counter + " " + col.toString() + " " + nr.toString());
+      }
+    }
+    // shuffle Cards
+    int index;
+    Card temp = null;
+    for (int i = 0; i < 32; i++) {
+      index = (int) (Math.random() * 32);
+      temp = cards[i];
+      cards[i] = cards[index];
+      cards[index] = temp;
+    }
+
+    for (int i = 0; i < 10; i++) {
+      randomHand.add(cards[i]);
+    }
+    return randomHand;
+  }
+
+  // test print method
+  public void printList(ArrayList<Card> list) {
+    for (int i = 0; i < list.size(); i++) {
+      System.out
+          .println(list.get(i).getColour().toString() + " " + list.get(i).getNumber().toString());
+    }
+  }
+
+  public static void main(String[] args) {
+    PlayState ps = new PlayState();
+    ps.setPlayMode(PlayMode.COLOUR);
+    ps.setTrump(Colour.HEARTS);
+    Player anne = new Player("Anne");
+    anne.setHand(anne.createRandomHand());
+    anne.sortHand(ps);
+    anne.printList(anne.getHand());
+    System.out.println("Matador: " + anne.calculateMatador());
+  }
 }
