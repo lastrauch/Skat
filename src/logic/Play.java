@@ -164,6 +164,8 @@ public class Play {
         }
 
         // declarer is not allowed to win a trick when playMode is NULL/NULLOUVERT
+
+        // SCHNEIDER SCHWARZ!!!!?????
         if (this.ps.getPlayMode() == PlayMode.NULL) {
           if (this.ps.getDeclarer().equals(this.group[this.indexWinnerLastTrick])) {
             this.singlePlayerWins = false;
@@ -345,6 +347,21 @@ public class Play {
   }
 
   /**
+   * true if declarer over bid 
+   * false if not
+   * 
+   * @author sandfisc
+   * @return
+   */
+  public boolean checkOverBid() {
+    if (this.ps.getPlayValue() < this.ps.getDeclarer().getBet()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  /**
    * Calculates the winner of the play, and saves it in the boolean singlePlayerWins uses
    * calculatePoinsOfStack
    * 
@@ -354,8 +371,7 @@ public class Play {
   public boolean calculateWinner() {
 
     // "singleplayer bidded himself over"
-    if (this.ps.getPlayValue() < this.ps.getDeclarer().getBet()) {
-      // this.singlePlayerWins = false;
+    if (!this.checkOverBid()) {
       return false;
     } else {
 
@@ -549,9 +565,15 @@ public class Play {
     }
   }
 
+  public void calculatePointsOverBit() {
+    int points = 0; // base value
+ //   while (points < this.ps.b)
+    
+  }
+  
   /**
    * if declarer won he/she the value of the game is added to his/her gamePoints else twice the
-   * value is subtracted from his/her score 
+   * value is subtracted from his/her score
    * 
    * @author sandfisc
    */
@@ -578,7 +600,7 @@ public class Play {
   }
 
   /**
-   * declarer gets or losses (the playValue + 50) *
+   * declarer gets or losses (the playValue + 50)
    * 
    * @author sandfisc
    */
