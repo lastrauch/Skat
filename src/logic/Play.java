@@ -165,8 +165,8 @@ public class Play {
 
         // declarer is not allowed to win a trick when playMode is NULL/NULLOUVERT
         if (this.ps.getPlayMode() == PlayMode.NULL) {
-
           if (this.ps.getDeclarer().equals(this.group[this.indexWinnerLastTrick])) {
+            this.singlePlayerWins = false;
             break;
           }
         }
@@ -181,7 +181,7 @@ public class Play {
       this.printListCards(this.ps.getStackOpponents());
       System.out.println();
     }
-
+    this.singlePlayerWins = this.calculateWinner();
   }
 
   // to test stuff
@@ -349,24 +349,47 @@ public class Play {
    * calculatePoinsOfStack
    * 
    * @author awesch
+   * @author sandfisc
    */
-  public void calculateWinner() {
-    // there are two possible states where the declarer wins (depends if he plays hand or not)
-    // if he plays hand: poinsD >= pointsO (1.), if not: pointsD > pointsO(2.)
+  public boolean calculateWinner() {
 
-    int pointsD = this.calculatePointsOfStack(this.ps.getStackDeclarer());
-    int pointsO = this.calculatePointsOfStack(this.ps.getStackOpponents());
-    // 1.
-    if (pointsD >= pointsO && this.ps.getHandGame()) {
-      this.singlePlayerWins = true;
-    }
-    // 2.
-    else if (pointsD > pointsO && (!this.ps.getHandGame())) {
-      this.singlePlayerWins = true;
-    }
-    // in every other case the team wins
-    else {
-      this.singlePlayerWins = false;
+    // "singleplayer bidded himself over"
+    if (this.ps.getPlayValue() < this.ps.getDeclarer().getBet()) {
+      // this.singlePlayerWins = false;
+      return false;
+    } else {
+
+      int pointsD = this.calculatePointsOfStack(this.ps.getStackDeclarer());
+      int pointsO = this.calculatePointsOfStack(this.ps.getStackOpponents());
+
+      // check "schneider"
+      if (pointsD >= 90) {
+        this.ps.setSchneider(true);        
+      } else if (this.ps.getSchneiderAnnounced()) {
+        return false;
+      }
+      
+      // check "schwarz"
+      if (pointsO == 0) {
+        this.ps.setSchwarz(true);
+      } else if (this.ps.getSchneiderAnnounced()) {
+        return false;
+      }
+
+      // there are two possible states where the declarer wins (depends if he plays hand or not)
+      // if he plays hand: poinsD >= pointsO (1.), if not: pointsD > pointsO(2.)
+      // 1.
+      if (pointsD >= pointsO && this.ps.getHandGame()) {
+        return true;
+      }
+      // 2.
+      else if (pointsD > pointsO && (!this.ps.getHandGame())) {
+        return true;
+      }
+      // in every other case the team wins
+      else {
+        return false;
+      }
     }
   }
 
@@ -527,8 +550,7 @@ public class Play {
   }
 
   public void calculatePointsNormal() {
-    if (this.ps.getPlayValue() < this.ps.getDeclarer().getBet()){
-    }
+
   }
 
   public void calculatePointsBierlachs() {
