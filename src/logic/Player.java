@@ -362,6 +362,14 @@ public class Player {
     return 0;
   }
 
+  /**
+   * calculates the multiplier to calculate the value of a suit or grand game
+   * 
+   * @author awesch
+   * @param ps
+   * @return
+   */
+
   public int calculateMultiplier(PlayState ps) {
     int result = 1; // 1 for the game
     result += this.calculateMatador(); // + matadors
@@ -394,6 +402,10 @@ public class Player {
     }
 
     return result;
+  }
+
+  public void addToGamePoints(int points) {
+    this.gamePoints += points;
   }
 
   // test method create random hand
