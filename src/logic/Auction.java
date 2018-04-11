@@ -22,9 +22,9 @@ public class Auction {
     this.initializeBets();
     try {
       this.organizeAuction();
-      this.updatePlayState(ps);
       this.mangageSkat(ps);
       this.winner.askForPlaySettings(ps);
+      this.updatePlayState(ps);
       // test print
       System.out.println("We will now play: " + ps.getPlayMode().toString());
       ps.setAuctionPossible(true);
