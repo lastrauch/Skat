@@ -283,6 +283,7 @@ public class Game {
         this.winner = this.group[i];
       }
     }
+    System.out.println("...and the winner is: " + this.winner.getName());
   }
 
   public static void main(String[] args) {
