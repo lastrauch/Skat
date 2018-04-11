@@ -56,5 +56,33 @@ public interface LogicGui {
    */
   public String setTrump(Player player);
   
-  //add all other play settings and the conditions (when the could be set)
+  /**
+   * asks player if he wants to play Hand (also after he won the aution)
+   * true --> he wants to play hand
+   * @return
+   */
+  public boolean playHand();
+  
+  /**
+   * asks the player if he wants to announce Schneider (after he won the auction)
+   * true --> he wants to announce schneider
+   * @return
+   */
+  public boolean announceSchneider();
+  
+  /**
+   * asks the player if he wants to announce Schwarz (after he won the auction)
+   * true --> he wants to announce Schwarz
+   * @return
+   */
+  public boolean announceSchwarz();
+  
+  /**
+   * asks the player if he wants to play open (after he won the auction)
+   * true --> he wants to play open
+   * @return
+   */
+  public boolean playOpen();
+  
+  
 }

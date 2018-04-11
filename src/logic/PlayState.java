@@ -10,9 +10,7 @@ public class PlayState {
   private Card[] skat;
   private Colour trump;
   private int playValue;
-  private int playPoints;
   private int betValue;
-  private int nrOfPlays;
   private PlayMode pm;
   private boolean auctionPossible;
   private boolean handGame;
@@ -35,7 +33,6 @@ public class PlayState {
     this.trump = Colour.CLUBS;
     this.playValue = 0;
     this.betValue = 0;
-    this.nrOfPlays = 3;
     this.pm = PlayMode.SUIT;
     this.auctionPossible = true;
   }
@@ -61,14 +58,6 @@ public class PlayState {
   
   public void setPlayValue(int playValue) {
     this.playValue = playValue;
-  }
-  
-  public int getPlayPoints() {
-    return this.playPoints;
-  }
-  
-  public void setPlayPoints(int playPoints) {
-    this.playPoints = playPoints;
   }
   
   public boolean getHandGame() {
@@ -109,14 +98,6 @@ public class PlayState {
 
   public Card[] getSkat() {
     return this.skat;
-  }
-
-  public void setNrOfPlays(int nrOfPlays) {
-    this.nrOfPlays = nrOfPlays;
-  }
-
-  public int getNrOfPlays() {
-    return this.nrOfPlays;
   }
 
   public PlayMode getPlayMode() {
