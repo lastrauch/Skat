@@ -1,11 +1,12 @@
 package logic;
 
+import java.sql.Blob;
 import javafx.scene.image.Image;
 
 public class Card {
   private Colour colour;
   private Number number;
-  private Image img;
+  private Blob img;
 
 
 
@@ -14,10 +15,33 @@ public class Card {
     this.number = number;
   }
 
-  public Card(Colour colour, Number number, Image img) {
+  public Card(Colour colour, Number number, Blob img) {
     this.colour = colour;
     this.number = number;
     this.img = img;
+  }
+
+  public int getMatadorValue() {
+    int mValue = 0;
+    if (this.number == Number.JACK) {
+      switch (this.colour) {
+        case CLUBS:
+          mValue = 0;
+          break;
+        case SPADES:
+          mValue = 1;
+          break;
+        case HEARTS:
+          mValue = 2;
+          break;
+        case DIAMONDS:
+          mValue = 3;
+          break;
+      }
+    } else {
+      mValue = this.number.getMatadorValue();
+    }
+    return mValue;
   }
 
   public Colour getColour() {
@@ -28,7 +52,7 @@ public class Card {
     return this.number;
   }
 
-  public Image getImage() {
+  public Blob getImage() {
     return this.img;
   }
 
@@ -36,7 +60,7 @@ public class Card {
     return this.number.getValue();
   }
 
-  public void setImage(Image img) {
+  public void setImage(Blob img) {
     this.img = img;
   }
 
@@ -52,7 +76,7 @@ public class Card {
       return false;
     }
   }
-  
+
   public boolean isLowerAsNorm(Card comp) {
     if (this.number.getRankingNorm() < comp.getNumber().getRankingNorm()) {
       return true;

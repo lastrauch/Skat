@@ -2,40 +2,55 @@ package logic;
 
 public class GameSettings {
   private CountRule countRule;
-  private int NrOfPlayers;
-  private int NrOfPlays;
-  private boolean inableKontra;
+  private int nrOfPlayers;
+  private int nrOfPlays;
+  private boolean enableKontra;
+  private boolean enableLimitedTime;
+  private int timeLimit;
+  private int endPointsBierlachs;
   // ... add all other possible settings
 
-  
+
   public GameSettings() {
     this.countRule = CountRule.NORMAL;
-    this.NrOfPlayers = 3;
-    this.NrOfPlays = 3;
-    this.inableKontra = false; 
+    this.nrOfPlayers = 3;
+    this.nrOfPlays = 3;
+    this.enableKontra = false;
   }
-  
+
   public GameSettings(CountRule countRule, int NrOfPlayers, int NrOfPlays) throws LogicException {
-    if (this.checkNrOfPlays(NrOfPlays)) {  
-      this.NrOfPlays = NrOfPlays;
-    }else {
-      throw new LogicException("The number of plays is not possible!");
-    }
+    
+    // if the count rule is bierlachs we need an end score where the game determines
     this.countRule = countRule;
-    this.NrOfPlayers = NrOfPlayers;
-    this.inableKontra = false;
+    if (countRule == CountRule.BIERLACHS) {
+      this.endPointsBierlachs = 500;
+      this.nrOfPlays = 50; //we want the game to stop even there is no winner after 50 plays
+      
+    }else {
+      if (this.checkNrOfPlays(NrOfPlays)) {
+        this.nrOfPlays = NrOfPlays;
+      } else {
+        throw new LogicException("The number of plays is not possible!");
+      }
+    }
+    this.nrOfPlayers = NrOfPlayers;
+    this.enableKontra = false;
   }
 
   public CountRule getCountRule() {
     return this.countRule;
   }
 
+  public void setCountRule(CountRule countRule) {
+    this.countRule = countRule;
+  }
+
   public int getNrOfPlayers() {
-    return this.NrOfPlayers;
+    return this.nrOfPlayers;
   }
 
   public int getNrOfPlays() {
-    return this.NrOfPlays;
+    return this.nrOfPlays;
   }
 
   public boolean checkNrOfPlays(int NrOfPlays) {
@@ -47,6 +62,14 @@ public class GameSettings {
       }
     }
     return false;
+  }
+  
+  public int getEndPointsBierlachs() {
+    return this.endPointsBierlachs;
+  }
+  
+  public void setEndPointsBierlachs(int endPoints) {
+    this.endPointsBierlachs = endPoints;
   }
 
   // i think we don't need setters here
