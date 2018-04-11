@@ -98,7 +98,7 @@ public class Player {
   public void askForPlaySettings(PlayState ps) {
 
     // set playmode
-    String pm = IOTools.readLine("Set the PlayMode (colour, grand, null or nullouvert): ");
+    String pm = IOTools.readLine("Set the PlayMode (colour, grand, null): ");
     PlayMode playMode;
     switch (pm) {
       case "colour":
@@ -408,6 +408,7 @@ public class Player {
   /**
    * calculates the play value for suit or grand plays
    * 
+   * @author awesch
    * @param ps
    * @return
    */
@@ -419,6 +420,7 @@ public class Player {
   /**
    * initializes the play value for a null play
    * 
+   * @author awesch
    * @param ps
    * @return
    */
@@ -439,6 +441,7 @@ public class Player {
   /**
    * calculates the play value with the other methods implemented for the special contracts
    * 
+   * @author awesch
    * @param ps
    * @return
    */
@@ -542,19 +545,19 @@ public class Player {
   public boolean isHost() {
     return this.host;
   }
-  
+
   public void setHost(boolean isHost) {
     this.host = isHost;
   }
-  
-//  public static void main(String[] args) {
-//    PlayState ps = new PlayState();
-//    ps.setPlayMode(PlayMode.SUIT);
-//    ps.setTrump(Colour.HEARTS);
-//    Player anne = new Player("Anne");
-//    anne.setHand(anne.createRandomHand());
-//    anne.sortHand(ps);
-//    anne.printList(anne.getHand());
-//    System.out.println("Matador: " + anne.calculateMatador());
-//  }
+
+  // public static void main(String[] args) {
+  // PlayState ps = new PlayState();
+  // ps.setPlayMode(PlayMode.SUIT);
+  // ps.setTrump(Colour.HEARTS);
+  // Player anne = new Player("Anne");
+  // anne.setHand(anne.createRandomHand());
+  // anne.sortHand(ps);
+  // anne.printList(anne.getHand());
+  // System.out.println("Matador: " + anne.calculateMatador());
+  // }
 }

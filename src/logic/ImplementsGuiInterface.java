@@ -9,7 +9,7 @@ public class ImplementsGuiInterface implements GuiLogic{
 //* @param player
 //* @return
 //*/
-//public boolean askForHandGame();
+//public boolean setHandGame();
 //
 ///**
 //* asks player to set the PlayMode (after he won the auction)
