@@ -9,6 +9,7 @@ public class Player {
   private ArrayList<Card> hand = new ArrayList<Card>();
   private int bet;
   private int gamePoints; // saves the pionts of every Play until the whole game is over
+  private boolean host;
 
   public Player(String name) {
     this.name = name;
@@ -538,6 +539,14 @@ public class Player {
     }
   }
 
+  public boolean isHost() {
+    return this.host;
+  }
+  
+  public void setHost(boolean isHost) {
+    this.host = isHost;
+  }
+  
   public static void main(String[] args) {
     PlayState ps = new PlayState();
     ps.setPlayMode(PlayMode.SUIT);

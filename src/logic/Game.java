@@ -171,14 +171,19 @@ public class Game {
           }
         }
       }
+      
       try {
-      this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings, this.cards);
+        this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings, this.cards);
         this.plays[i].runPlay();
       } catch (LogicException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
 
+      if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
+         
+      }
+      
       this.setPointerF((i + 1) % group.length);
       this.updatePosition();
     }
@@ -246,7 +251,20 @@ public class Game {
     }
   }
   
-
+  /**
+   * calculates the winner of the whole game
+   * 
+   * @author sandfisc
+   */
+  public void calculateWinner() {
+    this.winner = this.group[0];
+    for (int i = 1; i < this.group.length; i++) {
+      if (group[i].getGamePoints() > this.winner.getGamePoints()) {
+        this.winner = this.group[i];
+      }
+    }
+  }
+  
   public static void main(String[] args) {
 
     // test

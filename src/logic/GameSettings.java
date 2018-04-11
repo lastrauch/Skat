@@ -7,6 +7,7 @@ public class GameSettings {
   private boolean enableKontra;
   private boolean enableLimitedTime;
   private int timeLimit;
+  private int endPointsBierlachs;
   // ... add all other possible settings
 
 
@@ -53,6 +54,14 @@ public class GameSettings {
       }
     }
     return false;
+  }
+  
+  public int getEndPointsBierlachs() {
+    return this.endPointsBierlachs;
+  }
+  
+  public void setEndPointsBierlachs(int endPoints) {
+    this.endPointsBierlachs = endPoints;
   }
 
   // i think we don't need setters here
