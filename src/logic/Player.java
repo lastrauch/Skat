@@ -1,10 +1,12 @@
 package logic;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 
 public class Player {
   private int id;
   private String name;
+  private Blob img;
   private Position position;
   private ArrayList<Card> hand = new ArrayList<Card>();
   private int bet;
@@ -548,6 +550,14 @@ public class Player {
 
   public void setHost(boolean isHost) {
     this.host = isHost;
+  }
+
+  public Blob getImage() {
+    return img;
+  }
+
+  public void setImage(Blob img) {
+    this.img = img;
   }
 
   // public static void main(String[] args) {

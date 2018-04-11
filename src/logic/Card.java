@@ -1,11 +1,12 @@
 package logic;
 
+import java.sql.Blob;
 import javafx.scene.image.Image;
 
 public class Card {
   private Colour colour;
   private Number number;
-  private Image img;
+  private Blob img;
 
 
 
@@ -14,7 +15,7 @@ public class Card {
     this.number = number;
   }
 
-  public Card(Colour colour, Number number, Image img) {
+  public Card(Colour colour, Number number, Blob img) {
     this.colour = colour;
     this.number = number;
     this.img = img;
@@ -51,7 +52,7 @@ public class Card {
     return this.number;
   }
 
-  public Image getImage() {
+  public Blob getImage() {
     return this.img;
   }
 
@@ -59,7 +60,7 @@ public class Card {
     return this.number.getValue();
   }
 
-  public void setImage(Image img) {
+  public void setImage(Blob img) {
     this.img = img;
   }
 
