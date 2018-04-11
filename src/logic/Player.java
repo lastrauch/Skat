@@ -547,14 +547,14 @@ public class Player {
     this.host = isHost;
   }
   
-  public static void main(String[] args) {
-    PlayState ps = new PlayState();
-    ps.setPlayMode(PlayMode.SUIT);
-    ps.setTrump(Colour.HEARTS);
-    Player anne = new Player("Anne");
-    anne.setHand(anne.createRandomHand());
-    anne.sortHand(ps);
-    anne.printList(anne.getHand());
-    System.out.println("Matador: " + anne.calculateMatador());
-  }
+//  public static void main(String[] args) {
+//    PlayState ps = new PlayState();
+//    ps.setPlayMode(PlayMode.SUIT);
+//    ps.setTrump(Colour.HEARTS);
+//    Player anne = new Player("Anne");
+//    anne.setHand(anne.createRandomHand());
+//    anne.sortHand(ps);
+//    anne.printList(anne.getHand());
+//    System.out.println("Matador: " + anne.calculateMatador());
+//  }
 }
