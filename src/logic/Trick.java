@@ -21,11 +21,11 @@ public class Trick {
   public int getIndexWinner() {
     return this.indexWinner;
   }
-  
+
   public Colour getFirstColour() {
     return this.trickCards[0].getColour();
   }
-  
+
   public Card getFirstCard() {
     return this.trickCards[0];
   }
@@ -74,15 +74,15 @@ public class Trick {
     if (this.ps.getPlayMode() == PlayMode.SUIT) {
       this.indexWinner = this.calculateWinnerColour();
       // test
-       System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
-       + this.trickCards[this.indexWinner].getColour());
+      // System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
+      // + this.trickCards[this.indexWinner].getColour());
 
       // calculate winner when PlayMode is Grand
     } else if (this.ps.getPlayMode() == PlayMode.GRAND) {
       this.indexWinner = this.calculateWinnerGrand();
       // test
-       System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
-       + this.trickCards[this.indexWinner].getColour());
+      // System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
+      // + this.trickCards[this.indexWinner].getColour());
 
 
       // calculate winner when PlayMode is Null or NullOuvert
@@ -107,9 +107,9 @@ public class Trick {
   public int calculateWinnerColour() {
 
     // test
-//    System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
-//    System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
-//    System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
+    // System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
+    // System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
+    // System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
 
     if (this.compareCardsColour(this.trickCards[0], this.trickCards[1]) == 0) {
       if (this.compareCardsColour(this.trickCards[0], this.trickCards[2]) == 0) {
@@ -218,9 +218,9 @@ public class Trick {
   public int calculateWinnerGrand() {
 
     // test
-//    System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
-//    System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
-//    System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
+    // System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
+    // System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
+    // System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
 
     if (this.compareCardsGrand(this.trickCards[0], this.trickCards[1]) == 0) {
       if (this.compareCardsGrand(this.trickCards[0], this.trickCards[2]) == 0) {
@@ -272,9 +272,9 @@ public class Trick {
   public int calculateWinnerNull() {
 
     // test
-//    System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
-//    System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
-//    System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
+    // System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
+    // System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
+    // System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
 
     if (this.compareNumberLowTen(this.trickCards[0], this.trickCards[1]) == 0) {
       if (this.compareNumberLowTen(this.trickCards[0], this.trickCards[2]) == 0) {

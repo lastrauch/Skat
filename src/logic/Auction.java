@@ -274,7 +274,7 @@ public class Auction {
     }
     ps.setBetValue(bV);
     ps.initializeBaseValue();
-
+    ps.setPlayValue(this.winner.calculatePlayValue(ps));
   }
 
   public void mangageSkat(PlayState ps) {

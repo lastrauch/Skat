@@ -10,7 +10,7 @@ public class Game {
   private Play[] plays;
   private Card[] cards;
   private Player winner;
-  
+
   /**
    * constructor #1
    * 
@@ -65,7 +65,7 @@ public class Game {
    */
   public void initializeCards() {
     this.cards = new Card[32];
-    
+
     int counter = 0;
     for (int i = 1; i <= 4; i++) {
       Colour col = null;
@@ -146,14 +146,16 @@ public class Game {
    * @author sandfisc
    */
   public void runGame() {
-      
+
+    boolean breakPlease = false; // is set true when the game is over before all plays are played
+                                 // #BIERLACHS
     Player[] playingGroup = new Player[3]; // always three players who are actually playing
 
     // if only three players then the playing group is the whole group "at the table"
     if (this.group.length == 3) {
       playingGroup = this.group;
     }
-    
+
     // set all points of the players 0
     for (int i = 0; i < this.group.length; i++) {
       this.group[i].setGamePoints(0);
@@ -171,8 +173,9 @@ public class Game {
           }
         }
       }
-      
+
       try {
+        // play one play with a sorted (playing) group
         this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings, this.cards);
         this.plays[i].runPlay();
       } catch (LogicException e) {
@@ -180,13 +183,30 @@ public class Game {
         e.printStackTrace();
       }
 
+      // when a player reaches the endPointsBierlachs the game is over
       if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
-         
+        for (int j = 0; j < this.group.length; j++) {
+          if (this.group[j].getGamePoints() <= this.gameSettings.getEndPointsBierlachs()) {
+            breakPlease = true;
+          }
+        }
+      }
+      // #BIERLACHS
+      if (breakPlease) {
+        this.calculateWinner();
+        break;
+      }
+
+      for(int j = 0; j < this.group.length; j++) {
+        System.out.println(group[j].getName() + "'s GamePoints: " + group[j].getGamePoints());
       }
       
+      // after a play the players change positions
       this.setPointerF((i + 1) % group.length);
       this.updatePosition();
     }
+    // when the game is over the winner is calculated
+    this.calculateWinner();
   }
 
   /**
@@ -250,7 +270,7 @@ public class Game {
       this.group[((this.pointerF + 3) % this.group.length)].setPosition(Position.DEALER);
     }
   }
-  
+
   /**
    * calculates the winner of the whole game
    * 
@@ -264,16 +284,16 @@ public class Game {
       }
     }
   }
-  
+
   public static void main(String[] args) {
 
     // test
     Player anne = new Player("Anne");
     Player larissa = new Player("Larissa");
     Player felix = new Player("Felix");
-    Player duygu = new Player("Duygu");
+  //  Player duygu = new Player("Duygu");
 
-    Player[] group = {anne, larissa, felix, duygu};
+    Player[] group = {anne, larissa, felix};
     Game game = new Game(group);
     game.runGame();
     // test: define seatingList

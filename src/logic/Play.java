@@ -11,9 +11,6 @@ public class Play {
   private Auction auction;
   private int currentTrick;
   private int indexWinnerLastTrick;
-  // private int indexWinner; // winner of play
-  // well we could have two winners right? thougt boolean singlePlayer could be better, what do you
-  // think honey? ***** i like that :*
   private PlayState ps;
   private final int nrTricks = 10;
   private GameSettings gameSettings;
@@ -21,7 +18,6 @@ public class Play {
 
   // needs a 3 Player Array
   public Play(Player[] group, GameSettings gameSettings, Card[] cards) {
-    this.cards = new Card[32];
     this.tricks = new Trick[this.nrTricks];
     this.group = group;
     // this.runPlay();
@@ -71,9 +67,6 @@ public class Play {
     // test:
     // this.printHands("after second sortCards:");
 
-    // test player kr���m
-    this.group[0].setGamePoints(this.group[0].getGamePoints() + 1);
-
     // doing 10 tricks
     Card card1 = null;
     Card card2 = null;
@@ -85,9 +78,9 @@ public class Play {
       this.tricks[i] = new Trick(this.ps);
 
       // test
-      System.out.println(this.group[(this.indexWinnerLastTrick) % 3].getName());
-      System.out.println(this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
-      System.out.println(this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
+      // System.out.println(this.group[(this.indexWinnerLastTrick) % 3].getName());
+      // System.out.println(this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
+      // System.out.println(this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
 
 
       try {
@@ -96,8 +89,8 @@ public class Play {
 
         // test random card
         card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
-        System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
-        this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
+        // System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
+        // this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
         // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
         this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
 
@@ -109,9 +102,9 @@ public class Play {
 
           // test random card
           card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseRandomCardFromHand();
-          System.out
-              .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
-          this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
+          // System.out
+          // .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
+          // this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
           // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
         } while (!this.checkIfCardPossible(card2, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 1) % 3]));
@@ -129,9 +122,9 @@ public class Play {
           // test random card
           card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseRandomCardFromHand();
 
-          System.out
-              .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
-          this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
+          // System.out
+          // .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
+          // this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
           // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
         } while (!this.checkIfCardPossible(card3, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 2) % 3]));
@@ -146,15 +139,15 @@ public class Play {
 
       }
 
-      System.out.println("The trick:");
-      this.printArrayOfCards(this.tricks[i].getTrickCards());
+      // System.out.println("The trick:");
+      // this.printArrayOfCards(this.tricks[i].getTrickCards());
 
       // the winner is calculated and his/her index is saved in indexWinnerLastTrick
       try {
         this.tricks[i].calculateWinner();
         this.indexWinnerLastTrick = this.tricks[i].getIndexWinner();
-        System.out.println(
-            "Winner of the last Trick: " + this.group[this.indexWinnerLastTrick].getName());
+        // System.out.println(
+        // "Winner of the last Trick: " + this.group[this.indexWinnerLastTrick].getName());
 
         // winner receives cards on his stack
         if (this.group[this.indexWinnerLastTrick] == this.ps.getDeclarer()) {
@@ -176,14 +169,23 @@ public class Play {
         e.printStackTrace();
 
       }
-      System.out.println("Declarer Stack:");
-      this.printListCards(this.ps.getStackDeclarer());
-      System.out.println();
-      System.out.println("Opponents Stack:");
-      this.printListCards(this.ps.getStackOpponents());
-      System.out.println();
+      // System.out.println("Declarer Stack:");
+      // this.printListCards(this.ps.getStackDeclarer());
+      // System.out.println();
+      // System.out.println("Opponents Stack:");
+      // this.printListCards(this.ps.getStackOpponents());
+      // System.out.println();
     }
+    // calculate if the declarer won the play
     this.singlePlayerWins = this.calculateWinner();
+
+    // update the gamePoints of each player
+    try {
+      this.calculatePoints();
+    } catch (LogicException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   // to test stuff
@@ -551,12 +553,12 @@ public class Play {
    * @throws LogicException
    */
   public void calculatePoints() throws LogicException {
-    
-    //check if the declarer over bid
+
+    // check if the declarer over bid
     if (this.checkOverBid()) {
       this.calculatePointsOverBit();
-      
-    // calculate the players points with the countRule  
+
+      // calculate the players points with the countRule
     } else {
       if (this.gameSettings.getCountRule() == CountRule.NORMAL) {
         this.calculatePointsNormal();
