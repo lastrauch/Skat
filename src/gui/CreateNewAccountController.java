@@ -4,15 +4,15 @@ import javafx.fxml.FXML;
 
 public class CreateNewAccountController {
 
-	private GuiController main;
+  private GuiController main;
 
-	public CreateNewAccountController() {
-		this.main = new GuiController();
-	}
+  public CreateNewAccountController() {
+    this.main = new GuiController();
+  }
 
-	@FXML
-	public void back() {
-		main.displayChooseGame();
-	}
+  @FXML
+  public void back() {
+    main.displayChooseGame();
+  }
 
 }

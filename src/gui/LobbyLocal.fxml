@@ -29,28 +29,29 @@
                   <Font size="27.0" />
                </font>
             </Label>
-            <MenuButton lineSpacing="60.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="334.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Easy" textFill="WHITE">
+            <MenuButton fx:id="eins" lineSpacing="60.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="334.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Easy" textFill="WHITE">
               <items>
-                <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-background-radius: 20; -fx-prefWdith: 334; -fx-prefHight: 47; -fx-text-fill: white;" text="Easy" />
-                <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
+                <MenuItem fx:id="easy1" mnemonicParsing="false" onAction="#setButtonText1_Easy" style="-fx-background-color: peru; -fx-background-radius: 20; -fx-prefWdith: 334; -fx-prefHight: 47; -fx-text-fill: white;" text="Easy" />
+                <MenuItem fx:id="dif1" mnemonicParsing="false" onAction="#setButtonText1_Difficult" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
               </items>
                <font>
                   <Font size="27.0" />
                </font>
             </MenuButton>
-            <MenuButton layoutX="10.0" layoutY="31.0" lineSpacing="20.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="343.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Difficult" textFill="WHITE">
+            <MenuButton fx:id="zwei" layoutX="10.0" layoutY="31.0" lineSpacing="20.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="343.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Difficult" textFill="WHITE">
                <items>
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-text-fill: white;" text="Easy" />
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
+                  <MenuItem fx:id="easy2" mnemonicParsing="false" onAction="#setButtonText2_Easy" style="-fx-background-color: peru; -fx-text-fill: white;" text="Easy" />
+                  <MenuItem fx:id="easy3" mnemonicParsing="false" onAction="#setButtonText2_Difficult" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
                </items>
                <font>
                   <Font size="27.0" />
                </font>
             </MenuButton>
-            <MenuButton layoutX="10.0" layoutY="31.0" lineSpacing="20.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="315.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Disabled" textFill="WHITE">
+            <MenuButton fx:id="drei" layoutX="10.0" layoutY="31.0" lineSpacing="20.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="315.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Disabled" textFill="WHITE">
                <items>
-                  <MenuItem mnemonicParsing="false" style="-fx-text-fill: white; -fx-background-color: peru;" text="Easy" />
-                  <MenuItem mnemonicParsing="false" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
+                  <MenuItem fx:id="easy3" mnemonicParsing="false" onAction="#setButtonText3_Easy" style="-fx-text-fill: white; -fx-background-color: peru;" text="Easy" />
+                  <MenuItem fx:id="dif3" mnemonicParsing="false" onAction="#setButtonText3_Difficult" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
+                  <MenuItem fx:id="dis3" mnemonicParsing="false" onAction="#setButtonText3_Disabled" style="-fx-text-fill: white; -fx-background-color: peru;" text="Disable" />
                </items>
                <font>
                   <Font size="27.0" />
