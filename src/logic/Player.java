@@ -450,7 +450,7 @@ public class Player {
   public int calculatePlayValue(PlayState ps) {
     int result = 0;
     if (ps.getPlayMode() == PlayMode.NULL) {
-      result = this.calculatePlayValue(ps);
+      result = this.calculatePlayValueNull(ps);
     } else {
       result = this.calculatePlayValueSuitorGrand(ps);
     }

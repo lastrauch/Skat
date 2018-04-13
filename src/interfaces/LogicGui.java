@@ -6,32 +6,39 @@ import logic.Card;
 public interface LogicGui {
 
   /**
-   * supposed to open an interface to the player where he can set the play settings (after he won
-   * the auction) like PlayMode, trump, hand game ect.
+   * should show the auction screen 
    */
-  public void askForPlaySettings();
-
+  public void startAuctionScreen();
+  
   /**
-   * supposed to open a window to the player where he can set the Game settings (if he is the host
-   * of the game) like Count Rule, kontra ect.
+   * should start the gui
    */
-  public void askForGameSettings();
-
+  public void startGui();
+  
   /**
-   * supposed to open a window with "pause" and freeses the screen
+   * should update/ start the user interface of a new round
    */
-  public void pauseGame();
-
+  public void startNewPlay();
+  
   /**
+   * asks the player to play a card, returns the index of the chosen card
    * 
    * @param time
    * @return
    */
-  public Card askToPlayCard(int time);
+  public int askToPlayCard(int time);
+  
+  /**
+   * asks the player if he wants to take up the skat
+   * 
+   * @return
+   */
+  public boolean takeUpSkat();
 
   /**
    * supposed to ask the Player if he wants to go with the bet or if he wants to pass like
    * "18 or pass?" (if bet=18) returns false if he wants to pass returns true if he clicks on 18
+   * belongs to the methods pass and bet
    * 
    * @param player
    * @param bet

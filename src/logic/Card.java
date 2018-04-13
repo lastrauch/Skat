@@ -7,8 +7,8 @@ public class Card {
   private Colour colour;
   private Number number;
   private Blob img;
-
-
+  private Blob imgDarker;
+  
 
   public Card(Colour colour, Number number) {
     this.colour = colour;
@@ -99,6 +99,14 @@ public class Card {
     } else {
       return false;
     }
+  }
+
+  public Blob getImgDarker() {
+    return imgDarker;
+  }
+
+  public void setImgDarker(Blob imgDarker) {
+    this.imgDarker = imgDarker;
   }
 
 }
