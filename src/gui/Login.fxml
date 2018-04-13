@@ -26,19 +26,19 @@
                <children>
                   <ImageView fx:id="jhearts" fitHeight="147.0" fitWidth="105.0" layoutX="263.0" layoutY="8.0" rotate="33.3" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="8.0">
                      <image>
-                        <Image url="@../../resources/Jdiamonds.jpg" />
+                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Karo_B.png" />
                      </image></ImageView>
                   <ImageView fx:id="jspades" fitHeight="147.0" fitWidth="105.0" layoutX="195.0" layoutY="-18.0" rotate="5.2" AnchorPane.leftAnchor="195.0" AnchorPane.topAnchor="-18.0">
                      <image>
-                        <Image url="@../../resources/Jhearts.jpg" />
+                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_B.png" />
                      </image></ImageView>
                   <ImageView fx:id="jdiamonds" fitHeight="147.0" fitWidth="105.0" layoutX="113.0" layoutY="-18.0" rotate="-11.3">
                      <image>
-                        <Image url="@../../resources/Jspades.jpg" />
+                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_B.png" />
                      </image></ImageView>
                   <ImageView fx:id="jclubs" fitHeight="147.0" fitWidth="105.0" layoutX="47.0" layoutY="8.0" rotate="-29.1" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="8.0">
                      <image>
-                        <Image url="@../../resources/Jclubs.jpg" />
+                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Kreuz_B.png" />
                      </image></ImageView>
                </children>
             </AnchorPane>

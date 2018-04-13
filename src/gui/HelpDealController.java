@@ -1,23 +1,22 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
-
 import javafx.fxml.FXML;
 
 public class HelpDealController {
 
-	@FXML
-	private JFXButton back;
+  @FXML
+  private JFXButton back;
 
-	private GuiController main;
+  private GuiController main;
 
-	public HelpDealController() {
-		this.main = new GuiController();
-	}
+  public HelpDealController() {
+    this.main = new GuiController();
+  }
 
-	@FXML
-	public void back() {
-		main.displayHelp();
-	}
+  @FXML
+  public void back() {
+    main.displayHelp();
+  }
 
 }
