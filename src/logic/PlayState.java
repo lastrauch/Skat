@@ -2,18 +2,6 @@ package logic;
 
 import java.util.ArrayList;
 
-/**
- * @author sandr
- *
- */
-/**
- * @author sandr
- *
- */
-/**
- * @author sandr
- *
- */
 public class PlayState {
   private Player declarer; // single player
   private Player[] opponents; // team Players
