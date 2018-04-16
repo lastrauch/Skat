@@ -5,7 +5,8 @@ import javafx.scene.image.Image;
 
 public class ImplementsGuiInterface implements GuiLogic {
 
-  // Which order?? we can return an array of "Card" instances where you can get the Image
+  // Which order?? we can return an array of "Card" instances where you can get the Image 
+  // We only get "Blob" Images from the sqlite database
   @Override
   public Image[] getCards() {
     // TODO Auto-generated method stub
@@ -45,12 +46,14 @@ public class ImplementsGuiInterface implements GuiLogic {
     return false;
   }
 
+  // "isHost"
   @Override
   public boolean ifHost() {
     // TODO Auto-generated method stub
     return false;
   }
 
+  // isAuctionWinner --> lower Case
   @Override
   public boolean IsAcutionWinner() {
     // TODO Auto-generated method stub
