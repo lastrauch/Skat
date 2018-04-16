@@ -4,14 +4,14 @@ import javafx.fxml.FXML;
 
 public class SettingsController {
 
-	private GuiController main;
+  private GuiController main;
 
-	public SettingsController() {
-		this.main = new GuiController();
-	}
+  public SettingsController() {
+    this.main = new GuiController();
+  }
 
-	@FXML
-	public void back() {
-		main.displayChooseGame();
-	}
+  @FXML
+  public void back() {
+    main.displayChooseGame();
+  }
 }

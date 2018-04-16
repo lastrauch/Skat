@@ -5,8 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import logic.Player;
 import logic.Card;
 
@@ -30,13 +28,12 @@ public class DatabaseHandler extends database {
   public void prepareStatements() {
     try {
         
-        insPlayer = c.prepareStatement(
-                "INSERT INTO Player (id, name, nickname, score, profilePicture) VALUES (?,'?','?',?,?);");
+        insPlayer = c.prepareStatement("INSERT INTO Player (id, name, nickname, score, profilePicture) VALUES (?,'?','?',?,?);");
         
         
         selectPlayer = c.prepareStatement("SELECT * FROM Player WHERE (nickname LIKE '%?%') ORDER BY nickname;");
         
-        selectCard = c.prepareStatement("SELECT * FROM Cards WHERE (colour LIKE '%?%') AND (value LIKE '%?%') AND (type LIKE '%?%'");
+        selectCard = c.prepareStatement("SELECT * FROM Cards WHERE (colour LIKE '%?%') AND (number LIKE '%?%'");
                 
         deletePlayer = c.prepareStatement("DELETE FROM Player WHERE id =?;");        
         
@@ -84,9 +81,7 @@ public class DatabaseHandler extends database {
     } catch (SQLException e) {       
         e.printStackTrace();
     }
-  }
-  
-//editPlayer: Hier soll der übergebene Spieler original durch den Spieler neu ersetzt werden. 
+  }t werden. 
   
   public void editPlayer(Player original, Player neu) {
     
@@ -95,6 +90,7 @@ public class DatabaseHandler extends database {
         //editPlayer.setString(2, neu.getNickname());
         //editPlayer.setInt(3, neu.getScore());
         //editPlayer.setBlob(4, neu.getProfilePicture());      
+      
         editPlayer.executeUpdate();
 }
     catch (SQLException e) {       
