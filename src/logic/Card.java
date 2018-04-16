@@ -6,8 +6,8 @@ import javafx.scene.image.Image;
 public class Card {
   private Colour colour;
   private Number number;
-  private Blob img;
-  private Blob imgDarker;
+  private Image img;
+  private Image imgDarker;
   
 
   public Card(Colour colour, Number number) {
@@ -15,7 +15,7 @@ public class Card {
     this.number = number;
   }
 
-  public Card(Colour colour, Number number, Blob img) {
+  public Card(Colour colour, Number number, Image img) {
     this.colour = colour;
     this.number = number;
     this.img = img;
@@ -52,7 +52,7 @@ public class Card {
     return this.number;
   }
 
-  public Blob getImage() {
+  public Image getImage() {
     return this.img;
   }
 
@@ -60,11 +60,11 @@ public class Card {
     return this.number.getValue();
   }
 
-  public void setImage(Blob img) {
+  public void setImage(Image img) {
     this.img = img;
   }
 
-  // reurns 0 for same Colour -1
+  // returns 0 for same Colour -1
   public int compareColour(Card comp) {
     return this.colour.compareColourIntern(comp.getColour());
   }
