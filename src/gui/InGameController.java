@@ -2,13 +2,20 @@ package gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class InGameController implements Initializable {
 
@@ -29,7 +36,7 @@ public class InGameController implements Initializable {
   @FXML
   private ImageView s1, s2, s3;
   @FXML
-  private AnchorPane pane;
+  private AnchorPane mainPane;
 
   /**
    * @param cc1
@@ -63,16 +70,6 @@ public class InGameController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // TODO Auto-generated method stub
-    // c1.setImage(cardId.getImage());
-    // c2.setImage(cardId.getImage());
-    // c3.setImage(cardId.getImage());
-    // c4.setImage(cardId.getImage());
-    // c5.setImage(cardId.getImage());
-    // c6.setImage(cardId.getImage());
-    // c7.setImage(cardId.getImage());
-    // c8.setImage(cardId.getImage());
-    // c9.setImage(cardId.getImage());
-    // c10.setImage(cardId.getImage());
 
     /**
      * Setzt die MouseEvents, sodass Karten ausgewählt und das Spielfeld aktualisiert werden kann
@@ -81,6 +78,7 @@ public class InGameController implements Initializable {
      * 
      */
     MouseHandler();
+    displayBetting();
 
   }
 
@@ -122,7 +120,7 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c1.getImage();
-        pane.getChildren().remove(c1);
+        mainPane.getChildren().remove(c1);
         AnzStichblatt();
 
 
@@ -133,7 +131,7 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c2.getImage();
-        pane.getChildren().remove(c2);
+        mainPane.getChildren().remove(c2);
         AnzStichblatt();
 
       }
@@ -143,7 +141,7 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c3.getImage();
-        pane.getChildren().remove(c3);
+        mainPane.getChildren().remove(c3);
         AnzStichblatt();
 
       }
@@ -153,7 +151,7 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c4.getImage();
-        pane.getChildren().remove(c4);
+        mainPane.getChildren().remove(c4);
         AnzStichblatt();
 
       }
@@ -163,7 +161,7 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c5.getImage();
-        pane.getChildren().remove(c5);
+        mainPane.getChildren().remove(c5);
         AnzStichblatt();
 
       }
@@ -173,7 +171,7 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c6.getImage();
-        pane.getChildren().remove(c6);
+        mainPane.getChildren().remove(c6);
         AnzStichblatt();
 
       }
@@ -183,7 +181,7 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c7.getImage();
-        pane.getChildren().remove(c7);
+        mainPane.getChildren().remove(c7);
         AnzStichblatt();
 
       }
@@ -193,7 +191,7 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c8.getImage();
-        pane.getChildren().remove(c8);
+        mainPane.getChildren().remove(c8);
         AnzStichblatt();
       }
     });
@@ -202,7 +200,7 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c9.getImage();
-        pane.getChildren().remove(c9);
+        mainPane.getChildren().remove(c9);
         AnzStichblatt();
 
       }
@@ -212,7 +210,7 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c10.getImage();
-        pane.getChildren().remove(c10);
+        mainPane.getChildren().remove(c10);
         AnzStichblatt();
       }
     });
@@ -255,5 +253,64 @@ public class InGameController implements Initializable {
   // public void whoWon(){
   // winner = GuiLogic.whoWon();
   // }
+
+  public void displayBetting() {
+    AnchorPane pane = new AnchorPane();
+    HBox box = new HBox();
+    Label label = new Label();
+    JFXButton qu = new JFXButton();
+    JFXButton pass = new JFXButton();
+    JFXButton bet = new JFXButton();
+
+    pane.setId("pane");
+    pane.setLayoutX(475);
+    pane.setLayoutY(128);
+    pane.setPrefHeight(315);
+    pane.setPrefWidth(395);
+    pane.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
+
+    qu.setPrefHeight(44);
+    qu.setPrefWidth(69);
+    qu.setText("?");
+    qu.setFont(Font.font("System", FontWeight.BOLD, 20));
+    qu.setTextFill(Color.WHITE);
+    qu.setStyle("-fx-background-color: tan;");
+    pass.setPrefHeight(44);
+    pass.setPrefWidth(69);
+    pass.setText("Pass");
+    pass.setFont(Font.font("System", FontWeight.BOLD, 20));
+    pass.setTextFill(Color.WHITE);
+    pass.setStyle("-fx-background-color: tan;");
+    bet.setPrefHeight(44);
+    bet.setPrefWidth(69);
+    bet.setText("bet");
+    bet.setFont(Font.font("System", FontWeight.BOLD, 20));
+    bet.setTextFill(Color.WHITE);
+    bet.setStyle("-fx-background-color: tan;");
+
+    label.setPrefHeight(53);
+    label.setLayoutX(88);
+    label.setLayoutY(36);
+    label.setText("Midde");
+    label.setFont(Font.font("System", FontWeight.BOLD, 36));
+    label.setTextFill(Color.WHITE);
+    AnchorPane.setLeftAnchor(label, 0.0);
+    AnchorPane.setRightAnchor(label, 0.0);
+    label.setAlignment(Pos.CENTER);
+
+    box.getChildren().add(qu);
+    box.getChildren().add(pass);
+    box.getChildren().add(bet);
+    box.setSpacing(50);
+    box.setPrefWidth(307);
+    box.setPrefHeight(44);
+    box.setLayoutX(37);
+    box.setLayoutY(158);
+
+    pane.getChildren().add(box);
+    pane.getChildren().add(label);
+
+    mainPane.getChildren().add(pane);
+  }
 
 }
