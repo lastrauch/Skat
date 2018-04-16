@@ -2,6 +2,18 @@ package logic;
 
 import java.util.ArrayList;
 
+/**
+ * @author sandr
+ *
+ */
+/**
+ * @author sandr
+ *
+ */
+/**
+ * @author sandr
+ *
+ */
 public class PlayState {
   private Player declarer; // single player
   private Player[] opponents; // team Players
@@ -21,9 +33,13 @@ public class PlayState {
   private boolean open;
   private int baseValue;
 
-
-  // still missing all the getters and setters
-  // add method cardAlreadyPlayed
+  /**
+   * constructor (default)
+   * the attributes are initialized but we want the player(s) to change them during the game
+   * 
+   * @author sandfisc
+   * @author awesch
+   */
   public PlayState() {
     this.declarer = null;
     this.opponents = new Player[2];
@@ -37,6 +53,12 @@ public class PlayState {
     this.auctionPossible = true;
   }
 
+  /**
+   * adds a trick to the stack of the declarer
+   * 
+   * @author awesch
+   * @param t
+   */
   public void addToStackDeclarer(Trick t) {
     Card[] trick = t.getTrickCards();
     for (int i = 0; i < trick.length; i++) {
@@ -44,38 +66,19 @@ public class PlayState {
     }
   }
 
+  /**
+   * adds a card to the stack of the declarer (skat)
+   * 
+   * @author awesch
+   * @param card
+   */
   public void addToStackDeclarer(Card card) {
     this.declarerStack.add(card);
   }
 
-  public ArrayList<Card> getStackDeclarer() {
-    return this.declarerStack;
-  }
-
-  public int getPlayValue() {
-    return this.playValue;
-  }
-  
-  public void setPlayValue(int playValue) {
-    this.playValue = playValue;
-  }
-  
-  public boolean getHandGame() {
-    return this.handGame;
-  }
-
-  public void setHandGame(boolean handGame) {
-    this.handGame = handGame;
-  }
-
-  public void setAuctionPossible(boolean auctionNotPossible) {
-    this.auctionPossible = auctionNotPossible;
-  }
-
-  public boolean getAuctionPossible() {
-    return this.auctionPossible;
-  }
-
+  /**
+   * @param t
+   */
   public void addToStackOpponents(Trick t) {
     Card[] trick = t.getTrickCards();
     for (int i = 0; i < trick.length; i++) {
@@ -83,51 +86,6 @@ public class PlayState {
     }
   }
 
-  public ArrayList<Card> getStackOpponents() {
-    return this.opponentsStack;
-  }
-
-
-  public Player getDeclarer() {
-    return this.declarer;
-  }
-
-  public void setSkat(Card[] skat) {
-    this.skat = skat;
-  }
-
-  public Card[] getSkat() {
-    return this.skat;
-  }
-
-  public PlayMode getPlayMode() {
-    return this.pm;
-  }
-
-  public void setPlayMode(PlayMode pm) {
-    this.pm = pm;
-  }
-
-  public void setTrump(Colour trump) {
-    this.trump = trump;
-  }
-
-  public Colour getTrump() {
-    return this.trump;
-  }
-
-  public void setDeclarer(Player declarer) {
-    this.declarer = declarer;
-  }
-
-  public void setOpponents(Player[] opponents) {
-    this.opponents = opponents;
-  }
-
-  public void setBetValue(int betValue) {
-    this.betValue = betValue;
-  }
-  
   /**
    * sorts cards by its value for normal values (high ten), created for sortHand(s)
    * 
@@ -185,54 +143,12 @@ public class PlayState {
     }
   }
 
-  public boolean isSchneider() {
-    return schneider;
-  }
 
-  public void setSchneider(boolean schneider) {
-    this.schneider = schneider;
-  }
-
-  public boolean getSchneiderAnnounced() {
-    return schneiderAnnounced;
-  }
-
-  public void setSchneiderAnnounced(boolean schneiderAnnounced) {
-    this.schneiderAnnounced = schneiderAnnounced;
-  }
-
-  public boolean isSchwarz() {
-    return schwarz;
-  }
-
-  public void setSchwarz(boolean schwarz) {
-    this.schwarz = schwarz;
-  }
-
-  public boolean getSchwarzAnnounced() {
-    return schwarzAnnounced;
-  }
-
-  public void setSchwarzAnnounced(boolean schwarzAnnounced) {
-    this.schwarzAnnounced = schwarzAnnounced;
-  }
-
-  public boolean isOpen() {
-    return open;
-  }
-
-  public void setOpen(boolean open) {
-    this.open = open;
-  }
-  
-  public Player[] getOpponents() {
-    return this.opponents;
-  }
-  
-  public int getBaseValue() {
-    return this.baseValue;
-  }
-
+  /**
+   * initializes the base value depending on the playMode
+   * 
+   * @author awesch
+   */
   public void initializeBaseValue() {
     if (this.pm == PlayMode.SUIT) {
       switch (this.trump) {
@@ -255,10 +171,223 @@ public class PlayState {
     }
   }
 
+  /**
+   * @author awesch
+   * @return
+   */
+  public ArrayList<Card> getStackDeclarer() {
+    return this.declarerStack;
+  }
+
+  /**
+   * @return
+   */
+  public ArrayList<Card> getStackOpponents() {
+    return this.opponentsStack;
+  }
+
+  /**
+   * @author awesch
+   * @return
+   */
+  public int getPlayValue() {
+    return this.playValue;
+  }
+
+  /**
+   * @author awesch
+   * @param playValue
+   */
+  public void setPlayValue(int playValue) {
+    this.playValue = playValue;
+  }
+
+  /**
+   * @author awesch
+   * @return
+   */
+  public boolean getHandGame() {
+    return this.handGame;
+  }
+
+  /**
+   * @param handGame
+   */
+  public void setHandGame(boolean handGame) {
+    this.handGame = handGame;
+  }
+
+  /**
+   * @param auctionNotPossible
+   */
+  public void setAuctionPossible(boolean auctionNotPossible) {
+    this.auctionPossible = auctionNotPossible;
+  }
+
+  /**
+   * @return
+   */
+  public boolean getAuctionPossible() {
+    return this.auctionPossible;
+  }
+  /**
+   * @return
+   */
   public int getBetValue() {
     return this.betValue;
   }
 
+  /**
+   * @return
+   */
+  public Player getDeclarer() {
+    return this.declarer;
+  }
 
+  /**
+   * @param skat
+   */
+  public void setSkat(Card[] skat) {
+    this.skat = skat;
+  }
+
+  /**
+   * @return
+   */
+  public Card[] getSkat() {
+    return this.skat;
+  }
+
+  /**
+   * @return
+   */
+  public PlayMode getPlayMode() {
+    return this.pm;
+  }
+
+  /**
+   * @param pm
+   */
+  public void setPlayMode(PlayMode pm) {
+    this.pm = pm;
+  }
+
+  /**
+   * @param trump
+   */
+  public void setTrump(Colour trump) {
+    this.trump = trump;
+  }
+
+  /**
+   * @return
+   */
+  public Colour getTrump() {
+    return this.trump;
+  }
+
+  /**
+   * @param declarer
+   */
+  public void setDeclarer(Player declarer) {
+    this.declarer = declarer;
+  }
+
+  /**
+   * @param opponents
+   */
+  public void setOpponents(Player[] opponents) {
+    this.opponents = opponents;
+  }
+
+  /**
+   * @param betValue
+   */
+  public void setBetValue(int betValue) {
+    this.betValue = betValue;
+  }
+
+  /**
+   * @return
+   */
+  public boolean isSchneider() {
+    return schneider;
+  }
+
+  /**
+   * @param schneider
+   */
+  public void setSchneider(boolean schneider) {
+    this.schneider = schneider;
+  }
+
+  /**
+   * @return
+   */
+  public boolean getSchneiderAnnounced() {
+    return schneiderAnnounced;
+  }
+
+  /**
+   * @param schneiderAnnounced
+   */
+  public void setSchneiderAnnounced(boolean schneiderAnnounced) {
+    this.schneiderAnnounced = schneiderAnnounced;
+  }
+
+  /**
+   * @return
+   */
+  public boolean isSchwarz() {
+    return schwarz;
+  }
+
+  /**
+   * @param schwarz
+   */
+  public void setSchwarz(boolean schwarz) {
+    this.schwarz = schwarz;
+  }
+
+  /**
+   * @return
+   */
+  public boolean getSchwarzAnnounced() {
+    return schwarzAnnounced;
+  }
+
+  /**
+   * @param schwarzAnnounced
+   */
+  public void setSchwarzAnnounced(boolean schwarzAnnounced) {
+    this.schwarzAnnounced = schwarzAnnounced;
+  }
+
+  /**
+   * @return
+   */
+  public boolean isOpen() {
+    return open;
+  }
+
+  /**
+   * @param open
+   */
+  public void setOpen(boolean open) {
+    this.open = open;
+  }
+
+  /**
+   * @return
+   */
+  public Player[] getOpponents() {
+    return this.opponents;
+  }
+
+  /**
+   * @return
+   */
+  public int getBaseValue() {
+    return this.baseValue;
+  }
 }
-

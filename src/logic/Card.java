@@ -1,6 +1,5 @@
 package logic;
 
-import java.sql.Blob;
 import javafx.scene.image.Image;
 
 public class Card {
@@ -101,12 +100,13 @@ public class Card {
     }
   }
 
-  public Blob getImgDarker() {
+  public Image getImgDarker() {
     return imgDarker;
   }
 
-  public void setImgDarker(Blob imgDarker) {
+  public void setImgDarker(Image imgDarker) {
     this.imgDarker = imgDarker;
   }
 
 }
+

@@ -6,7 +6,7 @@ public class Game {
   private GameSettings gameSettings;
   private Player[] group; // gives us all the Players and the seating order
   private int pointerF; // supposed to always point on the Forehand
-  private int playerFirstCard; // switch every in every play --> depends on auction
+  private int playerFirstCard; // switch every in every play
   private Play[] plays;
   private Card[] cards;
   private Player winner;
@@ -56,7 +56,6 @@ public class Game {
     this.setPointerF(0);
     this.updatePosition();
   }
-
 
   /**
    * initializes the cards
@@ -141,7 +140,7 @@ public class Game {
   }
 
   /**
-   * here is where the magic/game happens
+   * all plays are startet in this methode and the winner is calculated
    * 
    * @author sandfisc
    */
@@ -197,6 +196,7 @@ public class Game {
         break;
       }
 
+      // test
       for(int j = 0; j < this.group.length; j++) {
         System.out.println(group[j].getName() + "'s GamePoints: " + group[j].getGamePoints());
       }
@@ -236,26 +236,6 @@ public class Game {
   }
 
   /**
-   * setter: pointer on forehand
-   * 
-   * @author sandfisc
-   */
-  public void setPointerF(int pointer) {
-    this.pointerF = pointer;
-  }
-
-  /**
-   * sets the index of the player who plays the first card in the next game
-   * 
-   * @author sandfisc
-   * @param index
-   */
-  public void setPlayerFirstCard(int index) {
-    this.playerFirstCard = index;
-  }
-
-
-  /**
    * position (forehand, middlehand, rearhand) changes ater every play
    * 
    * @author sandfisc
@@ -286,8 +266,26 @@ public class Game {
     System.out.println("...and the winner is: " + this.winner.getName());
   }
 
-  public static void main(String[] args) {
+  /**
+   * setter: pointer on forehand
+   * 
+   * @author sandfisc
+   */
+  public void setPointerF(int pointer) {
+    this.pointerF = pointer;
+  }
 
+  /**
+   * sets the index of the player who plays the first card in the next game
+   * 
+   * @author sandfisc
+   * @param index
+   */
+  public void setPlayerFirstCard(int index) {
+    this.playerFirstCard = index;
+  }
+
+  public static void main(String[] args) {
     // test
     Player anne = new Player("Anne");
     Player larissa = new Player("Larissa");
@@ -303,7 +301,5 @@ public class Game {
     // }
 
   }
-
-
-
 }
+

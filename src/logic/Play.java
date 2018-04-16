@@ -7,9 +7,9 @@ public class Play {
   private Player[] group; // gives us the Players and their position (first one is the
                           // forehand)
 
-  private Card[] cards;
+  private Card[] cards; 
   private Trick[] tricks;
-  private Auction auction;
+  private Auction auction; // every play has one auction
   private int currentTrick;
   private int indexWinnerLastTrick;
   private PlayState ps;
@@ -17,7 +17,13 @@ public class Play {
   private GameSettings gameSettings;
   private boolean singlePlayerWins;
 
-  // needs a 3 Player Array
+  /**
+   * constructor
+   * 
+   * @param group
+   * @param gameSettings
+   * @param cards
+   */
   public Play(Player[] group, GameSettings gameSettings, Card[] cards) {
     this.tricks = new Trick[this.nrTricks];
     this.group = group;
@@ -27,14 +33,6 @@ public class Play {
     this.ps = new PlayState();
     this.gameSettings = gameSettings;
     this.cards = cards;
-  }
-
-  public GameSettings getGameSettings() {
-    return this.gameSettings;
-  }
-
-  public void setGameSettings(GameSettings gameSettings) {
-    this.gameSettings = gameSettings;
   }
 
   /**
@@ -444,8 +442,7 @@ public class Play {
     System.out.println();
   }
 
-
-
+  
   /**
    * shuffles the cards after they have been initialized
    * 
@@ -533,21 +530,6 @@ public class Play {
   }
 
   /**
-   * Sorts the hand depending on the playMode by seperating the hand in jacks(if it's not
-   * null(-ouvert)) and then in the different colours then orders different colours by number and
-   * puts them back together in the right order (again depending on the Playmode)
-   * 
-   * uses addToHand, sortCardsValueNorm, sortCardsValueLowTen, sortCardsByColour
-   * 
-   * @author awesch
-   * @param hand
-   */
-
-  public PlayState getPlayState() {
-    return this.ps;
-  }
-
-  /**
    * calculates the value of the game
    * 
    * @author sandfisc
@@ -627,6 +609,35 @@ public class Play {
     }
   }
 
+  /**
+   * 
+   * @return the gameSettings of the play/game
+   */
+  public GameSettings getGameSettings() {
+    return this.gameSettings;
+  }
+
+  /**
+   * method to update the gameSettings
+   * @param gameSettings
+   */
+  public void setGameSettings(GameSettings gameSettings) {
+    this.gameSettings = gameSettings;
+  }
+
+  /**
+   * 
+   * @return playstate
+   */
+  public PlayState getPlayState() {
+    return this.ps;
+  }
+  
+  /**
+   * gets the last trick
+   * (not only important for AI)
+   * @return
+   */
   public Trick getLastTrick() {
     Trick lastTrick = new Trick(ps);
     if (this.currentTrick > 0) {
@@ -635,7 +646,13 @@ public class Play {
     return lastTrick;
   }
 
+  /**
+   * gets the current trick 
+   * (even if it is not filled)
+   * @return
+   */
   public Trick getCurrentTrick() {
     return this.tricks[this.currentTrick];
   }
 }
+
