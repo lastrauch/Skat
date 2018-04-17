@@ -1,8 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRadioButton;
+import interfaces.InGameInterface;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,13 +19,39 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import logic.Card;
+import logic.PlayState;
+import logic.Trick;
 
-public class InGameController implements Initializable {
+public class InGameController implements Initializable, InGameInterface {
+
+  /**
+   * Initalisierung des BettinGscreens
+   */
+  AnchorPane pane = new AnchorPane();
+  HBox box = new HBox();
+  Label label = new Label();
+  JFXButton qu = new JFXButton();
+  JFXButton pass = new JFXButton();
+  JFXButton betB = new JFXButton();
+
+  /**
+   * Initialize what chooseTrumScreen
+   */
+  AnchorPane paneAuc = new AnchorPane();
+  JFXButton diamonds = new JFXButton();
+  JFXButton hearts = new JFXButton();
+  JFXButton spades = new JFXButton();
+  JFXButton clubs = new JFXButton();
+  JFXButton nullG = new JFXButton();
+  JFXButton grand = new JFXButton();
+  JFXButton submit = new JFXButton();
+  JFXRadioButton ouvert = new JFXRadioButton();
+  JFXRadioButton schneider = new JFXRadioButton();
+  JFXRadioButton schwarz = new JFXRadioButton();
 
   private GuiController main;
   private int count = 0;
-  private ImageView cardId = new ImageView();
-  private Image jc = new Image(getClass().getResource("/Jhearts.jpg").toExternalForm());
   private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
   private Image temp;
 
@@ -38,47 +67,16 @@ public class InGameController implements Initializable {
   @FXML
   private AnchorPane mainPane;
 
-  /**
-   * @param cc1
-   * @param cc2
-   * @param cc3
-   * @param cc4
-   * @param cc5
-   * @param cc6
-   * @param cc7
-   * @param cc8
-   * @param cc9
-   * @param cc10
-   */
-  public InGameController(/*
-                           * Image cc1, Image cc2, Image cc3, Image cc4, Image cc5, Image cc6, Image
-                           * cc7, Image cc8, Image cc9, Image cc10
-                           */) {
-    // cardId.setImage(cc1);
-    // cardId.setImage(cc2);
-    // cardId.setImage(cc3);
-    // cardId.setImage(cc4);
-    // cardId.setImage(cc5);
-    // cardId.setImage(cc6);
-    // cardId.setImage(cc7);
-    // cardId.setImage(cc8);
-    // cardId.setImage(cc9);
-    // cardId.setImage(cc10);
+
+  public InGameController() {
     this.main = new GuiController();
   }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // TODO Auto-generated method stub
+    askForBet(18);
 
-    /**
-     * Setzt die MouseEvents, sodass Karten ausgewählt und das Spielfeld aktualisiert werden kann
-     * 
-     * @author: lstrauch
-     * 
-     */
-    MouseHandler();
-    displayBetting();
 
   }
 
@@ -114,16 +112,16 @@ public class InGameController implements Initializable {
    * 
    * @author lstrauch
    */
-  public void MouseHandler() {
+  public int MouseHandler() {
+    final int[] ret = new int[1];
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
         temp = c1.getImage();
-        mainPane.getChildren().remove(c1);
+        c1.setImage(null);
         AnzStichblatt();
-
-
+        ret[0] = 0;
       }
     });
     c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -131,8 +129,9 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c2.getImage();
-        mainPane.getChildren().remove(c2);
+        c2.setImage(null);
         AnzStichblatt();
+        ret[0] = 1;
 
       }
     });
@@ -141,8 +140,9 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c3.getImage();
-        mainPane.getChildren().remove(c3);
+        c3.setImage(null);
         AnzStichblatt();
+        ret[0] = 2;
 
       }
     });
@@ -151,8 +151,9 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c4.getImage();
-        mainPane.getChildren().remove(c4);
+        c4.setImage(null);
         AnzStichblatt();
+        ret[0] = 3;
 
       }
     });
@@ -161,8 +162,9 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c5.getImage();
-        mainPane.getChildren().remove(c5);
+        c5.setImage(null);
         AnzStichblatt();
+        ret[0] = 4;
 
       }
     });
@@ -171,8 +173,9 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c6.getImage();
-        mainPane.getChildren().remove(c6);
+        c6.setImage(null);
         AnzStichblatt();
+        ret[0] = 5;
 
       }
     });
@@ -181,8 +184,9 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c7.getImage();
-        mainPane.getChildren().remove(c7);
+        c7.setImage(null);
         AnzStichblatt();
+        ret[0] = 6;
 
       }
     });
@@ -191,8 +195,9 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c8.getImage();
-        mainPane.getChildren().remove(c8);
+        c8.setImage(null);
         AnzStichblatt();
+        ret[0] = 7;
       }
     });
     c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -200,8 +205,9 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c9.getImage();
-        mainPane.getChildren().remove(c9);
+        c9.setImage(null);
         AnzStichblatt();
+        ret[0] = 8;
 
       }
     });
@@ -210,10 +216,13 @@ public class InGameController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         temp = c10.getImage();
-        mainPane.getChildren().remove(c10);
+        c10.setImage(null);
         AnzStichblatt();
+        ret[0] = 9;
       }
     });
+
+    return ret[0];
   }
 
   /**
@@ -249,19 +258,77 @@ public class InGameController implements Initializable {
     }
   }
 
+  public boolean ButtonListener() {
+    final boolean[] ret = new boolean[1];
 
-  // public void whoWon(){
-  // winner = GuiLogic.whoWon();
-  // }
+    qu.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        System.out.println("qu");
+        ret[0] = true;
+      }
+    });
+    pass.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ret[0] = true;
+        System.out.println("pass");
+      }
+    });
+    betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ret[0] = true;
+        System.out.println("bet");
+      }
+    });
 
-  public void displayBetting() {
-    AnchorPane pane = new AnchorPane();
-    HBox box = new HBox();
-    Label label = new Label();
-    JFXButton qu = new JFXButton();
-    JFXButton pass = new JFXButton();
-    JFXButton bet = new JFXButton();
+    return ret[0];
+  }
 
+  public void auctionWinnerScreen() {
+    paneAuc.setId("pane");
+    diamonds.setId("diamonds");
+    hearts.setId("hearts");
+    spades.setId("spades");
+    clubs.setId("cubs");
+    nullG.setId("nullG");
+    grand.setId("grand");
+    submit.setId("submit");
+    ouvert.setId("ouvert");
+    schneider.setId("schneider");
+    schwarz.setId("schwarz");
+
+  }
+
+  @Override
+  public int askToPlayCard() {
+    // TODO Auto-generated method stub
+
+    return MouseHandler();
+  }
+
+  @Override
+  public void showSecoundsLeftToPlayCard(int seconds) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public boolean takeUpSkat() {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  @Override
+  public int[] askToTakeDownTwoCards() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean askForBet(int bet) {
+    // TODO Auto-generated method stub
     pane.setId("pane");
     pane.setLayoutX(475);
     pane.setLayoutY(128);
@@ -269,24 +336,27 @@ public class InGameController implements Initializable {
     pane.setPrefWidth(395);
     pane.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
 
+    qu.setId("?");
     qu.setPrefHeight(44);
     qu.setPrefWidth(69);
     qu.setText("?");
     qu.setFont(Font.font("System", FontWeight.BOLD, 20));
     qu.setTextFill(Color.WHITE);
     qu.setStyle("-fx-background-color: tan;");
+    pass.setId("pass");
     pass.setPrefHeight(44);
     pass.setPrefWidth(69);
     pass.setText("Pass");
     pass.setFont(Font.font("System", FontWeight.BOLD, 20));
     pass.setTextFill(Color.WHITE);
     pass.setStyle("-fx-background-color: tan;");
-    bet.setPrefHeight(44);
-    bet.setPrefWidth(69);
-    bet.setText("bet");
-    bet.setFont(Font.font("System", FontWeight.BOLD, 20));
-    bet.setTextFill(Color.WHITE);
-    bet.setStyle("-fx-background-color: tan;");
+    betB.setId("value");
+    betB.setPrefHeight(44);
+    betB.setPrefWidth(69);
+    betB.setText(String.valueOf(bet));
+    betB.setFont(Font.font("System", FontWeight.BOLD, 20));
+    betB.setTextFill(Color.WHITE);
+    betB.setStyle("-fx-background-color: tan;");
 
     label.setPrefHeight(53);
     label.setLayoutX(88);
@@ -300,7 +370,7 @@ public class InGameController implements Initializable {
 
     box.getChildren().add(qu);
     box.getChildren().add(pass);
-    box.getChildren().add(bet);
+    box.getChildren().add(betB);
     box.setSpacing(50);
     box.setPrefWidth(307);
     box.setPrefHeight(44);
@@ -311,6 +381,40 @@ public class InGameController implements Initializable {
     pane.getChildren().add(label);
 
     mainPane.getChildren().add(pane);
+
+    return ButtonListener();
   }
+
+  @Override
+  public void updateHand(ArrayList<Card> hand) {
+
+
+    // TODO Auto-generated method stub
+    // c1.setImage(hand.get(0).getImage());
+    // c2.setImage(hand.get(1).getImage());
+    // c3.setImage(hand.get(2).getImage());
+    // c4.setImage(hand.get(3).getImage());
+    // c5.setImage(hand.get(4).getImage());
+    // c6.setImage(hand.get(5).getImage());
+    // c7.setImage(hand.get(6).getImage());
+    // c8.setImage(hand.get(7).getImage());
+    // c9.setImage(hand.get(9).getImage());
+    // c10.setImage(hand.get(9).getImage());
+
+  }
+
+  @Override
+  public void setPlaySettings(PlayState ps) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void showTrick(Trick trick) {
+    // TODO Auto-generated method stub
+
+  }
+
+
 
 }
