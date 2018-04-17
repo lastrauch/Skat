@@ -16,7 +16,7 @@ public class LobbyOnlineController {
 
   @FXML
   public void join() {
-    main.displayBetting();
+    main.displayInGame();
   }
 
   @FXML
