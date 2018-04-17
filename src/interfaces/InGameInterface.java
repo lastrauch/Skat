@@ -8,11 +8,10 @@ import logic.Trick;
 public interface InGameInterface {
 
   /**
-   * asks the player to play a card, returns the index of the chosen card
+   * asks the player to play a card
    * 
-   * @return
    */
-  public int askToPlayCard();
+  public void askToPlayCard();
 
   /**
    * should show the number "seconds" at the corner of the screen
@@ -24,27 +23,16 @@ public interface InGameInterface {
   /**
    * asks the player if he wants to take up the skat
    * 
-   * @return
    */
-  public boolean takeUpSkat();
-
-  /**
-   * should ask the player to put down two cards (after updated hand of 12 cards) and returns the
-   * index of the two chosen cards (from left to right / low to high)
-   * 
-   * @return
-   */
-  public int[] askToTakeDownTwoCards();
+  public void askToTakeUpSkat();
 
   /**
    * supposed to ask the Player if he wants to go with the bet or if he wants to pass like
-   * "18 or pass?" (if bet=18) returns false if he wants to pass returns true if he clicks on 18
-   * belongs to the methods pass and bet
+   * "18 or pass?" (if bet=18) 
    * 
    * @param bet
-   * @return
    */
-  public boolean askForBet(int bet);
+  public void askForBet(int bet);
 
   /**
    * should reload the hand cards in the given order
@@ -60,11 +48,5 @@ public interface InGameInterface {
    */
   public void setPlaySettings(PlayState ps);
 
-  /**
-   * should show the trick in the middle of the table (could just contain one card) trick has
-   * getters for every Card or just the whole Card Array
-   * 
-   * @param trick
-   */
-  public void showTrick(Trick trick);
+ 
 }
