@@ -9,27 +9,25 @@ import logic.Position;
 public interface LogicGui {
 
   /**
-   * should start the gui and return the name of the Player
+   * should start the gui
    * 
    */
-  public String startGui();
+  public void startGui();
 
   /**
-   * should open first screen and return true if controller picks multiplayer game and false if he
-   * picks singleplayer game
+   * should open first screen where the player picks single or multiplayer game
    * 
-   * @return
    */
-  public boolean askForMultiplayer();
+  public void decideGameMode();
 
   /**
-   * should open singlePlayerLobby, probably adding some returns later
+   * should open singlePlayerLobby
    * 
    */
   public void openSinglePlayerLobby();
   
   /**
-   * should open multiPlayerLobby, probably adding some returns later
+   * should open multiPlayerLobby
    */
   public void openMultiPlayerLobby();
 
