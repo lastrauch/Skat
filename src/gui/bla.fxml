@@ -192,62 +192,18 @@
          <image>
             <Image url="@../../resources/rueckseite.jpg" />
          </image></ImageView>
-      <AnchorPane fx:id="betPane" layoutX="334.0" layoutY="128.0" prefHeight="315.0" prefWidth="582.0" style="-fx-border-color: tan; -fx-border-radius: 20; -fx-background-radius: 20;" styleClass="background" stylesheets="@../../resources/mystyle.css" AnchorPane.leftAnchor="334.0" AnchorPane.rightAnchor="364.0">
+      <AnchorPane fx:id="pane" layoutX="334.0" layoutY="128.0" prefHeight="315.0" prefWidth="582.0" style="-fx-border-color: tan; -fx-border-radius: 20; -fx-background-radius: 20;" styleClass="background" stylesheets="@../../resources/mystyle.css" AnchorPane.leftAnchor="334.0" AnchorPane.rightAnchor="364.0">
          <children>
-            <VBox layoutX="28.0" layoutY="60.0">
-               <children>
-                  <VBox spacing="60.0">
-                     <children>
-                        <HBox layoutX="28.0" layoutY="60.0" spacing="40.0">
-                           <children>
-                              <JFXButton layoutX="28.0" layoutY="60.0" style="-fx-background-color: tan;" text="Diamonds">
-                                 <font>
-                                    <Font name="System Bold" size="19.0" />
-                                 </font>
-                              </JFXButton>
-                              <JFXButton layoutX="130.0" layoutY="60.0" style="-fx-background-color: tan;" text="Hearts">
-                                 <font>
-                                    <Font name="System Bold" size="19.0" />
-                                 </font>
-                              </JFXButton>
-                              <JFXButton layoutX="259.0" layoutY="60.0" style="-fx-background-color: tan;" text="Spades">
-                                 <font>
-                                    <Font name="System Bold" size="19.0" />
-                                 </font>
-                              </JFXButton>
-                              <JFXButton layoutX="401.0" layoutY="60.0" style="-fx-background-color: tan;" text="Clubs">
-                                 <font>
-                                    <Font name="System Bold" size="19.0" />
-                                 </font>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="28.0" layoutY="158.0" spacing="195.0">
-                           <children>
-                              <JFXButton layoutX="28.0" layoutY="158.0" style="-fx-background-color: tan;" text="Grand">
-                                 <font>
-                                    <Font name="System Bold" size="19.0" />
-                                 </font>
-                              </JFXButton>
-                              <JFXButton layoutX="130.0" layoutY="158.0" style="-fx-background-color: tan;" text="Null">
-                                 <font>
-                                    <Font name="System Bold" size="19.0" />
-                                 </font>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="28.0" layoutY="266.0" spacing="35.0">
-                           <children>
-                              <JFXRadioButton layoutX="28.0" layoutY="278.0" prefWidth="102.0" style="-fx-background-color: tan;" text="Ouvert" />
-                              <JFXRadioButton layoutX="171.0" layoutY="278.0" prefWidth="122.0" style="-fx-background-color: tan;" text="Schneider" />
-                              <JFXRadioButton layoutX="314.0" layoutY="278.0" prefWidth="110.0" style="-fx-background-color: tan;" text="Schwarz" />
-                              <JFXButton buttonType="RAISED" style="-fx-background-color: tan; -fx-border-color: black;" text="Submit" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
+            <ImageView fx:id="c51" fitHeight="227.0" fitWidth="182.0" layoutX="77.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_8.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="c511" fitHeight="227.0" fitWidth="182.0" layoutX="369.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_8.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>
