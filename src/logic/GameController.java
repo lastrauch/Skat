@@ -1,14 +1,24 @@
 package logic;
 
+import gui.GuiController;
 import gui.ImplementsLogicGui;
 
 public class GameController {
 
   private ImplementsLogicGui implementsLogicGui;
   private GameMode gameMode;
+  private Player[] group;
+  private GuiController guiController;
   
-  public GameController(){
-    this.implementsLogicGui = new ImplementsLogicGui();
+  public GameController(ImplementsLogicGui implementsLogicGui, GuiController guiController){
+    this.implementsLogicGui = implementsLogicGui;
+    this.group = new Player[4]; // if only 3 are playing group[3] is empty
+    this.guiController = guiController;
+  }
+  
+  public void control() {
+  //  this.implementsLogicGui.openLoginScreen();
+    this.implementsLogicGui.startGui();
   }
   
   public void askForGameMode() {
@@ -23,6 +33,11 @@ public class GameController {
   
   public static void main(String[] args) {
     // the whole program is supposed to be running here
+    ImplementsLogicGui implementsLogicGui = new ImplementsLogicGui();
+    GuiController guiController = new GuiController();
+    GuiController.launch(args);
+    guiController = implementsLogicGui.getGuiController();
+    GameController gameController = new GameController(implementsLogicGui, guiController);
     
     
   }

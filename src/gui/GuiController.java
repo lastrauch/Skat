@@ -36,6 +36,9 @@ public class GuiController extends Application {
   private static AccountSettingsController accountSettingsCon;
   private AnchorPane accountSettings = null;
 
+  private static GameSettingsController gameSettingsCon;
+  private AnchorPane gameSettings = null;
+
   private static BettingController bettingCon;
   private AnchorPane betting = null;
 
@@ -316,6 +319,20 @@ public class GuiController extends Application {
       mprimaryStage.getScene().setRoot(helpVar);
 
       helpVarCon = loader.getController();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+  public void displayGameSettings() {
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("GameSettings.fxml"));
+      this.gameSettings = (AnchorPane) loader.load();
+      mprimaryStage.getScene().setRoot(gameSettings);
+
+      gameSettingsCon = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

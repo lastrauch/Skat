@@ -22,7 +22,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.Card;
+import logic.Colour;
+import logic.PlayMode;
 import logic.PlayState;
+import logic.Position;
 
 public class InGameController implements Initializable, InGameInterface {
 
@@ -68,8 +71,8 @@ public class InGameController implements Initializable, InGameInterface {
   private HBox skatHbox = new HBox();
   private ImageView sk1 = new ImageView();
   private ImageView sk2 = new ImageView();
-  
-  
+
+
   /**
    * Initializies all other attributes
    */
@@ -78,7 +81,7 @@ public class InGameController implements Initializable, InGameInterface {
   private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
   private Image temp;
 
-  
+
   /**
    * Initialize all FXML attributes
    */
@@ -93,8 +96,8 @@ public class InGameController implements Initializable, InGameInterface {
   @FXML
   private AnchorPane mainPane;
 
-  
-  
+
+
   /**
    * 
    * 
@@ -106,8 +109,14 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    */
 
+
+
+  /**
+   * Initiliazise GuiController and Implements class
+   */
   public InGameController() {
     this.main = new GuiController();
+    // this.implements = new ImplementsInGameInterface();
   }
 
   @Override
@@ -121,17 +130,21 @@ public class InGameController implements Initializable, InGameInterface {
   /**
    * Hier wird definiert was passiert wenn man auf eine seiner jeweiligen Spielkarten klickt
    * 
+   * ImageView sets Image to null Method AnzStichblatte wird aufgerufen, sodass Karten auf Stich
+   * gelegt werden gibt an Logik den Index der geklickten Karte weiter
+   * 
    * @author lstrauch
    */
-  public void MouseHandler() {
+  public int MouseHandler() {
+    final int[] ret = new int[1];
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
         temp = c1.getImage();
-        c1.setImage(null);
+        // c1.setImage(null);
         AnzStichblatt();
-//        ImplementsGuiLogic.retCardIndex(0);
+        ret[0] = 0;
       }
     });
     c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -139,10 +152,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c2.getImage();
-        c2.setImage(null);
+        // c2.setImage(null);
         AnzStichblatt();
-//      ImplementsGuiLogic.retCardIndex(1);
-
+        ret[0] = 1;
       }
     });
     c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -150,10 +162,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c3.getImage();
-        c3.setImage(null);
+        // c3.setImage(null);
         AnzStichblatt();
-//      ImplementsGuiLogic.retCardIndex(2);
-
+        ret[0] = 2;
       }
     });
     c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -161,10 +172,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c4.getImage();
-        c4.setImage(null);
+        // c4.setImage(null);
         AnzStichblatt();
-//      ImplementsGuiLogic.retCardIndex(3);
-
+        ret[0] = 3;
       }
     });
     c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -172,10 +182,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c5.getImage();
-        c5.setImage(null);
+        // c5.setImage(null);
         AnzStichblatt();
-//      ImplementsGuiLogic.retCardIndex(4);
-
+        ret[0] = 4;
       }
     });
     c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -183,10 +192,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c6.getImage();
-        c6.setImage(null);
+        // c6.setImage(null);
         AnzStichblatt();
-//      ImplementsGuiLogic.retCardIndex(5);
-
+        ret[0] = 5;
       }
     });
     c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -194,9 +202,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c7.getImage();
-        c7.setImage(null);
+        // c7.setImage(null);
         AnzStichblatt();
-//      ImplementsGuiLogic.retCardIndex(6);
+        ret[0] = 6;
 
       }
     });
@@ -205,9 +213,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c8.getImage();
-        c8.setImage(null);
+        // c8.setImage(null);
         AnzStichblatt();
-//      ImplementsGuiLogic.retCardIndex(7);
+        ret[0] = 7;
       }
     });
     c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -215,10 +223,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c9.getImage();
-        c9.setImage(null);
+        // c9.setImage(null);
         AnzStichblatt();
-//      ImplementsGuiLogic.retCardIndex(8);
-
+        ret[0] = 8;
       }
     });
     c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -226,11 +233,12 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c10.getImage();
-        c10.setImage(null);
+        // c10.setImage(null);
         AnzStichblatt();
-//      ImplementsGuiLogic.retCardIndex(9);
+        ret[0] = 9;
       }
     });
+    return ret[0];
   }
 
   /**
@@ -266,7 +274,8 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
-  public void ButtonListener() {
+  public boolean ButtonListener() {
+    final boolean[] ret = new boolean[1];
 
     qu.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
@@ -277,36 +286,102 @@ public class InGameController implements Initializable, InGameInterface {
     pass.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        // ImplementsGuiLogic.setAskForBet(false);
-        deletePane(paneBet);
-        displayAuctionWinnerScreen();
+        ret[0] = false;
       }
     });
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        // ImplementsGuiLogic.setAskForBet(true);
+        ret[0] = true;
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        deletePane(paneAuc);
-        displayWannaTakeSkat();
 
       }
     });
-    yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    return ret[0];
+  }
+
+  public void ButtonListenerPlaySettings(PlayState ps) {
+    diamonds.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        deletePane(skatPane);
-        displaySwitchSkat();
-
+        ps.setPlayMode(PlayMode.SUIT);
+        ps.setTrump(Colour.DIAMONDS);
+      }
+    });
+    hearts.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setPlayMode(PlayMode.SUIT);
+        ps.setTrump(Colour.HEARTS);
+      }
+    });
+    clubs.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setPlayMode(PlayMode.SUIT);
+        ps.setTrump(Colour.CLUBS);
+      }
+    });
+    spades.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setPlayMode(PlayMode.SUIT);
+        ps.setTrump(Colour.SPADES);
+      }
+    });
+    grand.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setPlayMode(PlayMode.GRAND);
+      }
+    });
+    nullG.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setPlayMode(PlayMode.NULL);
+      }
+    });
+    ouvert.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setOpen(true);
+      }
+    });
+    schneider.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setSchneider(true);
+      }
+    });
+    schwarz.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setSchwarzAnnounced(true);
       }
     });
   }
-  
-  
+
+  public void ButtonListenrWantSkat(PlayState ps) {
+    yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setHandGame(true);
+      }
+    });
+    no.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setHandGame(false);
+      }
+    });
+  }
+
+
+
   /**
    * 
    * Deletes the pane on the mainpane, so we can display the new one
@@ -317,10 +392,8 @@ public class InGameController implements Initializable, InGameInterface {
     mainPane.getChildren().remove(tpane);
   }
 
-  
-  
-  
-  
+
+
   /**
    * 
    * 
@@ -332,11 +405,13 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * 
    */
-  
-  
-  
-  
-  
+
+  @Override
+  public void startPlay(ArrayList<Card> hand, Position position) {
+    // TODO Auto-generated method stub
+
+  }
+
 
   @Override
   public void showSecoundsLeftToPlayCard(int seconds) {
@@ -348,52 +423,54 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void updateHand(ArrayList<Card> hand) {
     // TODO Auto-generated method stub
-    // c1.setImage(hand.get(0).getImage());
-    // c2.setImage(hand.get(1).getImage());
-    // c3.setImage(hand.get(2).getImage());
-    // c4.setImage(hand.get(3).getImage());
-    // c5.setImage(hand.get(4).getImage());
-    // c6.setImage(hand.get(5).getImage());
-    // c7.setImage(hand.get(6).getImage());
-    // c8.setImage(hand.get(7).getImage());
-    // c9.setImage(hand.get(9).getImage());
-    // c10.setImage(hand.get(9).getImage());
+    c1.setImage(hand.get(0).getImage());
+    c2.setImage(hand.get(1).getImage());
+    c3.setImage(hand.get(2).getImage());
+    c4.setImage(hand.get(3).getImage());
+    c5.setImage(hand.get(4).getImage());
+    c6.setImage(hand.get(5).getImage());
+    c7.setImage(hand.get(6).getImage());
+    c8.setImage(hand.get(7).getImage());
+    c9.setImage(hand.get(9).getImage());
+    c10.setImage(hand.get(9).getImage());
 
   }
 
   @Override
   public void setPlaySettings(PlayState ps) {
     // TODO Auto-generated method stub
+    deletePane(paneAuc);
+    displayAuctionWinnerScreen();
+    ButtonListenerPlaySettings(ps);
 
   }
 
+
+
   @Override
-  public void askToPlayCard() {
+  public int askToPlayCard() {
     // TODO Auto-generated method stub
-    MouseHandler();
-
+    return MouseHandler();
   }
 
   @Override
-  public void askToTakeUpSkat() {
+  public void askToTakeUpSkat(PlayState ps) {
     // TODO Auto-generated method stub
     displayWannaTakeSkat();
+    ButtonListenrWantSkat(ps);
 
   }
 
   @Override
-  public void askForBet(int bet) {
+  public boolean askForBet(int bet) {
     // TODO Auto-generated method stub
     betB.setText(String.valueOf(bet));
     displayAuctionScreen();
-    ButtonListener();
+    return ButtonListener();
   }
-  
-  
-  
-  
-  
-  
+
+
+
   /**
    * 
    * 
@@ -406,10 +483,9 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * 
    */
-  
-  
-  
-  
+
+
+
   /**
    * Display Auction part
    */
@@ -466,9 +542,9 @@ public class InGameController implements Initializable, InGameInterface {
 
     mainPane.getChildren().add(paneBet);
   }
-  
-  
-  
+
+
+
   /**
    * display AuctionWinnerPart
    */
@@ -485,19 +561,16 @@ public class InGameController implements Initializable, InGameInterface {
     diamonds.setText("Diamonds");
     diamonds.setFont(Font.font("System", FontWeight.BOLD, 20));
     diamonds.setStyle("-fx-background-color: tan;");
-
     hearts.setPrefHeight(42);
     hearts.setPrefWidth(117);
     hearts.setText("Hearts");
     hearts.setFont(Font.font("System", FontWeight.BOLD, 20));
     hearts.setStyle("-fx-background-color: tan;");
-
     spades.setPrefHeight(42);
     spades.setPrefWidth(117);
     spades.setText("Spades");
     spades.setFont(Font.font("System", FontWeight.BOLD, 20));
     spades.setStyle("-fx-background-color: tan;");
-
     clubs.setPrefHeight(42);
     clubs.setPrefWidth(117);
     clubs.setText("Clubs");
@@ -519,8 +592,6 @@ public class InGameController implements Initializable, InGameInterface {
     grand.setText("Grand");
     grand.setFont(Font.font("System", FontWeight.BOLD, 20));
     grand.setStyle("-fx-background-color: tan;");
-
-
     nullG.setPrefHeight(42);
     nullG.setPrefWidth(117);
     nullG.setText("Null");
@@ -540,13 +611,11 @@ public class InGameController implements Initializable, InGameInterface {
     ouvert.setText("Ouvert");
     ouvert.setFont(Font.font("System", 15));
     ouvert.setStyle("-fx-background-color: tan;");
-
     schneider.setPrefHeight(21);
     schneider.setPrefWidth(102);
     schneider.setText("Schneider");
     schneider.setFont(Font.font("System", 15));
     schneider.setStyle("-fx-background-color: tan;");
-
     schwarz.setPrefHeight(21);
     schwarz.setPrefWidth(102);
     schwarz.setText("Schwarz");
@@ -594,9 +663,8 @@ public class InGameController implements Initializable, InGameInterface {
 
     mainPane.getChildren().add(paneAuc);
   }
-  
-  
- 
+
+
 
   /**
    * display "Want to take the Skat?"
@@ -648,8 +716,7 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
-   * display part in which the player can choose the cards he
-   * wants to put on the skat
+   * display part in which the player can choose the cards he wants to put on the skat
    */
   public void displaySwitchSkat() {
     handPane.setPrefHeight(315);
@@ -678,11 +745,9 @@ public class InGameController implements Initializable, InGameInterface {
 
     mainPane.getChildren().add(handPane);
   }
-  
-  
-  
-  
-  
+
+
+
   /**
    * 
    * 

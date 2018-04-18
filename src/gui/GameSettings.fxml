@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameSettingsController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="330.0" layoutY="352.0" opacity="0.87" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../resources/tisch.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="pane" layoutX="257.0" layoutY="137.0" opacity="0.86" prefHeight="526.0" prefWidth="855.0" style="-fx-background-color: peru; -fx-background-radius: 20;">
+         <children>
+            <VBox layoutX="25.0" layoutY="138.0" spacing="35.0">
+               <children>
+                  <HBox layoutX="34.0" layoutY="47.0" spacing="25.0">
+                     <children>
+                        <Label layoutX="34.0" layoutY="50.0" text="Number of Rounds:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <JFXRadioButton fx:id="r1" layoutX="294.0" layoutY="50.0" text="1" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="r3" layoutX="383.0" layoutY="50.0" text="3" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="r18" layoutX="482.0" layoutY="50.0" text="18" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="r36" layoutX="642.0" layoutY="50.0" text="36" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXRadioButton>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="34.0" layoutY="147.0" spacing="39.0">
+                     <children>
+                        <Label layoutX="34.0" layoutY="147.0" text="Count rule:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <JFXRadioButton fx:id="sSys" layoutX="179.0" layoutY="168.0" text="Seeger System" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="bSys" layoutX="365.0" layoutY="168.0" text="Bierlachs" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="nSys" text="Normal" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXRadioButton>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="34.0" layoutY="211.0" spacing="75.0">
+                     <children>
+                        <Label layoutX="34.0" layoutY="231.0" text="Kontra:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <JFXToggleButton fx:id="enKon" layoutX="193.0" layoutY="211.0" text="Enable Kontra" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXToggleButton>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="34.0" layoutY="271.0" spacing="25.0">
+                     <children>
+                        <Label layoutX="34.0" layoutY="301.0" text="Timelimit:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <JFXToggleButton fx:id="enTL" layoutX="185.0" layoutY="271.0" prefHeight="10.0" prefWidth="323.0" text="Enable Timelimit" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXToggleButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox layoutX="224.0" layoutY="463.0" spacing="25.0">
+               <children>
+                  <Label layoutX="140.0" layoutY="364.0" text="Set time limit:" textFill="WHITE">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="sec" focusColor="WHITE" layoutX="276.0" layoutY="359.0" promptText="Number of seconds" style="-fx-prompt-text-fill: white;" styleClass="prompttext" stylesheets="@../../resources/mystyle.css" unFocusColor="WHITE">
+                     <font>
+                        <Font size="22.0" />
+                     </font></JFXTextField>
+               </children>
+            </HBox>
+            <Label layoutX="156.0" layoutY="25.0" text="Choose your Game Settings" textFill="WHITE" underline="true">
+               <font>
+                  <Font name="System Bold" size="39.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="subm" layoutX="713.0" layoutY="468.0" text="Submit" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
