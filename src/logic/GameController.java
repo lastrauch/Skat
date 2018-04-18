@@ -58,14 +58,15 @@ public class GameController {
     }
   }
   
-  public void organizeSinglePlayerGame() {
-    // two new AIs depending on the difficulty the (real) player has chosen
-  }
-  
-  public void organizeMultiPlayerGame() {
-    // search for lobby / create new one
-  
-  }
+//  public void organizeSinglePlayerGame() {
+//    // two new AIs depending on the difficulty the (real) player has chosen
+//    
+//  }
+//  
+//  public void organizeMultiPlayerGame() {
+//    // search for lobby / create new one
+//  
+//  }
 
   public static void main(String[] args) {
     // // the whole program is supposed to be running here .. i don't think so
