@@ -35,7 +35,7 @@ public interface LogicData {
    * 
    * @return
    */
-  public boolean checkIfPlayerNew();
+  public boolean checkIfPlayerNew(String playerName);
 
   /**
    * should find the player with the given name and return him
