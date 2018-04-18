@@ -2,6 +2,7 @@ package logic;
 
 import java.sql.Blob;
 import java.util.ArrayList;
+import gui.ImplementsLogicGui;
 import gui.InGameController;
 import javafx.scene.image.Image;
 
@@ -14,16 +15,30 @@ public class Player {
   private int bet;
   private int gamePoints; // saves the pionts of every Play until the whole game is over
   private boolean host;
-  public InGameController inGameController;
+  public InGameController inGameController; // every player has his/her own gui and need a
+                                            // controller
+
+  public ImplementsLogicGui implementsLogicGui;
 
   public Player(String name) {
     this.name = name;
     this.bet = 0;
     inGameController = new InGameController();
+    this.implementsLogicGui = new ImplementsLogicGui();
   }
 
   // pos is the position of the card in the hand of the player
-  public void playCard(int pos) {}
+  public Card playCard() {
+    return this.hand.get(this.inGameController.askToPlayCard());
+  }
+  
+  public void updateHand() {
+    this.inGameController.updateHand(this.hand);
+  }
+  
+  public void startPlay() {
+    this.inGameController.startPlay(this.hand, this.position);
+  }
 
   public Card chooseCardFromHand() throws LogicException {
     System.out.println(this.name);
@@ -64,6 +79,8 @@ public class Player {
     if (!found) {
       throw new LogicException("Removing the played card from the hand was not possible!");
     }
+
+    this.inGameController.updateHand(this.hand);
   }
 
   // We assume the hand to be sorted the first time (before the PlayMode was set)
@@ -86,12 +103,13 @@ public class Player {
    * @return
    */
   public boolean askForBet(int bet) {
-    int whatTheySaid = IOTools.readInteger(this.name + " " + bet + " or PASS(0)?");
-    if (whatTheySaid == bet) {
-      return true;
-    } else {
-      return false;
-    }
+    // int whatTheySaid = IOTools.readInteger(this.name + " " + bet + " or PASS(0)?");
+    // if (whatTheySaid == bet) {
+    // return true;
+    // } else {
+    // return false;
+    // }
+    return this.inGameController.askForBet(bet);
   }
 
   /**

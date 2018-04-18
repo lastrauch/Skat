@@ -48,14 +48,13 @@ public class Play {
       // pepearation
       this.shuffleCards();
       this.dealOutCards();
+      this.updateHands();
       // test:
       // this.printHands("after dealOutCards:");
 
       this.sortHands();
-      // give hands to the gui(s)
-
-
-
+      this.updateHands();
+      
       // test:
       // this.printHands("after first sortCards:");
       auction = new Auction(this.group, this.ps);
@@ -69,6 +68,7 @@ public class Play {
 
 
     this.sortHands();
+    this.updateHands();
     // test:
     // this.printHands("after second sortCards:");
 
@@ -90,15 +90,17 @@ public class Play {
 
       try {
         // first player plays card
-        // card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
+        card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
 
         // test random card
         // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
         // System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
         // this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
         // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
-    //    this.group[(this.indexWinnerLastTrick) % 3].playCard(
-      //      this.group[(this.indexWinnerLastTrick) % 3].inGameController.askToPlayCard());
+        // this.group[(this.indexWinnerLastTrick) % 3].playCard(
+        // card1 = this.group[(this.indexWinnerLastTrick) %
+        // 3].getHand().get(this.group[(this.indexWinnerLastTrick) %
+        // 3].inGameController.askToPlayCard());
 
         this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
 
@@ -106,14 +108,15 @@ public class Play {
 
         // second player plays card
         do {
-          // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
 
           // test random card
           // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseRandomCardFromHand();
-          System.out
-              .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
-          this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
-          card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
+          // System.out
+          // .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
+          // this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
+          // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
+          card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
+
         } while (!this.checkIfCardPossible(card2, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 1) % 3]));
 
@@ -125,15 +128,17 @@ public class Play {
 
         // third player plays card
         do {
-          // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
 
           // test random card
           // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseRandomCardFromHand();
+          //
+          // System.out
+          // .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
+          // this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
+          // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
 
-          System.out
-              .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
-          this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
-          card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
+          card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
+
         } while (!this.checkIfCardPossible(card3, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 2) % 3]));
 
@@ -203,6 +208,23 @@ public class Play {
     }
   }
 
+  /**
+   * updates the hands of the group
+   * 
+   * @author sandfisc
+   */
+  public void updateHands() {
+    for (int i = 0; i < this.group.length; i++) {
+      this.group[i].updateHand();
+    }
+  }
+  
+  public void startPlayOnGui() {
+    for (int i = 0; i < this.group.length; i++) {
+      this.group[i].startPlay();
+    }
+  }
+  
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
    * of the trick and the PlayMode
