@@ -3,15 +3,25 @@ package interfaces;
 import java.util.ArrayList;
 import logic.Card;
 import logic.PlayState;
+import logic.Position;
 import logic.Trick;
 
 public interface InGameInterface {
 
   /**
+   * should open the InGameScreen and show the Player his cards and his position
+   * 
+   * @param hand
+   * @param position
+   */
+  public void startPlay(ArrayList<Card> hand, Position position);
+
+  
+  /**
    * asks the player to play a card
    * 
    */
-  public void askToPlayCard();
+  public int askToPlayCard();
 
   /**
    * should show the number "seconds" at the corner of the screen
@@ -24,7 +34,7 @@ public interface InGameInterface {
    * asks the player if he wants to take up the skat
    * 
    */
-  public void askToTakeUpSkat();
+  public void askToTakeUpSkat(PlayState ps);
 
   /**
    * supposed to ask the Player if he wants to go with the bet or if he wants to pass like
