@@ -151,7 +151,7 @@ public class Game {
                                  // #BIERLACHS
     Player[] playingGroup = new Player[3]; // always three players who are actually playing
 
-    // if only three players then the playing group is the whole group "at the table"
+    // if only three players play then the playing group is the whole group "at the table"
     if (this.group.length == 3) {
       playingGroup = this.group;
     }

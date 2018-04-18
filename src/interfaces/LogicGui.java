@@ -8,11 +8,12 @@ import logic.Position;
 // Logic to GUI, implemented by GUI
 public interface LogicGui {
 
-  /**
-   * should start the gui
-   * 
-   */
-  public void startGui();
+  // start should be in main
+//  /**
+//   * should start the gui
+//   * 
+//   */
+//  public void startGui();
 
   /**
    * should open first screen where the player picks single or multiplayer game
