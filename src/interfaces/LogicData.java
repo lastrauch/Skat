@@ -1,6 +1,6 @@
 package interfaces;
 
-import java.sql.Blob;
+import javafx.scene.image.Image;
 import logic.Card;
 import logic.Player;
 
@@ -13,7 +13,7 @@ public interface LogicData {
    * @param card
    * @return
    */
-  public Blob getImage(Card card);
+  public Image getImage(Card card);
 
   /**
    * should return the darker image of the Card
@@ -21,7 +21,7 @@ public interface LogicData {
    * @param card
    * @return
    */
-  public Blob getImageDarker(Card card);
+  public Image getImageDarker(Card card);
 
   /**
    * should save a player profile in the Database
@@ -66,5 +66,5 @@ public interface LogicData {
    * @param player
    * @param image
    */
-  public void changeImage(Player player, Blob image);
+  public void changeImage(Player player, Image image);
 }

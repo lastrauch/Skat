@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import interfaces.InGameInterface;
 
 public class Play {
 
@@ -50,6 +51,10 @@ public class Play {
       // this.printHands("after dealOutCards:");
 
       this.sortHands();
+      // give hands to the gui(s)
+      
+      
+      
       // test:
       // this.printHands("after first sortCards:");
       auction = new Auction(this.group, this.ps);

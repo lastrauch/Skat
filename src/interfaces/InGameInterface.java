@@ -2,19 +2,23 @@ package interfaces;
 
 import java.util.ArrayList;
 import logic.Card;
-import logic.GameSettings;
 import logic.PlayState;
-import logic.Position;
 import logic.Trick;
 
-//Logic to AI, implemented by AI
-public interface LogicAI {
+public interface InGameInterface {
 
   /**
    * asks the player to play a card
    * 
    */
   public void askToPlayCard();
+
+  /**
+   * should show the number "seconds" at the corner of the screen
+   * 
+   * @param seconds
+   */
+  public void showSecoundsLeftToPlayCard(int seconds);
 
   /**
    * asks the player if he wants to take up the skat
@@ -44,4 +48,5 @@ public interface LogicAI {
    */
   public void setPlaySettings(PlayState ps);
 
+ 
 }

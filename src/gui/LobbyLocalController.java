@@ -38,7 +38,7 @@ public class LobbyLocalController implements Initializable {
 
   @FXML
   public void play() {
-    main.displayBetting();
+    main.displayInGame();
   }
 
   @Override
