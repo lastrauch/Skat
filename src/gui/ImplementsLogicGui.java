@@ -39,7 +39,6 @@ public class ImplementsLogicGui implements LogicGui {
   public void setGameSettings(GameSettings gs) {
     // TODO Auto-generated method stub
     GameSettingsController gsCon = new GameSettingsController();
-
     guiCon.displayGameSettings();
     gs.setCountRule(gsCon.getCountRule());
 
