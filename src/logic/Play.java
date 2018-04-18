@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import gui.InGameController;
 import interfaces.InGameInterface;
 
 public class Play {
@@ -8,7 +9,7 @@ public class Play {
   private Player[] group; // gives us the Players and their position (first one is the
                           // forehand)
 
-  private Card[] cards; 
+  private Card[] cards;
   private Trick[] tricks;
   private Auction auction; // every play has one auction
   private int currentTrick;
@@ -52,9 +53,9 @@ public class Play {
 
       this.sortHands();
       // give hands to the gui(s)
-      
-      
-      
+
+
+
       // test:
       // this.printHands("after first sortCards:");
       auction = new Auction(this.group, this.ps);
@@ -93,9 +94,12 @@ public class Play {
 
         // test random card
         // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
-        System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
-        this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
-        card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
+        // System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
+        // this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
+        // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
+    //    this.group[(this.indexWinnerLastTrick) % 3].playCard(
+      //      this.group[(this.indexWinnerLastTrick) % 3].inGameController.askToPlayCard());
+
         this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
 
         this.tricks[i].setCard1(card1);
@@ -447,7 +451,7 @@ public class Play {
     System.out.println();
   }
 
-  
+
   /**
    * shuffles the cards after they have been initialized
    * 
@@ -624,6 +628,7 @@ public class Play {
 
   /**
    * method to update the gameSettings
+   * 
    * @param gameSettings
    */
   public void setGameSettings(GameSettings gameSettings) {
@@ -637,10 +642,10 @@ public class Play {
   public PlayState getPlayState() {
     return this.ps;
   }
-  
+
   /**
-   * gets the last trick
-   * (not only important for AI)
+   * gets the last trick (not only important for AI)
+   * 
    * @return
    */
   public Trick getLastTrick() {
@@ -652,8 +657,8 @@ public class Play {
   }
 
   /**
-   * gets the current trick 
-   * (even if it is not filled)
+   * gets the current trick (even if it is not filled)
+   * 
    * @return
    */
   public Trick getCurrentTrick() {

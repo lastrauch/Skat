@@ -39,13 +39,6 @@ public interface LogicGui {
    */
   public void setGameSettings(GameSettings gs);
 
-  /**
-   * should open the InGameScreen and show the Player his cards and his position
-   * 
-   * @param hand
-   * @param position
-   */
-  public void startPlay(ArrayList<Card> hand, Position position);
 
 }
 
