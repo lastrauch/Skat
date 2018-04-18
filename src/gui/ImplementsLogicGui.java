@@ -1,10 +1,7 @@
 package gui;
 
-import java.util.ArrayList;
 import interfaces.LogicGui;
-import logic.Card;
 import logic.GameSettings;
-import logic.Position;
 
 public class ImplementsLogicGui implements LogicGui {
 
@@ -41,21 +38,15 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public void setGameSettings(GameSettings gs) {
     // TODO Auto-generated method stub
-    guiCon.displaySettings();
+    GameSettingsController gsCon = new GameSettingsController();
+
+    guiCon.displayGameSettings();
+    gs.setCountRule(gsCon.getCountRule());
+
+
 
   }
 
-  @Override
-  public void startPlay(ArrayList<Card> hand, Position position) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void startGui() {
-    // TODO Auto-generated method stub
-
-  }
 
   @Override
   public void decideGameMode() {

@@ -25,6 +25,7 @@ import logic.Card;
 import logic.Colour;
 import logic.PlayMode;
 import logic.PlayState;
+import logic.Position;
 
 public class InGameController implements Initializable, InGameInterface {
 
@@ -134,16 +135,16 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @author lstrauch
    */
-  public void MouseHandler() {
+  public int MouseHandler() {
+    final int[] ret = new int[1];
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
         temp = c1.getImage();
-        c1.setImage(null);
+        // c1.setImage(null);
         AnzStichblatt();
-        // ImplementsGuiLogic.retCardIndex(0);
-        // ImplementsGuiInterface g = new ImplementsGuiInterface();
+        ret[0] = 0;
       }
     });
     c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -151,10 +152,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c2.getImage();
-        c2.setImage(null);
+        // c2.setImage(null);
         AnzStichblatt();
-        // ImplementsGuiLogic.retCardIndex(1);
-
+        ret[0] = 1;
       }
     });
     c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -162,10 +162,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c3.getImage();
-        c3.setImage(null);
+        // c3.setImage(null);
         AnzStichblatt();
-        // ImplementsGuiLogic.retCardIndex(2);
-
+        ret[0] = 2;
       }
     });
     c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -173,10 +172,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c4.getImage();
-        c4.setImage(null);
+        // c4.setImage(null);
         AnzStichblatt();
-        // ImplementsGuiLogic.retCardIndex(3);
-
+        ret[0] = 3;
       }
     });
     c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -184,10 +182,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c5.getImage();
-        c5.setImage(null);
+        // c5.setImage(null);
         AnzStichblatt();
-        // ImplementsGuiLogic.retCardIndex(4);
-
+        ret[0] = 4;
       }
     });
     c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -195,10 +192,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c6.getImage();
-        c6.setImage(null);
+        // c6.setImage(null);
         AnzStichblatt();
-        // ImplementsGuiLogic.retCardIndex(5);
-
+        ret[0] = 5;
       }
     });
     c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -206,9 +202,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c7.getImage();
-        c7.setImage(null);
+        // c7.setImage(null);
         AnzStichblatt();
-        // ImplementsGuiLogic.retCardIndex(6);
+        ret[0] = 6;
 
       }
     });
@@ -217,9 +213,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c8.getImage();
-        c8.setImage(null);
+        // c8.setImage(null);
         AnzStichblatt();
-        // ImplementsGuiLogic.retCardIndex(7);
+        ret[0] = 7;
       }
     });
     c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -227,10 +223,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c9.getImage();
-        c9.setImage(null);
+        // c9.setImage(null);
         AnzStichblatt();
-        // ImplementsGuiLogic.retCardIndex(8);
-
+        ret[0] = 8;
       }
     });
     c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -238,11 +233,12 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         temp = c10.getImage();
-        c10.setImage(null);
+        // c10.setImage(null);
         AnzStichblatt();
-        // ImplementsGuiLogic.retCardIndex(9);
+        ret[0] = 9;
       }
     });
+    return ret[0];
   }
 
   /**
@@ -278,7 +274,8 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
-  public void ButtonListener() {
+  public boolean ButtonListener() {
+    final boolean[] ret = new boolean[1];
 
     qu.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
@@ -289,13 +286,13 @@ public class InGameController implements Initializable, InGameInterface {
     pass.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        // ImplementsGuiLogic.setAskForBet(false);
+        ret[0] = false;
       }
     });
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        // ImplementsGuiLogic.setAskForBet(true);
+        ret[0] = true;
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -304,6 +301,7 @@ public class InGameController implements Initializable, InGameInterface {
 
       }
     });
+    return ret[0];
   }
 
   public void ButtonListenerPlaySettings(PlayState ps) {
@@ -408,6 +406,11 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    */
 
+  @Override
+  public void startPlay(ArrayList<Card> hand, Position position) {
+    // TODO Auto-generated method stub
+
+  }
 
 
   @Override
@@ -420,16 +423,16 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void updateHand(ArrayList<Card> hand) {
     // TODO Auto-generated method stub
-    // c1.setImage(hand.get(0).getImage());
-    // c2.setImage(hand.get(1).getImage());
-    // c3.setImage(hand.get(2).getImage());
-    // c4.setImage(hand.get(3).getImage());
-    // c5.setImage(hand.get(4).getImage());
-    // c6.setImage(hand.get(5).getImage());
-    // c7.setImage(hand.get(6).getImage());
-    // c8.setImage(hand.get(7).getImage());
-    // c9.setImage(hand.get(9).getImage());
-    // c10.setImage(hand.get(9).getImage());
+    c1.setImage(hand.get(0).getImage());
+    c2.setImage(hand.get(1).getImage());
+    c3.setImage(hand.get(2).getImage());
+    c4.setImage(hand.get(3).getImage());
+    c5.setImage(hand.get(4).getImage());
+    c6.setImage(hand.get(5).getImage());
+    c7.setImage(hand.get(6).getImage());
+    c8.setImage(hand.get(7).getImage());
+    c9.setImage(hand.get(9).getImage());
+    c10.setImage(hand.get(9).getImage());
 
   }
 
@@ -442,27 +445,28 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  @Override
-  public void askToPlayCard() {
-    // TODO Auto-generated method stub
-    MouseHandler();
 
+
+  @Override
+  public int askToPlayCard() {
+    // TODO Auto-generated method stub
+    return MouseHandler();
   }
 
   @Override
-  public void askToTakeUpSkat() {
+  public void askToTakeUpSkat(PlayState ps) {
     // TODO Auto-generated method stub
     displayWannaTakeSkat();
-    // ButtonListenerWantSkat(ps);
+    ButtonListenrWantSkat(ps);
 
   }
 
   @Override
-  public void askForBet(int bet) {
+  public boolean askForBet(int bet) {
     // TODO Auto-generated method stub
     betB.setText(String.valueOf(bet));
     displayAuctionScreen();
-    ButtonListener();
+    return ButtonListener();
   }
 
 
