@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.Random;
+import gui.ImplementsLogicGui;
 
 public class Game {
   private GameSettings gameSettings;
@@ -160,7 +161,10 @@ public class Game {
     for (int i = 0; i < this.group.length; i++) {
       this.group[i].setGamePoints(0);
     }
-
+    
+    // ask for gameSettings
+    this.askForGameSettings();
+    
     for (int i = 0; i < this.plays.length; i++) {
 
       // the playing group consists of forehand, middlehand, rarehand, NOT dealer
@@ -207,6 +211,19 @@ public class Game {
     }
     // when the game is over the winner is calculated
     this.calculateWinner();
+  }
+  
+  /**
+   * only the host is asked to set the gameSettings
+   * 
+   * @author sandfisc
+   */
+  public void askForGameSettings() {
+    for (int i = 0; i < this.group.length; i++) {
+      if (this.group[i].isHost()) {
+        this.group[i].implementsLogicGui.setGameSettings(this.gameSettings);
+      }
+    }
   }
 
   /**

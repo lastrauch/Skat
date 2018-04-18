@@ -2,6 +2,7 @@ package interfaces;
 
 import java.util.ArrayList;
 import logic.Card;
+import logic.GameMode;
 import logic.GameSettings;
 import logic.Position;
 
@@ -19,7 +20,7 @@ public interface LogicGui {
    * should open first screen where the player picks single or multiplayer game
    * 
    */
-  public void decideGameMode();
+  public GameMode decideGameMode();
 
   /**
    * should open singlePlayerLobby

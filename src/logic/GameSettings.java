@@ -71,6 +71,30 @@ public class GameSettings {
   public void setEndPointsBierlachs(int endPoints) {
     this.endPointsBierlachs = endPoints;
   }
+  
+  public void setEnableKontra(boolean ek) {
+    this.enableKontra = ek;
+  }
+  
+  public boolean isEnableKontra() {
+    return this.enableKontra;
+  }
+  
+  public void setLimitedTime(boolean lt) {
+    this.enableLimitedTime = lt;
+  }
+  
+  public boolean isLimitedTime() {
+    return this.enableLimitedTime;
+  }
+  
+  public void setTimeLimit(int sec) {
+    this.timeLimit = sec;
+  }
+  
+  public int getTimeLimit() {
+    return this.timeLimit;
+  }
 
   // i think we don't need setters here
   // public void setCountRule(CountRule countRule) {
