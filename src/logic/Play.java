@@ -97,8 +97,8 @@ public class Play {
         // System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
         // this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
         // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
-        this.group[(this.indexWinnerLastTrick) % 3].playCard(
-            this.group[(this.indexWinnerLastTrick) % 3].inGameController.askToPlayCard());
+    //    this.group[(this.indexWinnerLastTrick) % 3].playCard(
+      //      this.group[(this.indexWinnerLastTrick) % 3].inGameController.askToPlayCard());
 
         this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
 
