@@ -2,6 +2,7 @@ package logic;
 
 import java.sql.Blob;
 import java.util.ArrayList;
+import gui.InGameController;
 import javafx.scene.image.Image;
 
 public class Player {
@@ -13,10 +14,12 @@ public class Player {
   private int bet;
   private int gamePoints; // saves the pionts of every Play until the whole game is over
   private boolean host;
+  public InGameController inGameController;
 
   public Player(String name) {
     this.name = name;
     this.bet = 0;
+    inGameController = new InGameController();
   }
 
   // pos is the position of the card in the hand of the player
