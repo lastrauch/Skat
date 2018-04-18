@@ -5,14 +5,14 @@ import javafx.scene.image.Image;
 
 public class ImplementsGuiInterface implements GuiLogic {
 
-  // Which order?? we can return an array of "Card" instances where you can get the Image 
-  // We only get "Blob" Images from the sqlite database
+  /* (non-Javadoc)
+   * @see interfaces.GuiLogic#getCards()
+   */
   @Override
   public Image[] getCards() {
     // TODO Auto-generated method stub
     return null;
   }
-
 
   /* (non-Javadoc)
    * @see interfaces.GuiLogic#retCardIndex(int)
@@ -31,6 +31,8 @@ public class ImplementsGuiInterface implements GuiLogic {
     // TODO Auto-generated method stub
     
   }
+
+
 
 
 }

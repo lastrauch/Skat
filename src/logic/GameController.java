@@ -3,6 +3,7 @@ package logic;
 import gui.GuiController;
 import interfaces.LogicData;
 import interfaces.LogicGui;
+import interfaces.LogicNetwork;
 
 public class GameController {
 
@@ -11,6 +12,7 @@ public class GameController {
   private GuiController guiController;
   private LogicGui logicGui;
   private LogicData logicData;
+  private LogicNetwork logicNetwork;
 
   public GameController(GuiController guiController) {
     this.group = new Player[4]; // if only 3 are playing group[3] is empty
@@ -62,9 +64,7 @@ public class GameController {
   
   public void organizeMultiPlayerGame() {
     // search for lobby / create new one
-    if (this.logicGui.beNewHost()) {
-       // wtf happens with network??
-    }
+  
   }
 
   public static void main(String[] args) {

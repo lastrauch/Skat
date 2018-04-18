@@ -50,12 +50,6 @@ public interface LogicGui {
    */
   public void setGameSettings(GameSettings gs);
 
-  /**
-   * the player has to decide if he wants to be a host or join an existing lobby
-   * @return    false if player joins existing lobby
-   *            true  if player creates new lobby
-   */
-  public boolean beNewHost();
   
   // we still need aiDifficulty (enum??) 
   // array with two elements for two AIs
