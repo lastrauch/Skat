@@ -42,7 +42,7 @@ public interface InGameInterface {
    * 
    * @param bet
    */
-  public void askForBet(int bet);
+  public boolean askForBet(int bet);
 
   /**
    * should reload the hand cards in the given order
