@@ -2,11 +2,12 @@ package logic;
 
 import java.sql.Blob;
 import java.util.ArrayList;
+import javafx.scene.image.Image;
 
 public class Player {
   private int id;
   private String name;
-  private Blob img;
+  private Image img;
   private Position position;
   private ArrayList<Card> hand = new ArrayList<Card>();
   private int bet;
@@ -552,11 +553,11 @@ public class Player {
     this.host = isHost;
   }
 
-  public Blob getImage() {
+  public Image getImage() {
     return img;
   }
 
-  public void setImage(Blob img) {
+  public void setImage(Image img) {
     this.img = img;
   }
 
