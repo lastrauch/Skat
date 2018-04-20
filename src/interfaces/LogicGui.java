@@ -20,17 +20,12 @@ public interface LogicGui {
 //   */
 //  public void openLoginScreen();
   
-  /**
-   * 
-   * @return name of the player who wants to log in
-   */
-  public String logIn();
-  
+
   /**
    * should open first screen where the player picks single or multiplayer game
    * @return gameMode (SINPLEPLAYER or MULTIPLAYER)
    */
-  public GameMode decideGameMode();
+  public void openGameModeScreen();
 
   /**
    * should open singlePlayerLobby
@@ -50,6 +45,11 @@ public interface LogicGui {
    */
   public void setGameSettings(GameSettings gs);
 
-
+  
+  // we still need aiDifficulty (enum??) 
+  // array with two elements for two AIs
+//  public AiDifficulty[] getDifficulties() {
+//    
+//  }
 }
 

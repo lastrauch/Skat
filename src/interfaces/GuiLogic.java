@@ -8,20 +8,26 @@ public interface GuiLogic {
 
   // Observer Screen nicht vergessen!!!!!!
 
+//  /**
+//   * setzt in Logik den Index der gerade gespielten Karte
+//   */
+//  public void retCardIndex(int i);
+
+//  /**
+//   * Setzt ob auf pass oder bet gedrueckt wurde für "pass" false und für "bet" true
+//   */
+//  public void setAskForBet(boolean value);
+    
   /**
-   * Bilder der Karten erhalten
+   * should update the users username or profilepicture after selecting submit
    * 
-   * @return Karten Array
+   * @param username
+   * @param im
    */
-  public Image[] getCards();
-
-  /**
-   * setzt in Logik den Index der gerade gespielten Karte
-   */
-  public void retCardIndex(int i);
-
-  /**
-   * Setzt ob auf pass oder bet gedrueckt wurde für "pass" false und für "bet" true
-   */
-  public void setAskForBet(boolean value);
+  public void updateAccount(String username, Image profilbild);
+  
+  
+  public void decideGameMode(GameMode m);
+    
+  }
 }
