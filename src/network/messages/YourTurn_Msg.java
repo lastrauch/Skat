@@ -2,13 +2,13 @@ package network.messages;
 
 import logic.Player;
 
-public class Ping extends Message{
+public class YourTurn_Msg extends Message{
     private static final long serialVersionUID = 1L;
     private Player player;
 
-    public Ping(Player player) {
-        super(MessageType.PING);
-        this.player = player;
+    public YourTurn_Msg(Player player){
+      super(MessageType.YOUR_TURN);
+      this.player = player;
     }
     
     public Player getPlayer(){
@@ -16,6 +16,6 @@ public class Ping extends Message{
     }
     
     public String toString(){
-      return this.player.getName() + "pinged.";
+      return "It's " + this.player.getName() + "'s turn";
     }
 }

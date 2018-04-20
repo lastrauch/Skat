@@ -48,7 +48,7 @@ public class Client {
   
   void endClient(){
     try{
-        this.output.writeObject(new ClientDisconnect(this.owner));
+        this.output.writeObject(new ClientDisconnect_Msg(this.owner));
         this.output.close();
         this.input.close();
         this.socket.close();
@@ -60,7 +60,7 @@ public class Client {
   // TODO Nachrichten senden
   public void sendChatMessageToServer(String msg){
     try {
-      output.writeObject(new ChatMessage(owner, msg));
+      output.writeObject(new ChatMessage_Msg(owner, msg));
     } catch (IOException e) {
       e.printStackTrace();
     }
