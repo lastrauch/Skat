@@ -58,7 +58,8 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public String logIn() {
     // TODO Auto-generated method stub
-    return null;
+    LoginController login = new LoginController();
+    return login.login();
   }
 
 }
