@@ -1,26 +1,12 @@
 package gui;
 
 import interfaces.LogicGui;
-import logic.GameMode;
 import logic.GameSettings;
 
 public class ImplementsLogicGui implements LogicGui {
 
   private GuiController guiCon = new GuiController();
 
-  // @Override
-  // public String startGui() {
-  // // TODO Auto-generated method stub
-  // GuiController guiCon = new GuiController();
-  // return null;
-  // }
-
-  // @Override
-  // public boolean askForMultiplayer() {
-  // // TODO Auto-generated method stub
-  //
-  // return false;
-  // }
 
   @Override
   public void openSinglePlayerLobby() {
@@ -52,13 +38,16 @@ public class ImplementsLogicGui implements LogicGui {
 
   }
 
+  @Override
+  public GuiController getGuiController() {
+    // TODO Auto-generated method stub
+    return guiCon;
+  }
+
 
   @Override
-  public GameMode decideGameMode() {
+  public void openGameModeScreen() {
     // TODO Auto-generated method stub
-    ChooseGameController chooseCon = new ChooseGameController();
-    guiCon.displayChooseGame();
-    return chooseCon.getGameMode();
 
   }
 

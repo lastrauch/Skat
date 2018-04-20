@@ -1,6 +1,7 @@
 package interfaces;
 
 import javafx.scene.image.Image;
+import logic.GameMode;
 
 // GUI to Logic, implemented by Logic
 public interface GuiLogic {
@@ -8,20 +9,35 @@ public interface GuiLogic {
 
   // Observer Screen nicht vergessen!!!!!!
 
+  // /**
+  // * setzt in Logik den Index der gerade gespielten Karte
+  // */
+  // public void retCardIndex(int i);
+
+  // /**
+  // * Setzt ob auf pass oder bet gedrueckt wurde für "pass" false und für "bet" true
+  // */
+  // public void setAskForBet(boolean value);
+
   /**
-   * Bilder der Karten erhalten
+   * should update the users username or profilepicture after selecting submit
    * 
-   * @return Karten Array
+   * @param username
+   * @param im
    */
-  public Image[] getCards();
+  public void updateAccount(String username, Image profilbild);
+
 
   /**
-   * setzt in Logik den Index der gerade gespielten Karte
+   * 
+   * @param m
    */
-  public void retCardIndex(int i);
+  public void decideGameMode(GameMode m);
 
   /**
-   * Setzt ob auf pass oder bet gedrueckt wurde für "pass" false und für "bet" true
+   * 
+   * @param username
    */
-  public void setAskForBet(boolean value);
+  public void login(String username);
+
 }
