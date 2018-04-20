@@ -4,6 +4,8 @@ import gui.GuiController;
 import interfaces.LogicData;
 import interfaces.LogicGui;
 import interfaces.LogicNetwork;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 public class GameController {
 
@@ -58,6 +60,16 @@ public class GameController {
     // guiController = implementsLogicGui.getGuiController();
     // GameController gameController = new GameController(implementsLogicGui, guiController);
     //
+    System.out.println(" hKLO");
 
   }
+
+//  /* (non-Javadoc)
+//   * @see javafx.application.Application#start(javafx.stage.Stage)
+//   */
+//  @Override
+//  public void start(Stage arg0) throws Exception {
+//    // TODO Auto-generated method stub
+//    
+//  }
 }

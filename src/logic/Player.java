@@ -4,6 +4,8 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import gui.ImplementsLogicGui;
 import gui.InGameController;
+import interfaces.InGameInterface;
+import interfaces.LogicGui;
 import javafx.scene.image.Image;
 
 public class Player {
@@ -15,16 +17,16 @@ public class Player {
   private int bet;
   private int gamePoints; // saves the pionts of every Play until the whole game is over
   private boolean host;
-  public InGameController inGameController; // every player has his/her own gui and need a
+  public InGameInterface inGameController; // every player has his/her own gui and need a
                                             // controller
 
-  public ImplementsLogicGui implementsLogicGui;
+  public LogicGui implementsLogicGui;
 
   public Player(String name) {
     this.name = name;
     this.bet = 0;
     inGameController = new InGameController();
-    this.implementsLogicGui = new ImplementsLogicGui();
+  
   }
 
   // pos is the position of the card in the hand of the player
