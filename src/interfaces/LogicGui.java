@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.util.ArrayList;
+import gui.GuiController;
 import logic.Card;
 import logic.GameMode;
 import logic.GameSettings;
@@ -9,16 +10,25 @@ import logic.Position;
 // Logic to GUI, implemented by GUI
 public interface LogicGui {
 
-  // start should be in main
-//  /**
-//   * should start the gui
-//   * 
-//   */
-//  public void startGui();
+   /**
+   * 
+   */
+  public GuiController getGuiController();
 
+//  /**
+//   * should open LoginScreen
+//   */
+//  public void openLoginScreen();
+  
+  /**
+   * 
+   * @return name of the player who wants to log in
+   */
+  public String logIn();
+  
   /**
    * should open first screen where the player picks single or multiplayer game
-   * 
+   * @return gameMode (SINPLEPLAYER or MULTIPLAYER)
    */
   public GameMode decideGameMode();
 
