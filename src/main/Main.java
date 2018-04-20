@@ -1,21 +1,13 @@
 package main;
 
+import gui.GuiController;
 import javafx.application.Application;
-import javafx.stage.Stage;
 
-public class Main extends Application{
+public class Main {
 
-	public static void main(String[] args) {
-		System.out.println("Hello World");
-	}
-
-  /* (non-Javadoc)
-   * @see javafx.application.Application#start(javafx.stage.Stage)
-   */
-  @Override
-  public void start(Stage arg0) throws Exception {
-    // TODO Auto-generated method stub
-    
+  public static void main(String[] args) {
+    Application.launch(GuiController.class, args);
   }
+
 
 }

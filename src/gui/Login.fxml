@@ -42,7 +42,7 @@
                      </image></ImageView>
                </children>
             </AnchorPane>
-            <JFXTextField focusColor="WHITE" layoutX="167.0" layoutY="426.0" prefHeight="31.0" prefWidth="427.0" promptText="Username" styleClass="prompttext" stylesheets="@../../resources/mystyle.css" unFocusColor="WHITE">
+            <JFXTextField fx:id="textField" focusColor="WHITE" layoutX="167.0" layoutY="426.0" prefHeight="31.0" prefWidth="427.0" promptText="Username" styleClass="prompttext" stylesheets="@../../resources/mystyle.css" unFocusColor="WHITE">
                <font>
                   <Font size="24.0" />
                </font>

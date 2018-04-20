@@ -3,7 +3,7 @@ package gui;
 import interfaces.LogicGui;
 import logic.GameSettings;
 
-public class ImplementsLogicGui implements LogicGui {
+public class ImplementsLogicGui extends GameSettingsController implements LogicGui {
 
   private GuiController guiCon = new GuiController();
 
@@ -25,17 +25,13 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public void setGameSettings(GameSettings gs) {
     // TODO Auto-generated method stub
-    GameSettingsController gsCon = new GameSettingsController();
     guiCon.displayGameSettings();
-    gs.setCountRule(gsCon.getCountRule());
-    gs.setEnableKontra(gsCon.getKontra());
-    gs.setLimitedTime(gsCon.getEnabledTime());
-    if (gsCon.getEnabledTime()) {
-      gs.setTimeLimit(gsCon.setLimitedTime());
+    gs.setCountRule(super.getCountRule());
+    gs.setEnableKontra(super.getKontra());
+    gs.setLimitedTime(super.getEnabledTime());
+    if (super.getEnabledTime()) {
+      gs.setTimeLimit(super.setLimitedTime());
     }
-
-
-
   }
 
   @Override
@@ -48,7 +44,9 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public void openGameModeScreen() {
     // TODO Auto-generated method stub
+    guiCon.displayChooseGame();
 
   }
+
 
 }
