@@ -584,14 +584,7 @@ public class Player extends ImplementsGuiInterface{
     this.img = img;
   }
 
-  /* (non-Javadoc)
-   * @see interfaces.GuiLogic#updateAccount(java.lang.String, javafx.scene.image.Image)
-   */
-  @Override
-  public void updateAccount(String username, Image profilbild) {
-    // TODO Auto-generated method stub
-    //logicData.getPlayer(username);
-  }
+
 
 
 

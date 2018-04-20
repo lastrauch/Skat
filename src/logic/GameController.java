@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class GameController {
 
   private Player[] group;
-  private GuiController guiController;
+  //private GuiController guiController;
   private LogicGui logicGui;
   private LogicData logicData;
   private LogicNetwork logicNetwork;
@@ -20,36 +20,50 @@ public class GameController {
   
   public GameController(GuiController guiController) {
     this.group = new Player[4]; // if only 3 are playing group[3] is empty
-    this.guiController = guiController;
+    //this.guiController = guiController;
   }
 
   public GameController() {
-    
+    this.group = new Player[4];
   }
   
   public void generateGame(GameMode gameMode) {
     this.game = new Game(gameMode);
   }
-//  public void organizeSinglePlayerGame() {
-//    // two new AIs depending on the difficulty the (real) player has chosen
-//    
-//  }
-//  
-//  public void organizeMultiPlayerGame() {
-//    // search for lobby / create new one
-//  
-//  }
+
+  public void logIn(String username) {    
+    this.group[0] = this.logicData.getPlayer(username);
+  }
+  
+  public void updateAccount(String oldUsername, String newUsername, Image profilbild) {
+    // update player in group
+    Player updateThisPlayer = this.searchPlayer(oldUsername);
+    updateThisPlayer.setName(newUsername);
+    updateThisPlayer.setImage(profilbild);
+    
+    // update player in own database 
+    this.updatePlayerOwnDatabase(updateThisPlayer);
+    
+    // update player in ALL databases
+  }
+  
+  public Player searchPlayer(String userName) {
+    for (int i = 0; i < this.group.length; i++) {
+      if (this.group[i] != null) {
+        if (this.group[i].getName().equals(userName)) {
+          return this.group[i];
+        }
+      }
+    }
+    return null;
+  }
+  
+  public void updatePlayerOwnDatabase(Player player) {
+    this.logicData.updatePlayer(player);
+  }
 
   public static void main(String[] args) {
-    // // the whole program is supposed to be running here .. i don't think so
-    // ImplementsLogicGui implementsLogicGui = new ImplementsLogicGui();
-    // GuiController guiController = new GuiController();
-    // GuiController.launch(args);
-    // guiController = implementsLogicGui.getGuiController();
-    // GameController gameController = new GameController(implementsLogicGui, guiController);
-    //
-    System.out.println(" hKLO");
-    Application.launch(GuiController.class, args);
+ //   Application.launch(GuiController.class, args);
   }
 
 
