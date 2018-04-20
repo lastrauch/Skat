@@ -29,4 +29,15 @@ public interface LogicNetwork {
    * @param player
    */
   public void askforBet(int bet, Player player);
+  
+  /**
+   * sends a player (that has to be updated) to all clients 
+   * @param player
+   */
+  public void sendPlayer(Player player);
+  
+  /**
+   * starts the game on all clients
+   */
+  public void startGame();
 }
