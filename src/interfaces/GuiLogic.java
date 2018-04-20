@@ -25,7 +25,7 @@ public interface GuiLogic {
    * @param username
    * @param im
    */
-  public void updateAccount(String username, Image profilbild);
+  public void updateAccount(String oldUsername, String newUsername, Image profilbild);
 
 
   /**

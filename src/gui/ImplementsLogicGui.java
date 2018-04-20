@@ -1,6 +1,7 @@
 package gui;
 
 import interfaces.LogicGui;
+import javafx.application.Application;
 import logic.GameSettings;
 
 public class ImplementsLogicGui implements LogicGui {
@@ -33,9 +34,6 @@ public class ImplementsLogicGui implements LogicGui {
     if (gsCon.getEnabledTime()) {
       gs.setTimeLimit(gsCon.setLimitedTime());
     }
-
-
-
   }
 
   @Override
@@ -49,6 +47,10 @@ public class ImplementsLogicGui implements LogicGui {
   public void openGameModeScreen() {
     // TODO Auto-generated method stub
 
+  }
+
+  public static void main(String[] args) {
+    Application.launch(GuiController.class, args);
   }
 
 }
