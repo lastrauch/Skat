@@ -21,25 +21,15 @@ public class GameController {
     this.guiController = guiController;
   }
 
+  public GameController() {
+    
+  }
+  
   public void control() {
-   // this.logicGui.logIn();
-    this.askForGameMode();
   }
 
-
-  /**
-   * let the player decide if he wants to play multplayer or singleplayer
-   * 
-   * @author sandfisc
-   */
-  public void askForGameMode() {
-  //  this.gameMode = this.logicGui.decideGameMode();
-
-    if (this.gameMode == GameMode.SINGLEPLAYER) {
-      this.logicGui.openSinglePlayerLobby();
-    } else if (this.gameMode == GameMode.MULTIPLAYER) {
-      this.logicGui.openMultiPlayerLobby();
-    }
+  public void setGameMode(GameMode gameMode) {
+    this.gameMode = gameMode;
   }
   
 //  public void organizeSinglePlayerGame() {
@@ -61,6 +51,7 @@ public class GameController {
     // GameController gameController = new GameController(implementsLogicGui, guiController);
     //
     System.out.println(" hKLO");
+    javafx.application.Application.launch(GuiController.class, args);
 
   }
 

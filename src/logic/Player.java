@@ -4,11 +4,13 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import gui.ImplementsLogicGui;
 import gui.InGameController;
+import interfaces.GuiLogic;
 import interfaces.InGameInterface;
+import interfaces.LogicData;
 import interfaces.LogicGui;
 import javafx.scene.image.Image;
 
-public class Player {
+public class Player implements GuiLogic{
   private int id;
   private String name;
   private Image img;
@@ -19,13 +21,14 @@ public class Player {
   private boolean host;
   public InGameInterface inGameController; // every player has his/her own gui and need a
                                             // controller
-
-  public LogicGui implementsLogicGui;
+  public LogicGui logicGui;
+  public LogicData logicData;
+  public GameController gameController;
 
   public Player(String name) {
     this.name = name;
     this.bet = 0;
-    inGameController = new InGameController();
+    gameController = new GameController();
   
   }
 
@@ -582,6 +585,39 @@ public class Player {
 
   public void setImage(Image img) {
     this.img = img;
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.GuiLogic#updateAccount(java.lang.String, javafx.scene.image.Image)
+   */
+  @Override
+  public void updateAccount(String username, Image profilbild) {
+    // TODO Auto-generated method stub
+    if (!username.equals(this.name)) {
+      this.name = username;
+      this.logicData.changeName(this, username);
+    }
+   
+    this.img = profilbild;    
+    this.logicData.changeImage(this, profilbild);
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.GuiLogic#decideGameMode(logic.GameMode)
+   */
+  @Override
+  public void decideGameMode(GameMode m) {
+    // TODO Auto-generated method stub
+    this.gameController.setGameMode(m);
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.GuiLogic#login(java.lang.String)
+   */
+  @Override
+  public void login(String username) {
+    // TODO Auto-generated method stub
+    
   }
 
   // public static void main(String[] args) {
