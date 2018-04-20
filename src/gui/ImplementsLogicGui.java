@@ -1,7 +1,6 @@
 package gui;
 
 import interfaces.LogicGui;
-import logic.GameMode;
 import logic.GameSettings;
 
 public class ImplementsLogicGui implements LogicGui {
@@ -39,27 +38,17 @@ public class ImplementsLogicGui implements LogicGui {
 
   }
 
-
-  @Override
-  public GameMode decideGameMode() {
-    // TODO Auto-generated method stub
-    ChooseGameController chooseCon = new ChooseGameController();
-    guiCon.displayChooseGame();
-    return chooseCon.getGameMode();
-
-  }
-
   @Override
   public GuiController getGuiController() {
     // TODO Auto-generated method stub
     return guiCon;
   }
 
+
   @Override
-  public String logIn() {
+  public void openGameModeScreen() {
     // TODO Auto-generated method stub
-    LoginController login = new LoginController();
-    return login.login();
+
   }
 
 }
