@@ -20,28 +20,10 @@ public class GameController {
   }
 
   public void control() {
-    this.logicGui.logIn();
+   // this.logicGui.logIn();
     this.askForGameMode();
   }
 
-  /**
-   * log in a new or "old" (#database) player
-   * 
-   * @author sandfisc
-   */
-  public void logIn() {
-    // get the name the player has typed in
-    String logInName = this.logicGui.logIn();
-    
-    if (this.logicData.checkIfPlayerNew(logInName)) {
-      // if the player is new, generate a new player an save him/her in the group and in the database
-      this.group[0] = new Player(logInName);
-      this.logicData.insertPlayer(this.group[0]);
-    } else {
-      // if the player is not new, load him/her out of the database 
-      this.group[0] = this.logicData.getPlayer(logInName);
-    }
-  }
 
   /**
    * let the player decide if he wants to play multplayer or singleplayer
@@ -49,7 +31,7 @@ public class GameController {
    * @author sandfisc
    */
   public void askForGameMode() {
-    this.gameMode = this.logicGui.decideGameMode();
+  //  this.gameMode = this.logicGui.decideGameMode();
 
     if (this.gameMode == GameMode.SINGLEPLAYER) {
       this.logicGui.openSinglePlayerLobby();
