@@ -3,6 +3,7 @@ package interfaces;
 import java.util.ArrayList;
 import logic.Card;
 import logic.Player;
+import logic.Trick;
 
 //Logic to Network, implemented by Network
 public interface LogicNetwork {
@@ -34,10 +35,22 @@ public interface LogicNetwork {
    * sends a player (that has to be updated) to all clients 
    * @param player
    */
-  public void sendPlayer(Player player);
+  public void updatePlayer(Player player);
   
   /**
    * starts the game on all clients
    */
   public void startGame();
+  
+  /**
+   * sends a player to the host/server
+   * @param player
+   */
+  public void joinLobby(Player player);
+  
+  /**
+   * sends the current trick to all clients
+   * @param tricks
+   */
+  public void updateTrick(Trick tricks);
 }

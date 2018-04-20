@@ -1,13 +1,10 @@
 package logic;
 
-import java.sql.Blob;
 import java.util.ArrayList;
-import gui.ImplementsLogicGui;
-import gui.InGameController;
-import interfaces.GuiLogic;
 import interfaces.InGameInterface;
 import interfaces.LogicData;
 import interfaces.LogicGui;
+import interfaces.LogicNetwork;
 import javafx.scene.image.Image;
 
 public class Player extends ImplementsGuiInterface{
@@ -23,6 +20,7 @@ public class Player extends ImplementsGuiInterface{
                                             // controller
   public LogicGui logicGui;
   public LogicData logicData;
+  public LogicNetwork logicNetwork;
 
   public Player(String name) {
     this.name = name;
@@ -81,9 +79,10 @@ public class Player extends ImplementsGuiInterface{
     if (!found) {
       throw new LogicException("Removing the played card from the hand was not possible!");
     }
-
     this.inGameController.updateHand(this.hand);
   }
+  
+  
 
   // We assume the hand to be sorted the first time (before the PlayMode was set)
   public void calculateHighestPossibleBet(ArrayList<Card> hand) {

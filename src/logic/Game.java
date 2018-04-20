@@ -2,6 +2,8 @@ package logic;
 
 import java.util.Random;
 import gui.ImplementsLogicGui;
+import interfaces.LogicGui;
+import interfaces.LogicNetwork;
 
 public class Game {
   private GameSettings gameSettings;
@@ -12,6 +14,7 @@ public class Game {
   private Card[] cards;
   private Player winner;
   private GameMode gameMode; // singlePlayer or Multiplayer
+  private LogicNetwork logicNetwork;
 
 //  /**
 //   * constructor #1
@@ -64,6 +67,11 @@ public class Game {
     this.setPointerF(0);
     this.updatePosition();
     this.gameSettings.setNrOfPlayers(group.length);
+    
+    // set all points of the players 0
+    for (int i = 0; i < this.group.length; i++) {
+      this.group[i].setGamePoints(0);
+    }
   }
 
 
@@ -166,15 +174,10 @@ public class Game {
     // if only three players play then the playing group is the whole group "at the table"
     if (this.group.length == 3) {
       playingGroup = this.group;
-    }
-
-    // set all points of the players 0
-    for (int i = 0; i < this.group.length; i++) {
-      this.group[i].setGamePoints(0);
-    }
+    }  
 
     // ask for gameSettings
-    this.askForGameSettings();
+   // this.askForGameSettings();
 
     for (int i = 0; i < this.plays.length; i++) {
 
@@ -211,10 +214,11 @@ public class Game {
         this.calculateWinner();
         break;
       }
-
-      for (int j = 0; j < this.group.length; j++) {
-        System.out.println(group[j].getName() + "'s GamePoints: " + group[j].getGamePoints());
-      }
+      
+      //test
+//      for (int j = 0; j < this.group.length; j++) {
+//        System.out.println(group[j].getName() + "'s GamePoints: " + group[j].getGamePoints());
+//      }
 
       // after a play the players change positions
       this.setPointerF((i + 1) % group.length);
@@ -224,18 +228,19 @@ public class Game {
     this.calculateWinner();
   }
 
-  /**
-   * only the host is asked to set the gameSettings
-   * 
-   * @author sandfisc
-   */
-  public void askForGameSettings() {
-    for (int i = 0; i < this.group.length; i++) {
-      if (this.group[i].isHost()) {
-        // this.group[i].implementsLogicGui.setGameSettings(this.gameSettings);
-      }
-    }
-  }
+//  /**
+//   * only the host is asked to set the gameSettings
+//   * 
+//   * @author sandfisc
+//   */
+//  public void askForGameSettings() {
+//    for (int i = 0; i < this.group.length; i++) {
+//      if (this.group[i].isHost()) {
+//        // this.group[i].implementsLogicGui.setGameSettings(this.gameSettings);
+//        this.group[i].logicGui.setGameSettings(this.gameSettings);
+//      }
+//    }
+//  }
 
   /**
    * sorts a group: index 0 = forehand, index 1 = middlehand, index 2 = rarehand

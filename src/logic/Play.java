@@ -3,6 +3,7 @@ package logic;
 import java.util.ArrayList;
 import gui.InGameController;
 import interfaces.InGameInterface;
+import interfaces.LogicNetwork;
 
 public class Play {
 
@@ -18,6 +19,7 @@ public class Play {
   private final int nrTricks = 10;
   private GameSettings gameSettings;
   private boolean singlePlayerWins;
+  private LogicNetwork logicNetwork;
 
   /**
    * constructor
@@ -91,7 +93,7 @@ public class Play {
       try {
         // first player plays card
         card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
-
+        
         // test random card
         // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
         // System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
@@ -103,9 +105,9 @@ public class Play {
         // 3].inGameController.askToPlayCard());
 
         this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
-
         this.tricks[i].setCard1(card1);
-
+        this.updateTrick();
+        
         // second player plays card
         do {
 
@@ -120,12 +122,16 @@ public class Play {
         } while (!this.checkIfCardPossible(card2, this.tricks[i].getFirstCard(),
             this.group[(this.indexWinnerLastTrick + 1) % 3]));
 
+        // send card 
+       // this.group[(this.indexWinnerLastTrick + 1) % 3]
+        
         // remove card from second players hand
         this.group[(this.indexWinnerLastTrick + 1) % 3].removeCardFromHand(card2);
-
+        
         // add the second card to trick
         this.tricks[i].setCard2(card2);
-
+        this.updateTrick();
+        
         // third player plays card
         do {
 
@@ -144,8 +150,10 @@ public class Play {
 
         // remove card from third players hand
         this.group[(this.indexWinnerLastTrick + 2) % 3].removeCardFromHand(card3);
+        
         // add the third card to trick
         this.tricks[i].setCard3(card3);
+        this.updateTrick();
 
       } catch (LogicException e1) {
         // e1.printStackTrace();
@@ -207,6 +215,7 @@ public class Play {
       System.out.println(c.getColour().toString() + " " + c.getNumber().toString());
     }
   }
+  
 
   /**
    * updates the hands of the group
@@ -223,6 +232,10 @@ public class Play {
     for (int i = 0; i < this.group.length; i++) {
       this.group[i].startPlay();
     }
+  }
+  
+  public void updateTrick() {
+    this.logicNetwork.updateTrick(this.tricks[this.currentTrick]);
   }
   
   /**
