@@ -10,26 +10,23 @@ import interfaces.LogicData;
 import interfaces.LogicGui;
 import javafx.scene.image.Image;
 
-public class Player implements GuiLogic{
+public class Player extends ImplementsGuiInterface{
   private int id;
   private String name;
   private Image img;
   private Position position;
   private ArrayList<Card> hand = new ArrayList<Card>();
   private int bet;
-  private int gamePoints; // saves the pionts of every Play until the whole game is over
+  private int gamePoints; // saves the points of every Play until the whole game is over
   private boolean host;
   public InGameInterface inGameController; // every player has his/her own gui and need a
                                             // controller
   public LogicGui logicGui;
   public LogicData logicData;
-  public GameController gameController;
 
   public Player(String name) {
     this.name = name;
     this.bet = 0;
-    gameController = new GameController();
-  
   }
 
   // pos is the position of the card in the hand of the player
@@ -593,32 +590,10 @@ public class Player implements GuiLogic{
   @Override
   public void updateAccount(String username, Image profilbild) {
     // TODO Auto-generated method stub
-    if (!username.equals(this.name)) {
-      this.name = username;
-      this.logicData.changeName(this, username);
-    }
-   
-    this.img = profilbild;    
-    this.logicData.changeImage(this, profilbild);
+    //logicData.getPlayer(username);
   }
 
-  /* (non-Javadoc)
-   * @see interfaces.GuiLogic#decideGameMode(logic.GameMode)
-   */
-  @Override
-  public void decideGameMode(GameMode m) {
-    // TODO Auto-generated method stub
-    this.gameController.setGameMode(m);
-  }
 
-  /* (non-Javadoc)
-   * @see interfaces.GuiLogic#login(java.lang.String)
-   */
-  @Override
-  public void login(String username) {
-    // TODO Auto-generated method stub
-    
-  }
 
   // public static void main(String[] args) {
   // PlayState ps = new PlayState();
