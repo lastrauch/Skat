@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import logic.Player;
+import network.messages.Message;
+import network.messages.MessageType;
 import network.messages.*;
 import network.server.Server;
 
@@ -46,7 +48,7 @@ public class Client {
     return true;
   }
   
-  void endClient(){
+  private void disconnect(){
     try{
         this.output.writeObject(new ClientDisconnect_Msg(this.owner));
         this.output.close();
@@ -57,12 +59,38 @@ public class Client {
      }
   }
   
-  // TODO Nachrichten senden
-  public void sendChatMessageToServer(String msg){
-    try {
-      output.writeObject(new ChatMessage_Msg(owner, msg));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  private void sendMessage(Message message){
+	  try{
+		  this.output.writeObject(message);
+	  }catch(IOException e){
+		  e.printStackTrace();
+	  }
   }
+  
+  private void receiveMessage(){
+	  Message message = null;
+	  
+	  try{
+		  message = (Message) this.input.readObject();
+		  switch(message.getType()){
+		  	case YOUR_TURN :
+		  	case CARD_PLAYED :
+		  	case BET :
+		  	case CHAT_MESSAGE :
+		  	case GAME_SETTINGS :
+		  	case PLAY_SETTINGS :
+		  	case DEALT_CARDS :
+		  	case CONNECTION_ANSWER :
+		  	default :
+		  		break;
+		  }
+	  }catch(IOException e){
+		  e.printStackTrace();
+	  }catch(ClassNotFoundException e){
+		  e.printStackTrace();
+	  }
+  }
+  
+  
+
 }

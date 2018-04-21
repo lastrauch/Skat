@@ -14,9 +14,6 @@ public class Server extends Thread{
   private List<ClientConnection> clientConnections;
   private ServerProtocol serverProtocol;
   private boolean serverRunning;
-  private boolean chatRunning;
-  private boolean lobbyRunning;
-  private boolean gameRunning;
   
   // TODO
   public Server(String serverName, int port){
@@ -25,9 +22,6 @@ public class Server extends Thread{
     this.clientConnections = new ArrayList<ClientConnection>();
     this.serverProtocol = new ServerProtocol();
     this.serverRunning = false;
-    this.chatRunning = false;
-    this.lobbyRunning = false;
-    this.gameRunning = false;
     
     try {
       this.serverSocket = new ServerSocket(port);
@@ -38,8 +32,6 @@ public class Server extends Thread{
   
   public void run(){
     this.serverRunning = true;
-    this.chatRunning = true;
-    this.lobbyRunning = true;
     
     while(this.serverRunning){
       try(Socket newSocket = this.serverSocket.accept()){
