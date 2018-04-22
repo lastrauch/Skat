@@ -1,14 +1,12 @@
 package network.server;
 
 import java.util.List;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 
 public class ServerFinder {
 	private List<Server> servers;
@@ -38,15 +36,13 @@ public class ServerFinder {
 		while(it.hasNext()){
 			String range = (String) it.next();
 			for(int i=0; i<255; i++){
-				Object o = this.lock;
 				synchronized(this.lock){
 					this.numThreads++;
-					(new PingServerThread(this, range+i)).start();
+					(new ServerFinderThread(range+i, this.port)).start();
 				}
 			}
 		}
 		
-		Object o = this.lock;
 		synchronized (this.lock){
 			if(this.numThreads > 0){
 				try{

@@ -15,7 +15,6 @@ public class Server extends Thread{
   private ServerProtocol serverProtocol;
   private boolean serverRunning;
   
-  // TODO
   public Server(String serverName, int port){
     this.serverName = serverName;
     this.port = port;

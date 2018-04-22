@@ -12,7 +12,6 @@ public class Main {
 		
 		Player player = new Player("Felix");
 	    Client c = new Client(new Server("Felix Server", 5000), player, false, 5000);
-	    c.sendChatMessageToServer("Hi");
 	}
 
 }
