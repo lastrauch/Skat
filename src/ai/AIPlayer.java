@@ -11,6 +11,9 @@ public abstract class AIPlayer extends Player {
 
   public final Boolean isAIPlayer() {
     return true;
+    
+    
+    
   }
 }
   
