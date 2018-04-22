@@ -47,7 +47,7 @@ public class ClientConnection extends Thread{
             Message message;
             boolean connected = true;
             while(connected && (message = (Message) input.readObject()) != null){
-                handleMessage(message);
+                receiveMessage(message);
                 this.server.getServerProtocol().writeToProtocol(message);
             }
         }catch(ClassNotFoundException e){
@@ -57,19 +57,30 @@ public class ClientConnection extends Thread{
         }
     }
     
-    private void handleMessage(Message message){
+    private void receiveMessage(Message message){
       switch(message.getType()){
-        case CHAT_MESSAGE:
-          System.out.println("Die Nachricht ist angekommen");
-          break;
-        
-        case CLIENT_DISCONNECT:
-          disconnect();   
-          break;
-        default:
-            this.server.getServerProtocol().writeToProtocol("Error!: MessageType is not existent");
-            break;
+      	case CLIENT_DISCONNECT :
+      	case PING :
+      	case YOUR_TURN :
+      	case CARD_PLAYED :
+      	case BET :
+      	case CHAT_MESSAGE :
+      	case GAME_SETTINGS :
+      	case PLAY_SETTINGS :
+      	case DEALT_CARDS :
+      	case CONNECTION_REQUEST :
+      	case CONNECTION_ANSWER :
+      	case START_GAME :
+    	  default :
       }
+    }
+    
+    private void sendMessage(Message message){
+  	  try{
+  		  this.output.writeObject(message);
+  	  }catch(IOException e){
+  		  e.printStackTrace();
+  	  }
     }
     
     private void disconnect(){

@@ -31,6 +31,21 @@ public class Client {
       System.out.println("Sorry: No connection to " + server.getServerName() + ": " + port);
     }
   }
+  
+  public void run(){
+      try{
+          Message message;
+          boolean connected = true;
+          while(connected && (message = (Message) input.readObject()) != null){
+              receiveMessage(message);
+              this.server.getServerProtocol().writeToProtocol(message);
+          }
+      }catch(ClassNotFoundException e){
+          e.printStackTrace();
+      }catch(IOException e){
+          e.printStackTrace();
+      }
+  }
  
   // TODO ask for Connection
   private boolean connect(){
@@ -67,27 +82,18 @@ public class Client {
 	  }
   }
   
-  private void receiveMessage(){
-	  Message message = null;
-	  
-	  try{
-		  message = (Message) this.input.readObject();
-		  switch(message.getType()){
-		  	case YOUR_TURN :
-		  	case CARD_PLAYED :
-		  	case BET :
-		  	case CHAT_MESSAGE :
-		  	case GAME_SETTINGS :
-		  	case PLAY_SETTINGS :
-		  	case DEALT_CARDS :
-		  	case CONNECTION_ANSWER :
-		  	default :
-		  		break;
-		  }
-	  }catch(IOException e){
-		  e.printStackTrace();
-	  }catch(ClassNotFoundException e){
-		  e.printStackTrace();
+  private void receiveMessage(Message message){
+	  switch(message.getType()){
+	  	case YOUR_TURN :
+	  	case CARD_PLAYED :
+	  	case BET :
+	  	case CHAT_MESSAGE :
+	  	case GAME_SETTINGS :
+	  	case PLAY_SETTINGS :
+	  	case DEALT_CARDS :
+	  	case CONNECTION_ANSWER :
+	  	default :
+	  		break;
 	  }
   }
 }
