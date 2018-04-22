@@ -13,7 +13,7 @@ public class CardPlayed_Msg extends Message{
     this.card = card;
   }
     
-  public Player getPlayer(Player player){
+  public Player getPlayer(){
     return this.player;
   }
     

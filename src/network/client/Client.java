@@ -7,9 +7,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import logic.Player;
 import network.messages.Message;
-import network.messages.MessageType;
 import network.messages.*;
 import network.server.Server;
+import interfaces.NetworkLogic;
 
 public class Client {
   private Server server;
@@ -84,14 +84,37 @@ public class Client {
   
   private void receiveMessage(Message message){
 	  switch(message.getType()){
-	  	case YOUR_TURN :
-	  	case CARD_PLAYED :
-	  	case BET :
-	  	case CHAT_MESSAGE :
-	  	case GAME_SETTINGS :
-	  	case PLAY_SETTINGS :
-	  	case DEALT_CARDS :
-	  	case CONNECTION_ANSWER :
+	  	case YOUR_TURN : NetworkLogic.receiveYourTurn();
+	  					 break;
+	  	case CARD_PLAYED : CardPlayed_Msg msg2 = (CardPlayed_Msg) message;
+	  					   NetworkLogic.receiveCardPlayed(msg2.getPlayer(), msg2.getCard());
+	  					   break;
+	  	case BET : Bet_Msg msg3 = (Bet_Msg) message;
+	  			   NetworkLogic.receiveBet(msg3.getPlayer(), msg3.getBet());
+	  			   break;
+	  	case CHAT_MESSAGE : ChatMessage_Msg msg4 = (ChatMessage_Msg) message;
+	  						NetworkLogic.receiveChatMessage(msg4.getPlayer(), msg4.getMsg());
+	  						break;
+	  	case GAME_SETTINGS : GameSettings_Msg msg5 = (GameSettings_Msg) message;
+	  						 NetworkLogic.receiveGameSettings(msg5.getGameSettings());
+	  						 break;
+	  	case PLAY_SETTINGS : PlaySettings_Msg msg6 = (PlaySettings_Msg) message;
+	  						 NetworkLogic.receivePlayState(msg6.getPlayState());
+	  						 break;
+	  	case DEALT_CARDS : DealtCards_Msg msg7 = (DealtCards_Msg) message;
+	  					   NetworkLogic.receiveCards(msg7.getCards());
+	  					   break;
+	  	case CONNECTION_ANSWER : ConnectionAnswer_Msg msg8 = (ConnectionAnswer_Msg) message;
+	  							 NetworkLogic.receiveConnectionRequestAsnwer(msg8.getAccepted());
+	  							 break;
+	  	case LOBBY : Lobby_Msg msg9 = (Lobby_Msg) message;
+	  				 NetworkLogic.receiveLobby(msg9.getServer(), msg9.getHost(), msg9.getPlayer(), msg9.getGameSettings());
+	  				 break;
+	  	case START_GAME : NetworkLogic.receiveStartGame();
+	  					  break;
+	  	case CLIENT_DISCONNECT : ClientDisconnect_Msg msg11 = (ClientDisconnect_Msg) message;
+	  							 NetworkLogic.receivePlayerDisconnected(msg11.getPlayer());
+	  							 break;
 	  	default :
 	  		break;
 	  }
