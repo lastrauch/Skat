@@ -13,6 +13,12 @@ public class LogicReciever implements interfaces.LogicNetwork{
     Controller.joinLobby(server, player);
   }
 
+  public Server[] getServer(){
+	  
+	  
+	  return null;
+  }
+  
   public void addBot() {
     // TODO Auto-generated method stub
     //Erstelle Client für Bot
@@ -24,7 +30,7 @@ public class LogicReciever implements interfaces.LogicNetwork{
     
   }
 
-  public void sendMsg() {
+  public void sendChatMessage() {
     // TODO Auto-generated method stub
     //Sende Nachricht an alle
   }

@@ -7,6 +7,10 @@ import network.server.Server;
 public interface LogicNetwork {
   //Host game
   void hostGame(Player player);
+  
+  //Get Server
+  Server[] getServer();
+  
   //Join Lobby
   void joinLobby(Server server, Player player);
   //Add bot
@@ -17,7 +21,7 @@ public interface LogicNetwork {
     //Ping, keep Connection
   void ping();
     //Chat
-  void sendMsg();
+  void sendChatMessage();
     //Settings senden
   void sendGameSettings();
     //Spiel start
