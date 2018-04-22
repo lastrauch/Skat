@@ -1,11 +1,14 @@
 package database;
 
+import java.awt.Image;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import javax.imageio.ImageIO;
 import logic.Card;
 import logic.Player;
 
@@ -84,25 +87,6 @@ public class DatabaseHandler extends database {
         }
     }        
   
-//  public static boolean checkIfPlayerNew(ResultSet rs, String name) throws SQLException {
-//    ResultSetMetaData rsmd = rs.getMetaData();
-//    int columns = rsmd.getColumnCount();
-//    for (int x = 1; x <= columns; x++) {
-//        if (name.equals(rsmd.getColumnName(x))) {
-//            return true;
-//        }
-//    }
-//    return false;
-//}
-//  public boolean checkDB() {
-//    String path = DB_PATH + DB_NAME;
-//    File file = new File(path);
-//    if (file.exists()) {
-//        return true;
-//    } else
-//        return false;
-//}
-  
   public void deletePlayer(Player player) {   
     try {
         deletePlayer.setInt(1, player.getId());
@@ -123,14 +107,20 @@ public class DatabaseHandler extends database {
     }
   }
 
-  public Image getImage(Card card) {
-    try {
-      selectCard.setBlob(1, card.getImage());
+  public Image getImage(String colour, String number) {
+    Image img = null;
+    try {    
+      selectCard.setString(1, colour);
+      selectCard.setString(2, number);
       selectCard.execute();
-      } catch (SQLException e) {       
+      ResultSet rs = selectCard.executeQuery();
+      rs.next();
+      InputStream in = rs.getBinaryStream("image");    
+      img = ImageIO.read(in);
+      } catch (Exception e) {       
         e.printStackTrace();
       } 
-    return card;
+    return img;
       }
   
   public void changeImage(Player player, Player image) {
@@ -142,30 +132,23 @@ public class DatabaseHandler extends database {
     }
     }
 
-  public Image getImageDarker(Card card) {
+  public Image getImageDarker(String colour, String number) {
+    Image img = null;
     try {
-      selectCardDarker.setBlob(1, card.getImage());
+      selectCardDarker.setString(1, colour);
+      selectCardDarker.setString(2, number);
       selectCardDarker.execute();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return card;
-  }
+      ResultSet rs = selectCardDarker.executeQuery();
+      rs.next();
+      InputStream in = rs.getBinaryStream("image_Dark");    
+      img = ImageIO.read(in);
+      } catch (Exception e) {       
+        e.printStackTrace();
+      } 
+    return img;
+      }
 }
-// Read the blob data as byte
 
-//  public byte[] getImage(String name) {
-//  byte[] data = null;
-//  Cursor cursor = database.rawQuery("SELECT image FROM places WHERE name = ?", new String[]{name});
-//  cursor.moveToFirst();
-//  while (!cursor.isAfterLast()) {
-//      data = cursor.getBlob(0);
-//      break;  // Assumption: name is unique
-//  }
-//  cursor.close();
-//  return data;
-//}
-//}
 
 
 
