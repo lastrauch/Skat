@@ -9,7 +9,6 @@ public class Play {
 
   private Player[] group; // gives us the Players and their position (first one is the
                           // forehand)
-
   private Card[] cards;
   private Trick[] tricks;
   private Auction auction; // every play has one auction
@@ -164,9 +163,7 @@ public class Play {
           ps.addToStackOpponents(tricks[i]);
         }
 
-        // declarer is not allowed to win a trick when playMode is NULL/NULLOUVERT
-
-        // SCHNEIDER SCHWARZ!!!!?????
+        // declarer is not allowed to win a trick when playMode is NULL
         if (this.ps.getPlayMode() == PlayMode.NULL) {
           if (this.ps.getDeclarer().equals(this.group[this.indexWinnerLastTrick])) {
             this.singlePlayerWins = false;
@@ -186,14 +183,16 @@ public class Play {
     }
     // calculate if the declarer won the play
     this.singlePlayerWins = this.calculateWinner();
-
     // update the gamePoints of each player
     try {
       this.calculatePoints();
+      this.logicNetwork.sendPlayState(this.ps);
     } catch (LogicException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+    
+    this.logicNetwork.endPlay(this.singlePlayerWins);
   }
 
   // to test stuff
