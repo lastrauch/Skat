@@ -7,20 +7,25 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
+import logic.GameSettings;
+import logic.PlayState;
+
 public class Server extends Thread{
   private String serverName;
   private ServerSocket serverSocket;
   private int port;
   private List<ClientConnection> clientConnections;
   private ServerProtocol serverProtocol;
-  private boolean serverRunning;
+  private boolean serverRunning = false;
   
-  public Server(String serverName, int port){
+  private GameSettings gs;
+  private PlayState ps;
+
+  public Server(String serverName, int port, GameSettings gs){
     this.serverName = serverName;
     this.port = port;
     this.clientConnections = new ArrayList<ClientConnection>();
     this.serverProtocol = new ServerProtocol();
-    this.serverRunning = false;
     
     try {
       this.serverSocket = new ServerSocket(port);
@@ -50,6 +55,7 @@ public class Server extends Thread{
             this.serverProtocol.writeToProtocol("stopping server......");
               this.serverSocket.close();  
           }
+          this.serverRunning = false;
       } catch (SocketException  e1){
         this.serverProtocol.writeToProtocol("Server stopped");   
       }  catch (IOException e2){
