@@ -106,7 +106,7 @@ public class Play {
 
         this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
         this.tricks[i].setCard1(card1);
-        this.updateTrick();
+        this.updateTrick(card1);
         
         // second player plays card
         do {
@@ -130,7 +130,7 @@ public class Play {
         
         // add the second card to trick
         this.tricks[i].setCard2(card2);
-        this.updateTrick();
+        this.updateTrick(card2);
         
         // third player plays card
         do {
@@ -153,7 +153,7 @@ public class Play {
         
         // add the third card to trick
         this.tricks[i].setCard3(card3);
-        this.updateTrick();
+        this.updateTrick(card3);
 
       } catch (LogicException e1) {
         // e1.printStackTrace();
@@ -234,8 +234,11 @@ public class Play {
     }
   }
   
-  public void updateTrick() {
-    this.logicNetwork.updateTrick(this.tricks[this.currentTrick]);
+  public void updateTrick(Card card) {
+  //  this.logicNetwork.updateTrick(this.tricks[this.currentTrick]);
+    for(int i = 0; i < this.group.length; i++) {
+      this.logicNetwork.sendCard(card, this.group[i]);
+    }
   }
   
   
