@@ -15,7 +15,6 @@ public class Server extends Thread{
   private ServerSocket serverSocket;
   private int port;
   private List<ClientConnection> clientConnections;
-  private ServerProtocol serverProtocol;
   private boolean serverRunning = false;
   
   private GameSettings gs;
@@ -25,7 +24,6 @@ public class Server extends Thread{
     this.serverName = serverName;
     this.port = port;
     this.clientConnections = new ArrayList<ClientConnection>();
-    this.serverProtocol = new ServerProtocol();
     
     try {
       this.serverSocket = new ServerSocket(port);
@@ -42,7 +40,6 @@ public class Server extends Thread{
         ClientConnection newClientConnection = new ClientConnection(this, newSocket);
         this.clientConnections.add(newClientConnection);
       } catch (SocketException e) {
-        this.serverProtocol.writeToProtocol("Error!: Socket closed");
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -52,19 +49,17 @@ public class Server extends Thread{
   public void stopServer(){
       try {
           if (!this.serverSocket.isClosed()){
-            this.serverProtocol.writeToProtocol("stopping server......");
               this.serverSocket.close();  
           }
           this.serverRunning = false;
       } catch (SocketException  e1){
-        this.serverProtocol.writeToProtocol("Server stopped");   
       }  catch (IOException e2){
           e2.printStackTrace();   
       }
   }
   
-  public ServerProtocol getServerProtocol(){
-    return this.serverProtocol;
+  public int getPort(){
+	  return this.port;
   }
   
   public String getServerName(){

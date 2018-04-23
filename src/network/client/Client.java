@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
 import logic.Player;
 import network.messages.Message;
 import network.messages.*;
@@ -16,14 +17,12 @@ public class Client {
   private int port;
   private Socket socket;
   private Player owner;
-  private boolean isHost;
   private ObjectOutputStream output; //Ausgabe zum Server
   private ObjectInputStream input; //Eingabe vom Server
   
-  public Client(Server server, Player player, Boolean isHost, int port){
+  public Client(Server server, Player player, int port){
     this.server = server;
     this.owner = player;
-    this.isHost = isHost;
     this.port = port;
     
     boolean connectionEstablished = connect();
@@ -38,7 +37,6 @@ public class Client {
           boolean connected = true;
           while(connected && (message = (Message) input.readObject()) != null){
               receiveMessage(message);
-              this.server.getServerProtocol().writeToProtocol(message);
           }
       }catch(ClassNotFoundException e){
           e.printStackTrace();
@@ -47,7 +45,6 @@ public class Client {
       }
   }
  
-  // TODO ask for Connection
   private boolean connect(){
     try{
       socket = new Socket(server.getName(), port);
@@ -63,7 +60,7 @@ public class Client {
     return true;
   }
   
-  private void disconnect(){
+  public void disconnect(){
     try{
         this.output.writeObject(new ClientDisconnect_Msg(this.owner));
         this.output.close();
@@ -74,12 +71,33 @@ public class Client {
      }
   }
   
-  private void sendMessage(Message message){
+  public void sendMessage(Message message){
 	  try{
 		  this.output.writeObject(message);
 	  }catch(IOException e){
 		  e.printStackTrace();
 	  }
+  }
+  
+  public boolean requestConnection() {
+	   try{
+		   output.writeObject(new ConnectionRequest_Msg());
+		   
+			Message serverOutput;
+				if((serverOutput = (Message) input.readObject()) != null){
+					if(serverOutput.getType() == MessageType.CONNECTION_ANSWER){
+						ConnectionAnswer_Msg m = (ConnectionAnswer_Msg) serverOutput;
+						return m.getAccepted();
+					}else{
+						System.out.println("Message from server is invalid!");
+					}
+				}
+	   }catch(ClassNotFoundException e){
+		   e.printStackTrace();
+	   }catch(IOException e){
+		   e.printStackTrace();
+	   }
+	   return false;
   }
   
   private void receiveMessage(Message message){
@@ -98,17 +116,14 @@ public class Client {
 	  	case GAME_SETTINGS : GameSettings_Msg msg5 = (GameSettings_Msg) message;
 	  						 NetworkLogic.receiveGameSettings(msg5.getGameSettings());
 	  						 break;
-	  	case PLAY_SETTINGS : PlaySettings_Msg msg6 = (PlaySettings_Msg) message;
+	  	case PLAY_STATE : PlayState_Msg msg6 = (PlayState_Msg) message;
 	  						 NetworkLogic.receivePlayState(msg6.getPlayState());
 	  						 break;
 	  	case DEALT_CARDS : DealtCards_Msg msg7 = (DealtCards_Msg) message;
 	  					   NetworkLogic.receiveCards(msg7.getCards());
 	  					   break;
-	  	case CONNECTION_ANSWER : ConnectionAnswer_Msg msg8 = (ConnectionAnswer_Msg) message;
-	  							 NetworkLogic.receiveConnectionRequestAsnwer(msg8.getAccepted());
-	  							 break;
 	  	case LOBBY : Lobby_Msg msg9 = (Lobby_Msg) message;
-	  				 NetworkLogic.receiveLobby(msg9.getServer(), msg9.getHost(), msg9.getPlayer(), msg9.getGameSettings());
+	  				 NetworkLogic.receiveLobby(msg9.getHost(), msg9.getPlayer(), msg9.getGameSettings());
 	  				 break;
 	  	case START_GAME : NetworkLogic.receiveStartGame();
 	  					  break;

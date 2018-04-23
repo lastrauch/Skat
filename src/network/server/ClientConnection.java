@@ -37,7 +37,6 @@ public class ClientConnection extends Thread{
       this.output = new ObjectOutputStream(socket.getOutputStream());
       this.input = new ObjectInputStream(socket.getInputStream());
     }catch(IOException e){
-      this.server.getServerProtocol().writeToProtocol("Error!: Connection error");
       e.printStackTrace();
     }
   }
@@ -48,7 +47,6 @@ public class ClientConnection extends Thread{
             boolean connected = true;
             while(connected && (message = (Message) input.readObject()) != null){
                 receiveMessage(message);
-                this.server.getServerProtocol().writeToProtocol(message);
             }
         }catch(ClassNotFoundException e){
             e.printStackTrace();
@@ -66,9 +64,11 @@ public class ClientConnection extends Thread{
       	case BET :
       	case CHAT_MESSAGE :
       	case GAME_SETTINGS :
-      	case PLAY_SETTINGS :
+      	case PLAY_STATE :
       	case DEALT_CARDS :
-      	case CONNECTION_REQUEST :
+      	case CONNECTION_REQUEST : //Überprüfe und sende Antwort
+      								//Falls ja, sende GameSettings und andere Spieler und letzten Chat
+      								//Sende an alle, dass neuer Client dabei
       	case CONNECTION_ANSWER :
       	case START_GAME :
     	  default :

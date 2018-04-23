@@ -12,10 +12,10 @@ public class YourTurn_Msg extends Message{
     }
     
     public Player getPlayer(){
-      return this.player;
+    	return this.player;
     }
     
     public String toString(){
-      return "It's " + this.player.getName() + "'s turn";
+      return "Your turn, " + this.player.getName();
     }
 }

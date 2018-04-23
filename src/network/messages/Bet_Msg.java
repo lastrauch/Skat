@@ -14,7 +14,7 @@ public class Bet_Msg extends Message{
   }
   
   public Player getPlayer(){
-    return this.player;
+	  return this.player;
   }
   
   public int getBet(){
@@ -22,6 +22,6 @@ public class Bet_Msg extends Message{
   }
   
   public String toString(){
-    return this.player.getName() + " bet " + this.bet + ".";
+    return this.player.getName() + " bet: " + this.bet + ".";
   }
 }

@@ -1,12 +1,23 @@
 package network;
 
+import java.util.List;
+
 import logic.Card;
 import logic.Game;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
 import network.client.Client;
+import network.messages.Bet_Msg;
+import network.messages.CardPlayed_Msg;
+import network.messages.ChatMessage_Msg;
+import network.messages.DealtCards_Msg;
+import network.messages.GameSettings_Msg;
+import network.messages.PlayState_Msg;
+import network.messages.StartGame_Msg;
+import network.messages.YourTurn_Msg;
 import network.server.Server;
+import network.server.ServerFinder;
 
 public class NetworkController implements interfaces.LogicNetwork{
 	//TODO Klasse Game muss durch Controller Klasse der Logik ersetzt werden
@@ -18,9 +29,10 @@ public class NetworkController implements interfaces.LogicNetwork{
 	private PlayState ps;
 	
 	private Server server;
-	private int port;
+	private int port = Settings.PORT;
 	private Client client;
 	private boolean isInLobby = false;
+	private ServerFinder finder;
 	
 	public NetworkController(Game logic){
 		this.logic = logic;
@@ -30,57 +42,77 @@ public class NetworkController implements interfaces.LogicNetwork{
 		this.player = player;
 		this.gs = gs;
 		this.isHost = true;
-	    //Create Server
 	    this.server = new Server("Server von " + player.getName(), this.port, gs);
 	    this.server.run();
-	    //Joine der eigenen Lobby
 	    while(!this.isInLobby){
 	    	this.isInLobby = joinLobby(this.server, player);
 	    }
 	}
 
 	public boolean joinLobby(Server server, Player player) {
-	    //Request Connection
-	    //Create Client
-	    //Forder GameSettings und andere Spieler an
-	    //Sende an alle, dass neuer Client dabei
-	    //Fordere letzten Chat an?
-		
-		//Sendet zurück, ob es geklappt hat;
+		this.client = new Client(server, player, server.getPort());
+		if(this.client.requestConnection()){
+			return true;
+		}else{
+			this.client.disconnect();
+			this.client = null;
+		}
 		return false;
 	}
 
-	public Server[] getServer(){  
-		return null;
+	public List<Server> getServer(){
+		if(this.finder != null){
+			return this.finder.refresh();
+		}else{
+			this.finder = new ServerFinder(this.port);
+			return this.finder.getServers();
+		}
 	}
 
 
 	public void sendChatMessage(String message) {
-	//Sende Nachricht an alle
+		ChatMessage_Msg msg = new ChatMessage_Msg(this.player, message);
+		this.client.sendMessage(msg);
 	}
-
+	
+	//TODO what if client isn't host?
 	public void sendGameSettings(GameSettings gs) {
+		GameSettings_Msg msg = new GameSettings_Msg(gs);
+		this.client.sendMessage(msg);
 	}
 
 	public void startGame() {
+		StartGame_Msg msg = new StartGame_Msg();
+		this.client.sendMessage(msg);
 	}
 
-  	public void dealCards(Card[] cards) {
+  	public void dealCards(Player player, Card[] cards) {
+  		DealtCards_Msg msg = new DealtCards_Msg(player, cards);
+  		this.client.sendMessage(msg);
   	}
 
-  	public void yourTurn() {
+  	public void yourTurn(Player player) {
+  		YourTurn_Msg msg = new YourTurn_Msg(player);
+  		this.client.sendMessage(msg);
   	}
 
   	public void bet(int bet) {
+  		Bet_Msg msg = new Bet_Msg(this.player, bet);
+  		this.client.sendMessage(msg);
   	}
 
   	public void sendPlayState(PlayState ps) {
+  		PlayState_Msg msg = new PlayState_Msg(ps);
+  		this.client.sendMessage(msg);
   	}
 
   	public void sendCardPlayed(Card card) {
+  		CardPlayed_Msg msg = new CardPlayed_Msg(this.player, card);
+  		this.client.sendMessage(msg);
   	}
 
   	public void exitGame() {
+  		this.client.disconnect();
   	}
 
 }

@@ -1,6 +1,7 @@
 package network.messages;
 
-import logic.*;
+import logic.Card;
+import logic.Player;
 
 public class CardPlayed_Msg extends Message{
   private static final long serialVersionUID = 1L;
@@ -12,9 +13,9 @@ public class CardPlayed_Msg extends Message{
     this.player = player;
     this.card = card;
   }
-    
+  
   public Player getPlayer(){
-    return this.player;
+	  return this.player;
   }
     
   public Card getCard(){

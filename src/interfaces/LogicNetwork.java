@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.util.List;
+
 import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;
@@ -12,9 +14,9 @@ public interface LogicNetwork {
 	void hostGame(Player player, GameSettings gs);
   
 	//Get Server
-	Server[] getServer();
+	List<Server> getServer();
   
-	//Join Lobby, sendet Nachricht zurück, ob es geklappt hat
+	//Join Lobby, sendet Nachricht zurück, ob es geklappt hat (Infos über die Lobby werden seperat empfangen)
 	boolean joinLobby(Server server, Player player);
   
 	//Chat
@@ -27,10 +29,10 @@ public interface LogicNetwork {
 	void startGame();
   
 	//Karten dealen
-	void dealCards(Card[] cards);
+	void dealCards(Player player, Card[] cards);
   
 	//Your Turn (eigentlich nur am Anfang wichtig)
-	void yourTurn();
+	void yourTurn(Player player);
   
 	//Bet
 	void bet(int bet);

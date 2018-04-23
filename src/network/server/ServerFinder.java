@@ -24,8 +24,9 @@ public class ServerFinder {
 		this.servers = findServers();
 	}
 	
-	public void refresh(){
+	public List<Server> refresh(){
 		this.servers = findServers();
+		return this.servers;
 	}
 	
 	private List<Server> findServers(){

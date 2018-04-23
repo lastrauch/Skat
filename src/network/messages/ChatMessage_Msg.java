@@ -14,7 +14,7 @@ public class ChatMessage_Msg extends Message{
   }
   
   public Player getPlayer(){
-    return this.player;
+	  return this.player;
   }
   
   public String getMsg(){
@@ -22,7 +22,7 @@ public class ChatMessage_Msg extends Message{
   }
   
   public String toString(){
-    return player.getName() + ": " + this.msg;
+    return this.player.getName() + ": " + this.msg;
   }
 
 }

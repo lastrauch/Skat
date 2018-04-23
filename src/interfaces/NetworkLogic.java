@@ -12,7 +12,7 @@ public interface NetworkLogic {
 	static void receiveConnectionRequestAsnwer(boolean accepted){}
 	
 	//receive Lobby
-	static void receiveLobby(Server server, Player host, Player[] player, GameSettings gs){}
+	static void receiveLobby(Player host, Player[] player, GameSettings gs){}
 	
 	//receive GameSettings
 	static void receiveGameSettings(GameSettings gs){}
