@@ -19,6 +19,13 @@ public interface LogicNetwork {
   public void sendCard(Card card);
   
   /**
+   * sends a card to a player
+   * @param card
+   * @param player
+   */
+  public void sendCard(Card card, Player player);
+  
+  /**
    * sends the hand of a player (all his/her cards) to him/her
    * @param hand
    */
@@ -48,9 +55,9 @@ public interface LogicNetwork {
    */
   public void joinLobby(Player player);
   
-  /**
-   * sends the current trick to all clients
-   * @param tricks
-   */
-  public void updateTrick(Trick tricks);
+//  /**
+//   * sends the current trick to all clients
+//   * @param tricks
+//   */
+//  public void updateTrick(Trick tricks);
 }

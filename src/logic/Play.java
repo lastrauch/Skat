@@ -238,6 +238,7 @@ public class Play {
     this.logicNetwork.updateTrick(this.tricks[this.currentTrick]);
   }
   
+  
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
    * of the trick and the PlayMode
