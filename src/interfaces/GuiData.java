@@ -1,7 +1,8 @@
 package interfaces;
 
+import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 import javafx.scene.image.Image;
-import logic.Card;
 import logic.Player;
 
 // Gui to Database, implemented by Database
@@ -10,18 +11,20 @@ public interface GuiData {
   /**
    * returns the image of the given Card
    * 
-   * @param card
+   * @param colour
+   * @param number
    * @return
    */
-  public Image getImage(Card card);
+  public BufferedImage getImage(String colour, String number);
 
   /**
    * should return the darker image of the Card
    * 
-   * @param card
+   * @param colour
+   * @param number
    * @return
    */
-  public Image getImageDarker(Card card);
+  public BufferedImage getImageDarker(String colour, String number);
 
   /**
    * saves a player profile in the Database
@@ -35,23 +38,16 @@ public interface GuiData {
    * 
    * @return
    */
-  public boolean checkIfPlayerNew(String playerName);
+  public boolean checkIfPlayerNew() throws SQLException;
 
   /**
    * finds the player with the given name and return him
    * 
-   * @param name
+   * @param player
    * @return
    */
-  public Player getPlayer(String name);
+  public Player getPlayer(Player player);
 
-  /**
-   * finds the player with the given name and return him
-   * 
-   * @param id
-   * @return
-   */
-  public Player getPlayer(int id);
   /**
    * deletes the given Player
    * 
@@ -62,10 +58,10 @@ public interface GuiData {
   /**
    * changes the players name
    * 
-   * @param player
-   * @param name
+   * @param neu
+   * @param original
    */
-  public void changeName(Player player, String name);
+  public void changeName(Player neu, Player original);
 
   /**
    * changes the players profile pictue

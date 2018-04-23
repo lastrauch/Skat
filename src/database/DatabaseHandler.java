@@ -14,15 +14,16 @@ import logic.Player;
 
 public class DatabaseHandler extends database {
   
-  private static PreparedStatement insertPlayer;
-  private static PreparedStatement selectPlayer;
-  private static PreparedStatement selectCard;
-  private static PreparedStatement selectCardDarker;
-  private static PreparedStatement deletePlayer;
-  private static PreparedStatement changeName;
-  private static PreparedStatement changeImage;
-  private static PreparedStatement checkPlayer;
-  private static PreparedStatement countPlayer;
+  protected static PreparedStatement insertPlayer;
+  protected static PreparedStatement selectPlayerName;
+  protected static PreparedStatement selectPlayerId;
+  protected static PreparedStatement selectCard;
+  protected static PreparedStatement selectCardDarker;
+  protected static PreparedStatement deletePlayer;
+  protected static PreparedStatement changeName;
+  protected static PreparedStatement changeImage;
+  protected static PreparedStatement checkPlayer;
+  protected static PreparedStatement countPlayer;
   
   private Connection c = null;
   
@@ -37,7 +38,9 @@ public class DatabaseHandler extends database {
         
         insertPlayer = c.prepareStatement("INSERT INTO Player (id, name, score, profilePicture) VALUES (?,'?',?,?);");    
         
-        selectPlayer = c.prepareStatement("SELECT * FROM Player WHERE (name LIKE '%?%') ORDER BY name;");
+        selectPlayerName = c.prepareStatement("SELECT * FROM Player WHERE (name LIKE '%?%') ORDER BY name;");
+        
+        selectPlayerId = c.prepareStatement("SELECT * FROM Player WHERE (id LIKE '%?%') ORDER BY id;");
         
         selectCard = c.prepareStatement("SELECT * FROM Cards WHERE (colour LIKE '%?%') AND (number LIKE '%?%');");
         
@@ -56,106 +59,75 @@ public class DatabaseHandler extends database {
       e.printStackTrace();
     }
   }
-  
-
-  public void insertPlayer(Player player) {
-    
-    try {
-        insertPlayer.setString(1, player.getName());
-        insertPlayer.executeUpdate();
-
-    } catch (SQLException e) {    
-        e.printStackTrace();
-    }
-    System.out.println("insert new Player");
 }
-
-  
-  public void deletePlayer(Player player) {
-   
-    try {
-        deletePlayer.setInt(1, player.getId());
-        deletePlayer.executeUpdate();
-    } catch (SQLException e) {       
-        e.printStackTrace();
-    }
-    System.out.println("delete Player");
-  }
-  
-  public Player getPlayer(Player player) {
-    try {
-      selectPlayer.setString(1, player.getName());
-      selectPlayer.executeUpdate();
-      } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return player;
-  } 
-  
-  public boolean checkIfPlayerNew() throws SQLException {
-    int c = 0;
-    ResultSet rs = countPlayer.executeQuery();
-    c = rs.getInt(1);
-    if(c<=0) {
-      return true;
-      }else {
-        return false;
-        }
-    }  
-  
-  public void selectPlayer(Player player) {
-    try {
-      selectPlayer.setInt(1, player.getId());
-      selectPlayer.executeUpdate();
-    }catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-  
-  public void changeName(Player original, Player neu) {    
-    try {
-        changeName.setString(1, neu.getName());
-        changeName.setString(2, original.getName());      
-        changeName.executeUpdate();
-        
-        } catch (SQLException e) {       
-      e.printStackTrace();
-    }
-  }
-
-  public Image getImage(String colour, String number) {
-    Image img = null;
-    try {    
-      selectCard.setString(1, colour);
-      selectCard.setString(2, number);
-      selectCard.execute();
-      ResultSet rs = selectCard.executeQuery();
-      rs.next();
-      InputStream in = rs.getBinaryStream("image");    
-      img = ImageIO.read(in);
-      } catch (Exception e) {       
-        e.printStackTrace();
-      } 
-    return img;
-      }
-  
   
 
-  public Image getImageDarker(String colour, String number) {
-    Image img = null;
-    try {
-      selectCardDarker.setString(1, colour);
-      selectCardDarker.setString(2, number);
-      selectCardDarker.execute();
-      ResultSet rs = selectCardDarker.executeQuery();
-      rs.next();
-      InputStream in = rs.getBinaryStream("image_Dark");    
-      img = ImageIO.read(in);
-      } catch (Exception e) {       
-        e.printStackTrace();
-      } 
-    return img;
-      }
-}
+//  public void insertPlayer(Player player) {
+//    
+//    try {
+//        insertPlayer.setString(1, player.getName());
+//        insertPlayer.executeUpdate();
+//
+//    } catch (SQLException e) {    
+//        e.printStackTrace();
+//    }
+//    System.out.println("insert new Player");
+//}
+//
+//  
+//  public void deletePlayer(Player player) {
+//   
+//    try {
+//        deletePlayer.setInt(1, player.getId());
+//        deletePlayer.executeUpdate();
+//    } catch (SQLException e) {       
+//        e.printStackTrace();
+//    }
+//    System.out.println("delete Player");
+//  }
+//  
+//  public Player getPlayer(Player player) {
+//    try {
+//      selectPlayerName.setString(1, player.getName());
+//      selectPlayerName.executeUpdate();
+//      } catch (SQLException e) {
+//      e.printStackTrace();
+//    }
+//    return player;
+//  } 
+//  
+//  public boolean checkIfPlayerNew() throws SQLException {
+//    int c = 0;
+//    ResultSet rs = countPlayer.executeQuery();
+//    c = rs.getInt(1);
+//    if(c<=0) {
+//      return true;
+//      }else {
+//        return false;
+//        }
+//    }  
+//  
+//  public void selectPlayer(Player player) {
+//    try {
+//      selectPlayer.setInt(1, player.getId());
+//      selectPlayer.executeUpdate();
+//    }catch (SQLException e) {
+//      e.printStackTrace();
+//    }
+//  }
+//  
+//  public void changeName(Player original, Player neu) {    
+//    try {
+//        changeName.setString(1, neu.getName());
+//        changeName.setString(2, original.getName());      
+//        changeName.executeUpdate();
+//        
+//        } catch (SQLException e) {       
+//      e.printStackTrace();
+//    }
+//  }
+//
+//  
+
   
 
