@@ -2,6 +2,7 @@ package interfaces;
 
 import java.util.ArrayList;
 import logic.Card;
+import logic.PlayState;
 import logic.Player;
 import logic.Trick;
 
@@ -54,6 +55,12 @@ public interface LogicNetwork {
    * @param player
    */
   public void joinLobby(Player player);
+  
+  /**
+   * sends the playstate to all clients
+   * @param ps
+   */
+  public void sendPlayState(PlayState ps);
   
 //  /**
 //   * sends the current trick to all clients
