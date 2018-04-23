@@ -69,7 +69,6 @@ public class ClientConnection extends Thread{
       	case CONNECTION_REQUEST : //Überprüfe und sende Antwort
       								//Falls ja, sende GameSettings und andere Spieler und letzten Chat
       								//Sende an alle, dass neuer Client dabei
-      	case CONNECTION_ANSWER :
       	case START_GAME :
     	  default :
       }

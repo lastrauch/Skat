@@ -66,4 +66,8 @@ public class Server extends Thread{
     return this.serverName;
   }
   
+  public int getNumberOfPlayers(){
+	  return this.clientConnections.size();
+  }
+  
 }
