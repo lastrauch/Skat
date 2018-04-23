@@ -91,67 +91,61 @@ public class Play {
       // System.out.println(this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
       // System.out.println(this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
 
-      try {
-        // first player plays card
-        card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
+      // first player plays card
+      card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
 
-        // test random card
-        // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
-        // System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
-        // this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
-        // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
-        // this.group[(this.indexWinnerLastTrick) % 3].playCard(
-        // card1 = this.group[(this.indexWinnerLastTrick) %
-        // 3].getHand().get(this.group[(this.indexWinnerLastTrick) %
-        // 3].inGameController.askToPlayCard());
+      // test random card
+      // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
+      // System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
+      // this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
+      // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
+      // this.group[(this.indexWinnerLastTrick) % 3].playCard(
+      // card1 = this.group[(this.indexWinnerLastTrick) %
+      // 3].getHand().get(this.group[(this.indexWinnerLastTrick) %
+      // 3].inGameController.askToPlayCard());
 
-        // this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
-        this.tricks[i].setCard1(card1);
-        this.updateTrick(card1);
+      // this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
+      this.tricks[i].setCard1(card1);
+      this.updateTrick(card1);
 
-        // second player plays card
+      // second player plays card
 
 
-        // test random card
-        // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseRandomCardFromHand();
-        // System.out
-        // .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
-        // this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
-        // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
-        card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
+      // test random card
+      // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseRandomCardFromHand();
+      // System.out
+      // .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
+      // this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
+      // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
+      card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
 
 //
 //        // remove card from second players hand
 //        this.group[(this.indexWinnerLastTrick + 1) % 3].removeCardFromHand(card2);
 
-        // add the second card to trick
-        this.tricks[i].setCard2(card2);
-        this.updateTrick(card2);
+      // add the second card to trick
+      this.tricks[i].setCard2(card2);
+      this.updateTrick(card2);
 
-        // third player plays card
+      // third player plays card
 
-        // test random card
-        // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseRandomCardFromHand();
-        //
-        // System.out
-        // .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
-        // this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
-        // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
+      // test random card
+      // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseRandomCardFromHand();
+      //
+      // System.out
+      // .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
+      // this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
+      // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
 
-        card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
+      card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
 
 
 //        // remove card from third players hand
 //        this.group[(this.indexWinnerLastTrick + 2) % 3].removeCardFromHand(card3);
 
-        // add the third card to trick
-        this.tricks[i].setCard3(card3);
-        this.updateTrick(card3);
-
-      } catch (LogicException e1) {
-        // e1.printStackTrace();
-
-      }
+      // add the third card to trick
+      this.tricks[i].setCard3(card3);
+      this.updateTrick(card3);
 
       // System.out.println("The trick:");
       // this.printArrayOfCards(this.tricks[i].getTrickCards());
