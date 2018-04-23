@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import logic.Game;
 import logic.Player;
 import network.messages.Message;
 import network.messages.*;
@@ -20,10 +21,14 @@ public class Client {
   private ObjectOutputStream output; //Ausgabe zum Server
   private ObjectInputStream input; //Eingabe vom Server
   
-  public Client(Server server, Player player, int port){
+  //TODO Klasse Game muss durch Controller Klasse der Logik ersetzt werden
+  private Game logic;
+  
+  public Client(Server server, Player player, int port, Game logic){
     this.server = server;
     this.owner = player;
     this.port = port;
+    this.logic = logic;
     
     boolean connectionEstablished = connect();
     if (!connectionEstablished){
@@ -102,33 +107,33 @@ public class Client {
   
   private void receiveMessage(Message message){
 	  switch(message.getType()){
-	  	case YOUR_TURN : NetworkLogic.receiveYourTurn();
+	  	case YOUR_TURN : logic.receiveYourTurn();
 	  					 break;
 	  	case CARD_PLAYED : CardPlayed_Msg msg2 = (CardPlayed_Msg) message;
-	  					   NetworkLogic.receiveCardPlayed(msg2.getPlayer(), msg2.getCard());
+	  					   logic.receiveCardPlayed(msg2.getPlayer(), msg2.getCard());
 	  					   break;
 	  	case BET : Bet_Msg msg3 = (Bet_Msg) message;
-	  			   NetworkLogic.receiveBet(msg3.getPlayer(), msg3.getBet());
+	  			   logic.receiveBet(msg3.getPlayer(), msg3.getBet());
 	  			   break;
 	  	case CHAT_MESSAGE : ChatMessage_Msg msg4 = (ChatMessage_Msg) message;
-	  						NetworkLogic.receiveChatMessage(msg4.getPlayer(), msg4.getMsg());
+	  						logic.receiveChatMessage(msg4.getPlayer(), msg4.getMsg());
 	  						break;
 	  	case GAME_SETTINGS : GameSettings_Msg msg5 = (GameSettings_Msg) message;
-	  						 NetworkLogic.receiveGameSettings(msg5.getGameSettings());
+	  						 logic.receiveGameSettings(msg5.getGameSettings());
 	  						 break;
 	  	case PLAY_STATE : PlayState_Msg msg6 = (PlayState_Msg) message;
-	  						 NetworkLogic.receivePlayState(msg6.getPlayState());
+	  						 logic.receivePlayState(msg6.getPlayState());
 	  						 break;
 	  	case DEALT_CARDS : DealtCards_Msg msg7 = (DealtCards_Msg) message;
-	  					   NetworkLogic.receiveCards(msg7.getCards());
+	  					   logic.receiveCards(msg7.getCards());
 	  					   break;
 	  	case LOBBY : Lobby_Msg msg9 = (Lobby_Msg) message;
-	  				 NetworkLogic.receiveLobby(msg9.getHost(), msg9.getPlayer(), msg9.getGameSettings());
+	  				 logic.receiveLobby(msg9.getHost(), msg9.getPlayer(), msg9.getGameSettings());
 	  				 break;
-	  	case START_GAME : NetworkLogic.receiveStartGame();
+	  	case START_GAME : logic.receiveStartGame();
 	  					  break;
 	  	case CLIENT_DISCONNECT : ClientDisconnect_Msg msg11 = (ClientDisconnect_Msg) message;
-	  							 NetworkLogic.receivePlayerDisconnected(msg11.getPlayer());
+	  							 logic.receivePlayerDisconnected(msg11.getPlayer());
 	  							 break;
 	  	default :
 	  		break;

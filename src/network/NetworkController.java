@@ -2,6 +2,7 @@ package network;
 
 import java.util.List;
 
+import interfaces.NetworkLogic;
 import logic.Card;
 import logic.Game;
 import logic.GameSettings;
@@ -11,8 +12,10 @@ import network.client.Client;
 import network.messages.Bet_Msg;
 import network.messages.CardPlayed_Msg;
 import network.messages.ChatMessage_Msg;
+import network.messages.ClientDisconnect_Msg;
 import network.messages.DealtCards_Msg;
 import network.messages.GameSettings_Msg;
+import network.messages.Lobby_Msg;
 import network.messages.PlayState_Msg;
 import network.messages.StartGame_Msg;
 import network.messages.YourTurn_Msg;
@@ -50,7 +53,7 @@ public class NetworkController implements interfaces.LogicNetwork{
 	}
 
 	public boolean joinLobby(Server server, Player player) {
-		this.client = new Client(server, player, server.getPort());
+		this.client = new Client(server, player, server.getPort(), this.logic);
 		if(this.client.requestConnection()){
 			return true;
 		}else{
@@ -114,5 +117,4 @@ public class NetworkController implements interfaces.LogicNetwork{
   	public void exitGame() {
   		this.client.disconnect();
   	}
-
 }
