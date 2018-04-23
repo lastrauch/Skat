@@ -1,35 +1,53 @@
 package logic;
 
-import java.sql.Blob;
 import java.util.ArrayList;
-import gui.ImplementsLogicGui;
-import gui.InGameController;
+import interfaces.InGameInterface;
+import interfaces.LogicData;
+import interfaces.LogicGui;
+import interfaces.LogicNetwork;
 import javafx.scene.image.Image;
 
-public class Player {
+public class Player extends ImplementsGuiInterface{
   private int id;
   private String name;
   private Image img;
   private Position position;
   private ArrayList<Card> hand = new ArrayList<Card>();
   private int bet;
-  private int gamePoints; // saves the pionts of every Play until the whole game is over
+  private int gamePoints; // saves the points of every Play until the whole game is over
   private boolean host;
-  public InGameController inGameController; // every player has his/her own gui and need a
+  public InGameInterface inGameController; // every player has his/her own gui and need a
                                             // controller
-
-  public ImplementsLogicGui implementsLogicGui;
+  private boolean isAi;
+  private PlayState playState;
+  
+  public LogicGui logicGui;
+  public LogicData logicData;
+  public LogicNetwork logicNetwork;
 
   public Player(String name) {
     this.name = name;
     this.bet = 0;
-    inGameController = new InGameController();
-    this.implementsLogicGui = new ImplementsLogicGui();
+  }
+  
+  public Player(String name, boolean isAi) {
+    this.name = name;
+    this.bet = 0;
+    this.isAi = isAi;
   }
 
   // pos is the position of the card in the hand of the player
   public Card playCard() {
-    return this.hand.get(this.inGameController.askToPlayCard());
+    Card card = null;
+    try {
+      do {
+        card = this.hand.get(this.inGameController.askToPlayCard());
+      } while(!this.checkIfCardPossible(card, this.playState.getCurrentTrick().getFirstCard()));
+      this.removeCardFromHand(card);
+    } catch (LogicException e) {
+      e.printStackTrace();
+    }
+    return card;
   }
   
   public void updateHand() {
@@ -79,9 +97,10 @@ public class Player {
     if (!found) {
       throw new LogicException("Removing the played card from the hand was not possible!");
     }
-
     this.inGameController.updateHand(this.hand);
   }
+  
+  
 
   // We assume the hand to be sorted the first time (before the PlayMode was set)
   public void calculateHighestPossibleBet(ArrayList<Card> hand) {
@@ -482,6 +501,158 @@ public class Player {
   public void addToGamePoints(int points) {
     this.gamePoints += points;
   }
+  
+  /**
+   * its is checked if the card can be played by the player depending on his hand, the first Colour
+   * of the trick and the PlayMode
+   * 
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @param player (who wants to play the card)
+   * @return if card can be played
+   * @throws LogicException
+   * @author sandfisc
+   */
+  public boolean checkIfCardPossible(Card card, Card firstCard)
+      throws LogicException {
+    if (this.playState.getPlayMode() == PlayMode.SUIT) {
+      return this.checkIfCardPossibleColour(card, firstCard);
+    } else if (this.playState.getPlayMode() == PlayMode.GRAND) {
+      return this.checkIfCardPossibleGrand(card, firstCard);
+    } else if (this.playState.getPlayMode() == PlayMode.NULL) {
+      return this.checkIfCardPossibleNull(card, firstCard);
+    } else {
+      throw new LogicException(
+          "checking if the card is possible is not possible (no PlayMode found)");
+
+    }
+  }
+
+  /**
+   * submethod of checkIfCardPossible
+   * 
+   * @author sandfisc
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @param player (who wants to play the card)
+   * @return if card is possible in PlayMode Colour
+   */
+  public boolean checkIfCardPossibleColour(Card card, Card firstCard) {
+
+    // check if card serves first played card
+    if (this.checkIfServedColour(card, firstCard)) {
+      return true;
+    }
+
+    // check if the player has a card which would serve the first card
+    for (int i = 0; i < this.hand.size(); i++) {
+      if (this.checkIfServedColour(this.getHand().get(i), firstCard)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * checks if the serving card serves the served card --> checks is both are trump/jack or have the
+   * same color.
+   * 
+   * @author sandfisc
+   * @param servingCard
+   * @param servedCard
+   * @return
+   */
+  public boolean checkIfServedColour(Card servingCard, Card servedCard) {
+
+    if (servedCard.getColour() == this.playState.getTrump() || servedCard.getNumber() == Number.JACK) {
+      // first card is trump
+      if (servingCard.getColour() == this.playState.getTrump() || servingCard.getNumber() == Number.JACK) {
+        return true;
+      }
+    } else {
+      // first card is not trump
+      if (servingCard.getColour() == servedCard.getColour()
+          && servingCard.getNumber() != Number.JACK) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * submethod of checkIfCardPossible.
+   * 
+   * @author sandfisc
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @param player (who wants to play the card)
+   * @return if card is possible in PlayMode Grand
+   */
+  public boolean checkIfCardPossibleGrand(Card card, Card firstCard) {
+
+    // check if card serves first played card
+    if (this.checkIfServedColour(card, firstCard)) {
+      return true;
+    }
+
+    // check if the player has a card which would serve the first card
+    for (int i = 0; i < this.hand.size(); i++) {
+      if (this.checkIfServedGrand(this.getHand().get(i), firstCard)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * checks if the serving card serves the served card --> checks is both are jack or have the same
+   * color.
+   * 
+   * @author sandfisc
+   * @param servingCard
+   * @param servedCard
+   * @return
+   */
+  public boolean checkIfServedGrand(Card servingCard, Card servedCard) {
+
+    // both cards are jack
+    if (servedCard.getNumber() == Number.JACK && servingCard.getNumber() == Number.JACK) {
+      return true;
+    }
+
+    // both cards are no jack
+    if (servedCard.getNumber() != Number.JACK && servingCard.getNumber() != Number.JACK) {
+      if (servedCard.getColour() == servingCard.getColour()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * submethod of checkIfCardPossible.
+   * 
+   * @author sandfisc
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @param player (who wants to play the card)
+   * @return if card is possible in PlayMode Null or NullOuvert
+   */
+  public boolean checkIfCardPossibleNull(Card card, Card firstCard) {
+
+    if (card.getColour() == firstCard.getColour()) {
+      return true;
+
+    } else {
+      for (int i = 0; i < this.hand.size(); i++) {
+        if (this.hand.get(i).getColour() == firstCard.getColour()) {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+
 
   // test method create random hand
   public ArrayList<Card> createRandomHand() {
@@ -581,6 +752,18 @@ public class Player {
   public void setImage(Image img) {
     this.img = img;
   }
+  
+  public void setPlayState(PlayState ps) {
+    this.playState = ps;
+  }
+  
+  public PlayState getPlayState() {
+    return this.playState;
+  }
+
+
+
+
 
   // public static void main(String[] args) {
   // PlayState ps = new PlayState();

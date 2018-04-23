@@ -42,6 +42,6 @@ public interface LogicAI {
    * 
    * @param ps
    */
-  public void setPlaySettings(PlayState ps);
+  public void setPlayState(PlayState ps);
 
 }

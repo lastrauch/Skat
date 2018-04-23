@@ -2,6 +2,6 @@ package logic;
 
 import interfaces.DataLogic;
 
-public class ImplementsDataInterface implements DataLogic{
+public class ImplementsDataInterface extends GameController implements DataLogic{
 
 }

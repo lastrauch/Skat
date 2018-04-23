@@ -58,5 +58,10 @@ public interface InGameInterface {
    */
   public void setPlaySettings(PlayState ps);
 
+  /**
+   * updates the current trick
+   * @param currentTrick
+   */
+  public void updateTrick(Card[] currentTrick);
  
 }
