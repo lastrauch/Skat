@@ -20,6 +20,7 @@ public class PlayState {
   private boolean schwarzAnnounced;
   private boolean open;
   private int baseValue;
+  private Trick currentTrick;
 
   /**
    * constructor (default)
@@ -377,5 +378,13 @@ public class PlayState {
    */
   public int getBaseValue() {
     return this.baseValue;
+  }
+  
+  public Trick getCurrentTrick() {
+    return this.currentTrick;
+  }
+  
+  public void setCurrentTrick(Trick trick) {
+    this.currentTrick = trick;
   }
 }

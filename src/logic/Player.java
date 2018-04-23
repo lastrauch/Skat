@@ -18,6 +18,7 @@ public class Player extends ImplementsGuiInterface{
   private boolean host;
   public InGameInterface inGameController; // every player has his/her own gui and need a
                                             // controller
+  public boolean isAi;
   public LogicGui logicGui;
   public LogicData logicData;
   public LogicNetwork logicNetwork;
@@ -25,6 +26,12 @@ public class Player extends ImplementsGuiInterface{
   public Player(String name) {
     this.name = name;
     this.bet = 0;
+  }
+  
+  public Player(String name, boolean isAi) {
+    this.name = name;
+    this.bet = 0;
+    this.isAi = isAi;
   }
 
   // pos is the position of the card in the hand of the player
