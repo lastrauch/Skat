@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import logic.Game;
+import logic.ImplementsNetworkInterface;
 import logic.Player;
 import network.messages.Message;
 import network.messages.*;
@@ -22,9 +23,9 @@ public class Client {
   private ObjectInputStream input; //Eingabe vom Server
   
   //TODO Klasse Game muss durch Controller Klasse der Logik ersetzt werden
-  private Game logic;
+  private ImplementsNetworkInterface logic;
   
-  public Client(Server server, Player player, int port, Game logic){
+  public Client(Server server, Player player, int port, ImplementsNetworkInterface logic){
     this.server = server;
     this.owner = player;
     this.port = port;

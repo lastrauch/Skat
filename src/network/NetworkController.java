@@ -2,10 +2,12 @@ package network;
 
 import java.util.List;
 
+import interfaces.LogicNetwork;
 import interfaces.NetworkLogic;
 import logic.Card;
 import logic.Game;
 import logic.GameSettings;
+import logic.ImplementsNetworkInterface;
 import logic.PlayState;
 import logic.Player;
 import network.client.Client;
@@ -22,9 +24,8 @@ import network.messages.YourTurn_Msg;
 import network.server.Server;
 import network.server.ServerFinder;
 
-public class NetworkController implements interfaces.LogicNetwork{
-	//TODO Klasse Game muss durch Controller Klasse der Logik ersetzt werden
-	private Game logic;
+public class NetworkController implements LogicNetwork{
+	private ImplementsNetworkInterface logic;
 	private Player player;
 	private boolean isHost = false;
 	private Player[] otherPlayers;
@@ -37,7 +38,7 @@ public class NetworkController implements interfaces.LogicNetwork{
 	private boolean isInLobby = false;
 	private ServerFinder finder;
 	
-	public NetworkController(Game logic){
+	public NetworkController(ImplementsNetworkInterface logic){
 		this.logic = logic;
 	}
 
