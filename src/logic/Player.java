@@ -42,7 +42,7 @@ public class Player extends ImplementsGuiInterface{
     try {
       do {
         card = this.hand.get(this.inGameController.askToPlayCard());
-      } while(!this.checkIfCardPossible(card, this.playState.getCurrentTrick().getFirstCard(), this));
+      } while(!this.checkIfCardPossible(card, this.playState.getCurrentTrick().getFirstCard()));
       this.removeCardFromHand(card);
     } catch (LogicException e) {
       e.printStackTrace();
@@ -513,14 +513,14 @@ public class Player extends ImplementsGuiInterface{
    * @throws LogicException
    * @author sandfisc
    */
-  public boolean checkIfCardPossible(Card card, Card firstCard, Player player)
+  public boolean checkIfCardPossible(Card card, Card firstCard)
       throws LogicException {
     if (this.playState.getPlayMode() == PlayMode.SUIT) {
-      return this.checkIfCardPossibleColour(card, firstCard, player);
+      return this.checkIfCardPossibleColour(card, firstCard);
     } else if (this.playState.getPlayMode() == PlayMode.GRAND) {
-      return this.checkIfCardPossibleGrand(card, firstCard, player);
+      return this.checkIfCardPossibleGrand(card, firstCard);
     } else if (this.playState.getPlayMode() == PlayMode.NULL) {
-      return this.checkIfCardPossibleNull(card, firstCard, player);
+      return this.checkIfCardPossibleNull(card, firstCard);
     } else {
       throw new LogicException(
           "checking if the card is possible is not possible (no PlayMode found)");
@@ -537,7 +537,7 @@ public class Player extends ImplementsGuiInterface{
    * @param player (who wants to play the card)
    * @return if card is possible in PlayMode Colour
    */
-  public boolean checkIfCardPossibleColour(Card card, Card firstCard, Player player) {
+  public boolean checkIfCardPossibleColour(Card card, Card firstCard) {
 
     // check if card serves first played card
     if (this.checkIfServedColour(card, firstCard)) {
@@ -546,7 +546,7 @@ public class Player extends ImplementsGuiInterface{
 
     // check if the player has a card which would serve the first card
     for (int i = 0; i < this.hand.size(); i++) {
-      if (this.checkIfServedColour(player.getHand().get(i), firstCard)) {
+      if (this.checkIfServedColour(this.getHand().get(i), firstCard)) {
         return false;
       }
     }
@@ -588,7 +588,7 @@ public class Player extends ImplementsGuiInterface{
    * @param player (who wants to play the card)
    * @return if card is possible in PlayMode Grand
    */
-  public boolean checkIfCardPossibleGrand(Card card, Card firstCard, Player player) {
+  public boolean checkIfCardPossibleGrand(Card card, Card firstCard) {
 
     // check if card serves first played card
     if (this.checkIfServedColour(card, firstCard)) {
@@ -597,7 +597,7 @@ public class Player extends ImplementsGuiInterface{
 
     // check if the player has a card which would serve the first card
     for (int i = 0; i < this.hand.size(); i++) {
-      if (this.checkIfServedGrand(player.getHand().get(i), firstCard)) {
+      if (this.checkIfServedGrand(this.getHand().get(i), firstCard)) {
         return false;
       }
     }
@@ -638,14 +638,14 @@ public class Player extends ImplementsGuiInterface{
    * @param player (who wants to play the card)
    * @return if card is possible in PlayMode Null or NullOuvert
    */
-  public boolean checkIfCardPossibleNull(Card card, Card firstCard, Player player) {
+  public boolean checkIfCardPossibleNull(Card card, Card firstCard) {
 
     if (card.getColour() == firstCard.getColour()) {
       return true;
 
     } else {
       for (int i = 0; i < this.hand.size(); i++) {
-        if (player.getHand().get(i).getColour() == firstCard.getColour()) {
+        if (this.hand.get(i).getColour() == firstCard.getColour()) {
           return false;
         }
       }
