@@ -62,11 +62,7 @@ public interface LogicNetwork {
    */
   public void sendPlayState(PlayState ps);
   
-  /**
-   * ends the play on all clients and shows the winner
-   * @param declarerWon
-   */
-  public void endPlay(boolean declarerWon);
+ 
 //  /**
 //   * sends the current trick to all clients
 //   * @param tricks
