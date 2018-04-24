@@ -192,7 +192,7 @@ public class Play {
       e.printStackTrace();
     }
     
-    this.logicNetwork.endPlay(this.singlePlayerWins);
+  //  this.logicNetwork.endPlay(this.singlePlayerWins);
   }
 
   // to test stuff
