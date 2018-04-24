@@ -5,7 +5,7 @@ import interfaces.LogicAI;
 import logic.Card;
 import logic.PlayState;
 
-public class LogicReceiver implements LogicAI{
+public class AIController implements LogicAI{
 
   @Override
   public void askToPlayCard() {
