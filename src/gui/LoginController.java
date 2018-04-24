@@ -7,7 +7,6 @@ import database.ImplementsGuiInterface;
 import interfaces.GuiData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class LoginController implements Initializable {
@@ -17,7 +16,7 @@ public class LoginController implements Initializable {
 
   @FXML
   JFXTextField textField;
-  @FXML ImageView jclubs;
+  @FXML ImageView jclubs, jspades, jhearts, jdiamonds;
 
   public LoginController() {
     this.main = new GuiController();
@@ -47,8 +46,10 @@ public class LoginController implements Initializable {
   
   public void setImages() {
     GuiData inte = new ImplementsGuiInterface();
-    
-    jclubs.setImage(inte.getImage("clubs", "10"));
+    jclubs.setImage(inte.getImage("clubs", "B"));
+    jspades.setImage(inte.getImage("spades", "B"));
+    jhearts.setImage(inte.getImage("hearts", "B"));
+    jdiamonds.setImage(inte.getImage("diamonds", "B"));
     
   }
 
