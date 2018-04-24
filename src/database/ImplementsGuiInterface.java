@@ -6,28 +6,32 @@ import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
+import com.sun.javafx.tk.Toolkit;
 import interfaces.GuiData;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import logic.Player;
 
 public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
 
   @Override
-  public BufferedImage getImage(String colour, String number) {
+  public Image getImage(String colour, String number) {
     // TODO Auto-generated method stub
-    BufferedImage img = null;
+    Image img = null;
     try {    
       selectCard.setString(1, colour);
       selectCard.setString(2, number);
       selectCard.execute();
       ResultSet rs = selectCard.executeQuery();
-      rs.next();
-      InputStream in = rs.getBinaryStream("image");    
-      img = ImageIO.read(in);
+      while(rs.next()) {
+        InputStream in = rs.getBinaryStream("image");    
+//        img = ImageIO.read(in);
+        img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
+        }
       } catch (Exception e) {       
         e.printStackTrace();
       } 
-    return img;
+   return img;
   }
 
   @Override

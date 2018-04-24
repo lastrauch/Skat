@@ -42,17 +42,17 @@ public class DatabaseHandler extends database {
         
         selectPlayerId = c.prepareStatement("SELECT * FROM Player WHERE (id LIKE '%?%') ORDER BY id;");
         
-        selectCard = c.prepareStatement("SELECT * FROM Cards WHERE (colour LIKE '%?%') AND (number LIKE '%?%');");
+        selectCard = c.prepareStatement("SELECT * FROM Cards WHERE (colour LIKE ?) AND (number LIKE ?);");
         
-        selectCardDarker = c.prepareStatement("SELECT * FROM CardsDark WHERE (colour LIKE '%?%') AND (number LIKE '%?%');");
+//        selectCardDarker = c.prepareStatement("SELECT * FROM CardsDark WHERE (colour LIKE '%?%') AND (number LIKE '%?%');");
                 
         deletePlayer = c.prepareStatement("DELETE FROM Player WHERE (id =?);");        
         
         countPlayer = c.prepareStatement("SELECT COUNT (name) FROM Player;");
         
-        changeName = c.prepareStatement("UPDATE Player SET name = '?' WHERE name LIKE = '%?%';");
+        changeName = c.prepareStatement("UPDATE Player SET name = '?' WHERE name LIKE '%?%';");
         
-        changeImage = c.prepareStatement("UPDATE Player SET profilePicture = ? WHERE profilePicture LIKE = '%?%';");
+        changeImage = c.prepareStatement("UPDATE Player SET profilePicture = '?' WHERE profilePicture LIKE '%?%';");
         
     }
     catch(SQLException e) {
