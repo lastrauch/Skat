@@ -37,7 +37,7 @@ public class ImplementsNetworkInterface extends GameController implements Networ
 	}
 
 	@Override
-	public void receiveCards(Card[] cards) {
+	public void receiveCards(List<Card> cards) {
 		// TODO Auto-generated method stub
 		
 	}
