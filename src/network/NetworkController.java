@@ -7,7 +7,7 @@ import interfaces.NetworkLogic;
 import logic.Card;
 import logic.Game;
 import logic.GameSettings;
-import logic.ImplementsNetworkInterface;
+import logic.ClientLogic;
 import logic.PlayState;
 import logic.Player;
 import network.client.Client;
@@ -25,7 +25,7 @@ import network.server.Server;
 import network.server.ServerFinder;
 
 public class NetworkController implements LogicNetwork{
-	private ImplementsNetworkInterface logic;
+	private ClientLogic logic;
 	private Player player;
 	private boolean isHost = false;
 	private Player[] otherPlayers;
@@ -38,7 +38,7 @@ public class NetworkController implements LogicNetwork{
 	private boolean isInLobby = false;
 	private ServerFinder finder;
 	
-	public NetworkController(ImplementsNetworkInterface logic){
+	public NetworkController(ClientLogic logic){
 		this.logic = logic;
 	}
 
