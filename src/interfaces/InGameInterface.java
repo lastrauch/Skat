@@ -2,6 +2,7 @@ package interfaces;
 
 import java.util.ArrayList;
 import logic.Card;
+import logic.GameSettings;
 import logic.PlayState;
 import logic.Position;
 import logic.Trick;
@@ -64,4 +65,9 @@ public interface InGameInterface {
    */
   public void updateTrick(ArrayList<Card> currentTrick);
  
+  /**
+   * 
+   * @param gs
+   */
+  public void setGameSettings(GameSettings gs);
 }
