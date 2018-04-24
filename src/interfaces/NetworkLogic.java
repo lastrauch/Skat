@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.util.List;
+
 import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;
@@ -12,7 +14,7 @@ public interface NetworkLogic {
 	void receiveConnectionRequestAsnwer(boolean accepted);
 	
 	//receive Lobby
-	void receiveLobby(Player host, Player[] player, GameSettings gs);
+	void receiveLobby(List<Player> player, GameSettings gs);
 	
 	//receive GameSettings
 	void receiveGameSettings(GameSettings gs);

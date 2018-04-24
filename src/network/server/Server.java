@@ -9,6 +9,7 @@ import java.util.List;
 
 import logic.GameSettings;
 import logic.PlayState;
+import logic.Player;
 
 public class Server extends Thread{
   private String serverName;
@@ -19,6 +20,7 @@ public class Server extends Thread{
   
   private GameSettings gs;
   private PlayState ps;
+  private List<Player> player;
 
   public Server(String serverName, int port, GameSettings gs){
     this.serverName = serverName;
@@ -70,4 +72,41 @@ public class Server extends Thread{
 	  return this.clientConnections.size();
   }
   
+  public List<ClientConnection> getClientConnections(){
+	  return this.clientConnections;
+  }
+  
+  public void setGameSettings(GameSettings gs){
+	  this.gs = gs;
+  }
+  
+  public GameSettings getGameSettings(){
+	  return this.gs;
+  }
+  
+  public void setPlayState(PlayState ps){
+	  this.ps = ps;
+  }
+  
+  public PlayState getPlayState(){
+	  return this.ps;
+  }
+  
+  public List<Player> getPlayer(){
+	  return this.player;
+  }
+  
+  public void addPlayer(Player player){
+	  this.player.add(player);
+  }
+  
+  //TODO evtl. muss erst der Index gefunden werden, kann über die eindeutige ID des Players gemacht werden
+  public void removePlayer(Player player){
+	  this.player.remove(player);
+  }
+  
+  public void removeClientConnection(ClientConnection connection){
+	  this.clientConnections.remove(connection);
+  }
+
 }

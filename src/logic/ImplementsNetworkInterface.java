@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.List;
+
 import interfaces.NetworkLogic;
 
 public class ImplementsNetworkInterface extends GameController implements NetworkLogic{
@@ -11,7 +13,7 @@ public class ImplementsNetworkInterface extends GameController implements Networ
 	}
 
 	@Override
-	public void receiveLobby(Player host, Player[] player, GameSettings gs) {
+	public void receiveLobby(List<Player> player, GameSettings gs) {
 		// TODO Auto-generated method stub
 		
 	}

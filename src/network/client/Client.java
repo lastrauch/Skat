@@ -87,7 +87,7 @@ public class Client {
   
   public boolean requestConnection() {
 	   try{
-		   output.writeObject(new ConnectionRequest_Msg());
+		   output.writeObject(new ConnectionRequest_Msg(this.owner));
 		   
 			Message serverOutput;
 				if((serverOutput = (Message) input.readObject()) != null){
@@ -106,6 +106,7 @@ public class Client {
 	   return false;
   }
   
+  //TODO Nachrichten eventuell verwerfen, wenn nicht benötigt
   private void receiveMessage(Message message){
 	  switch(message.getType()){
 	  	case YOUR_TURN : logic.receiveYourTurn();
@@ -129,7 +130,7 @@ public class Client {
 	  					   logic.receiveCards(msg7.getCards());
 	  					   break;
 	  	case LOBBY : Lobby_Msg msg9 = (Lobby_Msg) message;
-	  				 logic.receiveLobby(msg9.getHost(), msg9.getPlayer(), msg9.getGameSettings());
+	  				 logic.receiveLobby(msg9.getPlayer(), msg9.getGameSettings());
 	  				 break;
 	  	case START_GAME : logic.receiveStartGame();
 	  					  break;

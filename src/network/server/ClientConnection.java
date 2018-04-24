@@ -1,9 +1,11 @@
 package network.server;
 
 import logic.Player;
+import network.Settings;
 import network.messages.*;
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 
 public class ClientConnection extends Thread{
@@ -13,7 +15,6 @@ public class ClientConnection extends Thread{
   private ObjectOutputStream output; //Ausgabe zum Client
   private boolean running;
   
-  private int playerID;
   private Player player;
   
   public ClientConnection(Server server, Socket socket){
@@ -42,10 +43,10 @@ public class ClientConnection extends Thread{
   }
 
     public void run(){
+    	this.running = true;
         try{
             Message message;
-            boolean connected = true;
-            while(connected && (message = (Message) input.readObject()) != null){
+            while(this.running && (message = (Message) input.readObject()) != null){
                 receiveMessage(message);
             }
         }catch(ClassNotFoundException e){
@@ -55,26 +56,7 @@ public class ClientConnection extends Thread{
         }
     }
     
-    private void receiveMessage(Message message){
-      switch(message.getType()){
-      	case CLIENT_DISCONNECT :
-      	case PING :
-      	case YOUR_TURN :
-      	case CARD_PLAYED :
-      	case BET :
-      	case CHAT_MESSAGE :
-      	case GAME_SETTINGS :
-      	case PLAY_STATE :
-      	case DEALT_CARDS :
-      	case CONNECTION_REQUEST : //Überprüfe und sende Antwort
-      								//Falls ja, sende GameSettings und andere Spieler und letzten Chat
-      								//Sende an alle, dass neuer Client dabei
-      	case START_GAME :
-    	  default :
-      }
-    }
-    
-    private void sendMessage(Message message){
+    public void sendMessage(Message message){
   	  try{
   		  this.output.writeObject(message);
   	  }catch(IOException e){
@@ -83,7 +65,8 @@ public class ClientConnection extends Thread{
     }
     
     private void disconnect(){
-        try{
+        this.running = false;
+    	try{
             output.close();
             input.close();
             socket.close();
@@ -91,5 +74,54 @@ public class ClientConnection extends Thread{
             e.printStackTrace();
         }
     }
+    
+    private void receiveMessage(Message message){
+        switch(message.getType()){
+        	case PING: messageHandler(message); break;
+        	case YOUR_TURN: messageHandler(message); break;
+        	case CARD_PLAYED: messageHandler(message); break;
+        	case BET: messageHandler(message); break;
+        	case CHAT_MESSAGE: messageHandler(message); break;
+        	case START_GAME: messageHandler(message); break;
+        	case DEALT_CARDS: messageHandler(message); break;
+        	case CONNECTION_REQUEST: connectionRequestHandler((ConnectionRequest_Msg) message); break;
+        	case GAME_SETTINGS:	this.server.setGameSettings(((GameSettings_Msg) message).getGameSettings());
+        						messageHandler(message); break;
+        	case PLAY_STATE: this.server.setPlayState(((PlayState_Msg) message).getPlayState()); 
+        					 messageHandler(message); break;
+        	case CLIENT_DISCONNECT:  clientDisconnectHandler((ClientDisconnect_Msg) message); break;
+      	  default :
+        }
+      }
+    
+    private void messageHandler(Message message){
+    	List<ClientConnection> clientConnections = this.server.getClientConnections();
+    	for(int i=0; i<clientConnections.size(); i++){
+    		clientConnections.get(i).sendMessage(message);
+    	}
+    }
+    
+    private void connectionRequestHandler(ConnectionRequest_Msg message){
+    	//Überprüfe und sende Antwort
+    	if(this.server.getPlayer().size() < Settings.MAX_PLAYER - 1){
+        	//Falls ja, füge Spieler dem Server hinzu
+    		//Falls ja, sende GameSettings und andere Spieler an alle
+    		this.sendMessage(new ConnectionAnswer_Msg(true));
+    		this.player = message.getPlayer();
+    		this.server.addPlayer(message.getPlayer());
+    		messageHandler(new Lobby_Msg(this.server.getPlayer(), this.server.getGameSettings()));
+    	}else{
+    		this.sendMessage(new ConnectionAnswer_Msg(false));
+    		this.disconnect();
+    	}
 
+    }
+    
+    //TODO evtl. muss ich an alle außer mir senden, dann die Connection schließen und dann erst aus der Liste des Servers löschen
+    private void clientDisconnectHandler(ClientDisconnect_Msg message){
+    	this.server.removePlayer(message.getPlayer());
+    	this.server.removeClientConnection(this);
+    	messageHandler(new ClientDisconnect_Msg(message.getPlayer()));
+    	this.disconnect();
+    }
 }
