@@ -784,5 +784,12 @@ public class InGameController implements Initializable, InGameInterface {
     main.displayChooseGame();
   }
 
+  @Override
+  public void updateTrick(Card[] currentTrick) {
+    // TODO Auto-generated method stub
+    
+  }
+
+
 
 }

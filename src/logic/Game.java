@@ -11,6 +11,7 @@ public class Game {
   private int pointerF; // supposed to always point on the Forehand
   private int playerFirstCard; // switch every in every play --> depends on auction
   private Play[] plays;
+  private int currentPlay;
   private Card[] cards;
   private Player winner;
   private GameMode gameMode; // singlePlayer or Multiplayer
@@ -53,6 +54,7 @@ public class Game {
     this.gameMode = gameMode;
     this.gameSettings = new GameSettings();
     this.plays = new Play[gameSettings.getNrOfPlays()];
+    this.currentPlay = -1;
   }
 
   /**
@@ -180,7 +182,8 @@ public class Game {
    // this.askForGameSettings();
 
     for (int i = 0; i < this.plays.length; i++) {
-
+      this.currentPlay ++;
+      
       // the playing group consists of forehand, middlehand, rarehand, NOT dealer
       if (this.group.length == 4) {
         int index = 0;
@@ -326,5 +329,23 @@ public class Game {
     System.out.println("...and the winner is: " + this.winner.getName());
   }
 
+  public void setGameSettings(GameSettings gameSettings) {
+    this.gameSettings = gameSettings;
+  }
 
+  public GameSettings getGameSettings() {
+    return this.gameSettings;
+  }
+  
+  public void setPlays(Play[] plays) {
+    this.plays = plays;
+  }
+  
+  public Play[] getPlays() {
+    return this.plays;
+  }
+  
+  public Play getCurrentPlay() {
+    return this.plays[this.currentPlay];
+  }
 }

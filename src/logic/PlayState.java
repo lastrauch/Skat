@@ -1,4 +1,4 @@
-package logic;
+ package logic;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,6 @@ public class PlayState {
   private boolean schwarzAnnounced;
   private boolean open;
   private int baseValue;
-  private Trick currentTrick;
 
   /**
    * constructor (default)
@@ -49,30 +48,32 @@ public class PlayState {
    * @param t
    */
   public void addToStackDeclarer(Trick t) {
-    Card[] trick = t.getTrickCards();
-    for (int i = 0; i < trick.length; i++) {
-      this.declarerStack.add(trick[i]);
-    }
+    this.declarerStack.addAll(t.getTrickCards());
+//    Card[] trick = t.getTrickCards();
+//    for (int i = 0; i < trick.length; i++) {
+//      this.declarerStack.add(trick[i]);
+//    }
   }
 
-  /**
-   * adds a card to the stack of the declarer (skat)
-   * 
-   * @author awesch
-   * @param card
-   */
-  public void addToStackDeclarer(Card card) {
-    this.declarerStack.add(card);
-  }
+//  /**
+//   * adds a card to the stack of the declarer (skat)
+//   * 
+//   * @author awesch
+//   * @param card
+//   */
+//  public void addToStackDeclarer(Card card) {
+//    this.declarerStack.add(card);
+//  }
 
   /**
    * @param t
    */
   public void addToStackOpponents(Trick t) {
-    Card[] trick = t.getTrickCards();
-    for (int i = 0; i < trick.length; i++) {
-      this.opponentsStack.add(trick[i]);
-    }
+    this.opponentsStack.addAll(t.getTrickCards());
+//    Card[] trick = t.getTrickCards();
+//    for (int i = 0; i < trick.length; i++) {
+//      this.opponentsStack.add(trick[i]);
+//    }
   }
 
   /**
@@ -379,12 +380,5 @@ public class PlayState {
   public int getBaseValue() {
     return this.baseValue;
   }
-  
-  public Trick getCurrentTrick() {
-    return this.currentTrick;
-  }
-  
-  public void setCurrentTrick(Trick trick) {
-    this.currentTrick = trick;
-  }
+
 }

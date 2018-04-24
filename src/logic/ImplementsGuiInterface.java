@@ -12,7 +12,7 @@ public class ImplementsGuiInterface extends GameController implements GuiLogic {
   @Override
   public void login(String username) {
     // TODO Auto-generated method stub
-    super.logIn(username);
+ //   super.logIn(username);
   }
 
   /* (non-Javadoc)
