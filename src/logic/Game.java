@@ -2,6 +2,7 @@ package logic;
 
 import java.util.Random;
 import gui.ImplementsLogicGui;
+import interfaces.InGameInterface;
 import interfaces.LogicGui;
 import interfaces.LogicNetwork;
 
@@ -16,6 +17,7 @@ public class Game {
   private Player winner;
   private GameMode gameMode; // singlePlayer or Multiplayer
   private LogicNetwork logicNetwork;
+  private ClientLogic clientLogic;
 
 //  /**
 //   * constructor #1
@@ -50,11 +52,12 @@ public class Game {
 //    this.initializeCards();
 //  }
 
-  public Game(GameMode gameMode) {
+  public Game(GameMode gameMode, ClientLogic clientLogic) {
     this.gameMode = gameMode;
     this.gameSettings = new GameSettings();
     this.plays = new Play[gameSettings.getNrOfPlays()];
     this.currentPlay = -1;
+    this.clientLogic = clientLogic;
   }
 
   /**
@@ -197,7 +200,7 @@ public class Game {
 
       try {
         // play one play with a sorted (playing) group
-        this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings, this.cards);
+        this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings, this.cards, this.clientLogic);
         this.plays[i].runPlay();
       } catch (LogicException e) {
         // TODO Auto-generated catch block
@@ -326,7 +329,6 @@ public class Game {
         this.winner = this.group[i];
       }
     }
-    System.out.println("...and the winner is: " + this.winner.getName());
   }
 
   public void setGameSettings(GameSettings gameSettings) {

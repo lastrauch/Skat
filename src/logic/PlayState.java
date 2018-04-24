@@ -55,15 +55,15 @@ public class PlayState {
 //    }
   }
 
-//  /**
-//   * adds a card to the stack of the declarer (skat)
-//   * 
-//   * @author awesch
-//   * @param card
-//   */
-//  public void addToStackDeclarer(Card card) {
-//    this.declarerStack.add(card);
-//  }
+  /**
+   * adds a card to the stack of the declarer (skat)
+   * 
+   * @author awesch
+   * @param card
+   */
+  public void addToStackDeclarer(Card card) {
+    this.declarerStack.add(card);
+  }
 
   /**
    * @param t

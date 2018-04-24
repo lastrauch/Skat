@@ -11,7 +11,6 @@ public class Play {
                           // forehand)
   private Card[] cards;
   private Trick[] tricks;
-  private Auction auction; // every play has one auction
   private int currentTrick;
   private int indexWinnerLastTrick;
   private PlayState ps;
@@ -19,6 +18,7 @@ public class Play {
   private GameSettings gameSettings;
   private boolean singlePlayerWins;
   private LogicNetwork logicNetwork;
+  private ClientLogic clientLogic;
 
   /**
    * constructor
@@ -27,7 +27,7 @@ public class Play {
    * @param gameSettings
    * @param cards
    */
-  public Play(Player[] group, GameSettings gameSettings, Card[] cards) {
+  public Play(Player[] group, GameSettings gameSettings, Card[] cards, ClientLogic clientLogic) {
     this.tricks = new Trick[this.nrTricks];
     this.group = group;
     // this.runPlay();
@@ -37,6 +37,7 @@ public class Play {
     this.gameSettings = gameSettings;
     this.cards = cards;
     this.logicNetwork.startGame();
+    this.clientLogic = clientLogic;
   }
 
   /**
@@ -59,8 +60,8 @@ public class Play {
 
       // test:
       // this.printHands("after first sortCards:");
-      auction = new Auction(this.group, this.ps);
-      
+      Auction auction = new Auction(this.group, this.clientLogic);
+      auction.runAuction(this.ps);
       // // test (without auction)
       // this.ps.setPlayMode(PlayMode.NULLOUVERT);
       // this.ps.setTrump(Colour.CLUBS);
@@ -681,6 +682,9 @@ public class Play {
     return this.ps;
   }
 
+  public void setPlayState(PlayState ps) {
+    this.ps = ps;
+  }
   /**
    * gets the last trick (not only important for AI)
    * 

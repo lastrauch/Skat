@@ -3,18 +3,21 @@
  */
 package logic;
 
+import java.util.List;
 import gui.InGameController;
 import interfaces.InGameInterface;
+import interfaces.NetworkLogic;
 
 /**
  * @author sandr
  *
  */
-public class ClientLogic {
+public class ClientLogic implements NetworkLogic {
 
   Player player;
   InGameInterface inGameController; // implemented by Gui or Ai
-  PlayState playState;
+  // NetworkController
+  Game game;
 
   public ClientLogic(Player player, InGameInterface inGameController) {
     this.player = player;
@@ -331,6 +334,116 @@ public class ClientLogic {
 
   public void setPlayState(PlayState playState) {
     this.playState = playState;
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#receiveConnectionRequestAsnwer(boolean)
+   */
+  @Override
+  public void receiveConnectionRequestAsnwer(boolean accepted) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#receiveLobby(java.util.List, logic.GameSettings)
+   */
+  @Override
+  public void receiveLobby(List<Player> player, GameSettings gs) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#receiveGameSettings(logic.GameSettings)
+   */
+  @Override
+  public void receiveGameSettings(GameSettings gs) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#receiveChatMessage(logic.Player, java.lang.String)
+   */
+  @Override
+  public void receiveChatMessage(Player player, String msg) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#receiveStartGame()
+   */
+  @Override
+  public void receiveStartGame() {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#receiveCards(logic.Card[])
+   */
+  @Override
+  public void receiveCards(Card[] cards) {
+    // TODO Auto-generated method stub
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#receiveBet(logic.Player, int)
+   */
+  @Override
+  public void receiveBet(Player player, int bet) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#receivePlayState(logic.PlayState)
+   */
+  @Override
+  public void receivePlayState(PlayState ps) {
+    // TODO Auto-generated method stub
+    this.game.getCurrentPlay().setPlayState(ps);
+    this.inGameController.setPlaySettings(ps);
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#receiveCardPlayed(logic.Player, logic.Card)
+   */
+  @Override
+  public void receiveCardPlayed(Player player, Card card) {
+    // TODO Auto-generated method stub
+    // update current trick
+    this.game.getCurrentPlay().getCurrentTrick().addCard(card);
+    
+    // update players hand
+    try {
+      player.removeCardFromHand(card);
+    } catch (LogicException e) {
+      e.printStackTrace();
+    }
+    // show update on gui/ai
+    this.inGameController.updateTrick(this.game.getCurrentPlay().getCurrentTrick().getTrickCards());
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#receiveYourTurn()
+   */
+  @Override
+  public void receiveYourTurn() {
+    // TODO Auto-generated method stub
+    Card playedCard = this.playCard(this.game.getCurrentPlay().getCurrentTrick().getFirstCard());
+    //send played card!
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#receivePlayerDisconnected(logic.Player)
+   */
+  @Override
+  public void receivePlayerDisconnected(Player player) {
+    // TODO Auto-generated method stub
+    
   }
 
   // public static void main (String [] args) {

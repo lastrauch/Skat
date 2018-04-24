@@ -19,18 +19,22 @@ public class GameController {
   // private GuiController guiController;
   private LogicGui logicGui;
   private LogicNetwork logicNetwork;
+  private GuiLogic guiLogic;
   private InGameInterface inGameController;
   private Game game;
-  private ClientLogic clientLogic;
+  private List<ClientLogic> clientLogic;
 
-  public GameController(InGameController inGameController) {
-    this.inGameController = inGameController;
+  public GameController(GuiLogic guiLogic) {
+    this.guiLogic = guiLogic;
   }
 
   public GameController() {}
 
   public void generateGame(GameMode gameMode) {
-    this.game = new Game(gameMode);
+    Iterator<ClientLogic> it = this.clientLogic.iterator();
+    while(it.hasNext()) {
+      this.game = new Game(gameMode, it.next());
+    }    
   }
 
   // public void logIn(String username) {
@@ -70,53 +74,9 @@ public class GameController {
   // public void updatePlayerInOwnDatabase(Player player) {
   // this.logicData.updatePlayer(player);
   // }
-  public void receiveConnectionRequestAsnwer(boolean accepted) {}
 
-  void receiveLobby(List<Player> player, GameSettings gs) {
-    this.group = player;
-    this.game.setGameSettings(gs);
-  }
 
-  void receiveChatMessage(Player player, String msg) {}
 
-  void receiveStartGame() {
-    Player[] players = new Player[this.group.size()];
-    int index = 0;
-    Iterator<Player> it = this.group.iterator();
-    
-    while (it.hasNext()) {
-      players[index] = it.next();
-      index++;
-    }
-    this.game.runGame(players);
-  }
-
-  void receiveCards(Card[] cards) {
-  //   this.clientLogic.player.setHand(cards);
-  }
-
-  void receiveBet(Player player, int bet) {}
-
-  public void receiveGameSettings(GameSettings gs) {
-    this.game.setGameSettings(gs);
-  }
-
-  void receiveCardPlayed(Player player, Card card) {
-    // receive card in game logic
-    this.game.getCurrentPlay().getCurrentTrick().addCard(card);
-    // receive card in client logic
-    this.clientLogic.inGameController.updateTrick(this.game.getCurrentPlay().getCurrentTrick().getTrickCards());
-  }
-
-  void receiveYourTurn() {
-    this.clientLogic.inGameController.askToPlayCard();
-  }
-
-  void receivePlayerDisconnected(Player player) {}
-
-  public void startClientLogic(Player player) {
-    this.clientLogic = new ClientLogic(player, this.inGameController);
-  }
 
   public static void main(String[] args) {
     // Application.launch(GuiController.class, args);
