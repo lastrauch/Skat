@@ -10,7 +10,7 @@ import interfaces.InGameInterface;
 import interfaces.NetworkLogic;
 import javafx.scene.image.Image;
 
-public class ClientLogic implements NetworkLogic, GuiLogic, AILogic {
+public class ClientLogic implements NetworkLogic, AILogic {
 
   Player player;
   InGameInterface inGameController; // implemented by Gui or Ai
@@ -460,46 +460,5 @@ public class ClientLogic implements NetworkLogic, GuiLogic, AILogic {
   }
 
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.GuiLogic#updateAccount(java.lang.String, java.lang.String,
-   * javafx.scene.image.Image)
-   */
-  @Override
-  public void updateAccount(String oldUsername, String newUsername, Image profilbild) {
-    // TODO Auto-generated method stub
-    this.player.setName(newUsername);
-    this.player.setImage(profilbild);
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.GuiLogic#decideGameMode(logic.GameMode)
-   */
-  @Override
-  public void decideGameMode(GameMode m) {
-    // TODO Auto-generated method stub
-    this.game = new Game(m);
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.GuiLogic#login(java.lang.String)
-   */
-  @Override
-  public void login(String username) {
-    // TODO Auto-generated method stub
-    this.player = new Player("username");
-  }
-
-  // public static void main (String [] args) {
-  // Player player = new Player("player");
-  // InGameController inGameController = new InGameController();
-  //
-  // ClientLogic cl = new ClientLogic(player, inGameController);
-  // }
 
 }
