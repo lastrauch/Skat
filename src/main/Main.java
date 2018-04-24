@@ -1,11 +1,13 @@
 package main;
 
-import logic.*;
-import network.client.Client;
-import network.server.Server;
+import gui.GuiController;
+import javafx.application.Application;
 
 public class Main {
 
-	public static void main(String[] args) {
-	}
+  public static void main(String[] args) {
+    Application.launch(GuiController.class, args);
+  }
+
+
 }
