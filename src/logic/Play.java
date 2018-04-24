@@ -27,7 +27,7 @@ public class Play {
    * @param gameSettings
    * @param cards
    */
-  public Play(Player[] group, GameSettings gameSettings, Card[] cards, ClientLogic clientLogic) {
+  public Play(Player[] group, GameSettings gameSettings, Card[] cards) {
     this.tricks = new Trick[this.nrTricks];
     this.group = group;
     // this.runPlay();
@@ -37,7 +37,6 @@ public class Play {
     this.gameSettings = gameSettings;
     this.cards = cards;
     this.logicNetwork.startGame();
-    this.clientLogic = clientLogic;
   }
 
   /**
@@ -92,7 +91,7 @@ public class Play {
       // System.out.println(this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
 
       // first player plays card
-      card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
+     // card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
 
       // test random card
       // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
@@ -117,7 +116,7 @@ public class Play {
       // .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
       // this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
       // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
-      card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
+     // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
 
 //
 //        // remove card from second players hand
@@ -137,7 +136,7 @@ public class Play {
       // this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
       // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
 
-      card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
+      // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
 
 
 //        // remove card from third players hand

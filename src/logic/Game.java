@@ -17,7 +17,7 @@ public class Game {
   private Player winner;
   private GameMode gameMode; // singlePlayer or Multiplayer
   private LogicNetwork logicNetwork;
-  private ClientLogic clientLogic;
+//  private ClientLogic clientLogic;
 
 //  /**
 //   * constructor #1
@@ -52,12 +52,11 @@ public class Game {
 //    this.initializeCards();
 //  }
 
-  public Game(GameMode gameMode, ClientLogic clientLogic) {
+  public Game(GameMode gameMode) {
     this.gameMode = gameMode;
     this.gameSettings = new GameSettings();
     this.plays = new Play[gameSettings.getNrOfPlays()];
     this.currentPlay = -1;
-    this.clientLogic = clientLogic;
   }
 
   /**
@@ -68,7 +67,6 @@ public class Game {
    */
   public void initializeGroupSettings(Player[] group) {
     this.group = group;
-    this.defineSeatingList(group);
     this.setPointerF(0);
     this.updatePosition();
     this.gameSettings.setNrOfPlayers(group.length);
@@ -144,23 +142,7 @@ public class Game {
     }
   }
 
-  /**
-   * defines in which order players "sitting on a table" (random)
-   * 
-   * @author sandfisc
-   */
-  public void defineSeatingList(Player[] group) {
-    int randomIndex;
-    Player temp;
 
-    for (int i = 0; i < group.length - 1; i++) {
-      randomIndex = (int) (Math.random() * (group.length));
-      temp = group[i];
-      group[i] = group[randomIndex];
-      group[randomIndex] = temp;
-    }
-    this.group = group;
-  }
 
   /**
    * here is where the magic/game happens
@@ -200,7 +182,7 @@ public class Game {
 
       try {
         // play one play with a sorted (playing) group
-        this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings, this.cards, this.clientLogic);
+        this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings, this.cards);
         this.plays[i].runPlay();
       } catch (LogicException e) {
         // TODO Auto-generated catch block

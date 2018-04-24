@@ -1,18 +1,16 @@
-/**
- * 
- */
+
 package logic;
 
+import java.util.ArrayList;
 import java.util.List;
 import gui.InGameController;
+import interfaces.AILogic;
+import interfaces.GuiLogic;
 import interfaces.InGameInterface;
 import interfaces.NetworkLogic;
+import javafx.scene.image.Image;
 
-/**
- * @author sandr
- *
- */
-public class ClientLogic implements NetworkLogic {
+public class ClientLogic implements NetworkLogic, GuiLogic, AILogic {
 
   Player player;
   InGameInterface inGameController; // implemented by Gui or Ai
@@ -328,69 +326,74 @@ public class ClientLogic implements NetworkLogic {
     this.player.addToGamePoints(points);
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.NetworkLogic#receiveConnectionRequestAsnwer(boolean)
    */
   @Override
   public void receiveConnectionRequestAsnwer(boolean accepted) {
     // TODO Auto-generated method stub
-    
+
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.NetworkLogic#receiveLobby(java.util.List, logic.GameSettings)
    */
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
     // TODO Auto-generated method stub
-    
+
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.NetworkLogic#receiveGameSettings(logic.GameSettings)
    */
   @Override
   public void receiveGameSettings(GameSettings gs) {
     // TODO Auto-generated method stub
-    
+
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.NetworkLogic#receiveChatMessage(logic.Player, java.lang.String)
    */
   @Override
   public void receiveChatMessage(Player player, String msg) {
     // TODO Auto-generated method stub
-    
+
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.NetworkLogic#receiveStartGame()
    */
   @Override
   public void receiveStartGame() {
     // TODO Auto-generated method stub
-    
-  }
 
-  /* (non-Javadoc)
-   * @see interfaces.NetworkLogic#receiveCards(logic.Card[])
-   */
-  @Override
-  public void receiveCards(Card[] cards) {
-    // TODO Auto-generated method stub
   }
-
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.NetworkLogic#receiveBet(logic.Player, int)
    */
   @Override
   public void receiveBet(Player player, int bet) {
     // TODO Auto-generated method stub
-    
+
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.NetworkLogic#receivePlayState(logic.PlayState)
    */
   @Override
@@ -400,7 +403,9 @@ public class ClientLogic implements NetworkLogic {
     this.inGameController.setPlaySettings(ps);
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.NetworkLogic#receiveCardPlayed(logic.Player, logic.Card)
    */
   @Override
@@ -408,7 +413,7 @@ public class ClientLogic implements NetworkLogic {
     // TODO Auto-generated method stub
     // update current trick
     this.game.getCurrentPlay().getCurrentTrick().addCard(card);
-    
+
     // update players hand
     try {
       player.removeCardFromHand(card);
@@ -419,23 +424,75 @@ public class ClientLogic implements NetworkLogic {
     this.inGameController.updateTrick(this.game.getCurrentPlay().getCurrentTrick().getTrickCards());
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.NetworkLogic#receiveYourTurn()
    */
   @Override
   public void receiveYourTurn() {
     // TODO Auto-generated method stub
     Card playedCard = this.playCard(this.game.getCurrentPlay().getCurrentTrick().getFirstCard());
-    //send played card!
+    // send played card!
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.NetworkLogic#receivePlayerDisconnected(logic.Player)
    */
   @Override
   public void receivePlayerDisconnected(Player player) {
     // TODO Auto-generated method stub
-    
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.NetworkLogic#receiveCards(java.util.List)
+   */
+  @Override
+  public void receiveCards(List<Card> cards) {
+    // TODO Auto-generated method stub
+    this.player.setHand((ArrayList<Card>) cards);
+    this.inGameController.updateHand(this.player.getHand());
+  }
+
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.GuiLogic#updateAccount(java.lang.String, java.lang.String,
+   * javafx.scene.image.Image)
+   */
+  @Override
+  public void updateAccount(String oldUsername, String newUsername, Image profilbild) {
+    // TODO Auto-generated method stub
+    this.player.setName(newUsername);
+    this.player.setImage(profilbild);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.GuiLogic#decideGameMode(logic.GameMode)
+   */
+  @Override
+  public void decideGameMode(GameMode m) {
+    // TODO Auto-generated method stub
+    this.game = new Game(m);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.GuiLogic#login(java.lang.String)
+   */
+  @Override
+  public void login(String username) {
+    // TODO Auto-generated method stub
+    this.player = new Player("username");
   }
 
   // public static void main (String [] args) {
