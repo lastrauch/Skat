@@ -64,11 +64,11 @@ public class ClientLogic implements NetworkLogic {
    * @author sandfisc
    */
   public boolean checkIfCardPossible(Card card, Card firstCard) throws LogicException {
-    if (this.playState.getPlayMode() == PlayMode.SUIT) {
+    if (this.game.getCurrentPlay().getPlayState().getPlayMode() == PlayMode.SUIT) {
       return this.checkIfCardPossibleColour(card, firstCard);
-    } else if (this.playState.getPlayMode() == PlayMode.GRAND) {
+    } else if (this.game.getCurrentPlay().getPlayState().getPlayMode() == PlayMode.GRAND) {
       return this.checkIfCardPossibleGrand(card, firstCard);
-    } else if (this.playState.getPlayMode() == PlayMode.NULL) {
+    } else if (this.game.getCurrentPlay().getPlayState().getPlayMode() == PlayMode.NULL) {
       return this.checkIfCardPossibleNull(card, firstCard);
     }
     return false;
@@ -110,10 +110,10 @@ public class ClientLogic implements NetworkLogic {
    */
   public boolean checkIfServedColour(Card servingCard, Card servedCard) {
 
-    if (servedCard.getColour() == this.playState.getTrump()
+    if (servedCard.getColour() == this.game.getCurrentPlay().getPlayState().getTrump()
         || servedCard.getNumber() == Number.JACK) {
       // first card is trump
-      if (servingCard.getColour() == this.playState.getTrump()
+      if (servingCard.getColour() == this.game.getCurrentPlay().getPlayState().getTrump()
           || servingCard.getNumber() == Number.JACK) {
         return true;
       }
@@ -326,14 +326,6 @@ public class ClientLogic implements NetworkLogic {
 
   public void addToGamePoints(int points) {
     this.player.addToGamePoints(points);
-  }
-
-  public PlayState getPlaystate() {
-    return this.playState;
-  }
-
-  public void setPlayState(PlayState playState) {
-    this.playState = playState;
   }
 
   /* (non-Javadoc)
