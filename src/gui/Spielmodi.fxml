@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1350.0" layoutX="262.0" layoutY="299.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/WhatsApp%20Image%202018-03-13%20at%2015.27.20.jpeg" />
+         </image>
+      </ImageView>
+      <VBox layoutX="469.0" layoutY="355.0" spacing="10.0">
+         <children>
+            <RadioButton fx:id="eins" layoutX="839.0" layoutY="383.0" mnemonicParsing="false" text="1 Runde" textAlignment="CENTER" textFill="#f8f7f7" underline="true">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="sechs" layoutX="835.0" layoutY="417.0" mnemonicParsing="false" text="6 Runden" textAlignment="CENTER" textFill="WHITE" underline="true">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="zwoelf" layoutX="839.0" layoutY="475.0" mnemonicParsing="false" text="12 Runden" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" underline="true">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </RadioButton>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

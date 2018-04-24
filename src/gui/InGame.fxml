@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.InGameController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="-13.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../resources/tisch2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="stichRechts" fitHeight="150.0" fitWidth="200.0" layoutX="1180.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="stichLinks" fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="l1" fitHeight="150.0" fitWidth="200.0" layoutX="-67.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="r1" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-67.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="l2" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="c1" fitHeight="227.0" fitWidth="182.0" layoutX="125.0" layoutY="527.0" pickOnBounds="true" preserveRatio="true" rotate="-17.4">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Kreuz_B.png" />
+         </image></ImageView>
+      <ImageView fx:id="c2" fitHeight="227.0" fitWidth="182.0" layoutX="225.0" layoutY="504.0" pickOnBounds="true" preserveRatio="true" rotate="-11.3">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_B.png" />
+         </image></ImageView>
+      <ImageView fx:id="c3" fitHeight="227.0" fitWidth="182.0" layoutX="325.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true" rotate="-8.1">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Karo_B.png" />
+         </image></ImageView>
+      <ImageView fx:id="c4" fitHeight="227.0" fitWidth="182.0" layoutX="425.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" rotate="-6.3">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_As.png" />
+         </image></ImageView>
+      <ImageView fx:id="c5" fitHeight="227.0" fitWidth="182.0" layoutX="525.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" rotate="-3.2">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_8.png" />
+         </image></ImageView>
+      <ImageView fx:id="c6" fitHeight="227.0" fitWidth="182.0" layoutX="625.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" rotate="3.2">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_10.png" />
+         </image></ImageView>
+      <ImageView fx:id="c7" fitHeight="227.0" fitWidth="182.0" layoutX="725.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" rotate="6.3">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_K.png" />
+         </image></ImageView>
+      <ImageView fx:id="c8" fitHeight="227.0" fitWidth="182.0" layoutX="825.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true" rotate="8.1">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_D.png" />
+         </image></ImageView>
+      <ImageView fx:id="c9" fitHeight="227.0" fitWidth="182.0" layoutX="925.0" layoutY="504.0" pickOnBounds="true" preserveRatio="true" rotate="11.3">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Karo_9.png" />
+         </image></ImageView>
+      <ImageView fx:id="c10" fitHeight="227.0" fitWidth="182.0" layoutX="1025.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" rotate="17.4">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Karo_7.png" />
+         </image></ImageView>
+      <ImageView fx:id="r2" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" AnchorPane.leftAnchor="1250.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image></ImageView>
+      <ImageView fx:id="l3" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image></ImageView>
+      <ImageView fx:id="l4" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image></ImageView>
+      <ImageView fx:id="l5" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image></ImageView>
+      <ImageView fx:id="l6" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image></ImageView>
+      <ImageView fx:id="l7" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image></ImageView>
+      <ImageView fx:id="l8" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image></ImageView>
+      <ImageView fx:id="l9" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="l10" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="r3" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" AnchorPane.leftAnchor="1250.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="r4" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="r5" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="r6" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="r7" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="r8" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="r9" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="r10" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="s1" fitHeight="205.0" fitWidth="132.0" layoutX="533.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" rotate="125.0" />
+      <ImageView fx:id="s2" fitHeight="205.0" fitWidth="132.0" layoutX="619.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" rotate="91.7" />
+      <AnchorPane layoutX="20.0" layoutY="20.0" minHeight="-Infinity" prefHeight="40.0" prefWidth="1280.0" style="-fx-background-color: tan; -fx-border-color: #611212;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXButton buttonType="RAISED" layoutX="16.0" layoutY="8.0" onAction="#settings" prefHeight="32.0" prefWidth="129.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="       Settings" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="1136.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="542.0" layoutY="8.0" onAction="#accountSettings" prefHeight="35.0" prefWidth="141.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="     Account" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="541.0" AnchorPane.rightAnchor="598.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="1156.0" layoutY="5.0" onAction="#help" prefHeight="24.0" prefWidth="101.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="     Help" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="1155.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="21.0" layoutY="8.0" style="-fx-background: Peru;" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="7.0">
+               <image>
+                  <Image url="@../../resources/settings.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="551.0" layoutY="2.0" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="7.0">
+               <image>
+                  <Image url="@../../resources/user.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="1169.0" layoutY="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="7.0">
+               <image>
+                  <Image url="@../../resources/info.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="329.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="trump" layoutX="1076.0" layoutY="74.0">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <JFXButton buttonType="RAISED" layoutX="528.0" layoutY="743.0" onAction="#back" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Back (für durchklick Zwecke)" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <ImageView fx:id="s3" fitHeight="205.0" fitWidth="132.0" layoutX="590.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" rotate="14.9" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="999.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../Pictures/Der_Klatschende_K_nig.gif" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
