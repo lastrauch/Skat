@@ -100,7 +100,6 @@ public class Server extends Thread{
 	  this.player.add(player);
   }
   
-  //TODO evtl. muss erst der Index gefunden werden, kann über die eindeutige ID des Players gemacht werden
   public void removePlayer(Player player){
 	  this.player.remove(player);
   }
