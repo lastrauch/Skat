@@ -62,6 +62,6 @@ public interface InGameInterface {
    * updates the current trick
    * @param currentTrick
    */
-  public void updateTrick(Card[] currentTrick);
+  public void updateTrick(ArrayList<Card> currentTrick);
  
 }
