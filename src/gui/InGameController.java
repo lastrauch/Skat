@@ -6,6 +6,9 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.controls.JFXRadioButton;
+import database.ImplementsGuiInterface;
+import interfaces.DataGui;
+import interfaces.GuiData;
 import interfaces.InGameInterface;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -790,6 +793,10 @@ public class InGameController implements Initializable, InGameInterface {
     
   }
 
+  public void getImage() {
+    GuiData inte = new ImplementsGuiInterface();
+    inte.getImage("hearts", "7");
+  }
 
 
 }

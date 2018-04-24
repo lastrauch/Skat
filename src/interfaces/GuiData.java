@@ -15,7 +15,7 @@ public interface GuiData {
    * @param number
    * @return
    */
-  public BufferedImage getImage(String colour, String number);
+  public Image getImage(String colour, String number);
 
   /**
    * should return the darker image of the Card
