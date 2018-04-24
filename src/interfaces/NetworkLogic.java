@@ -6,7 +6,6 @@ import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
-import network.server.Server;
 
 //Network to Logic, implemented by Logic
 public interface NetworkLogic {
