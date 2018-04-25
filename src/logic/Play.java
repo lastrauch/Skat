@@ -29,11 +29,10 @@ public class Play {
    */
   public Play(Player[] group, GameSettings gameSettings, Card[] cards) {
     this.tricks = new Trick[this.nrTricks];
-    this.group = group;
     // this.runPlay();
     this.indexWinnerLastTrick = 0; // forehand starts the first trick
     this.currentTrick = 0;
-    this.ps = new PlayState();
+    this.ps = new PlayState(group);
     this.gameSettings = gameSettings;
     this.cards = cards;
     this.logicNetwork.startGame();
