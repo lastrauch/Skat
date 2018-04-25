@@ -400,6 +400,15 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
 
   }
 
+  public Player searchPlayer(Player player) {
+    for (Player p : this.playState.getGroup()) {
+      if (p.equals(player)) {
+        return p;
+      }
+    }
+    return null;
+  }
+
   /*
    * (non-Javadoc)
    * 
@@ -407,8 +416,68 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveBet(Player player, int bet) {
-    // TODO Auto-generated method stub
+    this.updateBet(player, bet);
+    if(this.checkIfItsMyTurnAuction(player)) {
+      //well... how do I count that shit up
+    }
+  }
 
+  public void updateBet(Player player, int bet) {
+    this.playState.setBetValue(bet);
+    this.searchPlayer(player).setBet(bet);
+  }
+
+  public boolean checkIfItsMyTurnAuctionForehand(Player player) {
+    if (player.getPosition() == Position.MIDDLEHAND && this.player.getBet() != -1) {
+      return true;
+    }
+    if (player.getPosition() == Position.REARHAND && this.player.getBet() != -1) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean checkIfItsMyTurnAuctionMiddlehand(Player player) {
+    if (this.player.getBet() != -1 && player.getPosition() != Position.MIDDLEHAND) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean checkIfItsMyTurnAuctionRearHand(Player player) {
+    if (this.oneOfTheOtherPlayersPassedAlready() && player.getPosition() != Position.REARHAND) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean oneOfTheOtherPlayersPassedAlready() {
+    for (Player p : this.playState.getGroup()) {
+      if (p.getBet() == -1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean checkIfItsMyTurnAuction(Player player) {
+    if (this.player.getPosition() == Position.FOREHAND
+        && this.checkIfItsMyTurnAuctionForehand(player)) {
+      return true;
+    }
+    if (this.player.getPosition() == Position.MIDDLEHAND
+        && this.checkIfItsMyTurnAuctionMiddlehand(player)) {
+      return true;
+    }
+    if (this.player.getPosition() == Position.REARHAND
+        && this.checkIfItsMyTurnAuctionRearHand(player)) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean checkIfAuctionIsOver() {
+    return false;
   }
 
   /*

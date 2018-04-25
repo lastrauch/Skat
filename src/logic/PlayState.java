@@ -10,7 +10,6 @@ public class PlayState {
   private Card[] skat;
   private Colour trump;
   private int playValue;
-  private int betValue;
   private PlayMode pm;
   private int playNr;   
   private int trickNr;
@@ -23,6 +22,7 @@ public class PlayState {
   private boolean open;
   private int baseValue;
   private Trick currentTrick;
+  private Auction auction;
 
   /**
    * constructor (default) the attributes are initialized but we want the player(s) to change them
@@ -38,7 +38,7 @@ public class PlayState {
     this.skat = new Card[2];
     this.trump = Colour.CLUBS;
     this.playValue = 0;
-    this.betValue = 0;
+    this.auction = new Auction();
     this.pm = PlayMode.SUIT;
     this.auctionPossible = true;
   }

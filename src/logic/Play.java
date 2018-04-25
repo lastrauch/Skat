@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.List;
 import gui.InGameController;
 import interfaces.InGameInterface;
 import interfaces.LogicNetwork;
@@ -156,7 +157,7 @@ public class Play {
         // "Winner of the last Trick: " + this.group[this.indexWinnerLastTrick].getName());
 
         // winner receives cards on his stack
-        if (this.group[this.indexWinnerLastTrick] == this.ps.getDeclarer()) {
+        if (this.group[this.indexWinnerLastTrick].IsDeclarer()) {
           ps.addToStackDeclarer(tricks[i]);
         } else {
           ps.addToStackOpponents(tricks[i]);
@@ -164,7 +165,7 @@ public class Play {
 
         // declarer is not allowed to win a trick when playMode is NULL
         if (this.ps.getPlayMode() == PlayMode.NULL) {
-          if (this.ps.getDeclarer().equals(this.group[this.indexWinnerLastTrick])) {
+          if (this.group[this.indexWinnerLastTrick].IsDeclarer()) {
             this.singlePlayerWins = false;
             break;
           }
@@ -202,25 +203,25 @@ public class Play {
   }
 
 
-  /**
-   * updates the hands of the group
-   * 
-   * @author sandfisc
-   */
-  public void updateHands() {
-    for (int i = 0; i < this.group.length; i++) {
-      this.group[i].updateHand();
-    }
-  }
-
-  /**
-   * starts the gui on all clients
-   */
-  public void startPlayOnGui() {
-    for (int i = 0; i < this.group.length; i++) {
-      this.group[i].startPlay();
-    }
-  }
+//  /**
+//   * updates the hands of the group
+//   * 
+//   * @author sandfisc
+//   */
+//  public void updateHands() {
+//    for (int i = 0; i < this.group.length; i++) {
+//      this.group[i].updateHand();
+//    }
+//  }
+//
+//  /**
+//   * starts the gui on all clients
+//   */
+//  public void startPlayOnGui() {
+//    for (int i = 0; i < this.group.length; i++) {
+//      this.group[i].startPlay();
+//    }
+//  }
 
 
   /**
@@ -305,7 +306,7 @@ public class Play {
    * @return
    * @author awesch
    */
-  public int calculatePointsOfStack(ArrayList<Card> stack) {
+  public int calculatePointsOfStack(List<Card> stack) {
     int sum = 0;
     for (int i = 0; i < stack.size(); i++) {
       sum += stack.get(i).getValue();
@@ -320,16 +321,16 @@ public class Play {
     }
   }
 
-  // only to test stuff
-  public void printHands(String text) {
-    System.out.println(text);
-    for (int i = 0; i < this.group.length; i++) {
-      System.out.println("Hand" + (i + 1));
-      this.printListCards(this.group[i].getHand());
-      System.out.println();
-    }
-    System.out.println();
-  }
+//  // only to test stuff
+//  public void printHands(String text) {
+//    System.out.println(text);
+//    for (int i = 0; i < this.group.length; i++) {
+//      System.out.println("Hand" + (i + 1));
+//      this.printListCards(this.group[i].getHand());
+//      System.out.println();
+//    }
+//    System.out.println();
+//  }
 
 
   /**

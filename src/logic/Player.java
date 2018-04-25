@@ -14,7 +14,7 @@ public class Player {
   private Image img;
   private Position position; 
   private List<Card> hand = new ArrayList<Card>();
-  private int bet;
+  private int bet; //-1 if you passed
   private int gamePoints; // saves the points of every Play until the whole game is over
   private boolean declarer; // true if the player is declarer and false when he/she is opponents
 
