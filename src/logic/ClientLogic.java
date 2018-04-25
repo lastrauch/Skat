@@ -366,7 +366,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
     // TODO Auto-generated method stub
-    
+
   }
 
   /*
@@ -481,40 +481,55 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player.setHand((ArrayList<Card>) cards);
     this.inGameController.updateHand(this.player.getHand());
   }
-  
-  public void checkIfGameIsOver() {
+
+  public void checkIfTrickIsOver() {
     if (this.playState.getCurrentTrick().isFull()) {
-    
-      // check if the whole game is over
-      if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()) {
-        // game is over 
-        // calculate winner
-      } else {
-        this.playState.setPlayNr(this.playState.getPlayNr() + 1);
-        
-        // createNewPlay!!
-        
-        // start auction if "i am" middlehand
-        if (this.player.getPosition() == Position.MIDDLEHAND) {
-          this.inGameController.askForBet(18);
+      // calculate winner trick
+
+      // check if play is over
+      if (this.playState.getTrickNr() == 10) {
+        // calculate winner play
+
+        if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()) {// check if the whole
+                                                                             // game is over
+          // game is over
+          // calculate winner game
+
+        } else {
+          // game is not over
+          this.playState.setPlayNr(this.playState.getPlayNr() + 1);
+          // createNewPlay!!
+
+          // start auction if "i am" middlehand
+          if (this.player.getPosition() == Position.MIDDLEHAND) {
+            this.inGameController.askForBet(18);
+          }
         }
-      }  
-    }
+      } else {
+        // generate new trick
+        // if "i am" winner of last trick --> ask inGameController to play new card
+      }
+    } // if its my turn.. #checkifblatrick .. play card
   }
+
   public boolean checkifTrickIsFull() {
     if (this.playState.getCurrentTrick().isFull()) {
-      
+
       this.playState.setCurrentTrick(new Trick(this.playState));
     }
-    
+
     return false;
   }
+
   public boolean checkIfMyTurnTrick(Player playedLastCard) {
-    if (this.player.getPosition() == Position.FOREHAND && playedLastCard.getPosition() == Position.REARHAND) {
+    if (this.player.getPosition() == Position.FOREHAND
+        && playedLastCard.getPosition() == Position.REARHAND) {
       return true;
-    }else if (this.player.getPosition() == Position.MIDDLEHAND && playedLastCard.getPosition() == Position.FOREHAND) {
+    } else if (this.player.getPosition() == Position.MIDDLEHAND
+        && playedLastCard.getPosition() == Position.FOREHAND) {
       return true;
-    }else if (this.player.getPosition() == Position.REARHAND && playedLastCard.getPosition() == Position.MIDDLEHAND) {
+    } else if (this.player.getPosition() == Position.REARHAND
+        && playedLastCard.getPosition() == Position.MIDDLEHAND) {
       return true;
     } else {
       return false;
