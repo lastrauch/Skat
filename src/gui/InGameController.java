@@ -7,7 +7,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.controls.JFXRadioButton;
 import database.ImplementsGuiInterface;
-import interfaces.DataGui;
 import interfaces.GuiData;
 import interfaces.InGameInterface;
 import javafx.event.EventHandler;
@@ -26,6 +25,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.Card;
 import logic.Colour;
+import logic.GameSettings;
 import logic.PlayMode;
 import logic.PlayState;
 import logic.Position;
@@ -83,6 +83,7 @@ public class InGameController implements Initializable, InGameInterface {
   private int count = 0;
   private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
   private Image temp;
+  private GuiData inte = new ImplementsGuiInterface();
 
 
   /**
@@ -98,6 +99,7 @@ public class InGameController implements Initializable, InGameInterface {
   private ImageView s1, s2, s3;
   @FXML
   private AnchorPane mainPane;
+  @FXML private Label position;
 
 
 
@@ -412,6 +414,27 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void startPlay(ArrayList<Card> hand, Position position) {
     // TODO Auto-generated method stub
+    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
+        (hand.get(0).getNumber().toString().toLowerCase())));
+    c2.setImage(inte.getImage(hand.get(1).getColour().toString().toLowerCase(),
+        (hand.get(1).getNumber().toString().toLowerCase())));
+    c3.setImage(inte.getImage(hand.get(2).getColour().toString().toLowerCase(),
+        (hand.get(2).getNumber().toString().toLowerCase())));
+    c4.setImage(inte.getImage(hand.get(3).getColour().toString().toLowerCase(),
+        (hand.get(3).getNumber().toString().toLowerCase())));
+    c5.setImage(inte.getImage(hand.get(4).getColour().toString().toLowerCase(),
+        (hand.get(4).getNumber().toString().toLowerCase())));
+    c6.setImage(inte.getImage(hand.get(5).getColour().toString().toLowerCase(),
+        (hand.get(5).getNumber().toString().toLowerCase())));
+    c7.setImage(inte.getImage(hand.get(6).getColour().toString().toLowerCase(),
+        (hand.get(6).getNumber().toString().toLowerCase())));
+    c8.setImage(inte.getImage(hand.get(7).getColour().toString().toLowerCase(),
+        (hand.get(7).getNumber().toString().toLowerCase())));
+    c9.setImage(inte.getImage(hand.get(8).getColour().toString().toLowerCase(),
+        (hand.get(8).getNumber().toString().toLowerCase())));
+    c10.setImage(inte.getImage(hand.get(9).getColour().toString().toLowerCase(),
+        (hand.get(9).getNumber().toString().toLowerCase())));
+    this.position.setText(position.toString());
 
   }
 
@@ -426,8 +449,8 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void updateHand(ArrayList<Card> hand) {
     // TODO Auto-generated method stub
-    GuiData inte = new ImplementsGuiInterface();
-    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),(hand.get(0).getNumber().toString().toLowerCase())));
+    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
+        (hand.get(0).getNumber().toString().toLowerCase())));
     c1.setImage(hand.get(0).getImage());
     c2.setImage(hand.get(1).getImage());
     c3.setImage(hand.get(2).getImage());
@@ -472,6 +495,31 @@ public class InGameController implements Initializable, InGameInterface {
     betB.setText(String.valueOf(bet));
     displayAuctionScreen();
     return ButtonListener();
+  }
+
+  @Override
+  public void updateTrick(ArrayList<Card> currentTrick) {
+    // TODO Auto-generated method stub
+    if (currentTrick.get(0) != null) {
+      s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+          (currentTrick.get(1).getNumber().toString().toLowerCase())));
+    } else if(currentTrick.get(0) != null) {
+      s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+          (currentTrick.get(0).getNumber().toString().toLowerCase())));
+    }else if(currentTrick.get(2) != null) {
+      s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+          (currentTrick.get(0).getNumber().toString().toLowerCase())));
+    }
+
+  }
+
+  /**
+   * Not necessary for InGameController
+   */
+  @Override
+  public void setGameSettings(GameSettings gs) {
+    // TODO Auto-generated method stub
+
   }
 
 
@@ -787,12 +835,6 @@ public class InGameController implements Initializable, InGameInterface {
   @FXML
   public void back() {
     main.displayChooseGame();
-  }
-
-  @Override
-  public void updateTrick(Card[] currentTrick) {
-    // TODO Auto-generated method stub
-    
   }
 
 

@@ -197,16 +197,11 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <JFXButton buttonType="RAISED" layoutX="528.0" layoutY="743.0" onAction="#back" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Back (für durchklick Zwecke)" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </JFXButton>
       <ImageView fx:id="s3" fitHeight="205.0" fitWidth="132.0" layoutX="590.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" rotate="14.9" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="999.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../Pictures/Der_Klatschende_K_nig.gif" />
-         </image>
-      </ImageView>
+      <Label fx:id="position" layoutX="544.0" layoutY="725.0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
