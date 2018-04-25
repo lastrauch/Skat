@@ -1,6 +1,5 @@
 package ai;
 
-import database.Cards;
 import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;

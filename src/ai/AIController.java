@@ -44,7 +44,7 @@ public class AIController implements LogicAI{
   }
 
   @Override
-  public void setPlaySettings(PlayState ps) {
+  public void setPlayState(PlayState ps) {
     // TODO Auto-generated method stub
     
   }
