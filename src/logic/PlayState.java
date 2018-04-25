@@ -167,14 +167,14 @@ public class PlayState {
    * @author awesch
    * @return
    */
-  public ArrayList<Card> getStackDeclarer() {
+  public List<Card> getStackDeclarer() {
     return this.declarerStack;
   }
 
   /**
    * @return
    */
-  public ArrayList<Card> getStackOpponents() {
+  public List<Card> getStackOpponents() {
     return this.opponentsStack;
   }
 
