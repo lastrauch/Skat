@@ -34,11 +34,10 @@ public class AIController implements InGameInterface{
   }
   
   public int askToPlayCard() {
-    AIController controller = new AIController(this.bot.getName(), this.bot.getDifficulty(), this.getGameSettings());
     switch (this.bot.getDifficulty()){
-      case EASY: return Easy.playCard(controller);
-      case MEDIUM: return Medium.playCard(controller);
-      case HARD: return Hard.playCard(controller);
+      case EASY: return Easy.playCard(this);
+      case MEDIUM: return Medium.playCard(this);
+      case HARD: return Hard.playCard(this);
       default: return -1;
     }
   }
@@ -86,5 +85,9 @@ public class AIController implements InGameInterface{
   
   public GameSettings getGameSettings(){
     return this.gs;
+  }
+  
+  public Bot getBot(){
+	  return this.bot;
   }
 }
