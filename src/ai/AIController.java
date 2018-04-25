@@ -1,13 +1,14 @@
 package ai;
 
 import java.util.ArrayList;
-import interfaces.LogicAI;
+import interfaces.InGameInterface;
 import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
+import logic.Position;
 
-public class AIController implements LogicAI{
+public class AIController implements InGameInterface{
   private Bot bot;
   private GameSettings gs;
   private PlayState ps;
@@ -26,15 +27,33 @@ public class AIController implements LogicAI{
   }
 
   @Override
-  public void askToPlayCard() {
+  public void startPlay(ArrayList<Card> hand, Position position) {
     // TODO Auto-generated method stub
     
   }
 
   @Override
-  public void askToTakeUpSkat() {
+  public int askToPlayCard() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public void showSecoundsLeftToPlayCard(int seconds) {
     // TODO Auto-generated method stub
     
+  }
+
+  @Override
+  public void askToTakeUpSkat(PlayState ps) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public boolean askForBet(int bet) {
+    // TODO Auto-generated method stub
+    return false;
   }
 
   @Override
@@ -44,13 +63,20 @@ public class AIController implements LogicAI{
   }
 
   @Override
-  public void setPlayState(PlayState ps) {
+  public void setPlaySettings(PlayState ps) {
     // TODO Auto-generated method stub
     
   }
-  
-  //TODO Problem: Player and Interface invoke a method askForBet with different return Types
-  public void askForBet(int bet){
+
+  @Override
+  public void updateTrick(ArrayList<Card> currentTrick) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void setGameSettings(GameSettings gs) {
+    // TODO Auto-generated method stub
     
   }
 
