@@ -1,5 +1,6 @@
 package interfaces;
 
+import ai.BotDifficulty;
 import javafx.scene.image.Image;
 import logic.GameMode;
 
@@ -50,4 +51,11 @@ public interface GuiLogic {
    * @param botname
    */
   public void deleteBot(String botname); 
+  
+  /**
+   * Should create a new bot with the set difficulty
+   * @param botname
+   * @param difficulty
+   */
+  public void setBot(String botname, BotDifficulty difficulty);
 }
