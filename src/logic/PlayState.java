@@ -1,12 +1,13 @@
  package logic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayState {
   private Player declarer; // single player
   private Player[] opponents; // team Players
-  private ArrayList<Card> declarerStack;
-  private ArrayList<Card> opponentsStack;
+  private List<Card> declarerStack;
+  private List<Card> opponentsStack;
   private Card[] skat;
   private Colour trump;
   private int playValue;
@@ -20,6 +21,7 @@ public class PlayState {
   private boolean schwarzAnnounced;
   private boolean open;
   private int baseValue;
+  private Trick currentTrick;
 
   /**
    * constructor (default)

@@ -11,8 +11,7 @@ public class Auction {
                                                    // forehand
   private int[] possibleBets; // list of the possible bets
   private int[] bets = new int[3]; // bets of the players, index: same as auctionMembers
-  private ClientLogic clientLogic;
-
+  
   /**
    * constructor
    * 
@@ -23,7 +22,6 @@ public class Auction {
     this.auctionMembers = auctionMembers;
     this.initializePossibleBets();
     this.initializeBets();
-    this.clientLogic = clientLogic;
   }
 
   public void runAuction(PlayState ps) {

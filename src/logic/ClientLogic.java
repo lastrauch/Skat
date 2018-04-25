@@ -16,7 +16,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
   Player player;
   InGameInterface inGameController; // implemented by Gui or Ai
   NetworkController netController;
-  Game game;
+  PlayState playState;
+  Player[] group;
+  Game game; // delete that
 
   public ClientLogic(Player player, InGameInterface inGameController, NetworkController netController) {
     this.player = player;
