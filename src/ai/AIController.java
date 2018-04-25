@@ -1,6 +1,7 @@
 package ai;
 
 import java.util.ArrayList;
+import java.util.List;
 import interfaces.InGameInterface;
 import logic.Card;
 import logic.GameSettings;
@@ -20,64 +21,70 @@ public class AIController implements InGameInterface{
   private boolean[] hasColour;
   private boolean[] hasTrump;
   private int existingTrumps;   //Trumps left in the whole game, including own cards
- 
+  private List<Card> currentTrick;
+  
   public AIController(String name, BotDifficulty difficulty, GameSettings gs){
     this.bot = new Bot(name, difficulty);
     this.gs = gs;
   }
 
-  @Override
   public void startPlay(ArrayList<Card> hand, Position position) {
-    // TODO Auto-generated method stub
-    
+    this.bot.setHand(hand);
+    this.bot.setPosition(position);
   }
-
-  @Override
+  
   public int askToPlayCard() {
-    // TODO Auto-generated method stub
-    return 0;
+    AIController controller = new AIController(this.bot.getName(), this.bot.getDifficulty(), this.getGameSettings());
+    switch (this.bot.getDifficulty()){
+      case EASY: return Easy.playCard(controller);
+      case MEDIUM: return Medium.playCard(controller);
+      case HARD: return Hard.playCard(controller);
+      default: return -1;
+    }
   }
 
-  @Override
+  
   public void showSecoundsLeftToPlayCard(int seconds) {
-    // TODO Auto-generated method stub
-    
+    //Do nothing and expect the AI to react in sufficient time.
   }
 
-  @Override
+  
   public void askToTakeUpSkat(PlayState ps) {
     // TODO Auto-generated method stub
     
   }
 
-  @Override
+  
   public boolean askForBet(int bet) {
-    // TODO Auto-generated method stub
-    return false;
+    switch (this.bot.getDifficulty()){
+      case EASY: return Easy.setBet(this, bet);
+      case MEDIUM: return Medium.setBet(this, bet);
+      case HARD: return Hard.setBet(this, bet);
+      default: return false;
+    }
   }
 
-  @Override
+  
   public void updateHand(ArrayList<Card> hand) {
-    // TODO Auto-generated method stub
-    
+   this.bot.setHand(hand);
   }
 
-  @Override
+  
   public void setPlaySettings(PlayState ps) {
-    // TODO Auto-generated method stub
-    
+    this.ps = ps;
   }
 
-  @Override
+  
   public void updateTrick(ArrayList<Card> currentTrick) {
-    // TODO Auto-generated method stub
-    
+    this.currentTrick = currentTrick;
   }
 
-  @Override
+  
   public void setGameSettings(GameSettings gs) {
-    // TODO Auto-generated method stub
-    
+    this.gs = gs;
   }
-
+  
+  public GameSettings getGameSettings(){
+    return this.gs;
+  }
 }

@@ -13,5 +13,12 @@ public class Bot extends Player{
     this.difficulty = difficulty;
   }
   
+  public void setDifficulty(BotDifficulty difficulty){
+    this.difficulty = difficulty;
+  }
+  
+  public BotDifficulty getDifficulty(){
+    return this.difficulty;
+  }
   
 }
