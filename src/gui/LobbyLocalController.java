@@ -2,6 +2,7 @@ package gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import ai.BotDifficulty;
 import interfaces.GuiLogic;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ public class LobbyLocalController implements Initializable {
 
   private GuiController main;
   private int bot;
+  private GuiLogic guiL = new GameController();
 
   @FXML
   private MenuItem easy1, med1, dif1, easy2, med2, dif2, easy3, med3, dif3, dis3;
@@ -57,9 +59,9 @@ public class LobbyLocalController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         if (checkIfBotEnabled()) {
-          GuiLogic guiL = new GameController();
-          guiL.deleteBot("bot1");
+          guiL.deleteBot("Bot1");
         }
+        guiL.setBot("Bot1", BotDifficulty.EASY);
         bot1.setText("Easy");
       }
     });
@@ -67,9 +69,9 @@ public class LobbyLocalController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         if (checkIfBotEnabled()) {
-          GuiLogic guiL = new GameController();
-          guiL.deleteBot("bot1");
+          guiL.deleteBot("Bot1");
         }
+        guiL.setBot("Bot1", BotDifficulty.MEDIUM);
         bot1.setText("Medium");
       }
     });
@@ -77,9 +79,9 @@ public class LobbyLocalController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         if (checkIfBotEnabled()) {
-          GuiLogic guiL = new GameController();
-          guiL.deleteBot("bot1");
+          guiL.deleteBot("Bot1");
         }
+        guiL.setBot("Bot1", BotDifficulty.HARD);
         bot1.setText("Hard");
       }
     });
@@ -87,9 +89,9 @@ public class LobbyLocalController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         if (checkIfBotEnabled()) {
-          GuiLogic guiL = new GameController();
-          guiL.deleteBot("bot2");
+          guiL.deleteBot("Bot2");
         }
+        guiL.setBot("Bot2", BotDifficulty.EASY);
         bot2.setText("Easy");
       }
     });
@@ -97,9 +99,9 @@ public class LobbyLocalController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         if (checkIfBotEnabled()) {
-          GuiLogic guiL = new GameController();
-          guiL.deleteBot("bot2");
+          guiL.deleteBot("Bot2");
         }
+        guiL.setBot("Bot2", BotDifficulty.MEDIUM);
         bot2.setText("Medium");
       }
     });
@@ -107,9 +109,9 @@ public class LobbyLocalController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         if (checkIfBotEnabled()) {
-          GuiLogic guiL = new GameController();
-          guiL.deleteBot("hard2");
+          guiL.deleteBot("Bot2");
         }
+        guiL.setBot("Bot2", BotDifficulty.HARD);
         bot2.setText("Hard");
       }
     });
@@ -117,9 +119,9 @@ public class LobbyLocalController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         if (checkIfBotEnabled()) {
-          GuiLogic guiL = new GameController();
-          guiL.deleteBot("bot1");
+          guiL.deleteBot("Bot3");
         }
+        guiL.setBot("Bot3", BotDifficulty.EASY);
         bot3.setText("Easy");
       }
     });
@@ -127,9 +129,9 @@ public class LobbyLocalController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         if (checkIfBotEnabled()) {
-          GuiLogic guiL = new GameController();
-          guiL.deleteBot("bot3");
+          guiL.deleteBot("Bot3");
         }
+        guiL.setBot("Bot3", BotDifficulty.MEDIUM);
         bot3.setText("Medium");
       }
     });
@@ -137,9 +139,9 @@ public class LobbyLocalController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         if (checkIfBotEnabled()) {
-          GuiLogic guiL = new GameController();
-          guiL.deleteBot("bot3");
+          guiL.deleteBot("Bot3");
         }
+        guiL.setBot("Bo31", BotDifficulty.HARD);
         bot3.setText("Hard");
       }
     });
@@ -147,8 +149,7 @@ public class LobbyLocalController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         if (checkIfBotEnabled()) {
-          GuiLogic guiL = new GameController();
-          guiL.deleteBot("bot3");
+          guiL.deleteBot("Bot3");
         }
         bot3.setText("Disabled");
       }
