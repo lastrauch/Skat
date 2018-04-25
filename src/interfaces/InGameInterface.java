@@ -70,4 +70,10 @@ public interface InGameInterface {
    * @param gs
    */
   public void setGameSettings(GameSettings gs);
+  
+  /**
+   * stops the game and tells why
+   * @param reason
+   */
+  public void stopGame(String reason);
 }

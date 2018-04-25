@@ -6,11 +6,12 @@ import gui.ImplementsLogicGui;
 import interfaces.GuiLogic;
 import interfaces.LogicGui;
 import interfaces.LogicNetwork;
+import interfaces.NetworkLogic;
 import javafx.scene.image.Image;
 
 public class GameController implements GuiLogic{
 
-  private List<Player> group;
+  private Player[] group;
   private LogicGui logicGui;   // interface from logic to gui
   private LogicNetwork logicNetwork;    // interface from logic to network
   private GuiLogic guiLogic;    // interface from gui to logic
@@ -34,14 +35,11 @@ public class GameController implements GuiLogic{
     int index = 0;
     Player temp;
 
-    Iterator<Player> it = this.group.iterator();
-    
-    while(it.hasNext()) {
-      randomIndex = (int) (Math.random() * (this.group.size()));
-      temp = this.group.get(index);
-      this.group.set(index, this.group.get(randomIndex));
-      this.group.set(randomIndex, temp);
-      index ++;
+    for (int i = 0; i < group.length; i++) {
+      randomIndex = (int) (Math.random() * (this.group.length));
+      temp = this.group[i];
+      this.group[i] = this.group[randomIndex];
+      this.group[randomIndex] = this.group[i];
     }
   }
 
@@ -61,11 +59,11 @@ public class GameController implements GuiLogic{
   @Override
   public void decideGameMode(GameMode m) {
     // TODO Auto-generated method stub
-    if (m == GameMode.MULTIPLAYER) {
-      this.logicGui.openMultiPlayerLobby();
-    }else {
-      this.logicGui.openSinglePlayerLobby();
-    }
+//    if (m == GameMode.MULTIPLAYER) {
+//      this.logicGui.openMultiPlayerLobby();
+//    }else {
+//      this.logicGui.openSinglePlayerLobby();
+//    }
   }
 
   /* (non-Javadoc)

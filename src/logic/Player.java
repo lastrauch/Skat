@@ -101,22 +101,7 @@ public class Player {
 
   // methods needed for the auction.. say,
 
-  /**
-   * maybe something for the logic gui interface??? created for the auction
-   * 
-   * @author awesch
-   * @param bet
-   * @return
-   */
-  public boolean askForBet(int bet) {
-    // int whatTheySaid = IOTools.readInteger(this.name + " " + bet + " or PASS(0)?");
-    // if (whatTheySaid == bet) {
-    // return true;
-    // } else {
-    // return false;
-    // }
-    return this.inGameController.askForBet(bet);
-  }
+ 
 
   /**
    * needs to be changed for the final version probably a method for the logicGui/logicNetwork

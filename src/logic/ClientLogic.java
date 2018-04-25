@@ -9,17 +9,19 @@ import interfaces.GuiLogic;
 import interfaces.InGameInterface;
 import interfaces.NetworkLogic;
 import javafx.scene.image.Image;
+import network.NetworkController;
 
 public class ClientLogic implements NetworkLogic, AILogic {
 
   Player player;
   InGameInterface inGameController; // implemented by Gui or Ai
-  // NetworkController
+  NetworkController netController;
   Game game;
 
-  public ClientLogic(Player player, InGameInterface inGameController) {
+  public ClientLogic(Player player, InGameInterface inGameController, NetworkController netController) {
     this.player = player;
     this.inGameController = inGameController;
+    this.netController = netController;
   }
 
   /**
@@ -50,6 +52,18 @@ public class ClientLogic implements NetworkLogic, AILogic {
     return null;
   }
 
+  
+  /**
+   * maybe something for the logic gui interface??? created for the auction
+   * 
+   * @author awesch
+   * @param bet
+   * @return
+   */
+  public boolean askForBet(int bet) {
+    return this.inGameController.askForBet(bet);
+  }
+  
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
    * of the trick and the PlayMode
@@ -325,6 +339,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void addToGamePoints(int points) {
     this.player.addToGamePoints(points);
   }
+  
+  //public Player searchPlayer(Player player) {
+   // for(int i = 0; i < )
+  //}
 
   /*
    * (non-Javadoc)
@@ -345,7 +363,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
     // TODO Auto-generated method stub
-
   }
 
   /*
@@ -388,7 +405,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveBet(Player player, int bet) {
     // TODO Auto-generated method stub
-
+ 
   }
 
   /*
@@ -433,7 +450,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receiveYourTurn() {
     // TODO Auto-generated method stub
     Card playedCard = this.playCard(this.game.getCurrentPlay().getCurrentTrick().getFirstCard());
-    // send played card!
+    // send played card
+    this.netController.sendCardPlayed(playedCard);
   }
 
   /*
@@ -444,7 +462,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receivePlayerDisconnected(Player player) {
     // TODO Auto-generated method stub
-
+    this.inGameController.stopGame("player disconnected");
   }
 
   /*
