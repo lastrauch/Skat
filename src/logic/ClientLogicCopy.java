@@ -419,14 +419,28 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     int newBet = this.calculateNewBet(bet);
     this.updateBet(player, bet);
     if (this.checkIfItsMyTurnAuction(player)) {
-
+      this.inGameController.askForBet(newBet);
     }
-
   }
 
+  // possible bets.. if the last two bets were the same nr, you go one bet higher
+  // exceptions: the first two Players passed --> still 18, the last Player passed.. then still the
+  // current betValue
   public int calculateNewBet(int currentBet) {
     int lastBet = this.playState.getAuction().getBetValue();
-    return 0;
+    int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
+    // exceptions:
+    if (this.oneOfTheOtherPlayersPassedAlready() && currentBet == -1) {
+      return this.playState.getAuction().getPossibleBets()[0];
+    }
+    if (currentBet == -1) {
+      return lastBet;
+    }
+    // standart
+    if (lastBet == currentBet) {
+      return this.playState.getAuction().getPossibleBets()[lastBetIndex + 1];
+    }
+    return lastBet;
   }
 
   public void updateBet(Player player, int bet) {
