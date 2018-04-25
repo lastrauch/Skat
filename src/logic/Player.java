@@ -7,15 +7,15 @@ import interfaces.LogicGui;
 import interfaces.LogicNetwork;
 import javafx.scene.image.Image;
 
-public class Player extends ImplementsGuiInterface{
+public class Player {
   private int id;
   private String name;
   private Image img;
-  private Position position;
+  private Position position; // delete?!
   private ArrayList<Card> hand = new ArrayList<Card>();
   private int bet;
   private int gamePoints; // saves the points of every Play until the whole game is over
-  private boolean host;
+  private boolean host; // don't need this?!!
   public InGameInterface inGameController; // every player has his/her own gui and need a
                                             // controller
   private boolean isAi;
@@ -36,19 +36,6 @@ public class Player extends ImplementsGuiInterface{
     this.isAi = isAi;
   }
 
-  // pos is the position of the card in the hand of the player
-  public Card playCard() {
-    Card card = null;
-    try {
-      do {
-        card = this.hand.get(this.inGameController.askToPlayCard());
-      } while(!this.checkIfCardPossible(card, this.playState.getCurrentTrick().getFirstCard()));
-      this.removeCardFromHand(card);
-    } catch (LogicException e) {
-      e.printStackTrace();
-    }
-    return card;
-  }
   
   public void updateHand() {
     this.inGameController.updateHand(this.hand);

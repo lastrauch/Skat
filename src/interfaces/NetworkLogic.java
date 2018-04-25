@@ -8,7 +8,6 @@ import logic.PlayState;
 import logic.Player;
 
 //Network to Logic, implemented by Logic
-//Network to Logic, implemented by Logic
 public interface NetworkLogic {
 	//receive Answer to connection request
 	void receiveConnectionRequestAsnwer(boolean accepted);
