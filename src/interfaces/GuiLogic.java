@@ -38,6 +38,6 @@ public interface GuiLogic {
    * 
    * @param username
    */
-  public void login(String username);
+  public void login(String username, Image profilepicture);
 
 }

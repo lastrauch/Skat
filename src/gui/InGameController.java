@@ -26,6 +26,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.Card;
 import logic.Colour;
+import logic.GameSettings;
 import logic.PlayMode;
 import logic.PlayState;
 import logic.Position;
@@ -789,8 +790,15 @@ public class InGameController implements Initializable, InGameInterface {
     main.displayChooseGame();
   }
 
+
   @Override
-  public void updateTrick(Card[] currentTrick) {
+  public void updateTrick(ArrayList<Card> currentTrick) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void setGameSettings(GameSettings gs) {
     // TODO Auto-generated method stub
     
   }
