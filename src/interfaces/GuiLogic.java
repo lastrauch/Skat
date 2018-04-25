@@ -4,6 +4,10 @@ import javafx.scene.image.Image;
 import logic.GameMode;
 
 // GUI to Logic, implemented by Logic
+/**
+ * @author Larissa
+ *
+ */
 public interface GuiLogic {
 
 
@@ -39,5 +43,11 @@ public interface GuiLogic {
    * @param username
    */
   public void login(String username, Image profilepicture);
-
+  
+  
+  /**
+   * Should delete an already existing bot if difficulty has changed
+   * @param botname
+   */
+  public void deleteBot(String botname); 
 }
