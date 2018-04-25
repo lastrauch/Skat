@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 import logic.Card;
 import logic.Player;
 
-public class DatabaseHandler extends database {
+public class DatabaseHandler extends Database {
   
   private static PreparedStatement insertPlayer;
   private static PreparedStatement selectPlayer;
