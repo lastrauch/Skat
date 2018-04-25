@@ -9,6 +9,10 @@ import logic.GameMode;
  * @author Larissa
  *
  */
+/**
+ * @author Larissa
+ *
+ */
 public interface GuiLogic {
 
 
@@ -58,4 +62,17 @@ public interface GuiLogic {
    * @param difficulty
    */
   public void setBot(String botname, BotDifficulty difficulty);
+  
+  /**
+   * returns a new chat message
+   * @return
+   */
+  public String getChatText();
+  
+  /**
+   * send the just tipped chat message
+   * @param message
+   */
+  public void sendChatText(String message);
+  
 }

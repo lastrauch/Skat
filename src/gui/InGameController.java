@@ -6,8 +6,11 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import database.ImplementsGuiInterface;
 import interfaces.GuiData;
+import interfaces.GuiLogic;
 import interfaces.InGameInterface;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,6 +28,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.Card;
 import logic.Colour;
+import logic.GameController;
 import logic.GameSettings;
 import logic.PlayMode;
 import logic.PlayState;
@@ -84,6 +88,7 @@ public class InGameController implements Initializable, InGameInterface {
   private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
   private Image temp;
   private GuiData inte = new ImplementsGuiInterface();
+  private GuiLogic inteGL = new GameController();
 
 
   /**
@@ -100,6 +105,9 @@ public class InGameController implements Initializable, InGameInterface {
   @FXML
   private AnchorPane mainPane;
   @FXML private Label position;
+  @FXML private JFXTextField textM;
+  @FXML private JFXTextArea chatM;
+  @FXML private JFXButton sendB;
 
 
 
@@ -396,6 +404,20 @@ public class InGameController implements Initializable, InGameInterface {
   public void deletePane(AnchorPane tpane) {
     mainPane.getChildren().remove(tpane);
   }
+  
+  public void showChat() {
+    JFXTextField rMes = new JFXTextField();
+    rMes.setText((inteGL.getChatText()));
+    chatM.appendText(rMes + "\n");
+    
+  }
+  
+  public void sendChat() {
+    String message;
+    message = textM.getText();
+    inteGL.sendChatText(message);
+        
+  }
 
 
 
@@ -470,7 +492,7 @@ public class InGameController implements Initializable, InGameInterface {
     deletePane(paneAuc);
     displayAuctionWinnerScreen();
     ButtonListenerPlaySettings(ps);
-
+    
   }
 
 
@@ -797,6 +819,10 @@ public class InGameController implements Initializable, InGameInterface {
     handPane.getChildren().add(sk2);
 
     mainPane.getChildren().add(handPane);
+  }
+  
+  public void displayChatScreen() {
+    
   }
 
 
