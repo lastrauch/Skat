@@ -5,8 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class Database {
-  
+public class Database { 
   Properties properties;
   protected Connection connection = null;
   private static String sep = System.getProperty("file.separator");
