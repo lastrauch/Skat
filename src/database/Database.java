@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class database {
+public class Database {
 	
   protected Connection connection;
   Properties properties;
   
-  public database() {
+  public Database() {
     this.connect(System.getProperty("user.dir") + System.getProperty("file.separator") + "resources"
             + System.getProperty("file.separator") + "SkatData.db");
   }

@@ -35,17 +35,18 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
   }
 
   @Override
-  public BufferedImage getImageDarker(String colour, String number) {
+  public Image getImageDarker(String colour, String number) {
     // TODO Auto-generated method stub
-    BufferedImage img = null;
+    Image img = null;
     try {
       selectCardDarker.setString(1, colour);
       selectCardDarker.setString(2, number);
       selectCardDarker.execute();
       ResultSet rs = selectCardDarker.executeQuery();
-      rs.next();
+      while(rs.next()) {
       InputStream in = rs.getBinaryStream("image_Dark");    
-      img = ImageIO.read(in);
+      img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
+    }
       } catch (Exception e) {       
         e.printStackTrace();
       } 
