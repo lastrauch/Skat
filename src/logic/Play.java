@@ -9,10 +9,8 @@ public class Play {
 
   private Player[] group; // gives us the Players and their position (first one is the
                           // forehand)
-
   private Card[] cards;
   private Trick[] tricks;
-  private Auction auction; // every play has one auction
   private int currentTrick;
   private int indexWinnerLastTrick;
   private PlayState ps;
@@ -20,6 +18,7 @@ public class Play {
   private GameSettings gameSettings;
   private boolean singlePlayerWins;
   private LogicNetwork logicNetwork;
+  private ClientLogic clientLogic;
 
   /**
    * constructor
@@ -60,8 +59,8 @@ public class Play {
 
       // test:
       // this.printHands("after first sortCards:");
-      auction = new Auction(this.group, this.ps);
-      
+      Auction auction = new Auction(this.group, this.clientLogic);
+      auction.runAuction(this.ps);
       // // test (without auction)
       // this.ps.setPlayMode(PlayMode.NULLOUVERT);
       // this.ps.setTrump(Colour.CLUBS);
@@ -92,7 +91,7 @@ public class Play {
       // System.out.println(this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
 
       // first player plays card
-      card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
+     // card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
 
       // test random card
       // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
@@ -117,7 +116,7 @@ public class Play {
       // .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
       // this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
       // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
-      card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
+     // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
 
 //
 //        // remove card from second players hand
@@ -137,7 +136,7 @@ public class Play {
       // this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
       // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
 
-      card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
+      // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
 
 
 //        // remove card from third players hand
@@ -164,9 +163,7 @@ public class Play {
           ps.addToStackOpponents(tricks[i]);
         }
 
-        // declarer is not allowed to win a trick when playMode is NULL/NULLOUVERT
-
-        // SCHNEIDER SCHWARZ!!!!?????
+        // declarer is not allowed to win a trick when playMode is NULL
         if (this.ps.getPlayMode() == PlayMode.NULL) {
           if (this.ps.getDeclarer().equals(this.group[this.indexWinnerLastTrick])) {
             this.singlePlayerWins = false;
@@ -186,14 +183,16 @@ public class Play {
     }
     // calculate if the declarer won the play
     this.singlePlayerWins = this.calculateWinner();
-
     // update the gamePoints of each player
     try {
       this.calculatePoints();
+      this.logicNetwork.sendPlayState(this.ps);
     } catch (LogicException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+    
+  //  this.logicNetwork.endPlay(this.singlePlayerWins);
   }
 
   // to test stuff
@@ -682,6 +681,9 @@ public class Play {
     return this.ps;
   }
 
+  public void setPlayState(PlayState ps) {
+    this.ps = ps;
+  }
   /**
    * gets the last trick (not only important for AI)
    * 

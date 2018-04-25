@@ -68,7 +68,7 @@ public interface LogicData {
   public void changeName(Player player, String name);
 
   /**
-   * changes the players profile pictue
+   * changes the players profile picture
    * 
    * @param player
    * @param image

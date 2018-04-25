@@ -1,77 +1,80 @@
 package logic;
 
-import gui.GuiController;
+import java.util.Iterator;
+import java.util.List;
+import gui.ImplementsLogicGui;
 import interfaces.GuiLogic;
-import interfaces.LogicData;
 import interfaces.LogicGui;
 import interfaces.LogicNetwork;
-import javafx.application.Application;
 import javafx.scene.image.Image;
-import javafx.stage.Stage;
 
-public class GameController {
+public class GameController implements GuiLogic{
 
-  private Player[] group;
-  // private GuiController guiController;
-  private LogicGui logicGui;
-  private LogicData logicData;
-  private LogicNetwork logicNetwork;
+  private List<Player> group;
+  private LogicGui logicGui;   // interface from logic to gui
+  private LogicNetwork logicNetwork;    // interface from logic to network
+  private GuiLogic guiLogic;    // interface from gui to logic
+  private List<ClientLogic> clientLogic;
   private Game game;
-
-  public GameController(GuiController guiController) {
-    this.group = new Player[4]; // if only 3 are playing group[3] is empty
-    // this.guiController = guiController;
-  }
-
-  public GameController() {
-    this.group = new Player[4];
-  }
-
-  public void generateGame(GameMode gameMode) {
-    this.game = new Game(gameMode);
-  }
-
-  public void logIn(String username) {
-    this.group[0] = this.logicData.getPlayer(username);
-  }
-
-  public void updateAccount(String oldUsername, String newUsername, Image profilbild) {
-
-    Player updateThisPlayer;
-    try {
-      // update player in group
-      updateThisPlayer = this.searchPlayer(oldUsername);
-      updateThisPlayer.setName(newUsername);
-      updateThisPlayer.setImage(profilbild);
-
-      // update player in own database
-      this.updatePlayerInOwnDatabase(updateThisPlayer);
-
-      // update player in ALL databases
-      this.logicNetwork.updatePlayer(updateThisPlayer);
-    } catch (LogicException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public Player searchPlayer(String userName) throws LogicException {
-    for (int i = 0; i < this.group.length; i++) {
-      if (this.group[i] != null) {
-        if (this.group[i].getName().equals(userName)) {
-          return this.group[i];
-        }
-      }
-    }
-    throw new LogicException("Player not found!");
-  }
-
-  public void updatePlayerInOwnDatabase(Player player) {
-    this.logicData.updatePlayer(player);
-  }
-
-  public static void main(String[] args) {
-  // Application.launch(GuiController.class, args);
   
+  public GameController(ImplementsLogicGui logicGui) {
+    this.logicGui = logicGui;
+  }
+
+  public GameController() {}
+
+ 
+  /**
+   * defines in which order players "sitting on a table" (random)
+   * 
+   * @author sandfisc
+   */
+  public void defineSeatingList(Player[] group) {
+    int randomIndex;
+    int index = 0;
+    Player temp;
+
+    Iterator<Player> it = this.group.iterator();
+    
+    while(it.hasNext()) {
+      randomIndex = (int) (Math.random() * (this.group.size()));
+      temp = this.group.get(index);
+      this.group.set(index, this.group.get(randomIndex));
+      this.group.set(randomIndex, temp);
+      index ++;
+    }
+  }
+
+
+  /* (non-Javadoc)
+   * @see interfaces.GuiLogic#updateAccount(java.lang.String, java.lang.String, javafx.scene.image.Image)
+   */
+  @Override
+  public void updateAccount(String oldUsername, String newUsername, Image profilbild) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.GuiLogic#decideGameMode(logic.GameMode)
+   */
+  @Override
+  public void decideGameMode(GameMode m) {
+    // TODO Auto-generated method stub
+    if (m == GameMode.MULTIPLAYER) {
+      this.logicGui.openMultiPlayerLobby();
+    }else {
+      this.logicGui.openSinglePlayerLobby();
+    }
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.GuiLogic#login(java.lang.String)
+   */
+  @Override
+  public void login(String username) {
+    // TODO Auto-generated method stub
+    
   }
 
 

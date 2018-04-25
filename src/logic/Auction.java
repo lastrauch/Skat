@@ -1,6 +1,8 @@
 package logic;
 
 import java.util.ArrayList;
+import gui.InGameController;
+import interfaces.InGameInterface;
 
 public class Auction {
 
@@ -9,6 +11,7 @@ public class Auction {
                                                    // forehand
   private int[] possibleBets; // list of the possible bets
   private int[] bets = new int[3]; // bets of the players, index: same as auctionMembers
+  private ClientLogic clientLogic;
 
   /**
    * constructor
@@ -16,10 +19,14 @@ public class Auction {
    * @param auctionMembers
    * 
    */
-  public Auction(Player[] auctionMembers, PlayState ps) {
+  public Auction(Player[] auctionMembers, ClientLogic clientLogic) {
     this.auctionMembers = auctionMembers;
     this.initializePossibleBets();
     this.initializeBets();
+    this.clientLogic = clientLogic;
+  }
+
+  public void runAuction(PlayState ps) {
     try {
       this.organizeAuction();
       this.mangageSkat(ps);
@@ -35,7 +42,6 @@ public class Auction {
       ps.setAuctionPossible(false);
     }
   }
-
 
   /**
    * initializes the array of possible bets
@@ -274,7 +280,7 @@ public class Auction {
     }
     ps.setBetValue(bV);
     ps.initializeBaseValue();
-    ps.setPlayValue(this.winner.calculatePlayValue(ps));
+//    ps.setPlayValue(this.winner.calculatePlayValue(ps));
   }
 
   public void mangageSkat(PlayState ps) {
@@ -316,7 +322,6 @@ public class Auction {
     Card card1;
     Card card2;
     try {
-
       card1 = this.winner.chooseCardFromHand();
       ps.addToStackDeclarer(card1);
       this.winner.removeCardFromHand(card1);
@@ -334,21 +339,11 @@ public class Auction {
     }
   }
 
-
-
-  // public static void main(String[] args) {
-  // Player sandra = new Player("Sandra");
-  // Player larissa = new Player("Larissa");
-  // Player felix = new Player("Felix");
-  //
-  // Player[] crew = new Player[3];
-  // crew[0] = sandra;
-  // crew[1] = larissa;
-  // crew[2] = felix;
-  //
-  // PlayState ps = new PlayState();
-  // Auction test = new Auction(crew, ps);
-  // }
+//  public static void main(String[] args) {
+//    Player[] group = new Player[3];
+//    InGameController igc = new InGameController();
+//    Auction auction = new Auction(group, igc);
+//  }
 
 
 }
