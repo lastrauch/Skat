@@ -426,6 +426,8 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void updateHand(ArrayList<Card> hand) {
     // TODO Auto-generated method stub
+    GuiData inte = new ImplementsGuiInterface();
+    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),(hand.get(0).getNumber().toString().toLowerCase())));
     c1.setImage(hand.get(0).getImage());
     c2.setImage(hand.get(1).getImage());
     c3.setImage(hand.get(2).getImage());
@@ -793,10 +795,6 @@ public class InGameController implements Initializable, InGameInterface {
     
   }
 
-  public void getImage() {
-    GuiData inte = new ImplementsGuiInterface();
-    inte.getImage("hearts", "7");
-  }
 
 
 }
