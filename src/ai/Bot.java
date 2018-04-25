@@ -19,10 +19,9 @@ public class Bot extends Player{
   private boolean[] hasTrump;
   private int existingTrumps;   //Trumps left in the whole game, including own cards
  
-  public Bot(String name, BotDifficulty difficulty, GameSettings gs){
+  public Bot(String name, BotDifficulty difficulty){
     super(name);
     this.difficulty = difficulty;
-    this.gs = gs;
   }
   
   
