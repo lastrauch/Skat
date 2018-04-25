@@ -90,4 +90,12 @@ public class AIController implements InGameInterface{
   public Bot getBot(){
 	  return this.bot;
   }
+  
+  public PlayState getPlayState(){
+	  return this.getPlayState();
+  }
+  
+  public List<Card> getCurrentTrick(){
+	  return this.currentTrick;
+  }
 }
