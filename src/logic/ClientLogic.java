@@ -17,7 +17,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
   InGameInterface inGameController; // implemented by Gui or Ai
   NetworkController netController;
   PlayState playState;
-  Player[] group;
 
   public ClientLogic(Player player, InGameInterface inGameController,
       NetworkController netController) {

@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.List;
 import interfaces.InGameInterface;
 import interfaces.LogicData;
 import interfaces.LogicGui;
@@ -11,54 +12,30 @@ public class Player {
   private int id;
   private String name;
   private Image img;
-  private Position position; // delete?!
-  private ArrayList<Card> hand = new ArrayList<Card>();
+  private Position position; 
+  private List<Card> hand = new ArrayList<Card>();
   private int bet;
   private int gamePoints; // saves the points of every Play until the whole game is over
-  private boolean host; // don't need this?!!
-  public InGameInterface inGameController; // every player has his/her own gui and need a
-                                            // controller
-  private boolean isAi;
-  private PlayState playState;
-  
-  public LogicGui logicGui;
-  public LogicData logicData;
-  public LogicNetwork logicNetwork;
+  private boolean declarer; // true if the player is declarer and false when he/she is opponents
 
   public Player(String name) {
     this.name = name;
     this.bet = 0;
   }
   
-  //public Player(String name, int id, )
-  
-  public Player(String name, boolean isAi) {
+  public Player(String name, int id, Image img, Position position, List<Card> hand, int bet, int gamePoints, boolean declarer) {
     this.name = name;
-    this.bet = 0;
-    this.isAi = isAi;
+    this.id = id;
+    this.img = img;
+    this.position = position;
+    this.hand = hand;
+    this.bet = bet;
+    this.gamePoints = gamePoints;
+    this.declarer = declarer;
   }
 
   public Player copyMe() {
-    return new Player(this.name);    
-  }
-  
-  public void updateHand() {
-    this.inGameController.updateHand(this.hand);
-  }
-  
-  public void startPlay() {
-    this.inGameController.startPlay(this.hand, this.position);
-  }
-
-  public Card chooseCardFromHand() throws LogicException {
-    System.out.println(this.name);
-    int index = IOTools.readInteger("index of chosen card: ");
-
-    if (index >= this.hand.size()) {
-      throw new LogicException("the given index is too high!");
-    }
-    Card chosenCard = this.hand.get(index);
-    return chosenCard;
+    return new Player(this.name, this.id, this.img, this.position, this.hand, this.bet, this.gamePoints, this.declarer);    
   }
 
   public Card chooseRandomCardFromHand() {
@@ -89,7 +66,7 @@ public class Player {
     if (!found) {
       throw new LogicException("Removing the played card from the hand was not possible!");
     }
-    this.inGameController.updateHand(this.hand);
+//    this.inGameController.updateHand(this.hand);
   }
   
   
@@ -104,65 +81,6 @@ public class Player {
     // }
   }
 
-  // methods needed for the auction.. say,
-
- 
-
-  /**
-   * needs to be changed for the final version probably a method for the logicGui/logicNetwork
-   * interface created for the auction
-   * 
-   * @param ps
-   * @author awesch
-   */
-  public void askForPlaySettings(PlayState ps) {
-
-    // set playmode
-    String pm = IOTools.readLine("Set the PlayMode (colour, grand, null): ");
-    PlayMode playMode;
-    switch (pm) {
-      case "colour":
-        playMode = PlayMode.SUIT;
-        break;
-      case "grand":
-        playMode = PlayMode.GRAND;
-        break;
-      case "null":
-        playMode = PlayMode.NULL;
-        ps.setTrump(null);
-        break;
-      default:
-        System.out.println("your PlayMode could not be identificated, you will play Null now.");
-        playMode = PlayMode.NULL;
-    }
-    ps.setPlayMode(playMode);
-
-    // set Trump
-    if (playMode == PlayMode.SUIT) {
-      String t = IOTools.readLine("Set the Trump (clubs, spades, hearts, diamonds): ");
-      Colour trump;
-      switch (t) {
-        case "clubs":
-          trump = Colour.CLUBS;
-          break;
-        case "spades":
-          trump = Colour.SPADES;
-          break;
-        case "hearts":
-          trump = Colour.HEARTS;
-          break;
-        case "diamonds":
-          trump = Colour.DIAMONDS;
-          break;
-        default:
-          System.out.println("your Trump could not be identificated, you will play Clubs now.");
-          trump = Colour.CLUBS;
-      }
-      ps.setTrump(trump);
-    }
-    // add other features and settings later
-  }
-
   public boolean askForHandGame() {
     String handGame = IOTools.readLine("Do you want to take the skat?(yes/no)");
     if (handGame.equals("yes")) {
@@ -172,6 +90,7 @@ public class Player {
     }
   }
 
+ 
   public int getGamePoints() {
     return this.gamePoints;
   }
@@ -209,7 +128,7 @@ public class Player {
     return this.position;
   }
 
-  public ArrayList<Card> getHand() {
+  public List<Card> getHand() {
     return this.hand;
   }
 
@@ -340,145 +259,18 @@ public class Player {
    * 
    * @author awesch
    * @param cardsToAdd
-   * @param hand
+   * @param hand2
    * @param start
    * @param length
    */
-  public void addToHand(ArrayList<Card> cardsToAdd, ArrayList<Card> hand, int start, int length) {
+  public void addToHand(ArrayList<Card> cardsToAdd, List<Card> hand2, int start, int length) {
     int counter = 0;
     for (int i = start; i < start + length; i++) {
-      hand.set(i, cardsToAdd.get(counter));
+      hand2.set(i, cardsToAdd.get(counter));
       counter++;
     }
   }
 
-  /**
-   * calculates the the Matadors the hand has to be sorted before! with the (chosen/possible) trump
-   * 
-   * @return
-   * @author awesch
-   */
-  public int calculateMatador() {
-    // seperated to give a better overview and to have the possibility to give "with i" / "against
-    // i"
-    int with = 0;
-    int against = 0;
-    // play with(if first card is the clubs jack)
-    if (this.hand.get(0).getMatadorValue() == 0) {
-      // go through the hand until the row of trumps stops
-      for (int i = 0; i < this.hand.size(); i++) {
-        if (this.hand.get(i).getMatadorValue() == i) {
-          with++;
-        } else {
-          return with;
-        }
-      }
-    }
-    // play against(if first card is not clubs jack)
-    else {
-      // matadorValue of first card is number
-      against = this.hand.get(0).getMatadorValue();
-      return against;
-    }
-    return 0;
-  }
-
-  /**
-   * calculates the multiplier to calculate the value of a suit or grand game
-   * 
-   * @author awesch
-   * @param ps
-   * @return
-   */
-
-  public int calculateMultiplier(PlayState ps) {
-    int result = 1; // 1 for the game
-    result += this.calculateMatador(); // + matadors
-    // 1 point for schneider
-    if (ps.isSchneider()) {
-      result++;
-      // 1 point for schwarz
-      if (ps.isSchwarz()) {
-        result++;
-      }
-    }
-
-
-    // possibilities if the Player plays hand
-    if (ps.getHandGame()) {
-      // 1 point for hand game
-      result++;
-      // 1 point for schneider announced
-      if (ps.getSchneiderAnnounced()) {
-        result++;
-      }
-      // 1 point for schwarz announced AND for schneider announced
-      if (ps.getSchwarzAnnounced()) {
-        result += 2;;
-      }
-      // 1 point for open
-      if (ps.isOpen()) {
-        result += 1;
-      }
-    }
-
-    return result;
-  }
-
-  /**
-   * calculates the play value for suit or grand plays
-   * 
-   * @author awesch
-   * @param ps
-   * @return
-   */
-  public int calculatePlayValueSuitorGrand(PlayState ps) {
-    int multiplier = this.calculateMultiplier(ps);
-    return ps.getBaseValue() * multiplier;
-  }
-
-  /**
-   * initializes the play value for a null play
-   * 
-   * @author awesch
-   * @param ps
-   * @return
-   */
-  public int calculatePlayValueNull(PlayState ps) {
-    int result = 23;
-    if (ps.getHandGame()) {
-      result = 35;
-    }
-    if (ps.isOpen()) {
-      result = 46;
-    }
-    if (ps.getHandGame() && ps.isOpen()) {
-      result = 59;
-    }
-    return result;
-  }
-
-  /**
-   * calculates the play value with the other methods implemented for the special contracts
-   * 
-   * @author awesch
-   * @param ps
-   * @return
-   */
-  public int calculatePlayValue(PlayState ps) {
-    int result = 0;
-    if (ps.getPlayMode() == PlayMode.NULL) {
-      result = this.calculatePlayValueNull(ps);
-    } else {
-      result = this.calculatePlayValueSuitorGrand(ps);
-    }
-    return result;
-  }
-
-  public void addToGamePoints(int points) {
-    this.gamePoints += points;
-  }
-  
 
   // test method create random hand
   public ArrayList<Card> createRandomHand() {
@@ -563,14 +355,6 @@ public class Player {
     }
   }
 
-  public boolean isHost() {
-    return this.host;
-  }
-
-  public void setHost(boolean isHost) {
-    this.host = isHost;
-  }
-
   public Image getImage() {
     return img;
   }
@@ -579,26 +363,18 @@ public class Player {
     this.img = img;
   }
   
-  public void setPlayState(PlayState ps) {
-    this.playState = ps;
+  public void setDeclarer(boolean isDeclarer) {
+    this.declarer = isDeclarer;
   }
   
-  public PlayState getPlayState() {
-    return this.playState;
+  public boolean IsDeclarer() {
+    return this.declarer;
   }
 
-
-
-
-
-  // public static void main(String[] args) {
-  // PlayState ps = new PlayState();
-  // ps.setPlayMode(PlayMode.SUIT);
-  // ps.setTrump(Colour.HEARTS);
-  // Player anne = new Player("Anne");
-  // anne.setHand(anne.createRandomHand());
-  // anne.sortHand(ps);
-  // anne.printList(anne.getHand());
-  // System.out.println("Matador: " + anne.calculateMatador());
-  // }
+  /**
+   * @param points
+   */
+  public void addToGamePoints(int points) {
+   this.gamePoints += points;
+  }
 }
