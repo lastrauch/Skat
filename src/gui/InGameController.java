@@ -6,8 +6,11 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import database.ImplementsGuiInterface;
 import interfaces.GuiData;
+import interfaces.GuiLogic;
 import interfaces.InGameInterface;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,6 +28,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.Card;
 import logic.Colour;
+import logic.GameController;
 import logic.GameSettings;
 import logic.PlayMode;
 import logic.PlayState;
@@ -84,6 +88,15 @@ public class InGameController implements Initializable, InGameInterface {
   private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
   private Image temp;
   private GuiData inte = new ImplementsGuiInterface();
+  private GuiLogic inteGL = new GameController();
+  
+  /**
+   * Initialize ChatScreen
+   */
+  private JFXTextArea chatM = new JFXTextArea();
+  private JFXTextField textM = new JFXTextField();
+  private Image pfUnten = new Image(getClass().getResource("/icons8-unten-eingekreist-50.png").toExternalForm());
+  private ImageView pf = new ImageView();
 
 
   /**
@@ -100,6 +113,7 @@ public class InGameController implements Initializable, InGameInterface {
   @FXML
   private AnchorPane mainPane;
   @FXML private Label position;
+  @FXML private JFXButton sendB;
 
 
 
@@ -128,6 +142,7 @@ public class InGameController implements Initializable, InGameInterface {
   public void initialize(URL location, ResourceBundle resources) {
     // TODO Auto-generated method stub
     askForBet(18);
+    displayChatScreenOpen();
 
 
   }
@@ -396,6 +411,20 @@ public class InGameController implements Initializable, InGameInterface {
   public void deletePane(AnchorPane tpane) {
     mainPane.getChildren().remove(tpane);
   }
+  
+  public void showChat() {
+    JFXTextField rMes = new JFXTextField();
+    rMes.setText((inteGL.getChatText()));
+    chatM.appendText(rMes + "\n");
+    
+  }
+  
+  public void sendChat() {
+    String message;
+    message = textM.getText();
+    inteGL.sendChatText(message);
+        
+  }
 
 
 
@@ -435,6 +464,7 @@ public class InGameController implements Initializable, InGameInterface {
     c10.setImage(inte.getImage(hand.get(9).getColour().toString().toLowerCase(),
         (hand.get(9).getNumber().toString().toLowerCase())));
     this.position.setText(position.toString());
+    displayChatScreenOpen();
 
   }
 
@@ -470,7 +500,7 @@ public class InGameController implements Initializable, InGameInterface {
     deletePane(paneAuc);
     displayAuctionWinnerScreen();
     ButtonListenerPlaySettings(ps);
-
+    
   }
 
 
@@ -797,6 +827,32 @@ public class InGameController implements Initializable, InGameInterface {
     handPane.getChildren().add(sk2);
 
     mainPane.getChildren().add(handPane);
+  }
+  
+  public void displayChatScreenOpen() {
+    chatM.setPrefWidth(1280);
+    chatM.setPrefHeight(97);
+    chatM.setLayoutX(3);
+    chatM.setLayoutY(5);
+    chatM.setStyle("-fx-background-color: peru");
+    chatM.setEditable(false);
+    chatM.setUnFocusColor(Color.PERU);
+    chatM.setFocusColor(Color.WHITE);
+    chatM.setOpacity(0.33);
+    
+    textM.setPrefHeight(50);
+    textM.setPrefWidth(1280);
+    textM.setLayoutX(3);
+    textM.setLayoutY(97);
+    textM.setStyle("-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2");
+    textM.setOpacity(0.33);
+    
+    pf.setImage(pfUnten);
+    pf.setFitHeight(32);
+    pf.setFitWidth(40);
+    pf.setLayoutX(624);
+    pf.setLayoutY(130);
+    
   }
 
 
