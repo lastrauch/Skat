@@ -11,7 +11,7 @@ public class PlayState {
   private Colour trump;
   private int playValue;
   private PlayMode pm;
-  private int playNr;   
+  private int playNr;
   private int trickNr;
   private boolean auctionPossible;
   private boolean handGame;
@@ -227,7 +227,7 @@ public class PlayState {
    * @param betValue
    */
   public void setBetValue(int betValue) {
-    this.betValue = betValue;
+    this.auction.setBetValue(betValue);
   }
 
   /**
@@ -326,16 +326,20 @@ public class PlayState {
   public void setPlayNr(int nr) {
     this.playNr = nr;
   }
-  
-  public int getPlayNr(){
+
+  public int getPlayNr() {
     return this.playNr;
   }
-  
+
   public void setTrickNr(int nr) {
     this.trickNr = nr;
   }
-  
+
   public int getTrickNr() {
     return this.trickNr;
+  }
+
+  public Auction getAuction() {
+    return this.auction;
   }
 }

@@ -416,10 +416,17 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveBet(Player player, int bet) {
+    int newBet = this.calculateNewBet(bet);
     this.updateBet(player, bet);
-    if(this.checkIfItsMyTurnAuction(player)) {
-      //well... how do I count that shit up
+    if (this.checkIfItsMyTurnAuction(player)) {
+
     }
+
+  }
+
+  public int calculateNewBet(int currentBet) {
+    int lastBet = this.playState.getAuction().getBetValue();
+    return 0;
   }
 
   public void updateBet(Player player, int bet) {

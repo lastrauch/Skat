@@ -5,6 +5,7 @@ public class Auction {
   private Player winner; // winner of the auction
   private int[] possibleBets; // list of the possible bets
   private int betValue;
+  private int indexOfBetValue;
 
   /**
    * constructor
@@ -103,6 +104,20 @@ public class Auction {
 
   public void setBetValue(int betValue) {
     this.betValue = betValue;
+    this.setIndexOfBetValue();
+  }
+
+  public void setIndexOfBetValue() {
+    for (int i = 0; i < this.possibleBets.length; i++) {
+      if (this.possibleBets[i] == this.betValue) {
+        this.indexOfBetValue = i;
+        break;
+      }
+    }
+  }
+
+  public int getIndexOfBetValue() {
+    return indexOfBetValue;
   }
 
 }
