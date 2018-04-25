@@ -26,8 +26,11 @@ public class Easy {
         possibleCards = cards;
     }
     
+    int rnd = (int) (Math.random() * possibleCards.size());
+    Card playCard = possibleCards.get(rnd);
+    int index = cards.indexOf(playCard);
     
-    return 0;
+    return index;
   }
   
   public static boolean setBet(AIController controller, int bet){
