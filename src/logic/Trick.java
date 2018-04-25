@@ -52,6 +52,13 @@ public class Trick {
     this.trickCards.add(card);
   }
 
+  public boolean isFull() {
+    if (this.trickCards.size() == 3) {
+      return true;
+    }else {
+      return false;
+    }
+  }
 
   //
   // public void playCard(Player player, Card card) throws LogicException {

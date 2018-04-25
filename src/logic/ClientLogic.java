@@ -17,10 +17,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
   InGameInterface inGameController; // implemented by Gui or Ai
   NetworkController netController;
   PlayState playState;
+  GameSettings gameSettings;
 
-  public ClientLogic(Player player, InGameInterface inGameController,
+  public ClientLogic(Player player, GameSettings gameSettings, InGameInterface inGameController,
       NetworkController netController) {
     this.player = player;
+    this.gameSettings = gameSettings;
     this.inGameController = inGameController;
     this.netController = netController;
   }
@@ -364,6 +366,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
     // TODO Auto-generated method stub
+    
   }
 
   /*
@@ -477,6 +480,45 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
     this.player.setHand((ArrayList<Card>) cards);
     this.inGameController.updateHand(this.player.getHand());
+  }
+  
+  public void checkIfGameIsOver() {
+    if (this.playState.getCurrentTrick().isFull()) {
+    
+      // check if the whole game is over
+      if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()) {
+        // game is over 
+        // calculate winner
+      } else {
+        this.playState.setPlayNr(this.playState.getPlayNr() + 1);
+        
+        // createNewPlay!!
+        
+        // start auction if "i am" middlehand
+        if (this.player.getPosition() == Position.MIDDLEHAND) {
+          this.inGameController.askForBet(18);
+        }
+      }  
+    }
+  }
+  public boolean checkifTrickIsFull() {
+    if (this.playState.getCurrentTrick().isFull()) {
+      
+      this.playState.setCurrentTrick(new Trick(this.playState));
+    }
+    
+    return false;
+  }
+  public boolean checkIfMyTurnTrick(Player playedLastCard) {
+    if (this.player.getPosition() == Position.FOREHAND && playedLastCard.getPosition() == Position.REARHAND) {
+      return true;
+    }else if (this.player.getPosition() == Position.MIDDLEHAND && playedLastCard.getPosition() == Position.FOREHAND) {
+      return true;
+    }else if (this.player.getPosition() == Position.REARHAND && playedLastCard.getPosition() == Position.MIDDLEHAND) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 

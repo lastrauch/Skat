@@ -5,13 +5,15 @@ import java.util.List;
 
 public class PlayState {
   private Player[] group;
-  private List<Card> declarerStack;
-  private List<Card> opponentsStack;
+  private Stack declarerStack;
+  private Stack opponentsStack;
   private Card[] skat;
   private Colour trump;
   private int playValue;
   private int betValue;
   private PlayMode pm;
+  private int playNr;   
+  private int trickNr;
   private boolean auctionPossible;
   private boolean handGame;
   private boolean schneider;
@@ -31,8 +33,8 @@ public class PlayState {
    */
   public PlayState(Player[] group) {
     this.group = group;
-    this.declarerStack = new ArrayList<Card>();
-    this.opponentsStack = new ArrayList<Card>();
+    this.declarerStack = new Stack();
+    this.opponentsStack = new Stack();
     this.skat = new Card[2];
     this.trump = Colour.CLUBS;
     this.playValue = 0;
@@ -41,40 +43,6 @@ public class PlayState {
     this.auctionPossible = true;
   }
 
-  /**
-   * adds a trick to the stack of the declarer
-   * 
-   * @author awesch
-   * @param t
-   */
-  public void addToStackDeclarer(Trick t) {
-    this.declarerStack.addAll(t.getTrickCards());
-    // Card[] trick = t.getTrickCards();
-    // for (int i = 0; i < trick.length; i++) {
-    // this.declarerStack.add(trick[i]);
-    // }
-  }
-
-  /**
-   * adds a card to the stack of the declarer (skat)
-   * 
-   * @author awesch
-   * @param card
-   */
-  public void addToStackDeclarer(Card card) {
-    this.declarerStack.add(card);
-  }
-
-  /**
-   * @param t
-   */
-  public void addToStackOpponents(Trick t) {
-    this.opponentsStack.addAll(t.getTrickCards());
-    // Card[] trick = t.getTrickCards();
-    // for (int i = 0; i < trick.length; i++) {
-    // this.opponentsStack.add(trick[i]);
-    // }
-  }
 
   /**
    * sorts cards by its value for normal values (high ten), created for sortHand(s)
@@ -159,21 +127,6 @@ public class PlayState {
     if (this.pm == PlayMode.GRAND) {
       this.baseValue = 24;
     }
-  }
-
-  /**
-   * @author awesch
-   * @return
-   */
-  public List<Card> getStackDeclarer() {
-    return this.declarerStack;
-  }
-
-  /**
-   * @return
-   */
-  public List<Card> getStackOpponents() {
-    return this.opponentsStack;
   }
 
   /**
@@ -370,4 +323,19 @@ public class PlayState {
     this.group = group;
   }
 
+  public void setPlayNr(int nr) {
+    this.playNr = nr;
+  }
+  
+  public int getPlayNr(){
+    return this.playNr;
+  }
+  
+  public void setTrickNr(int nr) {
+    this.trickNr = nr;
+  }
+  
+  public int getTrickNr() {
+    return this.trickNr;
+  }
 }
