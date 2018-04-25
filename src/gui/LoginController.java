@@ -47,15 +47,15 @@ public class LoginController implements Initializable {
     main.displayChooseGame();
     GameController gameCon = new GameController(implLG);
     GuiLogic interfaceL= gameCon;
-    interfaceL.login(username, null);
+//    interfaceL.login(username, null);
   }
   
   public void setImages() {
     GuiData inte = new ImplementsGuiInterface();
-    jclubs.setImage(inte.getImage("clubs", "B"));
-    jspades.setImage(inte.getImage("spades", "B"));
-    jhearts.setImage(inte.getImage("hearts", "B"));
-    jdiamonds.setImage(inte.getImage("diamonds", "B"));
+    jclubs.setImage(inte.getImage("clubs", "jack"));
+    jspades.setImage(inte.getImage("spades", "jack"));
+    jhearts.setImage(inte.getImage("hearts", "jack"));
+    jdiamonds.setImage(inte.getImage("diamonds", "jack"));
     
   }
 
