@@ -383,4 +383,12 @@ public class PlayState {
     return this.baseValue;
   }
 
+  public Trick getCurrentTrick() {
+    return currentTrick;
+  }
+
+  public void setCurrentTrick(Trick currentTrick) {
+    this.currentTrick = currentTrick;
+  }
+
 }
