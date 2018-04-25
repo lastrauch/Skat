@@ -400,6 +400,13 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
 
   }
 
+  /**
+   * returns the given player in the playstate group array
+   * 
+   * @author awesch
+   * @param player
+   * @return
+   */
   public Player searchPlayer(Player player) {
     for (Player p : this.playState.getGroup()) {
       if (p.equals(player)) {
@@ -409,12 +416,15 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     return null;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveBet(logic.Player, int)
-   */
+
   @Override
+  /**
+   * works with a received bet
+   * 
+   * @author awesch
+   * @param player
+   * @param bet
+   */
   public void receiveBet(Player player, int bet) {
     // if auction is still running
     if (!this.checkIfAuctionIsOver(bet)) {
@@ -437,9 +447,11 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
 
   }
 
-  // possible bets.. if the last two bets were the same nr, you go one bet higher
-  // exceptions: the first two Players passed --> still 18, the last Player passed.. then still the
-  // current betValue
+  /**
+   * @author awesch
+   * @param currentBet
+   * @return
+   */
   public int calculateNewBet(int currentBet) {
     int lastBet = this.playState.getAuction().getBetValue();
     int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
@@ -450,6 +462,11 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     return lastBet;
   }
 
+  /**
+   * @author awesch
+   * @param player
+   * @param bet
+   */
   public void updateBet(Player player, int bet) {
     if (bet != -1) {
       this.playState.setBetValue(bet);
@@ -457,6 +474,11 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     this.searchPlayer(player).setBet(bet);
   }
 
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
   public boolean checkIfItsMyTurnAuctionForehand(Player player) {
     if (player.getPosition() == Position.MIDDLEHAND && this.player.getBet() != -1) {
       return true;
@@ -467,6 +489,11 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     return false;
   }
 
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
   public boolean checkIfItsMyTurnAuctionMiddlehand(Player player) {
     if (this.player.getBet() != -1 && player.getPosition() != Position.MIDDLEHAND) {
       return true;
@@ -474,6 +501,11 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     return false;
   }
 
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
   public boolean checkIfItsMyTurnAuctionRearHand(Player player) {
     if (this.oneOfThePlayersPassedAlready() && player.getPosition() != Position.REARHAND) {
       return true;
@@ -481,6 +513,10 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     return false;
   }
 
+  /**
+   * @author awesch
+   * @return
+   */
   public boolean oneOfThePlayersPassedAlready() {
     for (Player p : this.playState.getGroup()) {
       if (p.getBet() == -1) {
@@ -490,6 +526,11 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     return false;
   }
 
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
   public boolean checkIfItsMyTurnAuction(Player player) {
     if (this.player.getPosition() == Position.FOREHAND
         && this.checkIfItsMyTurnAuctionForehand(player)) {
@@ -506,7 +547,11 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     return false;
   }
 
-  // Auction is over, if the last person passed and someone else passed as well
+  /**
+   * @author awesch
+   * @param bet
+   * @return
+   */
   public boolean checkIfAuctionIsOver(int bet) {
     if (bet == -1 && this.oneOfThePlayersPassedAlready()) {
       return true;
@@ -514,6 +559,9 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     return false;
   }
 
+  /**
+   * @author awesch
+   */
   public void setAuctionWinner() {
     for (Player p : this.playState.getGroup()) {
       if (p.getBet() != -1) {
@@ -522,9 +570,13 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     }
   }
 
+  /**
+   * @author awesch
+   */
   public void checkIfAuctionWinner() {
     if (this.playState.getAuction().getWinner().equals(this.player)) {
       this.inGameController.setPlaySettings(this.playState);
+      this.netController.sendPlayState(this.playState);
     }
   }
 
