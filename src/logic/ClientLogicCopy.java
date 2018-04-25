@@ -416,11 +416,25 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveBet(Player player, int bet) {
-    int newBet = this.calculateNewBet(bet);
-    this.updateBet(player, bet);
-    if (this.checkIfItsMyTurnAuction(player)) {
-      this.inGameController.askForBet(newBet);
+    // if auction is still running
+    if (!this.checkIfAuctionIsOver(bet)) {
+      int newBet = this.calculateNewBet(bet);
+      this.updateBet(player, bet);
+      // if it is my turn
+      if (this.checkIfItsMyTurnAuction(player)) {
+        // if the player goes with the bet
+        if (this.inGameController.askForBet(newBet)) {
+          this.netController.bet(newBet);
+        } else {
+          this.netController.bet(-1);
+        }
+      }
+    } else {
+      this.updateBet(player, bet);
+      this.setAuctionWinner();
+      this.checkIfAuctionWinner();
     }
+
   }
 
   // possible bets.. if the last two bets were the same nr, you go one bet higher
@@ -429,14 +443,7 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
   public int calculateNewBet(int currentBet) {
     int lastBet = this.playState.getAuction().getBetValue();
     int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
-    // exceptions:
-    if (this.oneOfTheOtherPlayersPassedAlready() && currentBet == -1) {
-      return this.playState.getAuction().getPossibleBets()[0];
-    }
-    if (currentBet == -1) {
-      return lastBet;
-    }
-    // standart
+
     if (lastBet == currentBet) {
       return this.playState.getAuction().getPossibleBets()[lastBetIndex + 1];
     }
@@ -444,7 +451,9 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
   }
 
   public void updateBet(Player player, int bet) {
-    this.playState.setBetValue(bet);
+    if (bet != -1) {
+      this.playState.setBetValue(bet);
+    }
     this.searchPlayer(player).setBet(bet);
   }
 
@@ -466,13 +475,13 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
   }
 
   public boolean checkIfItsMyTurnAuctionRearHand(Player player) {
-    if (this.oneOfTheOtherPlayersPassedAlready() && player.getPosition() != Position.REARHAND) {
+    if (this.oneOfThePlayersPassedAlready() && player.getPosition() != Position.REARHAND) {
       return true;
     }
     return false;
   }
 
-  public boolean oneOfTheOtherPlayersPassedAlready() {
+  public boolean oneOfThePlayersPassedAlready() {
     for (Player p : this.playState.getGroup()) {
       if (p.getBet() == -1) {
         return true;
@@ -497,8 +506,26 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     return false;
   }
 
-  public boolean checkIfAuctionIsOver() {
+  // Auction is over, if the last person passed and someone else passed as well
+  public boolean checkIfAuctionIsOver(int bet) {
+    if (bet == -1 && this.oneOfThePlayersPassedAlready()) {
+      return true;
+    }
     return false;
+  }
+
+  public void setAuctionWinner() {
+    for (Player p : this.playState.getGroup()) {
+      if (p.getBet() != -1) {
+        this.playState.getAuction().setWinner(p);
+      }
+    }
+  }
+
+  public void checkIfAuctionWinner() {
+    if (this.playState.getAuction().getWinner().equals(this.player)) {
+      this.inGameController.setPlaySettings(this.playState);
+    }
   }
 
   /*
