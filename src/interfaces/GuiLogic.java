@@ -3,6 +3,7 @@ package interfaces;
 import ai.BotDifficulty;
 import javafx.scene.image.Image;
 import logic.GameMode;
+import logic.GameSettings;
 
 // GUI to Logic, implemented by Logic
 /**
@@ -74,5 +75,15 @@ public interface GuiLogic {
    * @param message
    */
   public void sendChatText(String message);
+  
+  /**
+   * @param hostName
+   */
+  public void joinGame(String hostName, GameSettings gs); 
+  
+  /**
+   * @param comment
+   */
+  public void hostGame(String comment);
   
 }
