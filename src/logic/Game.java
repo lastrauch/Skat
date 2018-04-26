@@ -17,47 +17,7 @@ public class Game {
   private Player winner;
   private GameMode gameMode; // singlePlayer or Multiplayer
   private LogicNetwork logicNetwork;
-//  private ClientLogic clientLogic;
 
-//  /**
-//   * constructor #1
-//   * 
-//   * @author sandfisc
-//   * @param group
-//   */
-//  public Game(Player[] group) {
-//    this.gameSettings = new GameSettings();
-//    this.plays = new Play[this.gameSettings.getNrOfPlays()];
-//    this.initializeGroupSettings(group);
-//    this.initializeCards();
-//  }
-//
-//  /**
-//   * constructor #2
-//   * 
-//   * @author sandfisc
-//   * @param group
-//   * @param countRule
-//   * @param nrOfPlays
-//   */
-//  public Game(Player[] group, CountRule countRule, int nrOfPlays) {
-//    try {
-//      this.gameSettings = new GameSettings(countRule, group.length, nrOfPlays);
-//    } catch (LogicException e) {
-//      // TODO Auto-generated catch block
-//      e.printStackTrace();
-//    }
-//    this.plays = new Play[nrOfPlays];
-//    this.initializeGroupSettings(group);
-//    this.initializeCards();
-//  }
-
-  public Game(GameMode gameMode) {
-    this.gameMode = gameMode;
-    this.gameSettings = new GameSettings();
-    this.plays = new Play[gameSettings.getNrOfPlays()];
-    this.currentPlay = -1;
-  }
 
   /**
    * defines group settings for the start, some settings have to be updated during the game *
@@ -304,13 +264,14 @@ public class Game {
    * 
    * @author sandfisc
    */
-  public void calculateWinner() {
-    this.winner = this.group[0];
-    for (int i = 1; i < this.group.length; i++) {
-      if (group[i].getGamePoints() > this.winner.getGamePoints()) {
-        this.winner = this.group[i];
+  public Player calculateWinner(PlayState ps) {
+    Player winner = ps.getGroup()[0];
+    for (int i = 1; i < ps.getGroup().length; i++) {
+      if (ps.getGroup()[i].getGamePoints() > winner.getGamePoints()) {
+        this.winner = ps.getGroup()[i];
       }
     }
+    return winner;
   }
 
   public void setGameSettings(GameSettings gameSettings) {

@@ -18,6 +18,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   NetworkController netController;
   PlayState playState;
   GameSettings gameSettings;
+  Game game; // we need this for calcutlating the winner --> maybe in playstate
 
   public ClientLogic(Player player, GameSettings gameSettings, InGameInterface inGameController,
       NetworkController netController) {
@@ -494,7 +495,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
                                                                              // game is over
           // game is over
           // calculate winner game
-
+          Player winner = this.game.calculateWinner(this.playState);
+          // show winner on gui
         } else {
           // game is not over
           this.playState.setPlayNr(this.playState.getPlayNr() + 1);
