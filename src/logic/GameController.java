@@ -2,6 +2,7 @@ package logic;
 
 import java.util.Iterator;
 import java.util.List;
+import ai.BotDifficulty;
 import gui.ImplementsLogicGui;
 import interfaces.GuiLogic;
 import interfaces.LogicGui;
@@ -70,7 +71,20 @@ public class GameController implements GuiLogic{
    * @see interfaces.GuiLogic#login(java.lang.String)
    */
   @Override
-  public void login(String username) {
+  public void login(String username, Image profilepicture) {
+    // TODO Auto-generated method stub
+    // erstelle player und client logic 
+    
+  }
+
+  @Override
+  public void deleteBot(String botname) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void setBot(String botname, BotDifficulty difficulty) {
     // TODO Auto-generated method stub
     
   }
