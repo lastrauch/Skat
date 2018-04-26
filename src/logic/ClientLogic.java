@@ -344,9 +344,21 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player.addToGamePoints(points);
   }
 
-  // public Player searchPlayer(Player player) {
-  // for(int i = 0; i < )
-  // }
+  /**
+   * returns the given player in the playstate group array
+   * 
+   * @author awesch
+   * @param player
+   * @return
+   */
+  public Player searchPlayer(Player player) {
+    for (Player p : this.playState.getGroup()) {
+      if (p.equals(player)) {
+        return p;
+      }
+    }
+    return null;
+  }
 
   /*
    * (non-Javadoc)
@@ -409,9 +421,166 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @see interfaces.NetworkLogic#receiveBet(logic.Player, int)
    */
   @Override
+  /**
+   * works with a received bet
+   * 
+   * @author awesch
+   * @param player
+   * @param bet
+   */
   public void receiveBet(Player player, int bet) {
-    // TODO Auto-generated method stub
+    // if auction is still running
+    if (!this.checkIfAuctionIsOver(bet)) {
+      int newBet = this.calculateNewBet(bet);
+      // if it is my turn
+      if (this.checkIfItsMyTurnAuction(player)) {
+        // if the player goes with the bet
+        if (this.inGameController.askForBet(newBet)) {
+          this.netController.bet(newBet);
+        } else {
+          this.netController.bet(-1);
+        }
+      }
+      this.updateBet(player, bet);
+    } else {
+      this.updateBet(player, bet);
+      this.setAuctionWinner();
+      this.checkIfAuctionWinner();
+    }
 
+  }
+
+  /**
+   * @author awesch
+   * @param currentBet
+   * @return
+   */
+  public int calculateNewBet(int currentBet) {
+    int lastBet = this.playState.getAuction().getBetValue();
+    int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
+
+    if (lastBet == currentBet) {
+      return this.playState.getAuction().getPossibleBets()[lastBetIndex + 1];
+    }
+    return lastBet;
+  }
+
+  /**
+   * @author awesch
+   * @param player
+   * @param bet
+   */
+  public void updateBet(Player player, int bet) {
+    if (bet != -1) {
+      this.playState.setBetValue(bet);
+    }
+    this.searchPlayer(player).setBet(bet);
+  }
+
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
+  public boolean checkIfItsMyTurnAuctionForehand(Player player) {
+    if (player.getPosition() == Position.MIDDLEHAND && this.player.getBet() != -1) {
+      return true;
+    }
+    if (player.getPosition() == Position.REARHAND && this.player.getBet() != -1) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
+  public boolean checkIfItsMyTurnAuctionMiddlehand(Player player) {
+    if (this.player.getBet() != -1 && player.getPosition() != Position.MIDDLEHAND) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
+  public boolean checkIfItsMyTurnAuctionRearHand(Player player) {
+    if (this.oneOfThePlayersPassedAlready() && player.getPosition() != Position.REARHAND) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   * @return
+   */
+  public boolean oneOfThePlayersPassedAlready() {
+    for (Player p : this.playState.getGroup()) {
+      if (p.getBet() == -1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
+  public boolean checkIfItsMyTurnAuction(Player player) {
+    if (this.player.getPosition() == Position.FOREHAND
+        && this.checkIfItsMyTurnAuctionForehand(player)) {
+      return true;
+    }
+    if (this.player.getPosition() == Position.MIDDLEHAND
+        && this.checkIfItsMyTurnAuctionMiddlehand(player)) {
+      return true;
+    }
+    if (this.player.getPosition() == Position.REARHAND
+        && this.checkIfItsMyTurnAuctionRearHand(player)) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   * @param bet
+   * @return
+   */
+  public boolean checkIfAuctionIsOver(int bet) {
+    if (bet == -1 && this.oneOfThePlayersPassedAlready()) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   */
+  public void setAuctionWinner() {
+    for (Player p : this.playState.getGroup()) {
+      if (p.getBet() != -1) {
+        this.playState.getAuction().setWinner(p);
+      }
+    }
+  }
+
+  /**
+   * @author awesch
+   */
+  public void checkIfAuctionWinner() {
+    if (this.playState.getAuction().getWinner().equals(this.player)) {
+      this.inGameController.setPlaySettings(this.playState);
+      this.netController.sendPlayState(this.playState);
+    }
   }
 
   /*

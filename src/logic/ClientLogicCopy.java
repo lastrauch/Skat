@@ -429,7 +429,6 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     // if auction is still running
     if (!this.checkIfAuctionIsOver(bet)) {
       int newBet = this.calculateNewBet(bet);
-      this.updateBet(player, bet);
       // if it is my turn
       if (this.checkIfItsMyTurnAuction(player)) {
         // if the player goes with the bet
@@ -439,6 +438,7 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
           this.netController.bet(-1);
         }
       }
+      this.updateBet(player, bet);
     } else {
       this.updateBet(player, bet);
       this.setAuctionWinner();
