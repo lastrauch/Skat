@@ -85,35 +85,19 @@ public class Trick {
    * @author sandfisc
    * @throws LogicException
    */
-  public void calculateWinner() throws LogicException {
+  public Player calculateWinner(PlayState ps) throws LogicException {
 
-    // System.out.println(this.ps.getPlayMode().toString());
     // calculate winner when PlayMode is Colour
-    if (this.ps.getPlayMode() == PlayMode.SUIT) {
-      this.indexWinner = this.calculateWinnerColour();
-      // test
-      // System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
-      // + this.trickCards[this.indexWinner].getColour());
-
+    if (ps.getPlayMode() == PlayMode.SUIT) {
+      return ps.getGroup()[this.calculateWinnerColour(ps)];
       // calculate winner when PlayMode is Grand
-    } else if (this.ps.getPlayMode() == PlayMode.GRAND) {
-      this.indexWinner = this.calculateWinnerGrand();
-      // test
-      // System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
-      // + this.trickCards[this.indexWinner].getColour());
-
+    } else if (ps.getPlayMode() == PlayMode.GRAND) {
+      return ps.getGroup()[this.calculateWinnerGrand()];
 
       // calculate winner when PlayMode is Null or NullOuvert
-    } else if (this.ps.getPlayMode() == PlayMode.NULL) {
-      this.indexWinner = this.calculateWinnerNull();
-      // test
-      // System.out.println("winner: " + this.trickCards[this.indexWinner].getNumber() + " " + " "
-      // + this.trickCards[this.indexWinner].getColour());
-
     } else {
-      throw new LogicException("Calculating the winner is not possible! (No PlayMode found)");
-    }
-
+      return ps.getGroup()[this.calculateWinnerNull()];
+      }
   }
 
   /**
@@ -122,21 +106,15 @@ public class Trick {
    * @author sandfisc
    * @return index of the winning card
    */
-  public int calculateWinnerColour() {
-
-    // test
-    // System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
-    // System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
-    // System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
-
-    if (this.compareCardsColour(this.trickCards.get(0), this.trickCards.get(1)) == 0) {
-      if (this.compareCardsColour(this.trickCards.get(0), this.trickCards.get(2)) == 0) {
+  public int calculateWinnerColour(PlayState ps) {
+    if (this.compareCardsColour(this.trickCards.get(0), this.trickCards.get(1), ps) == 0) {
+      if (this.compareCardsColour(this.trickCards.get(0), this.trickCards.get(2), ps) == 0) {
         return 0;
       } else {
         return 2;
       }
     } else {
-      if (this.compareCardsColour(this.trickCards.get(1), this.trickCards.get(2)) == 0) {
+      if (this.compareCardsColour(this.trickCards.get(1), this.trickCards.get(2), ps) == 0) {
         return 1;
       } else {
         return 2;
@@ -152,7 +130,7 @@ public class Trick {
    * @param card2
    * @return which card won (0 = card1, 1= card2)
    */
-  public int compareCardsColour(Card card1, Card card2) {
+  public int compareCardsColour(Card card1, Card card2, PlayState ps) {
 
     // search for jacks and compare them if necessary
     if (card1.getNumber() == Number.JACK) {
@@ -234,12 +212,7 @@ public class Trick {
    * @return index of the winning card
    */
   public int calculateWinnerGrand() {
-
-    // test
-    // System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
-    // System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
-    // System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
-
+    
     if (this.compareCardsGrand(this.trickCards.get(0), this.trickCards.get(1)) == 0) {
       if (this.compareCardsGrand(this.trickCards.get(0), this.trickCards.get(2)) == 0) {
         return 0;

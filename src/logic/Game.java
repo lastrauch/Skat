@@ -159,7 +159,7 @@ public class Game {
       }
       // #BIERLACHS
       if (breakPlease) {
-        this.calculateWinner();
+//        this.calculateWinner();
         break;
       }
       
@@ -173,7 +173,7 @@ public class Game {
       this.updatePosition();
     }
     // when the game is over the winner is calculated
-    this.calculateWinner();
+  //  this.calculateWinner();
   }
 
 //  /**

@@ -7,6 +7,7 @@ import gui.InGameController;
 import interfaces.AILogic;
 import interfaces.GuiLogic;
 import interfaces.InGameInterface;
+import interfaces.LogicNetwork;
 import interfaces.NetworkLogic;
 import javafx.scene.image.Image;
 import network.NetworkController;
@@ -15,7 +16,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   Player player;
   InGameInterface inGameController; // implemented by Gui or Ai
-  NetworkController netController;
+  LogicNetwork netController;
   PlayState playState;
   GameSettings gameSettings;
   Game game; // we need this for calcutlating the winner --> maybe in playstate
@@ -611,6 +612,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
     // show update on gui/ai
     this.inGameController.updateTrick(this.playState.getCurrentTrick().getTrickCards());
+    
+    try {
+      this.checkWhatHappensNext(player);
+    } catch (LogicException e) {
+      e.printStackTrace();
+    }
   }
 
   /*
@@ -649,37 +656,81 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.inGameController.updateHand(this.player.getHand());
   }
 
-  public void checkIfTrickIsOver() throws LogicException {
+  public void checkWhatHappensNext(Player playedLastCard) throws LogicException {
+
+    Player trickWinner;
+    Player[] playWinner;
+    Player gameWinner;
+    
+    Thread t = new Thread(); // waits after telling gui/ai what is to do
+
+    // check if trick is over
     if (this.playState.getCurrentTrick().isFull()) {
+      // trick is over
+      
       // calculate winner trick
+      trickWinner = this.playState.getCurrentTrick().calculateWinner(playState);
+
+      // put cards on winners stack
+      if (trickWinner.IsDeclarer()) {
+        this.playState.getDeclarerStack()
+            .addCards(this.playState.getCurrentTrick().getTrickCards());
+      } else {
+        this.playState.getOpponentsStack()
+        .addCards(this.playState.getCurrentTrick().getTrickCards());
+      }
+
+      // show winner of trick
+      this.inGameController.showWinnerTrick(trickWinner);
+      try {
+        t.wait(3000);
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
 
       // check if play is over
       if (this.playState.getTrickNr() == 10) {
         // calculate winner play
-        Player [] playWinner = Play.calculateWinner(playState);
-        if (playWinner[0].IsDeclarer()) { 
+        playWinner = Play.calculateWinner(playState);
+        
+        // calculate points
+        if (playWinner[0].IsDeclarer()) {
           // calculate points: declarer won
           Play.calculatePoints(playState, gameSettings, true);
         } else {
-          //calculate points: opponents won
+          // calculate points: opponents won
           Play.calculatePoints(playState, gameSettings, false);
         }
-        // show winner of play 
+        // show winner of play
         this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
+        try {
+          t.wait(3000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
         
-        if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()) {// check if the whole
-                                                                             // game is over
+        // check if the whole game is over
+        if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()) {
+
           // game is over
           // calculate winner game
-          Player GameWinner = Game.calculateWinner(this.playState);
-          // show winner on gui
-          this.inGameController.showWinnerGame(GameWinner);
+          gameWinner = Game.calculateWinner(this.playState);
+          // show winner of game
+          this.inGameController.showWinnerGame(gameWinner);
+          try {
+            t.wait(3000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
           
         } else {
           // game is not over
+          // createNewPlay!
+          this.playState.resetPlayState();
           this.playState.setPlayNr(this.playState.getPlayNr() + 1);
-          // createNewPlay!!
-          
+
+          // update position!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           
           // start auction if "i am" middlehand
           if (this.player.getPosition() == Position.MIDDLEHAND) {
@@ -688,9 +739,18 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
       } else {
         // generate new trick
+        this.playState.setCurrentTrick(new Trick());
         // if "i am" winner of last trick --> ask inGameController to play new card
+        if (this.player.equals(trickWinner)) {
+          this.inGameController.askToPlayCard();
+        }
       }
-    } // if its my turn.. #checkifblatrick .. play card
+    } 
+    // trick is not over 
+    // check if it is "my" turn
+    if (this.checkIfMyTurnTrick(playedLastCard)) {
+      this.inGameController.askToPlayCard();
+    }
   }
 
   public boolean checkifTrickIsFull() {

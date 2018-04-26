@@ -26,17 +26,23 @@ public class PlayState {
 
   public void resetPlayState() {
     this.declarerStack = new Stack();
-    this.opponentsStack = new Stack();    
+    this.opponentsStack = new Stack();   
+    
     this.skat = new Card[2];
     this.trump = Colour.CLUBS;
     this.playValue = 0;
-    this.auction = new Auction();
     this.pm = PlayMode.SUIT;
+    
     this.playNr = 0;
     this.trickNr = 0;
     this.currentTrick = new Trick();
     this.auctionPossible = true;
     this.auction = new Auction();
+    
+    this.schneider = false;
+    this.schneiderAnnounced = false;
+    this.schwarz = false;
+    this.schwarzAnnounced = false;
   }
   
   /**
@@ -60,6 +66,10 @@ public class PlayState {
     this.currentTrick = new Trick();
     this.auctionPossible = true;
     this.auction = new Auction();
+    this.schneider = false;
+    this.schneiderAnnounced = false;
+    this.schwarz = false;
+    this.schwarzAnnounced = false;
   }
 
 
@@ -197,7 +207,7 @@ public class PlayState {
    * @return
    */
   public int getBetValue() {
-    return this.betValue;
+    return this.auction.getBetValue();
   }
 
   /**
