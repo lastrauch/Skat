@@ -29,5 +29,14 @@ public interface LogicGui {
 //  public AiDifficulty[] getDifficulties() {
 //    
 //  }
+/**
+ * should show the name plus comment of the games which are open and where you can join
+ * @param hostName
+ * @param comment
+ */
+  public void showOpenLobby(String hostName, String comment);
+  
+  
+  
 }
 

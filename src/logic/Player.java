@@ -12,9 +12,9 @@ public class Player {
   private int id;
   private String name;
   private Image img;
-  private Position position; 
+  private Position position;
   private List<Card> hand = new ArrayList<Card>();
-  private int bet; //-1 if you passed
+  private int bet; // -1 if you passed
   private int gamePoints; // saves the points of every Play until the whole game is over
   private boolean declarer; // true if the player is declarer and false when he/she is opponents
 
@@ -22,8 +22,15 @@ public class Player {
     this.name = name;
     this.bet = 0;
   }
-  
-  public Player(String name, int id, Image img, Position position, List<Card> hand, int bet, int gamePoints, boolean declarer) {
+
+  public Player(String name, Image img) {
+    this.name = name;
+    this.img = img;
+    this.bet = 0;
+  }
+
+  public Player(String name, int id, Image img, Position position, List<Card> hand, int bet,
+      int gamePoints, boolean declarer) {
     this.name = name;
     this.id = id;
     this.img = img;
@@ -35,7 +42,8 @@ public class Player {
   }
 
   public Player copyMe() {
-    return new Player(this.name, this.id, this.img, this.position, this.hand, this.bet, this.gamePoints, this.declarer);    
+    return new Player(this.name, this.id, this.img, this.position, this.hand, this.bet,
+        this.gamePoints, this.declarer);
   }
 
   public Card chooseRandomCardFromHand() {
@@ -66,10 +74,10 @@ public class Player {
     if (!found) {
       throw new LogicException("Removing the played card from the hand was not possible!");
     }
-//    this.inGameController.updateHand(this.hand);
+    // this.inGameController.updateHand(this.hand);
   }
-  
-  
+
+
 
   // We assume the hand to be sorted the first time (before the PlayMode was set)
   public void calculateHighestPossibleBet(ArrayList<Card> hand) {
@@ -90,7 +98,7 @@ public class Player {
     }
   }
 
- 
+
   public int getGamePoints() {
     return this.gamePoints;
   }
@@ -362,11 +370,11 @@ public class Player {
   public void setImage(Image img) {
     this.img = img;
   }
-  
+
   public void setDeclarer(boolean isDeclarer) {
     this.declarer = isDeclarer;
   }
-  
+
   public boolean IsDeclarer() {
     return this.declarer;
   }
@@ -375,6 +383,6 @@ public class Player {
    * @param points
    */
   public void addToGamePoints(int points) {
-   this.gamePoints += points;
+    this.gamePoints += points;
   }
 }
