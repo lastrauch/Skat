@@ -3,6 +3,7 @@ package gui;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import interfaces.GuiLogic;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,6 +13,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import logic.CountRule;
+import logic.GameController;
+import logic.GameMode;
+import logic.GameSettings;
 
 public class GameSettingsController {
 
@@ -20,7 +24,12 @@ public class GameSettingsController {
   private boolean kontra;
   private boolean limitedTime;
   private int setLimitedTime;
-  JFXTextField sec = new JFXTextField();
+  private JFXTextField sec = new JFXTextField();
+  private GameSettings gs = new GameSettings();
+  private String ms;
+  private GuiController guiCon;
+  private GameMode gm;
+  GuiLogic interf = new GameController();
 
   @FXML
   private JFXRadioButton r1, r3, r18, r36;
@@ -30,6 +39,12 @@ public class GameSettingsController {
   private JFXToggleButton enKon, enTL;
   @FXML
   private AnchorPane pane;
+  @FXML
+  private JFXTextField message;
+
+  public GameSettingsController() {
+    this.guiCon = new GuiController();
+  }
 
   public void numberOfRounds() {
     rounds = new int[1];
@@ -162,5 +177,41 @@ public class GameSettingsController {
 
   public int getSetTime() {
     return setLimitedTime;
+  }
+
+  public void setMode(GameMode gm) {
+    this.gm = gm;
+  }
+
+  public void submitOn() {
+    gs.setCountRule(getCountRule());
+    gs.setEnableKontra(getKontra());
+    gs.setLimitedTime(getEnabledTime());
+    if (getEnabledTime()) {
+      gs.setTimeLimit(setLimitedTime());
+    }
+    ms = message.getText();
+    interf.hostGame(ms, gs);
+    guiCon.displayLobbyOnline();
+  }
+
+  public void submitOf() {
+    gs.setCountRule(getCountRule());
+    gs.setEnableKontra(getKontra());
+    gs.setLimitedTime(getEnabledTime());
+    if (getEnabledTime()) {
+      gs.setTimeLimit(setLimitedTime());
+    }
+    ms = message.getText();
+    interf.hostGame(ms, gs);
+    guiCon.displayInGame();
+  }
+
+  public void screenChooser() {
+    if (gm.equals(GameMode.MULTIPLAYER)) {
+      submitOn();
+    } else {
+      submitOf();
+    }
   }
 }

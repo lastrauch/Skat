@@ -14,7 +14,7 @@ import logic.GameController;
 public class LoginController implements Initializable {
 
   private GuiController main;
-  private String username;
+  protected String username;
   protected ImplementsLogicGui implLG;
   
   
@@ -43,7 +43,7 @@ public class LoginController implements Initializable {
 
   @FXML
   public void login() {
-    username = textField.getPromptText();
+    username = textField.getText();
     main.displayChooseGame();
     GameController gameCon = new GameController(implLG);
     GuiLogic interfaceL= gameCon;
@@ -57,6 +57,10 @@ public class LoginController implements Initializable {
     jhearts.setImage(inte.getImage("hearts", "jack"));
     jdiamonds.setImage(inte.getImage("diamonds", "jack"));
     
+  }
+  
+  public String getUsername() {
+    return username;
   }
 
 }

@@ -1,7 +1,10 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
+import interfaces.GuiLogic;
 import javafx.fxml.FXML;
+import logic.GameController;
+import logic.GameMode;
 
 public class LobbyOnlineController {
 
@@ -16,7 +19,8 @@ public class LobbyOnlineController {
 
   @FXML
   public void join() {
-    main.displayInGame();
+    GuiLogic interf = new GameController();
+    interf.joinGame(main.getLoginCon().getUsername());
   }
 
   @FXML
@@ -32,6 +36,10 @@ public class LobbyOnlineController {
   @FXML
   public void accountSettings() {
     main.displayAccountSettings();
+  }
+
+  public void startNewGame() {
+    main.displayGameSettings(GameMode.MULTIPLAYER);
   }
 
 }
