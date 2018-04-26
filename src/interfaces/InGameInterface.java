@@ -5,6 +5,7 @@ import java.util.List;
 import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;
+import logic.Player;
 import logic.Position;
 import logic.Trick;
 
@@ -77,4 +78,23 @@ public interface InGameInterface {
    * @param reason
    */
   public void stopGame(String reason);
+  
+  /**
+   * 
+   * @param player
+   */
+  public void showWinnerTrick(Player player);
+  
+  /**
+   * winner of play/round
+   * @param player1
+   * @param player2 is null when declarer won
+   */
+  public void showWinnerPlay(Player player1, Player player2);
+  
+  /**
+   * 
+   * @param player
+   */
+  public void showWinnerGame(Player player);
 }

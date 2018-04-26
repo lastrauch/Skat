@@ -24,6 +24,21 @@ public class PlayState {
   private Trick currentTrick;
   private Auction auction;
 
+  public void resetPlayState() {
+    this.declarerStack = new Stack();
+    this.opponentsStack = new Stack();    
+    this.skat = new Card[2];
+    this.trump = Colour.CLUBS;
+    this.playValue = 0;
+    this.auction = new Auction();
+    this.pm = PlayMode.SUIT;
+    this.playNr = 0;
+    this.trickNr = 0;
+    this.currentTrick = new Trick();
+    this.auctionPossible = true;
+    this.auction = new Auction();
+  }
+  
   /**
    * constructor (default) the attributes are initialized but we want the player(s) to change them
    * during the game
@@ -40,7 +55,11 @@ public class PlayState {
     this.playValue = 0;
     this.auction = new Auction();
     this.pm = PlayMode.SUIT;
+    this.playNr = 0;
+    this.trickNr = 0;
+    this.currentTrick = new Trick();
     this.auctionPossible = true;
+    this.auction = new Auction();
   }
 
 
@@ -341,5 +360,13 @@ public class PlayState {
 
   public Auction getAuction() {
     return this.auction;
+  }
+  
+  public Stack getDeclarerStack() {
+    return this.declarerStack;
+  }
+  
+  public Stack getOpponentsStack() {
+    return this.opponentsStack;
   }
 }

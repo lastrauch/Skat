@@ -20,6 +20,11 @@ public class Play {
   private boolean singlePlayerWins;
   private LogicNetwork logicNetwork;
   private ClientLogic clientLogic;
+  
+  // neu und sinnvoll
+  public static Player declarer;
+  public static Player opponents1;
+  public static Player opponents2;
 
   /**
    * constructor
@@ -243,8 +248,8 @@ public class Play {
    * @author sandfisc
    * @return
    */
-  public boolean checkOverBid() {
-    if (this.ps.getPlayValue() < this.ps.getDeclarer().getBet()) {
+  public static boolean checkOverBid(PlayState ps) {
+    if (ps.getPlayValue() < declarer.getBet()) {
       return false;
     } else {
       return true;
@@ -258,80 +263,47 @@ public class Play {
    * @author awesch
    * @author sandfisc
    */
-  public boolean calculateWinner() {
+  public static Player[] calculateWinner(PlayState ps) {
 
+    Player winner[] = new Player[2];
     // "singleplayer bidded himself over"
-    if (!this.checkOverBid()) {
-      return false;
+    if (checkOverBid(ps)) {
+      Tools.getOpponents(ps.getGroup());
     } else {
 
-      int pointsD = this.calculatePointsOfStack(this.ps.getStackDeclarer());
-      int pointsO = this.calculatePointsOfStack(this.ps.getStackOpponents());
+      int pointsD = ps.getDeclarerStack().calculatePointsOfStack();
+      int pointsO = ps.getOpponentsStack().calculatePointsOfStack();
 
       // check "schneider"
       if (pointsD >= 90) {
-        this.ps.setSchneider(true);
-      } else if (this.ps.getSchneiderAnnounced()) {
-        return false;
+        ps.setSchneider(true);
+      } else if (ps.getSchneiderAnnounced()) {
+        Tools.getOpponents(ps.getGroup());
       }
 
       // check "schwarz"
       if (pointsO == 0) {
-        this.ps.setSchwarz(true);
-      } else if (this.ps.getSchneiderAnnounced()) {
-        return false;
+        ps.setSchwarz(true);
+      } else if (ps.getSchneiderAnnounced()) {
+        Tools.getOpponents(ps.getGroup());
       }
 
       // there are two possible states where the declarer wins (depends if he plays hand or not)
       // if he plays hand: poinsD >= pointsO (1.), if not: pointsD > pointsO(2.)
       // 1.
-      if (pointsD >= pointsO && this.ps.getHandGame()) {
-        return true;
+      if (pointsD >= pointsO && ps.getHandGame()) {
+        Tools.getOpponents(ps.getGroup());
       }
       // 2.
-      else if (pointsD > pointsO && (!this.ps.getHandGame())) {
-        return true;
+      else if (pointsD > pointsO && (!ps.getHandGame())) {
+        Tools.getOpponents(ps.getGroup());
       }
       // in every other case the team wins
       else {
-        return false;
+        Tools.getOpponents(ps.getGroup());
       }
     }
   }
-
-  /**
-   * Calculates the points of a variable stack of cards created for calculateWinner
-   * 
-   * @param stack
-   * @return
-   * @author awesch
-   */
-  public int calculatePointsOfStack(List<Card> stack) {
-    int sum = 0;
-    for (int i = 0; i < stack.size(); i++) {
-      sum += stack.get(i).getValue();
-    }
-    return sum;
-  }
-
-  // print methods to test the others
-  public void printListCards(ArrayList<Card> list) {
-    for (int i = 0; i < list.size(); i++) {
-      System.out.println(list.get(i).getColour() + " " + list.get(i).getNumber());
-    }
-  }
-
-//  // only to test stuff
-//  public void printHands(String text) {
-//    System.out.println(text);
-//    for (int i = 0; i < this.group.length; i++) {
-//      System.out.println("Hand" + (i + 1));
-//      this.printListCards(this.group[i].getHand());
-//      System.out.println();
-//    }
-//    System.out.println();
-//  }
-
 
   /**
    * shuffles the cards after they have been initialized
@@ -425,23 +397,20 @@ public class Play {
    * @author sandfisc
    * @throws LogicException
    */
-  public void calculatePoints() throws LogicException {
+  public static void calculatePoints(PlayState ps, GameSettings gameSettings, boolean declarerWins) throws LogicException {
 
     // check if the declarer over bid
-    if (this.checkOverBid()) {
-      this.calculatePointsOverBit();
+    if (checkOverBid(ps)) {
+      calculatePointsOverBit(ps);
 
       // calculate the players points with the countRule
     } else {
-      if (this.gameSettings.getCountRule() == CountRule.NORMAL) {
-        this.calculatePointsNormal();
-      } else if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
-        this.calculatePointsBierlachs();
-      } else if (this.gameSettings.getCountRule() == CountRule.SEEGERFABIAN) {
-        this.calculatePointsSeegerfabian();
+      if (gameSettings.getCountRule() == CountRule.NORMAL) {
+        calculatePointsNormal(ps, declarerWins);
+      } else if (gameSettings.getCountRule() == CountRule.BIERLACHS) {
+        calculatePointsBierlachs(ps, declarerWins);
       } else {
-        throw new LogicException(
-            "Calculating the score update was not possible (no countRule found)");
+        calculatePointsSeegerfabian(ps, declarerWins);
       }
     }
   }
@@ -450,12 +419,12 @@ public class Play {
    * The amount subtracted from the declarer's score is twice the least multiple of the base value
    * of the game actually played which would have fulfilled the bid
    */
-  public void calculatePointsOverBit() {
-    int points = this.ps.getBaseValue();
-    while (points < this.ps.getBetValue()) {
+  public static void calculatePointsOverBit(PlayState ps) {
+    int points = ps.getBaseValue();
+    while (points < ps.getBetValue()) {
       points += points;
     }
-    this.ps.getDeclarer().addToGamePoints(points * (-2));
+    Tools.getDeclarer(ps.getGroup()).addToGamePoints(points * (-2));
   }
 
   /**
@@ -464,11 +433,11 @@ public class Play {
    * 
    * @author sandfisc
    */
-  public void calculatePointsNormal() {
-    if (this.singlePlayerWins) {
-      this.ps.getDeclarer().addToGamePoints(this.ps.getPlayValue());
+  public static void calculatePointsNormal(PlayState ps, boolean declarerWins) {
+    if (declarerWins) {
+      Tools.getDeclarer(ps.getGroup()).addToGamePoints(ps.getPlayValue());
     } else {
-      this.ps.getDeclarer().addToGamePoints((-2) * (this.ps.getPlayValue()));
+      Tools.getDeclarer(ps.getGroup()).addToGamePoints((-2) * (ps.getPlayValue()));
     }
   }
 
@@ -477,12 +446,12 @@ public class Play {
    * 
    * @author sandfisc
    */
-  public void calculatePointsBierlachs() {
-    if (this.singlePlayerWins) {
-      this.ps.getOpponents()[0].addToGamePoints((-1) * (this.ps.getPlayValue()));
-      this.ps.getOpponents()[1].addToGamePoints((-1) * (this.ps.getPlayValue()));
+  public static void calculatePointsBierlachs(PlayState ps, boolean declarerWins) {
+    if (declarerWins) {
+      Tools.getOpponents(ps.getGroup())[0].addToGamePoints((-1) * (ps.getPlayValue()));
+      Tools.getOpponents(ps.getGroup())[1].addToGamePoints((-1) * (ps.getPlayValue()));
     } else {
-      this.ps.getDeclarer().addToGamePoints((-2) * (this.ps.getPlayValue()));
+      Tools.getDeclarer(ps.getGroup()).addToGamePoints((-2) * (ps.getPlayValue()));
     }
   }
 
@@ -491,11 +460,11 @@ public class Play {
    * 
    * @author sandfisc
    */
-  public void calculatePointsSeegerfabian() {
-    if (this.singlePlayerWins) {
-      this.ps.getDeclarer().addToGamePoints(this.ps.getPlayValue() + 50);
+  public static void calculatePointsSeegerfabian(PlayState ps, boolean declarerWins) {
+    if (declarerWins) {
+      Tools.getDeclarer(ps.getGroup()).addToGamePoints(ps.getPlayValue() + 50);
     } else {
-      this.ps.getDeclarer().addToGamePoints((-1) * (this.ps.getPlayValue() + 50));
+      Tools.getDeclarer(ps.getGroup()).addToGamePoints((-1) * (ps.getPlayValue() + 50));
     }
   }
 

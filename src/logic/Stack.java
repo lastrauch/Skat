@@ -33,7 +33,7 @@ public class Stack {
    * @return
    * @author awesch
    */
-  public int calculatePointsOfStack(ArrayList<Card> stack) {
+  public int calculatePointsOfStack() {
     int sum = 0;
     for (int i = 0; i < this.stack.size(); i++) {
       sum += this.stack.get(i).getValue();

@@ -1,12 +1,13 @@
 package logic;
 
-import java.awt.List;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Trick {
   private PlayState ps;
   private int indexWinner;
-  private ArrayList<Card> trickCards;
+  private List<Card> trickCards;
 
   public Trick(PlayState ps) {
     this.trickCards = new ArrayList<Card>();
@@ -14,10 +15,13 @@ public class Trick {
     this.indexWinner = 0;
   }
 
+  public Trick() {
+    this.trickCards = new ArrayList<Card>();
+  }
 
   // maybe add methods like calculate highest card in trick, depending on the PlayMode
 
-  public ArrayList<Card> getTrickCards() {
+  public List<Card> getTrickCards() {
     return this.trickCards;
   }
 

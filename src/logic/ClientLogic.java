@@ -20,12 +20,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
   GameSettings gameSettings;
   Game game; // we need this for calcutlating the winner --> maybe in playstate
 
-  public ClientLogic(Player player, GameSettings gameSettings, InGameInterface inGameController,
-      NetworkController netController) {
+  public ClientLogic(Player player, InGameInterface inGameController) {
     this.player = player;
-    this.gameSettings = gameSettings;
     this.inGameController = inGameController;
-    this.netController = netController;
   }
 
   /**
@@ -652,25 +649,38 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.inGameController.updateHand(this.player.getHand());
   }
 
-  public void checkIfTrickIsOver() {
+  public void checkIfTrickIsOver() throws LogicException {
     if (this.playState.getCurrentTrick().isFull()) {
       // calculate winner trick
 
       // check if play is over
       if (this.playState.getTrickNr() == 10) {
         // calculate winner play
-
+        Player [] playWinner = Play.calculateWinner(playState);
+        if (playWinner[0].IsDeclarer()) { 
+          // calculate points: declarer won
+          Play.calculatePoints(playState, gameSettings, true);
+        } else {
+          //calculate points: opponents won
+          Play.calculatePoints(playState, gameSettings, false);
+        }
+        // show winner of play 
+        this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
+        
         if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()) {// check if the whole
                                                                              // game is over
           // game is over
           // calculate winner game
-          Player winner = Game.calculateWinner(this.playState);
+          Player GameWinner = Game.calculateWinner(this.playState);
           // show winner on gui
+          this.inGameController.showWinnerGame(GameWinner);
+          
         } else {
           // game is not over
           this.playState.setPlayNr(this.playState.getPlayNr() + 1);
           // createNewPlay!!
-
+          
+          
           // start auction if "i am" middlehand
           if (this.player.getPosition() == Position.MIDDLEHAND) {
             this.inGameController.askForBet(18);
@@ -707,6 +717,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
+  public void setNetworkController(NetworkController networkController) {
+    this.netController = networkController;
+  }
 
 
 }
