@@ -111,6 +111,10 @@ public class GameController implements GuiLogic {
     Player p = new Player(botname);
     this.group.add(p);
     // InGameInterface inGameController = new AIController(botname, difficulty,this.gameSettings);
+    // ClientLogic clientLogic = new ClientLogic(p, inGameController);
+    // LogicNetwork networkController = new NetworkController(clientLogic);
+    // clientLogic.setNetworkController(networkController);
+    // this.clientLogic.add(clientLogic);
   }
 
   /**

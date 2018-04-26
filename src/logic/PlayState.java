@@ -12,7 +12,7 @@ public class PlayState {
   private int playValue;
   private PlayMode pm;
   private int playNr;
-  private int trickNr;
+  private int trickNr; 
   private boolean auctionPossible;
   private boolean handGame;
   private boolean schneider;

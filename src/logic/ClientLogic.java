@@ -656,6 +656,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.inGameController.updateHand(this.player.getHand());
   }
 
+  //fehlt: update position
   public void checkWhatHappensNext(Player playedLastCard) throws LogicException {
 
     Player trickWinner;
@@ -755,7 +756,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
-  public boolean checkifTrickIsFull() {
+  public boolean checkIfTrickIsFull() {
     if (this.playState.getCurrentTrick().isFull()) {
 
       this.playState.setCurrentTrick(new Trick(this.playState));
@@ -779,7 +780,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
-  public void setNetworkController(NetworkController networkController) {
+  public void setNetworkController(LogicNetwork networkController) {
     this.netController = networkController;
   }
 
