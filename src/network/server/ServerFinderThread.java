@@ -20,13 +20,12 @@ public class ServerFinderThread extends Thread{
 	public void run(){
 		this.running = true;
 		
-		byte[] b = new byte[1024];
 		byte[] data = new byte[1024];
 		
 		try{
 			this.socket = new DatagramSocket(this.port);
 			while(this.running){
-				DatagramPacket packet = new DatagramPacket(b, b.length);
+				DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
 				this.socket.receive(packet);
 				String msg = new String(packet.getData());
 				if(msg.trim().equals("ping")){
