@@ -13,7 +13,7 @@ public class General {
 	/* This is a static class to implement methods which are used through different Bot-difficulties.
 	 * Available Methods are:
 	 * playRandomCard(AIController) : int					//Returns the index of a playable card on the hand of the bot.
-	 * getHighestPossibleBet(AIController) : int			//Returns the highest possible bet, with the current hand of the bot
+	 * getHighestPossibleBet(AIController, PlayMode) : int	//Returns the highest possible bet, with the current hand of the bot
 	 */
 	
 	public static int playRandomCard(AIController controller){
@@ -44,37 +44,39 @@ public class General {
 		if(playMode == PlayMode.NULL){
 			return 23;
 		}else{
-			List<Card> cards = controller.getBot().getHand();
-			
-			//Determine the Jacks
-			boolean[] jacks = new boolean[4];
-			for(int i=0; i<cards.size(); i++){
-				if(cards.get(i).getNumber() == Number.JACK){
-					switch(cards.get(i).getColour()){
-						case CLUBS: jacks[0] = true; break;
-						case SPADES: jacks[1] = true; break;
-						case HEARTS: jacks[2] = true; break;
-						case DIAMONDS: jacks[3] = true; break;
-						default:
-					}
-				}
-			}
-			
-			//Determine the gameLevel 
-			int gameLevel = 1;
-			boolean with = jacks[0];
-			for(int i=1; i<4; i++){
-				if(jacks[0] == with){
-					gameLevel++;
-				}
-			}
-			
+			int gameLevel = General.getGameLevel(controller);
 			if(playMode == PlayMode.GRAND){
 				return 24*gameLevel;
 			}else{
 				return 12*gameLevel;
 			}
 		}
+	}
+	
+	public static int getGameLevel(AIController controller){
+		List<Card> cards = controller.getBot().getHand();
+		//Determine the Jacks
+		boolean[] jacks = new boolean[4];
+		for(int i=0; i<cards.size(); i++){
+			if(cards.get(i).getNumber() == Number.JACK){
+				switch(cards.get(i).getColour()){
+					case CLUBS: jacks[0] = true; break;
+					case SPADES: jacks[1] = true; break;
+					case HEARTS: jacks[2] = true; break;
+					case DIAMONDS: jacks[3] = true; break;
+				}
+			}
+		}
+		
+		//Determine the gameLevel 
+		int gameLevel = 1;
+		boolean with = jacks[0];
+		for(int i=1; i<4; i++){
+			if(jacks[0] == with){
+				gameLevel++;
+			}
+		}
+		return gameLevel;
 	}
 
 }
