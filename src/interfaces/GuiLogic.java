@@ -79,11 +79,11 @@ public interface GuiLogic {
   /**
    * @param hostName
    */
-  public void joinGame(String hostName, GameSettings gs); 
+  public void joinGame(String hostName); 
   
   /**
    * @param comment
    */
-  public void hostGame(String comment);
+  public void hostGame(String comment, GameSettings gs);
   
 }
