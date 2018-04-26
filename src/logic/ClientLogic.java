@@ -739,7 +739,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
       } else {
         // generate new trick
+        this.playState.setTrickNr(this.playState.getTrickNr() + 1);
         this.playState.setCurrentTrick(new Trick());
+        
         // if "i am" winner of last trick --> ask inGameController to play new card
         if (this.player.equals(trickWinner)) {
           this.inGameController.askToPlayCard();

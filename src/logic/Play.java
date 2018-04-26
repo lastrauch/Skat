@@ -303,6 +303,7 @@ public class Play {
         Tools.getOpponents(ps.getGroup());
       }
     }
+    
   }
 
   /**
