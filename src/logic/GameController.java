@@ -87,29 +87,5 @@ public class GameController implements GuiLogic{
     
   }
 
-  @Override
-  public String getChatText() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public void sendChatText(String message) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  public void joinGame(String hostName) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  public void hostGame(String comment, GameSettings gs) {
-    // TODO Auto-generated method stub
-    
-  }
-
 
 }
