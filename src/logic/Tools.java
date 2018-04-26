@@ -3,6 +3,8 @@
  */
 package logic;
 
+import java.util.List;
+
 /**
  * @author sandr
  *
@@ -35,5 +37,14 @@ public class Tools {
       }
     }
     return opponents;
+  }
+  
+  public static Player searchPlayer(Player player, List<Player> group) {
+    for (Player p : group) {
+      if (p.equals(player)) {
+        return p;
+      }
+    }
+    return null;
   }
 }

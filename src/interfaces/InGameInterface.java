@@ -2,6 +2,7 @@ package interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
+import ai.BotDifficulty;
 import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;
@@ -97,4 +98,5 @@ public interface InGameInterface {
    * @param player
    */
   public void showWinnerGame(Player player);
+
 }

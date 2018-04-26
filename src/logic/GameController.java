@@ -1,7 +1,9 @@
 package logic;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import ai.AIController;
 import ai.BotDifficulty;
 import gui.ImplementsLogicGui;
 import gui.InGameController;
@@ -15,16 +17,16 @@ import network.NetworkController;
 
 public class GameController implements GuiLogic {
 
-  private Player[] group;
-  // private LogicGui logicGui; // interface from logic to gui
+  private List<Player> group = new ArrayList<Player>();
+  private LogicGui logicGui; // interface from logic to gui
   private LogicNetwork logicNetwork; // interface from logic to network
   private GuiLogic guiLogic; // interface from gui to logic
   private List<ClientLogic> clientLogic;
   private Game game;
   private GameSettings gameSettings;
 
-  public GameController() {
-    // this.logicGui = logicGui;
+  public GameController(LogicGui logicGui) {
+    this.logicGui = logicGui;
     this.gameSettings = new GameSettings();
   }
 
@@ -76,18 +78,23 @@ public class GameController implements GuiLogic {
     // }
   }
 
-  /*
+
+  @Override
+  /**
    * (non-Javadoc)
    * 
+   * @author awesch
    * @see interfaces.GuiLogic#login(java.lang.String)
    */
-  @Override
   public void login(String username, Image profilepicture) {
-    // TODO Auto-generated method stub
-    // erstelle player und client logic
     Player p = new Player(username, profilepicture);
-    this.group[0] = p;
-//    NetworkLogic networkController = new NetworkController();
+    this.group.add(p);
+    InGameInterface inGameController = new InGameController();
+    ClientLogic clientLogic = new ClientLogic(p, inGameController);
+    LogicNetwork networkController = new NetworkController(clientLogic);
+    // auskommentiert, weil in clientLogic noch nicht
+    // clientLogic.setNetworkController(networkController);
+    this.clientLogic.add(clientLogic);
   }
 
   @Override
@@ -97,9 +104,13 @@ public class GameController implements GuiLogic {
   }
 
   @Override
+  /**
+   * @author awesch
+   */
   public void setBot(String botname, BotDifficulty difficulty) {
-    // TODO Auto-generated method stub
-
+    Player p = new Player(botname);
+    this.group.add(p);
+    // InGameInterface inGameController = new AIController(botname, difficulty,this.gameSettings);
   }
 
   /**
