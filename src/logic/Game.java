@@ -264,11 +264,11 @@ public class Game {
    * 
    * @author sandfisc
    */
-  public Player calculateWinner(PlayState ps) {
+  public static Player calculateWinner(PlayState ps) {
     Player winner = ps.getGroup()[0];
     for (int i = 1; i < ps.getGroup().length; i++) {
       if (ps.getGroup()[i].getGamePoints() > winner.getGamePoints()) {
-        this.winner = ps.getGroup()[i];
+        winner = ps.getGroup()[i];
       }
     }
     return winner;

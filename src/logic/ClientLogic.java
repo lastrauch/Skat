@@ -495,7 +495,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
                                                                              // game is over
           // game is over
           // calculate winner game
-          Player winner = this.game.calculateWinner(this.playState);
+          Player winner = Game.calculateWinner(this.playState);
           // show winner on gui
         } else {
           // game is not over
