@@ -5,46 +5,30 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class Database {
-  Properties properties;
-  protected Connection connection = null;
-  private static String sep = System.getProperty("file.separator");
-  private String dbname = "SkatData.db";
-  protected String basedir = System.getProperty("user.dir") +  sep + "resources" + sep;
-  private String filename = basedir + dbname; // default database file
-  
-  public boolean isConnected(){
-      return (connection != null);
-  }
-  
-  public void connect(){
-      init();
+  public class Database {
+    protected Connection connection;
+    Properties properties;
+    
+    public Database() {
+      this.connect(System.getProperty("user.dir") + System.getProperty("file.separator") + "resources"
+              + System.getProperty("file.separator") + "SkatData.db");
+    }
+    
+    /**
+     * Stellt die Verbindung mit der Datenbank her.
+     * 
+     * @param file
+     *            Name und Pfad der Datenbank
+     */
+    
+    private void connect(String file) {
       try {
           Class.forName("org.sqlite.JDBC");
-          connection = DriverManager.getConnection("jdbc:sqlite:" + filename, properties);
-          connection.setAutoCommit(false);
-      } catch ( Exception e ) {
-          System.out.println(e.getClass().getName() + ": " + e.getMessage() );
-          System.exit(0);
+          this.connection = DriverManager.getConnection("jdbc:sqlite:" + file);
+      } catch (ClassNotFoundException e) {
+          e.printStackTrace();
+      } catch (SQLException e) {
+          e.printStackTrace();
       }
-      System.out.println("Opened database successfully");
-  }
-  public void disconnect(){
-    if (connection != null){
-        try {
-            connection.commit();
-            connection.close();
-            connection = null;
-        } catch(SQLException e){
-            System.err.println(e.getClass().getName() + ": " + e.getMessage() );
-            e.printStackTrace();
-            System.exit(0);
-        }
-        System.out.println("Closed database successfully");
     }
   }
-    private void init(){
-      properties = new Properties();
-      properties.setProperty("PRAGMA foreign_keys", "ON");
-  }
-}
