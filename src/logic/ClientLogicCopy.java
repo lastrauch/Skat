@@ -9,17 +9,21 @@ import interfaces.GuiLogic;
 import interfaces.InGameInterface;
 import interfaces.NetworkLogic;
 import javafx.scene.image.Image;
+import network.NetworkController;
 
 public class ClientLogicCopy implements NetworkLogic, AILogic {
 
   Player player;
   InGameInterface inGameController; // implemented by Gui or Ai
-  // NetworkController
-  Game game;
+  NetworkController netController;
+  PlayState playState;
 
-  public ClientLogicCopy(Player player, InGameInterface inGameController) {
+
+  public ClientLogicCopy(Player player, InGameInterface inGameController,
+      NetworkController netController) {
     this.player = player;
     this.inGameController = inGameController;
+    this.netController = netController;
   }
 
   /**
@@ -50,6 +54,18 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     return null;
   }
 
+
+  /**
+   * maybe something for the logic gui interface??? created for the auction
+   * 
+   * @author awesch
+   * @param bet
+   * @return
+   */
+  public boolean askForBet(int bet) {
+    return this.inGameController.askForBet(bet);
+  }
+
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
    * of the trick and the PlayMode
@@ -62,11 +78,11 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
    * @author sandfisc
    */
   public boolean checkIfCardPossible(Card card, Card firstCard) throws LogicException {
-    if (this.game.getCurrentPlay().getPlayState().getPlayMode() == PlayMode.SUIT) {
+    if (this.playState.getPlayMode() == PlayMode.SUIT) {
       return this.checkIfCardPossibleColour(card, firstCard);
-    } else if (this.game.getCurrentPlay().getPlayState().getPlayMode() == PlayMode.GRAND) {
+    } else if (this.playState.getPlayMode() == PlayMode.GRAND) {
       return this.checkIfCardPossibleGrand(card, firstCard);
-    } else if (this.game.getCurrentPlay().getPlayState().getPlayMode() == PlayMode.NULL) {
+    } else if (this.playState.getPlayMode() == PlayMode.NULL) {
       return this.checkIfCardPossibleNull(card, firstCard);
     }
     return false;
@@ -108,10 +124,10 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
    */
   public boolean checkIfServedColour(Card servingCard, Card servedCard) {
 
-    if (servedCard.getColour() == this.game.getCurrentPlay().getPlayState().getTrump()
+    if (servedCard.getColour() == this.playState.getTrump()
         || servedCard.getNumber() == Number.JACK) {
       // first card is trump
-      if (servingCard.getColour() == this.game.getCurrentPlay().getPlayState().getTrump()
+      if (servingCard.getColour() == this.playState.getTrump()
           || servingCard.getNumber() == Number.JACK) {
         return true;
       }
@@ -326,6 +342,10 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     this.player.addToGamePoints(points);
   }
 
+  // public Player searchPlayer(Player player) {
+  // for(int i = 0; i < )
+  // }
+
   /*
    * (non-Javadoc)
    * 
@@ -345,7 +365,6 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
     // TODO Auto-generated method stub
-
   }
 
   /*
@@ -380,15 +399,185 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
 
   }
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveBet(logic.Player, int)
-   */
-  @Override
-  public void receiveBet(Player player, int bet) {
-    // TODO Auto-generated method stub
 
+  /**
+   * returns the given player in the playstate group array
+   * 
+   * @author awesch
+   * @param player
+   * @return
+   */
+  public Player searchPlayer(Player player) {
+    for (Player p : this.playState.getGroup()) {
+      if (p.equals(player)) {
+        return p;
+      }
+    }
+    return null;
+  }
+
+
+  @Override
+  /**
+   * works with a received bet
+   * 
+   * @author awesch
+   * @param player
+   * @param bet
+   */
+  public void receiveBet(Player player, int bet) {
+    // if auction is still running
+    if (!this.checkIfAuctionIsOver(bet)) {
+      int newBet = this.calculateNewBet(bet);
+      // if it is my turn
+      if (this.checkIfItsMyTurnAuction(player)) {
+        // if the player goes with the bet
+        if (this.inGameController.askForBet(newBet)) {
+          this.netController.bet(newBet);
+        } else {
+          this.netController.bet(-1);
+        }
+      }
+      this.updateBet(player, bet);
+    } else {
+      this.updateBet(player, bet);
+      this.setAuctionWinner();
+      this.checkIfAuctionWinner();
+    }
+
+  }
+
+  /**
+   * @author awesch
+   * @param currentBet
+   * @return
+   */
+  public int calculateNewBet(int currentBet) {
+    int lastBet = this.playState.getAuction().getBetValue();
+    int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
+
+    if (lastBet == currentBet) {
+      return this.playState.getAuction().getPossibleBets()[lastBetIndex + 1];
+    }
+    return lastBet;
+  }
+
+  /**
+   * @author awesch
+   * @param player
+   * @param bet
+   */
+  public void updateBet(Player player, int bet) {
+    if (bet != -1) {
+      this.playState.setBetValue(bet);
+    }
+    this.searchPlayer(player).setBet(bet);
+  }
+
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
+  public boolean checkIfItsMyTurnAuctionForehand(Player player) {
+    if (player.getPosition() == Position.MIDDLEHAND && this.player.getBet() != -1) {
+      return true;
+    }
+    if (player.getPosition() == Position.REARHAND && this.player.getBet() != -1) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
+  public boolean checkIfItsMyTurnAuctionMiddlehand(Player player) {
+    if (this.player.getBet() != -1 && player.getPosition() != Position.MIDDLEHAND) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
+  public boolean checkIfItsMyTurnAuctionRearHand(Player player) {
+    if (this.oneOfThePlayersPassedAlready() && player.getPosition() != Position.REARHAND) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   * @return
+   */
+  public boolean oneOfThePlayersPassedAlready() {
+    for (Player p : this.playState.getGroup()) {
+      if (p.getBet() == -1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   * @param player
+   * @return
+   */
+  public boolean checkIfItsMyTurnAuction(Player player) {
+    if (this.player.getPosition() == Position.FOREHAND
+        && this.checkIfItsMyTurnAuctionForehand(player)) {
+      return true;
+    }
+    if (this.player.getPosition() == Position.MIDDLEHAND
+        && this.checkIfItsMyTurnAuctionMiddlehand(player)) {
+      return true;
+    }
+    if (this.player.getPosition() == Position.REARHAND
+        && this.checkIfItsMyTurnAuctionRearHand(player)) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   * @param bet
+   * @return
+   */
+  public boolean checkIfAuctionIsOver(int bet) {
+    if (bet == -1 && this.oneOfThePlayersPassedAlready()) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @author awesch
+   */
+  public void setAuctionWinner() {
+    for (Player p : this.playState.getGroup()) {
+      if (p.getBet() != -1) {
+        this.playState.getAuction().setWinner(p);
+      }
+    }
+  }
+
+  /**
+   * @author awesch
+   */
+  public void checkIfAuctionWinner() {
+    if (this.playState.getAuction().getWinner().equals(this.player)) {
+      this.inGameController.setPlaySettings(this.playState);
+      this.netController.sendPlayState(this.playState);
+    }
   }
 
   /*
@@ -399,7 +588,7 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
   @Override
   public void receivePlayState(PlayState ps) {
     // TODO Auto-generated method stub
-    this.game.getCurrentPlay().setPlayState(ps);
+    this.playState = ps;
     this.inGameController.setPlaySettings(ps);
   }
 
@@ -412,7 +601,7 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
   public void receiveCardPlayed(Player player, Card card) {
     // TODO Auto-generated method stub
     // update current trick
-    this.game.getCurrentPlay().getCurrentTrick().addCard(card);
+    this.playState.getCurrentTrick().addCard(card);
 
     // update players hand
     try {
@@ -421,7 +610,7 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
       e.printStackTrace();
     }
     // show update on gui/ai
-    this.inGameController.updateTrick(this.game.getCurrentPlay().getCurrentTrick().getTrickCards());
+    this.inGameController.updateTrick(this.playState.getCurrentTrick().getTrickCards());
   }
 
   /*
@@ -432,8 +621,9 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
   @Override
   public void receiveYourTurn() {
     // TODO Auto-generated method stub
-    Card playedCard = this.playCard(this.game.getCurrentPlay().getCurrentTrick().getFirstCard());
-    // send played card!
+    Card playedCard = this.playCard(this.playState.getCurrentTrick().getFirstCard());
+    // send played card
+    this.netController.sendCardPlayed(playedCard);
   }
 
   /*
@@ -444,7 +634,7 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
   @Override
   public void receivePlayerDisconnected(Player player) {
     // TODO Auto-generated method stub
-
+    this.inGameController.stopGame("player disconnected");
   }
 
   /*
