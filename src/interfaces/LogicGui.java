@@ -25,20 +25,10 @@ public interface LogicGui {
    */
   public void setGameSettings(GameSettings gs);
 
-  
-  // we still need aiDifficulty (enum??) 
-  // array with two elements for two AIs
-//  public AiDifficulty[] getDifficulties() {
-//    
-//  }
-/**
- * should show the name plus comment of the games which are open and where you can join
- * @param hostName
- * @param comment
- */
-  public void showOpenLobby(List<Server> openGames);
-  
-  
+  /**
+   * method should open the inGameScreen
+   */
+  public void startInGameScreen();
   
 }
 

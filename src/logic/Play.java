@@ -20,7 +20,7 @@ public class Play {
   private boolean singlePlayerWins;
   private LogicNetwork logicNetwork;
   private ClientLogic clientLogic;
-  
+
   // neu und sinnvoll
   public static Player declarer;
   public static Player opponents1;
@@ -44,189 +44,27 @@ public class Play {
     this.logicNetwork.startGame();
   }
 
-  /**
-   * runs the play
-   * 
-   * @author awesch
-   * @author sandfisc
-   */
-  public void runPlay() {
-    do {
-      // pepearation
-      this.shuffleCards();
-      this.dealOutCards();
-      this.updateHands();
-      // test:
-      // this.printHands("after dealOutCards:");
-
-      this.sortHands();
-      this.updateHands();
-
-      // test:
-      // this.printHands("after first sortCards:");
-      Auction auction = new Auction(this.group, this.clientLogic);
-      auction.runAuction(this.ps);
-      // // test (without auction)
-      // this.ps.setPlayMode(PlayMode.NULLOUVERT);
-      // this.ps.setTrump(Colour.CLUBS);
-      // this.ps.setNrOfPlays(6);
-      // this.ps.setDeclarer(this.group[0]);
-    } while (!this.ps.getAuctionPossible());
-    
-    
-
-    this.sortHands();
-    this.updateHands();
-    // test:
-    // this.printHands("after second sortCards:");
-
-    // doing 10 tricks
-    Card card1 = null;
-    Card card2 = null;
-    Card card3 = null;
-
-    for (int i = 0; i < this.nrTricks; i++) {
-
-      // start new trick
-      this.tricks[i] = new Trick(this.ps);
-
-      // test
-      // System.out.println(this.group[(this.indexWinnerLastTrick) % 3].getName());
-      // System.out.println(this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
-      // System.out.println(this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
-
-      // first player plays card
-     // card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
-
-      // test random card
-      // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
-      // System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
-      // this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
-      // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
-      // this.group[(this.indexWinnerLastTrick) % 3].playCard(
-      // card1 = this.group[(this.indexWinnerLastTrick) %
-      // 3].getHand().get(this.group[(this.indexWinnerLastTrick) %
-      // 3].inGameController.askToPlayCard());
-
-      // this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
-      this.tricks[i].setCard1(card1);
-      this.updateTrick(card1);
-
-      // second player plays card
 
 
-      // test random card
-      // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseRandomCardFromHand();
-      // System.out
-      // .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
-      // this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
-      // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
-     // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
-
-//
-//        // remove card from second players hand
-//        this.group[(this.indexWinnerLastTrick + 1) % 3].removeCardFromHand(card2);
-
-      // add the second card to trick
-      this.tricks[i].setCard2(card2);
-      this.updateTrick(card2);
-
-      // third player plays card
-
-      // test random card
-      // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseRandomCardFromHand();
-      //
-      // System.out
-      // .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
-      // this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
-      // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
-
-      // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
-
-
-//        // remove card from third players hand
-//        this.group[(this.indexWinnerLastTrick + 2) % 3].removeCardFromHand(card3);
-
-      // add the third card to trick
-      this.tricks[i].setCard3(card3);
-      this.updateTrick(card3);
-
-      // System.out.println("The trick:");
-      // this.printArrayOfCards(this.tricks[i].getTrickCards());
-
-      // the winner is calculated and his/her index is saved in indexWinnerLastTrick
-      try {
-        this.tricks[i].calculateWinner();
-        this.indexWinnerLastTrick = this.tricks[i].getIndexWinner();
-        // System.out.println(
-        // "Winner of the last Trick: " + this.group[this.indexWinnerLastTrick].getName());
-
-        // winner receives cards on his stack
-        if (this.group[this.indexWinnerLastTrick].IsDeclarer()) {
-          ps.addToStackDeclarer(tricks[i]);
-        } else {
-          ps.addToStackOpponents(tricks[i]);
-        }
-
-        // declarer is not allowed to win a trick when playMode is NULL
-        if (this.ps.getPlayMode() == PlayMode.NULL) {
-          if (this.group[this.indexWinnerLastTrick].IsDeclarer()) {
-            this.singlePlayerWins = false;
-            break;
-          }
-        }
-      } catch (LogicException e) {
-        e.printStackTrace();
-
-      }
-      // System.out.println("Declarer Stack:");
-      // this.printListCards(this.ps.getStackDeclarer());
-      // System.out.println();
-      // System.out.println("Opponents Stack:");
-      // this.printListCards(this.ps.getStackOpponents());
-      // System.out.println();
-    }
-    // calculate if the declarer won the play
-    this.singlePlayerWins = this.calculateWinner();
-    // update the gamePoints of each player
-    try {
-      this.calculatePoints();
-      this.logicNetwork.sendPlayState(this.ps);
-    } catch (LogicException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
-  //  this.logicNetwork.endPlay(this.singlePlayerWins);
-  }
-
-  // to test stuff
-  public void printArrayOfCards(Card[] array) {
-    for (Card c : array) {
-      System.out.println(c.getColour().toString() + " " + c.getNumber().toString());
-    }
-  }
-
-
-//  /**
-//   * updates the hands of the group
-//   * 
-//   * @author sandfisc
-//   */
-//  public void updateHands() {
-//    for (int i = 0; i < this.group.length; i++) {
-//      this.group[i].updateHand();
-//    }
-//  }
-//
-//  /**
-//   * starts the gui on all clients
-//   */
-//  public void startPlayOnGui() {
-//    for (int i = 0; i < this.group.length; i++) {
-//      this.group[i].startPlay();
-//    }
-//  }
+  // /**
+  // * updates the hands of the group
+  // *
+  // * @author sandfisc
+  // */
+  // public void updateHands() {
+  // for (int i = 0; i < this.group.length; i++) {
+  // this.group[i].updateHand();
+  // }
+  // }
+  //
+  // /**
+  // * starts the gui on all clients
+  // */
+  // public void startPlayOnGui() {
+  // for (int i = 0; i < this.group.length; i++) {
+  // this.group[i].startPlay();
+  // }
+  // }
 
 
   /**
@@ -238,7 +76,7 @@ public class Play {
   public void updateTrick(Card card) {
     // this.logicNetwork.updateTrick(this.tricks[this.currentTrick]);
     for (int i = 0; i < this.group.length; i++) {
-//      this.logicNetwork.sendCard(card, this.group[i]);
+      // this.logicNetwork.sendCard(card, this.group[i]);
     }
   }
 
@@ -268,7 +106,7 @@ public class Play {
     Player winner[] = new Player[2];
     // "singleplayer bidded himself over"
     if (checkOverBid(ps)) {
-      Tools.getOpponents(ps.getGroup());
+      winner = Tools.getOpponents(ps.getGroup());
     } else {
 
       int pointsD = ps.getDeclarerStack().calculatePointsOfStack();
@@ -278,32 +116,33 @@ public class Play {
       if (pointsD >= 90) {
         ps.setSchneider(true);
       } else if (ps.getSchneiderAnnounced()) {
-        Tools.getOpponents(ps.getGroup());
+        winner = Tools.getOpponents(ps.getGroup());
       }
 
       // check "schwarz"
       if (pointsO == 0) {
         ps.setSchwarz(true);
       } else if (ps.getSchneiderAnnounced()) {
-        Tools.getOpponents(ps.getGroup());
+        winner = Tools.getOpponents(ps.getGroup());
       }
 
       // there are two possible states where the declarer wins (depends if he plays hand or not)
       // if he plays hand: poinsD >= pointsO (1.), if not: pointsD > pointsO(2.)
       // 1.
       if (pointsD >= pointsO && ps.getHandGame()) {
-        Tools.getOpponents(ps.getGroup());
+        winner[0] = Tools.getDeclarer(ps.getGroup());
       }
       // 2.
       else if (pointsD > pointsO && (!ps.getHandGame())) {
-        Tools.getOpponents(ps.getGroup());
+        winner[0] = Tools.getDeclarer(ps.getGroup());
       }
       // in every other case the team wins
       else {
-        Tools.getOpponents(ps.getGroup());
+        winner = Tools.getOpponents(ps.getGroup());
       }
     }
-    
+    return winner;
+
   }
 
   /**
@@ -398,7 +237,8 @@ public class Play {
    * @author sandfisc
    * @throws LogicException
    */
-  public static void calculatePoints(PlayState ps, GameSettings gameSettings, boolean declarerWins) throws LogicException {
+  public static void calculatePoints(PlayState ps, GameSettings gameSettings, boolean declarerWins)
+      throws LogicException {
 
     // check if the declarer over bid
     if (checkOverBid(ps)) {
@@ -497,6 +337,7 @@ public class Play {
   public void setPlayState(PlayState ps) {
     this.ps = ps;
   }
+
   /**
    * gets the last trick (not only important for AI)
    * 
