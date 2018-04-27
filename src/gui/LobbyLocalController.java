@@ -50,7 +50,7 @@ public class LobbyLocalController implements Initializable {
 
   @FXML
   public void play() {
-    main.displayGameSettings(GameMode.SINGLEPLAYER);;
+    main.displayGameSettings(GameMode.SINGLEPLAYER);
   }
 
   @Override
