@@ -1,11 +1,13 @@
 package interfaces;
 
+import java.awt.List;
 import java.util.ArrayList;
 import ai.BotDifficulty;
 import javafx.scene.image.Image;
 import logic.Card;
 import logic.GameMode;
 import logic.GameSettings;
+import network.server.Server;
 
 // GUI to Logic, implemented by Logic
 /**
@@ -98,5 +100,15 @@ public interface GuiLogic {
    */
   public ArrayList<Card> sortHand(); 
   
+  /**
+   * starts the game afte SinglePlayer Lobby
+   * @param gs
+   */
   public void startGame(GameSettings gs);
+  
+  /**
+   * should return how many players are in one server, what's the server's name and his message
+   * @return
+   */
+  public ArrayList<Server> lobbyInformation();
 }

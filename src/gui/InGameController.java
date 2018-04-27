@@ -90,7 +90,7 @@ public class InGameController implements Initializable, InGameInterface {
   private int count = 0;
   private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
   private Image temp;
-//  private GuiData inte = new ImplementsGuiInterface();
+  private GuiData inte = new ImplementsGuiInterface();
   private GuiLogic inteGL = LoginController.gameCon;
 
   /**
@@ -156,7 +156,7 @@ public class InGameController implements Initializable, InGameInterface {
 //    ButtonListenerPlaySettings();
     displayChatClosed();
     chatButtonListener();
-    ButtonListenrWantSkat();
+//    ButtonListenrWantSkat();
 
 
   }
@@ -400,12 +400,14 @@ public class InGameController implements Initializable, InGameInterface {
     });
   }
 
-  public void ButtonListenrWantSkat(/*PlayState ps*/) {
+  public void ButtonListenrWantSkat(PlayState ps) {
     yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
 //        ps.setHandGame(true);
-        displaySwitchSkat();
+        displaySwitchSkat(ps);
+        sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(), ps.getSkat()[0].getNumber().toString().toLowerCase()));
+        sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(), ps.getSkat()[1].getNumber().toString().toLowerCase()));
       }
     });
     no.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -916,7 +918,7 @@ public class InGameController implements Initializable, InGameInterface {
   /**
    * display part in which the player can choose the cards he wants to put on the skat
    */
-  public void displaySwitchSkat() {
+  public void displaySwitchSkat(PlayState ps) {
     handPane.setPrefHeight(315);
     handPane.setPrefWidth(582);
     handPane.setLayoutX(334);
