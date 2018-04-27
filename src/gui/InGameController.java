@@ -29,7 +29,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.Card;
 import logic.Colour;
-import logic.GameController;
 import logic.GameSettings;
 import logic.PlayMode;
 import logic.PlayState;
@@ -92,6 +91,7 @@ public class InGameController implements Initializable, InGameInterface {
   private Image temp;
   private GuiData inte = new ImplementsGuiInterface();
   private GuiLogic inteGL = LoginController.gameCon;
+  private List<Card> cardlist; 
 
   /**
    * Initialize ChatScreen
@@ -163,119 +163,6 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /**
-   * Hier wird definiert was passiert wenn man auf eine seiner jeweiligen Spielkarten klickt
-   * 
-   * ImageView sets Image to null Method AnzStichblatte wird aufgerufen, sodass Karten auf Stich
-   * gelegt werden gibt an Logik den Index der geklickten Karte weiter
-   * 
-   * @author lstrauch
-   */
-  public int MouseHandler() {
-    final int[] ret = new int[1];
-    c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c1.getImage();
-        // c1.setImage(null);
-        AnzStichblatt();
-        ret[0] = 0;
-      }
-    });
-    c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c2.getImage();
-        // c2.setImage(null);
-        AnzStichblatt();
-        ret[0] = 1;
-      }
-    });
-    c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c3.getImage();
-        // c3.setImage(null);
-        AnzStichblatt();
-        ret[0] = 2;
-      }
-    });
-    c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c4.getImage();
-        // c4.setImage(null);
-        AnzStichblatt();
-        ret[0] = 3;
-      }
-    });
-    c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c5.getImage();
-        // c5.setImage(null);
-        AnzStichblatt();
-        ret[0] = 4;
-      }
-    });
-    c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c6.getImage();
-        // c6.setImage(null);
-        AnzStichblatt();
-        ret[0] = 5;
-      }
-    });
-    c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c7.getImage();
-        // c7.setImage(null);
-        AnzStichblatt();
-        ret[0] = 6;
-
-      }
-    });
-    c8.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c8.getImage();
-        // c8.setImage(null);
-        AnzStichblatt();
-        ret[0] = 7;
-      }
-    });
-    c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c9.getImage();
-        // c9.setImage(null);
-        AnzStichblatt();
-        ret[0] = 8;
-      }
-    });
-    c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c10.getImage();
-        // c10.setImage(null);
-        AnzStichblatt();
-        ret[0] = 9;
-      }
-    });
-    return ret[0];
-  }
 
   /**
    * Diese Methode definiert auf welchen Teil des Stichblattes die ausgewählte Karte plaziert wird
@@ -310,200 +197,6 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
-  public boolean ButtonListener() {
-    final boolean[] ret = new boolean[1];
-
-    qu.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        System.out.println("qu");
-      }
-    });
-    pass.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        ret[0] = false;
-        displayWannaTakeSkat();
-      }
-    });
-    betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        ret[0] = true;
-      }
-    });
-    submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-
-      }
-    });
-    return ret[0];
-  }
-
-  public void ButtonListenerPlaySettings(PlayState ps) {
-    diamonds.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        ps.setPlayMode(PlayMode.SUIT);
-        ps.setTrump(Colour.DIAMONDS);
-      }
-    });
-    hearts.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        ps.setPlayMode(PlayMode.SUIT);
-        ps.setTrump(Colour.HEARTS);
-      }
-    });
-    clubs.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        ps.setPlayMode(PlayMode.SUIT);
-        ps.setTrump(Colour.CLUBS);
-      }
-    });
-    spades.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        ps.setPlayMode(PlayMode.SUIT);
-        ps.setTrump(Colour.SPADES);
-      }
-    });
-    grand.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        ps.setPlayMode(PlayMode.GRAND);
-      }
-    });
-    nullG.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        ps.setPlayMode(PlayMode.NULL);
-      }
-    });
-    ouvert.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        ps.setOpen(true);
-      }
-    });
-    schneider.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        ps.setSchneider(true);
-      }
-    });
-    schwarz.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        ps.setSchwarzAnnounced(true);
-      }
-    });
-  }
-
-  public void ButtonListenrWantSkat(PlayState ps) {
-    yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        // ps.setHandGame(true);
-        displaySwitchSkat(ps);
-        sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
-            ps.getSkat()[0].getNumber().toString().toLowerCase()));
-        sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
-            ps.getSkat()[1].getNumber().toString().toLowerCase()));
-      }
-    });
-    no.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        // ps.setHandGame(false);
-        displayAuctionWinnerScreen();
-      }
-    });
-  }
-
-  public void chatButtonListener() {
-    sendB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        sendChat();
-      }
-    });
-    pf.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        if (pf.getImage().equals(pfUnten)) {
-          displayChatScreenOpen();
-        } else {
-          displayChatClosed();
-        }
-        System.out.println(pf.getImage());
-      }
-    });
-  }
-
-  public void switchSkatListener() {
-    c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c1.getImage();
-      }
-    });
-    c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        temp = c2.getImage();
-      }
-    });
-    c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {}
-    });
-    c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {}
-    });
-    c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {}
-    });
-    c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {}
-    });
-    c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-
-      }
-    });
-    c8.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {}
-    });
-    c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {}
-    });
-    c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {}
-    });
-  }
-
-
   /**
    * 
    * Deletes the pane on the mainpane, so we can display the new one
@@ -514,6 +207,7 @@ public class InGameController implements Initializable, InGameInterface {
     mainPane.getChildren().remove(tpane);
   }
 
+  
   public void showChat() {
     JFXTextField rMes = new JFXTextField();
     rMes.setText((inteGL.getChatText()));
@@ -545,28 +239,29 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void startPlay(ArrayList<Card> hand, Position position) {
     // TODO Auto-generated method stub
-    // c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
-    // (hand.get(0).getNumber().toString().toLowerCase())));
-    // c2.setImage(inte.getImage(hand.get(1).getColour().toString().toLowerCase(),
-    // (hand.get(1).getNumber().toString().toLowerCase())));
-    // c3.setImage(inte.getImage(hand.get(2).getColour().toString().toLowerCase(),
-    // (hand.get(2).getNumber().toString().toLowerCase())));
-    // c4.setImage(inte.getImage(hand.get(3).getColour().toString().toLowerCase(),
-    // (hand.get(3).getNumber().toString().toLowerCase())));
-    // c5.setImage(inte.getImage(hand.get(4).getColour().toString().toLowerCase(),
-    // (hand.get(4).getNumber().toString().toLowerCase())));
-    // c6.setImage(inte.getImage(hand.get(5).getColour().toString().toLowerCase(),
-    // (hand.get(5).getNumber().toString().toLowerCase())));
-    // c7.setImage(inte.getImage(hand.get(6).getColour().toString().toLowerCase(),
-    // (hand.get(6).getNumber().toString().toLowerCase())));
-    // c8.setImage(inte.getImage(hand.get(7).getColour().toString().toLowerCase(),
-    // (hand.get(7).getNumber().toString().toLowerCase())));
-    // c9.setImage(inte.getImage(hand.get(8).getColour().toString().toLowerCase(),
-    // (hand.get(8).getNumber().toString().toLowerCase())));
-    // c10.setImage(inte.getImage(hand.get(9).getColour().toString().toLowerCase(),
-    // (hand.get(9).getNumber().toString().toLowerCase())));
+    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
+        (hand.get(0).getNumber().toString().toLowerCase())));
+    c2.setImage(inte.getImage(hand.get(1).getColour().toString().toLowerCase(),
+        (hand.get(1).getNumber().toString().toLowerCase())));
+    c3.setImage(inte.getImage(hand.get(2).getColour().toString().toLowerCase(),
+        (hand.get(2).getNumber().toString().toLowerCase())));
+    c4.setImage(inte.getImage(hand.get(3).getColour().toString().toLowerCase(),
+        (hand.get(3).getNumber().toString().toLowerCase())));
+    c5.setImage(inte.getImage(hand.get(4).getColour().toString().toLowerCase(),
+        (hand.get(4).getNumber().toString().toLowerCase())));
+    c6.setImage(inte.getImage(hand.get(5).getColour().toString().toLowerCase(),
+        (hand.get(5).getNumber().toString().toLowerCase())));
+    c7.setImage(inte.getImage(hand.get(6).getColour().toString().toLowerCase(),
+        (hand.get(6).getNumber().toString().toLowerCase())));
+    c8.setImage(inte.getImage(hand.get(7).getColour().toString().toLowerCase(),
+        (hand.get(7).getNumber().toString().toLowerCase())));
+    c9.setImage(inte.getImage(hand.get(8).getColour().toString().toLowerCase(),
+        (hand.get(8).getNumber().toString().toLowerCase())));
+    c10.setImage(inte.getImage(hand.get(9).getColour().toString().toLowerCase(),
+        (hand.get(9).getNumber().toString().toLowerCase())));
     this.position.setText(position.toString());
     displayChatScreenOpen();
+    cardlist = hand;
 
   }
 
@@ -577,24 +272,6 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-
-  // @Override
-  // public void updateHand(ArrayList<Card> hand) {
-  // // TODO Auto-generated method stub
-  //// c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
-  //// (hand.get(0).getNumber().toString().toLowerCase())));
-  // c1.setImage(hand.get(0).getImage());
-  // c2.setImage(hand.get(1).getImage());
-  // c3.setImage(hand.get(2).getImage());
-  // c4.setImage(hand.get(3).getImage());
-  // c5.setImage(hand.get(4).getImage());
-  // c6.setImage(hand.get(5).getImage());
-  // c7.setImage(hand.get(6).getImage());
-  // c8.setImage(hand.get(7).getImage());
-  // c9.setImage(hand.get(9).getImage());
-  // c10.setImage(hand.get(9).getImage());
-  //
-  // }
 
   @Override
   public void setPlaySettings(PlayState ps) {
@@ -640,6 +317,54 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+  @Override
+  public void updateHand(List<Card> list) {
+    // TODO Auto-generated method stub
+    c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+        (list.get(0).getNumber().toString().toLowerCase())));
+
+  }
+
+  @Override
+  public void updateTrick(List<Card> currentTrick) {
+    // TODO Auto-generated method stub
+    if (currentTrick.get(0) != null) {
+      s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+          (currentTrick.get(1).getNumber().toString().toLowerCase())));
+    } else if (currentTrick.get(0) != null) {
+      s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+          (currentTrick.get(0).getNumber().toString().toLowerCase())));
+    } else if (currentTrick.get(2) != null) {
+      s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+          (currentTrick.get(0).getNumber().toString().toLowerCase())));
+    }
+
+
+  }
+
+  @Override
+  public void stopGame(String reason) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void showWinnerTrick(Player player) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void showWinnerPlay(Player player1, Player player2) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void showWinnerGame(Player player) {
+    // TODO Auto-generated method stub
+
+  }
 
 
   /**
@@ -1043,54 +768,376 @@ public class InGameController implements Initializable, InGameInterface {
   public void back() {
     main.displayChooseGame();
   }
+  
+  
+  
+  /**
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   * Different ButtonListener
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   * @return
+   */
+  
+  
+  
+  /**
+   * Hier wird definiert was passiert wenn man auf eine seiner jeweiligen Spielkarten klickt
+   * 
+   * ImageView sets Image to null Method AnzStichblatte wird aufgerufen, sodass Karten auf Stich
+   * gelegt werden gibt an Logik den Index der geklickten Karte weiter
+   * 
+   * @author lstrauch
+   */
+  public int MouseHandler() {
+    final int[] ret = new int[1];
+    c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-  @Override
-  public void updateHand(List<Card> list) {
-    // TODO Auto-generated method stub
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c1.getImage();
+        // c1.setImage(null);
+        AnzStichblatt();
+        ret[0] = 0;
+      }
+    });
+    c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c2.getImage();
+        // c2.setImage(null);
+        AnzStichblatt();
+        ret[0] = 1;
+      }
+    });
+    c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c3.getImage();
+        // c3.setImage(null);
+        AnzStichblatt();
+        ret[0] = 2;
+      }
+    });
+    c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c4.getImage();
+        // c4.setImage(null);
+        AnzStichblatt();
+        ret[0] = 3;
+      }
+    });
+    c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c5.getImage();
+        // c5.setImage(null);
+        AnzStichblatt();
+        ret[0] = 4;
+      }
+    });
+    c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c6.getImage();
+        // c6.setImage(null);
+        AnzStichblatt();
+        ret[0] = 5;
+      }
+    });
+    c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c7.getImage();
+        // c7.setImage(null);
+        AnzStichblatt();
+        ret[0] = 6;
+
+      }
+    });
+    c8.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c8.getImage();
+        // c8.setImage(null);
+        AnzStichblatt();
+        ret[0] = 7;
+      }
+    });
+    c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c9.getImage();
+        // c9.setImage(null);
+        AnzStichblatt();
+        ret[0] = 8;
+      }
+    });
+    c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c10.getImage();
+        // c10.setImage(null);
+        AnzStichblatt();
+        ret[0] = 9;
+      }
+    });
+    return ret[0];
   }
 
-  @Override
-  public void updateTrick(List<Card> currentTrick) {
-    // TODO Auto-generated method stub
-    if (currentTrick.get(0) != null) {
-      s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(1).getNumber().toString().toLowerCase())));
-    } else if (currentTrick.get(0) != null) {
-      s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-    } else if (currentTrick.get(2) != null) {
-      s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-    }
+  
+  
+  
+  /**
+   * ButtonListener Betting-buttons
+   * @return
+   */
+  public boolean ButtonListener() {
+    final boolean[] ret = new boolean[1];
 
+    qu.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        System.out.println("qu");
+      }
+    });
+    pass.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ret[0] = false;
+        displayWannaTakeSkat();
+      }
+    });
+    betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ret[0] = true;
+      }
+    });
+    submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
 
+      }
+    });
+    return ret[0];
   }
 
-  @Override
-  public void stopGame(String reason) {
-    // TODO Auto-generated method stub
-
+  
+  /**
+   * ButtonListener AuctionWinnerScree-buttons
+   * @param ps
+   */
+  public void ButtonListenerPlaySettings(PlayState ps) {
+    diamonds.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setPlayMode(PlayMode.SUIT);
+        ps.setTrump(Colour.DIAMONDS);
+      }
+    });
+    hearts.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setPlayMode(PlayMode.SUIT);
+        ps.setTrump(Colour.HEARTS);
+      }
+    });
+    clubs.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setPlayMode(PlayMode.SUIT);
+        ps.setTrump(Colour.CLUBS);
+      }
+    });
+    spades.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setPlayMode(PlayMode.SUIT);
+        ps.setTrump(Colour.SPADES);
+      }
+    });
+    grand.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setPlayMode(PlayMode.GRAND);
+      }
+    });
+    nullG.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setPlayMode(PlayMode.NULL);
+      }
+    });
+    ouvert.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setOpen(true);
+      }
+    });
+    schneider.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setSchneider(true);
+      }
+    });
+    schwarz.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        ps.setSchwarzAnnounced(true);
+      }
+    });
   }
 
-  @Override
-  public void showWinnerTrick(Player player) {
-    // TODO Auto-generated method stub
-
+  
+  /**
+   * Button Listener WantSkat-buttons
+   * @param ps
+   */
+  public void ButtonListenrWantSkat(PlayState ps) {
+    yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        // ps.setHandGame(true);
+        displaySwitchSkat(ps);
+        sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
+            ps.getSkat()[0].getNumber().toString().toLowerCase()));
+        sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
+            ps.getSkat()[1].getNumber().toString().toLowerCase()));
+      }
+    });
+    no.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        // ps.setHandGame(false);
+        displayAuctionWinnerScreen();
+      }
+    });
   }
 
-  @Override
-  public void showWinnerPlay(Player player1, Player player2) {
-    // TODO Auto-generated method stub
+  
+  /**
+   * Buttonlistener Chat-button
+   */
+  public void chatButtonListener() {
+    sendB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        sendChat();
+      }
+    });
+    pf.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
+      @Override
+      public void handle(MouseEvent event) {
+        if (pf.getImage().equals(pfUnten)) {
+          displayChatScreenOpen();
+        } else {
+          displayChatClosed();
+        }
+        System.out.println(pf.getImage());
+      }
+    });
   }
 
-  @Override
-  public void showWinnerGame(Player player) {
-    // TODO Auto-generated method stub
+  
+  /**
+   * ButtonListener to switch Skat
+   */
+  public void switchSkatListener(PlayState ps) {
+    c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c1.getImage();
+      }
+    });
+    c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c2.getImage();
+      }
+    });
+    c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {}
+    });
+    c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {}
+    });
+    c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {}
+    });
+    c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {}
+    });
+    c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+
+      }
+    });
+    c8.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {}
+    });
+    c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {}
+    });
+    c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {}
+    });
+    sk1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        cardlist.add(ps.getSkat()[0]);
+      }
+    });
+    sk2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        cardlist.add(ps.getSkat()[1]);
+      }
+    });
   }
-
 
 
 }
