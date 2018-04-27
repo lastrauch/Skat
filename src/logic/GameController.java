@@ -19,7 +19,7 @@ import network.server.Server;
 
 public class GameController implements GuiLogic {
 
-  private List<Player> group = new ArrayList<Player>();
+  private List<Player> group;
   private LogicGui logicGui; // interface from logic to gui
   private LogicNetwork networkController; // interface from logic to network
   private GuiLogic guiLogic; // interface from gui to logic
@@ -33,6 +33,9 @@ public class GameController implements GuiLogic {
   public GameController(LogicGui logicGui) {
     this.logicGui = logicGui;
     this.gameSettings = new GameSettings();
+    group = new ArrayList<Player>();
+    clientLogic = new ArrayList<ClientLogic>();
+    server = new ArrayList<Server>();
   }
 
 
