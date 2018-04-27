@@ -9,7 +9,6 @@ public class DatabaseHandler extends Database {
   
   protected static PreparedStatement insertPlayer;
   protected static PreparedStatement selectPlayerName;
-  protected static PreparedStatement selectPlayerId;
   protected static PreparedStatement selectCard;
   protected static PreparedStatement selectCardDarker;
   protected static PreparedStatement deletePlayer;
@@ -29,11 +28,9 @@ public class DatabaseHandler extends Database {
   public void prepareStatements() {
     try {
         
-        insertPlayer = c.prepareStatement("INSERT INTO Player (id, name, score, profilePicture) VALUES (?,?,?,?);");    
+        insertPlayer = c.prepareStatement("INSERT INTO Player (name, score, profilePicture) VALUES (?,?,?);");    
         
         selectPlayerName = c.prepareStatement("SELECT * FROM Player WHERE (name LIKE ?) ORDER BY name;");
-        
-        selectPlayerId = c.prepareStatement("SELECT * FROM Player WHERE (id LIKE ?) ORDER BY id;");
         
         selectCard = c.prepareStatement("SELECT * FROM Cards WHERE (colour LIKE ?) AND (number LIKE ?);");
         
@@ -49,6 +46,7 @@ public class DatabaseHandler extends Database {
         
     }
     catch(SQLException e) {
+      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }

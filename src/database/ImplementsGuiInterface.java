@@ -1,12 +1,10 @@
 package database;
 
 
-import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
-import com.sun.javafx.tk.Toolkit;
 import interfaces.GuiData;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;

@@ -18,7 +18,7 @@ public class Database {
       return (connection != null);
   }
   
-  public void connect (){
+  public void connect(){
       init();
       try {
           Class.forName("org.sqlite.JDBC");
@@ -41,6 +41,7 @@ public class Database {
             e.printStackTrace();
             System.exit(0);
         }
+        System.out.println("Closed database successfully");
     }
   }
     private void init(){
