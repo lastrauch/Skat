@@ -1,11 +1,13 @@
 package interfaces;
 
 import java.util.ArrayList;
+import java.util.List;
 import gui.GuiController;
 import logic.Card;
 import logic.GameMode;
 import logic.GameSettings;
 import logic.Position;
+import network.server.Server;
 
 // Logic to GUI, implemented by GUI
 public interface LogicGui {
@@ -34,7 +36,7 @@ public interface LogicGui {
  * @param hostName
  * @param comment
  */
-  public void showOpenLobby(String hostName, String comment);
+  public void showOpenLobby(List<Server> openGames);
   
   
   

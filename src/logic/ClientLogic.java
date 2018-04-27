@@ -21,9 +21,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
   GameSettings gameSettings;
   Game game; // we need this for calcutlating the winner --> maybe in playstate
 
-  public ClientLogic(Player player, InGameInterface inGameController) {
+  public ClientLogic(Player player) {
     this.player = player;
-    this.inGameController = inGameController;
   }
 
   /**
@@ -788,6 +787,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public Player copyPlayer(Player player) {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  public void setInGameController(InGameInterface inGameController) {
+    this.inGameController = inGameController;
   }
 
 

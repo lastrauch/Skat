@@ -26,6 +26,7 @@ public class GameController implements GuiLogic {
   private Game game;
   private GameSettings gameSettings;
   private List<Server> server;
+  
 
   public GameController(LogicGui logicGui) {
     this.logicGui = logicGui;
@@ -91,17 +92,21 @@ public class GameController implements GuiLogic {
   public void login(String username, Image profilepicture) {
     Player p = new Player(username, profilepicture);
     this.group.add(p);
-    InGameInterface inGameController = new InGameController();
-    ClientLogic clientLogic = new ClientLogic(p, inGameController);
+    // InGameInterface inGameController = new InGameController();
+    ClientLogic clientLogic = new ClientLogic(p);
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setNetworkController(networkController);
     this.clientLogic.add(clientLogic);
     this.networkController = networkController;
 
+    this.refreshOpenLobbys();
+  }
+  
+  public void refreshOpenLobbys() {
     // asks for servers and shows them on the ui
     this.server = new ArrayList<Server>();
     this.server = this.networkController.getServer();
-
+    this.logicGui.showOpenLobby(this.server);
   }
 
   // FRAGE!! WAS PASSIERT WENN DIE CLIENTLOGIK NUR AUS DER LISTE GELOESCHT WIRD??
@@ -126,11 +131,11 @@ public class GameController implements GuiLogic {
   public void setBot(String botname, BotDifficulty difficulty) {
     Player p = new Player(botname);
     this.group.add(p);
-    InGameInterface inGameController = new AIController(botname, difficulty, this.gameSettings);
-    ClientLogic clientLogic = new ClientLogic(p, inGameController);
-    LogicNetwork networkController = new NetworkController(clientLogic);
-    clientLogic.setNetworkController(networkController);
-    this.clientLogic.add(clientLogic);
+//    InGameInterface inGameController = new AIController(botname, difficulty, this.gameSettings);
+//    ClientLogic clientLogic = new ClientLogic(p);
+//    LogicNetwork networkController = new NetworkController(clientLogic);
+//    clientLogic.setNetworkController(networkController);
+//    this.clientLogic.add(clientLogic);
   }
 
   // WO BEKOMMEN WIR DENN UBERHAUPT EINEN HOST UEBERGEBEN??
@@ -167,25 +172,21 @@ public class GameController implements GuiLogic {
   }
 
 
-
-  @Override
-  public ArrayList<Card> sortHand() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-
-
   @Override
   public void startGame(GameSettings gs) {
     // TODO Auto-generated method stub
-    
+
   }
-
-
 
   @Override
   public ArrayList<Server> lobbyInformation() {
+    ArrayList<Server> lobbyInfo = new ArrayList<Server>();
+    lobbyInfo = (ArrayList<Server>) this.networkController.getServer();
+    return lobbyInfo;
+  }
+
+  @Override
+  public ArrayList<Card> sortHand(PlayState ps) {
     // TODO Auto-generated method stub
     return null;
   }
