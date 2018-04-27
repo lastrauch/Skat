@@ -165,4 +165,28 @@ public class GameController implements GuiLogic {
   public void hostGame(String comment, GameSettings gs) {
     this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
   }
+
+
+
+  @Override
+  public ArrayList<Card> sortHand() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+
+
+  @Override
+  public void startGame(GameSettings gs) {
+    // TODO Auto-generated method stub
+    
+  }
+
+
+
+  @Override
+  public ArrayList<Server> lobbyInformation() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }
