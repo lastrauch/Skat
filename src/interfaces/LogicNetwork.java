@@ -1,7 +1,6 @@
 package interfaces;
 
 import java.util.List;
-
 import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;

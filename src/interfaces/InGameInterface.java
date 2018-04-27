@@ -1,8 +1,12 @@
 package interfaces;
 
 import java.util.ArrayList;
+import java.util.List;
+import ai.BotDifficulty;
 import logic.Card;
+import logic.GameSettings;
 import logic.PlayState;
+import logic.Player;
 import logic.Position;
 import logic.Trick;
 
@@ -47,9 +51,9 @@ public interface InGameInterface {
   /**
    * should reload the hand cards in the given order
    * 
-   * @param hand
+   * @param list
    */
-  public void updateHand(ArrayList<Card> hand);
+  public void updateHand(List<Card> list);
 
   /**
    * should open the play settings screen and edit the playState ps with setters
@@ -62,6 +66,37 @@ public interface InGameInterface {
    * updates the current trick
    * @param currentTrick
    */
-  public void updateTrick(ArrayList<Card> currentTrick);
+  public void updateTrick(List<Card> currentTrick);
  
+  /**
+   * 
+   * @param gs
+   */
+  public void setGameSettings(GameSettings gs);
+  
+  /**
+   * stops the game and tells why
+   * @param reason
+   */
+  public void stopGame(String reason);
+  
+  /**
+   * 
+   * @param player
+   */
+  public void showWinnerTrick(Player player);
+  
+  /**
+   * winner of play/round
+   * @param player1
+   * @param player2 is null when declarer won
+   */
+  public void showWinnerPlay(Player player1, Player player2);
+  
+  /**
+   * 
+   * @param player
+   */
+  public void showWinnerGame(Player player);
+
 }

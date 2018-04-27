@@ -8,6 +8,8 @@ public class GameSettings {
   private boolean enableLimitedTime;
   private int timeLimit;
   private int endPointsBierlachs;
+  private GameMode gameMode;
+  private Player[] seatingOrder;
   // ... add all other possible settings
 
 
@@ -21,15 +23,22 @@ public class GameSettings {
     this.endPointsBierlachs = 500;
   }
 
+  /**
+   * creates random nr between 0-2 or 0-3
+   * 
+   * @author awesch
+   */
+
+
   public GameSettings(CountRule countRule, int NrOfPlayers, int NrOfPlays) throws LogicException {
-    
+
     // if the count rule is bierlachs we need an end score where the game determines
     this.countRule = countRule;
     if (countRule == CountRule.BIERLACHS) {
       this.endPointsBierlachs = 500;
-      this.nrOfPlays = 50; //we want the game to stop even there is no winner after 50 plays
-      
-    }else {
+      this.nrOfPlays = 50; // we want the game to stop even there is no winner after 50 plays
+
+    } else {
       if (this.checkNrOfPlays(NrOfPlays)) {
         this.nrOfPlays = NrOfPlays;
       } else {
@@ -66,43 +75,62 @@ public class GameSettings {
     }
     return false;
   }
-  
+
   public int getEndPointsBierlachs() {
     return this.endPointsBierlachs;
   }
-  
+
   public void setEndPointsBierlachs(int endPoints) {
     this.endPointsBierlachs = endPoints;
   }
-  
+
   public void setEnableKontra(boolean ek) {
     this.enableKontra = ek;
   }
-  
+
   public boolean isEnableKontra() {
     return this.enableKontra;
   }
-  
+
   public void setLimitedTime(boolean lt) {
     this.enableLimitedTime = lt;
   }
-  
+
   public boolean isLimitedTime() {
     return this.enableLimitedTime;
   }
-  
+
   public void setTimeLimit(int sec) {
     this.timeLimit = sec;
   }
-  
+
   public int getTimeLimit() {
     return this.timeLimit;
   }
-  
+
   public void setNrOfPlayers(int nr) {
     this.nrOfPlayers = nr;
   }
-  
+
+  public GameMode getGameMode() {
+    return gameMode;
+  }
+
+  public void setGameMode(GameMode gameMode) {
+    this.gameMode = gameMode;
+  }
+
+  public Player[] getSeatingOrder() {
+    return seatingOrder;
+  }
+
+  public void setSeatingOrder(Player[] seatingOrder) {
+    this.seatingOrder = seatingOrder;
+  }
+
+  public void setNumberOfPlays(int numberOfPlays) {
+    this.nrOfPlays = numberOfPlays;
+  }
 
   // i think we don't need setters here
   // public void setCountRule(CountRule countRule) {
