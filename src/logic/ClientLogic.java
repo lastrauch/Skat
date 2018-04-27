@@ -21,9 +21,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
   GameSettings gameSettings;
   Game game; // we need this for calcutlating the winner --> maybe in playstate
 
-  public ClientLogic(Player player, InGameInterface inGameController) {
+  public ClientLogic(Player player) {
     this.player = player;
-    this.inGameController = inGameController;
   }
 
   /**
@@ -612,7 +611,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
     // show update on gui/ai
     this.inGameController.updateTrick(this.playState.getCurrentTrick().getTrickCards());
-    
+
     try {
       this.checkWhatHappensNext(player);
     } catch (LogicException e) {
@@ -656,19 +655,19 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.inGameController.updateHand(this.player.getHand());
   }
 
-  //fehlt: update position
+  // fehlt: update position
   public void checkWhatHappensNext(Player playedLastCard) throws LogicException {
 
     Player trickWinner;
     Player[] playWinner;
     Player gameWinner;
-    
+
     Thread t = new Thread(); // waits after telling gui/ai what is to do
 
     // check if trick is over
     if (this.playState.getCurrentTrick().isFull()) {
       // trick is over
-      
+
       // calculate winner trick
       trickWinner = this.playState.getCurrentTrick().calculateWinner(playState);
 
@@ -678,7 +677,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
             .addCards(this.playState.getCurrentTrick().getTrickCards());
       } else {
         this.playState.getOpponentsStack()
-        .addCards(this.playState.getCurrentTrick().getTrickCards());
+            .addCards(this.playState.getCurrentTrick().getTrickCards());
       }
 
       // show winner of trick
@@ -694,7 +693,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       if (this.playState.getTrickNr() == 10) {
         // calculate winner play
         playWinner = Play.calculateWinner(playState);
-        
+
         // calculate points
         if (playWinner[0].IsDeclarer()) {
           // calculate points: declarer won
@@ -710,7 +709,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
-        
+
         // check if the whole game is over
         if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()) {
 
@@ -724,7 +723,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
-          
+
         } else {
           // game is not over
           // createNewPlay!
@@ -732,7 +731,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.playState.setPlayNr(this.playState.getPlayNr() + 1);
 
           // update position!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          
+
           // start auction if "i am" middlehand
           if (this.player.getPosition() == Position.MIDDLEHAND) {
             this.inGameController.askForBet(18);
@@ -742,14 +741,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // generate new trick
         this.playState.setTrickNr(this.playState.getTrickNr() + 1);
         this.playState.setCurrentTrick(new Trick());
-        
+
         // if "i am" winner of last trick --> ask inGameController to play new card
         if (this.player.equals(trickWinner)) {
           this.inGameController.askToPlayCard();
         }
       }
-    } 
-    // trick is not over 
+    }
+    // trick is not over
     // check if it is "my" turn
     if (this.checkIfMyTurnTrick(playedLastCard)) {
       this.inGameController.askToPlayCard();
@@ -788,6 +787,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public Player copyPlayer(Player player) {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  public void setInGameController(InGameInterface inGameController) {
+    this.inGameController = inGameController;
   }
 
 

@@ -102,93 +102,93 @@ public class Game {
     }
   }
 
-
-
-  /**
-   * here is where the magic/game happens
-   * 
-   * @author sandfisc
-   */
-  public void runGame(Player[] group) {
-
-    this.initializeGroupSettings(group);
-    this.initializeCards();
-    
-    boolean breakPlease = false; // is set true when the game is over before all plays are played
-                                 // #BIERLACHS
-    Player[] playingGroup = new Player[3]; // always three players who are actually playing
-
-    // if only three players play then the playing group is the whole group "at the table"
-    if (this.group.length == 3) {
-      playingGroup = this.group;
-    }  
-
-    // ask for gameSettings
-   // this.askForGameSettings();
-
-    for (int i = 0; i < this.plays.length; i++) {
-      this.currentPlay ++;
-      
-      // the playing group consists of forehand, middlehand, rarehand, NOT dealer
-      if (this.group.length == 4) {
-        int index = 0;
-        for (int j = 0; j < this.group.length; j++) {
-          if (this.group[j].getPosition() != Position.DEALER) {
-            playingGroup[index] = this.group[j];
-            index++;
-          }
-        }
-      }
-
-      try {
-        // play one play with a sorted (playing) group
-        this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings, this.cards);
-        this.plays[i].runPlay();
-      } catch (LogicException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-
-      // when a player reaches the endPointsBierlachs the game is over
-      if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
-        for (int j = 0; j < this.group.length; j++) {
-          if (this.group[j].getGamePoints() <= this.gameSettings.getEndPointsBierlachs()) {
-            breakPlease = true;
-          }
-        }
-      }
-      // #BIERLACHS
-      if (breakPlease) {
-//        this.calculateWinner();
-        break;
-      }
-      
-      //test
-//      for (int j = 0; j < this.group.length; j++) {
-//        System.out.println(group[j].getName() + "'s GamePoints: " + group[j].getGamePoints());
-//      }
-
-      // after a play the players change positions
-      this.setPointerF((i + 1) % group.length);
-      this.updatePosition();
-    }
-    // when the game is over the winner is calculated
-  //  this.calculateWinner();
-  }
-
+//
+//
 //  /**
-//   * only the host is asked to set the gameSettings
+//   * here is where the magic/game happens
 //   * 
 //   * @author sandfisc
 //   */
-//  public void askForGameSettings() {
-//    for (int i = 0; i < this.group.length; i++) {
-//      if (this.group[i].isHost()) {
-//        // this.group[i].implementsLogicGui.setGameSettings(this.gameSettings);
-//        this.group[i].logicGui.setGameSettings(this.gameSettings);
+//  public void runGame(Player[] group) {
+//
+//    this.initializeGroupSettings(group);
+//    this.initializeCards();
+//    
+//    boolean breakPlease = false; // is set true when the game is over before all plays are played
+//                                 // #BIERLACHS
+//    Player[] playingGroup = new Player[3]; // always three players who are actually playing
+//
+//    // if only three players play then the playing group is the whole group "at the table"
+//    if (this.group.length == 3) {
+//      playingGroup = this.group;
+//    }  
+//
+//    // ask for gameSettings
+//   // this.askForGameSettings();
+//
+//    for (int i = 0; i < this.plays.length; i++) {
+//      this.currentPlay ++;
+//      
+//      // the playing group consists of forehand, middlehand, rarehand, NOT dealer
+//      if (this.group.length == 4) {
+//        int index = 0;
+//        for (int j = 0; j < this.group.length; j++) {
+//          if (this.group[j].getPosition() != Position.DEALER) {
+//            playingGroup[index] = this.group[j];
+//            index++;
+//          }
+//        }
 //      }
+//
+//      try {
+//        // play one play with a sorted (playing) group
+//        this.plays[i] = new Play(this.sortPlayingGroup(playingGroup), gameSettings, this.cards);
+//        this.plays[i].runPlay();
+//      } catch (LogicException e) {
+//        // TODO Auto-generated catch block
+//        e.printStackTrace();
+//      }
+//
+//      // when a player reaches the endPointsBierlachs the game is over
+//      if (this.gameSettings.getCountRule() == CountRule.BIERLACHS) {
+//        for (int j = 0; j < this.group.length; j++) {
+//          if (this.group[j].getGamePoints() <= this.gameSettings.getEndPointsBierlachs()) {
+//            breakPlease = true;
+//          }
+//        }
+//      }
+//      // #BIERLACHS
+//      if (breakPlease) {
+////        this.calculateWinner();
+//        break;
+//      }
+//      
+//      //test
+////      for (int j = 0; j < this.group.length; j++) {
+////        System.out.println(group[j].getName() + "'s GamePoints: " + group[j].getGamePoints());
+////      }
+//
+//      // after a play the players change positions
+//      this.setPointerF((i + 1) % group.length);
+//      this.updatePosition();
 //    }
+//    // when the game is over the winner is calculated
+//  //  this.calculateWinner();
 //  }
+//
+////  /**
+////   * only the host is asked to set the gameSettings
+////   * 
+////   * @author sandfisc
+////   */
+////  public void askForGameSettings() {
+////    for (int i = 0; i < this.group.length; i++) {
+////      if (this.group[i].isHost()) {
+////        // this.group[i].implementsLogicGui.setGameSettings(this.gameSettings);
+////        this.group[i].logicGui.setGameSettings(this.gameSettings);
+////      }
+////    }
+////  }
 
   /**
    * sorts a group: index 0 = forehand, index 1 = middlehand, index 2 = rarehand

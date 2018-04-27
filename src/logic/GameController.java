@@ -14,16 +14,19 @@ import interfaces.LogicNetwork;
 import interfaces.NetworkLogic;
 import javafx.scene.image.Image;
 import network.NetworkController;
+import network.server.Server;
 
 public class GameController implements GuiLogic {
 
   private List<Player> group = new ArrayList<Player>();
   private LogicGui logicGui; // interface from logic to gui
-  private LogicNetwork logicNetwork; // interface from logic to network
+  private LogicNetwork networkController; // interface from logic to network
   private GuiLogic guiLogic; // interface from gui to logic
   private List<ClientLogic> clientLogic;
   private Game game;
   private GameSettings gameSettings;
+  private List<Server> server;
+  
 
   public GameController(LogicGui logicGui) {
     this.logicGui = logicGui;
@@ -89,22 +92,23 @@ public class GameController implements GuiLogic {
   public void login(String username, Image profilepicture) {
     Player p = new Player(username, profilepicture);
     this.group.add(p);
-    InGameInterface inGameController = new InGameController();
-    ClientLogic clientLogic = new ClientLogic(p, inGameController);
+    // InGameInterface inGameController = new InGameController();
+    ClientLogic clientLogic = new ClientLogic(p);
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setNetworkController(networkController);
     this.clientLogic.add(clientLogic);
+    this.networkController = networkController;
   }
 
-  //FRAGE!! WAS PASSIERT WENN DIE CLIENTLOGIK NUR AUS DER LISTE GELOESCHT WIRD??
-  //eventuell muss die ClientLogik erst bei start
+  // FRAGE!! WAS PASSIERT WENN DIE CLIENTLOGIK NUR AUS DER LISTE GELOESCHT WIRD??
+  // eventuell muss die ClientLogik erst bei start
   @Override
   /**
    * @author awesch
    */
   public void deleteBot(String botname) {
     for (int i = 0; i < this.group.size(); i++) {
-      if(botname.equals(this.group.get(i).getName())) {
+      if (botname.equals(this.group.get(i).getName())) {
         this.group.remove(i);
         this.clientLogic.remove(i);
       }
@@ -118,27 +122,23 @@ public class GameController implements GuiLogic {
   public void setBot(String botname, BotDifficulty difficulty) {
     Player p = new Player(botname);
     this.group.add(p);
-    InGameInterface inGameController = new AIController(botname, difficulty, this.gameSettings);
-    ClientLogic clientLogic = new ClientLogic(p, inGameController);
-    LogicNetwork networkController = new NetworkController(clientLogic);
-    clientLogic.setNetworkController(networkController);
-    this.clientLogic.add(clientLogic);
+//    InGameInterface inGameController = new AIController(botname, difficulty, this.gameSettings);
+//    ClientLogic clientLogic = new ClientLogic(p);
+//    LogicNetwork networkController = new NetworkController(clientLogic);
+//    clientLogic.setNetworkController(networkController);
+//    this.clientLogic.add(clientLogic);
   }
 
+  // WO BEKOMMEN WIR DENN UBERHAUPT EINEN HOST UEBERGEBEN??
+  // DIE VERBINDUNG DES NETZWERKS BRAUCHEN WIR SCHON HIER ODER JOIN GAME UND CO GEHOEREN SCHON IN
+  // DIE CLIENT LOGIK!!!!
+  @Override
   /**
-   * supposed to be in the gui logic interface as well
+   * @author awesch
    */
   public void joinGame(String hostName) {
-
+    // joinLobby erfordert einen server!! wir haben aber nur den namen
   }
-
-  /**
-   * supposed to be in the gui logic interface as well
-   */
-  public void hostGame(String comment) {
-
-  }
-
 
 
   @Override
@@ -159,7 +159,26 @@ public class GameController implements GuiLogic {
 
   @Override
   public void hostGame(String comment, GameSettings gs) {
+    this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
+  }
+
+
+  @Override
+  public void startGame(GameSettings gs) {
     // TODO Auto-generated method stub
 
+  }
+
+  @Override
+  public ArrayList<Server> lobbyInformation() {
+    ArrayList<Server> lobbyInfo = new ArrayList<Server>();
+    lobbyInfo = (ArrayList<Server>) this.networkController.getServer();
+    return lobbyInfo;
+  }
+
+  @Override
+  public ArrayList<Card> sortHand(PlayState ps, ArrayList<Card> hand) {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

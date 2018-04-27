@@ -1,11 +1,13 @@
 package interfaces;
 
 import java.util.ArrayList;
+import java.util.List;
 import gui.GuiController;
 import logic.Card;
 import logic.GameMode;
 import logic.GameSettings;
 import logic.Position;
+import network.server.Server;
 
 // Logic to GUI, implemented by GUI
 public interface LogicGui {
@@ -23,20 +25,10 @@ public interface LogicGui {
    */
   public void setGameSettings(GameSettings gs);
 
-  
-  // we still need aiDifficulty (enum??) 
-  // array with two elements for two AIs
-//  public AiDifficulty[] getDifficulties() {
-//    
-//  }
-/**
- * should show the name plus comment of the games which are open and where you can join
- * @param hostName
- * @param comment
- */
-  public void showOpenLobby(String hostName, String comment);
-  
-  
+  /**
+   * method should open the inGameScreen
+   */
+  public void startInGameScreen();
   
 }
 

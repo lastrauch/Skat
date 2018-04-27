@@ -92,6 +92,13 @@ public class InGameController implements Initializable, InGameInterface {
   private GuiData inte = new ImplementsGuiInterface();
   private GuiLogic inteGL = LoginController.gameCon;
   private List<Card> cardlist; 
+  
+ /**
+  * 
+  */
+  private PlayState ps;
+  
+  
 
   /**
    * Initialize ChatScreen

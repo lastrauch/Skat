@@ -649,6 +649,12 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     this.inGameController.updateHand(this.player.getHand());
   }
 
+  @Override
+  public Player copyPlayer(Player player) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 
 
 }
