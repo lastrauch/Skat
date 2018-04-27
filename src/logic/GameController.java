@@ -27,6 +27,7 @@ public class GameController implements GuiLogic {
   private Game game;
   private GameSettings gameSettings;
   private List<Server> server;
+  private Server myServer;
 
 
   public GameController(LogicGui logicGui) {
@@ -135,7 +136,12 @@ public class GameController implements GuiLogic {
    * @author awesch
    */
   public void joinGame(String hostName) {
-    // joinLobby erfordert einen server!! wir haben aber nur den namen
+    // its serverName not hostName
+    for (Server s : this.server) {
+      if (s.getServerName().equals(hostName)) {
+        this.networkController.joinLobby(s, this.group.get(0));
+      }
+    }
   }
 
 
@@ -157,7 +163,7 @@ public class GameController implements GuiLogic {
 
   @Override
   public void hostGame(String comment, GameSettings gs) {
-    this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
+    this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
   }
 
 
@@ -165,16 +171,17 @@ public class GameController implements GuiLogic {
   public void startGame(GameSettings gs) {
     // only used in the singlePlayer mod?!
     this.gameSettings = gs;
-    Server myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, " ");
+    this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, " ");
     for (int i = 1; i < this.group.size(); i++) {
       Bot temp = (Bot) this.group.get(i);
-      InGameInterface inGameController = new AIController(temp.getName(), temp.getDifficulty(), this.gameSettings);
+      InGameInterface inGameController =
+          new AIController(temp.getName(), temp.getDifficulty(), this.gameSettings);
       ClientLogic clientLogic = new ClientLogic(temp);
       LogicNetwork networkController = new NetworkController(clientLogic);
       clientLogic.setNetworkController(networkController);
       clientLogic.setInGameController(inGameController);
       this.clientLogic.add(clientLogic);
-      networkController.joinLobby(myServer, temp);
+      networkController.joinLobby(this.myServer, temp);
     }
     this.logicGui.startInGameScreen();
   }
