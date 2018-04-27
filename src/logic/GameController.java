@@ -104,7 +104,6 @@ public class GameController implements GuiLogic {
     for (int i = 0; i < this.group.size(); i++) {
       if (botname.equals(this.group.get(i).getName())) {
         this.group.remove(i);
-        this.clientLogic.remove(i);
       }
     }
   }
