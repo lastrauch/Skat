@@ -33,7 +33,7 @@ public class GameSettingsController implements Initializable{
   private String ms;
   private GuiController guiCon;
   private GameMode gm;
-  private GuiLogic interf = new GameController();
+  private GuiLogic interf = LoginController.gameCon;
   private ToggleGroup g1 = new ToggleGroup();
   private ToggleGroup g2 = new ToggleGroup();
 

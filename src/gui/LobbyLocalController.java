@@ -20,7 +20,7 @@ public class LobbyLocalController implements Initializable {
 
   private GuiController main;
   private int bot;
-  private GuiLogic guiL = new GameController();
+  private GuiLogic guiL = LoginController.gameCon;
 
   @FXML
   private JFXRadioButton easy1, med1, dif1, easy2, med2, dif2, easy3, med3, dif3, dis3;

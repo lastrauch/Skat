@@ -15,7 +15,7 @@ public class ChooseGameController {
 
   public ChooseGameController() {
     this.main = new GuiController();
-    interf = new GameController();
+    interf = LoginController.gameCon;
   }
 
   @FXML

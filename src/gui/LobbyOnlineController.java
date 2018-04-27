@@ -10,16 +10,17 @@ public class LobbyOnlineController {
 
   @FXML
   private JFXButton join;
-  @FXML
+  
   private GuiController main;
+  private GuiLogic interf = LoginController.gameCon;
 
+  
   public LobbyOnlineController() {
     this.main = new GuiController();
   }
 
   @FXML
   public void join() {
-    GuiLogic interf = new GameController();
     interf.joinGame(main.getLoginCon().getUsername());
   }
 
