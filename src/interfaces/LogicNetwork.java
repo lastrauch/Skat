@@ -10,7 +10,9 @@ import network.server.Server;
 
 //Logic to Network, implemented by Network
 public interface LogicNetwork {	
-	//Host game
+	// Host game, we wanted to show comments to the other players like "only good players" could you
+	// add an attribute like comment?
+	// can we also have the server as a return (to manage the join gaime of the bots) ??
 	Server hostGame(Player player, GameSettings gs, String comment);
   
 	//Get Server
