@@ -208,6 +208,8 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   
+  
+  
   public void showChat() {
     JFXTextField rMes = new JFXTextField();
     rMes.setText((inteGL.getChatText()));
