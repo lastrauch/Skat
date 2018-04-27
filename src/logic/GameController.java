@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import ai.AIController;
+import ai.Bot;
 import ai.BotDifficulty;
 import gui.ImplementsLogicGui;
 import gui.InGameController;
@@ -26,7 +27,8 @@ public class GameController implements GuiLogic {
   private Game game;
   private GameSettings gameSettings;
   private List<Server> server;
-  
+  private Server myServer;
+
 
   public GameController(LogicGui logicGui) {
     this.logicGui = logicGui;
@@ -120,24 +122,26 @@ public class GameController implements GuiLogic {
    * @author awesch
    */
   public void setBot(String botname, BotDifficulty difficulty) {
-    Player p = new Player(botname);
+    Player p = new Bot(botname, difficulty);
     this.group.add(p);
-//    InGameInterface inGameController = new AIController(botname, difficulty, this.gameSettings);
-//    ClientLogic clientLogic = new ClientLogic(p);
-//    LogicNetwork networkController = new NetworkController(clientLogic);
-//    clientLogic.setNetworkController(networkController);
-//    this.clientLogic.add(clientLogic);
+    // InGameInterface inGameController = new AIController(botname, difficulty, this.gameSettings);
+    // ClientLogic clientLogic = new ClientLogic(p);
+    // LogicNetwork networkController = new NetworkController(clientLogic);
+    // clientLogic.setNetworkController(networkController);
+    // this.clientLogic.add(clientLogic);
   }
 
-  // WO BEKOMMEN WIR DENN UBERHAUPT EINEN HOST UEBERGEBEN??
-  // DIE VERBINDUNG DES NETZWERKS BRAUCHEN WIR SCHON HIER ODER JOIN GAME UND CO GEHOEREN SCHON IN
-  // DIE CLIENT LOGIK!!!!
   @Override
   /**
    * @author awesch
    */
   public void joinGame(String hostName) {
-    // joinLobby erfordert einen server!! wir haben aber nur den namen
+    // its serverName not hostName
+    for (Server s : this.server) {
+      if (s.getServerName().equals(hostName)) {
+        this.networkController.joinLobby(s, this.group.get(0));
+      }
+    }
   }
 
 
@@ -159,14 +163,27 @@ public class GameController implements GuiLogic {
 
   @Override
   public void hostGame(String comment, GameSettings gs) {
-    this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
+    this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
   }
 
 
   @Override
   public void startGame(GameSettings gs) {
-    // TODO Auto-generated method stub
-
+    // only used in the singlePlayer mod?!
+    this.gameSettings = gs;
+    this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, " ");
+    for (int i = 1; i < this.group.size(); i++) {
+      Bot temp = (Bot) this.group.get(i);
+      InGameInterface inGameController =
+          new AIController(temp.getName(), temp.getDifficulty(), this.gameSettings);
+      ClientLogic clientLogic = new ClientLogic(temp);
+      LogicNetwork networkController = new NetworkController(clientLogic);
+      clientLogic.setNetworkController(networkController);
+      clientLogic.setInGameController(inGameController);
+      this.clientLogic.add(clientLogic);
+      networkController.joinLobby(this.myServer, temp);
+    }
+    this.logicGui.startInGameScreen();
   }
 
   @Override
@@ -178,7 +195,6 @@ public class GameController implements GuiLogic {
 
   @Override
   public ArrayList<Card> sortHand(PlayState ps, ArrayList<Card> hand) {
-    // TODO Auto-generated method stub
-    return null;
+    return Tools.sortHand(hand, ps);
   }
 }

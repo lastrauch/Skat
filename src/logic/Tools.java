@@ -50,7 +50,7 @@ public class Tools {
   }
 
 
-  public void sortHand(ArrayList<Card> hand, PlayState ps) {
+  public static ArrayList<Card> sortHand(ArrayList<Card> hand, PlayState ps) {
     // possible different orders : colour, grand, null(nullouvert)
 
     int counter = 0; // saves nr of jacks/ nr of already sorted cards
@@ -115,26 +115,26 @@ public class Tools {
 
     // put the different stacks back together in the right order
     // first: jacks - filled only if playmode colour grand or null(before mode is chosen)
-    this.addToHand(jacks, hand, 0, jacks.size());
+    Tools.addToHand(jacks, hand, 0, jacks.size());
 
     // second: trump - only if PlayMode colour
     if (ps.getPlayMode() == PlayMode.SUIT) {
       Colour trump = ps.getTrump();
       switch (trump) {
         case CLUBS:
-          this.addToHand(clubs, hand, counter, clubs.size());
+          Tools.addToHand(clubs, hand, counter, clubs.size());
           counter += clubs.size();
           break;
         case SPADES:
-          this.addToHand(spades, hand, counter, spades.size());
+          Tools.addToHand(spades, hand, counter, spades.size());
           counter += spades.size();
           break;
         case HEARTS:
-          this.addToHand(hearts, hand, counter, hearts.size());
+          Tools.addToHand(hearts, hand, counter, hearts.size());
           counter += hearts.size();
           break;
         case DIAMONDS:
-          this.addToHand(diamonds, hand, counter, diamonds.size());
+          Tools.addToHand(diamonds, hand, counter, diamonds.size());
           counter += diamonds.size();
           break;
       }
@@ -143,25 +143,26 @@ public class Tools {
 
     // add all other colours (if not trump)
     if (ps.getTrump() != Colour.CLUBS) {
-      this.addToHand(clubs, hand, counter, clubs.size());
+      Tools.addToHand(clubs, hand, counter, clubs.size());
       counter += clubs.size();
     }
 
     if (ps.getTrump() != Colour.SPADES) {
-      this.addToHand(spades, hand, counter, spades.size());
+      Tools.addToHand(spades, hand, counter, spades.size());
       counter += spades.size();
     }
 
     if (ps.getTrump() != Colour.HEARTS) {
-      this.addToHand(hearts, hand, counter, hearts.size());
+      Tools.addToHand(hearts, hand, counter, hearts.size());
       counter += hearts.size();
     }
 
     if (ps.getTrump() != Colour.DIAMONDS) {
-      this.addToHand(diamonds, hand, counter, diamonds.size());
+      Tools.addToHand(diamonds, hand, counter, diamonds.size());
       counter += diamonds.size();
     }
 
+    return hand;
   }
 
   /**
@@ -173,7 +174,7 @@ public class Tools {
    * @param start
    * @param length
    */
-  public void addToHand(ArrayList<Card> cardsToAdd, List<Card> hand2, int start, int length) {
+  public static void addToHand(ArrayList<Card> cardsToAdd, List<Card> hand2, int start, int length) {
     int counter = 0;
     for (int i = start; i < start + length; i++) {
       hand2.set(i, cardsToAdd.get(counter));
