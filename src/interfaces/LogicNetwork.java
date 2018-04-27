@@ -30,10 +30,7 @@ public interface LogicNetwork {
   
 	//Karten dealen
 	void dealCards(Player player, List<Card> cards);
-  
-	//Your Turn (eigentlich nur am Anfang wichtig)
-	void yourTurn(Player player);
-  
+	
 	//Bet
 	void bet(int bet);
   

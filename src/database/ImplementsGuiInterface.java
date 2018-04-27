@@ -1,18 +1,15 @@
 package database;
 
-
-import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
-import com.sun.javafx.tk.Toolkit;
 import interfaces.GuiData;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import logic.Player;
 
-public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
+public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
 
   @Override
   public Image getImage(String colour, String number) {
@@ -30,8 +27,8 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
         }
       } catch (Exception e) {       
         e.printStackTrace();
-      } 
-   return img;
+      }
+    return img;
   }
 
   @Override
@@ -63,7 +60,6 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
   } catch (SQLException e) {    
       e.printStackTrace();
   }
-  System.out.println("insert new Player");
     
   }
 
@@ -101,8 +97,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
   } catch (SQLException e) {       
       e.printStackTrace();
   }
-  System.out.println("delete Player");
-}
+  }
 
   @Override
   public void changeName(Player neu, Player original) {
@@ -128,7 +123,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
   public void updatePlayer(Player player) {
     // TODO Auto-generated method stub
     
-    
   }
-  }
+  
 
+}

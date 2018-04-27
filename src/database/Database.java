@@ -1,4 +1,3 @@
-
 package database;
 
 import java.sql.Connection;
@@ -6,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class Database { 
+public class Database {
   Properties properties;
   protected Connection connection = null;
   private static String sep = System.getProperty("file.separator");
@@ -18,7 +17,7 @@ public class Database {
       return (connection != null);
   }
   
-  public void connect (){
+  public void connect(){
       init();
       try {
           Class.forName("org.sqlite.JDBC");
@@ -41,6 +40,7 @@ public class Database {
             e.printStackTrace();
             System.exit(0);
         }
+        System.out.println("Closed database successfully");
     }
   }
     private void init(){
