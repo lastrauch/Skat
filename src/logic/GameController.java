@@ -56,17 +56,6 @@ public class GameController implements GuiLogic {
   // }
   //
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.GuiLogic#updateAccount(java.lang.String, java.lang.String,
-   * javafx.scene.image.Image)
-   */
-  @Override
-  public void updateAccount(String oldUsername, String newUsername, Image profilbild) {
-    // TODO Auto-generated method stub
-
-  }
 
   /*
    * (non-Javadoc)
