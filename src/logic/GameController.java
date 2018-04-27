@@ -19,7 +19,7 @@ import network.server.Server;
 
 public class GameController implements GuiLogic {
 
-  private List<Player> group = new ArrayList<Player>();
+  private List<Player> group;
   private LogicGui logicGui; // interface from logic to gui
   private LogicNetwork networkController; // interface from logic to network
   private GuiLogic guiLogic; // interface from gui to logic
@@ -33,6 +33,9 @@ public class GameController implements GuiLogic {
   public GameController(LogicGui logicGui) {
     this.logicGui = logicGui;
     this.gameSettings = new GameSettings();
+    group = new ArrayList<Player>();
+    clientLogic = new ArrayList<ClientLogic>();
+    server = new ArrayList<Server>();
   }
 
 
@@ -56,17 +59,6 @@ public class GameController implements GuiLogic {
   // }
   //
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.GuiLogic#updateAccount(java.lang.String, java.lang.String,
-   * javafx.scene.image.Image)
-   */
-  @Override
-  public void updateAccount(String oldUsername, String newUsername, Image profilbild) {
-    // TODO Auto-generated method stub
-
-  }
 
   /*
    * (non-Javadoc)
@@ -112,7 +104,6 @@ public class GameController implements GuiLogic {
     for (int i = 0; i < this.group.size(); i++) {
       if (botname.equals(this.group.get(i).getName())) {
         this.group.remove(i);
-        this.clientLogic.remove(i);
       }
     }
   }

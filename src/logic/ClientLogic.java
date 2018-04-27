@@ -61,9 +61,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param bet
    * @return
    */
-  public boolean askForBet(int bet) {
-    return this.inGameController.askForBet(bet);
-  }
+//  public boolean askForBet(int bet) {
+//    return this.inGameController.askForBet(bet);
+//  }
 
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
