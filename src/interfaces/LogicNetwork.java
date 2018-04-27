@@ -11,7 +11,7 @@ import network.server.Server;
 //Logic to Network, implemented by Network
 public interface LogicNetwork {	
 	//Host game
-	void hostGame(Player player, GameSettings gs);
+	Server hostGame(Player player, GameSettings gs, String comment);
   
 	//Get Server
 	List<Server> getServer();
