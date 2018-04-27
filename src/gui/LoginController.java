@@ -1,45 +1,66 @@
 package gui;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+import com.jfoenix.controls.JFXTextField;
+import database.ImplementsGuiInterface;
+import interfaces.GuiData;
+import interfaces.GuiLogic;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import logic.GameController;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
-  public GuiController main;
+  private GuiController main;
+  protected String username;
+  protected ImplementsLogicGui implLG;
+  
+  
   @FXML
-  private TextField nutzername;
-  @FXML
-  private Button neuanmelden;
-  @FXML
-  private AnchorPane root;
-  @FXML
-  private HBox hbox;
-  @FXML
-  private ImageView jclubs;
-  @FXML
-  private ImageView jdiamonds;
-  @FXML
-  private ImageView jhearts;
-  @FXML
-  private ImageView jspades;
+  JFXTextField textField;
+  @FXML ImageView jclubs, jspades, jhearts, jdiamonds;
 
   public LoginController() {
     this.main = new GuiController();
+    implLG = new ImplementsLogicGui();
   }
 
-  @FXML
-  public void login() {
-    main.displayChooseGame();
-  }
 
   @FXML
   public void neuerAccount() {
     // Settingsfeld für neuen Benutzernamen anzeigen
     main.displayCreateNewAccount();
+    
+  }
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    // TODO Auto-generated method stub
+//    setImages();
+  }
+
+  @FXML
+  public void login() {
+    username = textField.getText();
+    main.displayChooseGame();
+    GameController gameCon = new GameController(implLG);
+    GuiLogic interfaceL= gameCon;
+//    interfaceL.login(username, null);
+  }
+  
+  public void setImages() {
+    GuiData inte = new ImplementsGuiInterface();
+    jclubs.setImage(inte.getImage("clubs", "jack"));
+    jspades.setImage(inte.getImage("spades", "jack"));
+    jhearts.setImage(inte.getImage("hearts", "jack"));
+    jdiamonds.setImage(inte.getImage("diamonds", "jack"));
+    
+  }
+  
+  public String getUsername() {
+    return username;
   }
 
 }

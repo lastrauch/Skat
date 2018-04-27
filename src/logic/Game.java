@@ -1,6 +1,10 @@
 package logic;
 
 import java.util.Random;
+import gui.ImplementsLogicGui;
+import interfaces.InGameInterface;
+import interfaces.LogicGui;
+import interfaces.LogicNetwork;
 
 public class Game {
   private GameSettings gameSettings;
@@ -8,40 +12,51 @@ public class Game {
   private int pointerF; // supposed to always point on the Forehand
   private int playerFirstCard; // switch every in every play --> depends on auction
   private Play[] plays;
+  private int currentPlay;
   private Card[] cards;
   private Player winner;
+  private GameMode gameMode; // singlePlayer or Multiplayer
+  private LogicNetwork logicNetwork;
+//  private ClientLogic clientLogic;
 
-  /**
-   * constructor #1
-   * 
-   * @author sandfisc
-   * @param group
-   */
-  public Game(Player[] group) {
+//  /**
+//   * constructor #1
+//   * 
+//   * @author sandfisc
+//   * @param group
+//   */
+//  public Game(Player[] group) {
+//    this.gameSettings = new GameSettings();
+//    this.plays = new Play[this.gameSettings.getNrOfPlays()];
+//    this.initializeGroupSettings(group);
+//    this.initializeCards();
+//  }
+//
+//  /**
+//   * constructor #2
+//   * 
+//   * @author sandfisc
+//   * @param group
+//   * @param countRule
+//   * @param nrOfPlays
+//   */
+//  public Game(Player[] group, CountRule countRule, int nrOfPlays) {
+//    try {
+//      this.gameSettings = new GameSettings(countRule, group.length, nrOfPlays);
+//    } catch (LogicException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    }
+//    this.plays = new Play[nrOfPlays];
+//    this.initializeGroupSettings(group);
+//    this.initializeCards();
+//  }
+
+  public Game(GameMode gameMode) {
+    this.gameMode = gameMode;
     this.gameSettings = new GameSettings();
-    this.plays = new Play[this.gameSettings.getNrOfPlays()];
-    this.initializeGroupSettings(group);
-    this.initializeCards();
-  }
-
-  /**
-   * constructor #2
-   * 
-   * @author sandfisc
-   * @param group
-   * @param countRule
-   * @param nrOfPlays
-   */
-  public Game(Player[] group, CountRule countRule, int nrOfPlays) {
-    try {
-      this.gameSettings = new GameSettings(countRule, group.length, nrOfPlays);
-    } catch (LogicException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    this.plays = new Play[nrOfPlays];
-    this.initializeGroupSettings(group);
-    this.initializeCards();
+    this.plays = new Play[gameSettings.getNrOfPlays()];
+    this.currentPlay = -1;
   }
 
   /**
@@ -52,9 +67,14 @@ public class Game {
    */
   public void initializeGroupSettings(Player[] group) {
     this.group = group;
-    this.defineSeatingList(group);
     this.setPointerF(0);
     this.updatePosition();
+    this.gameSettings.setNrOfPlayers(group.length);
+    
+    // set all points of the players 0
+    for (int i = 0; i < this.group.length; i++) {
+      this.group[i].setGamePoints(0);
+    }
   }
 
 
@@ -122,47 +142,33 @@ public class Game {
     }
   }
 
-  /**
-   * defines in which order players "sitting on a table" (random)
-   * 
-   * @author sandfisc
-   */
-  public void defineSeatingList(Player[] group) {
-    int randomIndex;
-    Player temp;
 
-    for (int i = 0; i < group.length - 1; i++) {
-      randomIndex = (int) (Math.random() * (group.length));
-      temp = group[i];
-      group[i] = group[randomIndex];
-      group[randomIndex] = temp;
-    }
-    this.group = group;
-  }
 
   /**
    * here is where the magic/game happens
    * 
    * @author sandfisc
    */
-  public void runGame() {
+  public void runGame(Player[] group) {
 
+    this.initializeGroupSettings(group);
+    this.initializeCards();
+    
     boolean breakPlease = false; // is set true when the game is over before all plays are played
                                  // #BIERLACHS
     Player[] playingGroup = new Player[3]; // always three players who are actually playing
 
-    // if only three players then the playing group is the whole group "at the table"
+    // if only three players play then the playing group is the whole group "at the table"
     if (this.group.length == 3) {
       playingGroup = this.group;
-    }
+    }  
 
-    // set all points of the players 0
-    for (int i = 0; i < this.group.length; i++) {
-      this.group[i].setGamePoints(0);
-    }
+    // ask for gameSettings
+   // this.askForGameSettings();
 
     for (int i = 0; i < this.plays.length; i++) {
-
+      this.currentPlay ++;
+      
       // the playing group consists of forehand, middlehand, rarehand, NOT dealer
       if (this.group.length == 4) {
         int index = 0;
@@ -196,11 +202,12 @@ public class Game {
         this.calculateWinner();
         break;
       }
-
-      for(int j = 0; j < this.group.length; j++) {
-        System.out.println(group[j].getName() + "'s GamePoints: " + group[j].getGamePoints());
-      }
       
+      //test
+//      for (int j = 0; j < this.group.length; j++) {
+//        System.out.println(group[j].getName() + "'s GamePoints: " + group[j].getGamePoints());
+//      }
+
       // after a play the players change positions
       this.setPointerF((i + 1) % group.length);
       this.updatePosition();
@@ -208,6 +215,20 @@ public class Game {
     // when the game is over the winner is calculated
     this.calculateWinner();
   }
+
+//  /**
+//   * only the host is asked to set the gameSettings
+//   * 
+//   * @author sandfisc
+//   */
+//  public void askForGameSettings() {
+//    for (int i = 0; i < this.group.length; i++) {
+//      if (this.group[i].isHost()) {
+//        // this.group[i].implementsLogicGui.setGameSettings(this.gameSettings);
+//        this.group[i].logicGui.setGameSettings(this.gameSettings);
+//      }
+//    }
+//  }
 
   /**
    * sorts a group: index 0 = forehand, index 1 = middlehand, index 2 = rarehand
@@ -254,6 +275,13 @@ public class Game {
     this.playerFirstCard = index;
   }
 
+  public void setGroup(Player[] group) {
+    this.group = group;
+  }
+  
+  public Player[] getGroup() {
+    return this.group;
+  }
 
   /**
    * position (forehand, middlehand, rearhand) changes ater every play
@@ -283,27 +311,25 @@ public class Game {
         this.winner = this.group[i];
       }
     }
-    System.out.println("...and the winner is: " + this.winner.getName());
   }
 
-  public static void main(String[] args) {
-
-    // test
-    Player anne = new Player("Anne");
-    Player larissa = new Player("Larissa");
-    Player felix = new Player("Felix");
-  //  Player duygu = new Player("Duygu");
-
-    Player[] group = {anne, larissa, felix};
-    Game game = new Game(group);
-    game.runGame();
-    // test: define seatingList
-    // for (int i = 0; i < group.length; i++) {
-    // System.out.println(group[i].getName() + " ");
-    // }
-
+  public void setGameSettings(GameSettings gameSettings) {
+    this.gameSettings = gameSettings;
   }
 
-
-
+  public GameSettings getGameSettings() {
+    return this.gameSettings;
+  }
+  
+  public void setPlays(Play[] plays) {
+    this.plays = plays;
+  }
+  
+  public Play[] getPlays() {
+    return this.plays;
+  }
+  
+  public Play getCurrentPlay() {
+    return this.plays[this.currentPlay];
+  }
 }

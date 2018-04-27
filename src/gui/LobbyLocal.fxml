@@ -22,43 +22,6 @@
             <Font name="System Bold" size="37.0" />
          </font>
       </Label>
-      <VBox layoutX="740.0" layoutY="284.0" prefHeight="317.0" prefWidth="297.0" spacing="35.0">
-         <children>
-            <Label alignment="CENTER" lineSpacing="20.0" prefHeight="57.0" prefWidth="334.0" style="-fx-border-radius: 0.3;" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Koenig$4" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Label>
-            <MenuButton fx:id="eins" lineSpacing="60.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="334.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Easy" textFill="WHITE">
-              <items>
-                <MenuItem fx:id="easy1" mnemonicParsing="false" onAction="#setButtonText1_Easy" style="-fx-background-color: peru; -fx-background-radius: 20; -fx-prefWdith: 334; -fx-prefHight: 47; -fx-text-fill: white;" text="Easy" />
-                <MenuItem fx:id="dif1" mnemonicParsing="false" onAction="#setButtonText1_Difficult" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
-              </items>
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </MenuButton>
-            <MenuButton fx:id="zwei" layoutX="10.0" layoutY="31.0" lineSpacing="20.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="343.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Difficult" textFill="WHITE">
-               <items>
-                  <MenuItem fx:id="easy2" mnemonicParsing="false" onAction="#setButtonText2_Easy" style="-fx-background-color: peru; -fx-text-fill: white;" text="Easy" />
-                  <MenuItem fx:id="easy3" mnemonicParsing="false" onAction="#setButtonText2_Difficult" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
-               </items>
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </MenuButton>
-            <MenuButton fx:id="drei" layoutX="10.0" layoutY="31.0" lineSpacing="20.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="315.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Disabled" textFill="WHITE">
-               <items>
-                  <MenuItem fx:id="easy3" mnemonicParsing="false" onAction="#setButtonText3_Easy" style="-fx-text-fill: white; -fx-background-color: peru;" text="Easy" />
-                  <MenuItem fx:id="dif3" mnemonicParsing="false" onAction="#setButtonText3_Difficult" style="-fx-background-color: peru; -fx-text-fill: white;" text="Difficult" />
-                  <MenuItem fx:id="dis3" mnemonicParsing="false" onAction="#setButtonText3_Disabled" style="-fx-text-fill: white; -fx-background-color: peru;" text="Disable" />
-               </items>
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </MenuButton>
-         </children>
-      </VBox>
       <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="-Infinity" prefHeight="44.0" prefWidth="1280.0" style="-fx-background-color: tan;" stylesheets="@../../resources/mystyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXButton buttonType="RAISED" layoutX="31.0" layoutY="12.0" onAction="#settings" prefHeight="36.0" prefWidth="122.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="       Settings" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="1131.0" AnchorPane.topAnchor="6.0">
@@ -93,10 +56,99 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <JFXButton buttonType="RAISED" layoutX="1083.0" layoutY="144.0" onAction="#play" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Start Game" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="1083.0" layoutY="144.0" onAction="#play" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Start Game" textFill="WHITE" underline="true">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </JFXButton>
+      <HBox alignment="CENTER" layoutX="504.0" layoutY="255.0" spacing="25.0">
+         <children>
+            <Label fx:id="bot1" alignment="CENTER" layoutX="504.0" layoutY="255.0" prefHeight="54.0" prefWidth="185.0" style="-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: grey; -fx-border-radius: 10;" text="Computer 1:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <JFXRadioButton fx:id="easy1" layoutX="736.0" layoutY="267.0" prefHeight="21.0" prefWidth="97.0" style="-fx-background-color: peru;" text="Easy" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="med1" layoutX="853.0" layoutY="267.0" prefHeight="31.0" prefWidth="141.0" style="-fx-background-color: peru;" text="Medium" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="dif1" layoutX="1016.0" layoutY="267.0" prefHeight="31.0" prefWidth="97.0" style="-fx-background-color: peru;" text="Hard" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </JFXRadioButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="504.0" layoutY="400.0" spacing="25.0">
+         <children>
+            <Label fx:id="bot2" alignment="CENTER" layoutX="504.0" layoutY="400.0" prefHeight="54.0" prefWidth="185.0" style="-fx-background-color: peru; -fx-border-color: grey; -fx-background-radius: 10; -fx-border-radius: 10;" text="Computer 2:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <JFXRadioButton fx:id="easy2" layoutX="738.0" layoutY="412.0" prefWidth="97.0" style="-fx-background-color: peru;" text="Easy" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="med2" layoutX="853.0" layoutY="412.0" prefWidth="141.0" style="-fx-background-color: peru;" text="Medium" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="dif2" layoutX="1016.0" layoutY="412.0" prefWidth="97.0" style="-fx-background-color: peru;" text="Hard" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </JFXRadioButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="504.0" layoutY="559.0" spacing="25.0">
+         <children>
+            <Label fx:id="bot3" alignment="CENTER" layoutX="504.0" layoutY="559.0" prefHeight="54.0" prefWidth="185.0" style="-fx-background-color: peru; -fx-border-color: grey; -fx-background-radius: 10; -fx-border-radius: 10;" text="Computer 3:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <JFXRadioButton fx:id="easy3" layoutX="736.0" layoutY="571.0" prefWidth="97.0" style="-fx-background-color: peru;" text="Easy" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="med3" layoutX="853.0" layoutY="571.0" prefWidth="141.0" style="-fx-background-color: peru;" text="Medium" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="dif3" layoutX="1016.0" layoutY="571.0" prefWidth="97.0" style="-fx-background-color: peru;" text="Hard" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="dis3" layoutX="1135.0" layoutY="571.0" prefHeight="31.0" prefWidth="122.0" style="-fx-background-color: peru;" text="Disable" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </JFXRadioButton>
+         </children>
+      </HBox>
+      <Label fx:id="l1" alignment="CENTER" layoutX="512.0" layoutY="309.0" prefHeight="32.0" prefWidth="170.0" style="-fx-background-color: tan;" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font></Label>
+      <Label fx:id="l2" alignment="CENTER" layoutX="509.0" layoutY="454.0" prefHeight="32.0" prefWidth="175.0" style="-fx-background-color: tan; -fx-border-radius: 10;" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font></Label>
+      <Label fx:id="l3" alignment="CENTER" layoutX="509.0" layoutY="613.0" prefHeight="32.0" prefWidth="175.0" style="-fx-background-color: tan; -fx-border-radius: 10;" text="Disabled" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font></Label>
    </children>
 </AnchorPane>

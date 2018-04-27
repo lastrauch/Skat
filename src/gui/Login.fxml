@@ -36,13 +36,10 @@
                      <image>
                         <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_B.png" />
                      </image></ImageView>
-                  <ImageView fx:id="jclubs" fitHeight="147.0" fitWidth="105.0" layoutX="47.0" layoutY="8.0" rotate="-29.1" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="8.0">
-                     <image>
-                        <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Kreuz_B.png" />
-                     </image></ImageView>
+                  <ImageView fx:id="jclubs" fitHeight="147.0" fitWidth="105.0" layoutX="47.0" layoutY="8.0" rotate="-29.1" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="8.0" />
                </children>
             </AnchorPane>
-            <JFXTextField focusColor="WHITE" layoutX="167.0" layoutY="426.0" prefHeight="31.0" prefWidth="427.0" promptText="Username" styleClass="prompttext" stylesheets="@../../resources/mystyle.css" unFocusColor="WHITE">
+            <JFXTextField fx:id="textField" focusColor="WHITE" layoutX="167.0" layoutY="426.0" prefHeight="31.0" prefWidth="427.0" promptText="Username" styleClass="prompttext" stylesheets="@../../resources/mystyle.css" unFocusColor="WHITE">
                <font>
                   <Font size="24.0" />
                </font>

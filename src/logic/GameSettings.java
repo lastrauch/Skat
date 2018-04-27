@@ -16,6 +16,9 @@ public class GameSettings {
     this.nrOfPlayers = 3;
     this.nrOfPlays = 3;
     this.enableKontra = false;
+    this.enableLimitedTime = false;
+    this.timeLimit = 60;
+    this.endPointsBierlachs = 500;
   }
 
   public GameSettings(CountRule countRule, int NrOfPlayers, int NrOfPlays) throws LogicException {
@@ -71,6 +74,35 @@ public class GameSettings {
   public void setEndPointsBierlachs(int endPoints) {
     this.endPointsBierlachs = endPoints;
   }
+  
+  public void setEnableKontra(boolean ek) {
+    this.enableKontra = ek;
+  }
+  
+  public boolean isEnableKontra() {
+    return this.enableKontra;
+  }
+  
+  public void setLimitedTime(boolean lt) {
+    this.enableLimitedTime = lt;
+  }
+  
+  public boolean isLimitedTime() {
+    return this.enableLimitedTime;
+  }
+  
+  public void setTimeLimit(int sec) {
+    this.timeLimit = sec;
+  }
+  
+  public int getTimeLimit() {
+    return this.timeLimit;
+  }
+  
+  public void setNrOfPlayers(int nr) {
+    this.nrOfPlayers = nr;
+  }
+  
 
   // i think we don't need setters here
   // public void setCountRule(CountRule countRule) {

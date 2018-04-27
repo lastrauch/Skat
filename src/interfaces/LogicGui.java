@@ -1,35 +1,40 @@
 package interfaces;
 
 import java.util.ArrayList;
+import gui.GuiController;
 import logic.Card;
+import logic.GameMode;
 import logic.GameSettings;
 import logic.Position;
 
 // Logic to GUI, implemented by GUI
 public interface LogicGui {
 
-  /**
-   * should start the gui and return the name of the Player
+   /**
    * 
    */
-  public String startGui();
+  public GuiController getGuiController();
+
+//  /**
+//   * should open LoginScreen
+//   */
+//  public void openLoginScreen();
+  
 
   /**
-   * should open first screen and return true if controller picks multiplayer game and false if he
-   * picks singleplayer game
-   * 
-   * @return
+   * should open first screen where the player picks single or multiplayer game
+   * @return gameMode (SINPLEPLAYER or MULTIPLAYER)
    */
-  public boolean askForMultiplayer();
+  public void openGameModeScreen();
 
   /**
-   * should open singlePlayerLobby, probably adding some returns later
+   * should open singlePlayerLobby
    * 
    */
   public void openSinglePlayerLobby();
   
   /**
-   * should open multiPlayerLobby, probably adding some returns later
+   * should open multiPlayerLobby
    */
   public void openMultiPlayerLobby();
 
@@ -40,13 +45,11 @@ public interface LogicGui {
    */
   public void setGameSettings(GameSettings gs);
 
-  /**
-   * should open the InGameScreen and show the Player his cards and his position
-   * 
-   * @param hand
-   * @param position
-   */
-  public void startPlay(ArrayList<Card> hand, Position position);
-
+  
+  // we still need aiDifficulty (enum??) 
+  // array with two elements for two AIs
+//  public AiDifficulty[] getDifficulties() {
+//    
+//  }
 }
 

@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import logic.GameMode;
 
 public class GuiController extends Application {
 
@@ -35,6 +36,9 @@ public class GuiController extends Application {
 
   private static AccountSettingsController accountSettingsCon;
   private AnchorPane accountSettings = null;
+
+  private static GameSettingsController gameSettingsCon;
+  private AnchorPane gameSettings = null;
 
   private static BettingController bettingCon;
   private AnchorPane betting = null;
@@ -75,8 +79,6 @@ public class GuiController extends Application {
   private static LeaderboardController leaderbordCon;
   private AnchorPane leaderbord;
 
-  @FXML
-  private ImageView c1;
 
   @Override
   public void start(Stage primaryStage) {
@@ -118,7 +120,7 @@ public class GuiController extends Application {
       loader.setLocation(getClass().getResource("GameMode.fxml"));
       this.gameMode = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(gameMode);
-
+      
       gameModeCon = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
@@ -322,6 +324,21 @@ public class GuiController extends Application {
     }
   }
 
+  public void displayGameSettings(GameMode gm) {
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("GameSettings.fxml"));
+      this.gameSettings = (AnchorPane) loader.load();
+      mprimaryStage.getScene().setRoot(gameSettings);
+
+      gameSettingsCon = loader.getController();
+      gameSettingsCon.setMode(gm);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
 
   public void displayInGame() {
     // Layout Links:
@@ -407,10 +424,14 @@ public class GuiController extends Application {
       e.printStackTrace();
     }
   }
-
-  public static void main(String[] args) {
-    launch(args);
-
+  
+  public LoginController getLoginCon() {
+    return loginCon;
   }
+
+  // public static void main(String[] args) {
+  // Application.launch(args);
+  //
+  // }
 
 }

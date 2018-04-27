@@ -1,23 +1,32 @@
 package logic;
 
 import java.util.ArrayList;
+import gui.InGameController;
+import interfaces.InGameInterface;
+import interfaces.LogicNetwork;
 
 public class Play {
 
   private Player[] group; // gives us the Players and their position (first one is the
                           // forehand)
-
   private Card[] cards;
   private Trick[] tricks;
-  private Auction auction;
   private int currentTrick;
   private int indexWinnerLastTrick;
   private PlayState ps;
   private final int nrTricks = 10;
   private GameSettings gameSettings;
   private boolean singlePlayerWins;
+  private LogicNetwork logicNetwork;
+  private ClientLogic clientLogic;
 
-  // needs a 3 Player Array
+  /**
+   * constructor
+   * 
+   * @param group
+   * @param gameSettings
+   * @param cards
+   */
   public Play(Player[] group, GameSettings gameSettings, Card[] cards) {
     this.tricks = new Trick[this.nrTricks];
     this.group = group;
@@ -27,14 +36,7 @@ public class Play {
     this.ps = new PlayState();
     this.gameSettings = gameSettings;
     this.cards = cards;
-  }
-
-  public GameSettings getGameSettings() {
-    return this.gameSettings;
-  }
-
-  public void setGameSettings(GameSettings gameSettings) {
-    this.gameSettings = gameSettings;
+    this.logicNetwork.startGame();
   }
 
   /**
@@ -48,23 +50,28 @@ public class Play {
       // pepearation
       this.shuffleCards();
       this.dealOutCards();
+      this.updateHands();
       // test:
       // this.printHands("after dealOutCards:");
 
       this.sortHands();
+      this.updateHands();
+
       // test:
       // this.printHands("after first sortCards:");
-      auction = new Auction(this.group, this.ps);
-
+      Auction auction = new Auction(this.group, this.clientLogic);
+      auction.runAuction(this.ps);
       // // test (without auction)
       // this.ps.setPlayMode(PlayMode.NULLOUVERT);
       // this.ps.setTrump(Colour.CLUBS);
       // this.ps.setNrOfPlays(6);
       // this.ps.setDeclarer(this.group[0]);
     } while (!this.ps.getAuctionPossible());
-
+    
+    
 
     this.sortHands();
+    this.updateHands();
     // test:
     // this.printHands("after second sortCards:");
 
@@ -83,62 +90,61 @@ public class Play {
       // System.out.println(this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
       // System.out.println(this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
 
+      // first player plays card
+     // card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
 
-      try {
-        // first player plays card
-        // card1 = this.group[(this.indexWinnerLastTrick) % 3].playCard();
+      // test random card
+      // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
+      // System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
+      // this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
+      // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
+      // this.group[(this.indexWinnerLastTrick) % 3].playCard(
+      // card1 = this.group[(this.indexWinnerLastTrick) %
+      // 3].getHand().get(this.group[(this.indexWinnerLastTrick) %
+      // 3].inGameController.askToPlayCard());
 
-        // test random card
-        // card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseRandomCardFromHand();
-        System.out.println("your hand " + this.group[(this.indexWinnerLastTrick) % 3].getName());
-        this.printListCards(this.group[(this.indexWinnerLastTrick) % 3].getHand());
-        card1 = this.group[(this.indexWinnerLastTrick) % 3].chooseCardFromHand();
-        this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
+      // this.group[(this.indexWinnerLastTrick) % 3].removeCardFromHand(card1);
+      this.tricks[i].setCard1(card1);
+      this.updateTrick(card1);
 
-        this.tricks[i].setCard1(card1);
+      // second player plays card
 
-        // second player plays card
-        do {
-          // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
 
-          // test random card
-          // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseRandomCardFromHand();
-          System.out
-              .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
-          this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
-          card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
-        } while (!this.checkIfCardPossible(card2, this.tricks[i].getFirstCard(),
-            this.group[(this.indexWinnerLastTrick + 1) % 3]));
+      // test random card
+      // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseRandomCardFromHand();
+      // System.out
+      // .println("your hand " + this.group[(this.indexWinnerLastTrick + 1) % 3].getName());
+      // this.printListCards(this.group[(this.indexWinnerLastTrick + 1) % 3].getHand());
+      // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].chooseCardFromHand();
+     // card2 = this.group[(this.indexWinnerLastTrick + 1) % 3].playCard();
 
-        // remove card from second players hand
-        this.group[(this.indexWinnerLastTrick + 1) % 3].removeCardFromHand(card2);
+//
+//        // remove card from second players hand
+//        this.group[(this.indexWinnerLastTrick + 1) % 3].removeCardFromHand(card2);
 
-        // add the second card to trick
-        this.tricks[i].setCard2(card2);
+      // add the second card to trick
+      this.tricks[i].setCard2(card2);
+      this.updateTrick(card2);
 
-        // third player plays card
-        do {
-          // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
+      // third player plays card
 
-          // test random card
-          // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseRandomCardFromHand();
+      // test random card
+      // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseRandomCardFromHand();
+      //
+      // System.out
+      // .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
+      // this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
+      // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
 
-          System.out
-              .println("your hand " + this.group[(this.indexWinnerLastTrick + 2) % 3].getName());
-          this.printListCards(this.group[(this.indexWinnerLastTrick + 2) % 3].getHand());
-          card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].chooseCardFromHand();
-        } while (!this.checkIfCardPossible(card3, this.tricks[i].getFirstCard(),
-            this.group[(this.indexWinnerLastTrick + 2) % 3]));
+      // card3 = this.group[(this.indexWinnerLastTrick + 2) % 3].playCard();
 
-        // remove card from third players hand
-        this.group[(this.indexWinnerLastTrick + 2) % 3].removeCardFromHand(card3);
-        // add the third card to trick
-        this.tricks[i].setCard3(card3);
 
-      } catch (LogicException e1) {
-        // e1.printStackTrace();
+//        // remove card from third players hand
+//        this.group[(this.indexWinnerLastTrick + 2) % 3].removeCardFromHand(card3);
 
-      }
+      // add the third card to trick
+      this.tricks[i].setCard3(card3);
+      this.updateTrick(card3);
 
       // System.out.println("The trick:");
       // this.printArrayOfCards(this.tricks[i].getTrickCards());
@@ -157,9 +163,7 @@ public class Play {
           ps.addToStackOpponents(tricks[i]);
         }
 
-        // declarer is not allowed to win a trick when playMode is NULL/NULLOUVERT
-
-        // SCHNEIDER SCHWARZ!!!!?????
+        // declarer is not allowed to win a trick when playMode is NULL
         if (this.ps.getPlayMode() == PlayMode.NULL) {
           if (this.ps.getDeclarer().equals(this.group[this.indexWinnerLastTrick])) {
             this.singlePlayerWins = false;
@@ -179,14 +183,16 @@ public class Play {
     }
     // calculate if the declarer won the play
     this.singlePlayerWins = this.calculateWinner();
-
     // update the gamePoints of each player
     try {
       this.calculatePoints();
+      this.logicNetwork.sendPlayState(this.ps);
     } catch (LogicException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+    
+  //  this.logicNetwork.endPlay(this.singlePlayerWins);
   }
 
   // to test stuff
@@ -196,158 +202,197 @@ public class Play {
     }
   }
 
+
   /**
-   * its is checked if the card can be played by the player depending on his hand, the first Colour
-   * of the trick and the PlayMode
+   * updates the hands of the group
    * 
-   * @param card (the player wants to play)
-   * @param firstCard (the first played card in the current trick)
-   * @param player (who wants to play the card)
-   * @return if card can be played
-   * @throws LogicException
    * @author sandfisc
    */
-  public boolean checkIfCardPossible(Card card, Card firstCard, Player player)
-      throws LogicException {
-    if (this.ps.getPlayMode() == PlayMode.SUIT) {
-      return this.checkIfCardPossibleColour(card, firstCard, player);
-    } else if (this.ps.getPlayMode() == PlayMode.GRAND) {
-      return this.checkIfCardPossibleGrand(card, firstCard, player);
-    } else if (this.ps.getPlayMode() == PlayMode.NULL) {
-      return this.checkIfCardPossibleNull(card, firstCard, player);
-    } else {
-      throw new LogicException(
-          "checking if the card is possible is not possible (no PlayMode found)");
-
+  public void updateHands() {
+    for (int i = 0; i < this.group.length; i++) {
+      this.group[i].updateHand();
     }
   }
 
   /**
-   * submethod of checkIfCardPossible
-   * 
-   * @author sandfisc
-   * @param card (the player wants to play)
-   * @param firstCard (the first played card in the current trick)
-   * @param player (who wants to play the card)
-   * @return if card is possible in PlayMode Colour
+   * starts the gui on all clients
    */
-  public boolean checkIfCardPossibleColour(Card card, Card firstCard, Player player) {
-
-    // check if card serves first played card
-    if (this.checkIfServedColour(card, firstCard)) {
-
-      return true;
-
+  public void startPlayOnGui() {
+    for (int i = 0; i < this.group.length; i++) {
+      this.group[i].startPlay();
     }
-
-    // check if the player has a card which would serve the first card
-    for (int i = 0; i < player.getHand().size(); i++) {
-      if (this.checkIfServedColour(player.getHand().get(i), firstCard)) {
-        return false;
-      }
-    }
-    return true;
   }
+
 
   /**
-   * checks if the serving card serves the served card --> checks is both are trump/jack or have the
-   * same color.
+   * updates the trick of all clients --> the new card is send to all players
    * 
-   * @author sandfisc
-   * @param servingCard
-   * @param servedCard
-   * @return
+   * @sandfisc
+   * @param card
    */
-  public boolean checkIfServedColour(Card servingCard, Card servedCard) {
-
-    if (servedCard.getColour() == this.ps.getTrump() || servedCard.getNumber() == Number.JACK) {
-      // first card is trump
-      if (servingCard.getColour() == this.ps.getTrump() || servingCard.getNumber() == Number.JACK) {
-        return true;
-      }
-    } else {
-      // first card is not trump
-      if (servingCard.getColour() == servedCard.getColour()
-          && servingCard.getNumber() != Number.JACK) {
-        return true;
-      }
+  public void updateTrick(Card card) {
+    // this.logicNetwork.updateTrick(this.tricks[this.currentTrick]);
+    for (int i = 0; i < this.group.length; i++) {
+      this.logicNetwork.sendCard(card, this.group[i]);
     }
-    return false;
   }
 
-  /**
-   * submethod of checkIfCardPossible.
-   * 
-   * @author sandfisc
-   * @param card (the player wants to play)
-   * @param firstCard (the first played card in the current trick)
-   * @param player (who wants to play the card)
-   * @return if card is possible in PlayMode Grand
-   */
-  public boolean checkIfCardPossibleGrand(Card card, Card firstCard, Player player) {
 
-    // check if card serves first played card
-    if (this.checkIfServedColour(card, firstCard)) {
-      return true;
-    }
-
-    // check if the player has a card which would serve the first card
-    for (int i = 0; i < player.getHand().size(); i++) {
-      if (this.checkIfServedGrand(player.getHand().get(i), firstCard)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  /**
-   * checks if the serving card serves the served card --> checks is both are jack or have the same
-   * color.
-   * 
-   * @author sandfisc
-   * @param servingCard
-   * @param servedCard
-   * @return
-   */
-  public boolean checkIfServedGrand(Card servingCard, Card servedCard) {
-
-    // both cards are jack
-    if (servedCard.getNumber() == Number.JACK && servingCard.getNumber() == Number.JACK) {
-      return true;
-    }
-
-    // both cards are no jack
-    if (servedCard.getNumber() != Number.JACK && servingCard.getNumber() != Number.JACK) {
-      if (servedCard.getColour() == servingCard.getColour()) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * submethod of checkIfCardPossible.
-   * 
-   * @author sandfisc
-   * @param card (the player wants to play)
-   * @param firstCard (the first played card in the current trick)
-   * @param player (who wants to play the card)
-   * @return if card is possible in PlayMode Null or NullOuvert
-   */
-  public boolean checkIfCardPossibleNull(Card card, Card firstCard, Player player) {
-
-    if (card.getColour() == firstCard.getColour()) {
-      return true;
-
-    } else {
-      for (int i = 0; i < player.getHand().size(); i++) {
-        if (player.getHand().get(i).getColour() == firstCard.getColour()) {
-          return false;
-        }
-      }
-      return true;
-    }
-  }
+  // /**
+  // * its is checked if the card can be played by the player depending on his hand, the first
+  // Colour
+  // * of the trick and the PlayMode
+  // *
+  // * @param card (the player wants to play)
+  // * @param firstCard (the first played card in the current trick)
+  // * @param player (who wants to play the card)
+  // * @return if card can be played
+  // * @throws LogicException
+  // * @author sandfisc
+  // */
+  // public boolean checkIfCardPossible(Card card, Card firstCard, Player player)
+  // throws LogicException {
+  // if (this.ps.getPlayMode() == PlayMode.SUIT) {
+  // return this.checkIfCardPossibleColour(card, firstCard, player);
+  // } else if (this.ps.getPlayMode() == PlayMode.GRAND) {
+  // return this.checkIfCardPossibleGrand(card, firstCard, player);
+  // } else if (this.ps.getPlayMode() == PlayMode.NULL) {
+  // return this.checkIfCardPossibleNull(card, firstCard, player);
+  // } else {
+  // throw new LogicException(
+  // "checking if the card is possible is not possible (no PlayMode found)");
+  //
+  // }
+  // }
+  //
+  // /**
+  // * submethod of checkIfCardPossible
+  // *
+  // * @author sandfisc
+  // * @param card (the player wants to play)
+  // * @param firstCard (the first played card in the current trick)
+  // * @param player (who wants to play the card)
+  // * @return if card is possible in PlayMode Colour
+  // */
+  // public boolean checkIfCardPossibleColour(Card card, Card firstCard, Player player) {
+  //
+  // // check if card serves first played card
+  // if (this.checkIfServedColour(card, firstCard)) {
+  //
+  // return true;
+  //
+  // }
+  //
+  // // check if the player has a card which would serve the first card
+  // for (int i = 0; i < player.getHand().size(); i++) {
+  // if (this.checkIfServedColour(player.getHand().get(i), firstCard)) {
+  // return false;
+  // }
+  // }
+  // return true;
+  // }
+  //
+  // /**
+  // * checks if the serving card serves the served card --> checks is both are trump/jack or have
+  // the
+  // * same color.
+  // *
+  // * @author sandfisc
+  // * @param servingCard
+  // * @param servedCard
+  // * @return
+  // */
+  // public boolean checkIfServedColour(Card servingCard, Card servedCard) {
+  //
+  // if (servedCard.getColour() == this.ps.getTrump() || servedCard.getNumber() == Number.JACK) {
+  // // first card is trump
+  // if (servingCard.getColour() == this.ps.getTrump() || servingCard.getNumber() == Number.JACK) {
+  // return true;
+  // }
+  // } else {
+  // // first card is not trump
+  // if (servingCard.getColour() == servedCard.getColour()
+  // && servingCard.getNumber() != Number.JACK) {
+  // return true;
+  // }
+  // }
+  // return false;
+  // }
+  //
+  // /**
+  // * submethod of checkIfCardPossible.
+  // *
+  // * @author sandfisc
+  // * @param card (the player wants to play)
+  // * @param firstCard (the first played card in the current trick)
+  // * @param player (who wants to play the card)
+  // * @return if card is possible in PlayMode Grand
+  // */
+  // public boolean checkIfCardPossibleGrand(Card card, Card firstCard, Player player) {
+  //
+  // // check if card serves first played card
+  // if (this.checkIfServedColour(card, firstCard)) {
+  // return true;
+  // }
+  //
+  // // check if the player has a card which would serve the first card
+  // for (int i = 0; i < player.getHand().size(); i++) {
+  // if (this.checkIfServedGrand(player.getHand().get(i), firstCard)) {
+  // return false;
+  // }
+  // }
+  // return true;
+  // }
+  //
+  // /**
+  // * checks if the serving card serves the served card --> checks is both are jack or have the
+  // same
+  // * color.
+  // *
+  // * @author sandfisc
+  // * @param servingCard
+  // * @param servedCard
+  // * @return
+  // */
+  // public boolean checkIfServedGrand(Card servingCard, Card servedCard) {
+  //
+  // // both cards are jack
+  // if (servedCard.getNumber() == Number.JACK && servingCard.getNumber() == Number.JACK) {
+  // return true;
+  // }
+  //
+  // // both cards are no jack
+  // if (servedCard.getNumber() != Number.JACK && servingCard.getNumber() != Number.JACK) {
+  // if (servedCard.getColour() == servingCard.getColour()) {
+  // return true;
+  // }
+  // }
+  // return false;
+  // }
+  //
+  // /**
+  // * submethod of checkIfCardPossible.
+  // *
+  // * @author sandfisc
+  // * @param card (the player wants to play)
+  // * @param firstCard (the first played card in the current trick)
+  // * @param player (who wants to play the card)
+  // * @return if card is possible in PlayMode Null or NullOuvert
+  // */
+  // public boolean checkIfCardPossibleNull(Card card, Card firstCard, Player player) {
+  //
+  // if (card.getColour() == firstCard.getColour()) {
+  // return true;
+  //
+  // } else {
+  // for (int i = 0; i < player.getHand().size(); i++) {
+  // if (player.getHand().get(i).getColour() == firstCard.getColour()) {
+  // return false;
+  // }
+  // }
+  // return true;
+  // }
+  // }
 
   /**
    * true if declarer over bid false if not
@@ -445,7 +490,6 @@ public class Play {
   }
 
 
-
   /**
    * shuffles the cards after they have been initialized
    * 
@@ -533,21 +577,6 @@ public class Play {
   }
 
   /**
-   * Sorts the hand depending on the playMode by seperating the hand in jacks(if it's not
-   * null(-ouvert)) and then in the different colours then orders different colours by number and
-   * puts them back together in the right order (again depending on the Playmode)
-   * 
-   * uses addToHand, sortCardsValueNorm, sortCardsValueLowTen, sortCardsByColour
-   * 
-   * @author awesch
-   * @param hand
-   */
-
-  public PlayState getPlayState() {
-    return this.ps;
-  }
-
-  /**
    * calculates the value of the game
    * 
    * @author sandfisc
@@ -627,6 +656,39 @@ public class Play {
     }
   }
 
+  /**
+   * 
+   * @return the gameSettings of the play/game
+   */
+  public GameSettings getGameSettings() {
+    return this.gameSettings;
+  }
+
+  /**
+   * method to update the gameSettings
+   * 
+   * @param gameSettings
+   */
+  public void setGameSettings(GameSettings gameSettings) {
+    this.gameSettings = gameSettings;
+  }
+
+  /**
+   * 
+   * @return playstate
+   */
+  public PlayState getPlayState() {
+    return this.ps;
+  }
+
+  public void setPlayState(PlayState ps) {
+    this.ps = ps;
+  }
+  /**
+   * gets the last trick (not only important for AI)
+   * 
+   * @return
+   */
   public Trick getLastTrick() {
     Trick lastTrick = new Trick(ps);
     if (this.currentTrick > 0) {
@@ -635,7 +697,13 @@ public class Play {
     return lastTrick;
   }
 
+  /**
+   * gets the current trick (even if it is not filled)
+   * 
+   * @return
+   */
   public Trick getCurrentTrick() {
     return this.tricks[this.currentTrick];
   }
 }
+
