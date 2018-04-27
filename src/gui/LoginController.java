@@ -17,11 +17,12 @@ public class LoginController implements Initializable {
   protected String username;
   protected ImplementsLogicGui implLG = new ImplementsLogicGui();
   protected static GameController gameCon;
-  
-  
+
+
   @FXML
   JFXTextField textField;
-  @FXML ImageView jclubs, jspades, jhearts, jdiamonds;
+  @FXML
+  ImageView jclubs, jspades, jhearts, jdiamonds;
 
   public LoginController() {
     this.main = new GuiController();
@@ -32,7 +33,7 @@ public class LoginController implements Initializable {
   public void neuerAccount() {
     // Settingsfeld für neuen Benutzernamen anzeigen
     main.displayCreateNewAccount();
-    
+
   }
 
   @Override
@@ -46,19 +47,19 @@ public class LoginController implements Initializable {
     username = textField.getText();
     main.displayChooseGame();
     gameCon = new GameController(implLG);
-    GuiLogic interfaceL= gameCon;
-//    interfaceL.login(username, null);
+    GuiLogic interfaceL = gameCon;
+    interfaceL.login(username, null);
   }
-  
+
   public void setImages() {
     GuiData inte = new ImplementsGuiInterface();
     jclubs.setImage(inte.getImage("clubs", "jack"));
     jspades.setImage(inte.getImage("spades", "jack"));
     jhearts.setImage(inte.getImage("hearts", "jack"));
     jdiamonds.setImage(inte.getImage("diamonds", "jack"));
-    
+
   }
-  
+
   public String getUsername() {
     return username;
   }
