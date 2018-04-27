@@ -99,7 +99,7 @@ public interface GuiLogic {
    * supposed to  skat the cards from jack to trump to lowest value
    * @return
    */
-  public ArrayList<Card> sortHand(PlayState ps); 
+  public ArrayList<Card> sortHand(PlayState ps, ArrayList<Card> hand); 
   
   /**
    * starts the game afte SinglePlayer Lobby
