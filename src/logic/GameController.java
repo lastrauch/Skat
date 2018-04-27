@@ -96,15 +96,15 @@ public class GameController implements GuiLogic {
     this.clientLogic.add(clientLogic);
   }
 
-  //FRAGE!! WAS PASSIERT WENN DIE CLIENTLOGIK NUR AUS DER LISTE GELOESCHT WIRD??
-  //eventuell muss die ClientLogik erst bei start
+  // FRAGE!! WAS PASSIERT WENN DIE CLIENTLOGIK NUR AUS DER LISTE GELOESCHT WIRD??
+  // eventuell muss die ClientLogik erst bei start
   @Override
   /**
    * @author awesch
    */
   public void deleteBot(String botname) {
     for (int i = 0; i < this.group.size(); i++) {
-      if(botname.equals(this.group.get(i).getName())) {
+      if (botname.equals(this.group.get(i).getName())) {
         this.group.remove(i);
         this.clientLogic.remove(i);
       }
@@ -125,20 +125,16 @@ public class GameController implements GuiLogic {
     this.clientLogic.add(clientLogic);
   }
 
+  // WO BEKOMMEN WIR DENN UBERHAUPT EINEN HOST UEBERGEBEN??
+  // DIE VERBINDUNG DES NETZWERKS BRAUCHEN WIR SCHON HIER ODER JOIN GAME UND CO GEHOEREN SCHON IN
+  // DIE CLIENT LOGIK!!!!
+  @Override
   /**
-   * supposed to be in the gui logic interface as well
+   * @author awesch
    */
   public void joinGame(String hostName) {
-
+    // joinLobby erfordert einen server!! wir haben aber nur den namen
   }
-
-  /**
-   * supposed to be in the gui logic interface as well
-   */
-  public void hostGame(String comment) {
-
-  }
-
 
 
   @Override
