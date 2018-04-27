@@ -25,7 +25,6 @@ public class LoginController implements Initializable {
 
   public LoginController() {
     this.main = new GuiController();
-    gameCon = new GameController(implLG);
   }
 
 
@@ -46,6 +45,7 @@ public class LoginController implements Initializable {
   public void login() {
     username = textField.getText();
     main.displayChooseGame();
+    gameCon = new GameController(implLG);
     GuiLogic interfaceL= gameCon;
 //    interfaceL.login(username, null);
   }
