@@ -1,12 +1,16 @@
 package gui;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import interfaces.GuiLogic;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -17,7 +21,7 @@ import logic.GameController;
 import logic.GameMode;
 import logic.GameSettings;
 
-public class GameSettingsController {
+public class GameSettingsController implements Initializable{
 
   private int[] rounds;
   private CountRule countRule;
@@ -29,7 +33,9 @@ public class GameSettingsController {
   private String ms;
   private GuiController guiCon;
   private GameMode gm;
-  GuiLogic interf = new GameController();
+  private GuiLogic interf = LoginController.gameCon;
+  private ToggleGroup g1 = new ToggleGroup();
+  private ToggleGroup g2 = new ToggleGroup();
 
   @FXML
   private JFXRadioButton r1, r3, r18, r36;
@@ -191,7 +197,7 @@ public class GameSettingsController {
       gs.setTimeLimit(setLimitedTime());
     }
     ms = message.getText();
-    interf.hostGame(ms, gs);
+//    interf.hostGame(ms, gs);
     guiCon.displayLobbyOnline();
   }
 
@@ -203,7 +209,7 @@ public class GameSettingsController {
       gs.setTimeLimit(setLimitedTime());
     }
     ms = message.getText();
-    interf.hostGame(ms, gs);
+//    interf.hostGame(ms, gs);
     guiCon.displayInGame();
   }
 
@@ -213,5 +219,18 @@ public class GameSettingsController {
     } else {
       submitOf();
     }
+  }
+
+  @Override
+  public void initialize(URL arg0, ResourceBundle arg1) {
+    // TODO Auto-generated method stub
+    r1.setToggleGroup(g1);
+    r3.setToggleGroup(g1);
+    r18.setToggleGroup(g1);
+    r36.setToggleGroup(g1);
+    
+    sSys.setToggleGroup(g2);
+    bSys.setToggleGroup(g2);
+    nSys.setToggleGroup(g2); 
   }
 }

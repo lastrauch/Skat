@@ -17,6 +17,11 @@
       </ImageView>
       <ImageView fx:id="stichRechts" fitHeight="150.0" fitWidth="200.0" layoutX="1180.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
       <ImageView fx:id="stichLinks" fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="extra1" fitHeight="227.0" fitWidth="182.0" layoutX="57.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" rotate="-26.6">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_10.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="l1" fitHeight="150.0" fitWidth="200.0" layoutX="-67.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
             <Image url="@../../resources/rueckseite.jpg" />
@@ -61,7 +66,7 @@
          <image>
             <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_10.png" />
          </image></ImageView>
-      <ImageView fx:id="c7" fitHeight="227.0" fitWidth="182.0" layoutX="725.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" rotate="6.3">
+      <ImageView fx:id="c7" fitHeight="227.0" fitWidth="182.0" layoutX="728.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" rotate="6.3">
          <image>
             <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_K.png" />
          </image></ImageView>
@@ -155,74 +160,46 @@
             <Image url="@../../resources/rueckseite.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="s2" fitHeight="205.0" fitWidth="132.0" layoutX="619.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" rotate="91.7">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Karo_D.png" />
-         </image></ImageView>
-      <AnchorPane layoutY="758.0" minHeight="-Infinity" prefHeight="42.0" prefWidth="1280.0" style="-fx-background-color: tan; -fx-border-color: #611212;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="758.0">
-         <children>
-            <JFXButton buttonType="RAISED" layoutX="16.0" layoutY="8.0" onAction="#settings" prefHeight="32.0" prefWidth="129.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="       Settings" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="1136.0" AnchorPane.topAnchor="5.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </JFXButton>
-            <JFXButton layoutX="542.0" layoutY="8.0" onAction="#accountSettings" prefHeight="35.0" prefWidth="141.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="     Account" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="541.0" AnchorPane.rightAnchor="598.0" AnchorPane.topAnchor="5.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </JFXButton>
-            <JFXButton layoutX="1156.0" layoutY="5.0" onAction="#help" prefHeight="24.0" prefWidth="101.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="     Help" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="1155.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </JFXButton>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="21.0" layoutY="8.0" style="-fx-background: Peru;" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="7.0">
-               <image>
-                  <Image url="@../../resources/settings.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="551.0" layoutY="2.0" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="7.0">
-               <image>
-                  <Image url="@../../resources/user.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="1169.0" layoutY="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="7.0">
-               <image>
-                  <Image url="@../../resources/info.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
+      <ImageView fx:id="s2" fitHeight="205.0" fitWidth="132.0" layoutX="619.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" rotate="91.7" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="329.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="trump" layoutX="1076.0" layoutY="74.0">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <ImageView fx:id="s3" fitHeight="205.0" fitWidth="132.0" layoutX="590.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" rotate="14.9">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_9.png" />
-         </image></ImageView>
+      <ImageView fx:id="s3" fitHeight="205.0" fitWidth="132.0" layoutX="590.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" rotate="14.9" />
       <Label fx:id="position" layoutX="1042.0" layoutY="455.0" text="Middelhand" textFill="WHITE">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
       </Label>
       <JFXTextArea fx:id="chatM" focusColor="WHITE" layoutX="3.0" layoutY="5.0" opacity="0.33" prefHeight="97.0" prefWidth="1280.0" style="-fx-background-color: peru;" unFocusColor="PERU" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <ImageView fx:id="s1" fitHeight="205.0" fitWidth="132.0" layoutX="533.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" rotate="125.0">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_10.png" />
-         </image></ImageView>
-      <JFXTextField fx:id="textM" layoutX="4.0" layoutY="97.0" opacity="0.33" prefHeight="50.0" prefWidth="1273.0" style="-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <JFXButton fx:id="sendB" layoutX="1168.0" layoutY="96.0" onAction="#sendChat" opacity="0.89" prefHeight="50.0" prefWidth="113.0" style="-fx-border-radius: 0; -fx-background-color: peru; -fx-border-color: grey; -fx-border-radius: 2;" styleClass="buttonstyle" text="Send" textFill="WHITE">
+      <ImageView fx:id="s1" fitHeight="205.0" fitWidth="132.0" layoutX="533.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" rotate="125.0" />
+      <JFXTextField fx:id="textM" layoutY="97.0" opacity="0.33" prefHeight="50.0" prefWidth="1280.0" style="-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <JFXButton fx:id="sendB" layoutX="1167.0" layoutY="97.0" onAction="#sendChat" opacity="0.89" prefHeight="50.0" prefWidth="113.0" style="-fx-border-radius: 0; -fx-background-color: peru; -fx-border-color: grey; -fx-border-radius: 2;" styleClass="buttonstyle" text="Send" textFill="WHITE" AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </JFXButton>
-      <ImageView fitHeight="32.0" fitWidth="40.0" layoutX="624.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="pf" fitHeight="32.0" fitWidth="40.0" layoutX="624.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/icons8-oben-eingekreist-50.png" />
+            <Image url="@../../resources/icons8-unten-eingekreist-50.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="1167.0" layoutY="759.0" AnchorPane.bottomAnchor="17.0" AnchorPane.topAnchor="759.0">
+         <image>
+            <Image url="@../../resources/info.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="extra2" fitHeight="227.0" fitWidth="182.0" layoutX="1064.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" rotate="26.6">
+         <image>
+            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_8.png" />
+         </image>
+      </ImageView>
+      <JFXButton buttonType="RAISED" layoutX="1153.0" layoutY="755.0" onAction="#help" prefHeight="33.0" prefWidth="113.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="     Help" textFill="WHITE" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="1153.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="755.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

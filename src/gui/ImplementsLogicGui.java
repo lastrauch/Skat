@@ -9,20 +9,6 @@ public class ImplementsLogicGui extends GameSettingsController implements LogicG
 
 
   @Override
-  public void openSinglePlayerLobby() {
-    // TODO Auto-generated method stub
-    guiCon.displayLobbyLocal();
-
-  }
-
-  @Override
-  public void openMultiPlayerLobby() {
-    // TODO Auto-generated method stub
-    guiCon.displayLobbyOnline();
-
-  }
-
-  @Override
   public void setGameSettings(GameSettings gs) {
     // TODO Auto-generated method stub
 //    guiCon.displayGameSettings();
@@ -40,13 +26,12 @@ public class ImplementsLogicGui extends GameSettingsController implements LogicG
     return guiCon;
   }
 
-
   @Override
-  public void openGameModeScreen() {
+  public void showOpenLobby(String hostName, String comment) {
     // TODO Auto-generated method stub
-    guiCon.displayChooseGame();
-
+    
   }
+
 
 
 }
