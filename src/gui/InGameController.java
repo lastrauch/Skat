@@ -810,6 +810,11 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @author lstrauch
    */
+  
+  public void Listener() {
+    this.MouseHandler();
+    this.ButtonListener();
+  }
   public int MouseHandler() {
     final int[] ret = new int[1];
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {

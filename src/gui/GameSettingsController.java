@@ -28,6 +28,7 @@ public class GameSettingsController implements Initializable{
   private boolean kontra;
   private boolean limitedTime;
   private int setLimitedTime;
+  private int numbOfPl;
   private JFXTextField sec = new JFXTextField();
   private GameSettings gs = new GameSettings();
   private String ms;
@@ -36,6 +37,7 @@ public class GameSettingsController implements Initializable{
   private GuiLogic interf = LoginController.gameCon;
   private ToggleGroup g1 = new ToggleGroup();
   private ToggleGroup g2 = new ToggleGroup();
+  private ToggleGroup g3 = new ToggleGroup();
 
   @FXML
   private JFXRadioButton r1, r3, r18, r36;
@@ -44,12 +46,22 @@ public class GameSettingsController implements Initializable{
   @FXML
   private JFXToggleButton enKon, enTL;
   @FXML
+  private JFXRadioButton n3, n4;
+  @FXML
   private AnchorPane pane;
   @FXML
   private JFXTextField message;
 
   public GameSettingsController() {
     this.guiCon = new GuiController();
+  }
+  
+  public void listener() {
+    this.numberOfRounds();
+    this.countRule();
+    this.numberOfPlayers();
+    this.enableKontra();
+    this.enableLimitedTime();
   }
 
   public void numberOfRounds() {
@@ -101,6 +113,21 @@ public class GameSettingsController implements Initializable{
       }
     });
   }
+  
+  public void numberOfPlayers() {
+    n3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        numbOfPl= 3;
+      }
+    });
+    n4.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        numbOfPl = 4;;
+      }
+    });
+  }
 
   public void enableKontra() {
     final boolean[] en = new boolean[1];
@@ -116,9 +143,10 @@ public class GameSettingsController implements Initializable{
   public void enableLimitedTime() {
     final boolean[] enT = new boolean[1];
     enT[0] = false;
-    nSys.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    enTL.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
+        System.out.println("hhh");
         enT[0] = true;
         showSetTime();
         setLimitedTime = setLimitedTime();
@@ -139,17 +167,17 @@ public class GameSettingsController implements Initializable{
     set.setText("Set limited time:");
     set.setPrefHeight(40);
     set.setPrefWidth(170);
-    set.setLayoutX(140);
-    set.setLayoutY(364);
-    set.setFont(Font.font("System", 28));
+    set.setLayoutX(114);
+    set.setLayoutY(503);
+    set.setFont(Font.font("System", 23));
     set.setTextFill(Color.WHITE);
     // set.setStyle("-fx-background-color: tan;");
 
     sec.setPromptText("Number of seconds");
     sec.setPrefHeight(48);
     sec.setPrefWidth(247);
-    sec.setLayoutX(276);
-    sec.setLayoutY(359);
+    sec.setLayoutX(298);
+    sec.setLayoutY(499);
     sec.setFocusColor(Color.WHITE);
     sec.setUnFocusColor(Color.WHITE);
     set.setStyle("-fx-prompt-text-fill: white;");
@@ -160,40 +188,22 @@ public class GameSettingsController implements Initializable{
     box.setPrefWidth(442);
     box.setPrefHeight(48);
     box.setLayoutX(224);
-    box.setLayoutY(463);
+    box.setLayoutY(503);
 
     pane.getChildren().add(box);
   }
 
-  public int getRounds() {
-    return rounds[0];
-  }
-
-  public boolean getKontra() {
-    return kontra;
-  }
-
-  public boolean getEnabledTime() {
-    return limitedTime;
-  }
-
-  public CountRule getCountRule() {
-    return countRule;
-  }
-
-  public int getSetTime() {
-    return setLimitedTime;
-  }
 
   public void setMode(GameMode gm) {
     this.gm = gm;
   }
 
   public void submitOn() {
-    gs.setCountRule(getCountRule());
-    gs.setEnableKontra(getKontra());
-    gs.setLimitedTime(getEnabledTime());
-    if (getEnabledTime()) {
+    gs.setNrOfPlayers(numbOfPl);
+    gs.setCountRule(countRule);
+    gs.setEnableKontra(kontra);
+    gs.setLimitedTime(limitedTime);
+    if (limitedTime) {
       gs.setTimeLimit(setLimitedTime());
     }
     ms = message.getText();
@@ -202,10 +212,10 @@ public class GameSettingsController implements Initializable{
   }
 
   public void submitOf() {
-    gs.setCountRule(getCountRule());
-    gs.setEnableKontra(getKontra());
-    gs.setLimitedTime(getEnabledTime());
-    if (getEnabledTime()) {
+    gs.setCountRule(countRule);
+    gs.setEnableKontra(kontra);
+    gs.setLimitedTime(limitedTime);
+    if (limitedTime) {
       gs.setTimeLimit(setLimitedTime());
     }
     ms = message.getText();
@@ -232,5 +242,10 @@ public class GameSettingsController implements Initializable{
     sSys.setToggleGroup(g2);
     bSys.setToggleGroup(g2);
     nSys.setToggleGroup(g2); 
+    
+    n3.setToggleGroup(g3);
+    n4.setToggleGroup(g3);
+    
+    this.listener();
   }
 }

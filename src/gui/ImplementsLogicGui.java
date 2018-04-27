@@ -11,13 +11,6 @@ public class ImplementsLogicGui extends GameSettingsController implements LogicG
   @Override
   public void setGameSettings(GameSettings gs) {
     // TODO Auto-generated method stub
-//    guiCon.displayGameSettings();
-    gs.setCountRule(super.getCountRule());
-    gs.setEnableKontra(super.getKontra());
-    gs.setLimitedTime(super.getEnabledTime());
-    if (super.getEnabledTime()) {
-      gs.setTimeLimit(super.setLimitedTime());
-    }
   }
 
   @Override
@@ -27,8 +20,9 @@ public class ImplementsLogicGui extends GameSettingsController implements LogicG
   }
 
   @Override
-  public void showOpenLobby(String hostName, String comment) {
+  public void startInGameScreen() {
     // TODO Auto-generated method stub
+    guiCon.displayInGame();
     
   }
 
