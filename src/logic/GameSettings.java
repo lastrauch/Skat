@@ -28,7 +28,7 @@ public class GameSettings {
    * 
    * @author awesch
    */
-  
+
 
   public GameSettings(CountRule countRule, int NrOfPlayers, int NrOfPlays) throws LogicException {
 
@@ -128,6 +128,9 @@ public class GameSettings {
     this.seatingOrder = seatingOrder;
   }
 
+  public void setNumberOfPlays(int numberOfPlays) {
+    this.nrOfPlays = numberOfPlays;
+  }
 
   // i think we don't need setters here
   // public void setCountRule(CountRule countRule) {
