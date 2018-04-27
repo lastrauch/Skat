@@ -121,10 +121,12 @@ public class InGameController implements Initializable, InGameInterface {
   private Label position;
   @FXML
   private JFXButton sendB;
-  @FXML private ImageView pf;
-  @FXML private JFXTextArea chatM;
-  @FXML private JFXTextField textM;
-  
+  @FXML
+  private ImageView pf;
+  @FXML
+  private JFXTextArea chatM;
+  @FXML
+  private JFXTextField textM;
 
 
 
@@ -153,10 +155,10 @@ public class InGameController implements Initializable, InGameInterface {
   public void initialize(URL location, ResourceBundle resources) {
     // TODO Auto-generated method stub
     askForBet(18);
-//    ButtonListenerPlaySettings();
+    // ButtonListenerPlaySettings();
     displayChatClosed();
     chatButtonListener();
-//    ButtonListenrWantSkat();
+    // ButtonListenrWantSkat();
 
 
   }
@@ -404,21 +406,23 @@ public class InGameController implements Initializable, InGameInterface {
     yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-//        ps.setHandGame(true);
+        // ps.setHandGame(true);
         displaySwitchSkat(ps);
-        sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(), ps.getSkat()[0].getNumber().toString().toLowerCase()));
-        sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(), ps.getSkat()[1].getNumber().toString().toLowerCase()));
+        sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
+            ps.getSkat()[0].getNumber().toString().toLowerCase()));
+        sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
+            ps.getSkat()[1].getNumber().toString().toLowerCase()));
       }
     });
     no.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-//        ps.setHandGame(false);
+        // ps.setHandGame(false);
         displayAuctionWinnerScreen();
       }
     });
   }
-  
+
   public void chatButtonListener() {
     sendB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
@@ -430,7 +434,7 @@ public class InGameController implements Initializable, InGameInterface {
 
       @Override
       public void handle(MouseEvent event) {
-        if(pf.getImage().equals(pfUnten)) {
+        if (pf.getImage().equals(pfUnten)) {
           displayChatScreenOpen();
         } else {
           displayChatClosed();
@@ -458,26 +462,22 @@ public class InGameController implements Initializable, InGameInterface {
     c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
-      public void handle(MouseEvent event) {
-      }
+      public void handle(MouseEvent event) {}
     });
     c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
-      public void handle(MouseEvent event) {
-      }
+      public void handle(MouseEvent event) {}
     });
     c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
-      public void handle(MouseEvent event) {
-      }
+      public void handle(MouseEvent event) {}
     });
     c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
-      public void handle(MouseEvent event) {
-      }
+      public void handle(MouseEvent event) {}
     });
     c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -489,20 +489,17 @@ public class InGameController implements Initializable, InGameInterface {
     c8.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
-      public void handle(MouseEvent event) {
-      }
+      public void handle(MouseEvent event) {}
     });
     c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
-      public void handle(MouseEvent event) {
-      }
+      public void handle(MouseEvent event) {}
     });
     c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
-      public void handle(MouseEvent event) {
-      }
+      public void handle(MouseEvent event) {}
     });
   }
 
@@ -548,26 +545,26 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void startPlay(ArrayList<Card> hand, Position position) {
     // TODO Auto-generated method stub
-//    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
-//        (hand.get(0).getNumber().toString().toLowerCase())));
-//    c2.setImage(inte.getImage(hand.get(1).getColour().toString().toLowerCase(),
-//        (hand.get(1).getNumber().toString().toLowerCase())));
-//    c3.setImage(inte.getImage(hand.get(2).getColour().toString().toLowerCase(),
-//        (hand.get(2).getNumber().toString().toLowerCase())));
-//    c4.setImage(inte.getImage(hand.get(3).getColour().toString().toLowerCase(),
-//        (hand.get(3).getNumber().toString().toLowerCase())));
-//    c5.setImage(inte.getImage(hand.get(4).getColour().toString().toLowerCase(),
-//        (hand.get(4).getNumber().toString().toLowerCase())));
-//    c6.setImage(inte.getImage(hand.get(5).getColour().toString().toLowerCase(),
-//        (hand.get(5).getNumber().toString().toLowerCase())));
-//    c7.setImage(inte.getImage(hand.get(6).getColour().toString().toLowerCase(),
-//        (hand.get(6).getNumber().toString().toLowerCase())));
-//    c8.setImage(inte.getImage(hand.get(7).getColour().toString().toLowerCase(),
-//        (hand.get(7).getNumber().toString().toLowerCase())));
-//    c9.setImage(inte.getImage(hand.get(8).getColour().toString().toLowerCase(),
-//        (hand.get(8).getNumber().toString().toLowerCase())));
-//    c10.setImage(inte.getImage(hand.get(9).getColour().toString().toLowerCase(),
-//        (hand.get(9).getNumber().toString().toLowerCase())));
+    // c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
+    // (hand.get(0).getNumber().toString().toLowerCase())));
+    // c2.setImage(inte.getImage(hand.get(1).getColour().toString().toLowerCase(),
+    // (hand.get(1).getNumber().toString().toLowerCase())));
+    // c3.setImage(inte.getImage(hand.get(2).getColour().toString().toLowerCase(),
+    // (hand.get(2).getNumber().toString().toLowerCase())));
+    // c4.setImage(inte.getImage(hand.get(3).getColour().toString().toLowerCase(),
+    // (hand.get(3).getNumber().toString().toLowerCase())));
+    // c5.setImage(inte.getImage(hand.get(4).getColour().toString().toLowerCase(),
+    // (hand.get(4).getNumber().toString().toLowerCase())));
+    // c6.setImage(inte.getImage(hand.get(5).getColour().toString().toLowerCase(),
+    // (hand.get(5).getNumber().toString().toLowerCase())));
+    // c7.setImage(inte.getImage(hand.get(6).getColour().toString().toLowerCase(),
+    // (hand.get(6).getNumber().toString().toLowerCase())));
+    // c8.setImage(inte.getImage(hand.get(7).getColour().toString().toLowerCase(),
+    // (hand.get(7).getNumber().toString().toLowerCase())));
+    // c9.setImage(inte.getImage(hand.get(8).getColour().toString().toLowerCase(),
+    // (hand.get(8).getNumber().toString().toLowerCase())));
+    // c10.setImage(inte.getImage(hand.get(9).getColour().toString().toLowerCase(),
+    // (hand.get(9).getNumber().toString().toLowerCase())));
     this.position.setText(position.toString());
     displayChatScreenOpen();
 
@@ -581,23 +578,23 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
-//  @Override
-//  public void updateHand(ArrayList<Card> hand) {
-//    // TODO Auto-generated method stub
-////    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
-////        (hand.get(0).getNumber().toString().toLowerCase())));
-//    c1.setImage(hand.get(0).getImage());
-//    c2.setImage(hand.get(1).getImage());
-//    c3.setImage(hand.get(2).getImage());
-//    c4.setImage(hand.get(3).getImage());
-//    c5.setImage(hand.get(4).getImage());
-//    c6.setImage(hand.get(5).getImage());
-//    c7.setImage(hand.get(6).getImage());
-//    c8.setImage(hand.get(7).getImage());
-//    c9.setImage(hand.get(9).getImage());
-//    c10.setImage(hand.get(9).getImage());
-//
-//  }
+  // @Override
+  // public void updateHand(ArrayList<Card> hand) {
+  // // TODO Auto-generated method stub
+  //// c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
+  //// (hand.get(0).getNumber().toString().toLowerCase())));
+  // c1.setImage(hand.get(0).getImage());
+  // c2.setImage(hand.get(1).getImage());
+  // c3.setImage(hand.get(2).getImage());
+  // c4.setImage(hand.get(3).getImage());
+  // c5.setImage(hand.get(4).getImage());
+  // c6.setImage(hand.get(5).getImage());
+  // c7.setImage(hand.get(6).getImage());
+  // c8.setImage(hand.get(7).getImage());
+  // c9.setImage(hand.get(9).getImage());
+  // c10.setImage(hand.get(9).getImage());
+  //
+  // }
 
   @Override
   public void setPlaySettings(PlayState ps) {
@@ -621,7 +618,7 @@ public class InGameController implements Initializable, InGameInterface {
     // TODO Auto-generated method stub
     deletePane(paneBet);
     displayWannaTakeSkat();
-//    ButtonListenrWantSkat(ps);
+    // ButtonListenrWantSkat(ps);
 
   }
 
@@ -633,21 +630,6 @@ public class InGameController implements Initializable, InGameInterface {
     return ButtonListener();
   }
 
-//  @Override
-//  public void updateTrick(ArrayList<Card> currentTrick) {
-//    // TODO Auto-generated method stub
-////    if (currentTrick.get(0) != null) {
-////      s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-////          (currentTrick.get(1).getNumber().toString().toLowerCase())));
-////    } else if (currentTrick.get(0) != null) {
-////      s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-////          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-////    } else if (currentTrick.get(2) != null) {
-////      s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-////          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-////    }
-//
-//  }
 
   /**
    * Not necessary for InGameController
@@ -897,7 +879,7 @@ public class InGameController implements Initializable, InGameInterface {
     skatHbox.setPrefHeight(54);
     skatHbox.setLayoutX(118);
     skatHbox.setLayoutY(158);
-    
+
     ok.setPrefHeight(31);
     ok.setPrefWidth(67);
     ok.setLayoutX(501);
@@ -905,8 +887,8 @@ public class InGameController implements Initializable, InGameInterface {
     ok.setText("OK");
     ok.setFont(Font.font("System", FontWeight.BOLD, 15));
     ok.setButtonType(ButtonType.RAISED);
-    
-    
+
+
 
     skatPane.getChildren().add(skatLabel);
     skatPane.getChildren().add(skatHbox);
@@ -970,14 +952,14 @@ public class InGameController implements Initializable, InGameInterface {
     pf.setLayoutX(624);
     pf.setLayoutY(130);
     pf.toFront();
-    
+
     sendB.setLayoutX(1167);
     sendB.setLayoutY(97);
     sendB.setPrefHeight(50);
     sendB.setPrefWidth(113);
     sendB.setFont(Font.font("System", 20));
-    
-    
+
+
     s1.setLayoutX(533);
     s1.setLayoutY(149);
     s2.setLayoutX(590);
@@ -985,7 +967,7 @@ public class InGameController implements Initializable, InGameInterface {
     s3.setLayoutX(619);
     s3.setLayoutY(200);
   }
-  
+
   public void displayChatClosed() {
     chatM.setPrefWidth(1280);
     chatM.setPrefHeight(35);
@@ -1009,13 +991,13 @@ public class InGameController implements Initializable, InGameInterface {
     pf.setFitWidth(40);
     pf.setLayoutX(624);
     pf.setLayoutY(52);
-    
+
     sendB.setLayoutX(1167);
     sendB.setLayoutY(33);
     sendB.setPrefHeight(32);
     sendB.setPrefWidth(113);
     sendB.setFont(Font.font("System", 15));
-    
+
     s1.setLayoutX(533);
     s1.setLayoutY(89);
     s2.setLayoutX(590);
@@ -1065,37 +1047,48 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void updateHand(List<Card> list) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void updateTrick(List<Card> currentTrick) {
     // TODO Auto-generated method stub
-    
+    if (currentTrick.get(0) != null) {
+      s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+          (currentTrick.get(1).getNumber().toString().toLowerCase())));
+    } else if (currentTrick.get(0) != null) {
+      s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+          (currentTrick.get(0).getNumber().toString().toLowerCase())));
+    } else if (currentTrick.get(2) != null) {
+      s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+          (currentTrick.get(0).getNumber().toString().toLowerCase())));
+    }
+
+
   }
 
   @Override
   public void stopGame(String reason) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void showWinnerTrick(Player player) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void showWinnerPlay(Player player1, Player player2) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void showWinnerGame(Player player) {
     // TODO Auto-generated method stub
-    
+
   }
 
 
