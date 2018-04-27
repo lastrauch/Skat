@@ -2,6 +2,7 @@ package gui;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
@@ -32,6 +33,7 @@ import logic.GameController;
 import logic.GameSettings;
 import logic.PlayMode;
 import logic.PlayState;
+import logic.Player;
 import logic.Position;
 
 public class InGameController implements Initializable, InGameInterface {
@@ -89,7 +91,7 @@ public class InGameController implements Initializable, InGameInterface {
   private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
   private Image temp;
 //  private GuiData inte = new ImplementsGuiInterface();
-  private GuiLogic inteGL = new GameController();
+  private GuiLogic inteGL = LoginController.gameCon;
 
   /**
    * Initialize ChatScreen
@@ -577,23 +579,23 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
-  @Override
-  public void updateHand(ArrayList<Card> hand) {
-    // TODO Auto-generated method stub
-//    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
-//        (hand.get(0).getNumber().toString().toLowerCase())));
-    c1.setImage(hand.get(0).getImage());
-    c2.setImage(hand.get(1).getImage());
-    c3.setImage(hand.get(2).getImage());
-    c4.setImage(hand.get(3).getImage());
-    c5.setImage(hand.get(4).getImage());
-    c6.setImage(hand.get(5).getImage());
-    c7.setImage(hand.get(6).getImage());
-    c8.setImage(hand.get(7).getImage());
-    c9.setImage(hand.get(9).getImage());
-    c10.setImage(hand.get(9).getImage());
-
-  }
+//  @Override
+//  public void updateHand(ArrayList<Card> hand) {
+//    // TODO Auto-generated method stub
+////    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
+////        (hand.get(0).getNumber().toString().toLowerCase())));
+//    c1.setImage(hand.get(0).getImage());
+//    c2.setImage(hand.get(1).getImage());
+//    c3.setImage(hand.get(2).getImage());
+//    c4.setImage(hand.get(3).getImage());
+//    c5.setImage(hand.get(4).getImage());
+//    c6.setImage(hand.get(5).getImage());
+//    c7.setImage(hand.get(6).getImage());
+//    c8.setImage(hand.get(7).getImage());
+//    c9.setImage(hand.get(9).getImage());
+//    c10.setImage(hand.get(9).getImage());
+//
+//  }
 
   @Override
   public void setPlaySettings(PlayState ps) {
@@ -629,21 +631,21 @@ public class InGameController implements Initializable, InGameInterface {
     return ButtonListener();
   }
 
-  @Override
-  public void updateTrick(ArrayList<Card> currentTrick) {
-    // TODO Auto-generated method stub
-//    if (currentTrick.get(0) != null) {
-//      s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-//          (currentTrick.get(1).getNumber().toString().toLowerCase())));
-//    } else if (currentTrick.get(0) != null) {
-//      s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-//          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-//    } else if (currentTrick.get(2) != null) {
-//      s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-//          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-//    }
-
-  }
+//  @Override
+//  public void updateTrick(ArrayList<Card> currentTrick) {
+//    // TODO Auto-generated method stub
+////    if (currentTrick.get(0) != null) {
+////      s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+////          (currentTrick.get(1).getNumber().toString().toLowerCase())));
+////    } else if (currentTrick.get(0) != null) {
+////      s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+////          (currentTrick.get(0).getNumber().toString().toLowerCase())));
+////    } else if (currentTrick.get(2) != null) {
+////      s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+////          (currentTrick.get(0).getNumber().toString().toLowerCase())));
+////    }
+//
+//  }
 
   /**
    * Not necessary for InGameController
@@ -1056,6 +1058,42 @@ public class InGameController implements Initializable, InGameInterface {
   @FXML
   public void back() {
     main.displayChooseGame();
+  }
+
+  @Override
+  public void updateHand(List<Card> list) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void updateTrick(List<Card> currentTrick) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void stopGame(String reason) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void showWinnerTrick(Player player) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void showWinnerPlay(Player player1, Player player2) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void showWinnerGame(Player player) {
+    // TODO Auto-generated method stub
+    
   }
 
 

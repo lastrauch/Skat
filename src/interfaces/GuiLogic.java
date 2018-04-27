@@ -97,4 +97,6 @@ public interface GuiLogic {
    * @return
    */
   public ArrayList<Card> sortHand(); 
+  
+  public void startGame(GameSettings gs);
 }

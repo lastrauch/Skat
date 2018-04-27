@@ -15,7 +15,8 @@ public class LoginController implements Initializable {
 
   private GuiController main;
   protected String username;
-  protected ImplementsLogicGui implLG;
+  protected ImplementsLogicGui implLG = new ImplementsLogicGui();
+  protected static GameController gameCon;
   
   
   @FXML
@@ -24,7 +25,7 @@ public class LoginController implements Initializable {
 
   public LoginController() {
     this.main = new GuiController();
-    implLG = new ImplementsLogicGui();
+    gameCon = new GameController(implLG);
   }
 
 
@@ -38,14 +39,13 @@ public class LoginController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // TODO Auto-generated method stub
-//    setImages();
+    setImages();
   }
 
   @FXML
   public void login() {
     username = textField.getText();
     main.displayChooseGame();
-    GameController gameCon = new GameController(implLG);
     GuiLogic interfaceL= gameCon;
 //    interfaceL.login(username, null);
   }
