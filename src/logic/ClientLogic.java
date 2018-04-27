@@ -784,5 +784,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.netController = networkController;
   }
 
+  @Override
+  public Player copyPlayer(Player player) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 
 }
