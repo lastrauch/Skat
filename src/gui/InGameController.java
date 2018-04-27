@@ -78,6 +78,7 @@ public class InGameController implements Initializable, InGameInterface {
   private HBox skatHbox = new HBox();
   private ImageView sk1 = new ImageView();
   private ImageView sk2 = new ImageView();
+  private JFXButton ok = new JFXButton();
 
 
   /**
@@ -87,17 +88,16 @@ public class InGameController implements Initializable, InGameInterface {
   private int count = 0;
   private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
   private Image temp;
-  private GuiData inte = new ImplementsGuiInterface();
+//  private GuiData inte = new ImplementsGuiInterface();
   private GuiLogic inteGL = new GameController();
 
   /**
    * Initialize ChatScreen
    */
-  private JFXTextArea chatM = new JFXTextArea();
-  private JFXTextField textM = new JFXTextField();
   private Image pfUnten =
       new Image(getClass().getResource("/icons8-unten-eingekreist-50.png").toExternalForm());
-  private ImageView pf = new ImageView();
+  private Image pfOben =
+      new Image(getClass().getResource("/icons8-oben-eingekreist-50.png").toExternalForm());
 
 
   /**
@@ -112,11 +112,17 @@ public class InGameController implements Initializable, InGameInterface {
   @FXML
   private ImageView s1, s2, s3;
   @FXML
+  private ImageView extra1, extra2;
+  @FXML
   private AnchorPane mainPane;
   @FXML
   private Label position;
   @FXML
   private JFXButton sendB;
+  @FXML private ImageView pf;
+  @FXML private JFXTextArea chatM;
+  @FXML private JFXTextField textM;
+  
 
 
 
@@ -145,7 +151,10 @@ public class InGameController implements Initializable, InGameInterface {
   public void initialize(URL location, ResourceBundle resources) {
     // TODO Auto-generated method stub
     askForBet(18);
-    displayChatScreenOpen();
+//    ButtonListenerPlaySettings();
+    displayChatClosed();
+    chatButtonListener();
+    ButtonListenrWantSkat();
 
 
   }
@@ -310,6 +319,7 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent e) {
         ret[0] = false;
+        displayWannaTakeSkat();
       }
     });
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -388,21 +398,109 @@ public class InGameController implements Initializable, InGameInterface {
     });
   }
 
-  public void ButtonListenrWantSkat(PlayState ps) {
+  public void ButtonListenrWantSkat(/*PlayState ps*/) {
     yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ps.setHandGame(true);
+//        ps.setHandGame(true);
+        displaySwitchSkat();
       }
     });
     no.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ps.setHandGame(false);
+//        ps.setHandGame(false);
+        displayAuctionWinnerScreen();
+      }
+    });
+  }
+  
+  public void chatButtonListener() {
+    sendB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        sendChat();
+      }
+    });
+    pf.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if(pf.getImage().equals(pfUnten)) {
+          displayChatScreenOpen();
+        } else {
+          displayChatClosed();
+        }
+        System.out.println(pf.getImage());
       }
     });
   }
 
+  public void switchSkatListener() {
+    c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c1.getImage();
+      }
+    });
+    c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        temp = c2.getImage();
+      }
+    });
+    c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+      }
+    });
+    c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+      }
+    });
+    c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+      }
+    });
+    c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+      }
+    });
+    c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+
+      }
+    });
+    c8.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+      }
+    });
+    c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+      }
+    });
+    c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+      }
+    });
+  }
 
 
   /**
@@ -446,26 +544,26 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void startPlay(ArrayList<Card> hand, Position position) {
     // TODO Auto-generated method stub
-    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
-        (hand.get(0).getNumber().toString().toLowerCase())));
-    c2.setImage(inte.getImage(hand.get(1).getColour().toString().toLowerCase(),
-        (hand.get(1).getNumber().toString().toLowerCase())));
-    c3.setImage(inte.getImage(hand.get(2).getColour().toString().toLowerCase(),
-        (hand.get(2).getNumber().toString().toLowerCase())));
-    c4.setImage(inte.getImage(hand.get(3).getColour().toString().toLowerCase(),
-        (hand.get(3).getNumber().toString().toLowerCase())));
-    c5.setImage(inte.getImage(hand.get(4).getColour().toString().toLowerCase(),
-        (hand.get(4).getNumber().toString().toLowerCase())));
-    c6.setImage(inte.getImage(hand.get(5).getColour().toString().toLowerCase(),
-        (hand.get(5).getNumber().toString().toLowerCase())));
-    c7.setImage(inte.getImage(hand.get(6).getColour().toString().toLowerCase(),
-        (hand.get(6).getNumber().toString().toLowerCase())));
-    c8.setImage(inte.getImage(hand.get(7).getColour().toString().toLowerCase(),
-        (hand.get(7).getNumber().toString().toLowerCase())));
-    c9.setImage(inte.getImage(hand.get(8).getColour().toString().toLowerCase(),
-        (hand.get(8).getNumber().toString().toLowerCase())));
-    c10.setImage(inte.getImage(hand.get(9).getColour().toString().toLowerCase(),
-        (hand.get(9).getNumber().toString().toLowerCase())));
+//    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
+//        (hand.get(0).getNumber().toString().toLowerCase())));
+//    c2.setImage(inte.getImage(hand.get(1).getColour().toString().toLowerCase(),
+//        (hand.get(1).getNumber().toString().toLowerCase())));
+//    c3.setImage(inte.getImage(hand.get(2).getColour().toString().toLowerCase(),
+//        (hand.get(2).getNumber().toString().toLowerCase())));
+//    c4.setImage(inte.getImage(hand.get(3).getColour().toString().toLowerCase(),
+//        (hand.get(3).getNumber().toString().toLowerCase())));
+//    c5.setImage(inte.getImage(hand.get(4).getColour().toString().toLowerCase(),
+//        (hand.get(4).getNumber().toString().toLowerCase())));
+//    c6.setImage(inte.getImage(hand.get(5).getColour().toString().toLowerCase(),
+//        (hand.get(5).getNumber().toString().toLowerCase())));
+//    c7.setImage(inte.getImage(hand.get(6).getColour().toString().toLowerCase(),
+//        (hand.get(6).getNumber().toString().toLowerCase())));
+//    c8.setImage(inte.getImage(hand.get(7).getColour().toString().toLowerCase(),
+//        (hand.get(7).getNumber().toString().toLowerCase())));
+//    c9.setImage(inte.getImage(hand.get(8).getColour().toString().toLowerCase(),
+//        (hand.get(8).getNumber().toString().toLowerCase())));
+//    c10.setImage(inte.getImage(hand.get(9).getColour().toString().toLowerCase(),
+//        (hand.get(9).getNumber().toString().toLowerCase())));
     this.position.setText(position.toString());
     displayChatScreenOpen();
 
@@ -482,8 +580,8 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void updateHand(ArrayList<Card> hand) {
     // TODO Auto-generated method stub
-    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
-        (hand.get(0).getNumber().toString().toLowerCase())));
+//    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
+//        (hand.get(0).getNumber().toString().toLowerCase())));
     c1.setImage(hand.get(0).getImage());
     c2.setImage(hand.get(1).getImage());
     c3.setImage(hand.get(2).getImage());
@@ -517,8 +615,9 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void askToTakeUpSkat(PlayState ps) {
     // TODO Auto-generated method stub
+    deletePane(paneBet);
     displayWannaTakeSkat();
-    ButtonListenrWantSkat(ps);
+//    ButtonListenrWantSkat(ps);
 
   }
 
@@ -533,16 +632,16 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void updateTrick(ArrayList<Card> currentTrick) {
     // TODO Auto-generated method stub
-    if (currentTrick.get(0) != null) {
-      s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(1).getNumber().toString().toLowerCase())));
-    } else if (currentTrick.get(0) != null) {
-      s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-    } else if (currentTrick.get(2) != null) {
-      s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-    }
+//    if (currentTrick.get(0) != null) {
+//      s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+//          (currentTrick.get(1).getNumber().toString().toLowerCase())));
+//    } else if (currentTrick.get(0) != null) {
+//      s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+//          (currentTrick.get(0).getNumber().toString().toLowerCase())));
+//    } else if (currentTrick.get(2) != null) {
+//      s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+//          (currentTrick.get(0).getNumber().toString().toLowerCase())));
+//    }
 
   }
 
@@ -794,9 +893,20 @@ public class InGameController implements Initializable, InGameInterface {
     skatHbox.setPrefHeight(54);
     skatHbox.setLayoutX(118);
     skatHbox.setLayoutY(158);
+    
+    ok.setPrefHeight(31);
+    ok.setPrefWidth(67);
+    ok.setLayoutX(501);
+    ok.setLayoutY(270);
+    ok.setText("OK");
+    ok.setFont(Font.font("System", FontWeight.BOLD, 15));
+    ok.setButtonType(ButtonType.RAISED);
+    
+    
 
     skatPane.getChildren().add(skatLabel);
     skatPane.getChildren().add(skatHbox);
+    skatPane.getChildren().add(ok);
 
     mainPane.getChildren().add(skatPane);
   }
@@ -850,12 +960,64 @@ public class InGameController implements Initializable, InGameInterface {
     textM.setStyle("-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2");
     textM.setOpacity(0.33);
 
-    pf.setImage(pfUnten);
+    pf.setImage(pfOben);
     pf.setFitHeight(32);
     pf.setFitWidth(40);
     pf.setLayoutX(624);
     pf.setLayoutY(130);
+    pf.toFront();
+    
+    sendB.setLayoutX(1167);
+    sendB.setLayoutY(97);
+    sendB.setPrefHeight(50);
+    sendB.setPrefWidth(113);
+    sendB.setFont(Font.font("System", 20));
+    
+    
+    s1.setLayoutX(533);
+    s1.setLayoutY(149);
+    s2.setLayoutX(590);
+    s2.setLayoutY(184);
+    s3.setLayoutX(619);
+    s3.setLayoutY(200);
+  }
+  
+  public void displayChatClosed() {
+    chatM.setPrefWidth(1280);
+    chatM.setPrefHeight(35);
+    chatM.setLayoutX(3);
+    chatM.setLayoutY(5);
+    chatM.setStyle("-fx-background-color: peru");
+    chatM.setEditable(false);
+    chatM.setUnFocusColor(Color.PERU);
+    chatM.setFocusColor(Color.WHITE);
+    chatM.setOpacity(0.33);
 
+    textM.setPrefHeight(32);
+    textM.setPrefWidth(1280);
+    textM.setLayoutX(3);
+    textM.setLayoutY(33);
+    textM.setStyle("-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2");
+    textM.setOpacity(0.33);
+
+    pf.setImage(pfUnten);
+    pf.setFitHeight(32);
+    pf.setFitWidth(40);
+    pf.setLayoutX(624);
+    pf.setLayoutY(52);
+    
+    sendB.setLayoutX(1167);
+    sendB.setLayoutY(33);
+    sendB.setPrefHeight(32);
+    sendB.setPrefWidth(113);
+    sendB.setFont(Font.font("System", 15));
+    
+    s1.setLayoutX(533);
+    s1.setLayoutY(89);
+    s2.setLayoutX(590);
+    s2.setLayoutY(114);
+    s3.setLayoutX(619);
+    s3.setLayoutY(140);
   }
 
 
