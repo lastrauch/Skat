@@ -87,7 +87,7 @@ public interface GuiLogic {
   /**
    * @param hostName
    */
-  public void joinGame(String hostName); 
+  public void joinGame(String serverName); 
   
   /**
    * @param comment
