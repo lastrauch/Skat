@@ -41,7 +41,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     // if it is not possible to play the card the gui/AI is asked to play another card
     try {
-      if (this.checkIfCardPossible(playedCard, firstCard, this.playState, this.player)) {
+      if (checkIfCardPossible(playedCard, firstCard, this.playState, this.player)) {
         return playedCard;
       } else {
         return this.playCard(firstCard);
