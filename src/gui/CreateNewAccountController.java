@@ -25,11 +25,11 @@ public class CreateNewAccountController {
 
   @FXML
   public void submit() {
-    this.username = newUsername.getPromptText();
+    this.username = newUsername.getText();
     main.displayChooseGame();
     GameController gameCon = new GameController(implLG);
     GuiLogic interfaceL = gameCon;
-    interfaceL.login(username, null);
+//    interfaceL.login(username, null);
   }
 
 }

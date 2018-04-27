@@ -25,7 +25,7 @@ public class ImplementsLogicGui extends GameSettingsController implements LogicG
   @Override
   public void setGameSettings(GameSettings gs) {
     // TODO Auto-generated method stub
-    guiCon.displayGameSettings();
+//    guiCon.displayGameSettings();
     gs.setCountRule(super.getCountRule());
     gs.setEnableKontra(super.getKontra());
     gs.setLimitedTime(super.getEnabledTime());

@@ -24,7 +24,7 @@ public interface GuiData {
    * @param number
    * @return
    */
-  public BufferedImage getImageDarker(String colour, String number);
+  public Image getImageDarker(String colour, String number);
 
   /**
    * saves a player profile in the Database

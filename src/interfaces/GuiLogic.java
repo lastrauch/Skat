@@ -3,8 +3,13 @@ package interfaces;
 import ai.BotDifficulty;
 import javafx.scene.image.Image;
 import logic.GameMode;
+import logic.GameSettings;
 
 // GUI to Logic, implemented by Logic
+/**
+ * @author Larissa
+ *
+ */
 /**
  * @author Larissa
  *
@@ -58,4 +63,27 @@ public interface GuiLogic {
    * @param difficulty
    */
   public void setBot(String botname, BotDifficulty difficulty);
+  
+  /**
+   * returns a new chat message
+   * @return
+   */
+  public String getChatText();
+  
+  /**
+   * send the just tipped chat message
+   * @param message
+   */
+  public void sendChatText(String message);
+  
+  /**
+   * @param hostName
+   */
+  public void joinGame(String hostName); 
+  
+  /**
+   * @param comment
+   */
+  public void hostGame(String comment, GameSettings gs);
+  
 }

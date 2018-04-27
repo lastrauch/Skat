@@ -15,9 +15,9 @@
             <Image url="@../../resources/tisch.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="pane" layoutX="257.0" layoutY="137.0" opacity="0.86" prefHeight="526.0" prefWidth="855.0" style="-fx-background-color: peru; -fx-background-radius: 20;">
+      <AnchorPane fx:id="pane" layoutX="257.0" layoutY="96.0" opacity="0.86" prefHeight="567.0" prefWidth="855.0" style="-fx-background-color: peru; -fx-background-radius: 20;">
          <children>
-            <VBox layoutX="25.0" layoutY="138.0" spacing="35.0">
+            <VBox layoutX="22.0" layoutY="100.0" spacing="35.0">
                <children>
                   <HBox layoutX="34.0" layoutY="47.0" spacing="25.0">
                      <children>
@@ -102,7 +102,7 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox layoutX="224.0" layoutY="463.0" spacing="25.0">
+            <HBox layoutX="218.0" layoutY="425.0" spacing="25.0">
                <children>
                   <Label layoutX="140.0" layoutY="364.0" text="Set time limit:" textFill="WHITE">
                      <font>
@@ -115,12 +115,25 @@
                      </font></JFXTextField>
                </children>
             </HBox>
-            <Label layoutX="156.0" layoutY="25.0" text="Choose your Game Settings" textFill="WHITE" underline="true">
+            <Label layoutX="155.0" layoutY="14.0" text="Choose your Game Settings" textFill="WHITE" underline="true">
                <font>
                   <Font name="System Bold" size="39.0" />
                </font>
             </Label>
-            <JFXButton fx:id="subm" layoutX="713.0" layoutY="468.0" text="Submit" />
+            <JFXButton fx:id="subm" buttonType="RAISED" layoutX="711.0" layoutY="493.0" onAction="#screenChooser" style="-fx-background-color: tan; -fx-border-color: black;" text="Submit" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font></JFXButton>
+            <Label layoutX="22.0" layoutY="499.0" text="Message: " textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="message" focusColor="WHITE" layoutX="218.0" layoutY="495.0" prefHeight="31.0" prefWidth="442.0" unFocusColor="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </JFXTextField>
          </children>
       </AnchorPane>
    </children>
