@@ -98,15 +98,6 @@ public class GameController implements GuiLogic {
     clientLogic.setNetworkController(networkController);
     this.clientLogic.add(clientLogic);
     this.networkController = networkController;
-
-    this.refreshOpenLobbys();
-  }
-  
-  public void refreshOpenLobbys() {
-    // asks for servers and shows them on the ui
-    this.server = new ArrayList<Server>();
-    this.server = this.networkController.getServer();
-    this.logicGui.showOpenLobby(this.server);
   }
 
   // FRAGE!! WAS PASSIERT WENN DIE CLIENTLOGIK NUR AUS DER LISTE GELOESCHT WIRD??
@@ -186,7 +177,7 @@ public class GameController implements GuiLogic {
   }
 
   @Override
-  public ArrayList<Card> sortHand(PlayState ps) {
+  public ArrayList<Card> sortHand(PlayState ps, ArrayList<Card> hand) {
     // TODO Auto-generated method stub
     return null;
   }
