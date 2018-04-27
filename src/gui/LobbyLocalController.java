@@ -68,10 +68,10 @@ public class LobbyLocalController implements Initializable {
       public void handle(MouseEvent e) {
         bot = 1;
         if (checkIfBotEnabled()) {
-//          guiL.deleteBot("Bot1");
+          guiL.deleteBot("Bot1");
           System.out.println("Delete b1");
         }
-//        guiL.setBot("Bot1", BotDifficulty.EASY);
+        guiL.setBot("Bot1", BotDifficulty.EASY);
         l1.setText("Easy");
       }
     });
@@ -80,10 +80,10 @@ public class LobbyLocalController implements Initializable {
       public void handle(MouseEvent e) {
         bot = 1;
         if (checkIfBotEnabled()) {
-//          guiL.deleteBot("Bot1");
+          guiL.deleteBot("Bot1");
           System.out.println("Delete b1");
         }
-//        guiL.setBot("Bot1", BotDifficulty.MEDIUM);
+        guiL.setBot("Bot1", BotDifficulty.MEDIUM);
         l1.setText("Medium");
       }
     });
@@ -92,10 +92,10 @@ public class LobbyLocalController implements Initializable {
       public void handle(MouseEvent e) {
         bot = 1;
         if (checkIfBotEnabled()) {
-//          guiL.deleteBot("Bot1");
+          guiL.deleteBot("Bot1");
           System.out.println("Delete b1");
         }
-//        guiL.setBot("Bot1", BotDifficulty.HARD);
+        guiL.setBot("Bot1", BotDifficulty.HARD);
         l1.setText("Hard");
       }
     });
@@ -104,10 +104,10 @@ public class LobbyLocalController implements Initializable {
       public void handle(MouseEvent e) {
         bot = 2;
         if (checkIfBotEnabled()) {
-//          guiL.deleteBot("Bot2");
+          guiL.deleteBot("Bot2");
           System.out.println("Delete b2");
         }
-//        guiL.setBot("Bot2", BotDifficulty.EASY);
+        guiL.setBot("Bot2", BotDifficulty.EASY);
         l2.setText("Easy");
       }
     });
@@ -116,10 +116,10 @@ public class LobbyLocalController implements Initializable {
       public void handle(MouseEvent e) {
         bot = 2;
         if (checkIfBotEnabled()) {
-//          guiL.deleteBot("Bot2");
+          guiL.deleteBot("Bot2");
           System.out.println("Delete b2");
         }
-//        guiL.setBot("Bot2", BotDifficulty.MEDIUM);
+        guiL.setBot("Bot2", BotDifficulty.MEDIUM);
         l2.setText("Medium");
       }
     });
@@ -128,10 +128,10 @@ public class LobbyLocalController implements Initializable {
       public void handle(MouseEvent e) {
         bot = 2;
         if (checkIfBotEnabled()) {
-//          guiL.deleteBot("Bot2");
+          guiL.deleteBot("Bot2");
           System.out.println("Delete b2");
         }
-//        guiL.setBot("Bot2", BotDifficulty.HARD);
+        guiL.setBot("Bot2", BotDifficulty.HARD);
         l2.setText("Hard");
       }
     });
@@ -140,10 +140,10 @@ public class LobbyLocalController implements Initializable {
       public void handle(MouseEvent e) {
         bot = 3;
         if (checkIfBotEnabled()) {
-//          guiL.deleteBot("Bot3");
+          guiL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
-//        guiL.setBot("Bot3", BotDifficulty.EASY);
+        guiL.setBot("Bot3", BotDifficulty.EASY);
         l3.setText("Easy");
       }
     });
@@ -152,10 +152,10 @@ public class LobbyLocalController implements Initializable {
       public void handle(MouseEvent e) {
         bot = 3;
         if (checkIfBotEnabled()) {
-//          guiL.deleteBot("Bot3");
+          guiL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
-//        guiL.setBot("Bot3", BotDifficulty.MEDIUM);
+        guiL.setBot("Bot3", BotDifficulty.MEDIUM);
         l3.setText("Medium");
       }
     });
@@ -164,10 +164,10 @@ public class LobbyLocalController implements Initializable {
       public void handle(MouseEvent e) {
         bot = 3;
         if (checkIfBotEnabled()) {
-//          guiL.deleteBot("Bot3");
+          guiL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
-//        guiL.setBot("Bo31", BotDifficulty.HARD);
+        guiL.setBot("Bo31", BotDifficulty.HARD);
         l3.setText("Hard");
       }
     });
@@ -176,7 +176,7 @@ public class LobbyLocalController implements Initializable {
       public void handle(MouseEvent e) {
         bot = 3;
         if (checkIfBotEnabled()) {
-//          guiL.deleteBot("Bot3");
+          guiL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
         l3.setText("Disabled");
@@ -208,7 +208,7 @@ public class LobbyLocalController implements Initializable {
     ToggleGroup group1 = new ToggleGroup();
     ToggleGroup group2 = new ToggleGroup();
     ToggleGroup group3 = new ToggleGroup();
-    
+
     easy1.setToggleGroup(group1);
     med1.setToggleGroup(group1);
     dif1.setToggleGroup(group1);
@@ -216,7 +216,7 @@ public class LobbyLocalController implements Initializable {
     easy2.setToggleGroup(group2);
     med2.setToggleGroup(group2);
     dif2.setToggleGroup(group2);
-    
+
     easy3.setToggleGroup(group3);
     med3.setToggleGroup(group3);
     dif3.setToggleGroup(group3);

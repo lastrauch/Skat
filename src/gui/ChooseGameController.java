@@ -22,14 +22,14 @@ public class ChooseGameController {
   public void SinglePlayer() {
     main.displayLobbyLocal();
     gamemode = GameMode.SINGLEPLAYER;
-//    interf.decideGameMode(gamemode);
+    interf.decideGameMode(gamemode);
   }
 
   @FXML
   public void MultiPlayer() {
     main.displayLobbyOnline();
     gamemode = GameMode.MULTIPLAYER;
-//    interf.decideGameMode(gamemode);
+    interf.decideGameMode(gamemode);
 
   }
 
