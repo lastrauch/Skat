@@ -92,6 +92,13 @@ public class InGameController implements Initializable, InGameInterface {
   private GuiData inte = new ImplementsGuiInterface();
   private GuiLogic inteGL = LoginController.gameCon;
   private List<Card> cardlist; 
+  
+ /**
+  * 
+  */
+  private PlayState ps;
+  
+  
 
   /**
    * Initialize ChatScreen
@@ -207,6 +214,8 @@ public class InGameController implements Initializable, InGameInterface {
     mainPane.getChildren().remove(tpane);
   }
 
+  
+  
   
   public void showChat() {
     JFXTextField rMes = new JFXTextField();
@@ -801,6 +810,11 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @author lstrauch
    */
+  
+  public void Listener() {
+    this.MouseHandler();
+    this.ButtonListener();
+  }
   public int MouseHandler() {
     final int[] ret = new int[1];
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
