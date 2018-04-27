@@ -14,16 +14,18 @@ import interfaces.LogicNetwork;
 import interfaces.NetworkLogic;
 import javafx.scene.image.Image;
 import network.NetworkController;
+import network.server.Server;
 
 public class GameController implements GuiLogic {
 
   private List<Player> group = new ArrayList<Player>();
   private LogicGui logicGui; // interface from logic to gui
-  private LogicNetwork logicNetwork; // interface from logic to network
+  private LogicNetwork networkController; // interface from logic to network
   private GuiLogic guiLogic; // interface from gui to logic
   private List<ClientLogic> clientLogic;
   private Game game;
   private GameSettings gameSettings;
+  private List<Server> server;
 
   public GameController(LogicGui logicGui) {
     this.logicGui = logicGui;
@@ -94,6 +96,12 @@ public class GameController implements GuiLogic {
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setNetworkController(networkController);
     this.clientLogic.add(clientLogic);
+    this.networkController = networkController;
+
+    // asks for servers and shows them on the ui
+    this.server = new ArrayList<Server>();
+    this.server = this.networkController.getServer();
+
   }
 
   // FRAGE!! WAS PASSIERT WENN DIE CLIENTLOGIK NUR AUS DER LISTE GELOESCHT WIRD??
@@ -155,7 +163,6 @@ public class GameController implements GuiLogic {
 
   @Override
   public void hostGame(String comment, GameSettings gs) {
-    // TODO Auto-generated method stub
-
+    this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
   }
 }
