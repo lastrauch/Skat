@@ -946,4 +946,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
 
+
+  @Override
+  public void receiveCards(List<Card> cards, PlayState ps) {
+    // TODO Auto-generated method stub
+    
+  }
+
+
 }

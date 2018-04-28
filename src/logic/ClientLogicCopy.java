@@ -801,5 +801,11 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     this.inGameController = inGameController;
   }
 
+  @Override
+  public void receiveCards(List<Card> cards, PlayState ps) {
+    // TODO Auto-generated method stub
+    
+  }
+
 
 }
