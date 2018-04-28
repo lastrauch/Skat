@@ -1,8 +1,13 @@
 package logic;
 
+import java.io.Serializable;
 import javafx.scene.image.Image;
 
-public class Card {
+public class Card implements Serializable{
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Colour colour;
   private Number number;
   private Image img;

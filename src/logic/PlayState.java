@@ -1,9 +1,14 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayState {
+public class PlayState implements Serializable{
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Player[] group;
   private Stack declarerStack;
   private Stack opponentsStack;
