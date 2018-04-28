@@ -188,7 +188,9 @@ public class Tools {
    * 
    * @author sandfisc
    */
-  public Player[] updatePosition(Player[] group, int pointerForehand) {
+  public static void updatePosition(Player[] group) {
+    int pointerForehand = searchForehand(group);
+    
     group[pointerForehand].setPosition(Position.FOREHAND);
     group[((pointerForehand + 1) % group.length)].setPosition(Position.MIDDLEHAND);
     group[((pointerForehand + 2) % group.length)].setPosition(Position.REARHAND);
@@ -197,7 +199,14 @@ public class Tools {
     if (group.length == 4) {
       group[((pointerForehand + 3) % group.length)].setPosition(Position.DEALER);
     }
-    return group;
+  }
+  
+  public static int searchForehand(Player[] group) {
+    for (int i = 0; i < group.length; i++) {
+      if (group[i].getPosition() == Position.FOREHAND) {
+        return i;
+      }
+    } return 0;
   }
 
 
