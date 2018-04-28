@@ -442,6 +442,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
         this.playState.getGroup()[2].setPosition(Position.DEALER);
       }
       // update Position
+      Tools.updatePosition(player);
+      
       // check if player sits FOREHAND
       for (int i = 0; i < this.playState.getGroup().length; i++) {
         if (this.playState.getGroup()[i].getId() == this.player.getId()) {
@@ -461,7 +463,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // First shuffle cards
     Tools.shuffleCards(this.cards);
     // secound deal out cards
-    this.dealOutCards();
+    //this.dealOutCards();
+    Play.dealOutCards(Tools.getPlayingGroup(this.playState.getGroup()), cards, this.playState);
+    this.netController.sendPlayState(playState); // hands are saved in playState
+    
+    this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
+    this.checkIfItsMyTurnAuction(this.player);
   }
 
   public void dealOutCards() {
@@ -883,7 +890,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.playState.resetPlayState();
           this.playState.setPlayNr(this.playState.getPlayNr() + 1);
 
-          // update position!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          // update position
+          Tools.updatePosition(this.playState.getGroup());
 
           // start auction if "i am" middlehand
           if (this.player.getPosition() == Position.MIDDLEHAND) {

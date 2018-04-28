@@ -145,13 +145,14 @@ public class Play {
 
   }
 
+  
   /**
    * deals out the cards on a basic level as it is done in the original game we did it like this
    * because we want it original intern as well
    * 
    * @author awesch
    */
-  public void dealOutCards() {
+  public static void dealOutCards(Player[] group, List<Card> cards2, PlayState ps) {
     // idea: deal out as in the original game, just because we want it intern
     // needed : position forehand, players of the game, how many players?,
 
@@ -169,21 +170,21 @@ public class Play {
     // deal out first 9 cards (3 each)
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        crew.get(i).add(cards[counter]);
+        crew.get(i).add(cards2.get(counter));
         counter++;
       }
     }
 
     // deal out skat
     for (int i = 0; i < 2; i++) {
-      skat[i] = cards[counter];
+      skat[i] = cards2.get(counter);
       counter++;
     }
 
     // deal out 4 cards each
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 4; j++) {
-        crew.get(i).add(cards[counter]);
+        crew.get(i).add(cards2.get(counter));
         counter++;
       }
     }
@@ -191,15 +192,15 @@ public class Play {
     // deal out 3 cards each
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        crew.get(i).add(cards[counter]);
+        crew.get(i).add(cards2.get(counter));
         counter++;
       }
     }
 
-    this.group[0].setHand(handF);
-    this.group[1].setHand(handM);
-    this.group[2].setHand(handR);
-    this.ps.setSkat(skat);
+    group[0].setHand(handF);
+    group[1].setHand(handM);
+    group[2].setHand(handR);
+    ps.setSkat(skat);
 
   }
 

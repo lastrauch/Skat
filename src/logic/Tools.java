@@ -199,6 +199,20 @@ public class Tools {
     if (group.length == 4) {
       group[((pointerForehand + 3) % group.length)].setPosition(Position.DEALER);
     }
+  }  
+  
+  public static void updatePosition(List<Player> group) {
+    Player[] groupArray = new Player[group.size()];
+    
+    for(int i = 0; i < group.size(); i++) {
+      groupArray[i] = group.get(i);
+    }
+    
+    updatePosition(groupArray);
+    
+    for(int i = 0; i < group.size(); i++) {
+      group.set(i, groupArray[i]);
+    }
   }
 
   public static int searchForehand(Player[] group) {
@@ -225,5 +239,27 @@ public class Tools {
       cards.set(index, temp);
     }
   }
+  
+  /**
+   * @author sandfisc
+   * 
+   * @param group
+   * @return
+   */
+  public static Player[] getPlayingGroup(Player[] group) {
+    // the playing group consists of forehand, middlehand, rarehand, NOT dealer
+       Player [] playingGroup = new Player[4];
+       
+       if (group.length == 4) {
+         int index = 0;
+         for (int j = 0; j < group.length; j++) {
+           if (group[j].getPosition() != Position.DEALER) {
+             playingGroup[index] = group[j];
+             index++;
+           }
+         }
+       }    
+       return playingGroup;
+     }
 
 }
