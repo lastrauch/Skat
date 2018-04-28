@@ -10,6 +10,10 @@ import interfaces.LogicNetwork;
 import javafx.scene.image.Image;
 
 public class Player implements Serializable{
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private int id;
   private String name;
   private Image img;
