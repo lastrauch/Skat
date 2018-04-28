@@ -76,6 +76,7 @@ public class LoginController implements Initializable {
 //    }
     
     main.displayChooseGame();
+    System.out.println(interfGL.toString());
     interfGL.login(username, null);
   }
 

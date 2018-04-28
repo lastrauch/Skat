@@ -205,8 +205,8 @@ public class GameSettingsController implements Initializable{
     if (limitedTime) {
       gs.setTimeLimit(setLimitedTime());
     }
+    LoginController.interfGL.hostGame(ms, gs);
     ms = message.getText();
-    LoginController.interfGL.startGame(gs);
     guiCon.displayLobbyOnline();
   }
 
@@ -219,7 +219,7 @@ public class GameSettingsController implements Initializable{
       gs.setTimeLimit(setLimitedTime());
     }
     ms = message.getText();
-    LoginController.interfGL.hostGame(ms, gs);
+    LoginController.interfGL.startGame(gs);
     guiCon.displayInGame();
   }
 
@@ -245,6 +245,8 @@ public class GameSettingsController implements Initializable{
     
     n3.setToggleGroup(g3);
     n4.setToggleGroup(g3);
+    
+    System.out.println(LoginController.interfGL.toString());
     
     this.listener();
   }
