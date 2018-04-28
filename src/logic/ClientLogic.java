@@ -378,6 +378,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
+    if(player.size() == gs.getNrOfPlayers()) {
     this.gameSettings = gs;
     // random number points on the one in the list to be the forehand
     Player[] group = new Player[player.size()];
@@ -386,7 +387,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
     this.playState.setGroup(group);
     // !!!!!!! ADD updatePosition here 
-    
+    } else {
+      //server liste 
+    }
   }
 
   /*
