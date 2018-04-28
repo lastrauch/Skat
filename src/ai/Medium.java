@@ -78,7 +78,7 @@ public class Medium {
         hasJack[3] = true;
       }
       for(int i=0; i<cards.size(); i++){
-        //Ace gets checked in the row
+        //Aces getting checked in the deck values in row-rule
         //Ten should also be worth something, even no ace is in the hand
         if(cards.get(i).getNumber() == Number.TEN){
           certGrand += ten;
@@ -100,7 +100,9 @@ public class Medium {
       
       if(certGrand >= minCertGrand) wantsGrand = true;
       
+      
       //Check if AI wants to play Suit
+      
       
       
       //CHeck if AI wants to play Null
