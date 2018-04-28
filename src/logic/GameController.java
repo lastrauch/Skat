@@ -86,6 +86,7 @@ public class GameController implements GuiLogic {
   public void login(String username, Image profilepicture) {
     Player p = new Player(username, profilepicture);
     this.group.add(p);
+    System.out.println("yoo I just created a Player " + p.getName() + " (login)");
     // InGameInterface inGameController = new InGameController();
     ClientLogic clientLogic = new ClientLogic(p);
     LogicNetwork networkController = new NetworkController(clientLogic);
@@ -154,17 +155,28 @@ public class GameController implements GuiLogic {
 
   @Override
   public void hostGame(String comment, GameSettings gs) {
+    System.out.println("start hostGame method");
     this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
   }
 
 
   @Override
   public void startGame(GameSettings gs) {
+    System.out.println("start game method");
     // only used in the singlePlayer mod?!
     this.gameSettings = gs;
     this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, " ");
-    for (int i = 1; i < this.group.size(); i++) {
-      Bot temp = (Bot) this.group.get(i);
+    System.out.println("finished host game");
+    // if the player did not set enough bots to play with the chosen number of players we fill the
+    // gaps automatically
+    for (int i = 1; i < this.gameSettings.getNrOfPlayers(); i++) {
+      Bot temp;
+      if (i < this.group.size()) {
+        temp = (Bot) this.group.get(i);
+      } else {
+        String name = "bot" + i;
+        temp = new Bot(name, BotDifficulty.EASY);
+      }
       InGameInterface inGameController =
           new AIController(temp.getName(), temp.getDifficulty(), this.gameSettings);
       ClientLogic clientLogic = new ClientLogic(temp);
@@ -187,5 +199,12 @@ public class GameController implements GuiLogic {
   @Override
   public ArrayList<Card> sortHand(PlayState ps, ArrayList<Card> hand) {
     return Tools.sortHand(hand, ps);
+  }
+
+
+
+  @Override
+  public Player getPlayer() {
+    return this.group.get(0);
   }
 }

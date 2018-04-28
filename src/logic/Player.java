@@ -140,6 +140,14 @@ public class Player {
     return this.hand;
   }
 
+  public List<Card> getDeepCopyHand() {
+    List<Card> copyHand = new ArrayList<Card>();
+    for (Card c : this.hand) {
+      copyHand.add(c);
+    }
+    return copyHand;
+  }
+
   public void setId(int id) {
     this.id = id;
   }
