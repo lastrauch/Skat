@@ -796,8 +796,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @see interfaces.NetworkLogic#receiveCards(java.util.List)
    */
   @Override
-  public void receiveCards(List<Card> cards) {
+  public void receiveCards(List<Card> cards, PlayState ps) {
     // TODO Auto-generated method stub
+    this.playState = ps;
     this.player.setHand((ArrayList<Card>) cards);
     this.player.sortHand(this.playState);
     this.inGameController.updateHand(this.player.getHand());
@@ -943,14 +944,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   public void setInGameController(InGameInterface inGameController) {
     this.inGameController = inGameController;
-  }
-
-
-
-  @Override
-  public void receiveCards(List<Card> cards, PlayState ps) {
-    // TODO Auto-generated method stub
-    
   }
 
 
