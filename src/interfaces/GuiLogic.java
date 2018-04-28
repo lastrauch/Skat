@@ -8,6 +8,7 @@ import logic.Card;
 import logic.GameMode;
 import logic.GameSettings;
 import logic.PlayState;
+import logic.Player;
 import network.server.Server;
 
 // GUI to Logic, implemented by Logic
@@ -90,4 +91,10 @@ public interface GuiLogic {
    * @return
    */
   public ArrayList<Server> lobbyInformation();
+  
+  /**
+   * return the current player
+   * @return
+   */
+//  public Player getPlayer();
 }

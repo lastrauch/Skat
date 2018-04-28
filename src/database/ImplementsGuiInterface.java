@@ -118,6 +118,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     // TODO Auto-generated method stub
     
   }
+  
 
   @Override
   public void updatePlayer(Player player) {

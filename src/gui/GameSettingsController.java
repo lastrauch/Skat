@@ -33,7 +33,6 @@ public class GameSettingsController implements Initializable{
   private String ms;
   private GuiController guiCon;
   private GameMode gm;
-  private GuiLogic interf = LoginController.gameCon;
   private ToggleGroup g1 = new ToggleGroup();
   private ToggleGroup g2 = new ToggleGroup();
   private ToggleGroup g3 = new ToggleGroup();
@@ -148,14 +147,17 @@ public class GameSettingsController implements Initializable{
         System.out.println("hhh");
         enT[0] = true;
         showSetTime();
-        setLimitedTime = setLimitedTime();
-
+        if(setLimitedTime != 0) {
+          setLimitedTime = setLimitedTime();
+        }else {
+        }
+        
       }
     });
   }
 
   public int setLimitedTime() {
-    String s = sec.getPromptText();
+    String s = sec.getText();
     return Integer.parseInt(s);
   }
 
@@ -206,8 +208,8 @@ public class GameSettingsController implements Initializable{
     if (limitedTime) {
       gs.setTimeLimit(setLimitedTime());
     }
+    LoginController.interfGL.hostGame(ms, gs);
     ms = message.getText();
-    interf.startGame(gs);
     guiCon.displayLobbyOnline();
   }
 
@@ -220,8 +222,8 @@ public class GameSettingsController implements Initializable{
       gs.setTimeLimit(setLimitedTime());
     }
     ms = message.getText();
-    interf.hostGame(ms, gs);
-    guiCon.displayInGame();
+    LoginController.interfGL.startGame(gs);
+//    guiCon.displayInGame();
   }
 
   public void screenChooser() {
@@ -246,6 +248,8 @@ public class GameSettingsController implements Initializable{
     
     n3.setToggleGroup(g3);
     n4.setToggleGroup(g3);
+    
+    System.out.println(LoginController.interfGL.toString());
     
     this.listener();
   }
