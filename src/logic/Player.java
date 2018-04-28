@@ -1,5 +1,6 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import interfaces.InGameInterface;
@@ -8,7 +9,7 @@ import interfaces.LogicGui;
 import interfaces.LogicNetwork;
 import javafx.scene.image.Image;
 
-public class Player {
+public class Player implements Serializable{
   private int id;
   private String name;
   private Image img;
@@ -138,6 +139,14 @@ public class Player {
 
   public List<Card> getHand() {
     return this.hand;
+  }
+
+  public List<Card> getDeepCopyHand() {
+    List<Card> copyHand = new ArrayList<Card>();
+    for (Card c : this.hand) {
+      copyHand.add(c);
+    }
+    return copyHand;
   }
 
   public void setId(int id) {
