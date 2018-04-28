@@ -64,7 +64,7 @@ public interface GuiData {
    * @param neu
    * @param original
    */
-  public void changeName(Player neu, Player original);
+  public void changeName(String neu, Player original);
 
   /**
    * changes the players profile pictue

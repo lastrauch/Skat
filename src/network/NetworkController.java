@@ -47,9 +47,9 @@ public class NetworkController implements LogicNetwork{
 		this.gs = gs;
 		this.isHost = true;
 	    this.server = new Server("Server von " + player.getName(), this.port, gs, comment);
-	    this.server.run();
+	    this.server.start();
 	    while(!this.isInLobby){
-	    	this.isInLobby = joinLobby(this.server, player);
+	      this.isInLobby = joinLobby(this.server, player);
 	    }
 	    return this.server;
 	}
