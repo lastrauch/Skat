@@ -22,7 +22,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   Game game; // we need this for calcutlating the winner --> maybe in playstate
 
   public ClientLogic(Player player) {
-    System.out.println("created ClientLogic for Player " + player.getName());
+    // System.out.println("created ClientLogic for Player " + player.getName());
     this.player = player;
   }
 
