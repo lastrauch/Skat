@@ -59,7 +59,7 @@ public class LoginController implements Initializable {
   public void login() {
     username = textField.getText();
     try {
-      if(!implGD.checkIfPlayerNew()) {
+      if(!implGD.checkIfPlayerNew(username)) {
         main.displayChooseGame();
         gameCon = new GameController(implLG);
         GuiLogic interfaceL = gameCon;
