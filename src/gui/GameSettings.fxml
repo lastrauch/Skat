@@ -15,7 +15,7 @@
             <Image url="@../../resources/tisch.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="pane" layoutX="257.0" layoutY="96.0" opacity="0.86" prefHeight="567.0" prefWidth="855.0" style="-fx-background-color: peru; -fx-background-radius: 20;">
+      <AnchorPane fx:id="pane" layoutX="257.0" layoutY="35.0" opacity="0.86" prefHeight="717.0" prefWidth="855.0" style="-fx-background-color: peru; -fx-background-radius: 20;">
          <children>
             <VBox layoutX="22.0" layoutY="100.0" spacing="35.0">
                <children>
@@ -72,6 +72,25 @@
                         </JFXRadioButton>
                      </children>
                   </HBox>
+                  <HBox spacing="40.0">
+                     <children>
+                        <Label text="Number of Players:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <JFXRadioButton fx:id="n3" text="3" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="n4" layoutX="10.0" layoutY="160.0" text="4" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXRadioButton>
+                     </children>
+                  </HBox>
                   <HBox layoutX="34.0" layoutY="211.0" spacing="75.0">
                      <children>
                         <Label layoutX="34.0" layoutY="231.0" text="Kontra:" textFill="WHITE">
@@ -102,34 +121,21 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox layoutX="218.0" layoutY="425.0" spacing="25.0">
-               <children>
-                  <Label layoutX="140.0" layoutY="364.0" text="Set time limit:" textFill="WHITE">
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="sec" focusColor="WHITE" layoutX="276.0" layoutY="359.0" promptText="Number of seconds" style="-fx-prompt-text-fill: white;" styleClass="prompttext" stylesheets="@../../resources/mystyle.css" unFocusColor="WHITE">
-                     <font>
-                        <Font size="22.0" />
-                     </font></JFXTextField>
-               </children>
-            </HBox>
             <Label layoutX="155.0" layoutY="14.0" text="Choose your Game Settings" textFill="WHITE" underline="true">
                <font>
                   <Font name="System Bold" size="39.0" />
                </font>
             </Label>
-            <JFXButton fx:id="subm" buttonType="RAISED" layoutX="711.0" layoutY="493.0" onAction="#screenChooser" style="-fx-background-color: tan; -fx-border-color: black;" text="Submit" textFill="WHITE">
+            <JFXButton fx:id="subm" buttonType="RAISED" layoutX="708.0" layoutY="637.0" onAction="#screenChooser" style="-fx-background-color: tan; -fx-border-color: black;" text="Submit" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font></JFXButton>
-            <Label layoutX="22.0" layoutY="499.0" text="Message: " textFill="WHITE">
+            <Label layoutX="22.0" layoutY="570.0" text="Message: " textFill="WHITE">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="message" focusColor="WHITE" layoutX="218.0" layoutY="495.0" prefHeight="31.0" prefWidth="442.0" unFocusColor="WHITE">
+            <JFXTextField fx:id="message" focusColor="WHITE" layoutX="187.0" layoutY="566.0" prefHeight="31.0" prefWidth="442.0" unFocusColor="WHITE">
                <font>
                   <Font size="22.0" />
                </font>

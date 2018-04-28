@@ -207,7 +207,7 @@ public class GameSettingsController implements Initializable{
       gs.setTimeLimit(setLimitedTime());
     }
     ms = message.getText();
-//    interf.startGame(gs);
+    interf.startGame(gs);
     guiCon.displayLobbyOnline();
   }
 
@@ -220,7 +220,7 @@ public class GameSettingsController implements Initializable{
       gs.setTimeLimit(setLimitedTime());
     }
     ms = message.getText();
-//    interf.hostGame(ms, gs);
+    interf.hostGame(ms, gs);
     guiCon.displayInGame();
   }
 
