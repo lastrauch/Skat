@@ -190,7 +190,7 @@ public class Tools {
    */
   public static void updatePosition(Player[] group) {
     int pointerForehand = searchForehand(group);
-    
+
     group[pointerForehand].setPosition(Position.FOREHAND);
     group[((pointerForehand + 1) % group.length)].setPosition(Position.MIDDLEHAND);
     group[((pointerForehand + 2) % group.length)].setPosition(Position.REARHAND);
@@ -200,14 +200,30 @@ public class Tools {
       group[((pointerForehand + 3) % group.length)].setPosition(Position.DEALER);
     }
   }
-  
+
   public static int searchForehand(Player[] group) {
     for (int i = 0; i < group.length; i++) {
       if (group[i].getPosition() == Position.FOREHAND) {
         return i;
       }
-    } return 0;
+    }
+    return 0;
   }
 
+  /**
+   * shuffles the cards after they have been initialized
+   * 
+   * @author awesch
+   */
+  public static void shuffleCards(List<Card> cards) {
+    int index;
+    Card temp = null;
+    for (int i = 0; i < 32; i++) {
+      index = (int) (Math.random() * 32);
+      temp = cards.get(i);
+      cards.set(i, cards.get(index));
+      cards.set(index, temp);
+    }
+  }
 
 }

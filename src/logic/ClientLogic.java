@@ -1,4 +1,3 @@
-
 package logic;
 
 import java.util.ArrayList;
@@ -20,11 +19,71 @@ public class ClientLogic implements NetworkLogic, AILogic {
   PlayState playState;
   GameSettings gameSettings;
   Game game; // we need this for calcutlating the winner --> maybe in playstate
+  List<Card> cards;
 
   public ClientLogic(Player player) {
     // System.out.println("created ClientLogic for Player " + player.getName());
     this.player = player;
+    this.initializeCards();
   }
+
+
+
+  public void initializeCards() {
+    cards = new ArrayList<Card>();
+    for (int i = 1; i <= 4; i++) {
+      Colour col = null;
+      switch (i) {
+        case 1:
+          col = Colour.DIAMONDS;
+          break;
+        case 2:
+          col = Colour.HEARTS;
+          break;
+        case 3:
+          col = Colour.SPADES;
+          break;
+        case 4:
+          col = Colour.CLUBS;
+          break;
+      }
+      for (int j = 1; j <= 8; j++) {
+        Number nr = null;
+        switch (j) {
+          case 1:
+            nr = Number.SEVEN;
+            break;
+          case 2:
+            nr = Number.EIGHT;
+            break;
+          case 3:
+            nr = Number.NINE;
+            break;
+          case 4:
+            nr = Number.JACK;
+            break;
+          case 5:
+            nr = Number.QUEEN;
+            break;
+          case 6:
+            nr = Number.KING;
+            break;
+          case 7:
+            nr = Number.TEN;
+            break;
+          case 8:
+            nr = Number.ASS;
+            break;
+        }
+        // cards are generated in the order of their value
+
+        Card c = new Card(col, nr);
+        this.cards.add(c);
+      }
+    }
+  }
+
+
 
   /**
    * asks the gui/AI to play a card and checks if it is possible to play it
@@ -363,32 +422,107 @@ public class ClientLogic implements NetworkLogic, AILogic {
   /*
    * (non-Javadoc)
    * 
-   * @see interfaces.NetworkLogic#receiveConnectionRequestAsnwer(boolean)
-   */
-  @Override
-  public void receiveConnectionRequestAsnwer(boolean accepted) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
    * @see interfaces.NetworkLogic#receiveLobby(java.util.List, logic.GameSettings)
    */
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
-    if(player.size() == gs.getNrOfPlayers()) {
-    this.gameSettings = gs;
-    // random number points on the one in the list to be the forehand
-    Player[] group = new Player[player.size()];
-    for (int i = 0; i < player.size(); i++) {
-      group[i] = player.get((this.gameSettings.getRandomSeatingIndex() + i) % player.size());
+    if (player.size() == gs.getNrOfPlayers()) {
+      this.gameSettings = gs;
+      // random number points on the one in the list to be the forehand
+      Player[] group = new Player[player.size()];
+      for (int i = 0; i < player.size(); i++) {
+        group[i] = player.get((this.gameSettings.getRandomSeatingIndex() + i) % player.size());
+      }
+      this.playState.setGroup(group);
+      // !!!!!!! ADD updatePosition here
+      this.playState.getGroup()[0].setPosition(Position.FOREHAND);
+      this.playState.getGroup()[1].setPosition(Position.MIDDLEHAND);
+      this.playState.getGroup()[2].setPosition(Position.REARHAND);
+      if (this.playState.getGroup().length == 4) {
+        this.playState.getGroup()[2].setPosition(Position.DEALER);
+      }
+      // update Position
+      // check if player sits FOREHAND
+      for (int i = 0; i < this.playState.getGroup().length; i++) {
+        if (this.playState.getGroup()[i].getId() == this.player.getId()) {
+          this.player.setPosition(this.playState.getGroup()[i].getPosition());
+        }
+      }
+
+      // Start Game if Player sits forehand
+      if (this.player.getPosition() == Position.FOREHAND) {
+        this.startPlay();
+      }
+
     }
-    this.playState.setGroup(group);
-    // !!!!!!! ADD updatePosition here 
-    } else {
-      //server liste 
+  }
+
+  public void startPlay() {
+    // First shuffle cards
+    Tools.shuffleCards(this.cards);
+    // secound deal out cards
+    this.dealOutCards();
+  }
+
+  public void dealOutCards() {
+    // idea: deal out as in the original game, just because we want it intern
+    // needed : position forehand, players of the game, how many players?,
+
+    // forehand is the position 0 of group array
+    ArrayList<Card> handF = new ArrayList<Card>();
+    ArrayList<Card> handM = new ArrayList<Card>();
+    ArrayList<Card> handR = new ArrayList<Card>();
+    ArrayList<ArrayList<Card>> crew = new ArrayList<ArrayList<Card>>();
+    crew.add(handF);
+    crew.add(handM);
+    crew.add(handR);
+    Card[] skat = new Card[2];
+    int counter = 0; // points on first card (next to deal out)
+
+    // deal out first 9 cards (3 each)
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        crew.get(i).add(this.cards.get(counter));
+        counter++;
+      }
+    }
+
+    // deal out skat
+    for (int i = 0; i < 2; i++) {
+      skat[i] = this.cards.get(counter);
+      counter++;
+    }
+
+    // deal out 4 cards each
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 4; j++) {
+        crew.get(i).add(this.cards.get(counter));
+        counter++;
+      }
+    }
+
+    // deal out 3 cards each
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        crew.get(i).add(this.cards.get(counter));
+        counter++;
+      }
+    }
+
+    this.playState.setSkat(skat);
+    for (Player p : this.playState.getGroup()) {
+      Position pos = p.getPosition();
+      switch (pos) {
+        case FOREHAND:
+          p.setHand(handF);
+          this.netController.dealCards(p, handF, this.playState);
+        case MIDDLEHAND:
+          p.setHand(handM);
+          this.netController.dealCards(p, handM, this.playState);
+        case REARHAND:
+          p.setHand(handR);
+          this.netController.dealCards(p, handR, this.playState);
+      }
     }
   }
 
@@ -399,7 +533,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveGameSettings(GameSettings gs) {
-    // TODO Auto-generated method stub
+    this.gameSettings = gs;
 
   }
 
@@ -665,7 +799,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receiveCards(List<Card> cards) {
     // TODO Auto-generated method stub
     this.player.setHand((ArrayList<Card>) cards);
+    this.player.sortHand(this.playState);
     this.inGameController.updateHand(this.player.getHand());
+
+    if (this.player.getPosition() == Position.MIDDLEHAND) {
+      this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0]);
+    }
   }
 
   // fehlt: update position

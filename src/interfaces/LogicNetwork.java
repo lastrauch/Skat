@@ -30,7 +30,7 @@ public interface LogicNetwork {
   void startGame();
 
   // Karten dealen
-  void dealCards(Player player, List<Card> cards);
+  void dealCards(Player player, List<Card> cards, PlayState ps);
   
   //Your Turn (eigentlich nur am Anfang wichtig)
   void yourTurn(Player player);

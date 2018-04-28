@@ -12,7 +12,7 @@ import interfaces.NetworkLogic;
 import javafx.scene.image.Image;
 import network.NetworkController;
 
-public class ClientLogic implements NetworkLogic, AILogic {
+public class ClientLogicCopy implements NetworkLogic, AILogic {
 
   Player player;
   InGameInterface inGameController; // implemented by Gui or Ai
@@ -21,7 +21,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   GameSettings gameSettings;
   Game game; // we need this for calcutlating the winner --> maybe in playstate
 
-  public ClientLogic(Player player) {
+  public ClientLogicCopy(Player player) {
     // System.out.println("created ClientLogic for Player " + player.getName());
     this.player = player;
   }
@@ -360,16 +360,16 @@ public class ClientLogic implements NetworkLogic, AILogic {
     return null;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveConnectionRequestAsnwer(boolean)
-   */
-  @Override
-  public void receiveConnectionRequestAsnwer(boolean accepted) {
-    // TODO Auto-generated method stub
-
-  }
+//  /*
+//   * (non-Javadoc)
+//   * 
+//   * @see interfaces.NetworkLogic#receiveConnectionRequestAsnwer(boolean)
+//   */
+//  @Override
+//  public void receiveConnectionRequestAsnwer(boolean accepted) {
+//    // TODO Auto-generated method stub
+//
+//  }
 
   /*
    * (non-Javadoc)
