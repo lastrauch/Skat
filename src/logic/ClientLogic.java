@@ -54,17 +54,17 @@ public class ClientLogic implements NetworkLogic, AILogic {
     return null;
   }
 
-//
-//  /**
-//   * maybe something for the logic gui interface??? created for the auction
-//   * 
-//   * @author awesch
-//   * @param bet
-//   * @return
-//   */
-//  public boolean askForBet(int bet) {
-//    return this.inGameController.askForBet(bet);
-//  }
+  //
+  // /**
+  // * maybe something for the logic gui interface??? created for the auction
+  // *
+  // * @author awesch
+  // * @param bet
+  // * @return
+  // */
+  // public boolean askForBet(int bet) {
+  // return this.inGameController.askForBet(bet);
+  // }
 
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
@@ -379,11 +379,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
     this.gameSettings = gs;
-    //random number points on the one in the list to be the forehand
+    // random number points on the one in the list to be the forehand
     Player[] group = new Player[player.size()];
-    for(int i=0; i<player.size(); i++) {
-      group[i] = player.get((this.gameSettings.getRandomSeatingIndex()+i) % player.size());
+    for (int i = 0; i < player.size(); i++) {
+      group[i] = player.get((this.gameSettings.getRandomSeatingIndex() + i) % player.size());
     }
+    this.playState.setGroup(group);
+    // !!!!!!! ADD updatePosition here 
+    
   }
 
   /*

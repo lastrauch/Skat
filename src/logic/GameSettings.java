@@ -1,6 +1,12 @@
 package logic;
 
-public class GameSettings {
+import java.io.Serializable;
+
+public class GameSettings implements Serializable{
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private CountRule countRule;
   private int nrOfPlayers;
   private int nrOfPlays;
