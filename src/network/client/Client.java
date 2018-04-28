@@ -6,15 +6,13 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import logic.Game;
 import logic.ClientLogic;
 import logic.Player;
 import network.messages.Message;
 import network.messages.*;
 import network.server.Server;
-import interfaces.NetworkLogic;
 
-public class Client {
+public class Client extends Thread{
   private Server server;
   private int port;
   private Socket socket;
@@ -87,7 +85,7 @@ public class Client {
   public boolean requestConnection() {
 	   try{
 		   output.writeObject(new ConnectionRequest_Msg(this.owner));
-		   
+		   this.start();
 			Message serverOutput;
 				if((serverOutput = (Message) input.readObject()) != null){
 					if(serverOutput.getType() == MessageType.CONNECTION_ANSWER){
