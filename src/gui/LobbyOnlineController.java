@@ -38,6 +38,7 @@ public class LobbyOnlineController {
     main.displayAccountSettings();
   }
 
+  @FXML
   public void startNewGame() {
     main.displayGameSettings(GameMode.MULTIPLAYER);
   }

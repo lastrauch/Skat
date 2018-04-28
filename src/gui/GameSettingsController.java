@@ -147,14 +147,17 @@ public class GameSettingsController implements Initializable{
         System.out.println("hhh");
         enT[0] = true;
         showSetTime();
-        setLimitedTime = setLimitedTime();
-
+        if(setLimitedTime != 0) {
+          setLimitedTime = setLimitedTime();
+        }else {
+        }
+        
       }
     });
   }
 
   public int setLimitedTime() {
-    String s = sec.getPromptText();
+    String s = sec.getText();
     return Integer.parseInt(s);
   }
 
@@ -220,7 +223,7 @@ public class GameSettingsController implements Initializable{
     }
     ms = message.getText();
     LoginController.interfGL.startGame(gs);
-    guiCon.displayInGame();
+//    guiCon.displayInGame();
   }
 
   public void screenChooser() {
