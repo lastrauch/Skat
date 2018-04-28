@@ -98,10 +98,10 @@ public class Medium {
         certGrand += row;
       }
       
-      
       if(certGrand >= minCertGrand) wantsGrand = true;
       
       //Check if AI wants to play Suit
+      
       
       //CHeck if AI wants to play Null
       
