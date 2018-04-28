@@ -17,11 +17,7 @@
       </ImageView>
       <ImageView fx:id="stichRechts" fitHeight="150.0" fitWidth="200.0" layoutX="1180.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
       <ImageView fx:id="stichLinks" fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
-      <ImageView fx:id="extra1" fitHeight="227.0" fitWidth="182.0" layoutX="57.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" rotate="-26.6">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_10.png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="extra1" fitHeight="227.0" fitWidth="182.0" layoutX="57.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" rotate="-26.6" />
       <ImageView fx:id="l1" fitHeight="150.0" fitWidth="200.0" layoutX="-67.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
             <Image url="@../../resources/rueckseite.jpg" />
@@ -42,46 +38,16 @@
             <Image url="@../../resources/rueckseite.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="c1" fitHeight="227.0" fitWidth="182.0" layoutX="125.0" layoutY="527.0" pickOnBounds="true" preserveRatio="true" rotate="-17.4">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Kreuz_B.png" />
-         </image></ImageView>
-      <ImageView fx:id="c2" fitHeight="227.0" fitWidth="182.0" layoutX="225.0" layoutY="504.0" pickOnBounds="true" preserveRatio="true" rotate="-11.3">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_B.png" />
-         </image></ImageView>
-      <ImageView fx:id="c3" fitHeight="227.0" fitWidth="182.0" layoutX="325.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true" rotate="-8.1">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Karo_B.png" />
-         </image></ImageView>
-      <ImageView fx:id="c4" fitHeight="227.0" fitWidth="182.0" layoutX="425.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" rotate="-6.3">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_As.png" />
-         </image></ImageView>
-      <ImageView fx:id="c5" fitHeight="227.0" fitWidth="182.0" layoutX="525.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" rotate="-3.2">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Pik_8.png" />
-         </image></ImageView>
-      <ImageView fx:id="c6" fitHeight="227.0" fitWidth="182.0" layoutX="625.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" rotate="3.2">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_10.png" />
-         </image></ImageView>
-      <ImageView fx:id="c7" fitHeight="227.0" fitWidth="182.0" layoutX="728.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" rotate="6.3">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_K.png" />
-         </image></ImageView>
-      <ImageView fx:id="c8" fitHeight="227.0" fitWidth="182.0" layoutX="825.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true" rotate="8.1">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_D.png" />
-         </image></ImageView>
-      <ImageView fx:id="c9" fitHeight="227.0" fitWidth="182.0" layoutX="925.0" layoutY="504.0" pickOnBounds="true" preserveRatio="true" rotate="11.3">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Karo_9.png" />
-         </image></ImageView>
-      <ImageView fx:id="c10" fitHeight="227.0" fitWidth="182.0" layoutX="1025.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" rotate="17.4">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Karo_7.png" />
-         </image></ImageView>
+      <ImageView fx:id="c1" fitHeight="227.0" fitWidth="182.0" layoutX="125.0" layoutY="527.0" pickOnBounds="true" preserveRatio="true" rotate="-17.4" />
+      <ImageView fx:id="c2" fitHeight="227.0" fitWidth="182.0" layoutX="225.0" layoutY="504.0" pickOnBounds="true" preserveRatio="true" rotate="-11.3" />
+      <ImageView fx:id="c3" fitHeight="227.0" fitWidth="182.0" layoutX="325.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true" rotate="-8.1" />
+      <ImageView fx:id="c4" fitHeight="227.0" fitWidth="182.0" layoutX="425.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" rotate="-6.3" />
+      <ImageView fx:id="c5" fitHeight="227.0" fitWidth="182.0" layoutX="525.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" rotate="-3.2" />
+      <ImageView fx:id="c6" fitHeight="227.0" fitWidth="182.0" layoutX="625.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" rotate="3.2" />
+      <ImageView fx:id="c7" fitHeight="227.0" fitWidth="182.0" layoutX="728.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" rotate="6.3" />
+      <ImageView fx:id="c8" fitHeight="227.0" fitWidth="182.0" layoutX="825.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true" rotate="8.1" />
+      <ImageView fx:id="c9" fitHeight="227.0" fitWidth="182.0" layoutX="925.0" layoutY="504.0" pickOnBounds="true" preserveRatio="true" rotate="11.3" />
+      <ImageView fx:id="c10" fitHeight="227.0" fitWidth="182.0" layoutX="1025.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" rotate="17.4" />
       <ImageView fx:id="r2" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" AnchorPane.leftAnchor="1250.0">
          <image>
             <Image url="@../../resources/rueckseite.jpg" />
@@ -191,11 +157,7 @@
             <Image url="@../../resources/info.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="extra2" fitHeight="227.0" fitWidth="182.0" layoutX="1064.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" rotate="26.6">
-         <image>
-            <Image url="@../../../../../6.%20Semester/Praktikum_Software_Engeneering/Karten/Herz_8.png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="extra2" fitHeight="227.0" fitWidth="182.0" layoutX="1064.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" rotate="26.6" />
       <JFXButton buttonType="RAISED" layoutX="1153.0" layoutY="755.0" onAction="#help" prefHeight="33.0" prefWidth="113.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="     Help" textFill="WHITE" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="1153.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="755.0">
          <font>
             <Font name="System Bold" size="15.0" />
