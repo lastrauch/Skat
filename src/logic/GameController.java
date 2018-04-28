@@ -86,6 +86,7 @@ public class GameController implements GuiLogic {
   public void login(String username, Image profilepicture) {
     Player p = new Player(username, profilepicture);
     this.group.add(p);
+    System.out.println("yoo I just created a Player " + p.getName() + " (login)");
     // InGameInterface inGameController = new InGameController();
     ClientLogic clientLogic = new ClientLogic(p);
     LogicNetwork networkController = new NetworkController(clientLogic);
@@ -163,8 +164,16 @@ public class GameController implements GuiLogic {
     // only used in the singlePlayer mod?!
     this.gameSettings = gs;
     this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, " ");
-    for (int i = 1; i < this.group.size(); i++) {
-      Bot temp = (Bot) this.group.get(i);
+    // if the player did not set enough bots to play with the chosen number of players we fill the
+    // gaps automatically
+    for (int i = 1; i < this.gameSettings.getNrOfPlayers(); i++) {
+      Bot temp;
+      if (i < this.group.size()) {
+        temp = (Bot) this.group.get(i);
+      } else {
+        String name = "bot" + i;
+        temp = new Bot(name, BotDifficulty.EASY);
+      }
       InGameInterface inGameController =
           new AIController(temp.getName(), temp.getDifficulty(), this.gameSettings);
       ClientLogic clientLogic = new ClientLogic(temp);
