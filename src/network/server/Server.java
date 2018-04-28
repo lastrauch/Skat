@@ -1,9 +1,11 @@
 package network.server;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import logic.Player;
 
 public class Server extends Thread{
   private String serverName;
+  private String ip;
   private ServerSocket serverSocket;
   private int port;
   private List<ClientConnection> clientConnections;
@@ -28,6 +31,12 @@ public class Server extends Thread{
     this.port = port;
     this.gs = gs;
     this.comment = comment;
+    try {
+      InetAddress inetAddress = InetAddress.getLocalHost();
+      this.ip = inetAddress.getHostAddress();
+    } catch (UnknownHostException e1) {
+      e1.printStackTrace();
+    }
     this.clientConnections = new ArrayList<ClientConnection>();
     
     try {
@@ -44,10 +53,13 @@ public class Server extends Thread{
       try(Socket newSocket = this.serverSocket.accept()){
         ClientConnection newClientConnection = new ClientConnection(this, newSocket);
         this.clientConnections.add(newClientConnection);
+        newClientConnection.start();
+        System.out.println("Neue ClientConnection");
       } catch (SocketException e) {
       } catch (IOException e) {
         e.printStackTrace();
       }
+      
     }
   }
  
@@ -115,4 +127,7 @@ public class Server extends Thread{
 	  return this.comment;
   }
 
+  public String getIP(){
+    return this.ip;
+  }
 }
