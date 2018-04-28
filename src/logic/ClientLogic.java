@@ -811,7 +811,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.inGameController.updateHand(this.player.getHand());
 
     if (this.player.getPosition() == Position.MIDDLEHAND) {
-      this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0]);
+      // go with first bet
+      if(this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0])){
+        this.netController.bet(this.playState.getAuction().getPossibleBets()[0]);
+      } else {
+        //pass
+        this.netController.bet(-1);
+      }
+
     }
   }
 
