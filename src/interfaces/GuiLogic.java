@@ -93,8 +93,8 @@ public interface GuiLogic {
   public ArrayList<Server> lobbyInformation();
   
   /**
-   * return the current player
+   * returns the current player
    * @return
    */
-//  public Player getPlayer();
+  public Player getPlayer();
 }
