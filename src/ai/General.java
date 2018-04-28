@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logic.Card;
+import logic.ClientLogic;
 import logic.Number;
 import logic.PlayMode;
 import logic.LogicException;
@@ -24,7 +25,7 @@ public class General {
 	    if(controller.getCurrentTrick().size() > 0){
 	        for(int i=0; i<cards.size(); i++){
 	            try {
-	                if(controller.getBot().checkIfCardPossible(cards.get(i), controller.getCurrentTrick().get(0))){
+	                if(ClientLogic.checkIfCardPossible(cards.get(i), controller.getCurrentTrick().get(0), controller.getPlayState(), controller.getBot())){
 	                    possibleCards.add(cards.get(i));
 	                }
 	            } catch (LogicException e) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import interfaces.InGameInterface;
 import logic.Card;
+import logic.ClientLogic;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
@@ -95,6 +96,31 @@ public class AIController implements InGameInterface{
     this.gs = gs;
   }
   
+
+	@Override
+	public void stopGame(String reason) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void showWinnerTrick(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void showWinnerPlay(Player player1, Player player2) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void showWinnerGame(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+  
   public GameSettings getGameSettings(){
     return this.gs;
   }
@@ -115,28 +141,4 @@ public class AIController implements InGameInterface{
     return this.cardProbability;
   }
 
-
-@Override
-public void stopGame(String reason) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void showWinnerTrick(Player player) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void showWinnerPlay(Player player1, Player player2) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void showWinnerGame(Player player) {
-	// TODO Auto-generated method stub
-	
-}
 }
