@@ -81,7 +81,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     // TODO Auto-generated method stub
     try {
       selectPlayerName.setString(1, player.getName());
-      selectPlayerName.executeUpdate();
+      selectPlayerName.executeQuery();
       } catch (SQLException e) {
       e.printStackTrace();
     }
