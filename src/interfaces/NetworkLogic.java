@@ -22,7 +22,7 @@ public interface NetworkLogic {
 	void receiveStartGame();
 	
 	//receive Cards
-	void receiveCards(List<Card> cards);
+	void receiveCards(List<Card> cards, PlayState ps);
 	
 	//receive Bet
 	void receiveBet(Player player, int bet);

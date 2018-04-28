@@ -9,9 +9,7 @@ import network.server.Server;
 
 // Logic to Network, implemented by Network
 public interface LogicNetwork {
-  // Host game, we wanted to show comments to the other players like "only good players" could you
-  // add an attribute like comment?
-  // can we also have the server as a return (to manage the join gaime of the bots) ??
+  // Host game
   Server hostGame(Player player, GameSettings gs, String comment);
 
   // Get Server
@@ -30,7 +28,7 @@ public interface LogicNetwork {
   void startGame();
 
   // Karten dealen
-  void dealCards(Player player, List<Card> cards);
+  void dealCards(Player player, List<Card> cards, PlayState ps);
   
   //Your Turn (eigentlich nur am Anfang wichtig)
   void yourTurn(Player player);
