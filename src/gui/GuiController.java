@@ -13,7 +13,7 @@ import logic.GameMode;
 
 public class GuiController extends Application {
 
-  private static Stage mprimaryStage;
+  static Stage mprimaryStage;
   private AnchorPane root;
 
   private static InGameController inGameCon;
@@ -22,7 +22,7 @@ public class GuiController extends Application {
   private static LoginController loginCon;
   private AnchorPane login = null;
 
-  private static CreateNewAccountController newAccCon;
+  static CreateNewAccountController newAccCon;
   private AnchorPane newAcc = null;
 
   private static ChooseGameController gameModeCon;

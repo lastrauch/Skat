@@ -17,7 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import logic.CountRule;
-import logic.GameController;
 import logic.GameMode;
 import logic.GameSettings;
 
@@ -34,7 +33,6 @@ public class GameSettingsController implements Initializable{
   private String ms;
   private GuiController guiCon;
   private GameMode gm;
-  private GuiLogic interf = LoginController.gameCon;
   private ToggleGroup g1 = new ToggleGroup();
   private ToggleGroup g2 = new ToggleGroup();
   private ToggleGroup g3 = new ToggleGroup();
@@ -199,6 +197,7 @@ public class GameSettingsController implements Initializable{
   }
 
   public void submitOn() {
+    gs.setNumberOfPlays(rounds[0]);
     gs.setNrOfPlayers(numbOfPl);
     gs.setCountRule(countRule);
     gs.setEnableKontra(kontra);
@@ -207,11 +206,12 @@ public class GameSettingsController implements Initializable{
       gs.setTimeLimit(setLimitedTime());
     }
     ms = message.getText();
-//    interf.hostGame(ms, gs);
+    LoginController.interfGL.startGame(gs);
     guiCon.displayLobbyOnline();
   }
 
   public void submitOf() {
+    gs.setNumberOfPlays(rounds[0]);
     gs.setCountRule(countRule);
     gs.setEnableKontra(kontra);
     gs.setLimitedTime(limitedTime);
@@ -219,7 +219,7 @@ public class GameSettingsController implements Initializable{
       gs.setTimeLimit(setLimitedTime());
     }
     ms = message.getText();
-//    interf.hostGame(ms, gs);
+    LoginController.interfGL.hostGame(ms, gs);
     guiCon.displayInGame();
   }
 

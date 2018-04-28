@@ -17,8 +17,7 @@ public interface LogicNetwork {
   // Get Server
   List<Server> getServer();
 
-  // Join Lobby, sendet Nachricht zur�ck, ob es geklappt hat (Infos �ber die Lobby werden seperat
-  // empfangen
+  //Join Lobby, sendet Nachricht zur�ck, ob es geklappt hat (Infos �ber die Lobby werden seperat empfangen)
   boolean joinLobby(Server server, Player player);
 
   // Chat
@@ -32,6 +31,9 @@ public interface LogicNetwork {
 
   // Karten dealen
   void dealCards(Player player, List<Card> cards);
+  
+  //Your Turn (eigentlich nur am Anfang wichtig)
+  void yourTurn(Player player);
 
   // Bet
   void bet(int bet);

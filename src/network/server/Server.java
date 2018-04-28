@@ -19,12 +19,15 @@ public class Server extends Thread{
   private boolean serverRunning = false;
   
   private GameSettings gs;
+  private String comment;
   private PlayState ps;
   private List<Player> player;
 
-  public Server(String serverName, int port, GameSettings gs){
+  public Server(String serverName, int port, GameSettings gs, String comment){
     this.serverName = serverName;
     this.port = port;
+    this.gs = gs;
+    this.comment = comment;
     this.clientConnections = new ArrayList<ClientConnection>();
     
     try {
@@ -106,6 +109,10 @@ public class Server extends Thread{
   
   public void removeClientConnection(ClientConnection connection){
 	  this.clientConnections.remove(connection);
+  }
+  
+  public String getComment(){
+	  return this.comment;
   }
 
 }

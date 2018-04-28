@@ -15,21 +15,16 @@ public class ChooseGameController {
 
   public ChooseGameController() {
     this.main = new GuiController();
-    interf = LoginController.gameCon;
   }
 
   @FXML
   public void SinglePlayer() {
     main.displayLobbyLocal();
-    gamemode = GameMode.SINGLEPLAYER;
-//    interf.decideGameMode(gamemode);
   }
 
   @FXML
   public void MultiPlayer() {
     main.displayLobbyOnline();
-    gamemode = GameMode.MULTIPLAYER;
-//    interf.decideGameMode(gamemode);
 
   }
 
