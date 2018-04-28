@@ -9,7 +9,7 @@ public class GameSettings {
   private int timeLimit;
   private int endPointsBierlachs;
   private GameMode gameMode;
-  private Player[] seatingOrder;
+  private int randomSeatingIndex;
   // ... add all other possible settings
 
 
@@ -21,6 +21,7 @@ public class GameSettings {
     this.enableLimitedTime = false;
     this.timeLimit = 60;
     this.endPointsBierlachs = 500;
+    this.randomSeatingIndex = (int) (Math.random() * this.nrOfPlayers + 1);
   }
 
   /**
@@ -47,6 +48,7 @@ public class GameSettings {
     }
     this.nrOfPlayers = NrOfPlayers;
     this.enableKontra = false;
+    this.randomSeatingIndex = (int) (Math.random() * this.nrOfPlayers + 1);
   }
 
   public CountRule getCountRule() {
@@ -120,12 +122,12 @@ public class GameSettings {
     this.gameMode = gameMode;
   }
 
-  public Player[] getSeatingOrder() {
-    return seatingOrder;
+  public int getRandomSeatingIndex() {
+    return this.randomSeatingIndex;
   }
 
-  public void setSeatingOrder(Player[] seatingOrder) {
-    this.seatingOrder = seatingOrder;
+  public void setRandomSeatingIndex(int seatingOrder) {
+    this.randomSeatingIndex = seatingOrder;
   }
 
   public void setNumberOfPlays(int numberOfPlays) {

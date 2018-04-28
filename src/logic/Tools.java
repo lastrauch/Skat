@@ -174,11 +174,31 @@ public class Tools {
    * @param start
    * @param length
    */
-  public static void addToHand(ArrayList<Card> cardsToAdd, List<Card> hand2, int start, int length) {
+  public static void addToHand(ArrayList<Card> cardsToAdd, List<Card> hand2, int start,
+      int length) {
     int counter = 0;
     for (int i = start; i < start + length; i++) {
       hand2.set(i, cardsToAdd.get(counter));
       counter++;
     }
   }
+
+  /**
+   * position (forehand, middlehand, rearhand) changes ater every play
+   * 
+   * @author sandfisc
+   */
+  public Player[] updatePosition(Player[] group, int pointerForehand) {
+    group[pointerForehand].setPosition(Position.FOREHAND);
+    group[((pointerForehand + 1) % group.length)].setPosition(Position.MIDDLEHAND);
+    group[((pointerForehand + 2) % group.length)].setPosition(Position.REARHAND);
+
+
+    if (group.length == 4) {
+      group[((pointerForehand + 3) % group.length)].setPosition(Position.DEALER);
+    }
+    return group;
+  }
+
+
 }

@@ -378,8 +378,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
-    // TODO Auto-generated method stub
-
+    this.gameSettings = gs;
+    //random number points on the one in the list to be the forehand
+    Player[] group = new Player[player.size()];
+    for(int i=0; i<player.size(); i++) {
+      group[i] = player.get((this.gameSettings.getRandomSeatingIndex()+i) % player.size());
+    }
   }
 
   /*
