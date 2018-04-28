@@ -47,20 +47,24 @@ public class AccountSettingsController implements Initializable{
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
-//    if(interfGL.getPlayer().getImage() != null) {
-//      pp.setImage(interfGL.getPlayer().getImage());
-//    }
+    System.out.println(LoginController.interfGL.getPlayer());
+    if(LoginController.interfGL.getPlayer().getImage() != null) {
+      pp.setImage(LoginController.interfGL.getPlayer().getImage());
+    }
   }
   
   @FXML
   public void submit() {
     username = newName.getText();
-//    if(username != null) {
-//      interfGD.changeName(new Player(username), interfGL.getPlayer());
-//    } 
-//    if(img != null) {
-//      interfGD.changeImage(interfGL.getPlayer(), img);
-//    }
+    System.out.println("tipped username: "+ username);
+    if(username != null) {
+//      interfGD.changeName(username, LoginController.interfGL.getPlayer());
+      System.out.println("acPlayer: "+LoginController.interfGL.getPlayer().getName());
+      System.out.println("new name: "+interfGD.getPlayer(LoginController.interfGL.getPlayer()).getName());
+    } 
+    if(img != null) {
+      interfGD.changeImage(LoginController.interfGL.getPlayer(), img);
+    }
   }
   
   @FXML

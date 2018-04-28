@@ -41,7 +41,7 @@ public class CreateNewAccountController {
   @FXML
   private AnchorPane pane;
   @FXML
-  protected static ImageView pp;
+  protected ImageView pp;
 
 
   public CreateNewAccountController() {
@@ -68,11 +68,13 @@ public class CreateNewAccountController {
     // e.printStackTrace();
     // }
 
-    interfGD.insertPlayer(new Player(username, ppicture));
+    if(ppicture != null) {
+      interfGD.insertPlayer(new Player(username, ppicture));
+    }else {
+      interfGD.insertPlayer(new Player(username, null));
+    }
     main.displayChooseGame();
-    GameController gameCon = new GameController(implLG);
-    GuiLogic interfaceL = gameCon;
-    interfaceL.login(username, null);
+    LoginController.interfGL.login(username, ppicture);
   }
 
   public void displayUserExists() {
