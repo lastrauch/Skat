@@ -31,6 +31,7 @@ public class Server extends Thread{
     this.port = port;
     this.gs = gs;
     this.comment = comment;
+    this.player = new ArrayList<Player>();
     try {
       InetAddress inetAddress = InetAddress.getLocalHost();
       this.ip = inetAddress.getHostAddress();
@@ -48,18 +49,23 @@ public class Server extends Thread{
   
   public void run(){
     this.serverRunning = true;
+    System.out.println("Server läuft");
     
     while(this.serverRunning){
-      try(Socket newSocket = this.serverSocket.accept()){
-        ClientConnection newClientConnection = new ClientConnection(this, newSocket);
-        this.clientConnections.add(newClientConnection);
-        newClientConnection.start();
-        System.out.println("Neue ClientConnection");
-      } catch (SocketException e) {
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      
+      this.listen();
+    }
+  }
+  
+  public void listen(){
+    try{
+      Socket newSocket = this.serverSocket.accept();
+      ClientConnection newClientConnection = new ClientConnection(this, newSocket);
+      this.clientConnections.add(newClientConnection);
+      newClientConnection.start();
+      System.out.println("Neue ClientConnection");
+    } catch (SocketException e) {
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
  
