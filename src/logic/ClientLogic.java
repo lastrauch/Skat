@@ -41,7 +41,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     // if it is not possible to play the card the gui/AI is asked to play another card
     try {
-      if (this.checkIfCardPossible(playedCard, firstCard)) {
+      if (this.checkIfCardPossible(playedCard, firstCard, this.playState, this.player)) {
         return playedCard;
       } else {
         return this.playCard(firstCard);
@@ -61,9 +61,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param bet
    * @return
    */
-//  public boolean askForBet(int bet) {
-//    return this.inGameController.askForBet(bet);
-//  }
+  public boolean askForBet(int bet) {
+    return this.inGameController.askForBet(bet);
+  }
 
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
@@ -71,18 +71,17 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * 
    * @param card (the player wants to play)
    * @param firstCard (the first played card in the current trick)
-   * @param player (who wants to play the card)
    * @return if card can be played
    * @throws LogicException
    * @author sandfisc
    */
-  public boolean checkIfCardPossible(Card card, Card firstCard) throws LogicException {
-    if (this.playState.getPlayMode() == PlayMode.SUIT) {
-      return this.checkIfCardPossibleColour(card, firstCard);
-    } else if (this.playState.getPlayMode() == PlayMode.GRAND) {
-      return this.checkIfCardPossibleGrand(card, firstCard);
-    } else if (this.playState.getPlayMode() == PlayMode.NULL) {
-      return this.checkIfCardPossibleNull(card, firstCard);
+  public static boolean checkIfCardPossible(Card card, Card firstCard, PlayState playState, Player player) throws LogicException {
+    if (playState.getPlayMode() == PlayMode.SUIT) {
+      return checkIfCardPossibleColour(card, firstCard, playState, player);
+    } else if (playState.getPlayMode() == PlayMode.GRAND) {
+      return checkIfCardPossibleGrand(card, firstCard, player, playState);
+    } else if (playState.getPlayMode() == PlayMode.NULL) {
+      return checkIfCardPossibleNull(card, firstCard, player);
     }
     return false;
   }
@@ -96,16 +95,16 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param player (who wants to play the card)
    * @return if card is possible in PlayMode Colour
    */
-  public boolean checkIfCardPossibleColour(Card card, Card firstCard) {
+  public static boolean checkIfCardPossibleColour(Card card, Card firstCard, PlayState playState, Player player) {
 
     // check if card serves first played card
-    if (this.checkIfServedColour(card, firstCard)) {
+    if (checkIfServedColour(card, firstCard, playState)) {
       return true;
     }
 
     // check if the player has a card which would serve the first card
-    for (int i = 0; i < this.player.getHand().size(); i++) {
-      if (this.checkIfServedColour(this.player.getHand().get(i), firstCard)) {
+    for (int i = 0; i < player.getHand().size(); i++) {
+      if (checkIfServedColour(player.getHand().get(i), firstCard, playState)) {
         return false;
       }
     }
@@ -121,12 +120,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param servedCard
    * @return
    */
-  public boolean checkIfServedColour(Card servingCard, Card servedCard) {
+  public static boolean checkIfServedColour(Card servingCard, Card servedCard, PlayState playState) {
 
-    if (servedCard.getColour() == this.playState.getTrump()
+    if (servedCard.getColour() == playState.getTrump()
         || servedCard.getNumber() == Number.JACK) {
       // first card is trump
-      if (servingCard.getColour() == this.playState.getTrump()
+      if (servingCard.getColour() == playState.getTrump()
           || servingCard.getNumber() == Number.JACK) {
         return true;
       }
@@ -149,16 +148,16 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param player (who wants to play the card)
    * @return if card is possible in PlayMode Grand
    */
-  public boolean checkIfCardPossibleGrand(Card card, Card firstCard) {
+  public static boolean checkIfCardPossibleGrand(Card card, Card firstCard, Player player, PlayState playState) {
 
     // check if card serves first played card
-    if (this.checkIfServedColour(card, firstCard)) {
+    if (checkIfServedColour(card, firstCard, playState)) {
       return true;
     }
 
     // check if the player has a card which would serve the first card
-    for (int i = 0; i < this.player.getHand().size(); i++) {
-      if (this.checkIfServedGrand(this.player.getHand().get(i), firstCard)) {
+    for (int i = 0; i < player.getHand().size(); i++) {
+      if (checkIfServedGrand(player.getHand().get(i), firstCard)) {
         return false;
       }
     }
@@ -174,7 +173,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param servedCard
    * @return
    */
-  public boolean checkIfServedGrand(Card servingCard, Card servedCard) {
+  public static boolean checkIfServedGrand(Card servingCard, Card servedCard) {
 
     // both cards are jack
     if (servedCard.getNumber() == Number.JACK && servingCard.getNumber() == Number.JACK) {
@@ -199,14 +198,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param player (who wants to play the card)
    * @return if card is possible in PlayMode Null or NullOuvert
    */
-  public boolean checkIfCardPossibleNull(Card card, Card firstCard) {
+  public static boolean checkIfCardPossibleNull(Card card, Card firstCard, Player player) {
 
     if (card.getColour() == firstCard.getColour()) {
       return true;
 
     } else {
-      for (int i = 0; i < this.player.getHand().size(); i++) {
-        if (this.player.getHand().get(i).getColour() == firstCard.getColour()) {
+      for (int i = 0; i < player.getHand().size(); i++) {
+        if (player.getHand().get(i).getColour() == firstCard.getColour()) {
           return false;
         }
       }
