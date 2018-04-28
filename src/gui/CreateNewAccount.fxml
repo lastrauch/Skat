@@ -15,7 +15,7 @@
             <Image url="@../../resources/bar.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="296.0" layoutY="88.0" opacity="0.91" prefHeight="633.0" prefWidth="708.0" style="-fx-background-color: #8B4513; -fx-background-radius: 20;">
+      <AnchorPane fx:id="pane" layoutX="296.0" layoutY="88.0" opacity="0.91" prefHeight="633.0" prefWidth="708.0" style="-fx-background-color: #8B4513; -fx-background-radius: 20;">
          <children>
             <ImageView fitHeight="77.0" fitWidth="51.0" layoutX="65.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
                <image>

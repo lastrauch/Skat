@@ -58,19 +58,26 @@ public class LoginController implements Initializable {
   @FXML
   public void login() {
     username = textField.getText();
-    try {
-      if(!implGD.checkIfPlayerNew(username)) {
-        main.displayChooseGame();
-        gameCon = new GameController(implLG);
-        GuiLogic interfaceL = gameCon;
-        interfaceL.login(username, null);
-      } else {
-        displayNoUser();
-      }
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    
+    //Auf Duygus Ändrungen warten
+//    try {
+//      if(!implGD.checkIfPlayerNew(username)) {
+//        main.displayChooseGame();
+//        gameCon = new GameController(implLG);
+//        GuiLogic interfaceL = gameCon;
+//        interfaceL.login(username, null);
+//      } else {
+//        displayNoUser();
+//      }
+//    } catch (SQLException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    }
+    
+    main.displayChooseGame();
+    gameCon = new GameController(implLG);
+    GuiLogic interfaceL = gameCon;
+    interfaceL.login(username, null);
   }
 
   public void setImages() {
