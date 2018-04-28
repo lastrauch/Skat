@@ -37,15 +37,62 @@ public class Medium {
   
 	
 	private static SinglePlay playSingle(AIController controller){
-		boolean wantsGrand = false;
+		List<Card> cards = controller.getBot().getHand();
+	    
+	    boolean wantsGrand = false;
 		boolean wantsSuit = false;
 		boolean wantsNull = false;
-		int certGrand = 0;	//Certainty to play Grand, integer in [0;10]
-		int certSuit = 0;	//Certainty to play Suit, integer in [0;10]
-		int certNull = 0;	//Certainty to play Null, integer in [0;10]
+		double certGrand = 0;	//Certainty to play Grand, integer in [0;10]
+		double certSuit = 0;	//Certainty to play Suit, integer in [0;10]
+		double certNull = 0;	//Certainty to play Null, integer in [0;10]
+		
+		boolean hasColour[] = new boolean[4];
+		boolean hasJack[] = new boolean[4];
 		
 		//Check if AI wants to play Grand
+		double minCertGrand = 20;
+		//Single Cards value
+		int jackSpades = 9;
+		int jackClubs = 7;
+		int jackHearts = 5;
+		int jackDiamonds = 3;
+		int ace = 2;
+		int ten = 1;
+		if(controller.getCardProbabilities()[4][0] == 1){
+		  certGrand += jackSpades;
+		  hasJack[0] = true;
+		}
+		if(controller.getCardProbabilities()[12][0] == 1){
+          certGrand += jackClubs;
+          hasJack[1] = true;
+        }
+		if(controller.getCardProbabilities()[20][0] == 1){
+          certGrand += jackHearts;
+          hasJack[2] = true;
+        }
+		if(controller.getCardProbabilities()[28][0] == 1){
+          certGrand += jackDiamonds;
+          hasJack[3] = true;
+        }
+		for(int i=0; i<cards.size(); i++){
+		  if(cards.get(i).getNumber() == Number.ASS){
+		    certGrand += ace;
+		  }
+		  if(cards.get(i).getNumber() == Number.TEN){
+		    certGrand += ten;
+		  }
+		  hasColour[4 - cards.get(i).getColour().ordinal()] = true;
+		}
 		
+		//Deck value
+		int twoJacksButNotSpadesAndClubs = -5;
+		double rowFactorPerCard = 0.75;
+		if(!hasJack[0] && !hasJack[1]) certGrand += twoJacksButNotSpadesAndClubs;
+		
+		
+		
+		
+		if(certGrand >= minCertGrand) wantsGrand = true;
 		
 		//Check if AI wants to play Suit
 		

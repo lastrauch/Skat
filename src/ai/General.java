@@ -14,6 +14,8 @@ public class General {
 	 * Available Methods are:
 	 * playRandomCard(AIController) : int					//Returns the index of a playable card on the hand of the bot.
 	 * getHighestPossibleBet(AIController, PlayMode) : int	//Returns the highest possible bet, with the current hand of the bot
+	 * getGameLevel(AIController) : int                     //Returns the game level, the bot is playing with
+	 * initializeProbabiliteis(List<Card>) : double[][]     //Returns the initialization of card probabilities, first column is the bot
 	 */
 	
 	public static int playRandomCard(AIController controller){
@@ -77,6 +79,26 @@ public class General {
 			}
 		}
 		return gameLevel;
+	}
+	
+	public static double[][] initializeProbabilities(List<Card> hand){
+	  double prob[][] = new double[32][3];
+	  for(int i=0; i<prob.length; i++){
+	    for(int j=1; j<prob[0].length; j++){
+	      prob[i][j] = 0.5;
+	    }
+	  }
+	  int colour;
+	  int number;
+	  for(int i=0; i<hand.size(); i++){
+	    colour = 4 - hand.get(i).getColour().ordinal();
+	    number = 8 - hand.get(i).getNumber().ordinal();
+	    prob[colour*8 + number][0] = 1;
+	    prob[colour*8 + number][1] = 0;
+	    prob[colour*8 + number][2] = 0;
+	  }
+	  
+	  return prob;
 	}
 
 }
