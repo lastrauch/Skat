@@ -20,7 +20,7 @@
             <Image url="@../../resources/vonbaraus.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="pane" layoutX="260.0" layoutY="36.0" prefHeight="726.0" prefWidth="742.0" styleClass="background" stylesheets="@../../resources/mystyle.css" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="36.0">
+      <AnchorPane layoutX="260.0" layoutY="36.0" prefHeight="726.0" prefWidth="742.0" styleClass="background" stylesheets="@../../resources/mystyle.css" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="36.0">
          <children>
             <AnchorPane layoutX="104.0" layoutY="62.0" AnchorPane.bottomAnchor="503.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="62.0">
                <children>

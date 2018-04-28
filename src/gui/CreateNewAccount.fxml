@@ -15,7 +15,7 @@
             <Image url="@../../resources/bar.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="pane" layoutX="296.0" layoutY="88.0" opacity="0.91" prefHeight="633.0" prefWidth="708.0" style="-fx-background-color: #8B4513; -fx-background-radius: 20;">
+      <AnchorPane layoutX="296.0" layoutY="88.0" opacity="0.91" prefHeight="633.0" prefWidth="708.0" style="-fx-background-color: #8B4513; -fx-background-radius: 20;">
          <children>
             <ImageView fitHeight="77.0" fitWidth="51.0" layoutX="65.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -27,12 +27,12 @@
                   <Font size="24.0" />
                </font>
             </JFXTextField>
-            <JFXButton fx:id="profilepicture" layoutX="141.0" layoutY="316.0" prefHeight="51.0" prefWidth="427.0" style="-fx-border-color: white; -fx-border-radius: 10;" text="Upload Picture" textFill="WHITE">
+            <JFXButton fx:id="profilepicture" layoutX="141.0" layoutY="316.0" onAction="#uploadPicture" prefHeight="51.0" prefWidth="427.0" style="-fx-border-color: white; -fx-border-radius: 10;" text="Upload Picture" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </JFXButton>
-            <ImageView fitHeight="77.0" fitWidth="51.0" layoutX="65.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="pp" fitHeight="77.0" fitWidth="51.0" layoutX="65.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../resources/user-image-with-black-background.png" />
                </image>
