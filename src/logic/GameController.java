@@ -37,65 +37,65 @@ public class GameController implements GuiLogic {
     clientLogic = new ArrayList<ClientLogic>();
     server = new ArrayList<Server>();
   }
-//
-//  public Card[] initializeCards() {
-//    Card[]cards = new Card[32];
-//
-//    int counter = 0;
-//    for (int i = 1; i <= 4; i++) {
-//      Colour col = null;
-//      switch (i) {
-//        case 1:
-//          col = Colour.DIAMONDS;
-//          break;
-//        case 2:
-//          col = Colour.HEARTS;
-//          break;
-//        case 3:
-//          col = Colour.SPADES;
-//          break;
-//        case 4:
-//          col = Colour.CLUBS;
-//          break;
-//      }
-//      for (int j = 1; j <= 8; j++) {
-//        Number nr = null;
-//        switch (j) {
-//          case 1:
-//            nr = Number.SEVEN;
-//            break;
-//          case 2:
-//            nr = Number.EIGHT;
-//            break;
-//          case 3:
-//            nr = Number.NINE;
-//            break;
-//          case 4:
-//            nr = Number.JACK;
-//            break;
-//          case 5:
-//            nr = Number.QUEEN;
-//            break;
-//          case 6:
-//            nr = Number.KING;
-//            break;
-//          case 7:
-//            nr = Number.TEN;
-//            break;
-//          case 8:
-//            nr = Number.ASS;
-//            break;
-//        }
-//        // cards are generated in the order of their value
-//
-//        Card c = new Card(col, nr);
-//        cards[counter] = c;
-//        counter++;
-//
-//        // System.out.println(counter + " " + col.toString() + " " + nr.toString());
-//      }
-//    }
-//  }
+  //
+  // public Card[] initializeCards() {
+  // Card[]cards = new Card[32];
+  //
+  // int counter = 0;
+  // for (int i = 1; i <= 4; i++) {
+  // Colour col = null;
+  // switch (i) {
+  // case 1:
+  // col = Colour.DIAMONDS;
+  // break;
+  // case 2:
+  // col = Colour.HEARTS;
+  // break;
+  // case 3:
+  // col = Colour.SPADES;
+  // break;
+  // case 4:
+  // col = Colour.CLUBS;
+  // break;
+  // }
+  // for (int j = 1; j <= 8; j++) {
+  // Number nr = null;
+  // switch (j) {
+  // case 1:
+  // nr = Number.SEVEN;
+  // break;
+  // case 2:
+  // nr = Number.EIGHT;
+  // break;
+  // case 3:
+  // nr = Number.NINE;
+  // break;
+  // case 4:
+  // nr = Number.JACK;
+  // break;
+  // case 5:
+  // nr = Number.QUEEN;
+  // break;
+  // case 6:
+  // nr = Number.KING;
+  // break;
+  // case 7:
+  // nr = Number.TEN;
+  // break;
+  // case 8:
+  // nr = Number.ASS;
+  // break;
+  // }
+  // // cards are generated in the order of their value
+  //
+  // Card c = new Card(col, nr);
+  // cards[counter] = c;
+  // counter++;
+  //
+  // // System.out.println(counter + " " + col.toString() + " " + nr.toString());
+  // }
+  // }
+  // }
 
   // /**
   // * defines in which order players "sitting on a table" (random)
@@ -224,6 +224,11 @@ public class GameController implements GuiLogic {
     this.gameSettings = gs;
     this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, " ");
     System.out.println("finished host game");
+    
+    ClientLogic clientLogic;
+    InGameInterface inGameController;
+    LogicNetwork networkController;
+    
     // if the player did not set enough bots to play with the chosen number of players we fill the
     // gaps automatically
     for (int i = 1; i < this.gameSettings.getNrOfPlayers(); i++) {
@@ -234,13 +239,15 @@ public class GameController implements GuiLogic {
         String name = "bot" + i;
         temp = new Bot(name, BotDifficulty.EASY);
       }
-      InGameInterface inGameController =
+      inGameController =
           new AIController(temp.getName(), temp.getDifficulty(), this.gameSettings);
-      ClientLogic clientLogic = new ClientLogic(temp);
-      LogicNetwork networkController = new NetworkController(clientLogic);
+      clientLogic = new ClientLogic(temp);
+      networkController = new NetworkController(clientLogic);
+      
       clientLogic.setNetworkController(networkController);
       clientLogic.setInGameController(inGameController);
       this.clientLogic.add(clientLogic);
+      
       networkController.joinLobby(this.myServer, temp);
     }
     this.logicGui.startInGameScreen();

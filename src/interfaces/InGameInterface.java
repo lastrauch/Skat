@@ -18,7 +18,7 @@ public interface InGameInterface {
    * @param hand
    * @param position
    */
-  public void startPlay(ArrayList<Card> hand, Position position);
+  public void startPlay(List<Card> hand, Position position);
 
   
   /**
