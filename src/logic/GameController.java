@@ -200,4 +200,11 @@ public class GameController implements GuiLogic {
   public ArrayList<Card> sortHand(PlayState ps, ArrayList<Card> hand) {
     return Tools.sortHand(hand, ps);
   }
+
+
+
+  @Override
+  public Player getPlayer() {
+    return this.group.get(0);
+  }
 }
