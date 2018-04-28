@@ -22,9 +22,9 @@ public class LoginController implements Initializable {
 
   private GuiController main;
   protected String username;
-  protected ImplementsLogicGui implLG = new ImplementsLogicGui();
+  protected static ImplementsLogicGui implLG = new ImplementsLogicGui();
   protected GuiData implGD = new ImplementsGuiInterface();
-  protected static GameController gameCon;
+  protected static GuiLogic interfGL = new GameController(implLG);
   
   private Label noUsername = new Label();
  
@@ -57,6 +57,7 @@ public class LoginController implements Initializable {
 
   @FXML
   public void login() {
+    System.out.println("Tada");
     username = textField.getText();
     
     //Auf Duygus Ändrungen warten
@@ -75,9 +76,7 @@ public class LoginController implements Initializable {
 //    }
     
     main.displayChooseGame();
-    gameCon = new GameController(implLG);
-    GuiLogic interfaceL = gameCon;
-    interfaceL.login(username, null);
+    interfGL.login(username, null);
   }
 
   public void setImages() {

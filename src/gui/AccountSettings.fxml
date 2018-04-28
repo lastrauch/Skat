@@ -22,22 +22,22 @@
                   <Image url="@../../resources/icons8-benutzer-filled-50.png" />
                </image>
             </ImageView>
-            <JFXTextField focusColor="WHITE" layoutX="141.0" layoutY="223.0" prefHeight="31.0" prefWidth="427.0" promptText="Edit Username" styleClass="prompttext" stylesheets="@../../resources/mystyle.css" unFocusColor="WHITE">
+            <JFXTextField fx:id="newName" focusColor="WHITE" layoutX="141.0" layoutY="223.0" prefHeight="31.0" prefWidth="427.0" promptText="Edit Username" styleClass="prompttext" stylesheets="@../../resources/mystyle.css" unFocusColor="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </JFXTextField>
-            <JFXButton layoutX="141.0" layoutY="316.0" prefHeight="51.0" prefWidth="427.0" style="-fx-border-color: white; -fx-border-radius: 10;" text="Upload new Picture" textFill="WHITE">
+            <JFXButton fx:id="newPP" layoutX="141.0" layoutY="316.0" onAction="#uploadPicture" prefHeight="51.0" prefWidth="427.0" style="-fx-border-color: white; -fx-border-radius: 10;" text="Upload new Picture" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </JFXButton>
-            <ImageView fitHeight="77.0" fitWidth="51.0" layoutX="65.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="pp" fitHeight="77.0" fitWidth="51.0" layoutX="65.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../resources/user-image-with-black-background.png" />
                </image>
             </ImageView>
-            <JFXButton buttonType="RAISED" layoutX="141.0" layoutY="438.0" onAction="#back" style="-fx-border-color: white; -fx-background-color: peru; -fx-border-radius: 10; -fx-background-radius: 10;" text="Submit" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="141.0" layoutY="438.0" onAction="#submit" style="-fx-border-color: white; -fx-background-color: peru; -fx-border-radius: 10; -fx-background-radius: 10;" text="Submit" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>

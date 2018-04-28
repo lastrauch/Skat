@@ -91,7 +91,6 @@ public class InGameController implements Initializable, InGameInterface {
   private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
   private Image temp;
   private GuiData inte = new ImplementsGuiInterface();
-  private GuiLogic inteGL = LoginController.gameCon;
   private ArrayList<Card> cardlist = new ArrayList<Card>();
   private Image noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
   ArrayList<Card> skat = new ArrayList<Card>();
@@ -252,7 +251,7 @@ public class InGameController implements Initializable, InGameInterface {
 
   public void showChat() {
     JFXTextField rMes = new JFXTextField();
-    rMes.setText((inteGL.getChatText()));
+    rMes.setText((LoginController.interfGL.getChatText()));
     chatM.appendText(rMes + "\n");
 
   }
@@ -260,7 +259,7 @@ public class InGameController implements Initializable, InGameInterface {
   public void sendChat() {
     String message;
     message = textM.getText();
-    inteGL.sendChatText(message);
+    LoginController.interfGL.sendChatText(message);
 
   }
 
@@ -1134,14 +1133,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(c1.getImage());
             skat.set(0, cardlist.get(1));
             cardlist.remove(cardlist.get(1));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(c1.getImage());
             skat.set(1, cardlist.get(1));
             cardlist.remove(cardlist.get(1));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1150,7 +1149,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(c1.getImage());
           skat.set(0, cardlist.get(1));
           cardlist.remove(cardlist.get(1));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1165,14 +1164,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(c2.getImage());
             skat.set(0, cardlist.get(2));
             cardlist.remove(cardlist.get(2));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(c2.getImage());
             skat.set(1, cardlist.get(2));
             cardlist.remove(cardlist.get(2));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1181,7 +1180,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(c2.getImage());
           skat.set(0, cardlist.get(2));
           cardlist.remove(cardlist.get(2));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1197,14 +1196,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(c3.getImage());
             skat.set(0, cardlist.get(3));
             cardlist.remove(cardlist.get(3));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(c3.getImage());
             skat.set(1, cardlist.get(3));
             cardlist.remove(cardlist.get(3));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1213,7 +1212,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(c3.getImage());
           skat.set(0, cardlist.get(3));
           cardlist.remove(cardlist.get(3));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1229,14 +1228,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(c4.getImage());
             skat.set(0, cardlist.get(4));
             cardlist.remove(cardlist.get(4));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(c4.getImage());
             skat.set(1, cardlist.get(4));
             cardlist.remove(cardlist.get(4));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1245,7 +1244,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(c4.getImage());
           skat.set(0, cardlist.get(4));
           cardlist.remove(cardlist.get(4));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1261,14 +1260,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(c5.getImage());
             skat.set(0, cardlist.get(5));
             cardlist.remove(cardlist.get(5));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(c5.getImage());
             skat.set(1, cardlist.get(4));
             cardlist.remove(cardlist.get(5));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1277,7 +1276,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(c5.getImage());
           skat.set(0, cardlist.get(5));
           cardlist.remove(cardlist.get(5));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1293,14 +1292,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(c6.getImage());
             skat.set(0, cardlist.get(6));
             cardlist.remove(cardlist.get(6));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(c6.getImage());
             skat.set(1, cardlist.get(6));
             cardlist.remove(cardlist.get(6));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1309,7 +1308,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(c6.getImage());
           skat.set(0, cardlist.get(6));
           cardlist.remove(cardlist.get(6));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1325,14 +1324,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(c7.getImage());
             skat.set(0, cardlist.get(7));
             cardlist.remove(cardlist.get(7));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(c7.getImage());
             skat.set(1, cardlist.get(7));
             cardlist.remove(cardlist.get(7));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1341,7 +1340,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(c7.getImage());
           skat.set(0, cardlist.get(7));
           cardlist.remove(cardlist.get(7));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1357,14 +1356,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(c8.getImage());
             skat.set(0, cardlist.get(8));
             cardlist.remove(cardlist.get(8));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(c8.getImage());
             skat.set(1, cardlist.get(8));
             cardlist.remove(cardlist.get(8));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1373,7 +1372,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(c8.getImage());
           skat.set(0, cardlist.get(8));
           cardlist.remove(cardlist.get(8));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1389,14 +1388,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(c9.getImage());
             skat.set(0, cardlist.get(9));
             cardlist.remove(cardlist.get(9));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(c9.getImage());
             skat.set(1, cardlist.get(9));
             cardlist.remove(cardlist.get(9));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1405,7 +1404,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(c9.getImage());
           skat.set(0, cardlist.get(9));
           cardlist.remove(cardlist.get(9));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1421,14 +1420,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(c10.getImage());
             skat.set(0, cardlist.get(10));
             cardlist.remove(cardlist.get(10));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(c10.getImage());
             skat.set(1, cardlist.get(10));
             cardlist.remove(cardlist.get(10));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1437,7 +1436,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(c10.getImage());
           skat.set(0, cardlist.get(10));
           cardlist.remove(cardlist.get(10));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1453,14 +1452,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(extra1.getImage());
             skat.set(0, cardlist.get(0));
             cardlist.remove(cardlist.get(0));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(extra1.getImage());
             skat.set(1, cardlist.get(0));
             cardlist.remove(cardlist.get(0));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1469,7 +1468,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(extra1.getImage());
           skat.set(0, cardlist.get(0));
           cardlist.remove(cardlist.get(0));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1485,14 +1484,14 @@ public class InGameController implements Initializable, InGameInterface {
             sk1.setImage(extra2.getImage());
             skat.set(0, cardlist.get(11));
             cardlist.remove(cardlist.get(11));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(extra2.getImage());
             skat.set(1, cardlist.get(11));
             cardlist.remove(cardlist.get(11));
-            inteGL.sortHand(ps, cardlist);
+            LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
           }
@@ -1501,7 +1500,7 @@ public class InGameController implements Initializable, InGameInterface {
           sk1.setImage(extra2.getImage());
           skat.set(0, cardlist.get(11));
           cardlist.remove(cardlist.get(11));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
         }
@@ -1515,14 +1514,14 @@ public class InGameController implements Initializable, InGameInterface {
           // Beide Karten auf dem Skat
           cardlist.add(ps.getSkat()[0]);
           // cardlist.add(0, skat.get(0));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           sk1.setImage(noCard);
           da[0] = false;
         } else if (cardlist.size() == 11) {
           cardlist.add(11, ps.getSkat()[0]);
           // cardlist.add(11, skat.get(0));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           sk1.setImage(noCard);
           da[0] = false;
@@ -1537,7 +1536,7 @@ public class InGameController implements Initializable, InGameInterface {
           // Beide Karten auf dem Skat
           cardlist.add(ps.getSkat()[1]);
           // cardlist.add(skat.get(1));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           sk2.setImage(noCard);
           da[1] = false;
@@ -1545,7 +1544,7 @@ public class InGameController implements Initializable, InGameInterface {
         } else if (cardlist.size() == 11) {
           cardlist.add(ps.getSkat()[1]);
           // cardlist.add(skat.get(1));
-          inteGL.sortHand(ps, cardlist);
+          LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           sk2.setImage(noCard);
           da[1] = false;
