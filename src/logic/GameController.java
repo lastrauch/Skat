@@ -155,15 +155,18 @@ public class GameController implements GuiLogic {
 
   @Override
   public void hostGame(String comment, GameSettings gs) {
+    System.out.println("start hostGame method");
     this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
   }
 
 
   @Override
   public void startGame(GameSettings gs) {
+    System.out.println("start game method");
     // only used in the singlePlayer mod?!
     this.gameSettings = gs;
     this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, " ");
+    System.out.println("finished host game");
     // if the player did not set enough bots to play with the chosen number of players we fill the
     // gaps automatically
     for (int i = 1; i < this.gameSettings.getNrOfPlayers(); i++) {
