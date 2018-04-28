@@ -21,8 +21,6 @@ public class Client {
   private Player owner;
   private ObjectOutputStream output; //Ausgabe zum Server
   private ObjectInputStream input; //Eingabe vom Server
-  
-  //TODO Klasse Game muss durch Controller Klasse der Logik ersetzt werden
   private ClientLogic logic;
   
   public Client(Server server, Player player, int port, ClientLogic logic){
@@ -53,9 +51,10 @@ public class Client {
  
   private boolean connect(){
     try{
-      socket = new Socket(server.getName(), port);
-      output = new ObjectOutputStream(socket.getOutputStream());
-      input = new ObjectInputStream(socket.getInputStream());
+      this.socket = new Socket(server.getIP(), port);
+      this.output = new ObjectOutputStream(socket.getOutputStream());
+      this.input = new ObjectInputStream(socket.getInputStream());
+      System.out.println("Connection established");
     } catch (UnknownHostException e){
       e.printStackTrace();
       return false;
@@ -106,7 +105,7 @@ public class Client {
 	   return false;
   }
   
-  //TODO Nachrichten eventuell verwerfen, wenn nicht benötigt
+  //TODO Nachrichten eventuell verwerfen, wenn nicht benï¿½tigt
   private void receiveMessage(Message message){
 	  switch(message.getType()){
 	  	case YOUR_TURN : logic.receiveYourTurn();
