@@ -47,7 +47,8 @@ public class ClientConnection extends Thread{
         try{
             Message message;
             while(this.running && (message = (Message) input.readObject()) != null){
-                receiveMessage(message);
+              System.out.println("Message empfangen");  
+              receiveMessage(message);
             }
         }catch(ClassNotFoundException e){
             e.printStackTrace();
@@ -102,9 +103,9 @@ public class ClientConnection extends Thread{
     }
     
     private void connectionRequestHandler(ConnectionRequest_Msg message){
-    	//Überprüfe und sende Antwort
+    	//ï¿½berprï¿½fe und sende Antwort
     	if(this.server.getPlayer().size() < Settings.MAX_PLAYER - 1){
-        	//Falls ja, füge Spieler dem Server hinzu
+        	//Falls ja, fï¿½ge Spieler dem Server hinzu
     		//Falls ja, sende GameSettings und andere Spieler an alle
     		this.sendMessage(new ConnectionAnswer_Msg(true));
     		this.player = message.getPlayer();
@@ -117,7 +118,7 @@ public class ClientConnection extends Thread{
 
     }
     
-    //TODO evtl. muss ich an alle außer mir senden, dann die Connection schließen und dann erst aus der Liste des Servers löschen
+    //TODO evtl. muss ich an alle auï¿½er mir senden, dann die Connection schlieï¿½en und dann erst aus der Liste des Servers lï¿½schen
     private void clientDisconnectHandler(ClientDisconnect_Msg message){
     	this.server.removePlayer(message.getPlayer());
     	this.server.removeClientConnection(this);

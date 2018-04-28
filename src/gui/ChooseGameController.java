@@ -1,6 +1,8 @@
 package gui;
 
+import interfaces.GuiLogic;
 import javafx.fxml.FXML;
+import logic.GameController;
 import logic.GameMode;
 
 public class ChooseGameController {
@@ -9,6 +11,7 @@ public class ChooseGameController {
   private GuiController main;
 
   private GameMode gamemode;
+  private GuiLogic interf;
 
   public ChooseGameController() {
     this.main = new GuiController();
@@ -17,13 +20,12 @@ public class ChooseGameController {
   @FXML
   public void SinglePlayer() {
     main.displayLobbyLocal();
-    gamemode = GameMode.SINGLEPLAYER;
   }
 
   @FXML
   public void MultiPlayer() {
     main.displayLobbyOnline();
-    gamemode = GameMode.MULTIPLAYER;
+
   }
 
   @FXML

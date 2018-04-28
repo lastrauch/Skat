@@ -1,9 +1,11 @@
 package network.server;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +15,29 @@ import logic.Player;
 
 public class Server extends Thread{
   private String serverName;
+  private String ip;
   private ServerSocket serverSocket;
   private int port;
   private List<ClientConnection> clientConnections;
   private boolean serverRunning = false;
   
   private GameSettings gs;
+  private String comment;
   private PlayState ps;
   private List<Player> player;
 
-  public Server(String serverName, int port, GameSettings gs){
+  public Server(String serverName, int port, GameSettings gs, String comment){
     this.serverName = serverName;
     this.port = port;
+    this.gs = gs;
+    this.comment = comment;
+    this.player = new ArrayList<Player>();
+    try {
+      InetAddress inetAddress = InetAddress.getLocalHost();
+      this.ip = inetAddress.getHostAddress();
+    } catch (UnknownHostException e1) {
+      e1.printStackTrace();
+    }
     this.clientConnections = new ArrayList<ClientConnection>();
     
     try {
@@ -36,15 +49,23 @@ public class Server extends Thread{
   
   public void run(){
     this.serverRunning = true;
+    System.out.println("Server läuft");
     
     while(this.serverRunning){
-      try(Socket newSocket = this.serverSocket.accept()){
-        ClientConnection newClientConnection = new ClientConnection(this, newSocket);
-        this.clientConnections.add(newClientConnection);
-      } catch (SocketException e) {
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      this.listen();
+    }
+  }
+  
+  public void listen(){
+    try{
+      Socket newSocket = this.serverSocket.accept();
+      ClientConnection newClientConnection = new ClientConnection(this, newSocket);
+      this.clientConnections.add(newClientConnection);
+      newClientConnection.start();
+      System.out.println("Neue ClientConnection");
+    } catch (SocketException e) {
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
  
@@ -107,5 +128,12 @@ public class Server extends Thread{
   public void removeClientConnection(ClientConnection connection){
 	  this.clientConnections.remove(connection);
   }
+  
+  public String getComment(){
+	  return this.comment;
+  }
 
+  public String getIP(){
+    return this.ip;
+  }
 }

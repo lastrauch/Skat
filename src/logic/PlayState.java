@@ -1,17 +1,23 @@
- package logic;
+package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class PlayState {
-  private Player declarer; // single player
-  private Player[] opponents; // team Players
-  private ArrayList<Card> declarerStack;
-  private ArrayList<Card> opponentsStack;
+public class PlayState implements Serializable{
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+  private Player[] group;
+  private Stack declarerStack;
+  private Stack opponentsStack;
   private Card[] skat;
   private Colour trump;
   private int playValue;
-  private int betValue;
   private PlayMode pm;
+  private int playNr;
+  private int trickNr; 
   private boolean auctionPossible;
   private boolean handGame;
   private boolean schneider;
@@ -20,61 +26,57 @@ public class PlayState {
   private boolean schwarzAnnounced;
   private boolean open;
   private int baseValue;
+  private Trick currentTrick;
+  private Auction auction;
 
+  public void resetPlayState() {
+    this.declarerStack = new Stack();
+    this.opponentsStack = new Stack();   
+    
+    this.skat = new Card[2];
+    this.trump = Colour.CLUBS;
+    this.playValue = 0;
+    this.pm = PlayMode.SUIT;
+    
+    this.playNr = 0;
+    this.trickNr = 0;
+    this.currentTrick = new Trick();
+    this.auctionPossible = true;
+    this.auction = new Auction();
+    
+    this.schneider = false;
+    this.schneiderAnnounced = false;
+    this.schwarz = false;
+    this.schwarzAnnounced = false;
+  }
+  
   /**
-   * constructor (default)
-   * the attributes are initialized but we want the player(s) to change them during the game
+   * constructor (default) the attributes are initialized but we want the player(s) to change them
+   * during the game
    * 
    * @author sandfisc
    * @author awesch
    */
-  public PlayState() {
-    this.declarer = null;
-    this.opponents = new Player[2];
-    this.declarerStack = new ArrayList<Card>();
-    this.opponentsStack = new ArrayList<Card>();
+  public PlayState(Player[] group) {
+    this.group = group;
+    this.declarerStack = new Stack();
+    this.opponentsStack = new Stack();
     this.skat = new Card[2];
     this.trump = Colour.CLUBS;
     this.playValue = 0;
-    this.betValue = 0;
+    this.auction = new Auction();
     this.pm = PlayMode.SUIT;
+    this.playNr = 0;
+    this.trickNr = 0;
+    this.currentTrick = new Trick();
     this.auctionPossible = true;
+    this.auction = new Auction();
+    this.schneider = false;
+    this.schneiderAnnounced = false;
+    this.schwarz = false;
+    this.schwarzAnnounced = false;
   }
 
-  /**
-   * adds a trick to the stack of the declarer
-   * 
-   * @author awesch
-   * @param t
-   */
-  public void addToStackDeclarer(Trick t) {
-    this.declarerStack.addAll(t.getTrickCards());
-//    Card[] trick = t.getTrickCards();
-//    for (int i = 0; i < trick.length; i++) {
-//      this.declarerStack.add(trick[i]);
-//    }
-  }
-
-  /**
-   * adds a card to the stack of the declarer (skat)
-   * 
-   * @author awesch
-   * @param card
-   */
-  public void addToStackDeclarer(Card card) {
-    this.declarerStack.add(card);
-  }
-
-  /**
-   * @param t
-   */
-  public void addToStackOpponents(Trick t) {
-    this.opponentsStack.addAll(t.getTrickCards());
-//    Card[] trick = t.getTrickCards();
-//    for (int i = 0; i < trick.length; i++) {
-//      this.opponentsStack.add(trick[i]);
-//    }
-  }
 
   /**
    * sorts cards by its value for normal values (high ten), created for sortHand(s)
@@ -165,21 +167,6 @@ public class PlayState {
    * @author awesch
    * @return
    */
-  public ArrayList<Card> getStackDeclarer() {
-    return this.declarerStack;
-  }
-
-  /**
-   * @return
-   */
-  public ArrayList<Card> getStackOpponents() {
-    return this.opponentsStack;
-  }
-
-  /**
-   * @author awesch
-   * @return
-   */
   public int getPlayValue() {
     return this.playValue;
   }
@@ -220,18 +207,12 @@ public class PlayState {
   public boolean getAuctionPossible() {
     return this.auctionPossible;
   }
-  /**
-   * @return
-   */
-  public int getBetValue() {
-    return this.betValue;
-  }
 
   /**
    * @return
    */
-  public Player getDeclarer() {
-    return this.declarer;
+  public int getBetValue() {
+    return this.auction.getBetValue();
   }
 
   /**
@@ -277,24 +258,10 @@ public class PlayState {
   }
 
   /**
-   * @param declarer
-   */
-  public void setDeclarer(Player declarer) {
-    this.declarer = declarer;
-  }
-
-  /**
-   * @param opponents
-   */
-  public void setOpponents(Player[] opponents) {
-    this.opponents = opponents;
-  }
-
-  /**
    * @param betValue
    */
   public void setBetValue(int betValue) {
-    this.betValue = betValue;
+    this.auction.setBetValue(betValue);
   }
 
   /**
@@ -370,15 +337,51 @@ public class PlayState {
   /**
    * @return
    */
-  public Player[] getOpponents() {
-    return this.opponents;
-  }
-
-  /**
-   * @return
-   */
   public int getBaseValue() {
     return this.baseValue;
   }
 
+  public Trick getCurrentTrick() {
+    return currentTrick;
+  }
+
+  public void setCurrentTrick(Trick currentTrick) {
+    this.currentTrick = currentTrick;
+  }
+
+  public Player[] getGroup() {
+    return group;
+  }
+
+  public void setGroup(Player[] group) {
+    this.group = group;
+  }
+
+  public void setPlayNr(int nr) {
+    this.playNr = nr;
+  }
+
+  public int getPlayNr() {
+    return this.playNr;
+  }
+
+  public void setTrickNr(int nr) {
+    this.trickNr = nr;
+  }
+
+  public int getTrickNr() {
+    return this.trickNr;
+  }
+
+  public Auction getAuction() {
+    return this.auction;
+  }
+  
+  public Stack getDeclarerStack() {
+    return this.declarerStack;
+  }
+  
+  public Stack getOpponentsStack() {
+    return this.opponentsStack;
+  }
 }

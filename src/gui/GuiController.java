@@ -9,10 +9,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import logic.GameMode;
 
 public class GuiController extends Application {
 
-  private static Stage mprimaryStage;
+  static Stage mprimaryStage;
   private AnchorPane root;
 
   private static InGameController inGameCon;
@@ -21,7 +22,7 @@ public class GuiController extends Application {
   private static LoginController loginCon;
   private AnchorPane login = null;
 
-  private static CreateNewAccountController newAccCon;
+  static CreateNewAccountController newAccCon;
   private AnchorPane newAcc = null;
 
   private static ChooseGameController gameModeCon;
@@ -78,8 +79,6 @@ public class GuiController extends Application {
   private static LeaderboardController leaderbordCon;
   private AnchorPane leaderbord;
 
-  @FXML
-  private ImageView c1;
 
   @Override
   public void start(Stage primaryStage) {
@@ -121,7 +120,7 @@ public class GuiController extends Application {
       loader.setLocation(getClass().getResource("GameMode.fxml"));
       this.gameMode = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(gameMode);
-
+      
       gameModeCon = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
@@ -325,7 +324,7 @@ public class GuiController extends Application {
     }
   }
 
-  public void displayGameSettings() {
+  public void displayGameSettings(GameMode gm) {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("GameSettings.fxml"));
@@ -333,6 +332,7 @@ public class GuiController extends Application {
       mprimaryStage.getScene().setRoot(gameSettings);
 
       gameSettingsCon = loader.getController();
+      gameSettingsCon.setMode(gm);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -423,6 +423,10 @@ public class GuiController extends Application {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+  }
+  
+  public LoginController getLoginCon() {
+    return loginCon;
   }
 
   // public static void main(String[] args) {

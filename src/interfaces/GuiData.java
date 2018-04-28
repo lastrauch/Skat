@@ -24,7 +24,7 @@ public interface GuiData {
    * @param number
    * @return
    */
-  public BufferedImage getImageDarker(String colour, String number);
+  public Image getImageDarker(String colour, String number);
 
   /**
    * saves a player profile in the Database
@@ -38,7 +38,7 @@ public interface GuiData {
    * 
    * @return
    */
-  public boolean checkIfPlayerNew() throws SQLException;
+  public boolean checkIfPlayerNew(String username) throws SQLException;
 
   /**
    * finds the player with the given name and return him
@@ -49,11 +49,14 @@ public interface GuiData {
   public Player getPlayer(Player player);
 
   /**
-   * deletes the given Player
-   * 
-   * @param player
+   * Brauch ich gar nicht
    */
-  public void deletePlayer(Player player);
+//  /**
+//   * deletes the given Player
+//   * 
+//   * @param player
+//   */
+//  public void deletePlayer(Player player);
 
   /**
    * changes the players name
@@ -61,7 +64,7 @@ public interface GuiData {
    * @param neu
    * @param original
    */
-  public void changeName(Player neu, Player original);
+  public void changeName(String neu, Player original);
 
   /**
    * changes the players profile pictue
@@ -72,8 +75,12 @@ public interface GuiData {
   public void changeImage(Player player, Image image);
   
   /**
-   * updates the given player
-   * @param player
+   * Das musst du ja von dir aus machen
+   * ich brauche nur die beiden Methoden obendrüber
    */
-  public void updatePlayer(Player player);
+//  /**
+//   * updates the given player
+//   * @param player
+//   */
+//  public void updatePlayer(Player player);
 }

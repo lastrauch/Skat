@@ -42,15 +42,16 @@ public class NetworkController implements LogicNetwork{
 		this.logic = logic;
 	}
 
-	public void hostGame(Player player, GameSettings gs) {
+	public Server hostGame(Player player, GameSettings gs, String comment) {
 		this.player = player;
 		this.gs = gs;
 		this.isHost = true;
-	    this.server = new Server("Server von " + player.getName(), this.port, gs);
-	    this.server.run();
+	    this.server = new Server("Server von " + player.getName(), this.port, gs, comment);
+	    this.server.start();
 	    while(!this.isInLobby){
-	    	this.isInLobby = joinLobby(this.server, player);
+	      this.isInLobby = joinLobby(this.server, player);
 	    }
+	    return this.server;
 	}
 
 	public boolean joinLobby(Server server, Player player) {
@@ -90,8 +91,8 @@ public class NetworkController implements LogicNetwork{
 		this.client.sendMessage(msg);
 	}
 
-  	public void dealCards(Player player, List<Card> cards) {
-  		DealtCards_Msg msg = new DealtCards_Msg(player, cards);
+  	public void dealCards(Player player, List<Card> cards, PlayState ps) {
+  		DealtCards_Msg msg = new DealtCards_Msg(player, cards, ps);
   		this.client.sendMessage(msg);
   	}
 

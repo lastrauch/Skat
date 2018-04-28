@@ -1,18 +1,15 @@
 package database;
 
-
-import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
-import com.sun.javafx.tk.Toolkit;
 import interfaces.GuiData;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import logic.Player;
 
-public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
+public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
 
   @Override
   public Image getImage(String colour, String number) {
@@ -30,22 +27,23 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
         }
       } catch (Exception e) {       
         e.printStackTrace();
-      } 
-   return img;
+      }
+    return img;
   }
 
   @Override
-  public BufferedImage getImageDarker(String colour, String number) {
+  public Image getImageDarker(String colour, String number) {
     // TODO Auto-generated method stub
-    BufferedImage img = null;
+    Image img = null;
     try {
       selectCardDarker.setString(1, colour);
       selectCardDarker.setString(2, number);
       selectCardDarker.execute();
       ResultSet rs = selectCardDarker.executeQuery();
-      rs.next();
+      while(rs.next()) {
       InputStream in = rs.getBinaryStream("image_Dark");    
-      img = ImageIO.read(in);
+      img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
+    }
       } catch (Exception e) {       
         e.printStackTrace();
       } 
@@ -62,7 +60,6 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
   } catch (SQLException e) {    
       e.printStackTrace();
   }
-  System.out.println("insert new Player");
     
   }
 
@@ -84,7 +81,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
     // TODO Auto-generated method stub
     try {
       selectPlayerName.setString(1, player.getName());
-      selectPlayerName.executeUpdate();
+      selectPlayerName.executeQuery();
       } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -100,8 +97,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
   } catch (SQLException e) {       
       e.printStackTrace();
   }
-  System.out.println("delete Player");
-}
+  }
 
   @Override
   public void changeName(Player neu, Player original) {
@@ -122,12 +118,13 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData{
     // TODO Auto-generated method stub
     
   }
+  
 
   @Override
   public void updatePlayer(Player player) {
     // TODO Auto-generated method stub
     
-    
   }
-  }
+  
 
+}

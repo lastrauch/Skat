@@ -1,22 +1,26 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
+import interfaces.GuiLogic;
 import javafx.fxml.FXML;
+import logic.GameController;
+import logic.GameMode;
 
 public class LobbyOnlineController {
 
   @FXML
   private JFXButton join;
-  @FXML
+  
   private GuiController main;
 
+  
   public LobbyOnlineController() {
     this.main = new GuiController();
   }
 
   @FXML
   public void join() {
-    main.displayInGame();
+    LoginController.interfGL.joinGame(main.getLoginCon().getUsername());
   }
 
   @FXML
@@ -32,6 +36,11 @@ public class LobbyOnlineController {
   @FXML
   public void accountSettings() {
     main.displayAccountSettings();
+  }
+
+  @FXML
+  public void startNewGame() {
+    main.displayGameSettings(GameMode.MULTIPLAYER);
   }
 
 }

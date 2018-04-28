@@ -9,9 +9,6 @@ import logic.Player;
 
 //Network to Logic, implemented by Logic
 public interface NetworkLogic {
-	//receive Answer to connection request
-	void receiveConnectionRequestAsnwer(boolean accepted);
-	
 	//receive Lobby
 	void receiveLobby(List<Player> player, GameSettings gs);
 	
@@ -25,7 +22,7 @@ public interface NetworkLogic {
 	void receiveStartGame();
 	
 	//receive Cards
-	void receiveCards(List<Card> cards);
+	void receiveCards(List<Card> cards, PlayState ps);
 	
 	//receive Bet
 	void receiveBet(Player player, int bet);
