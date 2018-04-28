@@ -443,7 +443,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       }
       // update Position
       Tools.updatePosition(player);
-      
+
       // check if player sits FOREHAND
       for (int i = 0; i < this.playState.getGroup().length; i++) {
         if (this.playState.getGroup()[i].getId() == this.player.getId()) {
@@ -463,10 +463,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // First shuffle cards
     Tools.shuffleCards(this.cards);
     // secound deal out cards
-    //this.dealOutCards();
+    // this.dealOutCards();
     Play.dealOutCards(Tools.getPlayingGroup(this.playState.getGroup()), cards, this.playState);
     this.netController.sendPlayState(playState); // hands are saved in playState
-    
+
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
     this.checkIfItsMyTurnAuction(this.player);
   }
@@ -744,6 +744,22 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
     this.playState = ps;
     this.inGameController.setPlaySettings(ps);
+
+    // damn did not see that its already written something like this ..
+    // // check if we start a new play
+    // if(this.checkIfAuctionIsOver(18)) {
+    //
+    // // get cards for gui
+    // this.player.setHand(Tools.searchPlayer(this.player, this.playState.getGroup()).getHand());
+    //
+    // // start new game on gui
+    // this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
+    //
+    // // evt. start new auction
+    // if(this.checkIfItsMyTurnAuction(this.player)) {
+    // this.inGameController.askForBet(18);
+    // }
+    // }
   }
 
   /*
@@ -808,21 +824,24 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.playState = ps;
     this.player.setHand((ArrayList<Card>) cards);
     this.player.sortHand(this.playState);
-    this.inGameController.updateHand(this.player.getHand());
+
+    this.inGameController.startPlay(this.player.getHand(), this.player.getPosition()); // i think
+                                                                                       // this has
+                                                                                       // to be done
+                                                                                       // here???
+    // this.inGameController.updateHand(this.player.getHand());
 
     if (this.player.getPosition() == Position.MIDDLEHAND) {
       // go with first bet
-      if(this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0])){
+      if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0])) {
         this.netController.bet(this.playState.getAuction().getPossibleBets()[0]);
       } else {
-        //pass
+        // pass
         this.netController.bet(-1);
       }
 
     }
   }
-
-  // fehlt: update position
   public void checkWhatHappensNext(Player playedLastCard) throws LogicException {
 
     Player trickWinner;

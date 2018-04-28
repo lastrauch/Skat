@@ -49,6 +49,14 @@ public class Tools {
     return null;
   }
 
+  public static Player searchPlayer(Player player, Player[] group) {
+    for (int i = 0; i < group.length; i++) {
+      if (player.equals(group[i])) {
+        return player;
+      }
+    }
+    return null;
+  }
 
   public static ArrayList<Card> sortHand(ArrayList<Card> hand, PlayState ps) {
     // possible different orders : colour, grand, null(nullouvert)
