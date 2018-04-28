@@ -146,22 +146,6 @@ public class Play {
   }
 
   /**
-   * shuffles the cards after they have been initialized
-   * 
-   * @author awesch
-   */
-  public void shuffleCards() {
-    int index;
-    Card temp = null;
-    for (int i = 0; i < 32; i++) {
-      index = (int) (Math.random() * 32);
-      temp = this.cards[i];
-      this.cards[i] = this.cards[index];
-      this.cards[index] = temp;
-    }
-  }
-
-  /**
    * deals out the cards on a basic level as it is done in the original game we did it like this
    * because we want it original intern as well
    * 
