@@ -24,6 +24,7 @@ public class ChooseGameController {
    */
   public ChooseGameController() {
     this.main = new GuiController();
+    GuiController.prevScreen = 1;
   }
 
   /**

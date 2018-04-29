@@ -84,6 +84,12 @@ public class GuiController extends Application {
 
   private static LeaderboardController leaderbordCon;
   private AnchorPane leaderbord;
+  
+  
+  
+  
+  protected static int prevScreen = 0;
+
 
 
   /** (non-Javadoc)
@@ -442,5 +448,6 @@ public class GuiController extends Application {
       e.printStackTrace();
     }
   }
+  
 
 }

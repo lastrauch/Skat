@@ -29,7 +29,6 @@ public class AccountSettingsController implements Initializable{
    * 
    * @author lstrauch
    */
-  private GuiController main;
   private String username = null;
   private Image img = null;
   
@@ -50,7 +49,6 @@ public class AccountSettingsController implements Initializable{
    *@author lstrauch
    */
   public AccountSettingsController() {
-    this.main = new GuiController();
   }
 
   /**
@@ -58,7 +56,7 @@ public class AccountSettingsController implements Initializable{
    */
   @FXML
   public void back() {
-    main.displayChooseGame();
+    LoginController.displayPrev();
   }
 
   /** (non-Javadoc)
@@ -82,10 +80,11 @@ public class AccountSettingsController implements Initializable{
   public void submit() {
     username = newName.getText();
     try {
-      if (!LoginController.interfGD.checkIfPlayerNew(username)) {
+      if (LoginController.interfGD.checkIfPlayerNew(username)) {
         System.out.println("acc: " + LoginController.interfGL.getPlayer().getName());
         if(username != null) {
           LoginController.interfGD.changeName(username, LoginController.interfGL.getPlayer());
+          LoginController.displayPrev();
         } 
       }
     } catch (SQLException e) {
@@ -122,6 +121,7 @@ public class AccountSettingsController implements Initializable{
       Logger.getLogger(CreateNewAccountController.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
+  
 
   
 }
