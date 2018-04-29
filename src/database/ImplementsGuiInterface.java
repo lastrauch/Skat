@@ -1,5 +1,8 @@
 package database;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +17,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   @Override
   public Image getImage(String colour, String number) {
     // TODO Auto-generated method stub
+
     Image img = null;
     try {    
       selectCard.setString(1, colour);
@@ -27,13 +31,14 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
         }
       } catch (Exception e) {       
         e.printStackTrace();
-      }
+      }    System.out.println("ImageCard");
     return img;
   }
 
   @Override
   public Image getImageDarker(String colour, String number) {
     // TODO Auto-generated method stub
+    System.out.println("ImageDarker");
     Image img = null;
     try {
       selectCardDarker.setString(1, colour);
@@ -41,7 +46,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
       selectCardDarker.execute();
       ResultSet rs = selectCardDarker.executeQuery();
       while(rs.next()) {
-      InputStream in = rs.getBinaryStream("image_Dark");    
+      InputStream in = rs.getBinaryStream("image");    
       img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
     }
       } catch (Exception e) {       
@@ -53,6 +58,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   @Override
   public void insertPlayer(Player player) {
     // TODO Auto-generated method stub
+    
     try {
       insertPlayer.setString(1, player.getName());
       insertPlayer.executeUpdate();
@@ -60,71 +66,79 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   } catch (SQLException e) {    
       e.printStackTrace();
   }
+    System.out.println("Spieler: " + player + "wurde neu hinzugefügt");
     
   }
 
   @Override
-  public boolean checkIfPlayerNew() throws SQLException {
-    // TODO Auto-generated method stub
-    int c = 0;
-    ResultSet rs = countPlayer.executeQuery();
-    c = rs.getInt(1);
-    if(c<=0) {
-      return true;
-      }else {
-    return false;
+  public boolean checkIfPlayerNew(String username){
+//     TODO Auto-generated method stub
+    try {
+      selectPlayerName.setString(1, username);
+      ResultSet rs = selectPlayerName.executeQuery();
+      if(rs.next()) {
+//        System.out.println("Player already exists");
+        return false;
+      }else{
+//        System.out.println("Player is new");
+        return true;
       }
-  }
+    }catch(SQLException e) {
+        e.printStackTrace();
+      }
+    return true;
+    }
+    
 
   @Override
   public Player getPlayer(Player player) {
     // TODO Auto-generated method stub
+   
     try {
       selectPlayerName.setString(1, player.getName());
       selectPlayerName.executeQuery();
       } catch (SQLException e) {
       e.printStackTrace();
     }
+    System.out.println(player +  " wird ausgegeben");
+  
     return player;
-  }
+  } 
 
   @Override
-  public void deletePlayer(Player player) {
+  public void changeName(String neu, Player original) {
     // TODO Auto-generated method stub
     try {
-      deletePlayer.setInt(1, player.getId());
-      deletePlayer.executeUpdate();
-  } catch (SQLException e) {       
-      e.printStackTrace();
-  }
-  }
-
-  @Override
-  public void changeName(Player neu, Player original) {
-    // TODO Auto-generated method stub
-    try {
-      changeName.setString(1, neu.getName());
+      changeName.setString(1, neu);
       changeName.setString(2, original.getName());      
       changeName.executeUpdate();
       
       } catch (SQLException e) {       
     e.printStackTrace();
-  }
+  }System.out.println("changeName");
     
   }
 
   @Override
   public void changeImage(Player player, Image image) {
     // TODO Auto-generated method stub
-    
-  }
-  
+        
+    try {
+      Image img = null;
+      changeImage.setString(1, player.getName());
+//      changeImage.setBlob(2, image.getString());
+      changeImage.execute();
+      ResultSet rs = changeImage.executeQuery();
+      while(rs.next()) {
+        InputStream in = rs.getBinaryStream("profilePicture");
+        img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
+      }
+    } catch (Exception e) {       
+      e.printStackTrace();
+        
 
-  @Override
-  public void updatePlayer(Player player) {
-    // TODO Auto-generated method stub
-    
+    }
   }
-  
-
 }
+
+
