@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DatabaseHandler extends Database{
-  
   protected static PreparedStatement insertPlayer;
   protected static PreparedStatement selectPlayerName;
   protected static PreparedStatement selectCard;
