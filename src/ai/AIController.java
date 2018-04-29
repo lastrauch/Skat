@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import interfaces.InGameInterface;
 import logic.Card;
+import logic.ClientLogic;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
@@ -68,7 +69,7 @@ public class AIController implements InGameInterface{
   }
 
   
-  public void updateHand(ArrayList<Card> hand) {
+  public void updateHand(List<Card> hand) {
     if(this.bot.getHand().size() == 0){
       this.cardProbability = General.initializeProbabilities(hand);
     }
@@ -86,7 +87,7 @@ public class AIController implements InGameInterface{
   }
 
   
-  public void updateTrick(ArrayList<Card> currentTrick) {
+  public void updateTrick(List<Card> currentTrick) {
     this.currentTrick = currentTrick;
   }
 
@@ -94,6 +95,37 @@ public class AIController implements InGameInterface{
   public void setGameSettings(GameSettings gs) {
     this.gs = gs;
   }
+  
+
+	@Override
+	public void stopGame(String reason) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void showWinnerTrick(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void showWinnerPlay(Player player1, Player player2) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void showWinnerGame(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void startPlay(List<Card> hand, Position position) {
+		// TODO Auto-generated method stub
+		
+	}
   
   public GameSettings getGameSettings(){
     return this.gs;
@@ -114,4 +146,5 @@ public class AIController implements InGameInterface{
   public double[][] getCardProbabilities(){
     return this.cardProbability;
   }
+
 }
