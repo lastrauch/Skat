@@ -1,6 +1,5 @@
 package interfaces;
 
-import java.awt.image.BufferedImage;
 import java.sql.SQLException;
 import javafx.scene.image.Image;
 import logic.Player;
