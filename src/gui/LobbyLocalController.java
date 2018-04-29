@@ -42,6 +42,7 @@ public class LobbyLocalController implements Initializable {
    */
   public LobbyLocalController() {
     this.main = new GuiController();
+    GuiController.prevScreen = 2;
   }
 
   /**

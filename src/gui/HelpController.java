@@ -95,7 +95,7 @@ public class HelpController {
    */
   @FXML
   public void back() {
-    main.displayChooseGame();
+    LoginController.displayPrev();
   }
 
 }

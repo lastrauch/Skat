@@ -21,6 +21,6 @@ public class SettingsController {
    */
   @FXML
   public void back() {
-    main.displayChooseGame();
+    LoginController.displayPrev();
   }
 }
