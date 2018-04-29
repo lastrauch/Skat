@@ -1,5 +1,7 @@
 package database;
 
+import logic.Player;
+
 public class Main extends ImplementsGuiInterface {
   public static ImplementsGuiInterface database;
 
