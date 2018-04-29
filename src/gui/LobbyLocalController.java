@@ -4,52 +4,100 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXRadioButton;
 import ai.BotDifficulty;
-import interfaces.GuiLogic;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
-import logic.GameController;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import logic.GameMode;
 
 public class LobbyLocalController implements Initializable {
 
+  /**
+   * @author lstrauch
+   */
   private GuiController main;
   private int bot;
+  private Label label = new Label();
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   private JFXRadioButton easy1, med1, dif1, easy2, med2, dif2, easy3, med3, dif3, dis3;
   @FXML
   Label bot1, bot2, bot3;
   @FXML
   Label l1, l2, l3;
+  @FXML
+  AnchorPane p;
 
+  /**
+   *@author lstrauch
+   */
   public LobbyLocalController() {
     this.main = new GuiController();
+    GuiController.prevScreen = 2;
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void settings() {
     main.displaySettings();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void help() {
     main.displayHelp();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void accountSettings() {
     main.displayAccountSettings();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void play() {
-    main.displayGameSettings(GameMode.SINGLEPLAYER);
+    boolean[] selected = new boolean[2];
+    /**
+     * Makes sure, that all important options are selected
+     */
+    if (easy1.isSelected() || med1.isSelected() || dif1.isSelected()) {
+      selected[0] = true;
+    } else {
+      System.out.println("Please Select the number orf rounds you wanna play");
+      if (!p.getChildren().contains(label)) {
+        displayLabel();
+      }
+    }
+    if (easy2.isSelected() || med2.isSelected() || dif2.isSelected()) {
+      selected[1] = true;
+    } else {
+      System.out.println("Please Select the number orf rounds you wanna play");
+      if (!p.getChildren().contains(label)) {
+        displayLabel();
+      }
+    }
+    
+    if(selected[0] == true && selected[1] == true) {
+      main.displayGameSettings(GameMode.SINGLEPLAYER);
+    }
   }
 
   @Override
@@ -61,6 +109,9 @@ public class LobbyLocalController implements Initializable {
   }
 
 
+  /**
+   * @author lstrauch
+   */
   public void buttonHandler() {
     easy1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
@@ -184,6 +235,10 @@ public class LobbyLocalController implements Initializable {
   }
 
 
+  /**
+   * @author lstrauch
+   * @return
+   */
   public boolean checkIfBotEnabled() {
     switch (bot) {
       case 1:
@@ -203,6 +258,9 @@ public class LobbyLocalController implements Initializable {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void alreadyClicked() {
     ToggleGroup group1 = new ToggleGroup();
     ToggleGroup group2 = new ToggleGroup();
@@ -221,6 +279,22 @@ public class LobbyLocalController implements Initializable {
     dif3.setToggleGroup(group3);
     dis3.setToggleGroup(group3);
 
+  }
+  
+  /**
+   * @author lstrauch
+   */
+  public void displayLabel() {
+    label.setLayoutX(497);
+    label.setLayoutY(206);
+    label.setPrefHeight(31);
+    label.setPrefWidth(758);
+    label.setText("You have to select at least 2 Computers!");
+    label.setFont(Font.font("System", FontWeight.BOLD, 15));
+    label.setStyle("-fx-background-color: white; -fx-text-fill: red");
+    label.setAlignment(Pos.CENTER);
+    
+    p.getChildren().add(label);
   }
 
 }

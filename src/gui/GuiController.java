@@ -13,6 +13,14 @@ import logic.GameMode;
 
 public class GuiController extends Application {
 
+  /**
+   * @author lstrauch
+   * 
+   * 
+   * 
+   * 
+   */
+  
   static Stage mprimaryStage;
   private AnchorPane root;
 
@@ -40,8 +48,6 @@ public class GuiController extends Application {
   private static GameSettingsController gameSettingsCon;
   private AnchorPane gameSettings = null;
 
-  private static BettingController bettingCon;
-  private AnchorPane betting = null;
 
   private static HelpController helpCon;
   private AnchorPane help = null;
@@ -78,8 +84,19 @@ public class GuiController extends Application {
 
   private static LeaderboardController leaderbordCon;
   private AnchorPane leaderbord;
+  
+  
+  
+  
+  protected static int prevScreen = 0;
 
 
+
+  /** (non-Javadoc)
+   * @see javafx.application.Application#start(javafx.stage.Stage)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void start(Stage primaryStage) {
     mprimaryStage = primaryStage;
@@ -100,6 +117,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayCreateNewAccount() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -114,6 +134,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayChooseGame() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -128,6 +151,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayLobbyLocal() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -142,6 +168,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayLobbyOnline() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -156,6 +185,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayAccountSettings() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -170,20 +202,10 @@ public class GuiController extends Application {
     }
   }
 
-  public void displayBetting() {
-    try {
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("Betting.fxml"));
-      this.betting = (AnchorPane) loader.load();
-      mprimaryStage.getScene().setRoot(betting);
 
-      bettingCon = loader.getController();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
-
+  /**
+   * @author lstrauch
+   */
   public void displayHelp() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -198,6 +220,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayHelp_Overview() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -212,6 +237,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayHelp_Cards() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -226,6 +254,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayHelp_Deal() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -240,6 +271,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayHelp_Auction() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -254,6 +288,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayHelp_PossibleContracts() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -268,6 +305,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayHelp_Play() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -282,6 +322,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayHelp_CalculateValue() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -296,6 +339,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayHelp_Scoring() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -310,6 +356,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayHelp_Variations() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -324,6 +373,10 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   * @param gm
+   */
   public void displayGameSettings(GameMode gm) {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -340,51 +393,16 @@ public class GuiController extends Application {
   }
 
 
+  /**
+   * @author lstrauch
+   */
   public void displayInGame() {
-    // Layout Links:
-    // Alle:
-    // Fith Width: 200
-    // Fit Hight: 150
-    // -1.: Layout X: -66; Layout Y: 4
-    // -2.: Layout X: -66; LayoutY: 33
-    // -3.,4.,5.,...: Layout X:-66; Layout Y: y+29;
-
-    // Layout rechts:
-    // -Layout X: 1214; Layout Y: 4
-    // Layout X: 1214; Layout Y: y+29;
-
-    // Layout eigene:
-    // Fit Widht: 182; Fit Hight; 227
-    // 125:527:-17.4; 225:504:-11.3; 325:489:-8.1; 425:474:-6.3;
-    // 525:470:-3.2; 625: 470:3.2; 725: 474:6.3; 825:
-    // 489:8.1; 925:504:11.3; 1025:530:17.4;
-
-    // Skatblatt links:
-    // FitWidth: 200; Fit Hight: 150
-    // Layout X: 6; Layout Y: 125
-
-    // Skatblatt rechts:
-    // 1136: 125
-
-    // Skatblatt Mitte:
-    // 557: 377
-
-    // Skatblatt:
-    // Größe: 132: 205
-    // Layout: 584:9:Rotation -6.3; 618:14:Rotation 0
-
-    // Stichblatt:
-    // Unten: Größe: 132:205; Layout: 619:60; Rotation: 91.7
-    // Mitte: Größe: 132:205; Layout: 590:44; Rotation: 14.9
-    // Unten: Größe: 132:205; Layout: 553:59; Rotation: 125
 
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("InGame.fxml"));
       Image jc = new Image(getClass().getResource("/Jhearts.jpg").toExternalForm());
 
-      // InGameController con = new InGameController(jc, jc, jc, jc, jc, jc, jc, jc, jc, jc);
-      // loader.setController(con);
       this.inGame = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(inGame);
 
@@ -397,6 +415,9 @@ public class GuiController extends Application {
 
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displaySettings() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -411,6 +432,9 @@ public class GuiController extends Application {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayLeaderboard() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -425,13 +449,5 @@ public class GuiController extends Application {
     }
   }
   
-  public LoginController getLoginCon() {
-    return loginCon;
-  }
-
-  // public static void main(String[] args) {
-  // Application.launch(args);
-  //
-  // }
 
 }

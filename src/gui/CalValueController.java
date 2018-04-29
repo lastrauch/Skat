@@ -14,10 +14,16 @@ public class CalValueController {
 
   private GuiController main;
 
+  /**
+   *@author lstrauch
+   */
   public CalValueController() {
     this.main = new GuiController();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void back() {
     main.displayHelp();
