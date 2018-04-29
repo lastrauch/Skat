@@ -5,19 +5,22 @@ import javafx.fxml.FXML;
 
 public class HelpCardsController {
 
-  @FXML
-  private JFXButton back1;
-  @FXML
-  private JFXButton back2;
-  @FXML
-  private JFXButton back3;
 
+  /**
+   * @author lstrauch
+   */
   private GuiController main;
 
+  /**
+   *@author lstrauch
+   */
   public HelpCardsController() {
     this.main = new GuiController();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void back() {
     main.displayHelp();

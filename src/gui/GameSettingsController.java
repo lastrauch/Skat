@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
-import interfaces.GuiLogic;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,6 +23,9 @@ import logic.GameSettings;
 
 public class GameSettingsController implements Initializable {
 
+  /**
+   * @author lstrauch
+   */
   private int[] rounds;
   private CountRule countRule;
   private boolean kontra;
@@ -43,6 +45,9 @@ public class GameSettingsController implements Initializable {
   private Label s = new Label();
   private Label p = new Label();
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   private JFXRadioButton r1, r3, r18, r36;
   @FXML
@@ -56,10 +61,16 @@ public class GameSettingsController implements Initializable {
   @FXML
   private JFXTextField message;
 
+  /**
+   *@author lstrauch
+   */
   public GameSettingsController() {
     this.guiCon = new GuiController();
   }
 
+  /**
+   * @author lstrauch
+   */
   public void listener() {
     this.numberOfRounds();
     this.countRule();
@@ -68,6 +79,9 @@ public class GameSettingsController implements Initializable {
     this.enableLimitedTime();
   }
 
+  /**
+   * @author lstrauch
+   */
   public void numberOfRounds() {
     rounds = new int[1];
     r1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -96,6 +110,9 @@ public class GameSettingsController implements Initializable {
     });
   }
 
+  /**
+   * @author lstrauch
+   */
   public void countRule() {
     final CountRule[] cr = new CountRule[1];
     sSys.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -118,6 +135,9 @@ public class GameSettingsController implements Initializable {
     });
   }
 
+  /**
+   * @author lstrauch
+   */
   public void numberOfPlayers() {
     n3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
@@ -133,6 +153,9 @@ public class GameSettingsController implements Initializable {
     });
   }
 
+  /**
+   * @author lstrauch
+   */
   public void enableKontra() {
     final boolean[] en = new boolean[1];
     en[0] = false;
@@ -144,6 +167,9 @@ public class GameSettingsController implements Initializable {
     });
   }
 
+  /**
+   * @author lstrauch
+   */
   public void enableLimitedTime() {
     final boolean[] enT = new boolean[1];
     enT[0] = false;
@@ -162,11 +188,18 @@ public class GameSettingsController implements Initializable {
     });
   }
 
+  /**
+   * @author lstrauch
+   * @return
+   */
   public int setLimitedTime() {
     String s = sec.getText();
     return Integer.parseInt(s);
   }
 
+  /**
+   * @author lstrauch
+   */
   public void showSetTime() {
     Label set = new Label();
     HBox box = new HBox();
@@ -201,10 +234,17 @@ public class GameSettingsController implements Initializable {
   }
 
 
+  /**
+   * @author lstrauch
+   * @param gm
+   */
   public void setMode(GameMode gm) {
     this.gm = gm;
   }
 
+  /**
+   * @author lstrauch
+   */
   public void submitOn() {
     /**
      * Makes sure, that all important options are selected
@@ -253,6 +293,9 @@ public class GameSettingsController implements Initializable {
     
   }
 
+  /**
+   * @author lstrauch
+   */
   public void submitOf() {
     /**
      * Makes sure, that all important options are selected
@@ -300,6 +343,9 @@ public class GameSettingsController implements Initializable {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void screenChooser() {
     if (gm.equals(GameMode.MULTIPLAYER)) {
       submitOn();
@@ -308,6 +354,11 @@ public class GameSettingsController implements Initializable {
     }
   }
 
+  /** (non-Javadoc)
+   * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
@@ -331,6 +382,9 @@ public class GameSettingsController implements Initializable {
     this.listener();
   }
 
+  /**
+   * @author lstrauch
+   */
   public void allButtonsSet() {
     if (r1.isSelected() || r3.isSelected() || r18.isSelected() || r36.isSelected()) {
       selected[0] = true;
@@ -346,6 +400,9 @@ public class GameSettingsController implements Initializable {
     }
   }
   
+  /**
+   * @author lstrauch
+   */
   public void displayLabelRounds() {
     r.setLayoutX(10);
     r.setLayoutY(70);
@@ -358,6 +415,9 @@ public class GameSettingsController implements Initializable {
     
     pane.getChildren().add(r);
   }
+  /**
+   * @author lstrauch
+   */
   public void displayLabelSystem() {
     s.setLayoutX(10);
     s.setLayoutY(140);
@@ -371,6 +431,9 @@ public class GameSettingsController implements Initializable {
     pane.getChildren().add(s);
     
   }
+  /**
+   * @author lstrauch
+   */
   public void displayLabelPlayers() {
     p.setLayoutX(10);
     p.setLayoutY(217);
