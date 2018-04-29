@@ -95,6 +95,8 @@ public class Client extends Thread{
 						System.out.println("Message from server is invalid!");
 					}
 				}
+	   }catch(ArrayIndexOutOfBoundsException e){
+		   e.printStackTrace();
 	   }catch(ClassNotFoundException e){
 		   e.printStackTrace();
 	   }catch(IOException e){
