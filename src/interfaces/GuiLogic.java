@@ -1,6 +1,6 @@
 package interfaces;
 
-import java.awt.List;
+import java.util.List;
 import java.util.ArrayList;
 import ai.BotDifficulty;
 import javafx.scene.image.Image;
@@ -12,18 +12,6 @@ import logic.Player;
 import network.server.Server;
 
 // GUI to Logic, implemented by Logic
-/**
- * @author Larissa
- *
- */
-/**
- * @author Larissa
- *
- */
-/**
- * @author Larissa
- *
- */
 public interface GuiLogic {
 
   /**
@@ -78,7 +66,7 @@ public interface GuiLogic {
    * supposed to  skat the cards from jack to trump to lowest value
    * @return
    */
-  public ArrayList<Card> sortHand(PlayState ps, ArrayList<Card> hand); 
+  public ArrayList<Card> sortHand(PlayState ps, List<Card> cardlist); 
   
   /**
    * starts the game afte SinglePlayer Lobby
