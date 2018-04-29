@@ -207,22 +207,33 @@ public class GameSettingsController implements Initializable {
 
   public void submitOn() {
     /**
-     * Makes sure, that all importan options are selected
+     * Makes sure, that all important options are selected
      */
     if (r1.isSelected() || r3.isSelected() || r18.isSelected() || r36.isSelected()) {
       selected[0] = true;
+      pane.getChildren().remove(r);
     }else {
       System.out.println("Please Select the number orf rounds you wanna play");
+      if(!pane.getChildren().contains(r)) {
+        displayLabelRounds();
+      }
     }
     if (sSys.isSelected() || bSys.isSelected() || nSys.isSelected()) {
       selected[1] = true;
+      pane.getChildren().remove(s);
     }else {
       System.out.println("Please Select the System you wanna play");
+      if(!pane.getChildren().contains(s)) {
+        displayLabelSystem();
+      }
     }
     if (n3.isSelected() || n4.isSelected()) {
       selected[2] = true;
+      pane.getChildren().remove(p);
     }else {
-      System.out.println("Please Select the number of players you wanna play with");
+      if(!pane.getChildren().contains(p)) {
+        displayLabelPlayers();
+      }
     }
     
     
@@ -284,8 +295,8 @@ public class GameSettingsController implements Initializable {
         gs.setTimeLimit(setLimitedTime());
       }
       ms = message.getText();
-      guiCon.displayInGame();
-//      LoginController.interfGL.startGame(gs);
+//      guiCon.displayInGame();
+      LoginController.interfGL.startGame(gs);
     }
   }
 
