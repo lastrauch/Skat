@@ -10,11 +10,8 @@ public class DatabaseHandler extends Database{
   protected static PreparedStatement selectPlayerName;
   protected static PreparedStatement selectCard;
   protected static PreparedStatement selectCardDarker;
-  protected static PreparedStatement deletePlayer;
   protected static PreparedStatement changeName;
   protected static PreparedStatement changeImage;
-  protected static PreparedStatement checkPlayer;
-  protected static PreparedStatement countPlayer;
   
   private Connection c = null;
   
@@ -33,11 +30,7 @@ public class DatabaseHandler extends Database{
         
         selectCard = c.prepareStatement("SELECT * FROM Cards WHERE (colour LIKE ?) AND (number LIKE ?);");
         
-        selectCardDarker = c.prepareStatement("SELECT * FROM CardsDark WHERE (colour LIKE ?) AND (number LIKE ?);");
-                
-        deletePlayer = c.prepareStatement("DELETE FROM Player WHERE (id LIKE ?);");        
-        
-        countPlayer = c.prepareStatement("SELECT COUNT (name) FROM Player;");
+        selectCardDarker = c.prepareStatement("SELECT * FROM CardsDark WHERE (colour LIKE ?) AND (number LIKE ?);");      
         
         changeName = c.prepareStatement("UPDATE Player SET name = ? WHERE (name LIKE ?);");
         
