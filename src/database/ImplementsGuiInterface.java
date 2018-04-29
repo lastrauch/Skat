@@ -1,8 +1,5 @@
 package database;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -77,10 +74,8 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
       selectPlayerName.setString(1, username);
       ResultSet rs = selectPlayerName.executeQuery();
       if(rs.next()) {
-//        System.out.println("Player already exists");
         return false;
       }else{
-//        System.out.println("Player is new");
         return true;
       }
     }catch(SQLException e) {
@@ -122,23 +117,27 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   @Override
   public void changeImage(Player player, Image image) {
     // TODO Auto-generated method stub
-        
-    try {
-      Image img = null;
-      changeImage.setString(1, player.getName());
-//      changeImage.setBlob(2, image.getString());
-      changeImage.execute();
-      ResultSet rs = changeImage.executeQuery();
-      while(rs.next()) {
-        InputStream in = rs.getBinaryStream("profilePicture");
-        img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
-      }
-    } catch (Exception e) {       
-      e.printStackTrace();
-        
+    System.out.println("dksjkdj");
+//    Image img;
+//    try {
+//      
+//      changeImage.setString(1, player.getName());
+//      changeImage.setString(2, image.getUrl());
+//      changeImage.execute();
+//      ResultSet rs = changeImage.executeQuery();
+//      while(rs.next()) {
+//        InputStream in = rs.getBinaryStream("profilePicture");
+//        img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
+//      }
+//    } catch (Exception e) {       
+//      e.printStackTrace();
+//  }
 
+  
     }
   }
-}
+
+
+
 
 

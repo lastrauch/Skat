@@ -1,12 +1,13 @@
 package database;
 
+
 import java.awt.Image;
+import java.io.File;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.ImageView;
 import logic.Player;
 
 public class Main extends ImplementsGuiInterface{
@@ -16,26 +17,13 @@ public class Main extends ImplementsGuiInterface{
     
     
     // TODO Auto-generated method stub
-//    Player a = new Player("gökcen");
-    
-//    JFrame frame = new JFrame();
-//    ImageIcon icon = new ImageIcon("NatGeo01.jpg");
-//    JLabel label = new JLabel(icon);
-//    frame.add(label);
-//    frame.setDefaultCloseOperation
-//           (JFrame.EXIT_ON_CLOSE);
-//    frame.pack();
-//    frame.setVisible(true);
-//    Image img = new Image("NatGeo01.jpg");
-//    Player b = new Player("jenni");
-//   database = new ImplementsGuiInterface();
-//   database.checkIfPlayerNew("duygu");
-//   database.changeImage(a,);
-//    database.insertPlayer(a);
-//    database.getPlayer(b);
-//    database.changeName("lisa", a);
-//    database.getImage("hearts", "seven");
-//    database.getImageDarker("hearts", "eight");
+
+    Image imae = new ImageIcon("grey.jpg").getImage();
+    Player a = new Player("bb");
+    database.insertPlayer(a);
+    //database.changeImage(a,imae);
+
+
 
 
   }
