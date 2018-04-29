@@ -26,7 +26,7 @@ public class LoginController implements Initializable {
   private GuiController main;
   protected static String username;
   protected static ImplementsLogicGui implLG = new ImplementsLogicGui();
-  protected GuiData interfGD = new ImplementsGuiInterface();
+  protected static GuiData interfGD = new ImplementsGuiInterface();
   protected static GuiLogic interfGL = new GameController(implLG);
   private Label noUsername = new Label();
  
@@ -83,7 +83,9 @@ public class LoginController implements Initializable {
         main.displayChooseGame();
         interfGL.login(username, null);
       } else {
-        displayNoUser();
+        if(!pane.getChildren().contains(noUsername)) {
+          displayNoUser(); 
+        }
       }
     } catch (SQLException e) {
       // TODO Auto-generated catch block
