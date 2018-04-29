@@ -5,15 +5,22 @@ import javafx.fxml.FXML;
 
 public class HelpDealController {
 
-  @FXML
-  private JFXButton back;
 
+  /**
+   * @author lstrauch
+   */
   private GuiController main;
 
+  /**
+   *@author lstrauch
+   */
   public HelpDealController() {
     this.main = new GuiController();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void back() {
     main.displayHelp();

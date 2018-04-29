@@ -18,10 +18,16 @@ import logic.GameMode;
 
 public class LobbyLocalController implements Initializable {
 
+  /**
+   * @author lstrauch
+   */
   private GuiController main;
   private int bot;
   private Label label = new Label();
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   private JFXRadioButton easy1, med1, dif1, easy2, med2, dif2, easy3, med3, dif3, dis3;
   @FXML
@@ -31,25 +37,40 @@ public class LobbyLocalController implements Initializable {
   @FXML
   AnchorPane p;
 
+  /**
+   *@author lstrauch
+   */
   public LobbyLocalController() {
     this.main = new GuiController();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void settings() {
     main.displaySettings();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void help() {
     main.displayHelp();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void accountSettings() {
     main.displayAccountSettings();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void play() {
     boolean[] selected = new boolean[2];
@@ -87,6 +108,9 @@ public class LobbyLocalController implements Initializable {
   }
 
 
+  /**
+   * @author lstrauch
+   */
   public void buttonHandler() {
     easy1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
@@ -210,6 +234,10 @@ public class LobbyLocalController implements Initializable {
   }
 
 
+  /**
+   * @author lstrauch
+   * @return
+   */
   public boolean checkIfBotEnabled() {
     switch (bot) {
       case 1:
@@ -229,6 +257,9 @@ public class LobbyLocalController implements Initializable {
     }
   }
 
+  /**
+   * @author lstrauch
+   */
   public void alreadyClicked() {
     ToggleGroup group1 = new ToggleGroup();
     ToggleGroup group2 = new ToggleGroup();
@@ -249,6 +280,9 @@ public class LobbyLocalController implements Initializable {
 
   }
   
+  /**
+   * @author lstrauch
+   */
   public void displayLabel() {
     label.setLayoutX(497);
     label.setLayoutY(206);
