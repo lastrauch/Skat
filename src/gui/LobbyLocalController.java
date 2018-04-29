@@ -13,6 +13,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import logic.GameController;
 import logic.GameMode;
 
@@ -27,6 +28,8 @@ public class LobbyLocalController implements Initializable {
   Label bot1, bot2, bot3;
   @FXML
   Label l1, l2, l3;
+  @FXML
+  AnchorPane p;
 
   public LobbyLocalController() {
     this.main = new GuiController();
@@ -49,6 +52,36 @@ public class LobbyLocalController implements Initializable {
 
   @FXML
   public void play() {
+    boolean[] selected = new boolean[3];
+    /**
+     * Makes sure, that all important options are selected
+     */
+    if (easy1.isSelected() || med1.isSelected() || dif1.isSelected()) {
+      selected[0] = true;
+      p.getChildren().remove(r);
+    }else {
+      System.out.println("Please Select the number orf rounds you wanna play");
+      if(!p.getChildren().contains(r)) {
+        displayLabelRounds();
+      }
+    }
+    if (sSys.isSelected() || bSys.isSelected() || nSys.isSelected()) {
+      selected[1] = true;
+      pane.getChildren().remove(s);
+    }else {
+      System.out.println("Please Select the System you wanna play");
+      if(!pane.getChildren().contains(s)) {
+        displayLabelSystem();
+      }
+    }
+    if (n3.isSelected() || n4.isSelected()) {
+      selected[2] = true;
+      pane.getChildren().remove(p);
+    }else {
+      if(!pane.getChildren().contains(p)) {
+        displayLabelPlayers();
+      }
+    }
     main.displayGameSettings(GameMode.SINGLEPLAYER);
   }
 
