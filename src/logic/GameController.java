@@ -261,15 +261,15 @@ public class GameController implements GuiLogic {
     return lobbyInfo;
   }
 
-  @Override
-  public ArrayList<Card> sortHand(PlayState ps, ArrayList<Card> hand) {
-    return Tools.sortHand(hand, ps);
-  }
-
-
 
   @Override
   public Player getPlayer() {
     return this.group.get(0);
+  }
+
+  @Override
+  public ArrayList<Card> sortHand(PlayState ps, List<Card> cardlist) {
+    ArrayList<Card> hand = (ArrayList<Card>) cardlist;
+    return Tools.sortHand(hand, ps);
   }
 }
