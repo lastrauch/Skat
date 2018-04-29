@@ -216,6 +216,7 @@ public class GameController implements GuiLogic {
     this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
   }
 
+  
 
   @Override
   public void startGame(GameSettings gs) {
