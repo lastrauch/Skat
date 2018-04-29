@@ -28,12 +28,19 @@ import logic.Player;
 
 public class CreateNewAccountController {
 
+  /**
+   * @author lstrauch
+   */
   private String username;
   protected ImplementsLogicGui implLG;
   private GuiData interfGD = new ImplementsGuiInterface();
   private GuiController main;
   private Label userExists = new Label();
   private Image ppicture = null;
+  
+  /**
+   * @author lstrauch
+   */
   @FXML
   private JFXTextField newUsername;
   @FXML
@@ -44,11 +51,17 @@ public class CreateNewAccountController {
   protected ImageView pp;
 
 
+  /**
+   *@author lstrauch
+   */
   public CreateNewAccountController() {
     this.main = new GuiController();
     this.implLG = new ImplementsLogicGui();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void submit() {
     this.username = newUsername.getText();
@@ -77,6 +90,9 @@ public class CreateNewAccountController {
     LoginController.interfGL.login(username, ppicture);
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayUserExists() {
     userExists.setLayoutX(44);
     userExists.setLayoutY(135);
@@ -90,6 +106,9 @@ public class CreateNewAccountController {
     pane.getChildren().add(userExists);
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void uploadPicture() {
     FileChooser fileChooser = new FileChooser();

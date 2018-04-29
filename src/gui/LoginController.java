@@ -20,16 +20,21 @@ import logic.GameController;
 
 public class LoginController implements Initializable {
 
+  /**
+   * @author lstrauch
+   */
   private GuiController main;
-  protected String username;
+  protected static String username;
   protected static ImplementsLogicGui implLG = new ImplementsLogicGui();
-  protected GuiData implGD = new ImplementsGuiInterface();
+  protected GuiData interfGD = new ImplementsGuiInterface();
   protected static GuiLogic interfGL = new GameController(implLG);
-  
   private Label noUsername = new Label();
  
 
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   JFXTextField textField;
   @FXML
@@ -37,49 +42,60 @@ public class LoginController implements Initializable {
   @FXML
   private AnchorPane pane;
 
+  
+  /**
+   *@author lstrauch
+   */
   public LoginController() {
     this.main = new GuiController();
   }
 
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void neuerAccount() {
-    // Settingsfeld für neuen Benutzernamen anzeigen
     main.displayCreateNewAccount();
-
   }
 
+  /** (non-Javadoc)
+   * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // TODO Auto-generated method stub
     setImages();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void login() {
     System.out.println("Tada");
     username = textField.getText();
     
-    //Auf Duygus Ändrungen warten
-//    try {
-//      if(!implGD.checkIfPlayerNew(username)) {
-//        main.displayChooseGame();
-//        gameCon = new GameController(implLG);
-//        GuiLogic interfaceL = gameCon;
-//        interfaceL.login(username, null);
-//      } else {
-//        displayNoUser();
-//      }
-//    } catch (SQLException e) {
-//      // TODO Auto-generated catch block
-//      e.printStackTrace();
-//    }
+    try {
+      if (!interfGD.checkIfPlayerNew(username)) {
+        main.displayChooseGame();
+        interfGL.login(username, null);
+      } else {
+        displayNoUser();
+      }
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     
-    main.displayChooseGame();
-    System.out.println(interfGL.toString());
-    interfGL.login(username, null);
+//    main.displayChooseGame();
   }
 
+  /**
+   * @author lstrauch
+   */
   public void setImages() {
     GuiData inte = new ImplementsGuiInterface();
     jclubs.setImage(inte.getImage("clubs", "jack"));
@@ -89,9 +105,9 @@ public class LoginController implements Initializable {
 
   }
 
-  public String getUsername() {
-    return username;
-  }
+  /**
+   * @author lstrauch
+   */
   public void displayNoUser() {
     noUsername.setLayoutX(14);
     noUsername.setLayoutY(375);

@@ -23,27 +23,49 @@ import logic.Player;
 
 public class AccountSettingsController implements Initializable{
 
+
+  /**
+   * 
+   * @author lstrauch
+   */
   private GuiController main;
   private  GuiData interfGD = new ImplementsGuiInterface();
   private String username = null;
   private Image img = null;
   
+  
+  /**
+   * 
+   * @author lstrauch
+   */
   @FXML
   private JFXTextField newName;
   @FXML
   private JFXButton newPP;
   @FXML
   private ImageView pp;
+  
 
+  /**
+   *@author lstrauch
+   */
   public AccountSettingsController() {
     this.main = new GuiController();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void back() {
     main.displayChooseGame();
   }
 
+  /** (non-Javadoc)
+   * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
+   * 
+   * @author lstrauch
+   **/
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
@@ -53,6 +75,9 @@ public class AccountSettingsController implements Initializable{
     }
   }
   
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void submit() {
     username = newName.getText();
@@ -67,6 +92,9 @@ public class AccountSettingsController implements Initializable{
     }
   }
   
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void uploadPicture() {
     FileChooser fileChooser = new FileChooser();

@@ -11,7 +11,6 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import database.ImplementsGuiInterface;
 import interfaces.GuiData;
-import interfaces.GuiLogic;
 import interfaces.InGameInterface;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,6 +39,8 @@ public class InGameController implements Initializable, InGameInterface {
 
   /**
    * Initalisierung des Bettingscreens
+   * 
+   * @author lstrauch
    */
   AnchorPane paneBet = new AnchorPane();
   HBox box = new HBox();
@@ -50,6 +51,7 @@ public class InGameController implements Initializable, InGameInterface {
 
   /**
    * Initialize what chooseTrumPScreen
+   * @author lstrauch
    */
   AnchorPane paneAuc = new AnchorPane();
   JFXButton diamonds = new JFXButton();
@@ -97,12 +99,6 @@ public class InGameController implements Initializable, InGameInterface {
   Card p1 = new Card(Colour.CLUBS, Number.SEVEN);
   Card p2 = new Card(Colour.CLUBS, Number.EIGHT);
   Boolean[] da = new Boolean[2];
-
-
-  /**
-  * 
-  */
-  private PlayState ps;
 
 
 
@@ -164,6 +160,12 @@ public class InGameController implements Initializable, InGameInterface {
     // this.implements = new ImplementsInGameInterface();
   }
 
+  /** (non-Javadoc)
+   * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
+   * 
+   * initializes attributes and enabeles Buttonlistener
+   * @author lstrauch
+   **/
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // TODO Auto-generated method stub
@@ -241,6 +243,7 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * Deletes the pane on the mainpane, so we can display the new one
    * 
+   * @author lstrauch
    * @param tpane
    */
   public void deletePane(AnchorPane tpane) {
@@ -249,6 +252,10 @@ public class InGameController implements Initializable, InGameInterface {
 
 
 
+  /**
+   * 
+   * @author lstrauch
+   */
   public void showChat() {
     JFXTextField rMes = new JFXTextField();
     rMes.setText((LoginController.interfGL.getChatText()));
@@ -256,6 +263,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+  /**
+   * @author lstrauch
+   */
   public void sendChat() {
     String message;
     message = textM.getText();
@@ -277,6 +287,11 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    */
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#startPlay(java.util.List, logic.Position)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void startPlay(List<Card> hand, Position position) {
     // TODO Auto-generated method stub
@@ -307,6 +322,11 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#showSecoundsLeftToPlayCard(int)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void showSecoundsLeftToPlayCard(int seconds) {
     // TODO Auto-generated method stub
@@ -314,6 +334,11 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#setPlaySettings(logic.PlayState)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void setPlaySettings(PlayState ps) {
     // TODO Auto-generated method stub
@@ -325,12 +350,22 @@ public class InGameController implements Initializable, InGameInterface {
 
 
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#askToPlayCard()
+   * 
+   * @author lstrauch
+   */
   @Override
   public int askToPlayCard() {
     // TODO Auto-generated method stub
     return MouseHandler();
   }
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void askToTakeUpSkat(PlayState ps) {
     // TODO Auto-generated method stub
@@ -340,6 +375,11 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#askForBet(int)
+   * 
+   * @author lstrauch
+   */
   @Override
   public boolean askForBet(int bet) {
     // TODO Auto-generated method stub
@@ -358,6 +398,11 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#updateHand(java.util.List)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void updateHand(List<Card> list) {
     // TODO Auto-generated method stub
@@ -366,6 +411,11 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#updateTrick(java.util.List)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void updateTrick(List<Card> currentTrick) {
     // TODO Auto-generated method stub
@@ -383,24 +433,44 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#stopGame(java.lang.String)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void stopGame(String reason) {
     // TODO Auto-generated method stub
 
   }
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#showWinnerTrick(logic.Player)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void showWinnerTrick(Player player) {
     // TODO Auto-generated method stub
 
   }
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#showWinnerPlay(logic.Player, logic.Player)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void showWinnerPlay(Player player1, Player player2) {
     // TODO Auto-generated method stub
 
   }
 
+  /** (non-Javadoc)
+   * @see interfaces.InGameInterface#showWinnerGame(logic.Player)
+   * 
+   * @author lstrauch
+   */
   @Override
   public void showWinnerGame(Player player) {
     // TODO Auto-generated method stub
@@ -425,6 +495,8 @@ public class InGameController implements Initializable, InGameInterface {
 
   /**
    * Display Auction part
+   * 
+   * @author lstrauch
    */
   public void displayAuctionScreen() {
     paneBet.setLayoutX(475);
@@ -483,7 +555,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * display AuctionWinnerPart
+   * @author lstrauch
    */
   public void displayAuctionWinnerScreen() {
     paneAuc.setPrefHeight(315);
@@ -604,7 +676,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * display "Want to take the Skat?"
+   * @author lstrauch
    */
   public void displayWannaTakeSkat() {
     skatPane.setPrefHeight(315);
@@ -666,6 +738,10 @@ public class InGameController implements Initializable, InGameInterface {
   /**
    * display part in which the player can choose the cards he wants to put on the skat
    */
+  /**
+   * @author lstrauch
+   * @param ps
+   */
   public void displaySwitchSkat(PlayState ps) {
     handPane.setPrefHeight(315);
     handPane.setPrefWidth(582);
@@ -692,6 +768,9 @@ public class InGameController implements Initializable, InGameInterface {
     mainPane.getChildren().add(handPane);
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayChatScreenOpen() {
     chatM.setPrefWidth(1280);
     chatM.setPrefHeight(97);
@@ -732,6 +811,9 @@ public class InGameController implements Initializable, InGameInterface {
     s3.setLayoutY(200);
   }
 
+  /**
+   * @author lstrauch
+   */
   public void displayChatClosed() {
     chatM.setPrefWidth(1280);
     chatM.setPrefHeight(35);
@@ -788,26 +870,14 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    */
 
-  @FXML
-  public void settings() {
-    main.displaySettings();
-  }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void help() {
     main.displayHelp();
   }
-
-  @FXML
-  public void accountSettings() {
-    main.displayAccountSettings();
-  }
-
-  @FXML
-  public void back() {
-    main.displayChooseGame();
-  }
-
 
 
   /**
@@ -840,11 +910,6 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @author lstrauch
    */
-
-  public void Listener() {
-    this.MouseHandler();
-    this.ButtonListener();
-  }
 
   public int MouseHandler() {
     final int[] ret = new int[1];
@@ -955,8 +1020,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * ButtonListener Betting-buttons
-   * 
+   * @author lstrauch
    * @return
    */
   public boolean ButtonListener() {
@@ -994,6 +1058,10 @@ public class InGameController implements Initializable, InGameInterface {
   /**
    * ButtonListener AuctionWinnerScree-buttons
    * 
+   * @param ps
+   */
+  /**
+   * @author lstrauch
    * @param ps
    */
   public void ButtonListenerPlaySettings(PlayState ps) {
@@ -1063,6 +1131,10 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @param ps
    */
+  /**
+   * @author lstrauch
+   * @param ps
+   */
   public void ButtonListenrWantSkat(PlayState ps) {
     yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
@@ -1098,6 +1170,9 @@ public class InGameController implements Initializable, InGameInterface {
   /**
    * Buttonlistener Chat-button
    */
+  /**
+   * @author lstrauch
+   */
   public void chatButtonListener() {
     sendB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
@@ -1122,6 +1197,10 @@ public class InGameController implements Initializable, InGameInterface {
 
   /**
    * ButtonListener to switch Skat
+   */
+  /**
+   * @author lstrauch
+   * @param ps
    */
   public void switchSkatListener(PlayState ps) {
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1554,6 +1633,11 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
+  /**
+   * @author lstrauch
+   * @param anz
+   * @param cardlist2
+   */
   public void displayCards(int anz, List<Card> cardlist2) {
     switch (anz) {
       case (10):
