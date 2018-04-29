@@ -124,7 +124,7 @@ public class Client extends Thread{
 	  						 logic.receivePlayState(msg6.getPlayState());
 	  						 break;
 	  	case DEALT_CARDS : DealtCards_Msg msg7 = (DealtCards_Msg) message;
-	  					   logic.receiveCards(msg7.getCards());
+	  					   logic.receiveCards(msg7.getCards(), msg7.getPlayState());
 	  					   break;
 	  	case LOBBY : Lobby_Msg msg9 = (Lobby_Msg) message;
 	  				 logic.receiveLobby(msg9.getPlayer(), msg9.getGameSettings());

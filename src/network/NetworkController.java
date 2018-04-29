@@ -91,8 +91,8 @@ public class NetworkController implements LogicNetwork{
 		this.client.sendMessage(msg);
 	}
 
-  	public void dealCards(Player player, List<Card> cards) {
-  		DealtCards_Msg msg = new DealtCards_Msg(player, cards);
+  	public void dealCards(Player player, List<Card> cards, PlayState ps) {
+  		DealtCards_Msg msg = new DealtCards_Msg(player, cards, ps);
   		this.client.sendMessage(msg);
   	}
 
