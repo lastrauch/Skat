@@ -120,6 +120,12 @@ public class AIController implements InGameInterface{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void startPlay(List<Card> hand, Position position) {
+		// TODO Auto-generated method stub
+		
+	}
   
   public GameSettings getGameSettings(){
     return this.gs;
