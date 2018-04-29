@@ -46,6 +46,8 @@ public interface GuiData {
    * @return
    */
   public Player getPlayer(Player player);
+  
+  public Player getPlayer(String playername);
 
   /**
    * Brauch ich gar nicht

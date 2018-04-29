@@ -26,7 +26,7 @@ public class LoginController implements Initializable {
   private GuiController main;
   protected static String username;
   protected static ImplementsLogicGui implLG = new ImplementsLogicGui();
-  protected GuiData implGD = new ImplementsGuiInterface();
+  protected GuiData interfGD = new ImplementsGuiInterface();
   protected static GuiLogic interfGL = new GameController(implLG);
   private Label noUsername = new Label();
  
@@ -78,24 +78,19 @@ public class LoginController implements Initializable {
     System.out.println("Tada");
     username = textField.getText();
     
-    //Auf Duygus Ändrungen warten
-//    try {
-//      if(!implGD.checkIfPlayerNew(username)) {
-//        main.displayChooseGame();
-//        gameCon = new GameController(implLG);
-//        GuiLogic interfaceL = gameCon;
-//        interfaceL.login(username, null);
-//      } else {
-//        displayNoUser();
-//      }
-//    } catch (SQLException e) {
-//      // TODO Auto-generated catch block
-//      e.printStackTrace();
-//    }
+    try {
+      if (!interfGD.checkIfPlayerNew(username)) {
+        main.displayChooseGame();
+        interfGL.login(username, null);
+      } else {
+        displayNoUser();
+      }
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     
-    main.displayChooseGame();
-    System.out.println(interfGL.toString());
-    interfGL.login(username, null);
+//    main.displayChooseGame();
   }
 
   /**
