@@ -272,4 +272,10 @@ public class GameController implements GuiLogic {
     ArrayList<Card> hand = (ArrayList<Card>) cardlist;
     return Tools.sortHand(hand, ps);
   }
+
+  @Override
+  public void setUsername(String username) {
+    this.group.get(0).setName(username);
+    
+  }
 }
