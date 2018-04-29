@@ -1,5 +1,6 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import interfaces.InGameInterface;
@@ -8,7 +9,11 @@ import interfaces.LogicGui;
 import interfaces.LogicNetwork;
 import javafx.scene.image.Image;
 
-public class Player {
+public class Player implements Serializable{
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private int id;
   private String name;
   private Image img;
@@ -123,7 +128,7 @@ public class Player {
     this.position = position;
   }
 
-  public void setHand(ArrayList<Card> hand) {
+  public void setHand(List<Card> hand) {
     this.hand = hand;
   }
 

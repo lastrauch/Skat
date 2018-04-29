@@ -49,6 +49,14 @@ public class Tools {
     return null;
   }
 
+  public static Player searchPlayer(Player player, Player[] group) {
+    for (int i = 0; i < group.length; i++) {
+      if (player.equals(group[i])) {
+        return player;
+      }
+    }
+    return null;
+  }
 
   public static ArrayList<Card> sortHand(ArrayList<Card> hand, PlayState ps) {
     // possible different orders : colour, grand, null(nullouvert)
@@ -174,11 +182,92 @@ public class Tools {
    * @param start
    * @param length
    */
-  public static void addToHand(ArrayList<Card> cardsToAdd, List<Card> hand2, int start, int length) {
+  public static void addToHand(ArrayList<Card> cardsToAdd, List<Card> hand2, int start,
+      int length) {
     int counter = 0;
     for (int i = start; i < start + length; i++) {
       hand2.set(i, cardsToAdd.get(counter));
       counter++;
     }
   }
+
+  /**
+   * position (forehand, middlehand, rearhand) changes ater every play
+   * 
+   * @author sandfisc
+   */
+  public static void updatePosition(Player[] group) {
+    int pointerForehand = searchForehand(group);
+
+    group[pointerForehand].setPosition(Position.FOREHAND);
+    group[((pointerForehand + 1) % group.length)].setPosition(Position.MIDDLEHAND);
+    group[((pointerForehand + 2) % group.length)].setPosition(Position.REARHAND);
+
+
+    if (group.length == 4) {
+      group[((pointerForehand + 3) % group.length)].setPosition(Position.DEALER);
+    }
+  }  
+  
+  public static void updatePosition(List<Player> group) {
+    Player[] groupArray = new Player[group.size()];
+    
+    for(int i = 0; i < group.size(); i++) {
+      groupArray[i] = group.get(i);
+    }
+    
+    updatePosition(groupArray);
+    
+    for(int i = 0; i < group.size(); i++) {
+      group.set(i, groupArray[i]);
+    }
+  }
+
+  public static int searchForehand(Player[] group) {
+    for (int i = 0; i < group.length; i++) {
+      if (group[i].getPosition() == Position.FOREHAND) {
+        return i;
+      }
+    }
+    return 0;
+  }
+
+  /**
+   * shuffles the cards after they have been initialized
+   * 
+   * @author awesch
+   */
+  public static void shuffleCards(List<Card> cards) {
+    int index;
+    Card temp = null;
+    for (int i = 0; i < 32; i++) {
+      index = (int) (Math.random() * 32);
+      temp = cards.get(i);
+      cards.set(i, cards.get(index));
+      cards.set(index, temp);
+    }
+  }
+  
+  /**
+   * @author sandfisc
+   * 
+   * @param group
+   * @return
+   */
+  public static Player[] getPlayingGroup(Player[] group) {
+    // the playing group consists of forehand, middlehand, rarehand, NOT dealer
+       Player [] playingGroup = new Player[4];
+       
+       if (group.length == 4) {
+         int index = 0;
+         for (int j = 0; j < group.length; j++) {
+           if (group[j].getPosition() != Position.DEALER) {
+             playingGroup[index] = group[j];
+             index++;
+           }
+         }
+       }    
+       return playingGroup;
+     }
+
 }

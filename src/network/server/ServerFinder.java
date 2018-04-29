@@ -30,6 +30,7 @@ public class ServerFinder {
 	}
 	
 	private List<Server> findServers(){
+	  System.out.println("Find Servers aufgerufen");
 		this.servers.clear();
 		List<String> ipRange = this.getIPRange();
 		Iterator<String> it = ipRange.iterator();
