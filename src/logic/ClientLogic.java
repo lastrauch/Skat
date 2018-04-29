@@ -729,6 +729,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   public void checkIfAuctionWinner() {
     if (this.playState.getAuction().getWinner().equals(this.player)) {
+      this.inGameController.askToTakeUpSkat(this.playState);
       this.inGameController.setPlaySettings(this.playState);
       this.netController.sendPlayState(this.playState);
     }
@@ -760,6 +761,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // this.inGameController.askForBet(18);
     // }
     // }
+    
+    // yes.. BUT we should start the play here right??
+    
+    if(this.player.getPosition().equals(Position.FOREHAND)) {
+      this.netController.sendCardPlayed(this.playCard(null));
+    }
   }
 
   /*
