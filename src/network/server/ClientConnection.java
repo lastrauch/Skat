@@ -11,8 +11,8 @@ import java.util.List;
 public class ClientConnection extends Thread {
   private Server server;
   private Socket socket;
-  private ObjectInputStream input; // Eingabe vom Client
-  private ObjectOutputStream output; // Ausgabe zum Client
+  private ObjectInputStream input; // Input from Client
+  private ObjectOutputStream output; // Output from Client
   private boolean running;
 
   private Player player;

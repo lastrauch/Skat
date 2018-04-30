@@ -16,8 +16,8 @@ public class Client extends Thread {
   private int port;
   private Socket socket;
   private Player owner;
-  private ObjectOutputStream output; // Ausgabe zum Server
-  private ObjectInputStream input; // Eingabe vom Server
+  private ObjectOutputStream output; // Output to Server
+  private ObjectInputStream input; // Input from Server
   private ClientLogic logic;
 
   public Client(Server server, Player player, int port, ClientLogic logic) {
@@ -70,7 +70,6 @@ public class Client extends Thread {
 
   public void disconnect() {
     System.out.println(this.owner.getName() + " client disconnect.");
-    // TODO
     try {
       this.output.writeObject(new ClientDisconnect_Msg(this.owner));
       this.output.close();
@@ -92,17 +91,16 @@ public class Client extends Thread {
 
   public boolean requestConnection() {
     try {
-      // this.start()
       output.writeObject(new ConnectionRequest_Msg(this.owner));
       Message serverOutput;
       boolean receivedAnswer = false;
-      while (!receivedAnswer && (serverOutput = (Message) input.readObject()) != null) { // TODO
+      while (!receivedAnswer && (serverOutput = (Message) input.readObject()) != null) {
         System.out.println("Message recieved requestConnection " + this.owner.getName() + ": "
             + serverOutput.getType());
         if (serverOutput.getType() == MessageType.CONNECTION_ANSWER) {
           receivedAnswer = true;
           ConnectionAnswer_Msg m = (ConnectionAnswer_Msg) serverOutput;
-          this.start(); // TODO
+          this.start();
           return m.getAccepted();
         } else {
           System.out.println("Message from server is invalid!");
