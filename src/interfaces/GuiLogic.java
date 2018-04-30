@@ -26,6 +26,14 @@ public interface GuiLogic {
    */
   public void login(String username, Image profilepicture);
   
+  /**
+   * So the logic knows the new username, in case it has changed
+   * 
+   * @author lstrauch
+   * @param username
+   */
+  public void setUsername(String username);
+  
   
   /**
    * Should delete an already existing bot if difficulty has changed

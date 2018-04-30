@@ -77,7 +77,7 @@ public interface GuiData {
   
   /**
    * Das musst du ja von dir aus machen
-   * ich brauche nur die beiden Methoden obendrüber
+   * ich brauche nur die beiden Methoden obendrï¿½ber
    */
 //  /**
 //   * updates the given player

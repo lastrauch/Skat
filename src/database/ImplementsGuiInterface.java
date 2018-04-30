@@ -1,8 +1,14 @@
 package database;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Writer;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import javax.imageio.ImageIO;
 import interfaces.GuiData;
 import javafx.embed.swing.SwingFXUtils;
@@ -25,7 +31,6 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
       ResultSet rs = selectCard.executeQuery();
       while (rs.next()) {
         InputStream in = rs.getBinaryStream("image");
-        // img = ImageIO.read(in);
         img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
       }
     } catch (Exception e) {
@@ -131,7 +136,44 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   @Override
   public void changeImage(Player player, Image image) {
     // TODO Auto-generated method stub
-    System.out.println("empty");
+    
+
+    try {
+      changeImage.setString(1, player.getName());
+      changeImage.setBlob(2, (Blob) image);
+      changeImage.executeUpdate();
+
+//      
+//      String filename = "C:grey.jpg";
+//      File file = new File(filename);
+//     FileInputStream fin = new FileInputStream(file);
+      
+//      ServletFileUpload sfu  = new ServletFileUpload(factory);
+//     List items = sfu.parseRequest(request)
+//     Image fin = (Image) items.get(2);
+//      Blob my_blob = this.connection.createBlob();
+//      OutputStream blobwriter = my_blob.setBinaryStream(1);
+//      String str = this.readFile(image, my_blob);
+      
+
+          
+//      changeImage.setString(1, player.getName());
+////    changeImage.setBlob(2, image);
+//      changeImage.setBlob(2, my_blob );
+//      changeImage.executeUpdate();
+//      changeImage.setBinaryStream(2, (InputStream) fin, (int)fin.length());
+//      int s = changeImage.executeUpdate();
+//      if(s>0) {
+//        System.out.println("image uploaded successfully");
+//        
+//      }else {
+//        System.out.println("unsucessfull to upload image");
+//      }
+      
+    }
+    catch(SQLException e) {
+      e.printStackTrace();
+    }
   }
 
 
@@ -155,12 +197,4 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
    return playerName;
   }
 }
-
-    
-    
-
-
-
-
-
 

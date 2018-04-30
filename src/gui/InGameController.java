@@ -157,6 +157,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public InGameController() {
     this.main = new GuiController();
+    GuiController.prevScreen = 4;
     // this.implements = new ImplementsInGameInterface();
   }
 

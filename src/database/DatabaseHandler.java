@@ -33,7 +33,7 @@ public class DatabaseHandler extends Database{
         
         changeName = c.prepareStatement("UPDATE Player SET name = ? WHERE (name LIKE ?);");
         
-        changeImage = c.prepareStatement("UPDATE Player SET profilePicture = ? WHERE (profilePicture LIKE ?);");
+        changeImage = c.prepareStatement("UPDATE Player SET profilePicture = ? WHERE (name LIKE ?);");
         
     }
     catch(SQLException e) {

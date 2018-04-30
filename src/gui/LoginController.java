@@ -23,13 +23,13 @@ public class LoginController implements Initializable {
   /**
    * @author lstrauch
    */
-  private GuiController main;
+  private static GuiController main;
   protected static String username;
   protected static ImplementsLogicGui implLG = new ImplementsLogicGui();
-  protected GuiData interfGD = new ImplementsGuiInterface();
+  protected static GuiData interfGD = new ImplementsGuiInterface();
   protected static GuiLogic interfGL = new GameController(implLG);
   private Label noUsername = new Label();
- 
+
 
 
   /**
@@ -48,6 +48,7 @@ public class LoginController implements Initializable {
    */
   public LoginController() {
     this.main = new GuiController();
+    GuiController.prevScreen = 3;
   }
 
 
@@ -83,7 +84,9 @@ public class LoginController implements Initializable {
         main.displayChooseGame();
         interfGL.login(username, null);
       } else {
-        displayNoUser();
+        if(!pane.getChildren().contains(noUsername)) {
+          displayNoUser(); 
+        }
       }
     } catch (SQLException e) {
       // TODO Auto-generated catch block
@@ -121,4 +124,21 @@ public class LoginController implements Initializable {
     pane.getChildren().add(noUsername);
   }
 
+  
+  public static void displayPrev() {
+    switch(GuiController.prevScreen) {
+      case 1:
+        main.displayChooseGame();
+        break;
+      case 2:
+        main.displayLobbyLocal();
+        break;
+      case 3:
+        main.displayLobbyOnline();
+        break;
+      case 4:
+        main.displayInGame();
+        break;
+    }
+  }
 }
