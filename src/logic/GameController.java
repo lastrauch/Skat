@@ -211,8 +211,6 @@ public class GameController implements GuiLogic {
 
   }
 
-
-
   @Override
   public void hostGame(String comment, GameSettings gs) {
     System.out.println("start hostGame method");
