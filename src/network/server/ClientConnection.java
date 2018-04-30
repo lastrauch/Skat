@@ -101,7 +101,7 @@ public class ClientConnection extends Thread {
         break;
       case DEALT_CARDS:
         messageHandler(message);
-        break; // TODO Only send to persons that should receive it.
+        break;
       case CONNECTION_REQUEST:
         connectionRequestHandler((ConnectionRequest_Msg) message);
         break;
@@ -120,7 +120,7 @@ public class ClientConnection extends Thread {
     }
   }
 
-  private synchronized void messageHandler(Message message) {
+  private void messageHandler(Message message) {
     System.out.println("Send Message: " + message.getType() + " to "
         + this.server.getClientConnections().size() + " players.");
     for (int i = 0; i < this.server.getClientConnections().size(); i++) {
