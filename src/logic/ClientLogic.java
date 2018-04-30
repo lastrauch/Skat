@@ -537,8 +537,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveChatMessage(Player player, String msg) {
-    
+
   }
+
   /*
    * (non-Javadoc)
    * 
@@ -546,7 +547,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveStartGame() {
-    //check to have received the right nr of players
+    // check to have received the right nr of players
     if (this.group.size() == this.gameSettings.getNrOfPlayers()) {
       // random number points on the one in the list to be the forehand
       Player[] group = new Player[this.group.size()];
@@ -565,7 +566,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
       }
 
       // set position
-      System.out.println("Bei "+this.player.getName()+" groesse group: " + this.playState.getGroup().length);
+      System.out.println(
+          "Bei " + this.player.getName() + " groesse group: " + this.playState.getGroup().length);
       this.playState.getGroup()[0].setPosition(Position.FOREHAND);
       this.playState.getGroup()[1].setPosition(Position.MIDDLEHAND);
       this.playState.getGroup()[2].setPosition(Position.REARHAND);
@@ -859,7 +861,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player.setHand((ArrayList<Card>) cards);
     this.player.sortHand(this.playState);
 
+    System.out.println("print hand:");
+    for (Card c : this.player.getHand()) {
+      System.out.println(c.getColour() + " " + c.getNumber());
+    }
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
+
     // i think
     // this has
     // to be done
