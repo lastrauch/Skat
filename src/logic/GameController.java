@@ -253,6 +253,7 @@ public class GameController implements GuiLogic {
 
       networkController.joinLobby(this.myServer, temp);
     }
+    this.networkController.startGame();
   }
 
   @Override

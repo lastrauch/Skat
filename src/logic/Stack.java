@@ -3,6 +3,7 @@
  */
 package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @author sandfisc
  *
  */
-public class Stack {
+public class Stack implements Serializable{
 
   private List<Card> stack;
   
