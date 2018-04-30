@@ -3,9 +3,11 @@ package interfaces;
 import java.util.ArrayList;
 import java.util.List;
 import gui.GuiController;
+import gui.InGameController;
 import logic.Card;
 import logic.GameMode;
 import logic.GameSettings;
+import logic.Player;
 import logic.Position;
 import network.server.Server;
 
@@ -17,5 +19,9 @@ public interface LogicGui {
    */
   public void startInGameScreen();
   
+  public void updateLobby(GameSettings gs, List<Player> group);
+  
+  
+ 
 }
 

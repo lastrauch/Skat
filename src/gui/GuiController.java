@@ -24,7 +24,7 @@ public class GuiController extends Application {
   static Stage mprimaryStage;
   private AnchorPane root;
 
-  private static InGameController inGameCon;
+  protected static InGameController inGameCon;
   private AnchorPane inGame = null;
 
   private static LoginController loginCon;
@@ -401,7 +401,6 @@ public class GuiController extends Application {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("InGame.fxml"));
-      Image jc = new Image(getClass().getResource("/Jhearts.jpg").toExternalForm());
 
       this.inGame = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(inGame);

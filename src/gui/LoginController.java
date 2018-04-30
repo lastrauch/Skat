@@ -4,7 +4,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.prism.paint.Color;
+//import com.sun.prism.paint.Color;
 import database.ImplementsGuiInterface;
 import interfaces.GuiData;
 import interfaces.GuiLogic;

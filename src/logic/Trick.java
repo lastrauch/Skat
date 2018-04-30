@@ -1,10 +1,11 @@
 package logic;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trick {
+public class Trick implements Serializable{
   private PlayState ps;
   private int indexWinner;
   private List<Card> trickCards;
