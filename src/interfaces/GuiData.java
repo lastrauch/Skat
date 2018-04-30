@@ -29,6 +29,7 @@ public interface GuiData {
    * saves a player profile in the Database
    * 
    * @param player
+   * @param img
    */
   public void insertPlayer(Player player);
 

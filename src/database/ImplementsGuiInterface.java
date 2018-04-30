@@ -1,14 +1,14 @@
 package database;
 
-import java.io.File;
-import java.io.FileInputStream;
+
+//import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Writer;
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import javax.imageio.ImageIO;
 import interfaces.GuiData;
 import javafx.embed.swing.SwingFXUtils;
@@ -16,6 +16,10 @@ import javafx.scene.image.Image;
 import logic.Player;
 
 public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
+  
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#getImage(java.lang.String, java.lang.String)
@@ -38,6 +42,9 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     }
     return img;
   }
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#getImageDarker(java.lang.String, java.lang.String)
@@ -60,6 +67,9 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     }
     return img;
   }
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#insertPlayer(logic.Player)
@@ -67,15 +77,58 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   @Override
   public void insertPlayer(Player player) {
     // TODO Auto-generated method stub
+    BufferedImage bi = SwingFXUtils.fromFXImage(player.getImage(), null);
+    ByteArrayOutputStream baos = null;
+    try {
+        baos = new ByteArrayOutputStream();
+        ImageIO.write(bi, "jpg", baos);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } finally {
+        try {
+            baos.close();
+        } catch (Exception e) {
+        }
+    }
+    ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
     try {
       insertPlayer.setString(1, player.getName());
+      insertPlayer.setBlob(3, bais);
       insertPlayer.executeUpdate();
-
     } catch (SQLException e) {
+      // TODO Auto-generated catch block
       e.printStackTrace();
-    }
-    System.out.println("New Player: " + player);
+    }   
   }
+//  
+//    try {
+//      BufferedImage bi = SwingFXUtils.fromFXImage(player.getImage(), null);
+//      ByteArrayOutputStream bas = new ByteArrayOutputStream();
+//      
+//      try {
+//        ImageIO.write(bi,"jpg", bas);
+//      } catch (IOException e) {
+//        // TODO Auto-generated catch block
+//        e.printStackTrace();
+//      }
+//
+//      byte[] bytes = bas.toByteArray();
+//      InputStream is = new ByteArrayInputStream(bytes);
+//      
+//      insertPlayer.setString(1, player.getName());
+//      insertPlayer.setBlob(3, is);
+//      insertPlayer.executeUpdate();
+//
+//    } catch (SQLException e) {
+//      e.printStackTrace();
+//    }
+//    System.out.println("New Player: " + player);
+//  }
+  
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#checkIfPlayerNew(java.lang.String)
@@ -96,6 +149,10 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     }
     return true;
   }
+  
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#getPlayer(logic.Player)
@@ -109,9 +166,12 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
     return player;
   }
+  
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#changeName(java.lang.String, logic.Player)
@@ -129,52 +189,46 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     }
     
   }
+  
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#changeImage(logic.Player, javafx.scene.image.Image)
    */
   @Override
-  public void changeImage(Player player, Image image) {
+  public void changeImage(Player player, Image img) {
     // TODO Auto-generated method stub
-    
-
+    BufferedImage bi = SwingFXUtils.fromFXImage(img, null);
+    ByteArrayOutputStream baos = null;
+    try {
+        baos = new ByteArrayOutputStream();
+        ImageIO.write(bi, "jpg", baos);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } finally {
+        try {
+            baos.close();
+        } catch (Exception e) {
+        }
+    }
+    ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
     try {
       changeImage.setString(1, player.getName());
-      changeImage.setBlob(2, (Blob) image);
-      changeImage.executeUpdate();
-
-//      
-//      String filename = "C:grey.jpg";
-//      File file = new File(filename);
-//     FileInputStream fin = new FileInputStream(file);
-      
-//      ServletFileUpload sfu  = new ServletFileUpload(factory);
-//     List items = sfu.parseRequest(request)
-//     Image fin = (Image) items.get(2);
-//      Blob my_blob = this.connection.createBlob();
-//      OutputStream blobwriter = my_blob.setBinaryStream(1);
-//      String str = this.readFile(image, my_blob);
-      
-
-          
-//      changeImage.setString(1, player.getName());
-////    changeImage.setBlob(2, image);
-//      changeImage.setBlob(2, my_blob );
-//      changeImage.executeUpdate();
-//      changeImage.setBinaryStream(2, (InputStream) fin, (int)fin.length());
-//      int s = changeImage.executeUpdate();
-//      if(s>0) {
-//        System.out.println("image uploaded successfully");
-//        
-//      }else {
-//        System.out.println("unsucessfull to upload image");
-//      }
-      
-    }
-    catch(SQLException e) {
+      changeImage.setBlob(3, bais);
+      changeImage.execute();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
       e.printStackTrace();
     }
+    
   }
+      
+  /**
+   * @author dpervane
+   */
 
 
   @Override

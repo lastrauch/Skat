@@ -5,20 +5,29 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DatabaseHandler extends Database{
+  /**
+   * @author dpervane
+   */
   protected static PreparedStatement insertPlayer;
   protected static PreparedStatement selectPlayerName;
   protected static PreparedStatement selectCard;
   protected static PreparedStatement selectCardDarker;
   protected static PreparedStatement changeName;
   protected static PreparedStatement changeImage;
-  
+
   private Connection c = null;
-  
+  /**
+   * @author dpervane
+   */
   public DatabaseHandler() {
+    
     super();
     this.c = super.connection;
     this.prepareStatements();
   }
+  /**
+   * @author dpervane
+   */
   
   public void prepareStatements() {
     try {
@@ -32,8 +41,8 @@ public class DatabaseHandler extends Database{
         selectCardDarker = c.prepareStatement("SELECT * FROM CardsDark WHERE (colour LIKE ?) AND (number LIKE ?);");      
         
         changeName = c.prepareStatement("UPDATE Player SET name = ? WHERE (name LIKE ?);");
-        
-        changeImage = c.prepareStatement("UPDATE Player SET profilePicture = ? WHERE (name LIKE ?);");
+        changeImage = c.prepareStatement("INSERT INTO Player (name, score, profilePicture) VALUES (?,?,?);"); 
+//        changeImage = c.prepareStatement("UPDATE Player SET profilePicture = ? WHERE (name LIKE ?);");
         
     }
     catch(SQLException e) {
