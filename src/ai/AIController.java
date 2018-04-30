@@ -147,4 +147,10 @@ public class AIController implements InGameInterface{
     return this.cardProbability;
   }
 
+  @Override
+  public boolean askToRekontra() {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
 }

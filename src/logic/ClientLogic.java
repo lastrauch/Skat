@@ -442,9 +442,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.dealOutCards();
     // Play.dealOutCards(Tools.getPlayingGroup(this.playState.getGroup()), cards, this.playState);
     // this.netController.sendPlayState(playState); // hands are saved in playState
-    if (this.inGameController == null) {
-      this.inGameController = this.guiController.startInGameScreen();
-    }
+    // if (this.inGameController == null) {
+    // this.inGameController = this.guiController.startInGameScreen();
+    // }
 
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
 
@@ -559,7 +559,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // TODO Auto-generated method stub
       if (this.inGameController == null) {
-        inGameController = this.guiController.startInGameScreen();
+        this.guiController.startInGameScreen();
+        this.inGameController = new InGameController();
+        System.out.println(this.inGameController);
       }
 
       // set position
@@ -607,9 +609,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
       if (this.checkIfItsMyTurnAuction(player)) {
         // if the player goes with the bet
         if (this.inGameController.askForBet(newBet)) {
-          this.netController.bet(newBet);
+          this.netController.bet(newBet, this.player);
         } else {
-          this.netController.bet(-1);
+          this.netController.bet(-1, this.player);
         }
       }
       this.updateBet(player, bet);
@@ -867,10 +869,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
     if (this.player.getPosition() == Position.MIDDLEHAND) {
       // go with first bet
       if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0])) {
-        this.netController.bet(this.playState.getAuction().getPossibleBets()[0]);
+        this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
       } else {
         // pass
-        this.netController.bet(-1);
+        this.netController.bet(-1, this.player);
       }
 
     }
