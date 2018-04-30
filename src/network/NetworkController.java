@@ -59,7 +59,7 @@ public class NetworkController implements LogicNetwork{
 		if(this.client.requestConnection()){
 			return true;
 		}else{
-			this.client.disconnect();
+			this.client.disconnect(); //TODO
 			this.client = null;
 		}
 		return false;
