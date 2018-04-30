@@ -23,6 +23,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   GameSettings gameSettings;
   Game game; // we need this for calcutlating the winner --> maybe in playstate
   List<Card> cards;
+  List<Player> group;
 
   public ClientLogic(Player player) {
     // System.out.println("created ClientLogic for Player " + player.getName());
@@ -34,6 +35,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.guiController = lg;
   }
 
+  public List<Player> getGroup() {
+    return this.group;
+  }
+
+  public GameSettings getGameSettings() {
+    return this.gameSettings;
+  }
 
   public void initializeCards() {
     cards = new ArrayList<Card>();
@@ -118,18 +126,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
     return null;
   }
-
-  //
-  // /**
-  // * maybe something for the logic gui interface??? created for the auction
-  // *
-  // * @author awesch
-  // * @param bet
-  // * @return
-  // */
-  // public boolean askForBet(int bet) {
-  // return this.inGameController.askForBet(bet);
-  // }
 
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
@@ -409,21 +405,21 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player.addToGamePoints(points);
   }
 
-  /**
-   * returns the given player in the playstate group array
-   * 
-   * @author awesch
-   * @param player
-   * @return
-   */
-  public Player searchPlayer(Player player) {
-    for (Player p : this.playState.getGroup()) {
-      if (p.equals(player)) {
-        return p;
-      }
-    }
-    return null;
-  }
+  // /**
+  // * returns the given player in the playstate group array
+  // *
+  // * @author awesch
+  // * @param player
+  // * @return
+  // */
+  // public Player searchPlayer(Player player) {
+  // for (Player p : this.playState.getGroup()) {
+  // if (p.equals(player)) {
+  // return p;
+  // }
+  // }
+  // return null;
+  // }
 
   /*
    * (non-Javadoc)
@@ -433,16 +429,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
     this.gameSettings = gs;
-    // random number points on the one in the list to be the forehand
-    Player[] group = new Player[player.size()];
-    for (int i = 0; i < player.size(); i++) {
-      group[i] = player.get((this.gameSettings.getRandomSeatingIndex() + i) % player.size());
-    }
-    if (this.playState == null) {
-      this.playState = new PlayState(group);
-    } else {
-      this.playState.setGroup(group);
-    }
+    this.group = player;
+
     // Achtung!!!! Methode noch nicht implementiert
     // this.guiController.updateLobby(gs, group);
   }
@@ -454,12 +442,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.dealOutCards();
     // Play.dealOutCards(Tools.getPlayingGroup(this.playState.getGroup()), cards, this.playState);
     // this.netController.sendPlayState(playState); // hands are saved in playState
-    if(this.inGameController == null) {
-      this.inGameController =  this.guiController.startInGameScreen();
+    if (this.inGameController == null) {
+      this.inGameController = this.guiController.startInGameScreen();
     }
-    
+
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
-    this.checkIfItsMyTurnAuction(this.player);
+
   }
 
   public void dealOutCards() {
@@ -514,12 +502,19 @@ public class ClientLogic implements NetworkLogic, AILogic {
         case FOREHAND:
           p.setHand(handF);
           this.netController.dealCards(p, handF, this.playState);
+          break;
         case MIDDLEHAND:
           p.setHand(handM);
           this.netController.dealCards(p, handM, this.playState);
+          break;
         case REARHAND:
           p.setHand(handR);
           this.netController.dealCards(p, handR, this.playState);
+          break;
+        case DEALER:
+          break;
+        default:
+          break;
       }
     }
   }
@@ -553,6 +548,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveStartGame() {
+    // random number points on the one in the list to be the forehand
+    Player[] group = new Player[this.group.size()];
+    for (int i = 0; i < this.group.size(); i++) {
+      group[i] =
+          this.group.get((this.gameSettings.getRandomSeatingIndex() + i) % this.group.size());
+    }
+    this.playState.setGroup(group);
+
     // TODO Auto-generated method stub
     if (this.inGameController == null) {
       inGameController = new InGameController();
@@ -578,6 +581,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     if (this.player.getPosition() == Position.FOREHAND) {
       this.startPlay();
     }
+
   }
 
   /*
@@ -639,7 +643,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
     if (bet != -1) {
       this.playState.setBetValue(bet);
     }
-    this.searchPlayer(player).setBet(bet);
+    Tools.searchPlayer(player, this.playState.getGroup()).setBet(bet);
+    // change to id if network sets them!!
+    if (player.getName().equals(this.player.getName())) {
+      this.player.setBet(bet);
+    }
   }
 
   /**
@@ -742,7 +750,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @author awesch
    */
   public void checkIfAuctionWinner() {
-    if (this.playState.getAuction().getWinner().equals(this.player)) {
+    // change to id if setted by network !!!!!!!
+    if (this.playState.getAuction().getWinner().getName().equals(this.player.getName())) {
       this.inGameController.askToTakeUpSkat(this.playState);
       this.inGameController.setPlaySettings(this.playState);
       this.netController.sendPlayState(this.playState);
@@ -846,10 +855,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player.setHand((ArrayList<Card>) cards);
     this.player.sortHand(this.playState);
 
-    this.inGameController.startPlay(this.player.getHand(), this.player.getPosition()); // i think
-                                                                                       // this has
-                                                                                       // to be done
-                                                                                       // here???
+    this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
+    // i think
+    // this has
+    // to be done
+    // here???
     // this.inGameController.updateHand(this.player.getHand());
 
     if (this.player.getPosition() == Position.MIDDLEHAND) {
@@ -863,6 +873,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     }
   }
+
 
   public void checkWhatHappensNext(Player playedLastCard) throws LogicException {
 
@@ -1000,6 +1011,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   public void setInGameController(InGameInterface inGameController) {
     this.inGameController = inGameController;
+  }
+
+  @Override
+  public void announceKontra() {
+    if (this.playState.getTrickNr() == 0) {
+      this.netController.sendKontra();
+    }
+
   }
 
 

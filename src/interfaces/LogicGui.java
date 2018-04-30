@@ -19,7 +19,7 @@ public interface LogicGui {
    */
   public InGameController startInGameScreen();
   
-  public void updateLobby(GameSettings gs, Player[] group);
+  public void updateLobby(GameSettings gs, List<Player> group);
   
  
 }
