@@ -3,27 +3,27 @@ package network.messages;
 import logic.Card;
 import logic.Player;
 
-public class CardPlayed_Msg extends Message{
+public class CardPlayed_Msg extends Message {
   private static final long serialVersionUID = 1L;
   private Player player;
   private Card card;
-    
-  public CardPlayed_Msg(Player player, Card card){
+
+  public CardPlayed_Msg(Player player, Card card) {
     super(MessageType.CARD_PLAYED);
     this.player = player;
     this.card = card;
   }
-  
-  public Player getPlayer(){
-	  return this.player;
+
+  public Player getPlayer() {
+    return this.player;
   }
-    
-  public Card getCard(){
+
+  public Card getCard() {
     return this.card;
   }
-  
+
   // TODO card benötigt eine toString Methode
-  public String toString(){
+  public String toString() {
     return this.player.getName() + " played " + this.card.toString();
   }
 }
