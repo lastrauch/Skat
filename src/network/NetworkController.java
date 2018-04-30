@@ -118,4 +118,16 @@ public class NetworkController implements LogicNetwork {
   public void exitGame() {
     this.client.disconnect();
   }
+
+  @Override
+  public void sendKontra() {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void sendRekontra() {
+    // TODO Auto-generated method stub
+    
+  }
 }
