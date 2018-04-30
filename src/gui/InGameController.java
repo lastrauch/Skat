@@ -1716,5 +1716,14 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#askToRekontra()
+   */
+  @Override
+  public boolean askToRekontra() {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
 
 }

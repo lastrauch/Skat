@@ -32,7 +32,7 @@ public class ChooseGameController {
    */
   @FXML
   public void SinglePlayer() {
-    main.displaySetAI();
+    main.displayAI();
   }
 
   /**
