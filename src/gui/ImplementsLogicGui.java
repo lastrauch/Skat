@@ -18,11 +18,9 @@ public class ImplementsLogicGui extends GameSettingsController implements LogicG
    * @author lstrauch
    */
   @Override
-  public InGameController startInGameScreen() {
+  public void startInGameScreen() {
     // TODO Auto-generated method stub
-    guiCon.displayInGame();   
-    System.out.println(GuiController.inGameCon);
-    return GuiController.inGameCon;
+    guiCon.displayInGame();
   }
 
 
