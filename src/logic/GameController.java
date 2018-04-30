@@ -146,8 +146,11 @@ public class GameController implements GuiLogic {
     System.out.println("yoo I just created a Player " + p.getName() + " (login)");
     // InGameInterface inGameController = new InGameController();
     ClientLogic clientLogic = new ClientLogic(p);
+    clientLogic.setLogicGui(this.logicGui);
+    
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setNetworkController(networkController);
+    
     this.clientLogic.add(clientLogic);
     this.networkController = networkController;
   }
@@ -216,6 +219,7 @@ public class GameController implements GuiLogic {
     this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
   }
 
+  
 
   @Override
   public void startGame(GameSettings gs) {
@@ -250,7 +254,6 @@ public class GameController implements GuiLogic {
       
       networkController.joinLobby(this.myServer, temp);
     }
-    this.logicGui.startInGameScreen();
   }
 
   @Override
@@ -260,15 +263,21 @@ public class GameController implements GuiLogic {
     return lobbyInfo;
   }
 
-  @Override
-  public ArrayList<Card> sortHand(PlayState ps, ArrayList<Card> hand) {
-    return Tools.sortHand(hand, ps);
-  }
-
-
 
   @Override
   public Player getPlayer() {
     return this.group.get(0);
+  }
+
+  @Override
+  public ArrayList<Card> sortHand(PlayState ps, List<Card> cardlist) {
+    ArrayList<Card> hand = (ArrayList<Card>) cardlist;
+    return Tools.sortHand(hand, ps);
+  }
+
+  @Override
+  public void setUsername(String username) {
+    this.group.get(0).setName(username);
+    
   }
 }

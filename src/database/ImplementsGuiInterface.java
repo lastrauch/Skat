@@ -135,5 +135,32 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   }
 
 
-
+  @Override
+  public Player getPlayer(String playername) {
+    // TODO Auto-generated method stub
+    Player playerName = null;
+    try {
+      
+      selectPlayerName.setString(1, playername);
+      selectPlayerName.execute();
+      ResultSet rs = selectPlayerName.executeQuery(); 
+      while(rs.next()) {
+      playerName = new Player(playername);
+      }
+    }
+    catch(SQLException e) {
+      e.printStackTrace();
+      
+    }System.out.println(playerName);
+   return playerName;
+  }
 }
+
+    
+    
+
+
+
+
+
+

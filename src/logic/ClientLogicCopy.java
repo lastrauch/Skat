@@ -383,7 +383,10 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     Player[] group = new Player[player.size()];
     for(int i=0; i<player.size(); i++) {
       group[i] = player.get((this.gameSettings.getRandomSeatingIndex()+i) % player.size());
-    }
+    }    
+    this.playState.setGroup(group);
+    
+    this
   }
 
   /*
@@ -662,7 +665,7 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     this.inGameController.updateHand(this.player.getHand());
   }
 
-  // fehlt: update position
+
   public void checkWhatHappensNext(Player playedLastCard) throws LogicException {
 
     Player trickWinner;

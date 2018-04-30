@@ -2,10 +2,12 @@ package logic;
 
 import java.util.ArrayList;
 import java.util.List;
+import gui.ImplementsLogicGui;
 import gui.InGameController;
 import interfaces.AILogic;
 import interfaces.GuiLogic;
 import interfaces.InGameInterface;
+import interfaces.LogicGui;
 import interfaces.LogicNetwork;
 import interfaces.NetworkLogic;
 import javafx.scene.image.Image;
@@ -16,6 +18,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   Player player;
   InGameInterface inGameController; // implemented by Gui or Ai
   LogicNetwork netController;
+  LogicGui guiController;
   PlayState playState;
   GameSettings gameSettings;
   Game game; // we need this for calcutlating the winner --> maybe in playstate
@@ -27,6 +30,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.initializeCards();
   }
 
+  public void setLogicGui(LogicGui lg) {
+    this.guiController = lg;
+  }
 
 
   public void initializeCards() {
@@ -426,47 +432,32 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
-    if (player.size() == gs.getNrOfPlayers()) {
-      this.gameSettings = gs;
-      // random number points on the one in the list to be the forehand
-      Player[] group = new Player[player.size()];
-      for (int i = 0; i < player.size(); i++) {
-        group[i] = player.get((this.gameSettings.getRandomSeatingIndex() + i) % player.size());
-      }
-      this.playState.setGroup(group);
-      // !!!!!!! ADD updatePosition here
-      this.playState.getGroup()[0].setPosition(Position.FOREHAND);
-      this.playState.getGroup()[1].setPosition(Position.MIDDLEHAND);
-      this.playState.getGroup()[2].setPosition(Position.REARHAND);
-      if (this.playState.getGroup().length == 4) {
-        this.playState.getGroup()[2].setPosition(Position.DEALER);
-      }
-      // update Position
-      Tools.updatePosition(player);
-
-      // check if player sits FOREHAND
-      for (int i = 0; i < this.playState.getGroup().length; i++) {
-        if (this.playState.getGroup()[i].getId() == this.player.getId()) {
-          this.player.setPosition(this.playState.getGroup()[i].getPosition());
-        }
-      }
-
-      // Start Game if Player sits forehand
-      if (this.player.getPosition() == Position.FOREHAND) {
-        this.startPlay();
-      }
-
+    this.gameSettings = gs;
+    // random number points on the one in the list to be the forehand
+    Player[] group = new Player[player.size()];
+    for (int i = 0; i < player.size(); i++) {
+      group[i] = player.get((this.gameSettings.getRandomSeatingIndex() + i) % player.size());
     }
+    if (this.playState == null) {
+      this.playState = new PlayState(group);
+    } else {
+      this.playState.setGroup(group);
+    }
+    // Achtung!!!! Methode noch nicht implementiert
+    // this.guiController.updateLobby(gs, group);
   }
 
   public void startPlay() {
     // First shuffle cards
     Tools.shuffleCards(this.cards);
     // secound deal out cards
-    // this.dealOutCards();
-    Play.dealOutCards(Tools.getPlayingGroup(this.playState.getGroup()), cards, this.playState);
-    this.netController.sendPlayState(playState); // hands are saved in playState
-
+    this.dealOutCards();
+    // Play.dealOutCards(Tools.getPlayingGroup(this.playState.getGroup()), cards, this.playState);
+    // this.netController.sendPlayState(playState); // hands are saved in playState
+    if(this.inGameController == null) {
+      this.inGameController =  this.guiController.startInGameScreen();
+    }
+    
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
     this.checkIfItsMyTurnAuction(this.player);
   }
@@ -563,7 +554,30 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveStartGame() {
     // TODO Auto-generated method stub
+    if (this.inGameController == null) {
+      inGameController = new InGameController();
+    }
 
+    // set position
+    this.playState.getGroup()[0].setPosition(Position.FOREHAND);
+    this.playState.getGroup()[1].setPosition(Position.MIDDLEHAND);
+    this.playState.getGroup()[2].setPosition(Position.REARHAND);
+    if (this.playState.getGroup().length == 4) {
+      this.playState.getGroup()[2].setPosition(Position.DEALER);
+    }
+
+    // check if player sits FOREHAND
+    for (int i = 0; i < this.playState.getGroup().length; i++) {
+      // change comparism to id!!! (if implemented in network)
+      if (this.playState.getGroup()[i].getName().equals(this.player.getName())) {
+        this.player.setPosition(this.playState.getGroup()[i].getPosition());
+      }
+    }
+
+    // Start Game if Player sits forehand
+    if (this.player.getPosition() == Position.FOREHAND) {
+      this.startPlay();
+    }
   }
 
   /*
@@ -729,6 +743,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   public void checkIfAuctionWinner() {
     if (this.playState.getAuction().getWinner().equals(this.player)) {
+      this.inGameController.askToTakeUpSkat(this.playState);
       this.inGameController.setPlaySettings(this.playState);
       this.netController.sendPlayState(this.playState);
     }
@@ -760,6 +775,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // this.inGameController.askForBet(18);
     // }
     // }
+
+    // yes.. BUT we should start the play here right??
+
+    if (this.player.getPosition().equals(Position.FOREHAND)) {
+      this.netController.sendCardPlayed(this.playCard(null));
+    }
   }
 
   /*
@@ -842,6 +863,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     }
   }
+
   public void checkWhatHappensNext(Player playedLastCard) throws LogicException {
 
     Player trickWinner;
