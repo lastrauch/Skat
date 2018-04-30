@@ -442,9 +442,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.dealOutCards();
     // Play.dealOutCards(Tools.getPlayingGroup(this.playState.getGroup()), cards, this.playState);
     // this.netController.sendPlayState(playState); // hands are saved in playState
-    if (this.inGameController == null) {
-      this.inGameController = this.guiController.startInGameScreen();
-    }
+    // if (this.inGameController == null) {
+    // this.inGameController = this.guiController.startInGameScreen();
+    // }
 
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
 

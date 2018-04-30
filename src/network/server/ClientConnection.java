@@ -79,7 +79,7 @@ public class ClientConnection extends Thread {
     }
   }
 
-  private void receiveMessage(Message message) {
+  private synchronized void receiveMessage(Message message) {
     switch (message.getType()) {
       case PING:
         messageHandler(message);
