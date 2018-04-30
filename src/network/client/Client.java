@@ -40,9 +40,13 @@ public class Client extends Thread{
           while(connected && (message = (Message) input.readObject()) != null){
               receiveMessage(message);
           }
+      }catch(ClassCastException e){
+        System.out.println("Client run(); ClassCastException");
       }catch(ClassNotFoundException e){
+        System.out.println("Client run(): ClassNotFoundException");
           e.printStackTrace();
       }catch(IOException e){
+        System.out.println("Client run(): IOException");
           e.printStackTrace();
       }
   }
@@ -65,6 +69,7 @@ public class Client extends Thread{
   
   public void disconnect(){
     System.out.println(this.owner.getName() + " client disconnect.");
+    // TODO
     try{
         this.output.writeObject(new ClientDisconnect_Msg(this.owner));
         this.output.close();
@@ -73,6 +78,7 @@ public class Client extends Thread{
      }catch(IOException e){
          e.printStackTrace();
      }
+     
   }
   
   public void sendMessage(Message message){
@@ -88,17 +94,19 @@ public class Client extends Thread{
 		   output.writeObject(new ConnectionRequest_Msg(this.owner));
 		   this.start();
 			Message serverOutput;
-				if((serverOutput = (Message) input.readObject()) != null){
-					if(serverOutput.getType() == MessageType.CONNECTION_ANSWER){
-						ConnectionAnswer_Msg m = (ConnectionAnswer_Msg) serverOutput;
-						return m.getAccepted();
-					}else{
-						System.out.println("Message from server is invalid!");
-					}
-				}
+
+	                  if((serverOutput = (Message) input.readObject()) != null){
+	                        if(serverOutput.getType() == MessageType.CONNECTION_ANSWER){
+	                            ConnectionAnswer_Msg m = (ConnectionAnswer_Msg) serverOutput;
+	                            return m.getAccepted();
+	                        }else{
+	                            System.out.println("Message from server is invalid!");
+	                        }
+	                    }
 	   }catch(ArrayIndexOutOfBoundsException e){
 		   e.printStackTrace();
 	   }catch(ClassNotFoundException e){
+	     System.out.println("Input war keine Message (Client)");
 		   e.printStackTrace();
 	   }catch(IOException e){
 		   e.printStackTrace();
