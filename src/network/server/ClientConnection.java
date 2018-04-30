@@ -47,7 +47,7 @@ public class ClientConnection extends Thread{
         try{
             Message message;
             while(this.running && (message = (Message) input.readObject()) != null){
-              System.out.println("Message empfangen");  
+              System.out.println("Message empfangen: " + message.getType().name());  
               receiveMessage(message);
             }
         }catch(ClassNotFoundException e){
@@ -66,6 +66,7 @@ public class ClientConnection extends Thread{
     }
     
     private void disconnect(){
+        System.out.println(this.player.getName() + " CC disconnect.");
         this.running = false;
     	try{
             output.close();
@@ -101,7 +102,7 @@ public class ClientConnection extends Thread{
     	}
     }
     
-    private void connectionRequestHandler(ConnectionRequest_Msg message){
+    private synchronized void connectionRequestHandler(ConnectionRequest_Msg message){
     	//�berpr�fe und sende Antwort
       if(this.server.getPlayer().size() < Settings.MAX_PLAYER - 1){
         	//Falls ja, f�ge Spieler dem Server hinzu
@@ -110,8 +111,8 @@ public class ClientConnection extends Thread{
     		this.sendMessage(new ConnectionAnswer_Msg(true));
     		this.player = message.getPlayer();
     		this.server.addPlayer(message.getPlayer());
-    		this.sendMessage(new Lobby_Msg(this.server.getPlayer(), this.server.getGameSettings()));
-    		//messageHandler(new Lobby_Msg(this.server.getPlayer(), this.server.getGameSettings()));
+    		//this.sendMessage(new Lobby_Msg(this.server.getPlayer(), this.server.getGameSettings()));
+    		this.messageHandler(new Lobby_Msg(this.server.getPlayer(), this.server.getGameSettings()));
     	}else{
     		this.sendMessage(new ConnectionAnswer_Msg(false));
     		this.disconnect();
@@ -123,7 +124,7 @@ public class ClientConnection extends Thread{
     private void clientDisconnectHandler(ClientDisconnect_Msg message){
     	this.server.removePlayer(message.getPlayer());
     	this.server.removeClientConnection(this);
-    	messageHandler(new ClientDisconnect_Msg(message.getPlayer()));
+    	this.messageHandler(new ClientDisconnect_Msg(message.getPlayer()));
     	this.disconnect();
     }
 }

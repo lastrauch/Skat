@@ -64,6 +64,7 @@ public class Client extends Thread{
   }
   
   public void disconnect(){
+    System.out.println(this.owner.getName() + " client disconnect.");
     try{
         this.output.writeObject(new ClientDisconnect_Msg(this.owner));
         this.output.close();
