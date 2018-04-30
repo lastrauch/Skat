@@ -433,7 +433,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
       for (int i = 0; i < player.size(); i++) {
         group[i] = player.get((this.gameSettings.getRandomSeatingIndex() + i) % player.size());
       }
-      this.playState.setGroup(group);
+      if (this.playState == null) {
+        this.playState = new PlayState(group);
+      }else {
+        this.playState.setGroup(group);
+      }
+      
       // !!!!!!! ADD updatePosition here
       this.playState.getGroup()[0].setPosition(Position.FOREHAND);
       this.playState.getGroup()[1].setPosition(Position.MIDDLEHAND);
