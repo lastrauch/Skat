@@ -43,7 +43,7 @@ public class Client extends Thread {
             .println("Message recieved run " + this.owner.getName() + ": " + message.getType());
         if(message.getType() == MessageType.LOBBY){
           Lobby_Msg msg = (Lobby_Msg) message;
-          System.out.print(" Group size: " + msg.getPlayer().length);
+          System.out.println(" Group size: " + msg.getPlayer().length);
         }
         receiveMessage(message);
       }
