@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.List;
 import interfaces.LogicGui;
 import logic.GameSettings;
 import logic.Player;
@@ -21,16 +22,19 @@ public class ImplementsLogicGui extends GameSettingsController implements LogicG
     // TODO Auto-generated method stub
     guiCon.displayInGame();
     InGameController inGCon = new InGameController();
+    System.out.println(inGCon);
     return inGCon;
   }
 
+
   /* (non-Javadoc)
-   * @see interfaces.LogicGui#updateLobby(logic.GameSettings, logic.Player[])
+   * @see interfaces.LogicGui#updateLobby(logic.GameSettings, java.util.List)
    */
   @Override
-  public void updateLobby(GameSettings gs, Player[] group) {
+  public void updateLobby(GameSettings gs, List<Player> group) {
     // TODO Auto-generated method stub
-    
+    LobbyController.displayPlayers(group.size(), group);
+    LobbyController.setGamesettings(gs);    
   }
 
 

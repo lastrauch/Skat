@@ -16,7 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.GameMode;
 
-public class LobbyLocalController implements Initializable {
+public class SetAIController implements Initializable {
 
   /**
    * @author lstrauch
@@ -24,6 +24,7 @@ public class LobbyLocalController implements Initializable {
   private GuiController main;
   private int bot;
   private Label label = new Label();
+  private boolean addedBot;
 
   /**
    * @author lstrauch
@@ -40,7 +41,7 @@ public class LobbyLocalController implements Initializable {
   /**
    *@author lstrauch
    */
-  public LobbyLocalController() {
+  public SetAIController() {
     this.main = new GuiController();
     GuiController.prevScreen = 2;
   }
@@ -74,30 +75,6 @@ public class LobbyLocalController implements Initializable {
    */
   @FXML
   public void play() {
-    boolean[] selected = new boolean[2];
-    /**
-     * Makes sure, that all important options are selected
-     */
-    if (easy1.isSelected() || med1.isSelected() || dif1.isSelected()) {
-      selected[0] = true;
-    } else {
-      System.out.println("Please Select the number orf rounds you wanna play");
-      if (!p.getChildren().contains(label)) {
-        displayLabel();
-      }
-    }
-    if (easy2.isSelected() || med2.isSelected() || dif2.isSelected()) {
-      selected[1] = true;
-    } else {
-      System.out.println("Please Select the number orf rounds you wanna play");
-      if (!p.getChildren().contains(label)) {
-        displayLabel();
-      }
-    }
-    
-    if(selected[0] == true && selected[1] == true) {
-      main.displayGameSettings(GameMode.SINGLEPLAYER);
-    }
   }
 
   @Override
@@ -113,78 +90,6 @@ public class LobbyLocalController implements Initializable {
    * @author lstrauch
    */
   public void buttonHandler() {
-    easy1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        bot = 1;
-        if (checkIfBotEnabled()) {
-          LoginController.interfGL.deleteBot("Bot1");
-          System.out.println("Delete b1");
-        }
-        LoginController.interfGL.setBot("Bot1", BotDifficulty.EASY);
-        l1.setText("Easy");
-      }
-    });
-    med1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        bot = 1;
-        if (checkIfBotEnabled()) {
-          LoginController.interfGL.deleteBot("Bot1");
-          System.out.println("Delete b1");
-        }
-        LoginController.interfGL.setBot("Bot1", BotDifficulty.MEDIUM);
-        l1.setText("Medium");
-      }
-    });
-    dif1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        bot = 1;
-        if (checkIfBotEnabled()) {
-          LoginController.interfGL.deleteBot("Bot1");
-          System.out.println("Delete b1");
-        }
-        LoginController.interfGL.setBot("Bot1", BotDifficulty.HARD);
-        l1.setText("Hard");
-      }
-    });
-    easy2.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        bot = 2;
-        if (checkIfBotEnabled()) {
-          LoginController.interfGL.deleteBot("Bot2");
-          System.out.println("Delete b2");
-        }
-        LoginController.interfGL.setBot("Bot2", BotDifficulty.EASY);
-        l2.setText("Easy");
-      }
-    });
-    med2.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        bot = 2;
-        if (checkIfBotEnabled()) {
-          LoginController.interfGL.deleteBot("Bot2");
-          System.out.println("Delete b2");
-        }
-        LoginController.interfGL.setBot("Bot2", BotDifficulty.MEDIUM);
-        l2.setText("Medium");
-      }
-    });
-    dif2.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        bot = 2;
-        if (checkIfBotEnabled()) {
-          LoginController.interfGL.deleteBot("Bot2");
-          System.out.println("Delete b2");
-        }
-        LoginController.interfGL.setBot("Bot2", BotDifficulty.HARD);
-        l2.setText("Hard");
-      }
-    });
     easy3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {

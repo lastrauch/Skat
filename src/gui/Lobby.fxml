@@ -62,7 +62,7 @@
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <VBox fx:id="vbox1" alignment="CENTER" layoutX="85.0" layoutY="100.0" maxWidth="459.0" minHeight="379.0" minWidth="459.0" prefHeight="379.0" prefWidth="459.0" spacing="30.0" style="-fx-background-color: tan; -fx-border-color: white;">
+      <VBox fx:id="vbox1" alignment="CENTER" layoutX="85.0" layoutY="100.0" maxHeight="379.0" maxWidth="459.0" minHeight="379.0" minWidth="459.0" prefHeight="379.0" prefWidth="459.0" spacing="30.0" style="-fx-background-color: tan; -fx-border-color: white;">
          <children>
             <Label alignment="CENTER" layoutX="88.0" layoutY="79.0" prefHeight="67.0" prefWidth="457.0" styleClass="buttonsstyle2" stylesheets="@../../resources/mystyle.css" text="Players" textFill="WHITE" underline="true">
                <font>
