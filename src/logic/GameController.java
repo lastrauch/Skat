@@ -146,8 +146,11 @@ public class GameController implements GuiLogic {
     System.out.println("yoo I just created a Player " + p.getName() + " (login)");
     // InGameInterface inGameController = new InGameController();
     ClientLogic clientLogic = new ClientLogic(p);
+    clientLogic.setLogicGui(this.logicGui);
+    
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setNetworkController(networkController);
+    
     this.clientLogic.add(clientLogic);
     this.networkController = networkController;
   }

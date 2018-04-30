@@ -383,7 +383,10 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     Player[] group = new Player[player.size()];
     for(int i=0; i<player.size(); i++) {
       group[i] = player.get((this.gameSettings.getRandomSeatingIndex()+i) % player.size());
-    }
+    }    
+    this.playState.setGroup(group);
+    
+    this
   }
 
   /*
