@@ -2,6 +2,7 @@ package database;
 
 
 
+import javafx.scene.image.Image;
 import logic.Player;
 
 public class Main extends ImplementsGuiInterface {
@@ -12,9 +13,9 @@ public class Main extends ImplementsGuiInterface {
     database = new ImplementsGuiInterface();
     Player a = new Player("duygu");
     database.insertPlayer(a);
-//    Image img = new Image("C:/duygupervane/grey.jpg");
+    Image img = new Image("/Users/carlakeller/Desktop/Felix/Fotos");
 
-//    database.changeImage(a, img);
+    database.changeImage(a, img);
 
     
 

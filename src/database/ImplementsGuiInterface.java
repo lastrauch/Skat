@@ -7,9 +7,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
+import javax.sql.rowset.serial.SerialException;
 import interfaces.GuiData;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -76,55 +78,18 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
    */
   @Override
   public void insertPlayer(Player player) {
-    // TODO Auto-generated method stub
-    BufferedImage bi = SwingFXUtils.fromFXImage(player.getImage(), null);
-    ByteArrayOutputStream baos = null;
-    try {
-        baos = new ByteArrayOutputStream();
-        ImageIO.write(bi, "jpg", baos);
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } finally {
-        try {
-            baos.close();
-        } catch (Exception e) {
-        }
-    }
-    ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-    try {
+    try{
       insertPlayer.setString(1, player.getName());
-      insertPlayer.setBlob(3, bais);
       insertPlayer.executeUpdate();
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
+      
+      if(player.getImage() != null){
+        changeImage(player, player.getImage());
+      }
+      
+    }catch (SQLException e) {
       e.printStackTrace();
-    }   
+    }
   }
-//  
-//    try {
-//      BufferedImage bi = SwingFXUtils.fromFXImage(player.getImage(), null);
-//      ByteArrayOutputStream bas = new ByteArrayOutputStream();
-//      
-//      try {
-//        ImageIO.write(bi,"jpg", bas);
-//      } catch (IOException e) {
-//        // TODO Auto-generated catch block
-//        e.printStackTrace();
-//      }
-//
-//      byte[] bytes = bas.toByteArray();
-//      InputStream is = new ByteArrayInputStream(bytes);
-//      
-//      insertPlayer.setString(1, player.getName());
-//      insertPlayer.setBlob(3, is);
-//      insertPlayer.executeUpdate();
-//
-//    } catch (SQLException e) {
-//      e.printStackTrace();
-//    }
-//    System.out.println("New Player: " + player);
-//  }
   
   /**
    * @author dpervane
@@ -200,28 +165,25 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   @Override
   public void changeImage(Player player, Image img) {
     // TODO Auto-generated method stub
+    
     BufferedImage bi = SwingFXUtils.fromFXImage(img, null);
-    ByteArrayOutputStream baos = null;
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    
     try {
-        baos = new ByteArrayOutputStream();
-        ImageIO.write(bi, "jpg", baos);
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } finally {
-        try {
-            baos.close();
-        } catch (Exception e) {
-        }
-    }
-    ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-    try {
-      changeImage.setString(1, player.getName());
-      changeImage.setBlob(3, bais);
+      Blob blFile = new javax.sql.rowset.serial.SerialBlob(baos.toByteArray());
+    
+      ImageIO.write(bi, ".jpg", baos);
+      InputStream is = new ByteArrayInputStream(baos.toByteArray());
+    
+      changeImage.setString(2, player.getName());
+      changeImage.setBlob(1, blFile);
       changeImage.execute();
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
+    } catch (IOException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
     }
     
   }
