@@ -11,8 +11,8 @@ import java.util.List;
 public class ClientConnection extends Thread {
   private Server server;
   private Socket socket;
-  private ObjectInputStream input; // Eingabe vom Client
-  private ObjectOutputStream output; // Ausgabe zum Client
+  private ObjectInputStream input; // Input from Client
+  private ObjectOutputStream output; // Output from Client
   private boolean running;
 
   private Player player;
@@ -79,7 +79,7 @@ public class ClientConnection extends Thread {
     }
   }
 
-  private void receiveMessage(Message message) {
+  private synchronized void receiveMessage(Message message) {
     switch (message.getType()) {
       case PING:
         messageHandler(message);
@@ -120,7 +120,9 @@ public class ClientConnection extends Thread {
     }
   }
 
-  private void messageHandler(Message message) {
+  private synchronized void messageHandler(Message message) {
+    System.out.println("Send Message: " + message.getType() + " to "
+        + this.server.getClientConnections().size() + " players.");
     for (int i = 0; i < this.server.getClientConnections().size(); i++) {
       this.server.getClientConnections().get(i).sendMessage(message);
     }

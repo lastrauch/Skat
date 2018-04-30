@@ -21,6 +21,7 @@ public interface LogicGui {
   
   public void updateLobby(GameSettings gs, List<Player> group);
   
+  
  
 }
 
