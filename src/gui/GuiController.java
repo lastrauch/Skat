@@ -24,7 +24,7 @@ public class GuiController extends Application {
   static Stage mprimaryStage;
   private AnchorPane root;
 
-  protected static InGameController inGameCon;
+  private static InGameController inGameCon;
   private AnchorPane inGame = null;
 
   private static LoginController loginCon;
@@ -36,7 +36,7 @@ public class GuiController extends Application {
   private static ChooseGameController gameModeCon;
   private AnchorPane gameMode = null;
 
-  private static SetAIController lobbyLocalCon;
+  private static LobbyLocalController lobbyLocalCon;
   private AnchorPane lobbyLocal = null;
 
   private static LobbyOnlineController lobbyOnlineCon;
@@ -154,10 +154,10 @@ public class GuiController extends Application {
   /**
    * @author lstrauch
    */
-  public void displaySetAI() {
+  public void displayLobbyLocal() {
     try {
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("SetAI.fxml"));
+      loader.setLocation(getClass().getResource("LobbyLocal.fxml"));
       this.lobbyLocal = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(lobbyLocal);
 
