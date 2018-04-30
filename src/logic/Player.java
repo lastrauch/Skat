@@ -128,7 +128,7 @@ public class Player implements Serializable{
     this.position = position;
   }
 
-  public void setHand(ArrayList<Card> hand) {
+  public void setHand(List<Card> hand) {
     this.hand = hand;
   }
 

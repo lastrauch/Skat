@@ -1,6 +1,5 @@
 package interfaces;
 
-import java.awt.image.BufferedImage;
 import java.sql.SQLException;
 import javafx.scene.image.Image;
 import logic.Player;
@@ -47,6 +46,8 @@ public interface GuiData {
    * @return
    */
   public Player getPlayer(Player player);
+  
+  public Player getPlayer(String playername);
 
   /**
    * Brauch ich gar nicht

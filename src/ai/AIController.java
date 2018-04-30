@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import interfaces.InGameInterface;
 import logic.Card;
+import logic.ClientLogic;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
@@ -13,19 +14,23 @@ public class AIController implements InGameInterface{
   private Bot bot;
   private GameSettings gs;
   private PlayState ps;
-  private Player[] opponents;
+  private List<Player> opponents;
   private Player partner;
   private int[] bets;   //Vector of bets by player i
-  private Card[][] playedCards; //Matrix of played Cards. Columns are the plyers, Rows are the Cards
-  private double[][] cardProbability; //Matrix of probabilities, payer i has card j; Player are the columns, probabilities are the rows
-  private boolean[] hasColour;
-  private boolean[] hasTrump;
+  private Card[][] playedCards; //Matrix of played Cards. Columns are the players, rows are the Cards
+  private double[][] cardProbability; //Matrix of probabilities, player i has card j;
+                                      //Player are the columns, probabilities are the rows
+                                      //Spades, Clubs, Hearts, Diamonds
+                                      //Ace, Ten, King, Queen, Jack, Nine, Eight, Seven
+  private boolean[][] hasColour;  //Columns are the players, rows are the colours: Spades, Clubs, Hearts, Diamonds
+  private boolean[] hasTrump;   //Index is the player
   private int existingTrumps;   //Trumps left in the whole game, including own cards
   private List<Card> currentTrick;
   
   public AIController(String name, BotDifficulty difficulty, GameSettings gs){
     this.bot = new Bot(name, difficulty);
     this.gs = gs;
+    this.opponents = new ArrayList<Player>();
   }
 
   public void startPlay(ArrayList<Card> hand, Position position) {
@@ -64,17 +69,25 @@ public class AIController implements InGameInterface{
   }
 
   
-  public void updateHand(ArrayList<Card> hand) {
-   this.bot.setHand(hand);
+  public void updateHand(List<Card> hand) {
+    if(this.bot.getHand().size() == 0){
+      this.cardProbability = General.initializeProbabilities(hand);
+    }
+    this.bot.setHand(hand);
   }
 
   
   public void setPlaySettings(PlayState ps) {
+    switch(ps.getPlayMode()){
+      case GRAND: this.existingTrumps = 4; break;
+      case SUIT: this.existingTrumps = 11; break;
+      case NULL: this.existingTrumps = 0; break;
+    }
     this.ps = ps;
   }
 
   
-  public void updateTrick(ArrayList<Card> currentTrick) {
+  public void updateTrick(List<Card> currentTrick) {
     this.currentTrick = currentTrick;
   }
 
@@ -82,6 +95,37 @@ public class AIController implements InGameInterface{
   public void setGameSettings(GameSettings gs) {
     this.gs = gs;
   }
+  
+
+	@Override
+	public void stopGame(String reason) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void showWinnerTrick(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void showWinnerPlay(Player player1, Player player2) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void showWinnerGame(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void startPlay(List<Card> hand, Position position) {
+		// TODO Auto-generated method stub
+		
+	}
   
   public GameSettings getGameSettings(){
     return this.gs;
@@ -98,4 +142,9 @@ public class AIController implements InGameInterface{
   public List<Card> getCurrentTrick(){
 	  return this.currentTrick;
   }
+  
+  public double[][] getCardProbabilities(){
+    return this.cardProbability;
+  }
+
 }

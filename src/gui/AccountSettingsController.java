@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,27 +24,46 @@ import logic.Player;
 
 public class AccountSettingsController implements Initializable{
 
-  private GuiController main;
-  private  GuiData interfGD = new ImplementsGuiInterface();
+
+  /**
+   * 
+   * @author lstrauch
+   */
   private String username = null;
   private Image img = null;
   
+  
+  /**
+   * 
+   * @author lstrauch
+   */
   @FXML
   private JFXTextField newName;
   @FXML
   private JFXButton newPP;
   @FXML
   private ImageView pp;
+  
 
+  /**
+   *@author lstrauch
+   */
   public AccountSettingsController() {
-    this.main = new GuiController();
   }
 
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void back() {
-    main.displayChooseGame();
+    LoginController.displayPrev();
   }
 
+  /** (non-Javadoc)
+   * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
+   * 
+   * @author lstrauch
+   **/
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
@@ -53,20 +73,32 @@ public class AccountSettingsController implements Initializable{
     }
   }
   
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void submit() {
     username = newName.getText();
-    System.out.println("tipped username: "+ username);
-    if(username != null) {
-//      interfGD.changeName(username, LoginController.interfGL.getPlayer());
-      System.out.println("acPlayer: "+LoginController.interfGL.getPlayer().getName());
-      System.out.println("new name: "+interfGD.getPlayer(LoginController.interfGL.getPlayer()).getName());
-    } 
-    if(img != null) {
-      interfGD.changeImage(LoginController.interfGL.getPlayer(), img);
+    try {
+      if (LoginController.interfGD.checkIfPlayerNew(username)) {
+        System.out.println("acc: " + LoginController.interfGL.getPlayer().getName());
+        if(username != null) {
+          LoginController.interfGD.changeName(username, LoginController.interfGL.getPlayer());
+          LoginController.displayPrev();
+        } 
+      }
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
+//    if(img != null) {
+//      LoginController.interfGD.changeImage(LoginController.interfGL.getPlayer(), img);
+//    }
   }
   
+  /**
+   * @author lstrauch
+   */
   @FXML
   public void uploadPicture() {
     FileChooser fileChooser = new FileChooser();
@@ -89,6 +121,7 @@ public class AccountSettingsController implements Initializable{
       Logger.getLogger(CreateNewAccountController.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
+  
 
   
 }
