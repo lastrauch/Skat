@@ -502,14 +502,32 @@ public class ClientLogic implements NetworkLogic, AILogic {
         case FOREHAND:
           p.setHand(handF);
           this.netController.dealCards(p, handF, this.playState);
+          // test start
+          System.out.println("Cards for " + p.getName());
+          for (Card c : p.getHand()) {
+            System.out.println(c.getColour() + " " + c.getNumber());
+          }
+          // test end
           break;
         case MIDDLEHAND:
           p.setHand(handM);
           this.netController.dealCards(p, handM, this.playState);
+          // test start
+          System.out.println("Cards for " + p.getName());
+          for (Card c : p.getHand()) {
+            System.out.println(c.getColour() + " " + c.getNumber());
+          }
+          // test end
           break;
         case REARHAND:
           p.setHand(handR);
           this.netController.dealCards(p, handR, this.playState);
+          // test start
+          System.out.println("Cards for " + p.getName());
+          for (Card c : p.getHand()) {
+            System.out.println(c.getColour() + " " + c.getNumber());
+          }
+          // test end
           break;
         case DEALER:
           break;
@@ -561,7 +579,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // TODO Auto-generated method stub
       if (this.inGameController == null) {
         this.guiController.startInGameScreen();
-        this.inGameController = new InGameController();
+
+        InGameInterface igf = new InGameController();
+        this.inGameController = igf;
         System.out.println(this.inGameController);
       }
 
@@ -649,7 +669,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
     if (bet != -1) {
       this.playState.setBetValue(bet);
     }
-    Tools.searchPlayer(player, this.playState.getGroup()).setBet(bet);
+    // change to ID later !!!!
+    for (Player p : this.group) {
+      if (p.getName().equals(player.getName())) {
+        p.setBet(bet);
+      }
+    }
+
     // change to id if network sets them!!
     if (player.getName().equals(this.player.getName())) {
       this.player.setBet(bet);
@@ -861,7 +887,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player.setHand((ArrayList<Card>) cards);
     this.player.sortHand(this.playState);
 
-    System.out.println("print hand:");
+    System.out.println("print hand from" + this.player.getName() + ":");
     for (Card c : this.player.getHand()) {
       System.out.println(c.getColour() + " " + c.getNumber());
     }
