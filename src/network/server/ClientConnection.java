@@ -120,7 +120,7 @@ public class ClientConnection extends Thread {
     }
   }
 
-  private void messageHandler(Message message) {
+  private synchronized void messageHandler(Message message) {
     System.out.println("Send Message: " + message.getType() + " to "
         + this.server.getClientConnections().size() + " players.");
     for (int i = 0; i < this.server.getClientConnections().size(); i++) {
