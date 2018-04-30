@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import logic.ClientLogic;
 import logic.Player;
 import network.messages.Message;
@@ -16,8 +18,8 @@ public class Client extends Thread {
   private int port;
   private Socket socket;
   private Player owner;
-  private ObjectOutputStream output; // Ausgabe zum Server
-  private ObjectInputStream input; // Eingabe vom Server
+  private ObjectOutputStream output; // Output to Server
+  private ObjectInputStream input; // Input from Server
   private ClientLogic logic;
 
   public Client(Server server, Player player, int port, ClientLogic logic) {
@@ -39,6 +41,10 @@ public class Client extends Thread {
       while (connected && (message = (Message) input.readObject()) != null) {
         System.out
             .println("Message recieved run " + this.owner.getName() + ": " + message.getType());
+        if(message.getType() == MessageType.LOBBY){
+          Lobby_Msg msg = (Lobby_Msg) message;
+          System.out.print(" Group size: " + msg.getPlayer().length);
+        }
         receiveMessage(message);
       }
     } catch (ClassCastException e) {
@@ -70,7 +76,6 @@ public class Client extends Thread {
 
   public void disconnect() {
     System.out.println(this.owner.getName() + " client disconnect.");
-    // TODO
     try {
       this.output.writeObject(new ClientDisconnect_Msg(this.owner));
       this.output.close();
@@ -92,17 +97,16 @@ public class Client extends Thread {
 
   public boolean requestConnection() {
     try {
-      // this.start()
       output.writeObject(new ConnectionRequest_Msg(this.owner));
       Message serverOutput;
       boolean receivedAnswer = false;
-      while (!receivedAnswer && (serverOutput = (Message) input.readObject()) != null) { // TODO
+      while (!receivedAnswer && (serverOutput = (Message) input.readObject()) != null) {
         System.out.println("Message recieved requestConnection " + this.owner.getName() + ": "
             + serverOutput.getType());
         if (serverOutput.getType() == MessageType.CONNECTION_ANSWER) {
           receivedAnswer = true;
           ConnectionAnswer_Msg m = (ConnectionAnswer_Msg) serverOutput;
-          this.start(); // TODO
+          this.start();
           return m.getAccepted();
         } else {
           System.out.println("Message from server is invalid!");
@@ -147,11 +151,11 @@ public class Client extends Thread {
         break;
       case DEALT_CARDS:
         DealtCards_Msg msg7 = (DealtCards_Msg) message;
-        logic.receiveCards(msg7.getCards(), msg7.getPlayState());
+        logic.receiveCards(new ArrayList<>(Arrays.asList(msg7.getCards())), msg7.getPlayState());
         break;
       case LOBBY:
         Lobby_Msg msg9 = (Lobby_Msg) message;
-        logic.receiveLobby(msg9.getPlayer(), msg9.getGameSettings());
+        logic.receiveLobby(new ArrayList<>(Arrays.asList(msg9.getPlayer())), msg9.getGameSettings());
         break;
       case START_GAME:
         logic.receiveStartGame();

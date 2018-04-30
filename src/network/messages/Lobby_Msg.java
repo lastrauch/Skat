@@ -6,16 +6,17 @@ import logic.Player;
 
 public class Lobby_Msg extends Message {
   private static final long serialVersionUID = 1L;
-  private List<Player> player;
+  //private List<Player> player;
+  private Player[] player;
   private GameSettings gs;
 
   public Lobby_Msg(List<Player> player, GameSettings gs) {
     super(MessageType.LOBBY);
-    this.player = player;
+    this.player = player.toArray(new Player[player.size()]);
     this.gs = gs;
   }
 
-  public List<Player> getPlayer() {
+  public Player[] getPlayer() {
     return this.player;
   }
 
