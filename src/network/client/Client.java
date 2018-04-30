@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import logic.ClientLogic;
 import logic.Player;
 import network.messages.Message;
@@ -41,7 +43,7 @@ public class Client extends Thread {
             .println("Message recieved run " + this.owner.getName() + ": " + message.getType());
         if(message.getType() == MessageType.LOBBY){
           Lobby_Msg msg = (Lobby_Msg) message;
-          System.out.print(" Group size: " + msg.getPlayer().size());
+          System.out.print(" Group size: " + msg.getPlayer().length);
         }
         receiveMessage(message);
       }
@@ -149,11 +151,11 @@ public class Client extends Thread {
         break;
       case DEALT_CARDS:
         DealtCards_Msg msg7 = (DealtCards_Msg) message;
-        logic.receiveCards(msg7.getCards(), msg7.getPlayState());
+        logic.receiveCards(new ArrayList<>(Arrays.asList(msg7.getCards())), msg7.getPlayState());
         break;
       case LOBBY:
         Lobby_Msg msg9 = (Lobby_Msg) message;
-        logic.receiveLobby(msg9.getPlayer(), msg9.getGameSettings());
+        logic.receiveLobby(new ArrayList<>(Arrays.asList(msg9.getPlayer())), msg9.getGameSettings());
         break;
       case START_GAME:
         logic.receiveStartGame();
