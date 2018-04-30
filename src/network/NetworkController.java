@@ -100,8 +100,8 @@ public class NetworkController implements LogicNetwork {
     this.client.sendMessage(msg);
   }
 
-  public void bet(int bet) {
-    Bet_Msg msg = new Bet_Msg(this.player, bet);
+  public void bet(int bet, Player player) {
+    Bet_Msg msg = new Bet_Msg(player, bet);
     this.client.sendMessage(msg);
   }
 
