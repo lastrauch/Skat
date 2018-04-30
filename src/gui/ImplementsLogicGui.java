@@ -1,6 +1,8 @@
 package gui;
 
 import interfaces.LogicGui;
+import logic.GameSettings;
+import logic.Player;
 
 public class ImplementsLogicGui extends GameSettingsController implements LogicGui {
 
@@ -15,9 +17,19 @@ public class ImplementsLogicGui extends GameSettingsController implements LogicG
    * @author lstrauch
    */
   @Override
-  public void startInGameScreen() {
+  public InGameController startInGameScreen() {
     // TODO Auto-generated method stub
     guiCon.displayInGame();
+    InGameController inGCon = new InGameController();
+    return inGCon;
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.LogicGui#updateLobby(logic.GameSettings, logic.Player[])
+   */
+  @Override
+  public void updateLobby(GameSettings gs, Player[] group) {
+    // TODO Auto-generated method stub
     
   }
 
