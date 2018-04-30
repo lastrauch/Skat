@@ -47,7 +47,8 @@ public class ClientConnection extends Thread{
         try{
             Message message;
             while(this.running && (message = (Message) input.readObject()) != null){
-              System.out.println("Message empfangen: " + message.getType().name());  
+              System.out.println("Message empfangen: " + message.getType().name());
+              
               receiveMessage(message);
             }
         }catch(ClassNotFoundException e){
