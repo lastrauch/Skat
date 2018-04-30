@@ -23,6 +23,7 @@ public class Client extends Thread {
   private ClientLogic logic;
 
   public Client(Server server, Player player, int port, ClientLogic logic) {
+    this.setName("Client of " + player.getName());
     this.server = server;
     this.owner = player;
     this.port = port;

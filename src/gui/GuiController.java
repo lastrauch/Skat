@@ -401,6 +401,9 @@ public class GuiController extends Application {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("InGame.fxml"));
+      if(getClass().getResource("/Jhearts.jpg").toExternalForm() == null){
+        System.out.println("Larissa du Kackaffe!");
+      }
       Image jc = new Image(getClass().getResource("/Jhearts.jpg").toExternalForm());
 
       this.inGame = (AnchorPane) loader.load();
