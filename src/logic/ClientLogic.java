@@ -559,7 +559,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // TODO Auto-generated method stub
       if (this.inGameController == null) {
-        inGameController = this.guiController.startInGameScreen();
+        this.inGameController = this.guiController.startInGameScreen();
       }
 
       // set position
