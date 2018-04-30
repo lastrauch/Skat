@@ -28,6 +28,8 @@ public class PlayState implements Serializable{
   private int baseValue;
   private Trick currentTrick;
   private Auction auction;
+  private boolean announcedKontra;
+  private boolean announcedRekontra;
 
   public void resetPlayState() {
     this.declarerStack = new Stack();
@@ -48,6 +50,8 @@ public class PlayState implements Serializable{
     this.schneiderAnnounced = false;
     this.schwarz = false;
     this.schwarzAnnounced = false;
+    this.setAnnouncedKontra(false);
+    this.setAnnouncedRekontra(false);
   }
   
   /**
@@ -75,6 +79,7 @@ public class PlayState implements Serializable{
     this.schneiderAnnounced = false;
     this.schwarz = false;
     this.schwarzAnnounced = false;
+    
   }
 
 
@@ -383,5 +388,21 @@ public class PlayState implements Serializable{
   
   public Stack getOpponentsStack() {
     return this.opponentsStack;
+  }
+
+  public boolean isAnnouncedKontra() {
+    return announcedKontra;
+  }
+
+  public void setAnnouncedKontra(boolean announcedKontra) {
+    this.announcedKontra = announcedKontra;
+  }
+
+  public boolean isAnnouncedRekontra() {
+    return announcedRekontra;
+  }
+
+  public void setAnnouncedRekontra(boolean announcedRekontra) {
+    this.announcedRekontra = announcedRekontra;
   }
 }
