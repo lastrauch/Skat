@@ -251,7 +251,6 @@ public class GameController implements GuiLogic {
       
       networkController.joinLobby(this.myServer, temp);
     }
-    this.logicGui.startInGameScreen();
   }
 
   @Override
