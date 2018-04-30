@@ -662,7 +662,7 @@ public class ClientLogicCopy implements NetworkLogic, AILogic {
     this.inGameController.updateHand(this.player.getHand());
   }
 
-  // fehlt: update position
+
   public void checkWhatHappensNext(Player playedLastCard) throws LogicException {
 
     Player trickWinner;
