@@ -96,9 +96,9 @@ public class ClientConnection extends Thread{
       }
     
     private void messageHandler(Message message){
-    	List<ClientConnection> clientConnections = this.server.getClientConnections();
-    	for(int i=0; i<clientConnections.size(); i++){
-    		clientConnections.get(i).sendMessage(message);
+    	System.out.println("Send Message: " + message.getType() + " to " + this.server.getClientConnections().size() + " players.");
+    	for(int i=0; i<this.server.getClientConnections().size(); i++){
+    	  this.server.getClientConnections().get(i).sendMessage(message);
     	}
     }
     
