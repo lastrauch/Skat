@@ -20,7 +20,14 @@ public interface InGameInterface {
    */
   public void startPlay(List<Card> hand, Position position);
 
-  
+  /**
+   * should give the player the option to announce kontra and return if he wants to announce it
+   * (true) or not (false)
+   * 
+   * @return
+   */
+  public boolean askToRekontra();
+
   /**
    * asks the player to play a card
    * 
@@ -42,7 +49,7 @@ public interface InGameInterface {
 
   /**
    * supposed to ask the Player if he wants to go with the bet or if he wants to pass like
-   * "18 or pass?" (if bet=18) 
+   * "18 or pass?" (if bet=18)
    * 
    * @param bet
    */
@@ -64,35 +71,38 @@ public interface InGameInterface {
 
   /**
    * updates the current trick
+   * 
    * @param currentTrick
    */
   public void updateTrick(List<Card> currentTrick);
- 
+
   /**
    * 
    * @param gs
    */
   public void setGameSettings(GameSettings gs);
-  
+
   /**
    * stops the game and tells why
+   * 
    * @param reason
    */
   public void stopGame(String reason);
-  
+
   /**
    * 
    * @param player
    */
   public void showWinnerTrick(Player player);
-  
+
   /**
    * winner of play/round
+   * 
    * @param player1
    * @param player2 is null when declarer won
    */
   public void showWinnerPlay(Player player1, Player player2);
-  
+
   /**
    * 
    * @param player

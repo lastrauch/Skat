@@ -20,6 +20,12 @@ public interface LogicNetwork {
 
   // Chat
   void sendChatMessage(String message);
+  
+  // sends out that one of the opponents announced Kontra
+  void sendKontra();
+  
+  //sends out that the declarer announced Rekontra
+  void sendRekontra();
 
   // Settings senden
   void sendGameSettings(GameSettings gs);
