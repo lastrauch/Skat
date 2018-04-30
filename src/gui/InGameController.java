@@ -201,7 +201,7 @@ public class InGameController implements Initializable, InGameInterface {
 
     da[0] = true;
     da[1] = true;
-    askForBet(18);
+//    askForBet(18);
     displayChatClosed();
     chatButtonListener();
   }

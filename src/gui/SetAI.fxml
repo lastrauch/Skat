@@ -56,7 +56,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <JFXButton buttonType="RAISED" layoutX="1141.0" layoutY="547.0" onAction="#play" prefHeight="47.0" prefWidth="97.0" style="-fx-border-color: tan;" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="OK" textFill="WHITE" underline="true">
+      <JFXButton buttonType="RAISED" layoutX="825.0" layoutY="551.0" onAction="#ok" prefHeight="47.0" prefWidth="97.0" style="-fx-border-color: tan;" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="OK" textFill="WHITE" underline="true">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>

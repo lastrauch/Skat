@@ -24,17 +24,17 @@ public class SetAIController implements Initializable {
   private GuiController main;
   private int bot;
   private Label label = new Label();
-  private boolean addedBot;
+  private boolean addedBot = false;
 
   /**
    * @author lstrauch
    */
   @FXML
-  private JFXRadioButton easy1, med1, dif1, easy2, med2, dif2, easy3, med3, dif3, dis3;
+  private JFXRadioButton easy3, med3, dif3, dis3;
   @FXML
-  Label bot1, bot2, bot3;
+  Label bot3;
   @FXML
-  Label l1, l2, l3;
+  Label l3;
   @FXML
   AnchorPane p;
 
@@ -74,7 +74,13 @@ public class SetAIController implements Initializable {
    * @author lstrauch
    */
   @FXML
-  public void play() {
+  public boolean ok() {
+    if(!l3.getText().equals("Disabled") || !l3.getText().equals("")) {
+      addedBot = true;
+    }
+    main.displayLobby();
+    
+    return addedBot;
   }
 
   @Override

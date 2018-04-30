@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -32,6 +34,7 @@ public class LobbyController implements Initializable {
   private GuiController guiCon;
   private static int nrofplayers;
   private static List<Player> list = new ArrayList<Player>();
+  private int size;
 
   @FXML
   private static Label p1;
@@ -222,11 +225,14 @@ public class LobbyController implements Initializable {
   }
 
   public void addBot() {
-    if(nrofplayers < 4) {
-      guiCon.displaySetAI();
-      nrofplayers++;
-      displayPlayers(nrofplayers, list);
-    }
+    addBot.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        if(nrofplayers < 4) {
+          guiCon.displayAI();
+        }
+      }
+    });
   }
 
   public void back() {
