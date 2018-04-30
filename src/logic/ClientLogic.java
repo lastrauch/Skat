@@ -548,40 +548,44 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveStartGame() {
-    // random number points on the one in the list to be the forehand
-    Player[] group = new Player[this.group.size()];
-    for (int i = 0; i < this.group.size(); i++) {
-      group[i] =
-          this.group.get((this.gameSettings.getRandomSeatingIndex() + i) % this.group.size());
-    }
-    this.playState.setGroup(group);
+    //check to have received the right nr of players
+    if (this.group.size() == this.gameSettings.getNrOfPlayers()) {
+      // random number points on the one in the list to be the forehand
+      Player[] group = new Player[this.group.size()];
+      for (int i = 0; i < this.group.size(); i++) {
+        group[i] =
+            this.group.get((this.gameSettings.getRandomSeatingIndex() + i) % this.group.size());
+      }
+      this.playState = new PlayState(group);
 
-    // TODO Auto-generated method stub
-    if (this.inGameController == null) {
-      inGameController = new InGameController();
-    }
 
-    // set position
-    this.playState.getGroup()[0].setPosition(Position.FOREHAND);
-    this.playState.getGroup()[1].setPosition(Position.MIDDLEHAND);
-    this.playState.getGroup()[2].setPosition(Position.REARHAND);
-    if (this.playState.getGroup().length == 4) {
-      this.playState.getGroup()[2].setPosition(Position.DEALER);
-    }
+      // TODO Auto-generated method stub
+      if (this.inGameController == null) {
+        inGameController = new InGameController();
+      }
 
-    // check if player sits FOREHAND
-    for (int i = 0; i < this.playState.getGroup().length; i++) {
-      // change comparism to id!!! (if implemented in network)
-      if (this.playState.getGroup()[i].getName().equals(this.player.getName())) {
-        this.player.setPosition(this.playState.getGroup()[i].getPosition());
+      // set position
+      System.out.println("groesse group: " + this.playState.getGroup().length);
+      this.playState.getGroup()[0].setPosition(Position.FOREHAND);
+      this.playState.getGroup()[1].setPosition(Position.MIDDLEHAND);
+      this.playState.getGroup()[2].setPosition(Position.REARHAND);
+      if (this.playState.getGroup().length == 4) {
+        this.playState.getGroup()[2].setPosition(Position.DEALER);
+      }
+
+      // set player position
+      for (int i = 0; i < this.playState.getGroup().length; i++) {
+        // change comparism to id!!! (if implemented in network)
+        if (this.playState.getGroup()[i].getName().equals(this.player.getName())) {
+          this.player.setPosition(this.playState.getGroup()[i].getPosition());
+        }
+      }
+
+      // Start Game if Player sits forehand
+      if (this.player.getPosition() == Position.FOREHAND) {
+        this.startPlay();
       }
     }
-
-    // Start Game if Player sits forehand
-    if (this.player.getPosition() == Position.FOREHAND) {
-      this.startPlay();
-    }
-
   }
 
   /*
