@@ -64,6 +64,7 @@ public class Client extends Thread{
   }
   
   public void disconnect(){
+    System.out.println(this.owner.getName() + " client disconnect.");
     try{
         this.output.writeObject(new ClientDisconnect_Msg(this.owner));
         this.output.close();
@@ -95,6 +96,8 @@ public class Client extends Thread{
 						System.out.println("Message from server is invalid!");
 					}
 				}
+	   }catch(ArrayIndexOutOfBoundsException e){
+		   e.printStackTrace();
 	   }catch(ClassNotFoundException e){
 		   e.printStackTrace();
 	   }catch(IOException e){
