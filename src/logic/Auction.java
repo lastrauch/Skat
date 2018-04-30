@@ -1,6 +1,8 @@
 package logic;
 
-public class Auction {
+import java.io.Serializable;
+
+public class Auction implements Serializable{
 
   private Player winner; // winner of the auction
   private int[] possibleBets; // list of the possible bets

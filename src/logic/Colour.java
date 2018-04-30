@@ -1,6 +1,8 @@
 package logic;
 
-public enum Colour {
+import java.io.Serializable;
+
+public enum Colour implements Serializable{
   DIAMONDS(1), HEARTS(2), SPADES(3), CLUBS(4); // order in german: Karo, Herz, Pik, Kreuz
   private int value;
 
