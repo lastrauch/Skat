@@ -53,14 +53,20 @@ public class AIController implements InGameInterface{
   }
 
   
-  public void askToTakeUpSkat(PlayState ps) {
-    // TODO Auto-generated method stub
-    
+  public PlayState askToTakeUpSkat(PlayState ps) {
+    this.ps = ps;
+	  switch (this.bot.getDifficulty()){
+      case EASY: return Easy.setPlayState(this);
+      case MEDIUM: return Medium.setPlayState(this);
+      case HARD: return Hard.setPlayState(this);
+    }  
+	return null;  
   }
 
-  
-  public boolean askForBet(int bet) {
-    switch (this.bot.getDifficulty()){
+  public boolean askForBet(int bet){return false;}	//TODO
+  public boolean askForBet(int bet, Player player) {
+    //TODO Player is the one who put the last bet; Null if one is the first one to bet
+	switch (this.bot.getDifficulty()){
       case EASY: return Easy.setBet(this, bet);
       case MEDIUM: return Medium.setBet(this, bet);
       case HARD: return Hard.setBet(this, bet);
@@ -78,6 +84,8 @@ public class AIController implements InGameInterface{
 
   
   public void setPlaySettings(PlayState ps) {
+	  //TODO SinglePlayer and MultiPlayer updaten
+	  //TODO check if I want to play kontra
     switch(ps.getPlayMode()){
       case GRAND: this.existingTrumps = 4; break;
       case SUIT: this.existingTrumps = 11; break;
@@ -97,28 +105,20 @@ public class AIController implements InGameInterface{
   }
   
 
-	@Override
 	public void stopGame(String reason) {
-		// TODO Auto-generated method stub
-		
+		//Do nothing
 	}
 	
-	@Override
 	public void showWinnerTrick(Player player) {
-		// TODO Auto-generated method stub
-		
+		//Do nothing
 	}
 	
-	@Override
 	public void showWinnerPlay(Player player1, Player player2) {
-		// TODO Auto-generated method stub
-		
+		//Do nothing
 	}
 	
-	@Override
 	public void showWinnerGame(Player player) {
-		// TODO Auto-generated method stub
-		
+		//Do nothing
 	}
 	
 	@Override
@@ -126,6 +126,12 @@ public class AIController implements InGameInterface{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	  public boolean askToRekontra() {
+	    // TODO Auto-generated method stub
+	    return false;
+	  }
   
   public GameSettings getGameSettings(){
     return this.gs;
@@ -145,12 +151,6 @@ public class AIController implements InGameInterface{
   
   public double[][] getCardProbabilities(){
     return this.cardProbability;
-  }
-
-  @Override
-  public boolean askToRekontra() {
-    // TODO Auto-generated method stub
-    return false;
   }
 
 }

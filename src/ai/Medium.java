@@ -5,24 +5,13 @@ import java.util.List;
 import logic.Card;
 import logic.Colour;
 import logic.PlayMode;
+import logic.PlayState;
 import logic.Number;
 
 public class Medium {
-  
-	private class SinglePlay{
-		private PlayMode playMode;
-		private Colour colour;
-		
-		public SinglePlay(PlayMode playMode, Colour colour){
-			this.playMode = playMode;
-			this.colour = colour;
-		}
-	}
-  
-	
 	
 	public static int playCard(AIController controller){
-    
+		//TODO
     
 		return 0;
 	}
@@ -33,6 +22,21 @@ public class Medium {
 		}else{
 			return false;
 		}
+	}
+	
+	public static PlayState setPlayState(AIController controller){
+		  
+		  return null;
+	  }
+	
+	public static List<Card> returnSkat(AIController controller){
+		//TODO interne Hilfsmethode um zu entscheiden welcher Skat wieder eingefügt werden soll
+		
+		return null;
+	}
+	
+	public static SinglePlay decidePlayMode(AIController controller){
+		return playSingle(controller);
 	}
   
 	
@@ -100,34 +104,126 @@ public class Medium {
       
       if(certGrand >= minCertGrand) wantsGrand = true;
       
+      //Scale certGrand
       
       //Check if AI wants to play Suit
+      //TODO
+      Colour suitColour = Colour.CLUBS;
+      jackSpades = 9;
+      jackClubs = 7;
+      jackHearts = 5;
+      jackDiamonds = 3;
+      ace = 2;
+      ten = 1;
+      double colourFactorPerCard = 1.25;
+      
+      
       
       
       
       //CHeck if AI wants to play Null
+      //TODO
       
-      //If AI wants to play Grand and Suit, and certainty is the same, check what has the higher game value and play this, set other to not wanted
-      //IF AI wants to play Suit and Null, and certainty is the same, check what has the higher game value and play this
+      
+      
+      
+      
+      
+      
+      
+      SinglePlay sP;
+      //If AI wants to play Grand and Suit, and certainty is the same, check what has the higher game value and play this, set other to not wanted.
+      //If the game values are the same, play Grand
+      if(wantsGrand && wantsSuit){
+    	  if(certGrand > certSuit){
+    		  wantsSuit = false;
+    	  }else if(certGrand < certSuit){
+    		  wantsGrand = false;
+    	  }else{
+    		  int betGrand = General.getHighestPossibleBet(controller, PlayMode.GRAND);
+    		  int gameLevel = General.getGameLevel(controller);
+				int colourValue = 0;
+				switch(suitColour){
+					case CLUBS: colourValue = 12; break;
+					case SPADES: colourValue = 11; break;
+					case HEARTS: colourValue = 10; break;
+					case DIAMONDS: colourValue = 9; break;
+				}
+				int betSuit = gameLevel*colourValue;
+				if(betGrand >= betSuit){
+					wantsSuit = false;
+				}else{
+					wantsGrand = false;
+				}
+    	  }
+      }
+      
+      //IF AI wants to play Suit and Null, and certainty is the same, check what has the higher game value and play this, set other to not wanted.
+      //If the game values are the same, play Suit
+      if(wantsNull && wantsSuit){
+    	  if(certNull > certSuit){
+    		  wantsSuit = false;
+    	  }else if(certNull < certSuit){
+    		  wantsNull = false;
+    	  }else{
+    		  int betNull = 23;
+    		  int gameLevel = General.getGameLevel(controller);
+				int colourValue = 0;
+				switch(suitColour){
+					case CLUBS: colourValue = 12; break;
+					case SPADES: colourValue = 11; break;
+					case HEARTS: colourValue = 10; break;
+					case DIAMONDS: colourValue = 9; break;
+				}
+				int betSuit = gameLevel*colourValue;
+				if(betNull > betSuit){
+					wantsSuit = false;
+				}else{
+					wantsNull = false;
+				}
+    	  }
+      }
+      
       //IF AI wants to play Grand and Null, and certainty is the same, always play Grand
+      if(wantsGrand && wantsNull){
+    	  if(certGrand >= certNull){
+    		  wantsNull = false;
+    	  }else{
+    		  wantsGrand = false;
+    	  }
+      }
       
+      //Check if AI wants to solely play one PlayMode after the above discrimination and return this one
       //If the AI doesn't want to play single, return null
-      return null;
+      if((wantsGrand ^ wantsSuit ^ wantsNull) && ((wantsGrand != wantsSuit) || (wantsGrand != wantsNull))){
+    	  if(wantsGrand){
+    		  sP = new SinglePlay(PlayMode.GRAND);
+    		  return sP;
+    	  }else if(wantsNull){
+    		  sP = new SinglePlay(PlayMode.SUIT);
+    		  return sP;
+    	  }else{
+    		  sP = new SinglePlay(PlayMode.SUIT, suitColour);
+    		  return sP;
+    	  }
+      }else{
+    	  return null;
+      }
   }
 	
 	private static int calculateBet(AIController controller){
 		SinglePlay singlePlay;
 		if((singlePlay = Medium.playSingle(controller)) != null){
-			if(singlePlay.playMode == PlayMode.NULL){
+			if(singlePlay.getPlayMode() == PlayMode.NULL){
 				return 23;
 			}
-			if(singlePlay.playMode == PlayMode.GRAND){
+			if(singlePlay.getPlayMode() == PlayMode.GRAND){
 				return General.getHighestPossibleBet(controller, PlayMode.GRAND);
 			}
-			if(singlePlay.playMode == PlayMode.SUIT){
+			if(singlePlay.getPlayMode() == PlayMode.SUIT){
 				int gameLevel = General.getGameLevel(controller);
 				int colourValue = 0;
-				switch(singlePlay.colour){
+				switch(singlePlay.getColour()){
 					case CLUBS: colourValue = 12; break;
 					case SPADES: colourValue = 11; break;
 					case HEARTS: colourValue = 10; break;
@@ -135,8 +231,6 @@ public class Medium {
 				}
 				return gameLevel*colourValue;
 			}
-		}else{
-			return 0;
 		}
 		return 0;
 	}
