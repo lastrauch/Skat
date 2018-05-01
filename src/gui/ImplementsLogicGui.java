@@ -5,7 +5,7 @@ import interfaces.LogicGui;
 import logic.GameSettings;
 import logic.Player;
 
-public class ImplementsLogicGui extends GameSettingsController implements LogicGui {
+public class ImplementsLogicGui extends LobbyController implements LogicGui {
 
   /**
    * @author lstrauch
@@ -30,6 +30,8 @@ public class ImplementsLogicGui extends GameSettingsController implements LogicG
   @Override
   public void updateLobby(GameSettings gs, List<Player> group) {
     // TODO Auto-generated method stub
+    super.displayPlayers(group.size(), group);
+    super.setGamesettings(gs);    
     
   }
 
