@@ -67,9 +67,7 @@ public class LobbyController implements Initializable {
 
 
   public void setGameSettings(GameSettings gs) {
-    System.out.println("drin");
     this.gs = gs;
-    System.out.println(this.gs.getCountRule());
   }
   
 //  public GameSettings getGameSettings() {

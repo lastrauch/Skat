@@ -33,7 +33,18 @@ public class ImplementsLogicGui extends LobbyController implements LogicGui {
   public void updateLobby(GameSettings gs, List<Player> group) {
     // TODO Auto-generated method stub
     super.displayPlayers(group.size(), group);
-    super.setGamesettings(gs);    
+    super.setGameSettings(gs);    
+    
+  }
+
+
+
+  /* (non-Javadoc)
+   * @see interfaces.LogicGui#showReceivedChatMessage(java.lang.String, logic.Player)
+   */
+  @Override
+  public void showReceivedChatMessage(String mgs, Player player) {
+    // TODO Auto-generated method stub
     
   }
 
