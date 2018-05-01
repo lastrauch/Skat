@@ -259,7 +259,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void showChat() {
     JFXTextField rMes = new JFXTextField();
-    rMes.setText((LoginController.interfGL.getChatText()));
+//    rMes.setText((LoginController.interfGL.getChatText()));
     chatM.appendText(rMes + "\n");
 
   }
