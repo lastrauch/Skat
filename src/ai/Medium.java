@@ -17,7 +17,10 @@ public class Medium {
 	}
 
 	public static boolean setBet(AIController controller, int bet) {
-		if (Medium.calculateBet(controller) >= bet) {
+		if(controller.getMaxBet() == 0){
+			controller.setMaxBet(Medium.calculateBet(controller));
+		}
+		if (controller.getMaxBet() >= bet) {
 			return true;
 		} else {
 			return false;
@@ -25,6 +28,8 @@ public class Medium {
 	}
 
 	public static PlayState setPlayState(AIController controller) {
+		//TODO
+		//can use controller.getSinglePlay() 
 
 		return null;
 	}
@@ -36,10 +41,39 @@ public class Medium {
 		return null;
 	}
 
-	public static SinglePlay decidePlayMode(AIController controller) {
-		return playSingle(controller);
+	private static int calculateBet(AIController controller) {
+		SinglePlay singlePlay = Medium.playSingle(controller);
+		controller.setSinglePlay(singlePlay);
+		if (singlePlay != null) {
+			if (singlePlay.getPlayMode() == PlayMode.NULL) {
+				return 23;
+			}
+			if (singlePlay.getPlayMode() == PlayMode.GRAND) {
+				return General.getHighestPossibleBet(controller, PlayMode.GRAND);
+			}
+			if (singlePlay.getPlayMode() == PlayMode.SUIT) {
+				int gameLevel = General.getGameLevel(controller);
+				int colourValue = 0;
+				switch (singlePlay.getColour()) {
+				case CLUBS:
+					colourValue = 12;
+					break;
+				case SPADES:
+					colourValue = 11;
+					break;
+				case HEARTS:
+					colourValue = 10;
+					break;
+				case DIAMONDS:
+					colourValue = 9;
+					break;
+				}
+				return gameLevel * colourValue;
+			}
+		}
+		return -1;
 	}
-
+	
 	private static SinglePlay playSingle(AIController controller) {
 		List<Card> cards = controller.getBot().getHand();
 
@@ -132,7 +166,7 @@ public class Medium {
 		double scaleSuit = 0;
 		scaleSuit += jackSpades + jackClubs + jackHearts + jackDiamonds;	//Bot has four Jacks
 		scaleSuit += 1*ace + 1*ten;											//Bot has one ace and one ten
-		scaleSuit += 3*missingColour;										//Bot has three colours missing					
+		scaleSuit += 3*missingColour;										//Bot has three colours missing	(ignoring jacks)				
 		scaleSuit += Math.pow(colourFactorPerCard, 6);						//Bot has six cards from the same colour
 		
 		// Single Cards value
@@ -185,7 +219,6 @@ public class Medium {
 		
 
 		// CHeck if AI wants to play Null
-		// TODO
 		double minCertNull = 25;
 		int seven = 4;		
 		int eight = seven;	//You can't win a trick if you have an eight
@@ -193,20 +226,41 @@ public class Medium {
 		ten = 1;
 		missingColour = 3;
 		rowFactorPerCard = 1.25;
-		boolean gap[] = new boolean[4];		//If the row has just one missing card, it is as good as a full row
+		int gap[] = new int[4];		//If the row has just one missing card, it is as good as a full row
 		
 		double scaleNull = 0;
-		scaleNull += 4*seven + 4*eight;
+		scaleNull += 4*seven + 4*eight + 2*nine;						//Bot has four sevens, four eights and two nines
+		scaleNull += 2*Math.pow(1.25, 3) + 2*Math.pow(1.25, 2);			//Therefore the bot has two rows of length three and two rows of length two
 		
-		//hasColour muss neu, da vorher jack nicht beachtet
-		//beachte bei row, dass 10 jetzt neu gesetzt
-		
-		
-		
-		
-		
-		
-		
+		for(int i=0; i<cards.size(); i++){
+			switch(cards.get(i).getNumber()){
+			case SEVEN: certNull += seven; break;
+			case EIGHT: certNull += eight; break;
+			case NINE: certNull += nine; break;
+			case TEN: certNull += ten; break;
+			default:
+			}
+			hasColour[4 - cards.get(i).getColour().ordinal()] = true;
+		}
+		for(int i=0; i<hasColour.length; i++){
+			if(hasColour[i]){
+				int j=0;
+				double row = 1;
+				while(j<8 && gap[i] < 2){
+					if(controller.getCardProbabilities()[8*i+j][0] == 1){
+						row *= rowFactorPerCard;
+					}else{
+						gap[i]++;
+					}
+					j++;
+				}
+				if(row != 1){
+					certNull += row;
+				}
+			}else{
+				certNull += missingColour;
+			}
+		}
 		
 		if (certNull >= minCertNull)
 			wantsNull = true;
@@ -312,38 +366,6 @@ public class Medium {
 		} else {
 			return null;
 		}
-	}
-
-	private static int calculateBet(AIController controller) {
-		SinglePlay singlePlay;
-		if ((singlePlay = Medium.playSingle(controller)) != null) {
-			if (singlePlay.getPlayMode() == PlayMode.NULL) {
-				return 23;
-			}
-			if (singlePlay.getPlayMode() == PlayMode.GRAND) {
-				return General.getHighestPossibleBet(controller, PlayMode.GRAND);
-			}
-			if (singlePlay.getPlayMode() == PlayMode.SUIT) {
-				int gameLevel = General.getGameLevel(controller);
-				int colourValue = 0;
-				switch (singlePlay.getColour()) {
-				case CLUBS:
-					colourValue = 12;
-					break;
-				case SPADES:
-					colourValue = 11;
-					break;
-				case HEARTS:
-					colourValue = 10;
-					break;
-				case DIAMONDS:
-					colourValue = 9;
-					break;
-				}
-				return gameLevel * colourValue;
-			}
-		}
-		return 0;
 	}
 
 }

@@ -17,6 +17,8 @@ public class AIController implements InGameInterface{
   private List<Player> opponents;
   private Player partner;
   private int[] bets;   //Vector of bets by player i
+  private int maxBet = 0; //Set to -1, if bot doesn't want to play single
+  private SinglePlay singlePlay;
   private Card[][] playedCards; //Matrix of played Cards. Columns are the players, rows are the Cards
   private double[][] cardProbability; //Matrix of probabilities, player i has card j;
                                       //Player are the columns, probabilities are the rows
@@ -152,5 +154,23 @@ public class AIController implements InGameInterface{
   public double[][] getCardProbabilities(){
     return this.cardProbability;
   }
+  
+  public void setMaxBet(int maxBet){
+	  this.maxBet = maxBet;
+  }
+  
+  public int getMaxBet(){
+	  return this.maxBet;
+  }
+  
+  public void setSinglePlay(SinglePlay singlePlay){
+	  this.singlePlay = singlePlay;
+  }
+  
+  public SinglePlay getSinglePlay(){
+	  return this.singlePlay;
+  }
+  
+  
 
 }
