@@ -5,12 +5,13 @@ import java.util.List;
 import logic.Card;
 import logic.Colour;
 import logic.PlayMode;
+import logic.PlayState;
 import logic.Number;
 
 public class Medium {
 	
 	public static int playCard(AIController controller){
-    
+		//TODO
     
 		return 0;
 	}
@@ -23,7 +24,18 @@ public class Medium {
 		}
 	}
 	
-	public static SinglePlay stePlayState(AIController controller){
+	public static PlayState setPlayState(AIController controller){
+		  
+		  return null;
+	  }
+	
+	public static List<Card> returnSkat(AIController controller){
+		//TODO
+		
+		return null;
+	}
+	
+	public static SinglePlay decidePlayMode(AIController controller){
 		return playSingle(controller);
 	}
   
@@ -95,10 +107,25 @@ public class Medium {
       //Scale certGrand
       
       //Check if AI wants to play Suit
+      //TODO
       Colour suitColour = Colour.CLUBS;
+      jackSpades = 9;
+      jackClubs = 7;
+      jackHearts = 5;
+      jackDiamonds = 3;
+      ace = 2;
+      ten = 1;
+      double colourFactorPerCard = 1.25;
+      
+      
+      
       
       
       //CHeck if AI wants to play Null
+      //TODO
+      
+      
+      
       
       
       

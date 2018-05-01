@@ -54,11 +54,16 @@ public class AIController implements InGameInterface{
 
   
   public PlayState askToTakeUpSkat(PlayState ps) {
-    // TODO Auto-generated method stub
-   return null; 
+    this.ps = ps;
+	  switch (this.bot.getDifficulty()){
+      case EASY: return Easy.setPlayState(this);
+      case MEDIUM: return Medium.setPlayState(this);
+      case HARD: return Hard.setPlayState(this);
+    }  
+	return null;  
   }
 
-  
+  public boolean askForBet(int bet){return false;}
   public boolean askForBet(int bet, Player player) {
     //TODO Player is the one who put the last bet; Null if one is the first one to bet
 	switch (this.bot.getDifficulty()){
