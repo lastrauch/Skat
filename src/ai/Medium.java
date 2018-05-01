@@ -51,6 +51,8 @@ public class Medium {
 	}
 
 	public static List<Card> returnSkat(AIController controller, PlayMode playMode) {		
+		//TODO Check if player has the correct hand after this method. Check in AIController and in Logic
+		//TODO Check if Skat/declarerStack is correct in PlayState in AIController and in Logic
 		List<Card> cards = controller.getBot().getHand();
 		Card[] skatArray = controller.getPlayState().getSkat();
 		List<Card> skatList = new ArrayList<Card>();
