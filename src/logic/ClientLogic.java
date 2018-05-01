@@ -538,7 +538,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveChatMessage(Player player, String msg) {
-
+    
+  }
+  
+  public void sendChatMessage(String msg) {
+    this.netController.sendChatMessage(msg);
   }
 
   /*
