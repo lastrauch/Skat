@@ -55,7 +55,6 @@ public class Medium {
       
       //Check if AI wants to play Grand
       double minCertGrand = 20;
-      //Single Cards value
       int jackSpades = 9;
       int jackClubs = 7;
       int jackHearts = 5;
@@ -65,6 +64,7 @@ public class Medium {
       int twoJacksButNotSpadesAndClubs = -5;
       double rowFactorPerCard = 1.25;
       
+      //Single Cards value
       if(controller.getCardProbabilities()[4][0] == 1){
         certGrand += jackSpades;
         hasJack[0] = true;
@@ -108,6 +108,8 @@ public class Medium {
       
       //Check if AI wants to play Suit
       //TODO
+      //Single Cards value
+      double minCertSuit = 20;
       Colour suitColour = Colour.CLUBS;
       jackSpades = 9;
       jackClubs = 7;
@@ -115,8 +117,36 @@ public class Medium {
       jackDiamonds = 3;
       ace = 2;
       ten = 1;
+      int missingColour = 3;
       double colourFactorPerCard = 1.25;
-      
+      if(hasJack[0]){
+          certSuit += jackSpades;
+        }
+        if(hasJack[1]){
+          certSuit += jackClubs;
+        }
+        if(hasJack[2]){
+          certSuit += jackHearts;
+        }
+        if(hasJack[3]){
+          certSuit += jackDiamonds;
+        }
+        for(int i=0; i<cards.size(); i++){
+          if(cards.get(i).getNumber() == Number.ASS){
+        	  certSuit += ace;
+          }
+          if(cards.get(i).getNumber() == Number.TEN){
+            certSuit += ten;
+          }
+        }
+        
+        //Deck value
+        for(int i=0; i<hasColour.length; i++){
+        	if(!hasColour[i]) certSuit += missingColour;
+        }
+        
+        
+        if(certSuit >= minCertSuit) wantsSuit = true;
       
       
       
