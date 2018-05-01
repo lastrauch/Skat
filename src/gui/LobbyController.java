@@ -178,7 +178,7 @@ public class LobbyController implements Initializable {
     p1.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p1.setTextAlignment(TextAlignment.CENTER);
 
-    vbox1.getChildren().add(p4);
+    vbox1.getChildren().add(p1);
     
  
     
