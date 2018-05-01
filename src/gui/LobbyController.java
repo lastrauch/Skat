@@ -22,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import logic.GameMode;
 import logic.GameSettings;
 import logic.Player;
 
@@ -36,6 +37,7 @@ public class LobbyController implements Initializable {
   private Label p4 = new Label();
   private VBox vbox = new VBox();
   private GuiController guiCon;
+  private GameMode gm;
   private static GameSettings gs;
   private static int nrofplayers = 1;
   // private static List<Player> list = new ArrayList<Player>();
@@ -59,6 +61,7 @@ public class LobbyController implements Initializable {
 
   public LobbyController() {
     guiCon = new GuiController();
+    GuiController.prevScreen = 4;
   }
 
   public static void getGameSettings(GameSettings games) {
@@ -72,8 +75,9 @@ public class LobbyController implements Initializable {
   
   @FXML
   public void start() {
-    LoginController.interfGL.startGame(gs);
-    guiCon.displayInGame();
+//    if(GuiController.prevScreen == 1 )
+      LoginController.interfGL.hostGame("Hi", gs);
+//      guiCon.displayInGame();
   }
   public void displayBackButton() {
     back.setPrefWidth(214);
@@ -395,8 +399,11 @@ public class LobbyController implements Initializable {
     System.out.println(nrofplayers);
   }
 
-  
-  public void getVBox() {
-    
+  /**
+   * @author lstrauch
+   */
+ 
+  public void setMode(GameMode gm) {
+    this.gm = gm;
   }
 }

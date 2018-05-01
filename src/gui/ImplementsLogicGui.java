@@ -18,9 +18,10 @@ public class ImplementsLogicGui extends LobbyController implements LogicGui {
    * @author lstrauch
    */
   @Override
-  public void startInGameScreen() {
+  public InGameController startInGameScreen() {
     // TODO Auto-generated method stub
     guiCon.displayInGame();
+    return guiCon.getCon();
   }
 
 

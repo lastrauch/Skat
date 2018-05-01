@@ -31,6 +31,7 @@ public class LobbyOnlineController implements Initializable{
   
   public LobbyOnlineController() {
     this.main = new GuiController();
+    GuiController.prevScreen = 2;
   }
 
   /**
@@ -110,7 +111,7 @@ public class LobbyOnlineController implements Initializable{
 
         @Override
         public void handle(MouseEvent event) {
-          main.displayLobby();
+//          main.displayLobby(GameMode.MULTIPLAYER);
           LoginController.interfGL.joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getName());
         }
       });

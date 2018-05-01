@@ -465,5 +465,8 @@ public class GuiController extends Application {
     }
   }
   
+  public InGameController getCon() {
+    return inGameCon;
+  }
 
 }
