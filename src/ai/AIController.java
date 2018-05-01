@@ -63,7 +63,7 @@ public class AIController implements InGameInterface{
 	return null;  
   }
 
-  public boolean askForBet(int bet){return false;}
+  public boolean askForBet(int bet){return false;}	//TODO
   public boolean askForBet(int bet, Player player) {
     //TODO Player is the one who put the last bet; Null if one is the first one to bet
 	switch (this.bot.getDifficulty()){
