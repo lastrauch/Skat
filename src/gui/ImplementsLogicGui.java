@@ -23,6 +23,7 @@ public class ImplementsLogicGui extends LobbyController implements LogicGui {
     guiCon.displayInGame();
     return guiCon.getCon();
   }
+ 
 
 
   /* (non-Javadoc)
