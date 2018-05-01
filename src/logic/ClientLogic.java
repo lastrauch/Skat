@@ -419,7 +419,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     // Achtung!!!! Methode noch nicht implementiert
     if (!this.player.isBot()) {
-      this.guiController.updateLobby(gs, group);
+      for (Player p : this.group) {
+        System.out.println(p.getName());
+      }
+      this.guiController.updateLobby(gs, this.group);
     }
   }
 
@@ -551,9 +554,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // instead gui should open the ingameScreen in startPlay
       // // TODO Auto-generated method stub
-       if (!this.player.isBot()) {
-       this.inGameController = this.guiController.startInGameScreen();
-       }
+      if (!this.player.isBot()) {
+        this.inGameController = this.guiController.startInGameScreen();
+      }
 
 
       // set position
