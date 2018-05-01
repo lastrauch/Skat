@@ -538,9 +538,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveChatMessage(Player player, String msg) {
-    
+
   }
-  
+
   public void sendChatMessage(String msg) {
     this.netController.sendChatMessage(msg);
   }
@@ -619,7 +619,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // if it is my turn
       if (this.checkIfItsMyTurnAuction(player)) {
         // if the player goes with the bet
-        if (this.inGameController.askForBet(newBet)) {
+        if (this.inGameController.askForBet(newBet, player)) {
           this.netController.bet(newBet, this.player);
         } else {
           this.netController.bet(-1, this.player);
@@ -898,9 +898,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // here???
     // this.inGameController.updateHand(this.player.getHand());
 
+    // Start auction here
     if (this.player.getPosition() == Position.MIDDLEHAND) {
       // go with first bet
-      if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0])) {
+      if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0], null)) {
         this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
       } else {
         // pass
@@ -980,6 +981,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           }
 
         } else {
+
+          // shouldn't this start in recieveCards?? at least the auction does start there
           // game is not over
           // createNewPlay!
           this.playState.resetPlayState();
@@ -987,11 +990,21 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
           // update position
           Tools.updatePosition(this.playState.getGroup());
-
-          // start auction if "i am" middlehand
-          if (this.player.getPosition() == Position.MIDDLEHAND) {
-            this.inGameController.askForBet(18);
+          // change to id later
+          for (Player p : this.playState.getGroup()) {
+            if (p.getName().equals(this.player.getName())) {
+              this.player.setPosition(p.getPosition());
+            }
           }
+          
+          if(this.player.getPosition() == Position.FOREHAND) {
+            this.startPlay();
+          }
+
+          // // start auction if "i am" middlehand
+          // if (this.player.getPosition() == Position.MIDDLEHAND) {
+          // this.inGameController.askForBet(18);
+          // }
         }
       } else {
         // generate new trick
