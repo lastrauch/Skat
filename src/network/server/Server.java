@@ -20,6 +20,7 @@ public class Server extends Thread {
   private List<ClientConnection> clientConnections;
   private boolean serverRunning = false;
 
+  private static int playerID = 1;
   private GameSettings gs;
   private String comment;
   private PlayState ps;
@@ -134,5 +135,9 @@ public class Server extends Thread {
 
   public String getIP() {
     return this.ip;
+  }
+  
+  public int getNewPlayerID(){
+	  return this.playerID++;
   }
 }
