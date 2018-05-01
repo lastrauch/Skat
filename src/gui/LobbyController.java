@@ -35,10 +35,10 @@ public class LobbyController implements Initializable {
   private Label p2 = new Label();
   private Label p3 = new Label();
   private Label p4 = new Label();
-  private VBox vbox = new VBox();
   private GuiController guiCon;
+  private GameSettings gs;
   private GameMode gm;
-  private static GameSettings gs;
+//  private static GameSettings gs;
   private static int nrofplayers = 1;
   // private static List<Player> list = new ArrayList<Player>();
   private static boolean addedBot = false;
@@ -62,11 +62,19 @@ public class LobbyController implements Initializable {
   public LobbyController() {
     guiCon = new GuiController();
     GuiController.prevScreen = 4;
+//    setGameSettingsLabel();
   }
 
-  public static void getGameSettings(GameSettings games) {
-    gs = games;
+
+  public void setGameSettings(GameSettings gs) {
+    System.out.println("drin");
+    this.gs = gs;
+    System.out.println(this.gs.getCountRule());
   }
+  
+//  public GameSettings getGameSettings() {
+//    return this.gs;
+//  }
   
   @FXML
   public void back() {
@@ -76,7 +84,8 @@ public class LobbyController implements Initializable {
   @FXML
   public void start() {
 //    if(GuiController.prevScreen == 1 )
-      LoginController.interfGL.hostGame("Hi", gs);
+    LoginController.interfGL.startGame(gs);
+//      LoginController.interfGL.hostGame("Hi", gs);
 //      guiCon.displayInGame();
   }
   public void displayBackButton() {
@@ -162,20 +171,6 @@ public class LobbyController implements Initializable {
   }
 
   public void displayOne(String name) {
-    vbox.setMinHeight(379);
-    vbox.setMinWidth(459);
-    vbox.setPrefHeight(379);
-    vbox.setPrefWidth(459);
-    vbox.setMaxWidth(459);
-    vbox.setMaxHeight(379);
-    vbox.setLayoutX(85);
-    vbox.setLayoutY(100);
-    vbox.setSpacing(30);
-    vbox.setAlignment(Pos.TOP_CENTER);
-    vbox.setStyle("-fx-background-color: tan; -fx-border-color: white");
-    
-    mainPane.getChildren().add(vbox);
-    
     p1.setPrefWidth(213);
     p1.setPrefHeight(51);
     p1.setLayoutX(88);
@@ -185,28 +180,14 @@ public class LobbyController implements Initializable {
     p1.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p1.setTextAlignment(TextAlignment.CENTER);
 
-    vbox.getChildren().add(p4);
+    vbox1.getChildren().add(p4);
     
  
     
     p1.setText(name);
   }
 
-  public void displayTwo(String name1, String name2) {
-    vbox.setMinHeight(379);
-    vbox.setMinWidth(459);
-    vbox.setPrefHeight(379);
-    vbox.setPrefWidth(459);
-    vbox.setMaxWidth(459);
-    vbox.setMaxHeight(379);
-    vbox.setLayoutX(85);
-    vbox.setLayoutY(100);
-    vbox.setSpacing(30);
-    vbox.setAlignment(Pos.TOP_CENTER);
-    vbox.setStyle("-fx-background-color: tan; -fx-border-color: white");
-    
-    mainPane.getChildren().add(vbox);
-    
+  public void displayTwo(String name1, String name2) {  
     displayOne(name1);
     p1.setText(name1);
 
@@ -219,24 +200,10 @@ public class LobbyController implements Initializable {
     p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p2.setTextAlignment(TextAlignment.CENTER);
 
-    vbox.getChildren().add(p2);
+    vbox1.getChildren().add(p2);
   }
 
   public void displayThree(String name1, String name2, String name3) {
-    vbox.setMinHeight(379);
-    vbox.setMinWidth(459);
-    vbox.setPrefHeight(379);
-    vbox.setPrefWidth(459);
-    vbox.setMaxWidth(459);
-    vbox.setMaxHeight(379);
-    vbox.setLayoutX(85);
-    vbox.setLayoutY(100);
-    vbox.setSpacing(30);
-    vbox.setAlignment(Pos.TOP_CENTER);
-    vbox.setStyle("-fx-background-color: tan; -fx-border-color: white");
-    
-    mainPane.getChildren().add(vbox);
-    
     displayOne(name1);
     if (!vbox1.getChildren().contains(p2)) {
       displayTwo(name1, name2);
@@ -250,24 +217,10 @@ public class LobbyController implements Initializable {
     p3.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p3.setTextAlignment(TextAlignment.CENTER);
 
-    vbox.getChildren().add(p3);
+    vbox1.getChildren().add(p3);
   }
 
   public void displayFour(String name1, String name2, String name3, String name4) {
-    vbox.setMinHeight(379);
-    vbox.setMinWidth(459);
-    vbox.setPrefHeight(379);
-    vbox.setPrefWidth(459);
-    vbox.setMaxWidth(459);
-    vbox.setMaxHeight(379);
-    vbox.setLayoutX(85);
-    vbox.setLayoutY(100);
-    vbox.setSpacing(30);
-    vbox.setAlignment(Pos.TOP_CENTER);
-    vbox.setStyle("-fx-background-color: tan; -fx-border-color: white");
-    
-    mainPane.getChildren().add(vbox);
-    
     displayOne(name1);
     if (!vbox1.getChildren().contains(p2)) {
       displayTwo(name1, name2);
@@ -284,11 +237,11 @@ public class LobbyController implements Initializable {
     p4.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p4.setTextAlignment(TextAlignment.CENTER);
 
-    vbox.getChildren().add(p4);
+    vbox1.getChildren().add(p4);
   }
 
 
-  public void setGamesettings(GameSettings gs) {
+  public void setGameSettingsLabel(GameSettings gs) {
     rounds.setText(String.valueOf(gs.getNrOfPlays()));
     system.setText(gs.getCountRule().toString());
     if (gs.isLimitedTime()) {
@@ -297,12 +250,15 @@ public class LobbyController implements Initializable {
       timelimit.setText("Disabled");
     }
     if (gs.isEnableKontra()) {
-      system.setText("Enabled");
+      kontra.setText("Enabled");
     } else {
-      system.setText("Disabled");
+      kontra.setText("Disabled");
     }
   }
 
+  public void setGS() {
+    this.gs = guiCon.getGameSetCon().getGS();
+  }
   /*
    * (non-Javadoc)
    * 
@@ -311,6 +267,9 @@ public class LobbyController implements Initializable {
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
+    
+    setGameSettingsLabel(guiCon.getGameSetCon().getGS());
+    setGS();
     if (addedBot) {
       switch (nrofplayers) {
         case 2:                    

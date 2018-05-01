@@ -27,13 +27,13 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    */
   private int[] rounds;
-  private CountRule countRule;
-  private boolean kontra;
-  private boolean limitedTime;
+  private CountRule[] cr;
+  private boolean[] en = new boolean[1];
+  private boolean[] enT = new boolean[1];
   private int setLimitedTime;
   private int numbOfPl;
   private JFXTextField sec = new JFXTextField();
-  private GameSettings gs = new GameSettings();
+  protected GameSettings gs = new GameSettings();
   private String ms;
   private GuiController guiCon;
   private GameMode gm;
@@ -115,7 +115,7 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    */
   public void countRule() {
-    final CountRule[] cr = new CountRule[1];
+    cr = new CountRule[1];
     sSys.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -158,8 +158,6 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    */
   public void enableKontra() {
-    final boolean[] en = new boolean[1];
-    en[0] = false;
     enKon.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -172,8 +170,6 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    */
   public void enableLimitedTime() {
-    final boolean[] enT = new boolean[1];
-    enT[0] = false;
     enTL.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -282,25 +278,28 @@ public class GameSettingsController implements Initializable {
     if (selected[0] == true && selected[1] == true && selected[2] == true) {
       gs.setNumberOfPlays(rounds[0]);
       gs.setNrOfPlayers(numbOfPl);
-      gs.setCountRule(countRule);
-      gs.setEnableKontra(kontra);
-      gs.setLimitedTime(limitedTime);
-      if (limitedTime) {
+      gs.setCountRule(cr[0]);
+      gs.setEnableKontra(en[0]);
+      gs.setLimitedTime(enT[0]);
+      if (enT[0]) {
         gs.setTimeLimit(setLimitedTime());
       }
       ms = message.getText();
-      LoginController.interfGL.hostGame(ms, gs);
-      LobbyController.getGameSettings(gs);
+      // LoginController.interfGL.hostGame(ms, gs);
+      // LobbyController.getGameSettings(gs);
       if (gm.equals(GameMode.SINGLEPLAYER)) {
-//        guiCon.displayLobby(GameMode.SINGLEPLAYER);
+        // guiCon.displayLobby(GameMode.SINGLEPLAYER);
       } else {
-//        guiCon.displayLobby(GameMode.MULTIPLAYER);
+        // guiCon.displayLobby(GameMode.MULTIPLAYER);
       }
-      guiCon.displayLobby();
+      guiCon.displayLobby(gs);
     }
 
   }
 
+  public GameSettings getGS() {
+    return gs;
+  }
 
   /**
    * (non-Javadoc)
@@ -324,8 +323,8 @@ public class GameSettingsController implements Initializable {
     n3.setToggleGroup(g3);
     n4.setToggleGroup(g3);
 
-    kontra = false;
-    limitedTime = false;
+    en[0] = false;
+    enT[0] = false;
 
     System.out.println(LoginController.interfGL.toString());
 
