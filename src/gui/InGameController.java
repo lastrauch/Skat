@@ -296,25 +296,26 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void startPlay(List<Card> hand, Position position) {
     // TODO Auto-generated method stub
-    c1.setImage(inte.getImage(hand.get(0).getColour().toString().toLowerCase(),
+    System.out.println("Hand 0: "+hand.get(0).toString());
+    c1.setImage(LoginController.interfGD.getImage(hand.get(0).getColour().toString().toLowerCase(),
         (hand.get(0).getNumber().toString().toLowerCase())));
-    c2.setImage(inte.getImage(hand.get(1).getColour().toString().toLowerCase(),
+    c2.setImage(LoginController.interfGD.getImage(hand.get(1).getColour().toString().toLowerCase(),
         (hand.get(1).getNumber().toString().toLowerCase())));
-    c3.setImage(inte.getImage(hand.get(2).getColour().toString().toLowerCase(),
+    c3.setImage(LoginController.interfGD.getImage(hand.get(2).getColour().toString().toLowerCase(),
         (hand.get(2).getNumber().toString().toLowerCase())));
-    c4.setImage(inte.getImage(hand.get(3).getColour().toString().toLowerCase(),
+    c4.setImage(LoginController.interfGD.getImage(hand.get(3).getColour().toString().toLowerCase(),
         (hand.get(3).getNumber().toString().toLowerCase())));
-    c5.setImage(inte.getImage(hand.get(4).getColour().toString().toLowerCase(),
+    c5.setImage(LoginController.interfGD.getImage(hand.get(4).getColour().toString().toLowerCase(),
         (hand.get(4).getNumber().toString().toLowerCase())));
-    c6.setImage(inte.getImage(hand.get(5).getColour().toString().toLowerCase(),
+    c6.setImage(LoginController.interfGD.getImage(hand.get(5).getColour().toString().toLowerCase(),
         (hand.get(5).getNumber().toString().toLowerCase())));
-    c7.setImage(inte.getImage(hand.get(6).getColour().toString().toLowerCase(),
+    c7.setImage(LoginController.interfGD.getImage(hand.get(6).getColour().toString().toLowerCase(),
         (hand.get(6).getNumber().toString().toLowerCase())));
-    c8.setImage(inte.getImage(hand.get(7).getColour().toString().toLowerCase(),
+    c8.setImage(LoginController.interfGD.getImage(hand.get(7).getColour().toString().toLowerCase(),
         (hand.get(7).getNumber().toString().toLowerCase())));
-    c9.setImage(inte.getImage(hand.get(8).getColour().toString().toLowerCase(),
+    c9.setImage(LoginController.interfGD.getImage(hand.get(8).getColour().toString().toLowerCase(),
         (hand.get(8).getNumber().toString().toLowerCase())));
-    c10.setImage(inte.getImage(hand.get(9).getColour().toString().toLowerCase(),
+    c10.setImage(LoginController.interfGD.getImage(hand.get(9).getColour().toString().toLowerCase(),
         (hand.get(9).getNumber().toString().toLowerCase())));
     this.position.setText(position.toString());
     displayChatScreenOpen();

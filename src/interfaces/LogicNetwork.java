@@ -40,7 +40,7 @@ public interface LogicNetwork {
   void yourTurn(Player player);
 
   // Bet
-  void bet(int bet);
+  void bet(int bet, Player player);
 
   // Play Settings
   void sendPlayState(PlayState ps);

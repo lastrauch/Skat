@@ -151,6 +151,9 @@ public class GameController implements GuiLogic {
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setNetworkController(networkController);
 
+    InGameInterface inGameController = new InGameController();
+    clientLogic.setInGameController(inGameController);
+
     this.clientLogic.add(clientLogic);
     this.networkController = networkController;
   }
@@ -207,11 +210,9 @@ public class GameController implements GuiLogic {
 
   @Override
   public void sendChatText(String message) {
-    // TODO Auto-generated method stub
+    this.clientLogic.get(0).sendChatMessage(message);
 
   }
-
-
 
   @Override
   public void hostGame(String comment, GameSettings gs) {
@@ -226,32 +227,35 @@ public class GameController implements GuiLogic {
     System.out.println("start game method");
     // only used in the singlePlayer mod?!
     this.gameSettings = gs;
-    this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, " ");
-    System.out.println("finished host game");
+    if (this.gameSettings.getGameMode() == GameMode.SINGLEPLAYER) {
+      this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, " ");
+      System.out.println("finished host game");
 
-    ClientLogic clientLogic;
-    InGameInterface inGameController;
-    LogicNetwork networkController;
+      ClientLogic clientLogic;
+      InGameInterface inGameController;
+      LogicNetwork networkController;
 
-    // if the player did not set enough bots to play with the chosen number of players we fill the
-    // gaps automatically
-    for (int i = 1; i < this.gameSettings.getNrOfPlayers(); i++) {
-      Bot temp;
-      if (i < this.group.size()) {
-        temp = (Bot) this.group.get(i);
-      } else {
-        String name = "bot" + i;
-        temp = new Bot(name, BotDifficulty.EASY);
+      // if the player did not set enough bots to play with the chosen number of players we fill the
+      // gaps automatically
+      for (int i = 1; i < this.gameSettings.getNrOfPlayers(); i++) {
+        Bot temp;
+        if (i < this.group.size()) {
+          temp = (Bot) this.group.get(i);
+        } else {
+          String name = "bot" + i;
+          temp = new Bot(name, BotDifficulty.EASY);
+        }
+        inGameController =
+            new AIController(temp.getName(), temp.getDifficulty(), this.gameSettings);
+        clientLogic = new ClientLogic(temp);
+        networkController = new NetworkController(clientLogic);
+
+        clientLogic.setNetworkController(networkController);
+        clientLogic.setInGameController(inGameController);
+        this.clientLogic.add(clientLogic);
+
+        networkController.joinLobby(this.myServer, temp);
       }
-      inGameController = new AIController(temp.getName(), temp.getDifficulty(), this.gameSettings);
-      clientLogic = new ClientLogic(temp);
-      networkController = new NetworkController(clientLogic);
-
-      clientLogic.setNetworkController(networkController);
-      clientLogic.setInGameController(inGameController);
-      this.clientLogic.add(clientLogic);
-
-      networkController.joinLobby(this.myServer, temp);
     }
     this.networkController.startGame();
   }

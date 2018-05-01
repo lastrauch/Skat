@@ -2,24 +2,13 @@ package network;
 
 import java.util.List;
 import interfaces.LogicNetwork;
-import interfaces.NetworkLogic;
 import logic.Card;
-import logic.Game;
 import logic.GameSettings;
 import logic.ClientLogic;
 import logic.PlayState;
 import logic.Player;
 import network.client.Client;
-import network.messages.Bet_Msg;
-import network.messages.CardPlayed_Msg;
-import network.messages.ChatMessage_Msg;
-import network.messages.ClientDisconnect_Msg;
-import network.messages.DealtCards_Msg;
-import network.messages.GameSettings_Msg;
-import network.messages.Lobby_Msg;
-import network.messages.PlayState_Msg;
-import network.messages.StartGame_Msg;
-import network.messages.YourTurn_Msg;
+import network.messages.*;
 import network.server.Server;
 import network.server.ServerFinder;
 
@@ -27,9 +16,9 @@ public class NetworkController implements LogicNetwork {
   private ClientLogic logic;
   private Player player;
   private boolean isHost = false;
-  private Player[] otherPlayers;
-  private GameSettings gs;
-  private PlayState ps;
+  //private Player[] otherPlayers;
+  //private GameSettings gs;
+  //private PlayState ps;
 
   private Server server;
   private int port = Settings.PORT;
@@ -43,7 +32,7 @@ public class NetworkController implements LogicNetwork {
 
   public Server hostGame(Player player, GameSettings gs, String comment) {
     this.player = player;
-    this.gs = gs;
+    //this.gs = gs;
     this.isHost = true;
     this.server = new Server("Server von " + player.getName(), this.port, gs, comment);
     this.server.start();
@@ -58,7 +47,7 @@ public class NetworkController implements LogicNetwork {
     if (this.client.requestConnection()) {
       return true;
     } else {
-      this.client.disconnect(); // TODO
+      this.client.disconnect();
       this.client = null;
     }
     return false;
@@ -79,10 +68,11 @@ public class NetworkController implements LogicNetwork {
     this.client.sendMessage(msg);
   }
 
-  // TODO what if client isn't host?
   public void sendGameSettings(GameSettings gs) {
-    GameSettings_Msg msg = new GameSettings_Msg(gs);
-    this.client.sendMessage(msg);
+    if(isHost){
+	  GameSettings_Msg msg = new GameSettings_Msg(gs);
+	  this.client.sendMessage(msg);
+    }
   }
 
   public void startGame() {
@@ -100,8 +90,8 @@ public class NetworkController implements LogicNetwork {
     this.client.sendMessage(msg);
   }
 
-  public void bet(int bet) {
-    Bet_Msg msg = new Bet_Msg(this.player, bet);
+  public void bet(int bet, Player player) {
+    Bet_Msg msg = new Bet_Msg(player, bet);
     this.client.sendMessage(msg);
   }
 
@@ -116,18 +106,16 @@ public class NetworkController implements LogicNetwork {
   }
 
   public void exitGame() {
-    this.client.disconnect();
+    this.client.disconnect();	//TODO Lobby updaten
   }
 
-  @Override
   public void sendKontra() {
-    // TODO Auto-generated method stub
-    
+    Kontra_Msg msg = new Kontra_Msg();
+    this.client.sendMessage(msg);
   }
 
-  @Override
   public void sendRekontra() {
-    // TODO Auto-generated method stub
-    
+    Rekontra_Msg msg = new Rekontra_Msg();
+    this.client.sendMessage(msg);
   }
 }

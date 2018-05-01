@@ -27,6 +27,12 @@ public interface NetworkLogic {
 	//receive Bet
 	void receiveBet(Player player, int bet);
 	
+	//receive Kontra
+	void receiveKontra();
+	
+	//receive Rekontra
+	void receiveRekontra();
+	
 	//receive PlaySettings
 	void receivePlayState(PlayState ps);
 	
