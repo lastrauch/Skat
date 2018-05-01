@@ -42,7 +42,7 @@ public class Client extends Thread {
       while (connected && (message = (Message) input.readObject()) != null) {
     	if(message.getType() == MessageType.LOBBY){
           Lobby_Msg msg = (Lobby_Msg) message;
-          System.out.println("Message recieved run " + this.owner.getName() + ": " + message.getType() + " Group size: " + msg.getPlayer().length);
+          System.out.println("Message recieved run " + this.owner.getName() + ": " + message.getType() + " (Group size: " + msg.getPlayer().length + ")");
         }else{
         	System.out.println("Message recieved run " + this.owner.getName() + ": " + message.getType());
         }
