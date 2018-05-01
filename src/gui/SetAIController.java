@@ -43,7 +43,7 @@ public class SetAIController implements Initializable {
    */
   public SetAIController() {
     this.main = new GuiController();
-    GuiController.prevScreen = 2;
+    GuiController.prevScreen = 5;
   }
 
   /**
@@ -104,7 +104,7 @@ public class SetAIController implements Initializable {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
-        LoginController.interfGL.setBot("Bot3", BotDifficulty.EASY);
+        LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
         l3.setText("Easy");
       }
     });
@@ -116,7 +116,7 @@ public class SetAIController implements Initializable {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
-        LoginController.interfGL.setBot("Bot3", BotDifficulty.MEDIUM);
+        LoginController.interfGL.setBot("Bot", BotDifficulty.MEDIUM);
         l3.setText("Medium");
       }
     });
@@ -128,7 +128,7 @@ public class SetAIController implements Initializable {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
-        LoginController.interfGL.setBot("Bo31", BotDifficulty.HARD);
+        LoginController.interfGL.setBot("Bot", BotDifficulty.HARD);
         l3.setText("Hard");
       }
     });
