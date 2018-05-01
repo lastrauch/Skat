@@ -22,14 +22,17 @@ public class Easy {
     }else {
     return false;
     
-  }
-    
+  }    
     }
   
-
-  
   public static PlayState setPlayState(AIController controller){
-	 
+	 SinglePlay singlePlayer;
+	 //wenn höchster Reizwert 
+	 //bestimmt der Alleinspieker Art des Spiels : hier: Suit
+	 singlePlayer = new SinglePlay(PlayMode.SUIT);
+ 
+	 //entscheiden, was für ein Spiel gespielt werden soll
+	 //also einer der Farben als Trumpf wählen
 	  
 	  return null;
   }
