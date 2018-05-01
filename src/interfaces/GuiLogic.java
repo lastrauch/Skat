@@ -49,12 +49,6 @@ public interface GuiLogic {
   public void setBot(String botname, BotDifficulty difficulty);
   
   /**
-   * returns a new chat message
-   * @return
-   */
-  public String getChatText();
-  
-  /**
    * send the just tipped chat message
    * @param message
    */

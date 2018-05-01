@@ -205,14 +205,6 @@ public class GameController implements GuiLogic {
 
 
   @Override
-  public String getChatText() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-
-
-  @Override
   public void sendChatText(String message) {
     this.clientLogic.get(0).sendChatMessage(message);
 
@@ -234,12 +226,12 @@ public class GameController implements GuiLogic {
     this.group = this.clientLogic.get(0).getLobby();
 
     // if the lobby does not contain enough players
-    // if (this.group.size() < this.gameSettings.getNrOfPlayers()) {
-    // for (int i = this.group.size(); i < this.gameSettings.getNrOfPlayers(); i++) {
-    // String name = "bot" + i;
-    // this.setBot(name, BotDifficulty.EASY);
-    // }
-    // }
+    if (this.group.size() < this.gameSettings.getNrOfPlayers()) {
+      for (int i = this.group.size(); i < this.gameSettings.getNrOfPlayers(); i++) {
+        String name = "bot" + i;
+        this.setBot(name, BotDifficulty.EASY);
+      }
+    }
     this.networkController.startGame();
   }
 
