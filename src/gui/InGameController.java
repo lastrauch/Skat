@@ -368,27 +368,27 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @author lstrauch
    */
-  @Override
-  public void askToTakeUpSkat(PlayState ps) {
-    // TODO Auto-generated method stub
-    deletePane(paneBet);
-    displayWannaTakeSkat();
-    ButtonListenrWantSkat(ps);
-
-  }
-
-  /** (non-Javadoc)
-   * @see interfaces.InGameInterface#askForBet(int)
-   * 
-   * @author lstrauch
-   */
-  @Override
-  public boolean askForBet(int bet) {
-    // TODO Auto-generated method stub
-    betB.setText(String.valueOf(bet));
-    displayAuctionScreen();
-    return ButtonListener();
-  }
+//  @Override
+//  public void askToTakeUpSkat(PlayState ps) {
+//    // TODO Auto-generated method stub
+//    deletePane(paneBet);
+//    displayWannaTakeSkat();
+//    ButtonListenrWantSkat(ps);
+//
+//  }
+//
+//  /** (non-Javadoc)
+//   * @see interfaces.InGameInterface#askForBet(int)
+//   * 
+//   * @author lstrauch
+//   */
+//  @Override
+//  public boolean askForBet(int bet) {
+//    // TODO Auto-generated method stub
+//    betB.setText(String.valueOf(bet));
+//    displayAuctionScreen();
+//    return ButtonListener();
+//  }
 
 
   /**
@@ -1066,7 +1066,7 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    * @param ps
    */
-  public void ButtonListenerPlaySettings(PlayState ps) {
+  public PlayState ButtonListenerPlaySettings(PlayState ps) {
     diamonds.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -1125,6 +1125,8 @@ public class InGameController implements Initializable, InGameInterface {
         ps.setSchwarzAnnounced(true);
       }
     });
+    
+    return ps;
   }
 
 
@@ -1724,6 +1726,29 @@ public class InGameController implements Initializable, InGameInterface {
   public boolean askToRekontra() {
     // TODO Auto-generated method stub
     return false;
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
+   */
+  @Override
+  public PlayState askToTakeUpSkat(PlayState ps) {
+    // TODO Auto-generated method stub
+    deletePane(paneBet);
+    displayWannaTakeSkat();
+    ButtonListenrWantSkat(ps);
+    return null;
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#askForBet(int, logic.Player)
+   */
+  @Override
+  public boolean askForBet(int bet, Player lastBet) {
+    //     deletePane(paneBet);
+    betB.setText(String.valueOf(bet));
+    displayAuctionScreen();
+    return ButtonListener();
   }
 
 
