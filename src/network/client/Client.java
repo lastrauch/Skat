@@ -23,6 +23,7 @@ public class Client extends Thread {
   private ClientLogic logic;
 
   public Client(Server server, Player player, int port, ClientLogic logic) {
+    this.setName("Client of " + player.getName());
     this.server = server;
     this.owner = player;
     this.port = port;
@@ -39,11 +40,11 @@ public class Client extends Thread {
       Message message;
       boolean connected = true;
       while (connected && (message = (Message) input.readObject()) != null) {
-        System.out
-            .println("Message recieved run " + this.owner.getName() + ": " + message.getType());
-        if(message.getType() == MessageType.LOBBY){
+    	if(message.getType() == MessageType.LOBBY){
           Lobby_Msg msg = (Lobby_Msg) message;
-          System.out.println(" Group size: " + msg.getPlayer().length);
+          System.out.println("Message recieved run " + this.owner.getName() + ": " + message.getType() + " (Group size: " + msg.getPlayer().length + ")");
+        }else{
+        	System.out.println("Message recieved run " + this.owner.getName() + ": " + message.getType());
         }
         receiveMessage(message);
       }
@@ -106,6 +107,7 @@ public class Client extends Thread {
         if (serverOutput.getType() == MessageType.CONNECTION_ANSWER) {
           receivedAnswer = true;
           ConnectionAnswer_Msg m = (ConnectionAnswer_Msg) serverOutput;
+          this.owner.setId(m.getID());
           this.start();
           return m.getAccepted();
         } else {
@@ -151,6 +153,7 @@ public class Client extends Thread {
         break;
       case DEALT_CARDS:
         DealtCards_Msg msg7 = (DealtCards_Msg) message;
+        System.out.println(this.owner.getName() + " received his/her cards.");
         logic.receiveCards(new ArrayList<>(Arrays.asList(msg7.getCards())), msg7.getPlayState());
         break;
       case LOBBY:
@@ -164,6 +167,12 @@ public class Client extends Thread {
         ClientDisconnect_Msg msg11 = (ClientDisconnect_Msg) message;
         logic.receivePlayerDisconnected(msg11.getPlayer());
         break;
+      case KONTRA:
+    	  logic.receiveKontra();
+    	  break;
+      case REKONTRA:
+    	  logic.receiveRekontra();
+    	  break;
       default:
         break;
     }

@@ -17,7 +17,6 @@ public class ChooseGameController {
    * @author lstrauch
    */
   private GameMode gamemode;
-  private GuiLogic interf;
 
   /**
    *@author lstrauch
