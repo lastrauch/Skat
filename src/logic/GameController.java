@@ -146,8 +146,14 @@ public class GameController implements GuiLogic {
     System.out.println("yoo I just created a Player " + p.getName() + " (login)");
     // InGameInterface inGameController = new InGameController();
     ClientLogic clientLogic = new ClientLogic(p);
+    clientLogic.setLogicGui(this.logicGui);
+
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setNetworkController(networkController);
+
+    InGameInterface inGameController = new InGameController();
+    clientLogic.setInGameController(inGameController);
+
     this.clientLogic.add(clientLogic);
     this.networkController = networkController;
   }
@@ -208,15 +214,13 @@ public class GameController implements GuiLogic {
 
   }
 
-
-
   @Override
   public void hostGame(String comment, GameSettings gs) {
     System.out.println("start hostGame method");
     this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
   }
 
-  
+
 
   @Override
   public void startGame(GameSettings gs) {
@@ -225,11 +229,11 @@ public class GameController implements GuiLogic {
     this.gameSettings = gs;
     this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, " ");
     System.out.println("finished host game");
-    
+
     ClientLogic clientLogic;
     InGameInterface inGameController;
     LogicNetwork networkController;
-    
+
     // if the player did not set enough bots to play with the chosen number of players we fill the
     // gaps automatically
     for (int i = 1; i < this.gameSettings.getNrOfPlayers(); i++) {
@@ -240,18 +244,17 @@ public class GameController implements GuiLogic {
         String name = "bot" + i;
         temp = new Bot(name, BotDifficulty.EASY);
       }
-      inGameController =
-          new AIController(temp.getName(), temp.getDifficulty(), this.gameSettings);
+      inGameController = new AIController(temp.getName(), temp.getDifficulty(), this.gameSettings);
       clientLogic = new ClientLogic(temp);
       networkController = new NetworkController(clientLogic);
-      
+
       clientLogic.setNetworkController(networkController);
       clientLogic.setInGameController(inGameController);
       this.clientLogic.add(clientLogic);
-      
+
       networkController.joinLobby(this.myServer, temp);
     }
-    this.logicGui.startInGameScreen();
+    this.networkController.startGame();
   }
 
   @Override
@@ -276,6 +279,11 @@ public class GameController implements GuiLogic {
   @Override
   public void setUsername(String username) {
     this.group.get(0).setName(username);
-    
+
   }
+
+  public void announceKontra() {
+    this.clientLogic.get(0).announceKontra();
+  }
+
 }
