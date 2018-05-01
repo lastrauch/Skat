@@ -22,16 +22,25 @@ public class Player implements Serializable{
   private int bet; // -1 if you passed
   private int gamePoints; // saves the points of every Play until the whole game is over
   private boolean declarer; // true if the player is declarer and false when he/she is opponents
+  private boolean bot;
 
   public Player(String name) {
     this.name = name;
     this.bet = 0;
+    this.bot = false;
+  }
+  
+  public Player(String name, boolean bot) {
+    this.name = name;
+    this.bet = 0;
+    this.bot = bot;
   }
 
   public Player(String name, Image img) {
     this.name = name;
     this.img = img;
     this.bet = 0;
+    this.bot = false;
   }
 
   public Player(String name, int id, Image img, Position position, List<Card> hand, int bet,
@@ -44,6 +53,7 @@ public class Player implements Serializable{
     this.bet = bet;
     this.gamePoints = gamePoints;
     this.declarer = declarer;
+    this.bot = false;
   }
 
   public Player copyMe() {
@@ -397,5 +407,8 @@ public class Player implements Serializable{
    */
   public void addToGamePoints(int points) {
     this.gamePoints += points;
+  }
+  public boolean isBot() {
+    return this.bot;
   }
 }
