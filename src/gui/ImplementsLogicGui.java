@@ -5,7 +5,7 @@ import interfaces.LogicGui;
 import logic.GameSettings;
 import logic.Player;
 
-public class ImplementsLogicGui extends LobbyController implements LogicGui {
+public class ImplementsLogicGui implements LogicGui {
 
   /**
    * @author lstrauch
@@ -18,10 +18,12 @@ public class ImplementsLogicGui extends LobbyController implements LogicGui {
    * @author lstrauch
    */
   @Override
-  public void startInGameScreen() {
+  public InGameController startInGameScreen() {
     // TODO Auto-generated method stub
     guiCon.displayInGame();
+    return guiCon.getCon();
   }
+ 
 
 
   /* (non-Javadoc)
@@ -30,8 +32,19 @@ public class ImplementsLogicGui extends LobbyController implements LogicGui {
   @Override
   public void updateLobby(GameSettings gs, List<Player> group) {
     // TODO Auto-generated method stub
-    super.displayPlayers(group.size(), group);
-    super.setGamesettings(gs);    
+    guiCon.getLobbyCon().displayPlayers(group.size(), group);
+    guiCon.getLobbyCon().setGameSettings(gs);    
+    
+  }
+
+
+
+  /* (non-Javadoc)
+   * @see interfaces.LogicGui#showReceivedChatMessage(java.lang.String, logic.Player)
+   */
+  @Override
+  public void showReceivedChatMessage(String mgs, Player player) {
+    // TODO Auto-generated method stub
     
   }
 

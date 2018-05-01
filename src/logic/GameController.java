@@ -37,85 +37,6 @@ public class GameController implements GuiLogic {
     clientLogic = new ArrayList<ClientLogic>();
     server = new ArrayList<Server>();
   }
-  //
-  // public Card[] initializeCards() {
-  // Card[]cards = new Card[32];
-  //
-  // int counter = 0;
-  // for (int i = 1; i <= 4; i++) {
-  // Colour col = null;
-  // switch (i) {
-  // case 1:
-  // col = Colour.DIAMONDS;
-  // break;
-  // case 2:
-  // col = Colour.HEARTS;
-  // break;
-  // case 3:
-  // col = Colour.SPADES;
-  // break;
-  // case 4:
-  // col = Colour.CLUBS;
-  // break;
-  // }
-  // for (int j = 1; j <= 8; j++) {
-  // Number nr = null;
-  // switch (j) {
-  // case 1:
-  // nr = Number.SEVEN;
-  // break;
-  // case 2:
-  // nr = Number.EIGHT;
-  // break;
-  // case 3:
-  // nr = Number.NINE;
-  // break;
-  // case 4:
-  // nr = Number.JACK;
-  // break;
-  // case 5:
-  // nr = Number.QUEEN;
-  // break;
-  // case 6:
-  // nr = Number.KING;
-  // break;
-  // case 7:
-  // nr = Number.TEN;
-  // break;
-  // case 8:
-  // nr = Number.ASS;
-  // break;
-  // }
-  // // cards are generated in the order of their value
-  //
-  // Card c = new Card(col, nr);
-  // cards[counter] = c;
-  // counter++;
-  //
-  // // System.out.println(counter + " " + col.toString() + " " + nr.toString());
-  // }
-  // }
-  // }
-
-  // /**
-  // * defines in which order players "sitting on a table" (random)
-  // *
-  // * @author sandfisc
-  // */
-  // public void defineSeatingList(Player[] group) {
-  // int randomIndex;
-  // int index = 0;
-  // Player temp;
-  //
-  // for (int i = 0; i < group.length; i++) {
-  // randomIndex = (int) (Math.random() * (this.group.length));
-  // temp = this.group[i];
-  // this.group[i] = this.group[randomIndex];
-  // this.group[randomIndex] = this.group[i];
-  // }
-  // }
-  //
-
 
   /*
    * (non-Javadoc)
@@ -124,12 +45,7 @@ public class GameController implements GuiLogic {
    */
   @Override
   public void decideGameMode(GameMode m) {
-    // TODO Auto-generated method stub
-    // if (m == GameMode.MULTIPLAYER) {
-    // this.logicGui.openMultiPlayerLobby();
-    // }else {
-    // this.logicGui.openSinglePlayerLobby();
-    // }
+
   }
 
 
@@ -144,22 +60,16 @@ public class GameController implements GuiLogic {
     Player p = new Player(username, profilepicture);
     this.group.add(p);
     System.out.println("yoo I just created a Player " + p.getName() + " (login)");
-    // InGameInterface inGameController = new InGameController();
     ClientLogic clientLogic = new ClientLogic(p);
     clientLogic.setLogicGui(this.logicGui);
 
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setNetworkController(networkController);
 
-    InGameInterface inGameController = new InGameController();
-    clientLogic.setInGameController(inGameController);
-
     this.clientLogic.add(clientLogic);
     this.networkController = networkController;
   }
-
-  // FRAGE!! WAS PASSIERT WENN DIE CLIENTLOGIK NUR AUS DER LISTE GELOESCHT WIRD??
-  // eventuell muss die ClientLogik erst bei start
+  
   @Override
   /**
    * @author awesch
@@ -178,9 +88,10 @@ public class GameController implements GuiLogic {
    * @author awesch
    */
   public void setBot(String botname, BotDifficulty difficulty) {
-    Player p = new Bot(botname, difficulty);
+    String name = "bot" + this.group.size();
+    Player p = new Bot(name, difficulty);
     this.group.add(p);
-    InGameInterface inGameController = new AIController(botname, difficulty, this.gameSettings);
+    InGameInterface inGameController = new AIController(name, difficulty, this.gameSettings);
     ClientLogic clientLogic = new ClientLogic(p);
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setInGameController(inGameController);
@@ -204,14 +115,6 @@ public class GameController implements GuiLogic {
 
 
   @Override
-  public String getChatText() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-
-
-  @Override
   public void sendChatText(String message) {
     this.clientLogic.get(0).sendChatMessage(message);
 
@@ -219,8 +122,7 @@ public class GameController implements GuiLogic {
 
   @Override
   public void hostGame(String comment, GameSettings gs) {
-    // System.out.println("start hostGame method");
-    this.myServer = this.networkController.hostGame(this.group.get(0), this.gameSettings, comment);
+    this.myServer = this.networkController.hostGame(this.clientLogic.get(0).player, this.gameSettings, comment);
   }
 
 
@@ -228,17 +130,16 @@ public class GameController implements GuiLogic {
   @Override
   public void startGame(GameSettings gs) {
     System.out.println("start game method");
-    // only used in the singlePlayer mod?!
     this.gameSettings = gs;
     this.group = this.clientLogic.get(0).getLobby();
 
     // if the lobby does not contain enough players
-//    if (this.group.size() < this.gameSettings.getNrOfPlayers()) {
-//      for (int i = this.group.size(); i < this.gameSettings.getNrOfPlayers(); i++) {
-//        String name = "bot" + i;
-//        this.setBot(name, BotDifficulty.EASY);
-//      }
-//    }
+    if (this.group.size() < this.gameSettings.getNrOfPlayers()) {
+      for (int i = this.group.size(); i < this.gameSettings.getNrOfPlayers(); i++) {
+        String name = "bot" + i;
+        this.setBot(name, BotDifficulty.EASY);
+      }
+    }
     this.networkController.startGame();
   }
 
@@ -266,11 +167,11 @@ public class GameController implements GuiLogic {
     this.group.get(0).setName(username);
 
   }
-  
+
   @Override
   public void announceContra() {
     this.clientLogic.get(0).announceKontra();
-    
+
   }
 
 }

@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import logic.GameMode;
+import logic.GameSettings;
 
 public class GuiController extends Application {
 
@@ -188,13 +189,29 @@ public class GuiController extends Application {
     }
   }
   
-  public void displayLobby() {
+  public void displayLobby(GameSettings gs) {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("Lobby.fxml"));
       this.lobby = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(lobby);
 
+//      lobbyCon.setGameSettings(gs);
+//      System.out.println("GSSSSS!!!!!: "+ gs.getNrOfPlayers());
+      lobbyCon = loader.getController();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+  
+  public void displayLobby() {
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("Lobby.fxml"));
+      this.lobby = (AnchorPane) loader.load();
+      mprimaryStage.getScene().setRoot(lobby);
+      
       lobbyCon = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
@@ -465,5 +482,16 @@ public class GuiController extends Application {
     }
   }
   
+  public InGameController getCon() {
+    return inGameCon;
+  }
+  
+  public GameSettingsController getGameSetCon() {
+    return gameSettingsCon;
+  }
+  
+  public LobbyController getLobbyCon() {
+    return lobbyCon;
+  }
 
 }
