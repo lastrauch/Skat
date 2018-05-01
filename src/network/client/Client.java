@@ -23,6 +23,7 @@ public class Client extends Thread {
   private ClientLogic logic;
 
   public Client(Server server, Player player, int port, ClientLogic logic) {
+    this.setName("Client of " + player.getName());
     this.server = server;
     this.owner = player;
     this.port = port;
@@ -106,6 +107,7 @@ public class Client extends Thread {
         if (serverOutput.getType() == MessageType.CONNECTION_ANSWER) {
           receivedAnswer = true;
           ConnectionAnswer_Msg m = (ConnectionAnswer_Msg) serverOutput;
+          this.owner.setId(m.getID());
           this.start();
           return m.getAccepted();
         } else {
@@ -151,6 +153,7 @@ public class Client extends Thread {
         break;
       case DEALT_CARDS:
         DealtCards_Msg msg7 = (DealtCards_Msg) message;
+        System.out.println(this.owner.getName() + " received his/her cards.");
         logic.receiveCards(new ArrayList<>(Arrays.asList(msg7.getCards())), msg7.getPlayState());
         break;
       case LOBBY:
