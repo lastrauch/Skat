@@ -407,22 +407,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player.addToGamePoints(points);
   }
 
-  // /**
-  // * returns the given player in the playstate group array
-  // *
-  // * @author awesch
-  // * @param player
-  // * @return
-  // */
-  // public Player searchPlayer(Player player) {
-  // for (Player p : this.playState.getGroup()) {
-  // if (p.equals(player)) {
-  // return p;
-  // }
-  // }
-  // return null;
-  // }
-
   /*
    * (non-Javadoc)
    * 
@@ -448,11 +432,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     Tools.shuffleCards(this.cards);
     // secound deal out cards
     this.dealOutCards();
-    // Play.dealOutCards(Tools.getPlayingGroup(this.playState.getGroup()), cards, this.playState);
-    // this.netController.sendPlayState(playState); // hands are saved in playState
-    // if (this.inGameController == null) {
-    // this.inGameController = this.guiController.startInGameScreen();
-    // }
 
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
 
@@ -803,24 +782,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.playState = ps;
     this.inGameController.setPlaySettings(ps);
 
-    // damn did not see that its already written something like this ..
-    // // check if we start a new play
-    // if(this.checkIfAuctionIsOver(18)) {
-    //
-    // // get cards for gui
-    // this.player.setHand(Tools.searchPlayer(this.player, this.playState.getGroup()).getHand());
-    //
-    // // start new game on gui
-    // this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
-    //
-    // // evt. start new auction
-    // if(this.checkIfItsMyTurnAuction(this.player)) {
-    // this.inGameController.askForBet(18);
-    // }
-    // }
-
-    // yes.. BUT we should start the play here right??
-
     if (this.player.getPosition().equals(Position.FOREHAND)) {
       this.netController.sendCardPlayed(this.playCard(null));
     }
@@ -895,12 +856,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
 
-    // i think
-    // this has
-    // to be done
-    // here???
-    // this.inGameController.updateHand(this.player.getHand());
-
     // Start auction here
     if (this.player.getPosition() == Position.MIDDLEHAND) {
       // go with first bet
@@ -920,7 +875,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     Player trickWinner;
     Player[] playWinner;
     Player gameWinner;
-
 
     // check if trick is over
     if (this.playState.getCurrentTrick().isFull()) {
