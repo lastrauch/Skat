@@ -12,7 +12,7 @@ public class Easy {
   
   public static boolean setBet(AIController controller, int bet){
     int maxBet = General.getHighestPossibleBet(controller, PlayMode.SUIT);
-    double random = 1 + (Math.random() *1);
+    double random = Math.random();
     if(maxBet >= bet) {
       if(random < 0.4) {
         return true;
@@ -29,6 +29,7 @@ public class Easy {
 
   
   public static PlayState setPlayState(AIController controller){
+	 
 	  
 	  return null;
   }
