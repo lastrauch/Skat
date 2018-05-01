@@ -21,7 +21,7 @@ public interface LogicGui {
   
   public void updateLobby(GameSettings gs, List<Player> group);
   
-  public void showReceivedChatMessage(String mgs);
+  public void showReceivedChatMessage(String mgs, Player player);
   
  
 }
