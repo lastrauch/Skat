@@ -288,7 +288,8 @@ public class GameSettingsController implements Initializable {
       }
       ms = message.getText();
       LoginController.interfGL.hostGame(ms, gs);
-      guiCon.displayLobbyOnline();
+      LobbyController.getGameSettings(gs);
+      guiCon.displayLobby();
     }
     
   }
@@ -338,8 +339,9 @@ public class GameSettingsController implements Initializable {
         gs.setTimeLimit(setLimitedTime());
       }
       ms = message.getText();
-//      guiCon.displayInGame();
-      LoginController.interfGL.startGame(gs);
+      LoginController.interfGL.hostGame(ms, gs);
+      LobbyController.getGameSettings(gs);
+      guiCon.displayLobby();
     }
   }
 

@@ -93,4 +93,10 @@ public interface GuiLogic {
    * @return
    */
   public Player getPlayer();
+  
+  /**
+   * announces kontra after beeing clicked
+   * @author lstrauch
+   */
+  public void announceContra();
 }

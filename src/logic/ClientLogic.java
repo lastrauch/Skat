@@ -30,6 +30,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player = player;
     this.initializeCards();
     group = new ArrayList<Player>();
+    group.add(this.player);
   }
 
   public void setLogicGui(LogicGui lg) {
@@ -433,7 +434,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.group = player;
 
     // Achtung!!!! Methode noch nicht implementiert
-    // this.guiController.updateLobby(gs, group);
+    if (!this.player.isBot()) {
+      this.guiController.updateLobby(gs, group);
+    }
+  }
+
+  public List<Player> getLobby() {
+    return this.group;
   }
 
   public void startPlay() {
@@ -784,7 +791,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
       }
       this.inGameController.askToTakeUpSkat(this.playState);
-      this.inGameController.setPlaySettings(this.playState);
+      // maybe change to: this.playState = this.inGameController.askToTakeUpSkat(this.playState);
       this.netController.sendPlayState(this.playState);
     }
   }
@@ -996,8 +1003,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
               this.player.setPosition(p.getPosition());
             }
           }
-          
-          if(this.player.getPosition() == Position.FOREHAND) {
+
+          if (this.player.getPosition() == Position.FOREHAND) {
             this.startPlay();
           }
 
