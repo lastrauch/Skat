@@ -233,12 +233,12 @@ public class GameController implements GuiLogic {
     this.group = this.clientLogic.get(0).getLobby();
 
     // if the lobby does not contain enough players
-    if (this.group.size() < this.gameSettings.getNrOfPlayers()) {
-      for (int i = this.group.size(); i < this.gameSettings.getNrOfPlayers(); i++) {
-        String name = "bot" + i;
-        this.setBot(name, BotDifficulty.EASY);
-      }
-    }
+//    if (this.group.size() < this.gameSettings.getNrOfPlayers()) {
+//      for (int i = this.group.size(); i < this.gameSettings.getNrOfPlayers(); i++) {
+//        String name = "bot" + i;
+//        this.setBot(name, BotDifficulty.EASY);
+//      }
+//    }
     this.networkController.startGame();
   }
 
@@ -266,9 +266,11 @@ public class GameController implements GuiLogic {
     this.group.get(0).setName(username);
 
   }
-
-  public void announceKontra() {
+  
+  @Override
+  public void announceContra() {
     this.clientLogic.get(0).announceKontra();
+    
   }
 
 }

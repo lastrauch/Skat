@@ -30,6 +30,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player = player;
     this.initializeCards();
     group = new ArrayList<Player>();
+    group.add(this.player);
   }
 
   public void setLogicGui(LogicGui lg) {
@@ -433,7 +434,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.group = player;
 
     // Achtung!!!! Methode noch nicht implementiert
-    this.guiController.updateLobby(gs, group);
+    if (!this.player.isBot()) {
+      this.guiController.updateLobby(gs, group);
+    }
   }
 
   public List<Player> getLobby() {
