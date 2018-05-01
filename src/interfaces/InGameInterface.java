@@ -45,7 +45,7 @@ public interface InGameInterface {
    * asks the player if he wants to take up the skat
    * 
    */
-  public void askToTakeUpSkat(PlayState ps);
+  public PlayState askToTakeUpSkat(PlayState ps);
 
   /**
    * supposed to ask the Player if he wants to go with the bet or if he wants to pass like
@@ -53,7 +53,7 @@ public interface InGameInterface {
    * 
    * @param bet
    */
-  public boolean askForBet(int bet);
+  public boolean askForBet(int bet, Player lastBet);
 
   /**
    * should reload the hand cards in the given order
