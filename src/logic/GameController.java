@@ -151,6 +151,9 @@ public class GameController implements GuiLogic {
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setNetworkController(networkController);
 
+    InGameInterface inGameController = new InGameController();
+    clientLogic.setInGameController(inGameController);
+
     this.clientLogic.add(clientLogic);
     this.networkController = networkController;
   }

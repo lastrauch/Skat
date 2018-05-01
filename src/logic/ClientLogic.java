@@ -29,6 +29,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // System.out.println("created ClientLogic for Player " + player.getName());
     this.player = player;
     this.initializeCards();
+    group = new ArrayList<Player>();
   }
 
   public void setLogicGui(LogicGui lg) {
@@ -558,12 +559,16 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.playState = new PlayState(group);
 
 
-      // TODO Auto-generated method stub
-      if (this.inGameController == null) {
-        this.guiController.startInGameScreen();
-        this.inGameController = new InGameController();
-        System.out.println(this.inGameController);
-      }
+      // instead gui should open the ingameScreen in startPlay
+      // // TODO Auto-generated method stub
+      // if (this.inGameController == null) {
+      // this.guiController.startInGameScreen();
+      //
+      // InGameInterface igf = new InGameController();
+      // this.inGameController = igf;
+      // System.out.println(this.inGameController);
+      // }
+
 
       // set position
       System.out.println(
@@ -649,7 +654,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
     if (bet != -1) {
       this.playState.setBetValue(bet);
     }
-    Tools.searchPlayer(player, this.playState.getGroup()).setBet(bet);
+    // change to ID later !!!!
+    for (Player p : this.group) {
+      if (p.getName().equals(player.getName())) {
+        p.setBet(bet);
+      }
+    }
+
     // change to id if network sets them!!
     if (player.getName().equals(this.player.getName())) {
       this.player.setBet(bet);
@@ -758,6 +769,16 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void checkIfAuctionWinner() {
     // change to id if setted by network !!!!!!!
     if (this.playState.getAuction().getWinner().getName().equals(this.player.getName())) {
+      // this player is declarer
+      this.player.setDeclarer(true);
+      // the others not(update after the last auction) ... maybe not important later (if we reset
+      // everything after one play)
+      for (Player p : this.playState.getGroup()) {
+        // !!! change to id later
+        if (!p.getName().equals(this.player.getName())) {
+          p.setDeclarer(false);
+        }
+      }
       this.inGameController.askToTakeUpSkat(this.playState);
       this.inGameController.setPlaySettings(this.playState);
       this.netController.sendPlayState(this.playState);
@@ -861,7 +882,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player.setHand((ArrayList<Card>) cards);
     this.player.sortHand(this.playState);
 
-    System.out.println("print hand:");
+    System.out.println("print hand from" + this.player.getName() + ":");
     for (Card c : this.player.getHand()) {
       System.out.println(c.getColour() + " " + c.getNumber());
     }
@@ -1029,8 +1050,19 @@ public class ClientLogic implements NetworkLogic, AILogic {
     if (this.playState.getTrickNr() == 0) {
       this.netController.sendKontra();
     }
-
   }
 
+  @Override
+  public void receiveKontra() {
+    this.playState.setAnnouncedKontra(true);
+    if (this.player.IsDeclarer()) {
+      this.inGameController.askToRekontra();
+    }
+  }
+
+  @Override
+  public void receiveRekontra() {
+    this.playState.setAnnouncedRekontra(true);
+  }
 
 }
