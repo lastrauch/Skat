@@ -43,6 +43,10 @@ public class General {
 	    return index;
 	}
 	
+	public static int getHighestPossibleBet(AIController controller){
+		return getHighestPossibleBet(controller, PlayMode.GRAND);
+	}
+	
 	public static int getHighestPossibleBet(AIController controller, PlayMode playMode){
 		if(playMode == PlayMode.NULL){
 			return 23;
