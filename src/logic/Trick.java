@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trick implements Serializable{
+public class Trick implements Serializable {
   private PlayState ps;
   private int indexWinner;
   private List<Card> trickCards;
@@ -19,8 +19,6 @@ public class Trick implements Serializable{
   public Trick() {
     this.trickCards = new ArrayList<Card>();
   }
-
-  // maybe add methods like calculate highest card in trick, depending on the PlayMode
 
   public List<Card> getTrickCards() {
     return this.trickCards;
@@ -37,10 +35,7 @@ public class Trick implements Serializable{
   public Card getFirstCard() {
     return this.trickCards.get(0);
   }
-  // public void setTrickCards(Card[] trickCards) {
-  // this.trickCards = trickCards;
-  // }
-
+  
   public void setCard1(Card card1) {
     this.trickCards.set(0, card1);
   }
@@ -52,7 +47,7 @@ public class Trick implements Serializable{
   public void setCard3(Card card3) {
     this.trickCards.set(0, card3);
   }
-  
+
   public void addCard(Card card) {
     this.trickCards.add(card);
   }
@@ -60,23 +55,10 @@ public class Trick implements Serializable{
   public boolean isFull() {
     if (this.trickCards.size() == 3) {
       return true;
-    }else {
+    } else {
       return false;
     }
   }
-
-  //
-  // public void playCard(Player player, Card card) throws LogicException {
-  //
-  // if (this.playedCards >= 3) {
-  // throw new LogicException("the trick is already filled");
-  // } else {
-  // this.trickCards[this.playedCards] = card;
-  // this.playersOfCards[this.playedCards] = player;
-  // this.playedCards++;
-  // }
-  //
-  // }
 
 
   /**
@@ -98,7 +80,7 @@ public class Trick implements Serializable{
       // calculate winner when PlayMode is Null or NullOuvert
     } else {
       return ps.getGroup()[this.calculateWinnerNull()];
-      }
+    }
   }
 
   /**
@@ -213,7 +195,7 @@ public class Trick implements Serializable{
    * @return index of the winning card
    */
   public int calculateWinnerGrand() {
-    
+
     if (this.compareCardsGrand(this.trickCards.get(0), this.trickCards.get(1)) == 0) {
       if (this.compareCardsGrand(this.trickCards.get(0), this.trickCards.get(2)) == 0) {
         return 0;
@@ -262,11 +244,6 @@ public class Trick implements Serializable{
    * @return index of the winning card
    */
   public int calculateWinnerNull() {
-
-    // test
-    // System.out.println(this.trickCards[0].getNumber() + " " + this.trickCards[0].getColour());
-    // System.out.println(this.trickCards[1].getNumber() + " " + this.trickCards[1].getColour());
-    // System.out.println(this.trickCards[2].getNumber() + " " + this.trickCards[2].getColour());
 
     if (this.compareNumberLowTen(this.trickCards.get(0), this.trickCards.get(1)) == 0) {
       if (this.compareNumberLowTen(this.trickCards.get(0), this.trickCards.get(2)) == 0) {
