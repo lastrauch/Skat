@@ -126,6 +126,13 @@ public class LoginController implements Initializable {
 
   
   public static void displayPrev() {
+//    1: ChooseGame
+//    2: LobbyOnline
+//    3: GameSettings
+//    4: Lobby
+//    5: SetAI
+//    6: InGame
+//    7: 
     switch(GuiController.prevScreen) {
       case 1:
         main.displayChooseGame();

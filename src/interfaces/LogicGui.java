@@ -17,7 +17,7 @@ public interface LogicGui {
   /**
    * method should open the inGameScreen
    */
-  public void startInGameScreen();
+  public InGameController startInGameScreen();
   
   public void updateLobby(GameSettings gs, List<Player> group);
   
