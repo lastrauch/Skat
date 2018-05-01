@@ -6,13 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trick implements Serializable {
-  private PlayState ps;
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private int indexWinner;
   private List<Card> trickCards;
 
   public Trick(PlayState ps) {
     this.trickCards = new ArrayList<Card>();
-    this.ps = ps;
     this.indexWinner = 0;
   }
 
