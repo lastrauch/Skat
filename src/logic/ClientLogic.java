@@ -921,7 +921,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     Player[] playWinner;
     Player gameWinner;
 
-    Thread t = new Thread(); // waits after telling gui/ai what is to do
 
     // check if trick is over
     if (this.playState.getCurrentTrick().isFull()) {
@@ -942,7 +941,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // show winner of trick
       this.inGameController.showWinnerTrick(trickWinner);
       try {
-        t.wait(3000);
+        this.wait(3000);
       } catch (InterruptedException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -964,7 +963,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // show winner of play
         this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
         try {
-          t.wait(3000);
+          this.wait(3000);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
@@ -978,14 +977,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // show winner of game
           this.inGameController.showWinnerGame(gameWinner);
           try {
-            t.wait(3000);
+            this.wait(3000);
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
 
         } else {
 
-          // shouldn't this start in recieveCards?? at least the auction does start there
           // game is not over
           // createNewPlay!
           this.playState.resetPlayState();
@@ -1000,14 +998,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
             }
           }
 
+          // with start play you deal out cards and in receive cards the auction will start
           if (this.player.getPosition() == Position.FOREHAND) {
             this.startPlay();
           }
 
-          // // start auction if "i am" middlehand
-          // if (this.player.getPosition() == Position.MIDDLEHAND) {
-          // this.inGameController.askForBet(18);
-          // }
         }
       } else {
         // generate new trick
@@ -1067,7 +1062,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   @Override
   public void announceKontra() {
-    if (this.playState.getTrickNr() == 0) {
+    if (this.playState.getTrickNr() == 0 && this.gameSettings.isEnableKontra()) {
       this.netController.sendKontra();
     }
   }
