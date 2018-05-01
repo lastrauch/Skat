@@ -30,7 +30,7 @@ public class Medium {
 	  }
 	
 	public static List<Card> returnSkat(AIController controller){
-		//TODO
+		//TODO interne Hilfsmethode um zu entscheiden welcher Skat wieder eingefügt werden soll
 		
 		return null;
 	}
