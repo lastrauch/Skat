@@ -572,13 +572,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // instead gui should open the ingameScreen in startPlay
       // // TODO Auto-generated method stub
-      // if (this.inGameController == null) {
-      // this.guiController.startInGameScreen();
-      //
-      // InGameInterface igf = new InGameController();
-      // this.inGameController = igf;
-      // System.out.println(this.inGameController);
-      // }
+       if (!this.player.isBot()) {
+       this.inGameController = this.guiController.startInGameScreen();
+       }
 
 
       // set position
