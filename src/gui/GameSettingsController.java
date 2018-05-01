@@ -292,13 +292,17 @@ public class GameSettingsController implements Initializable {
       } else {
         // guiCon.displayLobby(GameMode.MULTIPLAYER);
       }
-      if(GuiController.prevScreen != 2) {
-        LoginController.interfGL.hostGame(ms, gs);
-        System.out.println("singleplayer");
-      }else {
-        System.out.println("multiplayer");
-      }
       guiCon.displayLobby(gs);
+      if(guiCon.getLobbyCon() != null) {
+        System.out.println("lobbycon: "+ guiCon.getLobbyCon());
+        if(GuiController.prevScreen != 2) {
+          LoginController.interfGL.hostGame(ms, gs);
+          System.out.println("singleplayer");
+        }else {
+          guiCon.displayLobby(gs);
+          System.out.println("multiplayer");
+        }
+      }
     }
 
   }
