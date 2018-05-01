@@ -67,7 +67,7 @@ public class ClientConnection extends Thread {
 	}
 
 	private void disconnect() {
-		System.out.println(this.player.getName() + " CC disconnect.");
+		if(this.player != null) System.out.println(this.player.getName() + " CC disconnect.");
 		this.running = false;
 		try {
 			output.close();
