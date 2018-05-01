@@ -56,6 +56,7 @@ public class AIController implements InGameInterface{
 
   
   public PlayState askToTakeUpSkat(PlayState ps) {
+	  //TODO SinglePlayer und Multiplayer updaten
     this.ps = ps;
 	  switch (this.bot.getDifficulty()){
       case EASY: return Easy.setPlayState(this);
@@ -151,8 +152,16 @@ public class AIController implements InGameInterface{
 	  return this.currentTrick;
   }
   
+  public void setCardProbabilities(double[][] cardProbabilities){
+	  this.cardProbability = cardProbabilities;
+  }
+  
   public double[][] getCardProbabilities(){
     return this.cardProbability;
+  }
+  
+  public void setCardProbability(double probability, int colour, int number, int player){
+	  this.cardProbability[colour*8+number][player] = probability;
   }
   
   public void setMaxBet(int maxBet){

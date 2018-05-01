@@ -1,11 +1,16 @@
 package ai;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import logic.Auction;
 import logic.Card;
 import logic.Colour;
 import logic.PlayMode;
 import logic.PlayState;
+import logic.Player;
+import logic.Stack;
+import logic.Trick;
 import logic.Number;
 
 public class Medium {
@@ -29,16 +34,82 @@ public class Medium {
 
 	public static PlayState setPlayState(AIController controller) {
 		//TODO
-		//can use controller.getSinglePlay() 
+		PlayState ps = controller.getPlayState();
+		 Stack declarerStack;
+		  Card[] skat;		//returnSkat(controller) ????
+		  ps.setTrump(controller.getSinglePlay().getColour());
+		  int playValue;
+		  ps.setPlayValue(controller.getMaxBet());	//TODO muesste eigentlich letzter Reizwert sein
+		  ps.setPlayMode(controller.getSinglePlay().getPlayMode());
+		  ps.setHandGame(false);
+		  ps.setSchneiderAnnounced(false);
+		  ps.setSchwarzAnnounced(false);
+		  ps.setOpen(false);
+		  int baseValue;			//TODO wozu wird der benoetigt?
 
-		return null;
+		return ps;
 	}
 
-	public static List<Card> returnSkat(AIController controller) {
-		// TODO interne Hilfsmethode um zu entscheiden welcher Skat wieder
-		// eingefügt werden soll
-
-		return null;
+	public static List<Card> returnSkat(AIController controller, PlayMode playMode) {		
+		List<Card> cards = controller.getBot().getHand();
+		Card[] skatArray = controller.getPlayState().getSkat();
+		List<Card> skatList = new ArrayList<Card>();
+		for(int i=0; i<skatArray.length; i++){
+			skatList.add(skatArray[i]);
+		}
+		List<Card> skatReturn = new ArrayList<Card>();
+		
+		cards.addAll(skatList);
+		controller.setCardProbabilities(General.initializeProbabilities(cards));
+		
+		int[] hasColour = new int[4];
+		for(int i=0; i<cards.size(); i++){
+			hasColour[4 - cards.get(i).getColour().ordinal()]++;
+		}
+		
+		while(skatReturn.size() < 2){
+			int minIndex = 0;
+			int minValue = hasColour[0];
+			for(int i=1; i<hasColour.length; i++){
+				if(hasColour[i] < minValue && hasColour[i] > 0){
+					minIndex = i;
+					minValue = hasColour[i];
+				}
+			}
+			if(playMode == PlayMode.GRAND || playMode == PlayMode.SUIT){
+				int j = 7;
+				while(j >= 0 && skatReturn.size() < 2){
+					if(controller.getCardProbabilities()[minIndex*8 + j][0] == 1){
+						controller.setCardProbability(0, minIndex, j, 0);
+						for(int i=0; i<cards.size(); i++){
+							if((4-cards.get(i).getColour().ordinal()) == minIndex && (8-cards.get(i).getNumber().ordinal()) == j){
+								skatReturn.add(cards.get(i));	//TODO evtl. Hardcopy is needed
+								cards.remove(i);
+								continue;
+							}
+						}
+					}
+					j--;
+				}
+			}else{
+				int j = 0;
+				while(j < 8 && skatReturn.size() < 2){
+					if(controller.getCardProbabilities()[minIndex*8 + j][0] == 1){
+						controller.setCardProbability(0, minIndex, j, 0);
+						for(int i=0; i<cards.size(); i++){
+							if((4-cards.get(i).getColour().ordinal()) == minIndex && (8-cards.get(i).getNumber().ordinal()) == j){
+								skatReturn.add(cards.get(i));	//TODO evtl. Hardcopy is needed
+								cards.remove(i);
+								continue;
+							}
+						}
+					}
+					j++;
+				}
+			}
+		}
+		
+		return skatReturn;
 	}
 
 	private static int calculateBet(AIController controller) {
