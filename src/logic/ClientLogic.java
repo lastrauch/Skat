@@ -502,32 +502,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
         case FOREHAND:
           p.setHand(handF);
           this.netController.dealCards(p, handF, this.playState);
-          // test start
-          System.out.println("Cards for " + p.getName());
-          for (Card c : p.getHand()) {
-            System.out.println(c.getColour() + " " + c.getNumber());
-          }
-          // test end
           break;
         case MIDDLEHAND:
           p.setHand(handM);
           this.netController.dealCards(p, handM, this.playState);
-          // test start
-          System.out.println("Cards for " + p.getName());
-          for (Card c : p.getHand()) {
-            System.out.println(c.getColour() + " " + c.getNumber());
-          }
-          // test end
           break;
         case REARHAND:
           p.setHand(handR);
           this.netController.dealCards(p, handR, this.playState);
-          // test start
-          System.out.println("Cards for " + p.getName());
-          for (Card c : p.getHand()) {
-            System.out.println(c.getColour() + " " + c.getNumber());
-          }
-          // test end
           break;
         case DEALER:
           break;
@@ -576,14 +558,16 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.playState = new PlayState(group);
 
 
-      // TODO Auto-generated method stub
-      if (this.inGameController == null) {
-        this.guiController.startInGameScreen();
-
-        InGameInterface igf = new InGameController();
-        this.inGameController = igf;
-        System.out.println(this.inGameController);
-      }
+      //instead gui should open the ingameScreen in startPlay
+//      // TODO Auto-generated method stub
+//      if (this.inGameController == null) {
+//        this.guiController.startInGameScreen();
+//
+//        InGameInterface igf = new InGameController();
+//        this.inGameController = igf;
+//        System.out.println(this.inGameController);
+//      }
+      
 
       // set position
       System.out.println(
