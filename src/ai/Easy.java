@@ -1,5 +1,7 @@
 package ai;
 
+import logic.PlayState;
+
 public class Easy {
   
   
@@ -12,4 +14,9 @@ public class Easy {
     return false;
   }
 
+  
+  public static PlayState setPlayState(AIController controller){
+	  
+	  return null;
+  }
 }

@@ -159,6 +159,7 @@ public class ClientConnection extends Thread {
 		this.server.removePlayer(message.getPlayer());
 		this.server.removeClientConnection(this);
 		this.messageHandler(new ClientDisconnect_Msg(message.getPlayer()));
+		this.messageHandler(new Lobby_Msg(this.server.getPlayer(), this.server.getGameSettings()));
 		this.disconnect();
 	}
 
