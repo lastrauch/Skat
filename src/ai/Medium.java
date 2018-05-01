@@ -64,10 +64,11 @@ public class Medium {
 		int twoJacksButNotSpadesAndClubs = -5;
 		double rowFactorPerCard = 1.25;
 
+		//Highest certainty value one can get for grand
 		double scaleGrand = 0;
-		scaleGrand += jackSpades + jackClubs + jackHearts + jackDiamonds;
-		scaleGrand += 4*ace + 4*ten;
-		scaleGrand += (ace/rowFactorPerCard)*Math.pow(rowFactorPerCard, 7)+(ace/rowFactorPerCard)*Math.pow(rowFactorPerCard, 3);
+		scaleGrand += jackSpades + jackClubs + jackHearts + jackDiamonds;	//Bot has four jacks
+		scaleGrand += 4*ace + 2*ten;										//Bot has four aces and two tens
+		scaleGrand += 2*rowFactorPerCard;									//RowFactor because of the two tens
 		
 		// Single Cards value
 		if (controller.getCardProbabilities()[4][0] == 1) {
@@ -92,7 +93,9 @@ public class Medium {
 			if (cards.get(i).getNumber() == Number.TEN) {
 				certGrand += ten;
 			}
-			hasColour[4 - cards.get(i).getColour().ordinal()] = true;
+			if(cards.get(i).getNumber() != Number.JACK){
+				hasColour[4 - cards.get(i).getColour().ordinal()] = true;
+			}
 		}
 
 		// Deck value
@@ -125,11 +128,12 @@ public class Medium {
 		int missingColour = 3;
 		double colourFactorPerCard = 1.25;
 		
+		//Highest certainty value one can get for suit
 		double scaleSuit = 0;
-		scaleSuit += jackSpades + jackClubs + jackHearts + jackDiamonds;
-		scaleSuit += 4*ace + 4*ten;
-		scaleSuit += 2*missingColour;
-		scaleSuit += Math.pow(colourFactorPerCard, 7);
+		scaleSuit += jackSpades + jackClubs + jackHearts + jackDiamonds;	//Bot has four Jacks
+		scaleSuit += 1*ace + 1*ten;											//Bot has one ace and one ten
+		scaleSuit += 3*missingColour;										//Bot has three colours missing					
+		scaleSuit += Math.pow(colourFactorPerCard, 6);						//Bot has six cards from the same colour
 		
 		// Single Cards value
 		if (hasJack[0]) {
@@ -182,7 +186,32 @@ public class Medium {
 
 		// CHeck if AI wants to play Null
 		// TODO
-
+		double minCertNull = 25;
+		int seven = 4;		
+		int eight = seven;	//You can't win a trick if you have an eight
+		int nine = 2;
+		ten = 1;
+		missingColour = 3;
+		rowFactorPerCard = 1.25;
+		boolean gap[] = new boolean[4];		//If the row has just one missing card, it is as good as a full row
+		
+		double scaleNull = 0;
+		scaleNull += 4*seven + 4*eight;
+		
+		//hasColour muss neu, da vorher jack nicht beachtet
+		//beachte bei row, dass 10 jetzt neu gesetzt
+		
+		
+		
+		
+		
+		
+		
+		
+		if (certNull >= minCertNull)
+			wantsNull = true;
+		certNull = (certNull/scaleNull)*10;
+		
 		SinglePlay sP;
 		// If AI wants to play Grand and Suit, and certainty is the same, check
 		// what has the higher game value and play this, set other to not
