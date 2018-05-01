@@ -131,7 +131,7 @@ public class LoginController implements Initializable {
         main.displayChooseGame();
         break;
       case 2:
-        main.displaySetAI();
+        main.displayAI();
         break;
       case 3:
         main.displayLobbyOnline();

@@ -17,7 +17,6 @@ public class ChooseGameController {
    * @author lstrauch
    */
   private GameMode gamemode;
-  private GuiLogic interf;
 
   /**
    *@author lstrauch
@@ -32,7 +31,7 @@ public class ChooseGameController {
    */
   @FXML
   public void SinglePlayer() {
-    main.displayAI();
+    main.displayGameSettings(GameMode.SINGLEPLAYER);
   }
 
   /**

@@ -76,7 +76,7 @@ public class SetAIController implements Initializable {
   @FXML
   public boolean ok() {
     if(!l3.getText().equals("Disabled") || !l3.getText().equals("")) {
-      addedBot = true;
+      LobbyController.setBot(true);
     }
     main.displayLobby();
     
@@ -100,7 +100,7 @@ public class SetAIController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         bot = 3;
-        if (checkIfBotEnabled()) {
+        if (!(l3.getText().equals("Disabled") || l3.getText().equals(""))) {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
@@ -112,7 +112,7 @@ public class SetAIController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         bot = 3;
-        if (checkIfBotEnabled()) {
+        if (!(l3.getText().equals("Disabled") || l3.getText().equals(""))) {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
@@ -124,7 +124,7 @@ public class SetAIController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         bot = 3;
-        if (checkIfBotEnabled()) {
+        if (!(l3.getText().equals("Disabled") || l3.getText().equals(""))) {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
@@ -136,7 +136,7 @@ public class SetAIController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         bot = 3;
-        if (checkIfBotEnabled()) {
+        if (!(l3.getText().equals("Disabled") || l3.getText().equals(""))) {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
@@ -146,44 +146,13 @@ public class SetAIController implements Initializable {
   }
 
 
-  /**
-   * @author lstrauch
-   * @return
-   */
-  public boolean checkIfBotEnabled() {
-    switch (bot) {
-      case 1:
-        if (!l1.getText().equals("")) {
-          return true;
-        }
-      case 2:
-        if (!l2.getText().equals("")) {
-          return true;
-        }
-      case 3:
-        if (!(l3.getText().equals("Disabled") || l3.getText().equals(""))) {
-          return true;
-        }
-      default:
-        return false;
-    }
-  }
 
   /**
    * @author lstrauch
    */
   public void alreadyClicked() {
-    ToggleGroup group1 = new ToggleGroup();
-    ToggleGroup group2 = new ToggleGroup();
     ToggleGroup group3 = new ToggleGroup();
 
-    easy1.setToggleGroup(group1);
-    med1.setToggleGroup(group1);
-    dif1.setToggleGroup(group1);
-
-    easy2.setToggleGroup(group2);
-    med2.setToggleGroup(group2);
-    dif2.setToggleGroup(group2);
 
     easy3.setToggleGroup(group3);
     med3.setToggleGroup(group3);
