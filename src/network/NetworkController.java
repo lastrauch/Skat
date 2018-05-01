@@ -10,16 +10,7 @@ import logic.ClientLogic;
 import logic.PlayState;
 import logic.Player;
 import network.client.Client;
-import network.messages.Bet_Msg;
-import network.messages.CardPlayed_Msg;
-import network.messages.ChatMessage_Msg;
-import network.messages.ClientDisconnect_Msg;
-import network.messages.DealtCards_Msg;
-import network.messages.GameSettings_Msg;
-import network.messages.Lobby_Msg;
-import network.messages.PlayState_Msg;
-import network.messages.StartGame_Msg;
-import network.messages.YourTurn_Msg;
+import network.messages.*;
 import network.server.Server;
 import network.server.ServerFinder;
 
@@ -119,15 +110,13 @@ public class NetworkController implements LogicNetwork {
     this.client.disconnect();
   }
 
-  @Override
   public void sendKontra() {
-    // TODO Auto-generated method stub
-    
+    Kontra_Msg msg = new Kontra_Msg();
+    this.client.sendMessage(msg);
   }
 
-  @Override
   public void sendRekontra() {
-    // TODO Auto-generated method stub
-    
+    Rekontra_Msg msg = new Rekontra_Msg();
+    this.client.sendMessage(msg);
   }
 }
