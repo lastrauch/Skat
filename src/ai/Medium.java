@@ -83,6 +83,7 @@ public class Medium {
 				while(j >= 0 && skatReturn.size() < 2){
 					if(controller.getCardProbabilities()[minIndex*8 + j][0] == 1){
 						controller.setCardProbability(0, minIndex, j, 0);
+						hasColour[minIndex]--;
 						for(int i=0; i<cards.size(); i++){
 							if((4-cards.get(i).getColour().ordinal()) == minIndex && (8-cards.get(i).getNumber().ordinal()) == j){
 								skatReturn.add(cards.get(i));	//TODO evtl. Hardcopy is needed
@@ -98,6 +99,7 @@ public class Medium {
 				while(j < 8 && skatReturn.size() < 2){
 					if(controller.getCardProbabilities()[minIndex*8 + j][0] == 1){
 						controller.setCardProbability(0, minIndex, j, 0);
+						hasColour[minIndex]--;
 						for(int i=0; i<cards.size(); i++){
 							if((4-cards.get(i).getColour().ordinal()) == minIndex && (8-cards.get(i).getNumber().ordinal()) == j){
 								skatReturn.add(cards.get(i));	//TODO evtl. Hardcopy is needed
