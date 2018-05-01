@@ -167,6 +167,12 @@ public class Client extends Thread {
         ClientDisconnect_Msg msg11 = (ClientDisconnect_Msg) message;
         logic.receivePlayerDisconnected(msg11.getPlayer());
         break;
+      case KONTRA:
+    	  logic.receiveKontra();
+    	  break;
+      case REKONTRA:
+    	  logic.receiveRekontra();
+    	  break;
       default:
         break;
     }

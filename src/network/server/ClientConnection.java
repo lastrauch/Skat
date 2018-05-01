@@ -98,6 +98,10 @@ public class ClientConnection extends Thread {
 		case START_GAME:
 			messageHandler(message);
 			break;
+		case KONTRA:
+			messageHandler(message);
+		case REKONTRA:
+			messageHandler(message);
 		case DEALT_CARDS:
 			dealtCardsHandler((DealtCards_Msg) message);
 			break;
