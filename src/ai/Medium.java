@@ -88,7 +88,7 @@ public class Medium {
 
     int[] hasColour = new int[4];
     for (int i = 0; i < cards.size(); i++) {
-      hasColour[4 - cards.get(i).getColour().ordinal()]++;
+      hasColour[3 - cards.get(i).getColour().ordinal()]++;
     }
 
     while (skatReturn.size() < 2) {
@@ -107,8 +107,8 @@ public class Medium {
             controller.setCardProbability(0, minIndex, j, 0);
             hasColour[minIndex]--;
             for (int i = 0; i < cards.size(); i++) {
-              if ((4 - cards.get(i).getColour().ordinal()) == minIndex
-                  && (8 - cards.get(i).getNumber().ordinal()) == j) {
+              if ((3 - cards.get(i).getColour().ordinal()) == minIndex
+                  && (7 - cards.get(i).getNumber().ordinal()) == j) {
                 skatReturn.add(cards.get(i)); // TODO evtl. Hardcopy is needed
                 cards.remove(i);
                 continue;
@@ -124,8 +124,8 @@ public class Medium {
             controller.setCardProbability(0, minIndex, j, 0);
             hasColour[minIndex]--;
             for (int i = 0; i < cards.size(); i++) {
-              if ((4 - cards.get(i).getColour().ordinal()) == minIndex
-                  && (8 - cards.get(i).getNumber().ordinal()) == j) {
+              if ((3 - cards.get(i).getColour().ordinal()) == minIndex
+                  && (7 - cards.get(i).getNumber().ordinal()) == j) {
                 skatReturn.add(cards.get(i)); // TODO evtl. Hardcopy is needed
                 cards.remove(i);
                 continue;
@@ -227,7 +227,7 @@ public class Medium {
         certGrand += ten;
       }
       if (cards.get(i).getNumber() != Number.JACK) {
-        hasColour[4 - cards.get(i).getColour().ordinal()] = true;
+        hasColour[3 - cards.get(i).getColour().ordinal()] = true;
       }
     }
 
@@ -289,7 +289,7 @@ public class Medium {
         certSuit += ten;
       }
       if (cards.get(i).getNumber() != Number.JACK) {
-        numberOfColour[4 - cards.get(i).getColour().ordinal()]++;
+        numberOfColour[3 - cards.get(i).getColour().ordinal()]++;
       }
     }
 
@@ -353,7 +353,7 @@ public class Medium {
           break;
         default:
       }
-      hasColour[4 - cards.get(i).getColour().ordinal()] = true;
+      hasColour[3 - cards.get(i).getColour().ordinal()] = true;
     }
     for (int i = 0; i < hasColour.length; i++) {
       if (hasColour[i]) {
