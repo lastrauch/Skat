@@ -35,8 +35,8 @@ public class Medium {
   }
 
   public static PlayState setPlayState(AIController controller) {
-    //TODO If SinglePlay is null????
-    
+    // TODO If SinglePlay is null????
+
     PlayState ps = controller.getPlayState();
     ps.getDeclarerStack()
         .addCards(Medium.returnSkat(controller, controller.getSinglePlay().getPlayMode()));
@@ -489,12 +489,53 @@ public class Medium {
 
   public static int playCardGrand(AIController controller) {
     // TODO
-    return 0;
+    List<Card> cards = controller.getBot().getHand();
+    List<Card> trick = controller.getCurrentTrick();
+
+    int ownTrumps = 0;
+    for (int i = 0; i < cards.size(); i++) {
+      if (cards.get(i).getNumber() == Number.JACK) {
+        ownTrumps++;
+      }
+    }
+
+    // Bot is declarer
+    if (controller.getBot().isDeclarer()) {
+      if (trick.size() == 0) {
+
+        for (int colour = 0; colour < 4; colour++) {
+          if (controller.getCardProbabilities()[colour * 8 + (7 - Number.JACK.ordinal())][0] == 1) {
+
+
+
+          }
+        }
+      }
+
+
+
+      // Bot isn't declarer
+    } else {
+
+    }
+
+    return General.playRandomCard(controller);
   }
 
   public static int playCardSuit(AIController controller) {
-    // TODO
-    return 0;
+    List<Card> cards = controller.getBot().getHand();
+    List<Card> trick = controller.getCurrentTrick();
+
+    // Bot is declarer
+    if (controller.getBot().isDeclarer()) {
+
+
+
+      // Bot isn't declarer
+    } else {
+
+    }
+    return General.playRandomCard(controller);
   }
 
   public static int playCardNull(AIController controller) {
