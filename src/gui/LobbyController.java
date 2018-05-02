@@ -259,21 +259,17 @@ public class LobbyController implements Initializable {
     p1.setPrefWidth(213);
     p1.setPrefHeight(51);
     p1.setLayoutX(88);
-    p1.setLayoutY(297);
+    p1.setLayoutY(137);
     p1.setText(name);
     p1.setFont(Font.font("System", FontWeight.BOLD, 23));
     p1.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-    p1.setTextAlignment(TextAlignment.CENTER);
-    System.out.println("P1 id: " + p1.getText());
-    System.out.println(vbox1);
-    System.out.println("Vbox id: " + vbox1.getPrefHeight());
+    p1.setAlignment(Pos.CENTER);
 
     vbox1.getChildren().add(p1);
   }
 
   public void displayTwo(String name1, String name2) {
     displayOne(name1);
-    p1.setText(name1);
 
     p2.setPrefWidth(213);
     p2.setPrefHeight(51);
@@ -282,7 +278,7 @@ public class LobbyController implements Initializable {
     p2.setText(name2);
     p2.setFont(Font.font("System", FontWeight.BOLD, 23));
     p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-    p2.setTextAlignment(TextAlignment.CENTER);
+    p2.setAlignment(Pos.CENTER);
 
     vbox1.getChildren().add(p2);
   }
@@ -299,7 +295,7 @@ public class LobbyController implements Initializable {
     p3.setText(name3);
     p3.setFont(Font.font("System", FontWeight.BOLD, 23));
     p3.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-    p3.setTextAlignment(TextAlignment.CENTER);
+    p3.setAlignment(Pos.CENTER);
 
     vbox1.getChildren().add(p3);
   }
@@ -319,7 +315,7 @@ public class LobbyController implements Initializable {
     p4.setText(name4);
     p4.setFont(Font.font("System", FontWeight.BOLD, 23));
     p4.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-    p4.setTextAlignment(TextAlignment.CENTER);
+    p4.setAlignment(Pos.CENTER);
 
     vbox1.getChildren().add(p4);
   }
