@@ -903,7 +903,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       trickWinner = this.playState.getCurrentTrick().calculateWinner(playState);
 
       // put cards on winners stack
-      if (trickWinner.IsDeclarer()) {
+      if (trickWinner.isDeclarer()) {
         this.playState.getDeclarerStack()
             .addCards(this.playState.getCurrentTrick().getTrickCards());
       } else {
@@ -926,7 +926,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         playWinner = Play.calculateWinner(playState);
 
         // calculate points
-        if (playWinner[0].IsDeclarer()) {
+        if (playWinner[0].isDeclarer()) {
           // calculate points: declarer won
           Play.calculatePoints(playState, gameSettings, true);
         } else {
@@ -1043,7 +1043,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveKontra() {
     this.playState.setAnnouncedKontra(true);
-    if (this.player.IsDeclarer()) {
+    if (this.player.isDeclarer()) {
       this.inGameController.askToRekontra();
     }
   }
