@@ -31,7 +31,8 @@ public class ChooseGameController {
    */
   @FXML
   public void SinglePlayer() {
-    main.displayGameSettings(GameMode.SINGLEPLAYER);
+    main.displayGameSettings();
+    main.getGameSetCon().setGameMode(GameMode.SINGLEPLAYER);
   }
 
   /**
