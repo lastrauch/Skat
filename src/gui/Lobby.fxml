@@ -133,30 +133,5 @@
             </HBox>
          </children>
       </VBox>
-      <JFXButton fx:id="addBot" buttonType="RAISED" layoutX="330.0" layoutY="480.0" onAction="#addBot" prefWidth="214.0" style="-fx-border-color: tan;" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Delete Bot" textFill="WHITE">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </JFXButton>
-      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="550.0" layoutY="270.0" onAction="#back" prefWidth="214.0" style="-fx-border-color: tan;" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Back" textFill="WHITE">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="change" buttonType="RAISED" layoutX="550.0" layoutY="380.0" prefWidth="214.0" style="-fx-border-color: tan;" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Change Gamesettings" textFill="WHITE">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="addBot1" buttonType="RAISED" layoutX="85.0" layoutY="480.0" onAction="#addBot" prefWidth="214.0" style="-fx-border-color: tan;" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Add Bot" textFill="WHITE">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </JFXButton>
-      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="550.0" layoutY="151.0" onAction="#start" prefWidth="214.0" style="-fx-border-color: tan;" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Start" textFill="WHITE">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </JFXButton>
    </children>
 </AnchorPane>

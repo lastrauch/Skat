@@ -1,6 +1,3 @@
-/**
- * @author lstrauch
- */
 package gui;
 
 
@@ -20,7 +17,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import logic.GameMode;
@@ -32,6 +31,8 @@ public class LobbyController implements Initializable {
   private JFXButton back = new JFXButton();
   private JFXButton addBot = new JFXButton();
   private JFXButton change = new JFXButton();
+  private JFXButton start = new JFXButton();
+  private JFXButton deleteBot = new JFXButton();
   Label p1 = new Label();
   Label p2 = new Label();
   Label p3 = new Label();
@@ -76,31 +77,41 @@ public class LobbyController implements Initializable {
     // TODO Auto-generated method stub
     setGS();
     setGM();
+    displaydiffentGameModes();
+    System.out.println("GM: "+gm);
+    ButtonListener();
+    
 
   }
 
-  @FXML
-  public void back() {
-    guiCon.displayLobbyOnline();
-  }
 
-  @FXML
-  public void start() {
-    // if(GuiController.prevScreen == 1 )
-    LoginController.interfGL.startGame(gs);
-    // LoginController.interfGL.hostGame("Hi", gs);
-    // guiCon.displayInGame();
-  }
+  public void displayStartButton() {
+    start.setPrefWidth(214.0);
+    start.setPrefHeight(41.0);
+    start.setLayoutX(550.0);
+    start.setLayoutY(151.0);
+    start.setText("Start");
+    start.setTextFill(Color.WHITE);
+    start.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
+//    start.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
+    start.setStyle(
+        "-fx-background-color: peru; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20;");
+    start.setButtonType(ButtonType.RAISED);
+    start.setTextAlignment(TextAlignment.CENTER);
 
+    mainPane.getChildren().add(start);
+  }
   public void displayBackButton() {
-    back.setPrefWidth(214);
-    back.setPrefHeight(41);
-    back.setLayoutX(550);
-    back.setLayoutY(270);
+    back.setPrefWidth(214.0);
+    back.setPrefHeight(41.0);
+    back.setLayoutX(550.0);
+    back.setLayoutY(270.0);
     back.setText("Back");
-    back.setFont(Font.font("System", FontWeight.BOLD, 18));
+    back.setTextFill(Color.WHITE);
+    back.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
+//    back.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
     back.setStyle(
-        "-fx-background-color: peru; -fx-font-style: italic; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20; -fx-text-fill: white");
+        "-fx-background-color: peru; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20;");
     back.setButtonType(ButtonType.RAISED);
     back.setTextAlignment(TextAlignment.CENTER);
 
@@ -108,44 +119,50 @@ public class LobbyController implements Initializable {
   }
 
   public void displayAddBotButton() {
-    addBot.setPrefWidth(214);
-    addBot.setPrefHeight(41);
-    addBot.setLayoutX(550);
-    addBot.setLayoutY(162);
+    addBot.setPrefWidth(214.0);
+    addBot.setPrefHeight(41.0);
+    addBot.setLayoutX(85.0);
+    addBot.setLayoutY(480.0);
     addBot.setText("Add Bot");
-    addBot.setFont(Font.font("System", FontWeight.BOLD, 18));
+    addBot.setTextFill(Color.WHITE);
+    addBot.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18));
+//    addBot.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
     addBot.setStyle(
-        "-fx-background-color: peru; -fx-font-style: italic; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20; -fx-text-fill: white");
+        "-fx-background-color: peru; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20;");
     addBot.setButtonType(ButtonType.RAISED);
     addBot.setTextAlignment(TextAlignment.CENTER);
 
     mainPane.getChildren().add(addBot);
   }
 
-  public void deleteBotButton() {
-    back.setPrefWidth(214);
-    back.setPrefHeight(41);
-    back.setLayoutX(550);
-    back.setLayoutY(270);
-    back.setText("Delte Bot");
-    back.setFont(Font.font("System", FontWeight.BOLD, 18));
-    back.setStyle(
-        "-fx-background-color: peru; -fx-font-style: italic; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20; -fx-text-fill: white");
-    back.setButtonType(ButtonType.RAISED);
-    back.setTextAlignment(TextAlignment.CENTER);
+  public void displayDeleteBotButton() {
+    deleteBot.setPrefWidth(214);
+    deleteBot.setPrefHeight(41);
+    deleteBot.setLayoutX(330);
+    deleteBot.setLayoutY(480);
+    deleteBot.setText("Delte Bot");
+    deleteBot.setTextFill(Color.WHITE);
+    deleteBot.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18));
+//    deleteBot.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
+    deleteBot.setStyle(
+        "-fx-background-color: peru; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20;");
+    deleteBot.setButtonType(ButtonType.RAISED);
+    deleteBot.setTextAlignment(TextAlignment.CENTER);
 
-    mainPane.getChildren().add(back);
+    mainPane.getChildren().add(deleteBot);
   }
 
   public void displayChangeGamesettingsButton() {
-    change.setPrefWidth(214);
-    change.setPrefHeight(41);
-    change.setLayoutX(550);
-    change.setLayoutY(380);
+    change.setPrefWidth(214.0);
+    change.setPrefHeight(41.0);
+    change.setLayoutX(550.0);
+    change.setLayoutY(380.0);
     change.setText("Change Gamesettings");
-    change.setFont(Font.font("System", FontWeight.BOLD, 18));
+    change.setTextFill(Color.WHITE);
+    change.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
+//    change.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
     change.setStyle(
-        "-fx-background-color: peru; -fx-font-style: italic; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20; -fx-text-fill: white");
+        "-fx-background-color: peru;-fx-border-radius: 20; -fx-background-radius: 20.0; -fx-border-color: 20.0;");
     change.setButtonType(ButtonType.RAISED);
     change.setTextAlignment(TextAlignment.CENTER);
 
@@ -161,9 +178,11 @@ public class LobbyController implements Initializable {
         switch (size) {
           case 1:
             displayOne(name.get(0).getName());
+            nrofplayers = 1;
             break;
           case 2:
             displayTwo(name.get(0).getName(), name.get(1).getName());
+            nrofplayers = 2;
             break;
           case 3:
             displayThree(name.get(0).getName(), name.get(1).getName(), name.get(2).getName());
@@ -172,6 +191,7 @@ public class LobbyController implements Initializable {
           case 4:
             displayFour(name.get(0).getName(), name.get(1).getName(), name.get(2).getName(),
                 name.get(3).getName());
+            nrofplayers = 4;
             break;
         }
       }
@@ -258,21 +278,49 @@ public class LobbyController implements Initializable {
     this.gs = guiCon.getGameSetCon().getGS();
   }
 
-  @FXML
-  public void addBot() {
-    if (nrofplayers < 4) {
-      guiCon.displayAI();
-    }
+
+  public void ButtonListener() {
+    start.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if(nrofplayers <= 4) {
+          LoginController.interfGL.startGame(gs); 
+        }
+      }
+    });
+    back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        guiCon.displayLobbyOnline();
+      }
+    });
+    addBot.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (nrofplayers < 4) {
+          guiCon.displayAI();
+        }
+      }
+    });
+//    deleteBot.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//
+//      @Override
+//      public void handle(MouseEvent event) {
+//        LoginController.interfGL.deleteBot("Bot");
+//      }
+//    });
+    change.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+      }
+    });
+    
   }
 
-
-  public void changeGameSettings() {
-
-  }
-
-  public void delteBot(String botname) {
-    LoginController.interfGL.deleteBot(botname);
-  }
 
   /**
    * @author lstrauch
@@ -280,5 +328,15 @@ public class LobbyController implements Initializable {
 
   public void setGM() {
     this.gm = guiCon.getGameSetCon().getGM();
+  }
+  
+  public void displaydiffentGameModes() {
+    if(gm == GameMode.SINGLEPLAYER) {
+      displayChangeGamesettingsButton();
+      displayAddBotButton();
+      displayDeleteBotButton();
+      displayStartButton();
+
+    }
   }
 }
