@@ -9,6 +9,7 @@ import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
 import logic.Position;
+import network.Settings;
 
 public class AIController implements InGameInterface {
   private Bot bot;
@@ -45,6 +46,11 @@ public class AIController implements InGameInterface {
   }
 
   public int askToPlayCard() {
+    try {
+      wait(Settings.DELAY);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     switch (this.bot.getDifficulty()) {
       case EASY:
         return Easy.playCard(this);
@@ -64,6 +70,11 @@ public class AIController implements InGameInterface {
 
 
   public PlayState askToTakeUpSkat(PlayState ps) {
+    try {
+      wait(Settings.DELAY);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     this.ps = ps;
     switch (this.bot.getDifficulty()) {
       case EASY:
@@ -78,6 +89,11 @@ public class AIController implements InGameInterface {
 
 
   public boolean askForBet(int bet, Player player) {
+    try {
+      wait(Settings.DELAY);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     // TODO Player is the one who put the last bet; Null if one is the first one to bet
     if (this.player.size() < 2) {
       for (int i = 0; i < this.player.size(); i++) {
@@ -192,6 +208,11 @@ public class AIController implements InGameInterface {
   }
 
   public boolean askToRekontra() {
+    try {
+      wait(Settings.DELAY);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     switch (this.bot.getDifficulty()) {
       case EASY:
         return false;
