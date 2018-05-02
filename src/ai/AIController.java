@@ -14,6 +14,7 @@ public class AIController implements InGameInterface{
   private Bot bot;
   private GameSettings gs;
   private PlayState ps;
+  private List<Player> player;  //These are the other players
   private List<Player> opponents;
   private Player partner;
   private int[] bets;   //Vector of bets by player i
@@ -32,6 +33,7 @@ public class AIController implements InGameInterface{
   public AIController(String name, BotDifficulty difficulty, GameSettings gs){
     this.bot = new Bot(name, difficulty);
     this.gs = gs;
+    this.player = new ArrayList<Player>();
     this.opponents = new ArrayList<Player>();
   }
 
@@ -56,7 +58,6 @@ public class AIController implements InGameInterface{
 
   
   public PlayState askToTakeUpSkat(PlayState ps) {
-	  //TODO SinglePlayer und Multiplayer updaten
     this.ps = ps;
 	  switch (this.bot.getDifficulty()){
       case EASY: return Easy.setPlayState(this);
@@ -69,6 +70,16 @@ public class AIController implements InGameInterface{
   
   public boolean askForBet(int bet, Player player) {
     //TODO Player is the one who put the last bet; Null if one is the first one to bet
+    if(this.player.size() < 2){
+      for(int i=0; i<this.player.size(); i++){
+        if(this.player.get(i).getName() != Integer.toString(player.getId())){
+          Player p = new Player(Integer.toString(player.getId()));
+          p.setId(this.player.size()+1);
+          this.player.add(p);
+        }
+      }
+    }
+    
 	switch (this.bot.getDifficulty()){
       case EASY: return Easy.setBet(this, bet);
       case MEDIUM: return Medium.setBet(this, bet);
@@ -79,9 +90,11 @@ public class AIController implements InGameInterface{
   
   
   public void updateHand(List<Card> hand) {
+    //TODO maybe check whether hand.size() == 10
     if(this.bot.getHand().size() == 0){
       this.cardProbability = General.initializeProbabilities(hand);
     }
+    //TODO does AI need to do this, or did logic already do this?
     this.bot.setHand(hand);
   }
 
@@ -117,22 +130,32 @@ public class AIController implements InGameInterface{
 	}
 	
 	public void showWinnerPlay(Player player1, Player player2) {
-		//Do nothing
+	  //Reset play informations
+	  this.ps = null;
+	  this.singlePlay = null;
+	  this.bets = new int[0];
+	  this.cardProbability = new double[32][3];
+	  this.partner = null;
+	  this.opponents = new ArrayList<Player>();
+	  this.hasColour = new boolean[4][3];
+	  this.hasTrump = new boolean[3];
 	}
 	
 	public void showWinnerGame(Player player) {
 		//Do nothing
 	}
 	
-	@Override
 	public void startPlay(List<Card> hand, Position position) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	@Override
 	  public boolean askToRekontra() {
-	    // TODO Auto-generated method stub
+	    switch(this.bot.getDifficulty()){
+	      case EASY: return false;
+	      case MEDIUM: return Medium.askToRekontra(this);
+	      case HARD: return Hard.askToRekontra(this);
+	    }
 	    return false;
 	  }
   
@@ -142,6 +165,10 @@ public class AIController implements InGameInterface{
   
   public Bot getBot(){
 	  return this.bot;
+  }
+  
+  public void setBot(Bot bot){
+    this.bot = bot;
   }
   
   public PlayState getPlayState(){
@@ -180,6 +207,68 @@ public class AIController implements InGameInterface{
 	  return this.singlePlay;
   }
   
+  public void setAllPlayer(List<Player> player){
+    this.player = player;
+  }
   
+  public List<Player> getAllPlayer(){
+    return this.player;
+  }
+
+  public void setOpponents(List<Player> opponents){
+    this.opponents = opponents;
+  }
+  
+  public List<Player> getOpponents(){
+    return this.opponents;
+  }
+  
+  public void setPartner(Player partner){
+    this.partner = partner;
+  }
+  
+  public Player getPartner(){
+    return this.partner;
+  }
+  
+  public void setBets(int[] bets){
+    this.bets = bets;
+  }
+  
+  public int[] getBets(){
+    return this.bets;
+  }
+  
+  public void setPlayedCards(Card[][] playedCards){
+    this.playedCards = playedCards;
+  }
+  
+  public Card[][] getPlayedCards(){
+    return this.playedCards;
+  }
+  
+  public void setHasColour(boolean[][] hasColour){
+    this.hasColour = hasColour;
+  }
+  
+  public boolean[][] getHasColour(){
+    return this.hasColour;
+  }
+  
+  public void setHasTrump(boolean[] hasTrump){
+    this.hasTrump = hasTrump;
+  }
+  
+  public boolean[] getHasTrump(){
+    return this.hasTrump;
+  }
+  
+  public void setExistingTrumps(int existingTrumps){
+    this.existingTrumps = existingTrumps;
+  }
+  
+  public int getExistingTrumps(){
+    return this.existingTrumps;
+  }
 
 }

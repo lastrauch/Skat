@@ -3,14 +3,12 @@ package ai;
 import java.util.ArrayList;
 import java.util.List;
 
-import logic.Auction;
 import logic.Card;
 import logic.Colour;
 import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
 import logic.Stack;
-import logic.Trick;
 import logic.Number;
 
 public class Medium {
@@ -38,16 +36,33 @@ public class Medium {
 		 Stack declarerStack;
 		  Card[] skat;		//returnSkat(controller) ????
 		  ps.setTrump(controller.getSinglePlay().getColour());
-		  int playValue;
 		  ps.setPlayValue(controller.getMaxBet());	//TODO muesste eigentlich letzter Reizwert sein
 		  ps.setPlayMode(controller.getSinglePlay().getPlayMode());
 		  ps.setHandGame(false);
 		  ps.setSchneiderAnnounced(false);
 		  ps.setSchwarzAnnounced(false);
 		  ps.setOpen(false);
-		  int baseValue;			//TODO wozu wird der benoetigt?
+		  int baseValue;			//TODO es existiert keine setBaseValue Methode
 
+		  //TODO existing Trumps updaten
+		  //TODO Single und Multiplayer updaten
+		  controller.setPartner(null);
+		  List<Player> opponents = new ArrayList<Player>();
+		  for(int i=0; i<controller.getAllPlayer().size(); i++){
+		    opponents.add(controller.getAllPlayer().get(i));
+		  }
+		  controller.setOpponents(opponents);
+		  
+		  
 		return ps;
+	}
+	
+	public static boolean askToRekontra(AIController controller){
+	  if(controller.getSinglePlay().getCertainty() > 9){
+	    return true;
+	  }else{
+	    return false;
+	  }
 	}
 
 	public static List<Card> returnSkat(AIController controller, PlayMode playMode) {		
@@ -429,13 +444,13 @@ public class Medium {
 		// If the AI doesn't want to play single, return null
 		if ((wantsGrand ^ wantsSuit ^ wantsNull) && ((wantsGrand != wantsSuit) || (wantsGrand != wantsNull))) {
 			if (wantsGrand) {
-				sP = new SinglePlay(PlayMode.GRAND);
+				sP = new SinglePlay(PlayMode.GRAND, null, certGrand);
 				return sP;
 			} else if (wantsNull) {
-				sP = new SinglePlay(PlayMode.SUIT);
+				sP = new SinglePlay(PlayMode.NULL, null, certNull);
 				return sP;
 			} else {
-				sP = new SinglePlay(PlayMode.SUIT, suitColour);
+				sP = new SinglePlay(PlayMode.SUIT, suitColour, certSuit);
 				return sP;
 			}
 		} else {
