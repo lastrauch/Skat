@@ -2,7 +2,6 @@ package jUnit.jLogic;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.After;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,46 +21,50 @@ import logic.Trick;
  */
 class CheckIfCardPossibleTest {
 
-  static Player p1;
-  static Player p2;
-  static Player p3;
-  static Player[] group;
+  static Player p2; // player of second trick card
+  static Player p3; // player of third trick card
+
   static PlayState ps;
+  static Card firstCard;
+
+  // cards possible to play
   static Card goodCard1;
   static Card goodCard2;
+
+  // cards not possible to play
   static Card badCard1;
   static Card badCard2;
 
   @BeforeAll
   static void setUpBeforeClass() {
     ps = new PlayState(new Player[3]);
-  } 
+  }
 
 
   @BeforeEach
   void setUp() {
     // PlayState
     // we start with one card on the trick
-    Card firstCard = new Card(Colour.HEARTS, Number.NINE); // <3 9
+    firstCard = new Card(Colour.HEARTS, Number.NINE); // <3 9
     ps.setCurrentTrick(new Trick());
     ps.getCurrentTrick().addCard(firstCard);
 
     // set PlaymMode and Trump
-    ps.setPlayMode(PlayMode.NULL);
+    ps.setPlayMode(PlayMode.NULL); // HIERUM GEHT ES !!!!!!!!!!!!!!!!
     ps.setTrump(Colour.HEARTS); // is ignored if the PlayMode is not SUIT
 
     // good cards because they do serve the first card
     goodCard1 = new Card(Colour.HEARTS, Number.TEN); // HEARTS = Trump
     if (ps.getPlayMode() != PlayMode.NULL) {
       goodCard2 = new Card(Colour.CLUBS, Number.JACK); // JACK = Trump
-    }else {
+    } else {
       goodCard2 = new Card(Colour.HEARTS, Number.QUEEN);
-    }    
+    }
 
     // bad cards because they do not serve the first card
     badCard1 = new Card(Colour.CLUBS, Number.NINE);
     badCard2 = new Card(Colour.DIAMONDS, Number.NINE);
-    
+
     // player 2 and his hand
     p2 = new Player("P2.");
     p2.addToHand(goodCard1);
@@ -88,7 +91,8 @@ class CheckIfCardPossibleTest {
     assertFalse(
         ClientLogic.checkIfCardPossible(badCard2, ps.getCurrentTrick().getFirstCard(), ps, p2));
 
-    // test player 3 (he has got no cards to serve the first card on the trick)
+    // test player 3 (he has got no cards to serve the first card on the trick 
+    // and is allowed to play any card he/she wants)
     assertTrue(
         ClientLogic.checkIfCardPossible(badCard1, ps.getCurrentTrick().getFirstCard(), ps, p3));
     assertTrue(
