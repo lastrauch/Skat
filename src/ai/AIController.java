@@ -215,7 +215,7 @@ public class AIController implements InGameInterface {
     }
     switch (this.bot.getDifficulty()) {
       case EASY:
-        return false;
+        return Easy.askToRekontra(this);
       case MEDIUM:
         return Medium.askToRekontra(this);
       case HARD:

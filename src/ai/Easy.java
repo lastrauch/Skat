@@ -1,8 +1,10 @@
 package ai;
 
-import logic.GameSettings;
 import logic.PlayMode;
 import logic.PlayState;
+import java.util.ArrayList;
+import java.util.List;
+import logic.Card;
 
 public class Easy {
     
@@ -28,8 +30,12 @@ public class Easy {
   public static PlayState setPlayState(AIController controller){
     
     PlayState playState = controller.getPlayState();
-    playState.getDeclarerStack();
-    playState.setPlayMode(controller.getSinglePlay().getPlayMode().SUIT);    
+    List<Card> skatList = new ArrayList<Card>();
+    for(int i=0; i<controller.getPlayState().getSkat().length; i++) {
+      skatList.add(controller.getPlayState().getSkat()[i]);
+    }
+    playState.getDeclarerStack().addCards(skatList);
+    playState.setPlayMode(controller.getSinglePlay().getPlayMode());    
     playState.setSkat(null);
     playState.setTrump(controller.getSinglePlay().getColour());
     playState.setHandGame(false);
@@ -39,10 +45,9 @@ public class Easy {
 
     return playState;
   }
-  public static void main (String [] args) {
-    
-//    AIController c = new AIController("hi", BotDifficulty.EASY , null);
-//    setPlayState(c);
+  
+  public static boolean askToRekontra(AIController controller) {
+    return false;
   }
 
 }
