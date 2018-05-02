@@ -99,9 +99,6 @@ public class General {
 	  for(int i=0; i<hand.size(); i++){
 	    colour = 3 - hand.get(i).getColour().ordinal();
 	    number = 7 - hand.get(i).getNumber().ordinal();
-	    if(colour*8 + number > 31){
-	      System.out.println("FEHLER!!!!!! " + hand.get(i).getColour() + "(" + colour + ") " + hand.get(i).getNumber() + "(" + number + ")");
-	    }
 	    prob[colour*8 + number][0] = 1;
 	    prob[colour*8 + number][1] = 0;
 	    prob[colour*8 + number][2] = 0;
