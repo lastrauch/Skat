@@ -386,6 +386,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     return result;
   }
 
+  
+  //!!!!! WE CAN CHANGE IT SO THE METHOD ONLY USES this.playState
   /**
    * calculates the play value with the other methods implemented for the special contracts
    * 
@@ -419,7 +421,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     // Achtung!!!! Methode noch nicht implementiert
     if (!this.player.isBot()) {
-      this.guiController.updateLobby(gs, group);
+      for (Player p : this.group) {
+        System.out.println(p.getName());
+      }
+      this.guiController.updateLobby(gs, this.group);
     }
   }
 
@@ -551,9 +556,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // instead gui should open the ingameScreen in startPlay
       // // TODO Auto-generated method stub
-       if (!this.player.isBot()) {
-       this.inGameController = this.guiController.startInGameScreen();
-       }
+      if (!this.player.isBot()) {
+        this.inGameController = this.guiController.startInGameScreen();
+      }
 
 
       // set position
@@ -765,8 +770,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           p.setDeclarer(false);
         }
       }
-      this.inGameController.askToTakeUpSkat(this.playState);
-      // maybe change to: this.playState = this.inGameController.askToTakeUpSkat(this.playState);
+      this.playState = this.inGameController.askToTakeUpSkat(this.playState);
+      this.calculatePlayValue(this.playState);
       this.netController.sendPlayState(this.playState);
     }
   }
