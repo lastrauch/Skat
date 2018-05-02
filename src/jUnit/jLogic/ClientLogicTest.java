@@ -43,6 +43,17 @@ class ClientLogicTest {
   static void setUpBeforeClass() {
 
 
+
+  }
+
+  @BeforeEach
+  void setUp() {
+
+  }
+
+  @Test
+  void testCheckIfCardPossible() throws LogicException {
+
     // Player
     Player p1 = new Player("P1");
     p1.setPosition(Position.FOREHAND);
@@ -59,22 +70,19 @@ class ClientLogicTest {
 
     // PlayState
     PlayState ps = new PlayState(group);
-    ps.getCurrentTrick().addCard(new Card(Colour.HEARTS, Number.NINE));
-  }
+    Card firstCard = new Card(Colour.HEARTS, Number.NINE);
+    ps.getCurrentTrick().addCard(firstCard);
+    clientLogic.setPlayState(ps);
 
-  @Test
-  public void testCheckIfCardPossible() {
     Card goodCard = new Card(Colour.HEARTS, Number.TEN);
     Card badCard = new Card(Colour.DIAMONDS, Number.NINE);
-    try {
-      assertTrue(ClientLogic.checkIfCardPossible(goodCard, ps.getCurrentTrick().getFirstCard(),
-          this.ps, p2));
-      assertFalse(ClientLogic.checkIfCardPossible(badCard, ps.getCurrentTrick().getFirstCard(),
-          this.ps, p2));
-    } catch (LogicException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+
+    System.out.println(ps.getCurrentTrick().getFirstCard().getColour());
+    // assertEquals(ps.getCurrentTrick().getFirstCard(), new Card(Colour.HEARTS, Number.NINE));
+    assertTrue(
+        ClientLogic.checkIfCardPossible(goodCard, ps.getCurrentTrick().getFirstCard(), ps, p2));
+  //  assertFalse(
+  //     ClientLogic.checkIfCardPossible(badCard, ps.getCurrentTrick().getFirstCard(), ps, p2));
   }
 
   @After
