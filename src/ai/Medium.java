@@ -501,22 +501,100 @@ public class Medium {
 
     // Bot is declarer
     if (controller.getBot().isDeclarer()) {
+      // Bot should play the first card
       if (trick.size() == 0) {
-
-        for (int colour = 0; colour < 4; colour++) {
-          if (controller.getCardProbabilities()[colour * 8 + (7 - Number.JACK.ordinal())][0] == 1) {
-
-
-
+        // Opponents still have trumps
+        if (controller.getExistingTrumps() - ownTrumps > 0) {
+          // Find highest trump in hand
+          for (int colour = 0; colour < 4; colour++) {
+            if (controller.getCardProbabilities()[colour * 8
+                + (7 - Number.JACK.ordinal())][0] == 1) {
+              // Find index in hand
+              for (int i = 0; i < cards.size(); i++) {
+                if ((3 - cards.get(i).getColour().ordinal()) == colour
+                    && cards.get(i).getNumber() == Number.JACK) {
+                  return i;
+                }
+              }
+            }
           }
+          // Player has no trump, but opponents still have some
+          return General.playRandomCard(controller);
+        } else {
+          // Play Ace
+          for (int colour = 0; colour < 4; colour++) {
+            if (controller.getCardProbabilities()[colour * 8
+                + (7 - Number.ASS.ordinal())][0] == 1) {
+              // Find index in hand
+              for (int i = 0; i < cards.size(); i++) {
+                if ((3 - cards.get(i).getColour().ordinal()) == colour
+                    && cards.get(i).getNumber() == Number.ASS) {
+                  return i;
+                }
+              }
+            }
+          }
+
+          // Play Ten
+          for (int colour = 0; colour < 4; colour++) {
+            if (controller.getCardProbabilities()[colour * 8
+                + (7 - Number.TEN.ordinal())][0] == 1) {
+              // Find index in hand
+              for (int i = 0; i < cards.size(); i++) {
+                if ((3 - cards.get(i).getColour().ordinal()) == colour
+                    && cards.get(i).getNumber() == Number.TEN) {
+                  return i;
+                }
+              }
+            }
+          }
+
+          // Play Jack anyway
+          for (int colour = 0; colour < 4; colour++) {
+            if (controller.getCardProbabilities()[colour * 8
+                + (7 - Number.JACK.ordinal())][0] == 1) {
+              // Find index in hand
+              for (int i = 0; i < cards.size(); i++) {
+                if ((3 - cards.get(i).getColour().ordinal()) == colour
+                    && cards.get(i).getNumber() == Number.JACK) {
+                  return i;
+                }
+              }
+            }
+          }
+
+          // Play random
+          return General.playRandomCard(controller);
         }
+
+        // Bot should play 2nd or 3rd card
+      } else {
+        // Bot has colour
+        // Try to win with colour
+        // Else play lowest card of colour
+
+        // Bot doesn't have colour
+        // Check if he wants to and can play trump
+        // Else play low card
       }
-
-
 
       // Bot isn't declarer
     } else {
-
+      // First Card in trick
+      // Existing trumps, not own > 0 --> Play low value
+      // No exisiting trumps --> play Ace or play ten
+      // Else play random
+      
+      // 2nd card in trick
+      // If predecessor is declarer, try to win, else low value
+      // If predecessor isn't declarer and threw high value, try to win, else throw low value
+      // Else play random card
+      
+      // 3rd card in trick
+      // If already on, throw points
+      // If not, try to win, if value > 10 with own card
+      // If don't want to win, throw low value card
+      // Else play random
     }
 
     return General.playRandomCard(controller);
