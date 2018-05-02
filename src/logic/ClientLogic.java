@@ -386,6 +386,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     return result;
   }
 
+  
+  //!!!!! WE CAN CHANGE IT SO THE METHOD ONLY USES this.playState
   /**
    * calculates the play value with the other methods implemented for the special contracts
    * 
@@ -768,8 +770,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           p.setDeclarer(false);
         }
       }
-      this.inGameController.askToTakeUpSkat(this.playState);
-      // maybe change to: this.playState = this.inGameController.askToTakeUpSkat(this.playState);
+      this.playState = this.inGameController.askToTakeUpSkat(this.playState);
+      this.calculatePlayValue(this.playState);
       this.netController.sendPlayState(this.playState);
     }
   }
