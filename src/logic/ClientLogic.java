@@ -1061,6 +1061,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.gameSettings = gs;
   }
 
+  public void setPlayState(PlayState ps) {
+    this.playState = ps;
+  }
+  
   /*
    * (non-Javadoc)
    * 
