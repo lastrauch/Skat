@@ -301,6 +301,10 @@ public class Player implements Serializable{
       counter++;
     }
   }
+  
+  public void addToHand(Card card) {
+    this.hand.add(card);
+  }
 
 
   // test method create random hand
