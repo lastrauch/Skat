@@ -49,12 +49,6 @@ public interface GuiLogic {
   public void setBot(String botname, BotDifficulty difficulty);
   
   /**
-   * returns a new chat message
-   * @return
-   */
-  public String getChatText();
-  
-  /**
    * send the just tipped chat message
    * @param message
    */
@@ -93,4 +87,10 @@ public interface GuiLogic {
    * @return
    */
   public Player getPlayer();
+  
+  /**
+   * announces kontra after beeing clicked
+   * @author lstrauch
+   */
+  public void announceContra();
 }

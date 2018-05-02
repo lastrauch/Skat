@@ -31,28 +31,6 @@ public class PlayState implements Serializable{
   private boolean announcedKontra;
   private boolean announcedRekontra;
 
-  public void resetPlayState() {
-    this.declarerStack = new Stack();
-    this.opponentsStack = new Stack();   
-    
-    this.skat = new Card[2];
-    this.trump = Colour.CLUBS;
-    this.playValue = 0;
-    this.pm = PlayMode.SUIT;
-    
-    this.playNr = 0;
-    this.trickNr = 0;
-    this.currentTrick = new Trick();
-    this.auctionPossible = true;
-    this.auction = new Auction();
-    
-    this.schneider = false;
-    this.schneiderAnnounced = false;
-    this.schwarz = false;
-    this.schwarzAnnounced = false;
-    this.setAnnouncedKontra(false);
-    this.setAnnouncedRekontra(false);
-  }
   
   /**
    * constructor (default) the attributes are initialized but we want the player(s) to change them
@@ -78,8 +56,29 @@ public class PlayState implements Serializable{
     this.schneider = false;
     this.schneiderAnnounced = false;
     this.schwarz = false;
-    this.schwarzAnnounced = false;
+    this.schwarzAnnounced = false;    
+  }
+  
+  public void resetPlayState() {
+    this.declarerStack = new Stack();
+    this.opponentsStack = new Stack();   
     
+    this.skat = new Card[2];
+    this.trump = Colour.CLUBS;
+    this.playValue = 0;
+    this.pm = PlayMode.SUIT;
+    
+    this.trickNr = 0;
+    this.currentTrick = new Trick();
+    this.auctionPossible = true;
+    this.auction = new Auction();
+    
+    this.schneider = false;
+    this.schneiderAnnounced = false;
+    this.schwarz = false;
+    this.schwarzAnnounced = false;
+    this.setAnnouncedKontra(false);
+    this.setAnnouncedRekontra(false);
   }
 
 

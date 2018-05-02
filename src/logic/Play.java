@@ -1,85 +1,7 @@
 package logic;
 
-import java.util.ArrayList;
-import java.util.List;
-import gui.InGameController;
-import interfaces.InGameInterface;
-import interfaces.LogicNetwork;
-
 public class Play {
-
-  private Player[] group; // gives us the Players and their position (first one is the
-                          // forehand)
-  private Card[] cards;
-  private Trick[] tricks;
-  private int currentTrick;
-  private int indexWinnerLastTrick;
-  private PlayState ps;
-  private final int nrTricks = 10;
-  private GameSettings gameSettings;
-  private boolean singlePlayerWins;
-  private LogicNetwork logicNetwork;
-  private ClientLogic clientLogic;
-
-  // neu und sinnvoll
-  public static Player declarer;
-  public static Player opponents1;
-  public static Player opponents2;
-
-  /**
-   * constructor
-   * 
-   * @param group
-   * @param gameSettings
-   * @param cards
-   */
-  public Play(Player[] group, GameSettings gameSettings, Card[] cards) {
-    this.tricks = new Trick[this.nrTricks];
-    // this.runPlay();
-    this.indexWinnerLastTrick = 0; // forehand starts the first trick
-    this.currentTrick = 0;
-    this.ps = new PlayState(group);
-    this.gameSettings = gameSettings;
-    this.cards = cards;
-    this.logicNetwork.startGame();
-  }
-
-
-
-  // /**
-  // * updates the hands of the group
-  // *
-  // * @author sandfisc
-  // */
-  // public void updateHands() {
-  // for (int i = 0; i < this.group.length; i++) {
-  // this.group[i].updateHand();
-  // }
-  // }
-  //
-  // /**
-  // * starts the gui on all clients
-  // */
-  // public void startPlayOnGui() {
-  // for (int i = 0; i < this.group.length; i++) {
-  // this.group[i].startPlay();
-  // }
-  // }
-
-
-  /**
-   * updates the trick of all clients --> the new card is send to all players
-   * 
-   * @sandfisc
-   * @param card
-   */
-  public void updateTrick(Card card) {
-    // this.logicNetwork.updateTrick(this.tricks[this.currentTrick]);
-    for (int i = 0; i < this.group.length; i++) {
-      // this.logicNetwork.sendCard(card, this.group[i]);
-    }
-  }
-
+  
   /**
    * true if declarer over bid false if not
    * 
@@ -87,7 +9,7 @@ public class Play {
    * @return
    */
   public static boolean checkOverBid(PlayState ps) {
-    if (ps.getPlayValue() < declarer.getBet()) {
+    if (ps.getPlayValue() < Tools.getDeclarer(ps.getGroup()).getBet()) {
       return false;
     } else {
       return true;
@@ -145,77 +67,7 @@ public class Play {
 
   }
 
-  
-  /**
-   * deals out the cards on a basic level as it is done in the original game we did it like this
-   * because we want it original intern as well
-   * 
-   * @author awesch
-   */
-  public static void dealOutCards(Player[] group, List<Card> cards2, PlayState ps) {
-    // idea: deal out as in the original game, just because we want it intern
-    // needed : position forehand, players of the game, how many players?,
-
-    // forehand is the position 0 of group array
-    ArrayList<Card> handF = new ArrayList<Card>();
-    ArrayList<Card> handM = new ArrayList<Card>();
-    ArrayList<Card> handR = new ArrayList<Card>();
-    ArrayList<ArrayList<Card>> crew = new ArrayList<ArrayList<Card>>();
-    crew.add(handF);
-    crew.add(handM);
-    crew.add(handR);
-    Card[] skat = new Card[2];
-    int counter = 0; // points on first card (next to deal out)
-
-    // deal out first 9 cards (3 each)
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
-        crew.get(i).add(cards2.get(counter));
-        counter++;
-      }
-    }
-
-    // deal out skat
-    for (int i = 0; i < 2; i++) {
-      skat[i] = cards2.get(counter);
-      counter++;
-    }
-
-    // deal out 4 cards each
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 4; j++) {
-        crew.get(i).add(cards2.get(counter));
-        counter++;
-      }
-    }
-
-    // deal out 3 cards each
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
-        crew.get(i).add(cards2.get(counter));
-        counter++;
-      }
-    }
-
-    group[0].setHand(handF);
-    group[1].setHand(handM);
-    group[2].setHand(handR);
-    ps.setSkat(skat);
-
-  }
-
-  /**
-   * sorts the Hands of every player in the Play can be called before and after the PlayMode and all
-   * the other PlayState attributes are initialized uses sortHand
-   * 
-   * @author awesch
-   */
-  public void sortHands() {
-    for (int i = 0; i < this.group.length; i++) {
-      this.group[i].sortHand(this.ps);
-    }
-  }
-
+ 
   /**
    * calculates the value of the game
    * 
@@ -282,7 +134,7 @@ public class Play {
   }
 
   /**
-   * declarer gets or losses (the playValue + 50)
+   * declarer gets or looses (the playValue + 50)
    * 
    * @author sandfisc
    */
@@ -294,55 +146,5 @@ public class Play {
     }
   }
 
-  /**
-   * 
-   * @return the gameSettings of the play/game
-   */
-  public GameSettings getGameSettings() {
-    return this.gameSettings;
-  }
-
-  /**
-   * method to update the gameSettings
-   * 
-   * @param gameSettings
-   */
-  public void setGameSettings(GameSettings gameSettings) {
-    this.gameSettings = gameSettings;
-  }
-
-  /**
-   * 
-   * @return playstate
-   */
-  public PlayState getPlayState() {
-    return this.ps;
-  }
-
-  public void setPlayState(PlayState ps) {
-    this.ps = ps;
-  }
-
-  /**
-   * gets the last trick (not only important for AI)
-   * 
-   * @return
-   */
-  public Trick getLastTrick() {
-    Trick lastTrick = new Trick(ps);
-    if (this.currentTrick > 0) {
-      lastTrick = this.tricks[this.currentTrick - 1];
-    }
-    return lastTrick;
-  }
-
-  /**
-   * gets the current trick (even if it is not filled)
-   * 
-   * @return
-   */
-  public Trick getCurrentTrick() {
-    return this.tricks[this.currentTrick];
-  }
 }
 

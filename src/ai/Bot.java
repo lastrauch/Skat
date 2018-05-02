@@ -9,7 +9,7 @@ public class Bot extends Player{
   private BotDifficulty difficulty;
  
   public Bot(String name, BotDifficulty difficulty){
-    super(name);
+    super(name, true);
     this.difficulty = difficulty;
   }
   

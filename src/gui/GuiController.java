@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import logic.GameMode;
+import logic.GameSettings;
 
 public class GuiController extends Application {
 
@@ -24,7 +25,7 @@ public class GuiController extends Application {
   static Stage mprimaryStage;
   private AnchorPane root;
 
-  protected static InGameController inGameCon;
+  private static InGameController inGameCon;
   private AnchorPane inGame = null;
 
   private static LoginController loginCon;
@@ -35,8 +36,11 @@ public class GuiController extends Application {
 
   private static ChooseGameController gameModeCon;
   private AnchorPane gameMode = null;
+  
+  private static LobbyController lobbyCon;
+  private AnchorPane lobby = null;
 
-  private static LobbyLocalController lobbyLocalCon;
+  private static SetAIController lobbyLocalCon;
   private AnchorPane lobbyLocal = null;
 
   private static LobbyOnlineController lobbyOnlineCon;
@@ -154,10 +158,10 @@ public class GuiController extends Application {
   /**
    * @author lstrauch
    */
-  public void displayLobbyLocal() {
+  public void displayAI() {
     try {
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("LobbyLocal.fxml"));
+      loader.setLocation(getClass().getResource("SetAI.fxml"));
       this.lobbyLocal = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(lobbyLocal);
 
@@ -179,6 +183,21 @@ public class GuiController extends Application {
       mprimaryStage.getScene().setRoot(lobbyOnline);
 
       lobbyOnlineCon = loader.getController();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+  
+  
+  public void displayLobby() {
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("Lobby.fxml"));
+      this.lobby = (AnchorPane) loader.load();
+      mprimaryStage.getScene().setRoot(lobby);
+      
+      lobbyCon = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -385,7 +404,6 @@ public class GuiController extends Application {
       mprimaryStage.getScene().setRoot(gameSettings);
 
       gameSettingsCon = loader.getController();
-      gameSettingsCon.setMode(gm);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -448,5 +466,16 @@ public class GuiController extends Application {
     }
   }
   
+  public InGameController getCon() {
+    return inGameCon;
+  }
+  
+  public GameSettingsController getGameSetCon() {
+    return gameSettingsCon;
+  }
+  
+  public LobbyController getLobbyCon() {
+    return lobbyCon;
+  }
 
 }
