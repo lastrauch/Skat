@@ -6,6 +6,13 @@ import logic.PlayMode;
 public class SinglePlay{
 	private PlayMode playMode;
 	private Colour colour;
+	private double certainty;
+	
+	public SinglePlay(PlayMode playMode, Colour colour, double certainty){
+	  this.playMode = playMode;
+	  this.colour = colour;
+	  this.certainty = certainty;
+	}
 	
 	public SinglePlay(PlayMode playMode, Colour colour){
 		this.playMode = playMode;
@@ -23,5 +30,9 @@ public class SinglePlay{
 	
 	public Colour getColour(){
 		return this.colour;
+	}
+	
+	public double getCertainty(){
+	  return this.certainty;
 	}
 }

@@ -14,7 +14,8 @@ public class General {
 	/* This is a static class to implement methods which are used through different Bot-difficulties.
 	 * Available Methods are:
 	 * playRandomCard(AIController) : int					//Returns the index of a playable card on the hand of the bot.
-	 * getHighestPossibleBet(AIController, PlayMode) : int	//Returns the highest possible bet, with the current hand of the bot
+	 * getHighesPossibleBet(AIController) : int             //Returns the highest possible bet, with the current hand of the bot
+	 * getHighestPossibleBet(AIController, PlayMode) : int	//Returns the highest possible bet, playing PlayMode
 	 * getGameLevel(AIController) : int                     //Returns the game level, the bot is playing with
 	 * initializeProbabiliteis(List<Card>) : double[][]     //Returns the initialization of card probabilities, first column is the bot
 	 */
