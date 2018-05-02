@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javax.swing.GroupLayout.Alignment;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,7 +39,7 @@ public class LobbyController implements Initializable {
   private GuiController guiCon;
   private GameSettings gs;
   private GameMode gm;
-//  private static GameSettings gs;
+  // private static GameSettings gs;
   private static int nrofplayers = 1;
   // private static List<Player> list = new ArrayList<Player>();
   private static boolean addedBot = false;
@@ -62,9 +63,9 @@ public class LobbyController implements Initializable {
   public LobbyController() {
     guiCon = new GuiController();
     GuiController.prevScreen = 4;
-//    setGameSettingsLabel();
+    // setGameSettingsLabel();
   }
-  
+
   /*
    * (non-Javadoc)
    * 
@@ -73,19 +74,19 @@ public class LobbyController implements Initializable {
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
-    
+
     setGameSettingsLabel(guiCon.getGameSetCon().getGS());
     setGS();
     if (addedBot) {
       switch (nrofplayers) {
-        case 2:                    
+        case 2:
           p2.setPrefWidth(213);
           p2.setPrefHeight(51);
           p2.setText("Computer 2");
           p2.setFont(Font.font("System", FontWeight.BOLD, 23));
           p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
           p2.setAlignment(Pos.CENTER);
-          
+
           System.out.println("Bot2: Easy");
 
           vbox1.getChildren().add(p2);
@@ -97,7 +98,7 @@ public class LobbyController implements Initializable {
           p2.setFont(Font.font("System", FontWeight.BOLD, 23));
           p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
           p2.setAlignment(Pos.CENTER);
-          
+
           p3.setPrefWidth(213);
           p3.setPrefHeight(51);
           p3.setText("Computer 3");
@@ -107,7 +108,7 @@ public class LobbyController implements Initializable {
 
           vbox1.getChildren().add(p2);
           vbox1.getChildren().add(p3);
-          
+
           System.out.println("Bot 3");
           break;
         case 4:
@@ -117,14 +118,14 @@ public class LobbyController implements Initializable {
           p2.setFont(Font.font("System", FontWeight.BOLD, 23));
           p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
           p2.setAlignment(Pos.CENTER);
-          
+
           p3.setPrefWidth(213);
           p3.setPrefHeight(51);
           p3.setText("Computer 3");
           p3.setFont(Font.font("System", FontWeight.BOLD, 23));
           p3.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
           p3.setAlignment(Pos.CENTER);
-          
+
           p4.setPrefWidth(213);
           p4.setPrefHeight(51);
           p4.setText("Computer 4");
@@ -146,23 +147,24 @@ public class LobbyController implements Initializable {
   public void setGameSettings(GameSettings gs) {
     this.gs = gs;
   }
-  
-//  public GameSettings getGameSettings() {
-//    return this.gs;
-//  }
-  
+
+  // public GameSettings getGameSettings() {
+  // return this.gs;
+  // }
+
   @FXML
   public void back() {
     guiCon.displayLobbyOnline();
   }
-  
+
   @FXML
   public void start() {
-//    if(GuiController.prevScreen == 1 )
+    // if(GuiController.prevScreen == 1 )
     LoginController.interfGL.startGame(gs);
-//      LoginController.interfGL.hostGame("Hi", gs);
-//      guiCon.displayInGame();
+    // LoginController.interfGL.hostGame("Hi", gs);
+    // guiCon.displayInGame();
   }
+
   public void displayBackButton() {
     back.setPrefWidth(214);
     back.setPrefHeight(41);
@@ -223,26 +225,34 @@ public class LobbyController implements Initializable {
     mainPane.getChildren().add(change);
   }
 
+
   public void displayPlayers(int size, List<Player> name) {
-    switch (size) {
-      case 1:
-        displayOne(name.get(0).getName());
-        nrofplayers = 1;
-        break;
-      case 2:
-        displayTwo(name.get(0).getName(), name.get(1).getName());
-        nrofplayers = 2;
-        break;
-      case 3:
-        displayThree(name.get(0).getName(), name.get(1).getName(), name.get(2).getName());
-        nrofplayers = 3;
-        break;
-      case 4:
-        displayFour(name.get(0).getName(), name.get(1).getName(), name.get(2).getName(),
-            name.get(3).getName());
-        nrofplayers = 4;
-        break;
-    }
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        // TODO Auto-generated method stub
+        switch (size) {
+          case 1:
+            displayOne(name.get(0).getName());
+            nrofplayers = 1;
+            break;
+          case 2:
+            displayTwo(name.get(0).getName(), name.get(1).getName());
+            nrofplayers = 2;
+            break;
+          case 3:
+            displayThree(name.get(0).getName(), name.get(1).getName(), name.get(2).getName());
+            nrofplayers = 3;
+            break;
+          case 4:
+            displayFour(name.get(0).getName(), name.get(1).getName(), name.get(2).getName(),
+                name.get(3).getName());
+            nrofplayers = 4;
+            break;
+        }
+      }
+
+    });
   }
 
   public void displayOne(String name) {
@@ -254,14 +264,14 @@ public class LobbyController implements Initializable {
     p1.setFont(Font.font("System", FontWeight.BOLD, 23));
     p1.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p1.setTextAlignment(TextAlignment.CENTER);
-    System.out.println("P1 id: "+p1.getText());
+    System.out.println("P1 id: " + p1.getText());
     System.out.println(vbox1);
-    System.out.println("Vbox id: "+vbox1.getPrefHeight());
+    System.out.println("Vbox id: " + vbox1.getPrefHeight());
 
     vbox1.getChildren().add(p1);
   }
 
-  public void displayTwo(String name1, String name2) {  
+  public void displayTwo(String name1, String name2) {
     displayOne(name1);
     p1.setText(name1);
 
@@ -359,7 +369,7 @@ public class LobbyController implements Initializable {
   /**
    * @author lstrauch
    */
- 
+
   public void setMode(GameMode gm) {
     this.gm = gm;
   }
