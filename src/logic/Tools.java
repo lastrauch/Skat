@@ -14,7 +14,7 @@ public class Tools {
 
   public static Player getDeclarer(Player[] group) {
     for (int i = 0; i < group.length; i++) {
-      if (group[i].IsDeclarer()) {
+      if (group[i].isDeclarer()) {
         return group[i];
       }
     }
@@ -27,7 +27,7 @@ public class Tools {
     Player opp2 = null;
 
     for (int i = 0; i < group.length; i++) {
-      if (!group[i].IsDeclarer() && group[i].getPosition() != Position.DEALER) {
+      if (!group[i].isDeclarer() && group[i].getPosition() != Position.DEALER) {
         if (opp1 == null) {
           opp1 = group[i];
           opponents[0] = opp1;

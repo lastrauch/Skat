@@ -285,13 +285,13 @@ public class GameSettingsController implements Initializable {
         gs.setTimeLimit(setLimitedTime());
       }
       ms = message.getText();
+      if (GuiController.prevScreen != 2) {
+        setGameMode(GameMode.SINGLEPLAYER);
+      } else {
+        setGameMode(GameMode.MULTIPLAYER);
+      }
       guiCon.displayLobby();
       if(guiCon.getLobbyCon() != null) {
-        if (GuiController.prevScreen != 2) {
-          setGameMode(GameMode.SINGLEPLAYER);
-        } else {
-          setGameMode(GameMode.MULTIPLAYER);
-        }
         System.out.println("gs screen Gamesettings: " + gs.getNrOfPlays() + "  " + gs.getCountRule());
         LoginController.interfGL.hostGame(ms, gs);
       }
