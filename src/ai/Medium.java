@@ -500,7 +500,7 @@ public class Medium {
     }
     
     //Bot is declarer
-    if(controller.getBot().IsDeclarer()) {
+    if(controller.getBot().isDeclarer()) {
       if(trick.size() == 0) {
         
         for(int colour=0; colour<4; colour++) {
@@ -527,7 +527,7 @@ public class Medium {
     List<Card> trick = controller.getCurrentTrick();
     
     //Bot is declarer
-    if(controller.getBot().IsDeclarer()) {
+    if(controller.getBot().isDeclarer()) {
       
       
       
