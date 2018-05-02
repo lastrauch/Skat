@@ -28,11 +28,11 @@ public class Auction implements Serializable {
     this.indexOfBetValue = 0;
     this.initializePossibleBets();
   }
-  
+
   public void addToBets(int bet) {
     this.bets.add(bet);
   }
-  
+
   public List<Integer> getBets() {
     return this.bets;
   }
@@ -46,6 +46,23 @@ public class Auction implements Serializable {
         126, 130, 132, 135, 141, 143, 144, 150, 153, 154, 156, 160, 162, 165, 168, 170, 176, 180,
         187, 192, 198, 204, 216, 240, 264};
   }
+
+  /**
+   * @author awesch
+   * @param currentBet
+   * @return
+   */
+  public int calculateNewBet() {
+    // !!!!!!! DENK DRAN IMMER NACH DIE NEUEN DINGE IN AUCTION UPZUDATEN auch current bet aus bets
+    if (this.bets.size() == 1) {
+      return this.betValue;
+    }
+    if (this.bets.get(this.bets.size() - 1) == this.bets.get(this.bets.size() - 2)) {
+      return this.possibleBets[this.indexOfBetValue + 1];
+    }
+    return this.betValue;
+  }
+
 
   public int[] getPossibleBets() {
     return this.possibleBets;
@@ -138,14 +155,14 @@ public class Auction implements Serializable {
   public int getIndexOfBetValue() {
     return indexOfBetValue;
   }
-//
-//  public int getLastBet() {
-//    return lastBet;
-//  }
-//
-//  public void setLastBet(int lastBet) {
-//    this.lastBet = lastBet;
-//  }
+  //
+  // public int getLastBet() {
+  // return lastBet;
+  // }
+  //
+  // public void setLastBet(int lastBet) {
+  // this.lastBet = lastBet;
+  // }
 
 }
 
