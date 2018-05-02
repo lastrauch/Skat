@@ -130,7 +130,7 @@ public class AIController implements InGameInterface {
     this.partner = null;
     this.opponents = new ArrayList<Player>();
     for (int i = 0; i < ps.getGroup().length; i++) {
-      if (ps.getGroup()[i].IsDeclarer()) {
+      if (ps.getGroup()[i].isDeclarer()) {
         for (int j = 0; j < this.player.size(); i++) {
           if (this.player.get(j).getName() == Integer.toString(ps.getGroup()[i].getId())) {
             this.opponents.add(this.player.get(j));
