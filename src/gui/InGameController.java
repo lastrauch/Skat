@@ -1848,5 +1848,20 @@ public class InGameController implements Initializable, InGameInterface {
     });
   }
 
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#updateBet(int)
+   */
+  @Override
+  public void updateBet(int bet) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        betB.setText(String.valueOf(bet));
+      }
+    });
+    
+  }
+
 
 }

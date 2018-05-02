@@ -110,5 +110,7 @@ public interface InGameInterface {
   public void showWinnerGame(Player player);
   
   public void openAskForBet(int bet);
+  
+  public void updateBet(int bet);
 
 }
