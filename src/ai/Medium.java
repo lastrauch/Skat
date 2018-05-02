@@ -506,6 +506,9 @@ public class Medium {
         for(int colour=0; colour<4; colour++) {
           if(controller.getCardProbabilities()[colour*8 + (7-Number.JACK.ordinal())][0] == 1){
             
+            
+            
+            
           }
         }
       }
