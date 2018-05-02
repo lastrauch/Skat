@@ -601,8 +601,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param bet
    */
   public void receiveBet(Player player, int bet) {
-    System.out.println("new bet: " + bet);
-    
+    System.out.println(this.player.getName() + "recieved new bet: " + bet + " from "
+        + player.getName() + " with the Position " + player.getPosition());
+
     // if auction is still running
     if (!this.checkIfAuctionIsOver(bet)) {
       int newBet = this.calculateNewBet(bet);
