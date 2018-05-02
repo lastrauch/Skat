@@ -402,7 +402,7 @@ public class Player implements Serializable{
     this.declarer = isDeclarer;
   }
 
-  public boolean IsDeclarer() {
+  public boolean isDeclarer() {
     return this.declarer;
   }
 
