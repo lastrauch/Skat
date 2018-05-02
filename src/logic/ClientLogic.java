@@ -682,8 +682,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param player
    * @return
    */
-  public boolean checkIfItsMyTurnAuctionMiddlehand(Player player) {
-    if (this.player.getBet() != -1 && player.getPosition() != Position.MIDDLEHAND) {
+  public boolean checkIfItsMyTurnAuctionMiddlehand(Player player, int bet) {
+    if (player.getPosition() == Position.FOREHAND && bet != -1 && this.player.getBet() != -1) {
+      return true;
+    }
+    if(player.getPosition() == Position.REARHAND && this.player.getBet() != -1) {
       return true;
     }
     return false;
@@ -728,7 +731,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       return true;
     }
     if (this.player.getPosition() == Position.MIDDLEHAND
-        && this.checkIfItsMyTurnAuctionMiddlehand(player)) {
+        && this.checkIfItsMyTurnAuctionMiddlehand(player, bet)) {
       return true;
     }
     if (this.player.getPosition() == Position.REARHAND
