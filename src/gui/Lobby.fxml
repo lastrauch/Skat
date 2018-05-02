@@ -69,11 +69,6 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <Label fx:id="p1" alignment="CENTER" layoutX="88.0" layoutY="137.0" prefHeight="51.0" prefWidth="213.0" styleClass="buttonsstyle2" stylesheets="@../../resources/mystyle.css" text="Number 1" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="23.0" />
-               </font>
-            </Label>
          </children>
       </VBox>
       <VBox fx:id="vbox2" layoutX="768.0" layoutY="100.0" prefHeight="379.0" prefWidth="459.0" spacing="30.0" style="-fx-background-color: tan; -fx-border-color: white;">

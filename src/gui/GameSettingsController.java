@@ -235,7 +235,7 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    * @param gm
    */
-  public void setMode(GameMode gm) {
+  public void setGameMode(GameMode gm) {
     this.gm = gm;
   }
 
@@ -285,26 +285,26 @@ public class GameSettingsController implements Initializable {
         gs.setTimeLimit(setLimitedTime());
       }
       ms = message.getText();
-      // LoginController.interfGL.hostGame(ms, gs);
-      // LobbyController.getGameSettings(gs);
-      if (gm.equals(GameMode.SINGLEPLAYER)) {
-        // guiCon.displayLobby(GameMode.SINGLEPLAYER);
-      } else {
-        // guiCon.displayLobby(GameMode.MULTIPLAYER);
-      }
-      if(GuiController.prevScreen != 2) {
+      guiCon.displayLobby();
+      if(guiCon.getLobbyCon() != null) {
+        if (GuiController.prevScreen != 2) {
+          setGameMode(GameMode.SINGLEPLAYER);
+        } else {
+          setGameMode(GameMode.MULTIPLAYER);
+        }
+        System.out.println("gs screen Gamesettings: " + gs.getNrOfPlays() + "  " + gs.getCountRule());
         LoginController.interfGL.hostGame(ms, gs);
-        System.out.println("singleplayer");
-      }else {
-        System.out.println("multiplayer");
       }
-      guiCon.displayLobby(gs);
     }
 
   }
 
   public GameSettings getGS() {
     return gs;
+  }
+
+  public GameMode getGM() {
+    return gm;
   }
 
   /**

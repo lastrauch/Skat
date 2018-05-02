@@ -189,21 +189,6 @@ public class GuiController extends Application {
     }
   }
   
-  public void displayLobby(GameSettings gs) {
-    try {
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("Lobby.fxml"));
-      this.lobby = (AnchorPane) loader.load();
-      mprimaryStage.getScene().setRoot(lobby);
-
-//      lobbyCon.setGameSettings(gs);
-//      System.out.println("GSSSSS!!!!!: "+ gs.getNrOfPlayers());
-      lobbyCon = loader.getController();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
   
   public void displayLobby() {
     try {
@@ -211,9 +196,7 @@ public class GuiController extends Application {
       loader.setLocation(getClass().getResource("Lobby.fxml"));
       this.lobby = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(lobby);
-
-//      lobbyCon.setGameSettings(gs);
-//      System.out.println("GSSSSS!!!!!: "+ gs.getNrOfPlayers());
+      
       lobbyCon = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
@@ -421,7 +404,6 @@ public class GuiController extends Application {
       mprimaryStage.getScene().setRoot(gameSettings);
 
       gameSettingsCon = loader.getController();
-      gameSettingsCon.setMode(gm);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -490,6 +472,10 @@ public class GuiController extends Application {
   
   public GameSettingsController getGameSetCon() {
     return gameSettingsCon;
+  }
+  
+  public LobbyController getLobbyCon() {
+    return lobbyCon;
   }
 
 }
