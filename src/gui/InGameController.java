@@ -1078,7 +1078,7 @@ public class InGameController implements Initializable, InGameInterface {
     pass.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ret[0] = false;
+        b = false;
         notpressed = false;
 
         // displayWannaTakeSkat();
@@ -1087,9 +1087,10 @@ public class InGameController implements Initializable, InGameInterface {
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ret[0] = true;
         // displayWannaTakeSkat();
         notpressed = false;
+        b = true;
+//        System.out.println("RET: "+ret[0]);
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1825,6 +1826,7 @@ public class InGameController implements Initializable, InGameInterface {
     while (notpressed) {
       ButtonListener();
     }
+    System.out.println("B: "+b);
     return b;
   }
 
