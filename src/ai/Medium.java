@@ -494,16 +494,64 @@ public class Medium {
   
   public static int playCardNull(AIController controller){
     //TODO
+    List<Card> cards = controller.getBot().getHand();
+    List<Card> trick = controller.getCurrentTrick();
+    
+    //Bot is declarer
     if(controller.getOpponents().size() == 2){
-      //Bot is declarer
-      if(controller.getCurrentTrick().size() == 0){
+      //Bot needs to play the first card of the trick
+      //He plays the card with the lowest Number-Value
+      if(trick.size() == 0){
+        int cardIndex = 0;
+        int minValue = 8;
+        for(int i=0; i<cards.size(); i++){
+          if(cards.get(i).getNumber().ordinal() < minValue){
+            cardIndex = i;
+            minValue = cards.get(i).getNumber().ordinal();
+          }
+        }
+        return cardIndex;
+      //Bot doesn't play the first card, so he needs to react to the first card  
+      }else{
+        //Bot doesn't have colour
+        if(controller.getHasColour()[4-trick.get(0).getColour().ordinal()][0]){
+          //Play highest Card of colour, where amount is < 3
+          int[] hasColour = new int[4];
+          for(int i=0; i<cards.size(); i++){
+            hasColour[4-trick.get(0).getColour().ordinal()]++;
+          }
+          for(int colour=0; colour<hasColour.length; colour++){
+            if(hasColour[colour] < 3 && hasColour[colour] > 0){
+              int number = 0;
+              while(controller.getCardProbabilities()[colour*8 + number][0] == 0){
+                number++;
+              }
+              for(int h=0; h<cards.size(); h++){
+                if((8-cards.get(h).getNumber().ordinal()) == number && (4-cards.get(h).getColour().ordinal()) == colour){
+                  return h;
+                }
+              }
+            }
+          }
+          //No color has amount < 3, play one of the highest cards in general
+          
+          
+          
+        
+        //Bot has color  
+        }else{
+        //If bot hasColour, determine if he can allow itself to play a higher card
+        }
+        
+        
         
       }
+    //Bot is not declarer  
     }else{
-      //Bot is not declarer
+      
       
     }
-    return 0;
+    return General.playRandomCard(controller);
   }
 
 }
