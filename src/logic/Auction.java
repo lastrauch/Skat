@@ -28,6 +28,14 @@ public class Auction implements Serializable {
     this.indexOfBetValue = 0;
     this.initializePossibleBets();
   }
+  
+  public void addToBets(int bet) {
+    this.bets.add(bet);
+  }
+  
+  public List<Integer> getBets() {
+    return this.bets;
+  }
 
   /**
    * initializes the array of possible bets
