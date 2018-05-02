@@ -631,13 +631,18 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @return
    */
   public int calculateNewBet(int currentBet) {
-    int lastBet = this.playState.getAuction().getBetValue();
-    int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
-
-    if (lastBet == currentBet) {
-      return this.playState.getAuction().getPossibleBets()[lastBetIndex + 1];
+    //!!!!!!! DENK DRAN IMMER NACH DIE NEUEN DINGE IN AUCTION UPZUDATEN
+    if(!this.oneOfThePlayersPassedAlready() && this.playState.getAuction().getLastBet() == -1) {
+      return this.playState.getBetValue();
     }
-    return lastBet;
+//    if(this.one)
+//    int lastBet = this.playState.getAuction().getLastBet();
+//    int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
+//
+//    if (lastBet == currentBet) {
+//      return this.playState.getAuction().getPossibleBets()[lastBetIndex + 1];
+//    }
+    return 18;
   }
 
   /**

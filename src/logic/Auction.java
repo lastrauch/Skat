@@ -1,6 +1,8 @@
 package logic;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Auction implements Serializable {
 
@@ -12,6 +14,7 @@ public class Auction implements Serializable {
   private int[] possibleBets; // list of the possible bets
   private int betValue;
   private int indexOfBetValue;
+  private List<Integer> bets;
 
   /**
    * constructor
@@ -20,8 +23,10 @@ public class Auction implements Serializable {
    * 
    */
   public Auction() {
+    this.bets = new ArrayList<Integer>();
     this.betValue = 18;
     this.indexOfBetValue = 0;
+    this.setLastBet(-1);
     this.initializePossibleBets();
   }
 
@@ -126,6 +131,14 @@ public class Auction implements Serializable {
   public int getIndexOfBetValue() {
     return indexOfBetValue;
   }
+//
+//  public int getLastBet() {
+//    return lastBet;
+//  }
+//
+//  public void setLastBet(int lastBet) {
+//    this.lastBet = lastBet;
+//  }
 
 }
 
