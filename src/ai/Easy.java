@@ -1,7 +1,10 @@
 package ai;
 
+import java.util.ArrayList;
+import java.util.List;
 import logic.PlayMode;
 import logic.PlayState;
+import logic.Player;
 
 public class Easy {
   
@@ -26,17 +29,41 @@ public class Easy {
     }
   
   public static PlayState setPlayState(AIController controller){
-	 SinglePlay singlePlayer;
-	 //wenn höchster Reizwert 
-	 //bestimmt der Alleinspieker Art des Spiels : hier: Suit
-	 singlePlayer = new SinglePlay(PlayMode.SUIT);
- 
-	 //entscheiden, was für ein Spiel gespielt werden soll
-	 //also einer der Farben als Trumpf wählen
+    return null;
+  }
+//    PlayState playState = controller.getPlayState();
+//    playState.getDeclarerStack();
+//    playState.setPlayMode(controller.getSinglePlay().getPlayMode().SUIT);
+//    playState.setSkat(null);
+//    playState.setTrump(controller.getSinglePlay().getColour());
+//    playState.setHandGame(false);
+//    playState.setSchneiderAnnounced(false);
+//    playState.setSchwarzAnnounced(false);
+//    playState.setOpen(false);
+//    
+//    controller.setPartner(null);
+//    List<Player> opponents = new ArrayList<Player>();
+//    for (int i = 0; i < controller.getAllPlayer().size(); i++) {
+//      opponents.add(controller.getAllPlayer().get(i));
+//    }
+//    while()
+//   
+//      controller.setExistingTrumps(11);
+//    
+//      
+//    }
+    
+   
+//    
+////    playState.setTrump(controller.getSinglePlay().getColour());
+//	 SinglePlay singlePlayer;
+//	 //wenn Reiz gewonnen 
+//	 //bestimmt der Alleinspieker Art des Spiels : hier: Suit
+////	 singlePlayer = new SinglePlay(PlayMode.SUIT);
+//	 
+// 
+//	 //entscheiden, was für ein Spiel gespielt werden soll
+//	 //also einer der Farben als Trumpf wählen
 	  
-	  return null;
-  }
-  public static void main (String args[]) {
 
-  }
 }
