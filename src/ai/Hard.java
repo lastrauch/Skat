@@ -22,6 +22,10 @@ public static PlayState setPlayState(AIController controller){
 	  return null;
   }
 
+public static void playKontra(AIController controller){
+  
+}
+
 public static boolean askToRekontra(AIController controller){
   //TODO
   if(controller.getSinglePlay().getCertainty() > 9){
