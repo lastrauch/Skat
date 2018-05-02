@@ -76,7 +76,6 @@ class CheckIfCardPossibleTest {
     p3 = new Player("P3");
     p3.addToHand(badCard1);
     p3.addToHand(badCard2);
-
   }
 
   @Test
