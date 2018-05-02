@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXTextField;
 import database.ImplementsGuiInterface;
 import interfaces.GuiData;
 import interfaces.InGameInterface;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -51,6 +52,7 @@ public class InGameController implements Initializable, InGameInterface {
 
   /**
    * Initialize what chooseTrumPScreen
+   * 
    * @author lstrauch
    */
   AnchorPane paneAuc = new AnchorPane();
@@ -161,10 +163,12 @@ public class InGameController implements Initializable, InGameInterface {
     // this.implements = new ImplementsInGameInterface();
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
    * 
-   * initializes attributes and enabeles Buttonlistener
+   *      initializes attributes and enabeles Buttonlistener
    * @author lstrauch
    **/
   @Override
@@ -201,7 +205,7 @@ public class InGameController implements Initializable, InGameInterface {
 
     da[0] = true;
     da[1] = true;
-//    askForBet(18);
+    // askForBet(18);
     displayChatClosed();
     chatButtonListener();
   }
@@ -259,7 +263,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void showChat() {
     JFXTextField rMes = new JFXTextField();
-//    rMes.setText((LoginController.interfGL.getChatText()));
+    // rMes.setText((LoginController.interfGL.getChatText()));
     chatM.appendText(rMes + "\n");
 
   }
@@ -288,43 +292,63 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    */
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#startPlay(java.util.List, logic.Position)
    * 
    * @author lstrauch
    */
   @Override
   public void startPlay(List<Card> hand, Position position) {
-    // TODO Auto-generated method stub
-    System.out.println("Hand 0: "+hand.get(0).toString());
-    c1.setImage(LoginController.interfGD.getImage(hand.get(0).getColour().toString().toLowerCase(),
-        (hand.get(0).getNumber().toString().toLowerCase())));
-    c2.setImage(LoginController.interfGD.getImage(hand.get(1).getColour().toString().toLowerCase(),
-        (hand.get(1).getNumber().toString().toLowerCase())));
-    c3.setImage(LoginController.interfGD.getImage(hand.get(2).getColour().toString().toLowerCase(),
-        (hand.get(2).getNumber().toString().toLowerCase())));
-    c4.setImage(LoginController.interfGD.getImage(hand.get(3).getColour().toString().toLowerCase(),
-        (hand.get(3).getNumber().toString().toLowerCase())));
-    c5.setImage(LoginController.interfGD.getImage(hand.get(4).getColour().toString().toLowerCase(),
-        (hand.get(4).getNumber().toString().toLowerCase())));
-    c6.setImage(LoginController.interfGD.getImage(hand.get(5).getColour().toString().toLowerCase(),
-        (hand.get(5).getNumber().toString().toLowerCase())));
-    c7.setImage(LoginController.interfGD.getImage(hand.get(6).getColour().toString().toLowerCase(),
-        (hand.get(6).getNumber().toString().toLowerCase())));
-    c8.setImage(LoginController.interfGD.getImage(hand.get(7).getColour().toString().toLowerCase(),
-        (hand.get(7).getNumber().toString().toLowerCase())));
-    c9.setImage(LoginController.interfGD.getImage(hand.get(8).getColour().toString().toLowerCase(),
-        (hand.get(8).getNumber().toString().toLowerCase())));
-    c10.setImage(LoginController.interfGD.getImage(hand.get(9).getColour().toString().toLowerCase(),
-        (hand.get(9).getNumber().toString().toLowerCase())));
     this.position.setText(position.toString());
-    displayChatScreenOpen();
-    cardlist = hand;
+
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        // TODO Auto-generated method stub
+        c1.setImage(
+            LoginController.interfGD.getImage(hand.get(0).getColour().toString().toLowerCase(),
+                (hand.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(
+            LoginController.interfGD.getImage(hand.get(1).getColour().toString().toLowerCase(),
+                (hand.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(
+            LoginController.interfGD.getImage(hand.get(2).getColour().toString().toLowerCase(),
+                (hand.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(
+            LoginController.interfGD.getImage(hand.get(3).getColour().toString().toLowerCase(),
+                (hand.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(
+            LoginController.interfGD.getImage(hand.get(4).getColour().toString().toLowerCase(),
+                (hand.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(
+            LoginController.interfGD.getImage(hand.get(5).getColour().toString().toLowerCase(),
+                (hand.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(
+            LoginController.interfGD.getImage(hand.get(6).getColour().toString().toLowerCase(),
+                (hand.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(
+            LoginController.interfGD.getImage(hand.get(7).getColour().toString().toLowerCase(),
+                (hand.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(
+            LoginController.interfGD.getImage(hand.get(8).getColour().toString().toLowerCase(),
+                (hand.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(
+            LoginController.interfGD.getImage(hand.get(9).getColour().toString().toLowerCase(),
+                (hand.get(9).getNumber().toString().toLowerCase())));
+        displayChatScreenOpen();
+        cardlist = hand;
+      }
+      
+    });
 
   }
 
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showSecoundsLeftToPlayCard(int)
    * 
    * @author lstrauch
@@ -336,7 +360,9 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#setPlaySettings(logic.PlayState)
    * 
    * @author lstrauch
@@ -352,7 +378,9 @@ public class InGameController implements Initializable, InGameInterface {
 
 
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#askToPlayCard()
    * 
    * @author lstrauch
@@ -363,32 +391,34 @@ public class InGameController implements Initializable, InGameInterface {
     return MouseHandler();
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
    * 
    * @author lstrauch
    */
-//  @Override
-//  public void askToTakeUpSkat(PlayState ps) {
-//    // TODO Auto-generated method stub
-//    deletePane(paneBet);
-//    displayWannaTakeSkat();
-//    ButtonListenrWantSkat(ps);
-//
-//  }
-//
-//  /** (non-Javadoc)
-//   * @see interfaces.InGameInterface#askForBet(int)
-//   * 
-//   * @author lstrauch
-//   */
-//  @Override
-//  public boolean askForBet(int bet) {
-//    // TODO Auto-generated method stub
-//    betB.setText(String.valueOf(bet));
-//    displayAuctionScreen();
-//    return ButtonListener();
-//  }
+  // @Override
+  // public void askToTakeUpSkat(PlayState ps) {
+  // // TODO Auto-generated method stub
+  // deletePane(paneBet);
+  // displayWannaTakeSkat();
+  // ButtonListenrWantSkat(ps);
+  //
+  // }
+  //
+  // /** (non-Javadoc)
+  // * @see interfaces.InGameInterface#askForBet(int)
+  // *
+  // * @author lstrauch
+  // */
+  // @Override
+  // public boolean askForBet(int bet) {
+  // // TODO Auto-generated method stub
+  // betB.setText(String.valueOf(bet));
+  // displayAuctionScreen();
+  // return ButtonListener();
+  // }
 
 
   /**
@@ -400,7 +430,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#updateHand(java.util.List)
    * 
    * @author lstrauch
@@ -413,7 +445,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#updateTrick(java.util.List)
    * 
    * @author lstrauch
@@ -435,7 +469,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#stopGame(java.lang.String)
    * 
    * @author lstrauch
@@ -446,7 +482,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showWinnerTrick(logic.Player)
    * 
    * @author lstrauch
@@ -457,7 +495,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showWinnerPlay(logic.Player, logic.Player)
    * 
    * @author lstrauch
@@ -468,7 +508,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showWinnerGame(logic.Player)
    * 
    * @author lstrauch
@@ -1125,7 +1167,7 @@ public class InGameController implements Initializable, InGameInterface {
         ps.setSchwarzAnnounced(true);
       }
     });
-    
+
     return ps;
   }
 
@@ -1719,7 +1761,9 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#askToRekontra()
    */
   @Override
@@ -1728,7 +1772,9 @@ public class InGameController implements Initializable, InGameInterface {
     return false;
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
    */
   @Override
@@ -1740,12 +1786,14 @@ public class InGameController implements Initializable, InGameInterface {
     return null;
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#askForBet(int, logic.Player)
    */
   @Override
   public boolean askForBet(int bet, Player lastBet) {
-    //     deletePane(paneBet);
+    // deletePane(paneBet);
     betB.setText(String.valueOf(bet));
     displayAuctionScreen();
     return ButtonListener();
