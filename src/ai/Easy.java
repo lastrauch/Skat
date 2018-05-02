@@ -37,7 +37,7 @@ public class Easy {
     }
     playState.getDeclarerStack().addCards(skatList);
     playState.setPlayMode(PlayMode.SUIT);
-    if(controller.getSinglePlay().getColour() != null) {
+    if(controller.getSinglePlay() != null && controller.getSinglePlay().getColour() != null) {
       playState.setTrump(controller.getSinglePlay().getColour());
     }else {
       List<Card> cards = controller.getBot().getHand();
