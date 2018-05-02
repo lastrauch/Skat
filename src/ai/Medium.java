@@ -12,10 +12,13 @@ import logic.Number;
 public class Medium {
 
   public static int playCard(AIController controller) {
-    switch(controller.getPlayState().getPlayMode()){
-      case GRAND: return Medium.playCardGrand(controller);
-      case SUIT: return Medium.playCardSuit(controller);
-      case NULL: return Medium.playCardNull(controller);
+    switch (controller.getPlayState().getPlayMode()) {
+      case GRAND:
+        return Medium.playCardGrand(controller);
+      case SUIT:
+        return Medium.playCardSuit(controller);
+      case NULL:
+        return Medium.playCardNull(controller);
     }
     return General.playRandomCard(controller);
   }
@@ -481,77 +484,99 @@ public class Medium {
       return null;
     }
   }
-  
-  public static int playCardGrand(AIController controller){
-    //TODO
+
+  public static int playCardGrand(AIController controller) {
+    // TODO
     return 0;
   }
-  
-  public static int playCardSuit(AIController controller){
-    //TODO
+
+  public static int playCardSuit(AIController controller) {
+    // TODO
     return 0;
   }
-  
-  public static int playCardNull(AIController controller){
-    //TODO
+
+  public static int playCardNull(AIController controller) {
     List<Card> cards = controller.getBot().getHand();
     List<Card> trick = controller.getCurrentTrick();
-    
-    //Bot is declarer
-    if(controller.getOpponents().size() == 2){
-      //Bot needs to play the first card of the trick
-      //He plays the card with the lowest Number-Value
-      if(trick.size() == 0){
-        int cardIndex = 0;
-        int minValue = 8;
-        for(int i=0; i<cards.size(); i++){
-          if(cards.get(i).getNumber().ordinal() < minValue){
-            cardIndex = i;
-            minValue = cards.get(i).getNumber().ordinal();
-          }
+
+    // Bot needs to play the first card of the trick
+    // He plays the card with the lowest Number-Value
+    if (trick.size() == 0) {
+      int cardIndex = 0;
+      int minValue = 8;
+      for (int i = 0; i < cards.size(); i++) {
+        if (cards.get(i).getNumber().ordinal() < minValue) {
+          cardIndex = i;
+          minValue = cards.get(i).getNumber().ordinal();
         }
-        return cardIndex;
-      //Bot doesn't play the first card, so he needs to react to the first card  
-      }else{
-        //Bot doesn't have colour
-        if(controller.getHasColour()[4-trick.get(0).getColour().ordinal()][0]){
-          //Play highest Card of colour, where amount is < 3
-          int[] hasColour = new int[4];
-          for(int i=0; i<cards.size(); i++){
-            hasColour[4-trick.get(0).getColour().ordinal()]++;
-          }
-          for(int colour=0; colour<hasColour.length; colour++){
-            if(hasColour[colour] < 3 && hasColour[colour] > 0){
-              int number = 0;
-              while(controller.getCardProbabilities()[colour*8 + number][0] == 0){
-                number++;
-              }
-              for(int h=0; h<cards.size(); h++){
-                if((8-cards.get(h).getNumber().ordinal()) == number && (4-cards.get(h).getColour().ordinal()) == colour){
-                  return h;
-                }
+      }
+      return cardIndex;
+      // Bot doesn't play the first card, so he needs to react to the first card
+    } else {
+      // Bot doesn't have colour
+      if (controller.getHasColour()[4 - trick.get(0).getColour().ordinal()][0]) {
+
+        // Play highest Card of colour, where amount is < 3
+        int[] hasColour = new int[4];
+        for (int i = 0; i < cards.size(); i++) {
+          hasColour[4 - trick.get(0).getColour().ordinal()]++;
+        }
+        for (int colour = 0; colour < hasColour.length; colour++) {
+          if (hasColour[colour] < 3 && hasColour[colour] > 0) {
+            int number = 0;
+            while (controller.getCardProbabilities()[colour * 8 + number][0] == 0) {
+              number++;
+            }
+            for (int h = 0; h < cards.size(); h++) {
+              if ((8 - cards.get(h).getNumber().ordinal()) == number
+                  && (4 - cards.get(h).getColour().ordinal()) == colour) {
+                return h;
               }
             }
           }
-          //No color has amount < 3, play one of the highest cards in general
-          
-          
-          
-        
-        //Bot has color  
-        }else{
-        //If bot hasColour, determine if he can allow itself to play a higher card
         }
-        
-        
-        
+        // No color has amount < 3, play one of the highest cards in general
+        int cardIndex = 0;
+        int maxValue = 0;
+        for (int i = 0; i < cards.size(); i++) {
+          if (cards.get(i).getNumber().ordinal() > maxValue) {
+            cardIndex = i;
+            maxValue = cards.get(i).getNumber().ordinal();
+          }
+        }
+        return cardIndex;
+
+        // Bot has color
+      } else {
+        // If bot hasColour, play the predecessor, if it doen't exist, play the successor
+        int colour = 3 - trick.get(0).getColour().ordinal();
+        int value = 7 - trick.get(0).getNumber().ordinal();
+        int j = value;
+        while (j < 7 && controller.getCardProbabilities()[colour * 8 + j][0] == 0) {
+          j++;
+        }
+        if (j != 7) {
+          for (int i = 0; i < cards.size(); i++) {
+            if ((7 - cards.get(i).getNumber().ordinal()) == j
+                && cards.get(i).getColour() == trick.get(0).getColour()) {
+              return i;
+            }
+          }
+        }
+        j = value;
+        while (j >= 0 && controller.getCardProbabilities()[colour * 8 + j][0] == 0) {
+          j--;
+        }
+        if (j != 0) {
+          for (int i = 0; i < cards.size(); i++) {
+            if ((7 - cards.get(i).getNumber().ordinal()) == j
+                && cards.get(i).getColour() == trick.get(0).getColour()) {
+              return i;
+            }
+          }
+        }
       }
-    //Bot is not declarer  
-    }else{
-      
-      
     }
     return General.playRandomCard(controller);
   }
-
 }

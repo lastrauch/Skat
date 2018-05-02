@@ -237,7 +237,7 @@ public class AIController implements InGameInterface {
   }
 
   public PlayState getPlayState() {
-    return this.getPlayState();
+    return this.ps;
   }
 
   public List<Card> getCurrentTrick() {
