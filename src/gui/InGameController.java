@@ -302,10 +302,8 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void startPlay(List<Card> hand, Position position) {
     Platform.runLater(new Runnable() {
-
       @Override
       public void run() {
-        // TODO Auto-generated method stub
         pos.setText(position.toString());
         c1.setImage(
             LoginController.interfGD.getImage(hand.get(0).getColour().toString().toLowerCase(),
@@ -337,7 +335,6 @@ public class InGameController implements Initializable, InGameInterface {
         c10.setImage(
             LoginController.interfGD.getImage(hand.get(9).getColour().toString().toLowerCase(),
                 (hand.get(9).getNumber().toString().toLowerCase())));
-        displayChatScreenOpen();
         cardlist = hand;
       }
 
@@ -574,7 +571,7 @@ public class InGameController implements Initializable, InGameInterface {
     labelBet.setPrefHeight(53);
     labelBet.setLayoutX(88);
     labelBet.setLayoutY(36);
-    labelBet.setText("Midde");
+    labelBet.setText("");
     labelBet.setFont(Font.font("System", FontWeight.BOLD, 36));
     labelBet.setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(labelBet, 0.0);
