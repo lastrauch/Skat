@@ -386,8 +386,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     return result;
   }
 
-  
-  //!!!!! WE CAN CHANGE IT SO THE METHOD ONLY USES this.playState
+
+  // !!!!! WE CAN CHANGE IT SO THE METHOD ONLY USES this.playState
   /**
    * calculates the play value with the other methods implemented for the special contracts
    * 
@@ -601,11 +601,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param bet
    */
   public void receiveBet(Player player, int bet) {
+    System.out.println("new bet: " + bet);
+    
     // if auction is still running
     if (!this.checkIfAuctionIsOver(bet)) {
       int newBet = this.calculateNewBet(bet);
       // if it is my turn
-      if (this.checkIfItsMyTurnAuction(player)) {
+      if (this.checkIfItsMyTurnAuction(player, bet)) {
         // if the player goes with the bet
         if (this.inGameController.askForBet(newBet, player)) {
           this.netController.bet(newBet, this.player);
@@ -647,7 +649,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.playState.setBetValue(bet);
     }
     // change to ID later !!!!
-    for (Player p : this.group) {
+    for (Player p : this.playState.getGroup()) {
       if (p.getName().equals(player.getName())) {
         p.setBet(bet);
       }
@@ -664,8 +666,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param player
    * @return
    */
-  public boolean checkIfItsMyTurnAuctionForehand(Player player) {
-    if (player.getPosition() == Position.MIDDLEHAND && this.player.getBet() != -1) {
+  public boolean checkIfItsMyTurnAuctionForehand(Player player, int bet) {
+    if (player.getPosition() == Position.MIDDLEHAND && this.player.getBet() != -1 && bet != -1) {
       return true;
     }
     if (player.getPosition() == Position.REARHAND && this.player.getBet() != -1) {
@@ -691,7 +693,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param player
    * @return
    */
-  public boolean checkIfItsMyTurnAuctionRearHand(Player player) {
+  public boolean checkIfItsMyTurnAuctionRearHand(Player player, int bet) {
+    if (bet == -1) {
+      return true;
+    }
     if (this.oneOfThePlayersPassedAlready() && player.getPosition() != Position.REARHAND) {
       return true;
     }
@@ -716,9 +721,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param player
    * @return
    */
-  public boolean checkIfItsMyTurnAuction(Player player) {
+  public boolean checkIfItsMyTurnAuction(Player player, int bet) {
     if (this.player.getPosition() == Position.FOREHAND
-        && this.checkIfItsMyTurnAuctionForehand(player)) {
+        && this.checkIfItsMyTurnAuctionForehand(player, bet)) {
       return true;
     }
     if (this.player.getPosition() == Position.MIDDLEHAND
@@ -726,7 +731,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       return true;
     }
     if (this.player.getPosition() == Position.REARHAND
-        && this.checkIfItsMyTurnAuctionRearHand(player)) {
+        && this.checkIfItsMyTurnAuctionRearHand(player, bet)) {
       return true;
     }
     return false;
@@ -762,6 +767,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // change to id if setted by network !!!!!!!
     if (this.playState.getAuction().getWinner().getName().equals(this.player.getName())) {
       // this player is declarer
+      System.out.println(this.player.getName() + "won auction");
       this.player.setDeclarer(true);
       // the others not(update after the last auction) ... maybe not important later (if we reset
       // everything after one play)
@@ -860,15 +866,22 @@ public class ClientLogic implements NetworkLogic, AILogic {
     for (Card c : this.player.getHand()) {
       System.out.println(c.getColour() + " " + c.getNumber());
     }
+    System.out.println(this.player.getName() + " before start Play");
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
+    System.out.println(this.player.getName() + " after start Play");
 
     // Start auction here
     if (this.player.getPosition() == Position.MIDDLEHAND) {
+      System.out
+          .println(this.player.getName() + " I'm middlehand anf supposed to start the auction.");
       // go with first bet
+      System.out.println(this.playState.getAuction().getPossibleBets()[0]);
       if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0], null)) {
+        this.player.setBet(this.playState.getAuction().getPossibleBets()[0]);
         this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
       } else {
         // pass
+        System.out.println(this.player.getName() + "passedSa");
         this.netController.bet(-1, this.player);
       }
 
@@ -1039,18 +1052,20 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receiveRekontra() {
     this.playState.setAnnouncedRekontra(true);
   }
-  
+
   public void setGameSetting(GameSettings gs) {
     this.gameSettings = gs;
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.NetworkLogic#allReceivedCards()
    */
   @Override
   public void allReceivedCards() {
     // TODO Auto-generated method stub
-    
+
   }
 
 }
