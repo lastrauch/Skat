@@ -606,10 +606,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     // if auction is still running
     if (!this.checkIfAuctionIsOver(bet)) {
-      int newBet = this.calculateNewBet(bet);
+      this.playState.getAuction().addToBets(bet);
+      int newBet = this.calculateNewBet();
       // if it is my turn
       if (this.checkIfItsMyTurnAuction(player, bet)) {
         // if the player goes with the bet
+        this.inGameController.openAskForBet(newBet);
         if (this.inGameController.askForBet(newBet, player)) {
           this.netController.bet(newBet, this.player);
         } else {
@@ -630,14 +632,22 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param currentBet
    * @return
    */
-  public int calculateNewBet(int currentBet) {
-    int lastBet = this.playState.getAuction().getBetValue();
-    int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
-
-    if (lastBet == currentBet) {
-      return this.playState.getAuction().getPossibleBets()[lastBetIndex + 1];
+  public int calculateNewBet() {
+    //!!!!!!! DENK DRAN IMMER NACH DIE NEUEN DINGE IN AUCTION UPZUDATEN auch current bet aus bets
+    if(this.playState.getAuction().getBets().size() == 1) {
+      return this.playState.getBetValue();
     }
-    return lastBet;
+    if(this.playState.getAuction().getBets().get(this.playState.getAuction().getBets().size() - 1) == -1) {
+      return this.playState.getBetValue();
+    }
+//    if(this.one)
+//    int lastBet = this.playState.getAuction().getLastBet();
+//    int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
+//
+//    if (lastBet == currentBet) {
+//      return this.playState.getAuction().getPossibleBets()[lastBetIndex + 1];
+//    }
+    return 18;
   }
 
   /**
@@ -877,9 +887,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // Start auction here
     if (this.player.getPosition() == Position.MIDDLEHAND) {
       System.out
-          .println(this.player.getName() + " I'm middlehand anf supposed to start the auction.");
+          .println(this.player.getName() + " I'm middlehand and supposed to start the auction.");
       // go with first bet
       System.out.println(this.playState.getAuction().getPossibleBets()[0]);
+      this.inGameController.openAskForBet(this.playState.getAuction().getPossibleBets()[0]);
       if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0], null)) {
         this.player.setBet(this.playState.getAuction().getPossibleBets()[0]);
         this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
@@ -1061,6 +1072,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.gameSettings = gs;
   }
 
+  public void setPlayState(PlayState ps) {
+    this.playState = ps;
+  }
+  
   /*
    * (non-Javadoc)
    * 

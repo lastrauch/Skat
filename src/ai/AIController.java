@@ -338,4 +338,10 @@ public class AIController implements InGameInterface {
     return this.existingTrumps;
   }
 
+@Override
+public void openAskForBet(int bet) {
+	// TODO Auto-generated method stub
+	
+}
+
 }
