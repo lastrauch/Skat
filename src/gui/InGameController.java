@@ -97,6 +97,7 @@ public class InGameController implements Initializable, InGameInterface {
   private GuiData inte = new ImplementsGuiInterface();
   private List<Card> cardlist = new ArrayList<Card>();
   private Image noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
+  private String pos;
   ArrayList<Card> skat = new ArrayList<Card>();
   Card p1 = new Card(Colour.CLUBS, Number.SEVEN);
   Card p2 = new Card(Colour.CLUBS, Number.EIGHT);
@@ -301,12 +302,12 @@ public class InGameController implements Initializable, InGameInterface {
    */
   @Override
   public void startPlay(List<Card> hand, Position position) {
-    this.position.setText(position.toString());
-
     Platform.runLater(new Runnable() {
+      
       @Override
       public void run() {
         // TODO Auto-generated method stub
+        pos = position.toString();
         c1.setImage(
             LoginController.interfGD.getImage(hand.get(0).getColour().toString().toLowerCase(),
                 (hand.get(0).getNumber().toString().toLowerCase())));
@@ -1794,6 +1795,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public boolean askForBet(int bet, Player lastBet) {
     // deletePane(paneBet);
+    this.position.setText(pos);
     betB.setText(String.valueOf(bet));
     displayAuctionScreen();
     return ButtonListener();

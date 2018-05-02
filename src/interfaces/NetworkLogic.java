@@ -24,6 +24,9 @@ public interface NetworkLogic {
 	//receive Cards
 	void receiveCards(List<Card> cards, PlayState ps);
 	
+	//everyone received cards
+	void allReceivedCards();
+	
 	//receive Bet
 	void receiveBet(Player player, int bet);
 	

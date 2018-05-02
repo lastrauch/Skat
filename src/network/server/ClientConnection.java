@@ -67,7 +67,7 @@ public class ClientConnection extends Thread {
 	}
 
 	private void disconnect() {
-		System.out.println(this.player.getName() + " CC disconnect.");
+		if(this.player != null) System.out.println(this.player.getName() + " CC disconnect.");
 		this.running = false;
 		try {
 			output.close();
@@ -133,7 +133,7 @@ public class ClientConnection extends Thread {
 
 	private synchronized void connectionRequestHandler(ConnectionRequest_Msg message) {
 		// �berpr�fe und sende Antwort
-		if (this.server.getPlayer().size() < Settings.MAX_PLAYER - 1) {
+		if (this.server.getPlayer().size() < this.server.getGameSettings().getNrOfPlayers()) {
 			// Falls ja, f�ge Spieler dem Server hinzu
 			// Falls ja, sende GameSettings und andere Spieler an alle
 			this.player = message.getPlayer();
