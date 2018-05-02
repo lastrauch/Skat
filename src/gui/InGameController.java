@@ -303,7 +303,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void startPlay(List<Card> hand, Position position) {
     Platform.runLater(new Runnable() {
-      
+
       @Override
       public void run() {
         // TODO Auto-generated method stub
@@ -341,7 +341,7 @@ public class InGameController implements Initializable, InGameInterface {
         displayChatScreenOpen();
         cardlist = hand;
       }
-      
+
     });
 
   }
@@ -1795,9 +1795,14 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public boolean askForBet(int bet, Player lastBet) {
     // deletePane(paneBet);
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        displayAuctionScreen();
+      }
+    });
     this.position.setText(pos);
     betB.setText(String.valueOf(bet));
-    displayAuctionScreen();
     return ButtonListener();
   }
 
