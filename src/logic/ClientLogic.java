@@ -872,6 +872,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       System.out
           .println(this.player.getName() + " I'm middlehand anf supposed to start the auction.");
       // go with first bet
+      System.out.println(this.playState.getAuction().getPossibleBets()[0]);
       if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0], null)) {
         this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
       } else {
