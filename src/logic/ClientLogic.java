@@ -569,7 +569,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.playState.getGroup()[1].setPosition(Position.MIDDLEHAND);
       this.playState.getGroup()[2].setPosition(Position.REARHAND);
       if (this.playState.getGroup().length == 4) {
-        this.playState.getGroup()[2].setPosition(Position.DEALER);
+        this.playState.getGroup()[3].setPosition(Position.DEALER);
       }
 
       // set player position
@@ -881,7 +881,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
       } else {
         // pass
-        System.out.println(this.player.getName() + "passedSa");
+        System.out.println(this.player.getName() + "passed");
         this.netController.bet(-1, this.player);
       }
 
