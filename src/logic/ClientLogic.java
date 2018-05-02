@@ -601,6 +601,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param bet
    */
   public void receiveBet(Player player, int bet) {
+    System.out.println("new bet: " + bet);
+    
     // if auction is still running
     if (!this.checkIfAuctionIsOver(bet)) {
       int newBet = this.calculateNewBet(bet);
@@ -647,7 +649,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.playState.setBetValue(bet);
     }
     // change to ID later !!!!
-    for (Player p : this.group) {
+    for (Player p : this.playState.getGroup()) {
       if (p.getName().equals(player.getName())) {
         p.setBet(bet);
       }
@@ -765,6 +767,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // change to id if setted by network !!!!!!!
     if (this.playState.getAuction().getWinner().getName().equals(this.player.getName())) {
       // this player is declarer
+      System.out.println(this.player.getName() + "won auction");
       this.player.setDeclarer(true);
       // the others not(update after the last auction) ... maybe not important later (if we reset
       // everything after one play)
@@ -874,9 +877,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // go with first bet
       System.out.println(this.playState.getAuction().getPossibleBets()[0]);
       if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0], null)) {
+        this.player.setBet(this.playState.getAuction().getPossibleBets()[0]);
         this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
       } else {
         // pass
+        System.out.println(this.player.getName() + "passedSa");
         this.netController.bet(-1, this.player);
       }
 
