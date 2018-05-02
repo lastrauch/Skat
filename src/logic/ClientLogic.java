@@ -424,6 +424,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       for (Player p : this.group) {
         System.out.println(p.getName());
       }
+      System.out.println(gs.getNrOfPlayers() + " -> gs null???");
       this.guiController.updateLobby(gs, this.group);
     }
   }
@@ -1037,6 +1038,19 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveRekontra() {
     this.playState.setAnnouncedRekontra(true);
+  }
+  
+  public void setGameSetting(GameSettings gs) {
+    this.gameSettings = gs;
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#allReceivedCards()
+   */
+  @Override
+  public void allReceivedCards() {
+    // TODO Auto-generated method stub
+    
   }
 
 }
