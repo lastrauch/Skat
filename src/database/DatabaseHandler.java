@@ -41,7 +41,7 @@ public class DatabaseHandler extends Database{
         selectCardDarker = c.prepareStatement("SELECT * FROM CardsDark WHERE (colour LIKE ?) AND (number LIKE ?);");      
         
         changeName = c.prepareStatement("UPDATE Player SET name = ? WHERE (name LIKE ?);");
-        //changeImage = c.prepareStatement("INSERT INTO Player (name, score, profilePicture) VALUES (?,?,?);"); 
+        
         changeImage = c.prepareStatement("UPDATE Player SET profilePicture = ? WHERE (name LIKE ?);");
         
     }
