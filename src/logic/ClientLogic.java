@@ -607,7 +607,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // if auction is still running
     if (!this.checkIfAuctionIsOver(bet)) {
       this.playState.getAuction().addToBets(bet);
-      int newBet = this.calculateNewBet();
+      int newBet = this.playState.getAuction().calculateNewBet();
       // if it is my turn
       if (this.checkIfItsMyTurnAuction(player, bet)) {
         // if the player goes with the bet
@@ -627,29 +627,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   }
 
-  /**
-   * @author awesch
-   * @param currentBet
-   * @return
-   */
-  public int calculateNewBet() {
-    //!!!!!!! DENK DRAN IMMER NACH DIE NEUEN DINGE IN AUCTION UPZUDATEN auch current bet aus bets
-    if(this.playState.getAuction().getBets().size() == 1) {
-      return this.playState.getBetValue();
-    }
-    if(this.playState.getAuction().getBets().get(this.playState.getAuction().getBets().size() - 1) == -1) {
-      return this.playState.getBetValue();
-    }
-//    if(this.one)
-//    int lastBet = this.playState.getAuction().getLastBet();
-//    int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
-//
-//    if (lastBet == currentBet) {
-//      return this.playState.getAuction().getPossibleBets()[lastBetIndex + 1];
-//    }
-    return 18;
-  }
-
+ 
   /**
    * @author awesch
    * @param player
@@ -696,7 +674,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     if (player.getPosition() == Position.FOREHAND && bet != -1 && this.player.getBet() != -1) {
       return true;
     }
-    if(player.getPosition() == Position.REARHAND && this.player.getBet() != -1) {
+    if (player.getPosition() == Position.REARHAND && this.player.getBet() != -1) {
       return true;
     }
     return false;
@@ -1075,7 +1053,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void setPlayState(PlayState ps) {
     this.playState = ps;
   }
-  
+
   /*
    * (non-Javadoc)
    * 
