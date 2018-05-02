@@ -9,16 +9,16 @@ public enum Colour implements Serializable{
   private Colour(int i) {
     switch (i) {
       case 1:
-        this.value = 0;
-        break;
-      case 2:
         this.value = 1;
         break;
-      case 3:
+      case 2:
         this.value = 2;
         break;
-      case 4:
+      case 3:
         this.value = 3;
+        break;
+      case 4:
+        this.value = 4;
         break;
     }
   }
