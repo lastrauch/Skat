@@ -1829,9 +1829,7 @@ public class InGameController implements Initializable, InGameInterface {
         System.out.println("Ask for bet");
         displayAuctionScreen();
        betB.setText(String.valueOf(bet));
-       while(pressed == 0) {
          ButtonListener();
-       }
       }
     });
     System.out.println(b);
