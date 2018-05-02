@@ -2,7 +2,7 @@ package logic;
 
 import java.io.Serializable;
 
-public class Auction implements Serializable{
+public class Auction implements Serializable {
 
   /**
    * 
@@ -20,7 +20,8 @@ public class Auction implements Serializable{
    * 
    */
   public Auction() {
-    this.betValue = 0;
+    this.betValue = 18;
+    this.indexOfBetValue = 0;
     this.initializePossibleBets();
   }
 
