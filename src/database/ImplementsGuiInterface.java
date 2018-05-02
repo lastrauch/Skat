@@ -1,15 +1,27 @@
 package database;
 
+
+//import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
+import javax.sql.rowset.serial.SerialException;
 import interfaces.GuiData;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import logic.Player;
 
 public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
+  
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#getImage(java.lang.String, java.lang.String)
@@ -25,7 +37,6 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
       ResultSet rs = selectCard.executeQuery();
       while (rs.next()) {
         InputStream in = rs.getBinaryStream("image");
-        // img = ImageIO.read(in);
         img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
       }
     } catch (Exception e) {
@@ -33,6 +44,9 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     }
     return img;
   }
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#getImageDarker(java.lang.String, java.lang.String)
@@ -55,22 +69,31 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     }
     return img;
   }
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#insertPlayer(logic.Player)
    */
   @Override
   public void insertPlayer(Player player) {
-    // TODO Auto-generated method stub
-    try {
+    try{
       insertPlayer.setString(1, player.getName());
       insertPlayer.executeUpdate();
-
-    } catch (SQLException e) {
+      
+      if(player.getImage() != null){
+        changeImage(player, player.getImage());
+      }
+      
+    }catch (SQLException e) {
       e.printStackTrace();
     }
-    System.out.println("New Player: " + player);
   }
+  
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#checkIfPlayerNew(java.lang.String)
@@ -91,6 +114,10 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     }
     return true;
   }
+  
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#getPlayer(logic.Player)
@@ -104,9 +131,12 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
     return player;
   }
+  
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#changeName(java.lang.String, logic.Player)
@@ -124,15 +154,43 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     }
     
   }
+  
+  /**
+   * @author dpervane
+   */
 
   /* (non-Javadoc)
    * @see interfaces.GuiData#changeImage(logic.Player, javafx.scene.image.Image)
    */
   @Override
-  public void changeImage(Player player, Image image) {
+  public void changeImage(Player player, Image img) {
     // TODO Auto-generated method stub
-    System.out.println("empty");
+    
+    BufferedImage bi = SwingFXUtils.fromFXImage(img, null);
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    
+    try {
+      Blob blFile = new javax.sql.rowset.serial.SerialBlob(baos.toByteArray());
+    
+      ImageIO.write(bi, ".jpg", baos);
+      InputStream is = new ByteArrayInputStream(baos.toByteArray());
+    
+      changeImage.setString(2, player.getName());
+      changeImage.setBlob(1, blFile);
+      changeImage.execute();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (IOException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    
   }
+      
+  /**
+   * @author dpervane
+   */
 
 
   @Override
@@ -155,12 +213,4 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
    return playerName;
   }
 }
-
-    
-    
-
-
-
-
-
 

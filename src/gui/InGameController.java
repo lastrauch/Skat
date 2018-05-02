@@ -49,6 +49,7 @@ public class InGameController implements Initializable, InGameInterface {
   JFXButton qu = new JFXButton();
   JFXButton pass = new JFXButton();
   JFXButton betB = new JFXButton();
+  boolean b = false;
 
   /**
    * Initialize what chooseTrumPScreen
@@ -1823,9 +1824,11 @@ public class InGameController implements Initializable, InGameInterface {
       public void run() {
         betB.setText(String.valueOf(bet));
         displayAuctionScreen();
+        b = ButtonListener();
       }
     });
-    return ButtonListener();
+    System.out.println(b);
+    return b;
   }
 
 

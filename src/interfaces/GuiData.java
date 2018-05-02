@@ -29,6 +29,7 @@ public interface GuiData {
    * saves a player profile in the Database
    * 
    * @param player
+   * @param img
    */
   public void insertPlayer(Player player);
 
@@ -77,7 +78,7 @@ public interface GuiData {
   
   /**
    * Das musst du ja von dir aus machen
-   * ich brauche nur die beiden Methoden obendrüber
+   * ich brauche nur die beiden Methoden obendrï¿½ber
    */
 //  /**
 //   * updates the given player
