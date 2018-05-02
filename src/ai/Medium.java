@@ -489,12 +489,55 @@ public class Medium {
 
   public static int playCardGrand(AIController controller) {
     // TODO
-    return 0;
+    List<Card> cards = controller.getBot().getHand();
+    List<Card> trick = controller.getCurrentTrick();
+    
+    int ownTrumps = 0;
+    for(int i=0; i<cards.size(); i++) {
+      if(cards.get(i).getNumber() == Number.JACK) {
+        ownTrumps++;
+      }
+    }
+    
+    //Bot is declarer
+    if(controller.getBot().IsDeclarer()) {
+      if(trick.size() == 0) {
+        
+        for(int colour=0; colour<4; colour++) {
+          if(controller.getCardProbabilities()[colour*8 + (7-Number.JACK.ordinal())][0] == 1){
+            
+          }
+        }
+      }
+      
+      
+      
+      
+      
+      //Bot isn't declarer
+    }else {
+      
+    }
+    
+    return General.playRandomCard(controller);
   }
 
   public static int playCardSuit(AIController controller) {
-    // TODO
-    return 0;
+    List<Card> cards = controller.getBot().getHand();
+    List<Card> trick = controller.getCurrentTrick();
+    
+    //Bot is declarer
+    if(controller.getBot().IsDeclarer()) {
+      
+      
+      
+      
+      
+      //Bot isn't declarer
+    }else {
+      
+    }
+    return General.playRandomCard(controller);
   }
 
   public static int playCardNull(AIController controller) {
