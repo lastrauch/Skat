@@ -76,6 +76,7 @@ public class AIController implements InGameInterface {
       e.printStackTrace();
     }
     this.ps = ps;
+    this.currentTrick = ps.getCurrentTrick().getTrickCards();
     switch (this.bot.getDifficulty()) {
       case EASY:
         return Easy.setPlayState(this);
@@ -127,6 +128,7 @@ public class AIController implements InGameInterface {
 
 
   public void setPlaySettings(PlayState ps) {
+    this.currentTrick = ps.getCurrentTrick().getTrickCards();
     this.partner = null;
     this.opponents = new ArrayList<Player>();
     for (int i = 0; i < ps.getGroup().length; i++) {
