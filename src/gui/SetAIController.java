@@ -25,7 +25,7 @@ public class SetAIController implements Initializable {
   private int bot;
   private Label label = new Label();
   private boolean addedBot = false;
-
+  private BotDifficulty dif;
   /**
    * @author lstrauch
    */
@@ -74,13 +74,9 @@ public class SetAIController implements Initializable {
    * @author lstrauch
    */
   @FXML
-  public boolean ok() {
-    if(!l3.getText().equals("Disabled") || !l3.getText().equals("")) {
-      LobbyController.setBot(true);
-    }
+  public void ok() {
     main.displayLobby();
-    
-    return addedBot;
+    LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
   }
 
   @Override
@@ -104,7 +100,7 @@ public class SetAIController implements Initializable {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
-        LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
+        dif = BotDifficulty.EASY;
         l3.setText("Easy");
       }
     });
@@ -116,7 +112,7 @@ public class SetAIController implements Initializable {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
-        LoginController.interfGL.setBot("Bot", BotDifficulty.MEDIUM);
+        dif = BotDifficulty.MEDIUM;
         l3.setText("Medium");
       }
     });
@@ -128,7 +124,7 @@ public class SetAIController implements Initializable {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
         }
-        LoginController.interfGL.setBot("Bot", BotDifficulty.HARD);
+        dif = BotDifficulty.HARD;
         l3.setText("Hard");
       }
     });

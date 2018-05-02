@@ -32,8 +32,13 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public void updateLobby(GameSettings gs, List<Player> group) {
     // TODO Auto-generated method stub
+    System.out.println("Name: "+group.get(0).getName());
+    System.out.println("LobbyCon: "+ guiCon.getLobbyCon());
+    System.out.println("Group size: "+group.size());
+    System.out.println("Gamesettings: "+gs.getNrOfPlays() +" " + gs.getCountRule());
     guiCon.getLobbyCon().displayPlayers(group.size(), group);
-    guiCon.getLobbyCon().setGameSettings(gs);    
+    
+    guiCon.getLobbyCon().setGameSettingsLabel(gs);    
     
   }
 
