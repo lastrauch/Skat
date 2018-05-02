@@ -1840,10 +1840,8 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        while (notpressed) {
-          displayAuctionScreen();
-          betB.setText(String.valueOf(bet));
-        }
+        displayAuctionScreen();
+        betB.setText(String.valueOf(bet));
       }
     });
   }
