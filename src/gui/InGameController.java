@@ -50,6 +50,7 @@ public class InGameController implements Initializable, InGameInterface {
   JFXButton pass = new JFXButton();
   JFXButton betB = new JFXButton();
   boolean b = false;
+  boolean notpressed = true;
 
   /**
    * Initialize what chooseTrumPScreen
@@ -1065,7 +1066,7 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    * @return
    */
-  public boolean ButtonListener() {
+  public void ButtonListener() {
     final boolean[] ret = new boolean[1];
 
     qu.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1078,22 +1079,24 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent e) {
         ret[0] = false;
-        displayWannaTakeSkat();
+        notpressed = false;
+
+        // displayWannaTakeSkat();
       }
     });
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ret[0] = true;
+        // displayWannaTakeSkat();
+        notpressed = false;
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
-      public void handle(MouseEvent e) {
-
-      }
+      public void handle(MouseEvent e) {}
     });
-    return ret[0];
+    // return ret[0];
   }
 
 
@@ -1684,7 +1687,7 @@ public class InGameController implements Initializable, InGameInterface {
         });
       }
     });
-    
+
   }
 
 
@@ -1786,7 +1789,7 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        
+
       }
     });
     return false;
@@ -1819,16 +1822,28 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public boolean askForBet(int bet, Player lastBet) {
     // deletePane(paneBet);
+    while (notpressed) {
+      ButtonListener();
+    }
+    return b;
+  }
+
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openAskForBet(int)
+   */
+  @Override
+  public void openAskForBet(int bet) {
+    // TODO Auto-generated method stub
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        betB.setText(String.valueOf(bet));
         displayAuctionScreen();
-        b = ButtonListener();
+        betB.setText(String.valueOf(bet));
       }
     });
-    System.out.println(b);
-    return b;
   }
 
 

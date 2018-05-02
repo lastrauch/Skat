@@ -108,5 +108,7 @@ public interface InGameInterface {
    * @param player
    */
   public void showWinnerGame(Player player);
+  
+  public void openAskForBet(int bet);
 
 }

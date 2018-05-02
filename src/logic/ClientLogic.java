@@ -601,14 +601,17 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param bet
    */
   public void receiveBet(Player player, int bet) {
-    System.out.println("new bet: " + bet);
-    
+    System.out.println(this.player.getName() + "recieved new bet: " + bet + " from "
+        + player.getName() + " with the Position " + player.getPosition());
+
     // if auction is still running
     if (!this.checkIfAuctionIsOver(bet)) {
-      int newBet = this.calculateNewBet(bet);
+      this.playState.getAuction().addToBets(bet);
+      int newBet = this.calculateNewBet();
       // if it is my turn
       if (this.checkIfItsMyTurnAuction(player, bet)) {
         // if the player goes with the bet
+        this.inGameController.openAskForBet(newBet);
         if (this.inGameController.askForBet(newBet, player)) {
           this.netController.bet(newBet, this.player);
         } else {
@@ -629,14 +632,22 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param currentBet
    * @return
    */
-  public int calculateNewBet(int currentBet) {
-    int lastBet = this.playState.getAuction().getBetValue();
-    int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
-
-    if (lastBet == currentBet) {
-      return this.playState.getAuction().getPossibleBets()[lastBetIndex + 1];
+  public int calculateNewBet() {
+    //!!!!!!! DENK DRAN IMMER NACH DIE NEUEN DINGE IN AUCTION UPZUDATEN auch current bet aus bets
+    if(this.playState.getAuction().getBets().size() == 1) {
+      return this.playState.getBetValue();
     }
-    return lastBet;
+    if(this.playState.getAuction().getBets().get(this.playState.getAuction().getBets().size() - 1) == -1) {
+      return this.playState.getBetValue();
+    }
+//    if(this.one)
+//    int lastBet = this.playState.getAuction().getLastBet();
+//    int lastBetIndex = this.playState.getAuction().getIndexOfBetValue();
+//
+//    if (lastBet == currentBet) {
+//      return this.playState.getAuction().getPossibleBets()[lastBetIndex + 1];
+//    }
+    return 18;
   }
 
   /**
@@ -681,8 +692,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param player
    * @return
    */
-  public boolean checkIfItsMyTurnAuctionMiddlehand(Player player) {
-    if (this.player.getBet() != -1 && player.getPosition() != Position.MIDDLEHAND) {
+  public boolean checkIfItsMyTurnAuctionMiddlehand(Player player, int bet) {
+    if (player.getPosition() == Position.FOREHAND && bet != -1 && this.player.getBet() != -1) {
+      return true;
+    }
+    if(player.getPosition() == Position.REARHAND && this.player.getBet() != -1) {
       return true;
     }
     return false;
@@ -727,7 +741,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       return true;
     }
     if (this.player.getPosition() == Position.MIDDLEHAND
-        && this.checkIfItsMyTurnAuctionMiddlehand(player)) {
+        && this.checkIfItsMyTurnAuctionMiddlehand(player, bet)) {
       return true;
     }
     if (this.player.getPosition() == Position.REARHAND
@@ -873,9 +887,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // Start auction here
     if (this.player.getPosition() == Position.MIDDLEHAND) {
       System.out
-          .println(this.player.getName() + " I'm middlehand anf supposed to start the auction.");
+          .println(this.player.getName() + " I'm middlehand and supposed to start the auction.");
       // go with first bet
       System.out.println(this.playState.getAuction().getPossibleBets()[0]);
+      this.inGameController.openAskForBet(this.playState.getAuction().getPossibleBets()[0]);
       if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0], null)) {
         this.player.setBet(this.playState.getAuction().getPossibleBets()[0]);
         this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
@@ -1057,6 +1072,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.gameSettings = gs;
   }
 
+  public void setPlayState(PlayState ps) {
+    this.playState = ps;
+  }
+  
   /*
    * (non-Javadoc)
    * 
