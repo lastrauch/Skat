@@ -632,7 +632,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   public int calculateNewBet(int currentBet) {
     //!!!!!!! DENK DRAN IMMER NACH DIE NEUEN DINGE IN AUCTION UPZUDATEN
-    if(!this.oneOfThePlayersPassedAlready() && this.playState.getAuction().getLastBet() == -1) {
+    if(!this.oneOfThePlayersPassedAlready() && this.playState.getAuction().getBetValue() == -1) {
       return this.playState.getBetValue();
     }
 //    if(this.one)

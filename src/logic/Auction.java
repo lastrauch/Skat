@@ -26,7 +26,6 @@ public class Auction implements Serializable {
     this.bets = new ArrayList<Integer>();
     this.betValue = 18;
     this.indexOfBetValue = 0;
-    this.setLastBet(-1);
     this.initializePossibleBets();
   }
 
