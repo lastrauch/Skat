@@ -49,8 +49,8 @@ public class InGameController implements Initializable, InGameInterface {
   JFXButton qu = new JFXButton();
   JFXButton pass = new JFXButton();
   JFXButton betB = new JFXButton();
-  int pressed = 0;
-  boolean b;
+  boolean b = false;
+  boolean notpressed = true;
 
   /**
    * Initialize what chooseTrumPScreen
@@ -1079,17 +1079,17 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent e) {
         ret[0] = false;
-        pressed = 1;
-        System.out.println("Pressed: Should not be false now!!!!");
-//        displayWannaTakeSkat();
+        notpressed = false;
+
+        // displayWannaTakeSkat();
       }
     });
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ret[0] = true;
-        pressed = 1;
-        System.out.println("Pressed: Should not be false now!!!!");
+        // displayWannaTakeSkat();
+        notpressed = false;
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1823,17 +1823,31 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public boolean askForBet(int bet, Player lastBet) {
     // deletePane(paneBet);
+    while (notpressed) {
+      ButtonListener();
+    }
+    return b;
+  }
+
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openAskForBet(int)
+   */
+  @Override
+  public void openAskForBet(int bet) {
+    // TODO Auto-generated method stub
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        System.out.println("Ask for bet");
-        displayAuctionScreen();
-       betB.setText(String.valueOf(bet));
-         ButtonListener();
+        while (notpressed) {
+          displayAuctionScreen();
+          betB.setText(String.valueOf(bet));
+        }
       }
     });
-    System.out.println(b);
-    return b;
+  }
   }
 
 
