@@ -49,7 +49,8 @@ public class InGameController implements Initializable, InGameInterface {
   JFXButton qu = new JFXButton();
   JFXButton pass = new JFXButton();
   JFXButton betB = new JFXButton();
-  boolean b = false;
+  int pressed = 0;
+  boolean b;
 
   /**
    * Initialize what chooseTrumPScreen
@@ -1065,7 +1066,7 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    * @return
    */
-  public boolean ButtonListener() {
+  public void ButtonListener() {
     final boolean[] ret = new boolean[1];
 
     qu.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1078,22 +1079,25 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent e) {
         ret[0] = false;
-        displayWannaTakeSkat();
+        pressed = 1;
+        System.out.println("Pressed: Should not be false now!!!!");
+//        displayWannaTakeSkat();
       }
     });
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ret[0] = true;
+        pressed = 1;
+        System.out.println("Pressed: Should not be false now!!!!");
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-
       }
     });
-    return ret[0];
+//    return ret[0];
   }
 
 
@@ -1822,9 +1826,12 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        betB.setText(String.valueOf(bet));
+        System.out.println("Ask for bet");
         displayAuctionScreen();
-        b = ButtonListener();
+       betB.setText(String.valueOf(bet));
+       while(pressed == 0) {
+         ButtonListener();
+       }
       }
     });
     System.out.println(b);
