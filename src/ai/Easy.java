@@ -1,6 +1,5 @@
 package ai;
 
-import logic.GameSettings;
 import logic.PlayMode;
 import logic.PlayState;
 
@@ -28,7 +27,6 @@ public class Easy {
   public static PlayState setPlayState(AIController controller){
     
     PlayState playState = controller.getPlayState();
-    playState.getDeclarerStack();
     playState.setPlayMode(controller.getSinglePlay().getPlayMode().SUIT);    
     playState.setSkat(null);
     playState.setTrump(controller.getSinglePlay().getColour());
@@ -38,11 +36,6 @@ public class Easy {
     playState.setOpen(false);
 
     return playState;
-  }
-  public static void main (String [] args) {
-    
-//    AIController c = new AIController("hi", BotDifficulty.EASY , null);
-//    setPlayState(c);
   }
 
 }
