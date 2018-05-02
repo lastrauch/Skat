@@ -53,7 +53,7 @@ public class InGameController implements Initializable, InGameInterface {
   boolean notpressed = true;
 
   /**
-   * Initialize what chooseTrumPScreen l
+   * Initialize what chooseTrumPScreen
    * 
    * @author lstrauch
    */
@@ -1066,7 +1066,7 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    * @return
    */
-  public boolean ButtonListener() {
+  public void ButtonListener() {
     final boolean[] ret = new boolean[1];
 
     qu.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1079,7 +1079,7 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent e) {
         ret[0] = false;
-        notpressed = true;
+        notpressed = false;
 
         // displayWannaTakeSkat();
       }
@@ -1088,18 +1088,15 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent e) {
         ret[0] = true;
-        System.out.println("Should be TRUE now!!!!");
         // displayWannaTakeSkat();
-        notpressed = true;
+        notpressed = false;
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
-      public void handle(MouseEvent e) {
-
-      }
+      public void handle(MouseEvent e) {}
     });
-    return ret[0];
+    // return ret[0];
   }
 
 
@@ -1817,9 +1814,8 @@ public class InGameController implements Initializable, InGameInterface {
     return null;
   }
 
-
   /*
-   * (non-Javadoc)l
+   * (non-Javadoc)
    * 
    * @see interfaces.InGameInterface#askForBet(int, logic.Player)
    */
@@ -1851,7 +1847,6 @@ public class InGameController implements Initializable, InGameInterface {
       }
     });
   }
-
 
 
 }
