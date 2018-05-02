@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javax.swing.GroupLayout.Alignment;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import logic.GameMode;
 import logic.GameSettings;
 import logic.Player;
 
@@ -30,13 +32,14 @@ public class LobbyController implements Initializable {
   private JFXButton back = new JFXButton();
   private JFXButton addBot = new JFXButton();
   private JFXButton change = new JFXButton();
-  private Label p1 = new Label();
-  private Label p2 = new Label();
-  private Label p3 = new Label();
-  private Label p4 = new Label();
-  private VBox vbox = new VBox();
+  Label p1 = new Label();
+  Label p2 = new Label();
+  Label p3 = new Label();
+  Label p4 = new Label();
+  private GameMode gm;
   private GuiController guiCon;
-  private static GameSettings gs;
+  private GameSettings gs;
+  // private static GameSettings gs;
   private static int nrofplayers = 1;
   // private static List<Player> list = new ArrayList<Player>();
   private static boolean addedBot = false;
@@ -59,22 +62,36 @@ public class LobbyController implements Initializable {
 
   public LobbyController() {
     guiCon = new GuiController();
+    GuiController.prevScreen = 4;
+    // setGameSettingsLabel();
   }
 
-  public static void getGameSettings(GameSettings games) {
-    gs = games;
+  /*
+   * (non-Javadoc)
+   * 
+   * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
+   */
+  @Override
+  public void initialize(URL arg0, ResourceBundle arg1) {
+    // TODO Auto-generated method stub
+    setGS();
+    setGM();
+
   }
-  
+
   @FXML
   public void back() {
     guiCon.displayLobbyOnline();
   }
-  
+
   @FXML
   public void start() {
+    // if(GuiController.prevScreen == 1 )
     LoginController.interfGL.startGame(gs);
-    guiCon.displayInGame();
+    // LoginController.interfGL.hostGame("Hi", gs);
+    // guiCon.displayInGame();
   }
+
   public void displayBackButton() {
     back.setPrefWidth(214);
     back.setPrefHeight(41);
@@ -135,76 +152,59 @@ public class LobbyController implements Initializable {
     mainPane.getChildren().add(change);
   }
 
+
   public void displayPlayers(int size, List<Player> name) {
-    switch (size) {
-      case 1:
-        displayOne(name.get(0).getName());
-        nrofplayers = 1;
-        break;
-      case 2:
-        displayTwo(name.get(0).getName(), name.get(1).getName());
-        nrofplayers = 2;
-        break;
-      case 3:
-        displayThree(name.get(0).getName(), name.get(1).getName(), name.get(2).getName());
-        nrofplayers = 3;
-        break;
-      case 4:
-        displayFour(name.get(0).getName(), name.get(1).getName(), name.get(2).getName(),
-            name.get(3).getName());
-        nrofplayers = 4;
-        break;
-    }
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        // TODO Auto-generated method stub
+        switch (size) {
+          case 1:
+            displayOne(name.get(0).getName());
+            break;
+          case 2:
+            displayTwo(name.get(0).getName(), name.get(1).getName());
+            System.out.println("Name 1: " + name.get(0).getName());
+            System.out.println("Name 2: " + name.get(1).getName());
+            break;
+          case 3:
+            displayThree(name.get(0).getName(), name.get(1).getName(), name.get(2).getName());
+            System.out.println("Name 1: " + name.get(0).getName());
+            System.out.println("Name 2: " + name.get(1).getName());
+            System.out.println("Name 3: " + name.get(2).getName());
+            nrofplayers = 3;
+            break;
+          case 4:
+            displayFour(name.get(0).getName(), name.get(1).getName(), name.get(2).getName(),
+                name.get(3).getName());
+            System.out.println("Name 1: " + name.get(0).getName());
+            System.out.println("Name 2: " + name.get(1).getName());
+            System.out.println("Name 3: " + name.get(2).getName());
+            System.out.println("Name 4: " + name.get(3).getName());
+            break;
+        }
+      }
+
+    });
   }
 
   public void displayOne(String name) {
-    vbox.setMinHeight(379);
-    vbox.setMinWidth(459);
-    vbox.setPrefHeight(379);
-    vbox.setPrefWidth(459);
-    vbox.setMaxWidth(459);
-    vbox.setMaxHeight(379);
-    vbox.setLayoutX(85);
-    vbox.setLayoutY(100);
-    vbox.setSpacing(30);
-    vbox.setAlignment(Pos.TOP_CENTER);
-    vbox.setStyle("-fx-background-color: tan; -fx-border-color: white");
-    
-    mainPane.getChildren().add(vbox);
-    
     p1.setPrefWidth(213);
     p1.setPrefHeight(51);
     p1.setLayoutX(88);
-    p1.setLayoutY(297);
-    p1.setText("Bot");
+    p1.setLayoutY(137);
+    p1.setText(name);
     p1.setFont(Font.font("System", FontWeight.BOLD, 23));
     p1.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-    p1.setTextAlignment(TextAlignment.CENTER);
+    p1.setAlignment(Pos.CENTER);
 
-    vbox.getChildren().add(p4);
-    
- 
-    
-    p1.setText(name);
+    System.out.println("ADDED ONE: " + p1.getText());
+
+    vbox1.getChildren().add(p1);
   }
 
   public void displayTwo(String name1, String name2) {
-    vbox.setMinHeight(379);
-    vbox.setMinWidth(459);
-    vbox.setPrefHeight(379);
-    vbox.setPrefWidth(459);
-    vbox.setMaxWidth(459);
-    vbox.setMaxHeight(379);
-    vbox.setLayoutX(85);
-    vbox.setLayoutY(100);
-    vbox.setSpacing(30);
-    vbox.setAlignment(Pos.TOP_CENTER);
-    vbox.setStyle("-fx-background-color: tan; -fx-border-color: white");
-    
-    mainPane.getChildren().add(vbox);
-    
     displayOne(name1);
-    p1.setText(name1);
 
     p2.setPrefWidth(213);
     p2.setPrefHeight(51);
@@ -213,30 +213,13 @@ public class LobbyController implements Initializable {
     p2.setText(name2);
     p2.setFont(Font.font("System", FontWeight.BOLD, 23));
     p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-    p2.setTextAlignment(TextAlignment.CENTER);
+    p2.setAlignment(Pos.CENTER);
 
-    vbox.getChildren().add(p2);
+    vbox1.getChildren().add(p2);
   }
 
   public void displayThree(String name1, String name2, String name3) {
-    vbox.setMinHeight(379);
-    vbox.setMinWidth(459);
-    vbox.setPrefHeight(379);
-    vbox.setPrefWidth(459);
-    vbox.setMaxWidth(459);
-    vbox.setMaxHeight(379);
-    vbox.setLayoutX(85);
-    vbox.setLayoutY(100);
-    vbox.setSpacing(30);
-    vbox.setAlignment(Pos.TOP_CENTER);
-    vbox.setStyle("-fx-background-color: tan; -fx-border-color: white");
-    
-    mainPane.getChildren().add(vbox);
-    
-    displayOne(name1);
-    if (!vbox1.getChildren().contains(p2)) {
-      displayTwo(name1, name2);
-    }
+    displayTwo(name1, name2);
     p3.setPrefWidth(213);
     p3.setPrefHeight(51);
     p3.setLayoutX(88);
@@ -244,33 +227,13 @@ public class LobbyController implements Initializable {
     p3.setText(name3);
     p3.setFont(Font.font("System", FontWeight.BOLD, 23));
     p3.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-    p3.setTextAlignment(TextAlignment.CENTER);
+    p3.setAlignment(Pos.CENTER);
 
-    vbox.getChildren().add(p3);
+    vbox1.getChildren().add(p3);
   }
 
   public void displayFour(String name1, String name2, String name3, String name4) {
-    vbox.setMinHeight(379);
-    vbox.setMinWidth(459);
-    vbox.setPrefHeight(379);
-    vbox.setPrefWidth(459);
-    vbox.setMaxWidth(459);
-    vbox.setMaxHeight(379);
-    vbox.setLayoutX(85);
-    vbox.setLayoutY(100);
-    vbox.setSpacing(30);
-    vbox.setAlignment(Pos.TOP_CENTER);
-    vbox.setStyle("-fx-background-color: tan; -fx-border-color: white");
-    
-    mainPane.getChildren().add(vbox);
-    
-    displayOne(name1);
-    if (!vbox1.getChildren().contains(p2)) {
-      displayTwo(name1, name2);
-    }
-    if (!vbox1.getChildren().contains(p3)) {
-      displayThree(name1, name2, name3);
-    }
+    displayThree(name1, name2, name3);
     p4.setPrefWidth(213);
     p4.setPrefHeight(51);
     p4.setLayoutX(88);
@@ -278,13 +241,13 @@ public class LobbyController implements Initializable {
     p4.setText(name4);
     p4.setFont(Font.font("System", FontWeight.BOLD, 23));
     p4.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-    p4.setTextAlignment(TextAlignment.CENTER);
+    p4.setAlignment(Pos.CENTER);
 
-    vbox.getChildren().add(p4);
+    vbox1.getChildren().add(p4);
   }
 
 
-  public void setGamesettings(GameSettings gs) {
+  public void setGameSettingsLabel(GameSettings gs) {
     rounds.setText(String.valueOf(gs.getNrOfPlays()));
     system.setText(gs.getCountRule().toString());
     if (gs.isLimitedTime()) {
@@ -293,84 +256,14 @@ public class LobbyController implements Initializable {
       timelimit.setText("Disabled");
     }
     if (gs.isEnableKontra()) {
-      system.setText("Enabled");
+      kontra.setText("Enabled");
     } else {
-      system.setText("Disabled");
+      kontra.setText("Disabled");
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
-   */
-  @Override
-  public void initialize(URL arg0, ResourceBundle arg1) {
-    // TODO Auto-generated method stub
-    if (addedBot) {
-      switch (nrofplayers) {
-        case 2:                    
-          p2.setPrefWidth(213);
-          p2.setPrefHeight(51);
-          p2.setText("Computer 2");
-          p2.setFont(Font.font("System", FontWeight.BOLD, 23));
-          p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-          p2.setAlignment(Pos.CENTER);
-          
-          System.out.println("Bot2: Easy");
-
-          vbox1.getChildren().add(p2);
-          break;
-        case 3:
-          p2.setPrefWidth(213);
-          p2.setPrefHeight(51);
-          p2.setText("Computer 2");
-          p2.setFont(Font.font("System", FontWeight.BOLD, 23));
-          p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-          p2.setAlignment(Pos.CENTER);
-          
-          p3.setPrefWidth(213);
-          p3.setPrefHeight(51);
-          p3.setText("Computer 3");
-          p3.setFont(Font.font("System", FontWeight.BOLD, 23));
-          p3.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-          p3.setTextAlignment(TextAlignment.CENTER);
-
-          vbox1.getChildren().add(p2);
-          vbox1.getChildren().add(p3);
-          
-          System.out.println("Bot 3");
-          break;
-        case 4:
-          p2.setPrefWidth(213);
-          p2.setPrefHeight(51);
-          p2.setText("Computer 2");
-          p2.setFont(Font.font("System", FontWeight.BOLD, 23));
-          p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-          p2.setAlignment(Pos.CENTER);
-          
-          p3.setPrefWidth(213);
-          p3.setPrefHeight(51);
-          p3.setText("Computer 3");
-          p3.setFont(Font.font("System", FontWeight.BOLD, 23));
-          p3.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-          p3.setAlignment(Pos.CENTER);
-          
-          p4.setPrefWidth(213);
-          p4.setPrefHeight(51);
-          p4.setText("Computer 4");
-          p4.setFont(Font.font("System", FontWeight.BOLD, 23));
-          p4.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
-          p4.setAlignment(Pos.CENTER);
-
-          vbox1.getChildren().add(p2);
-          vbox1.getChildren().add(p3);
-          vbox1.getChildren().add(p4);
-          System.out.println("Bot 4");
-          break;
-      }
-    }
-
+  public void setGS() {
+    this.gs = guiCon.getGameSetCon().getGS();
   }
 
   @FXML
@@ -389,14 +282,11 @@ public class LobbyController implements Initializable {
     LoginController.interfGL.deleteBot(botname);
   }
 
-  public static void setBot(boolean added) {
-    addedBot = added;
-    nrofplayers++;
-    System.out.println(nrofplayers);
-  }
+  /**
+   * @author lstrauch
+   */
 
-  
-  public void getVBox() {
-    
+  public void setGM() {
+    this.gm = guiCon.getGameSetCon().getGM();
   }
 }

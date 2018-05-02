@@ -27,13 +27,13 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    */
   private int[] rounds;
-  private CountRule countRule;
-  private boolean kontra;
-  private boolean limitedTime;
+  private CountRule[] cr;
+  private boolean[] en = new boolean[1];
+  private boolean[] enT = new boolean[1];
   private int setLimitedTime;
   private int numbOfPl;
   private JFXTextField sec = new JFXTextField();
-  private GameSettings gs = new GameSettings();
+  protected GameSettings gs = new GameSettings();
   private String ms;
   private GuiController guiCon;
   private GameMode gm;
@@ -62,10 +62,11 @@ public class GameSettingsController implements Initializable {
   private JFXTextField message;
 
   /**
-   *@author lstrauch
+   * @author lstrauch
    */
   public GameSettingsController() {
     this.guiCon = new GuiController();
+    GuiController.prevScreen = 3;
   }
 
   /**
@@ -114,7 +115,7 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    */
   public void countRule() {
-    final CountRule[] cr = new CountRule[1];
+    cr = new CountRule[1];
     sSys.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -157,8 +158,6 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    */
   public void enableKontra() {
-    final boolean[] en = new boolean[1];
-    en[0] = false;
     enKon.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -171,8 +170,6 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    */
   public void enableLimitedTime() {
-    final boolean[] enT = new boolean[1];
-    enT[0] = false;
     enTL.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -238,125 +235,81 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    * @param gm
    */
-  public void setMode(GameMode gm) {
+  public void setGameMode(GameMode gm) {
     this.gm = gm;
   }
 
+
   /**
    * @author lstrauch
    */
-  public void submitOn() {
+  public void submit() {
     /**
      * Makes sure, that all important options are selected
      */
     if (r1.isSelected() || r3.isSelected() || r18.isSelected() || r36.isSelected()) {
       selected[0] = true;
       pane.getChildren().remove(r);
-    }else {
-      System.out.println("Please Select the number orf rounds you wanna play");
-      if(!pane.getChildren().contains(r)) {
-        displayLabelRounds();
-      }
-    }
-    if (sSys.isSelected() || bSys.isSelected() || nSys.isSelected()) {
-      selected[1] = true;
-      pane.getChildren().remove(s);
-    }else {
-      System.out.println("Please Select the System you wanna play");
-      if(!pane.getChildren().contains(s)) {
-        displayLabelSystem();
-      }
-    }
-    if (n3.isSelected() || n4.isSelected()) {
-      selected[2] = true;
-      pane.getChildren().remove(p);
-    }else {
-      if(!pane.getChildren().contains(p)) {
-        displayLabelPlayers();
-      }
-    }
-    
-    
-    if(selected[0] == true && selected[1] == true && selected[2] == true) {
-      gs.setNumberOfPlays(rounds[0]);
-      gs.setNrOfPlayers(numbOfPl);
-      gs.setCountRule(countRule);
-      gs.setEnableKontra(kontra);
-      gs.setLimitedTime(limitedTime);
-      if (limitedTime) {
-        gs.setTimeLimit(setLimitedTime());
-      }
-      ms = message.getText();
-      LoginController.interfGL.hostGame(ms, gs);
-      LobbyController.getGameSettings(gs);
-      guiCon.displayLobby();
-    }
-    
-  }
-
-  /**
-   * @author lstrauch
-   */
-  public void submitOf() {
-    /**
-     * Makes sure, that all important options are selected
-     */
-    if (r1.isSelected() || r3.isSelected() || r18.isSelected() || r36.isSelected()) {
-      selected[0] = true;
-      pane.getChildren().remove(r);
-    }else {
-      System.out.println("Please Select the number orf rounds you wanna play");
-      if(!pane.getChildren().contains(r)) {
-        displayLabelRounds();
-      }
-    }
-    if (sSys.isSelected() || bSys.isSelected() || nSys.isSelected()) {
-      selected[1] = true;
-      pane.getChildren().remove(s);
-    }else {
-      System.out.println("Please Select the System you wanna play");
-      if(!pane.getChildren().contains(s)) {
-        displayLabelSystem();
-      }
-    }
-    if (n3.isSelected() || n4.isSelected()) {
-      selected[2] = true;
-      pane.getChildren().remove(p);
-    }else {
-      if(!pane.getChildren().contains(p)) {
-        displayLabelPlayers();
-      }
-    }
-    
-    
-    if(selected[0] == true && selected[1] == true && selected[2] == true) {
-      gs.setNumberOfPlays(rounds[0]);
-      gs.setNrOfPlayers(numbOfPl);
-      gs.setCountRule(countRule);
-      gs.setEnableKontra(kontra);
-      gs.setLimitedTime(limitedTime);
-      if (limitedTime) {
-        gs.setTimeLimit(setLimitedTime());
-      }
-      ms = message.getText();
-      LoginController.interfGL.hostGame(ms, gs);
-      LobbyController.getGameSettings(gs);
-      guiCon.displayLobby();
-    }
-  }
-
-  /**
-   * @author lstrauch
-   */
-  public void screenChooser() {
-    if (gm.equals(GameMode.MULTIPLAYER)) {
-      submitOn();
     } else {
-      submitOf();
+      System.out.println("Please Select the number orf rounds you wanna play");
+      if (!pane.getChildren().contains(r)) {
+        displayLabelRounds();
+      }
     }
+    if (sSys.isSelected() || bSys.isSelected() || nSys.isSelected()) {
+      selected[1] = true;
+      pane.getChildren().remove(s);
+    } else {
+      System.out.println("Please Select the System you wanna play");
+      if (!pane.getChildren().contains(s)) {
+        displayLabelSystem();
+      }
+    }
+    if (n3.isSelected() || n4.isSelected()) {
+      selected[2] = true;
+      pane.getChildren().remove(p);
+    } else {
+      if (!pane.getChildren().contains(p)) {
+        displayLabelPlayers();
+      }
+    }
+
+
+    if (selected[0] == true && selected[1] == true && selected[2] == true) {
+      gs.setNumberOfPlays(rounds[0]);
+      gs.setNrOfPlayers(numbOfPl);
+      gs.setCountRule(cr[0]);
+      gs.setEnableKontra(en[0]);
+      gs.setLimitedTime(enT[0]);
+      if (enT[0]) {
+        gs.setTimeLimit(setLimitedTime());
+      }
+      ms = message.getText();
+      guiCon.displayLobby();
+      if(guiCon.getLobbyCon() != null) {
+        if (GuiController.prevScreen != 2) {
+          setGameMode(GameMode.SINGLEPLAYER);
+        } else {
+          setGameMode(GameMode.MULTIPLAYER);
+        }
+        System.out.println("gs screen Gamesettings: " + gs.getNrOfPlays() + "  " + gs.getCountRule());
+        LoginController.interfGL.hostGame(ms, gs);
+      }
+    }
+
   }
 
-  /** (non-Javadoc)
+  public GameSettings getGS() {
+    return gs;
+  }
+
+  public GameMode getGM() {
+    return gm;
+  }
+
+  /**
+   * (non-Javadoc)
+   * 
    * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
    * 
    * @author lstrauch
@@ -376,8 +329,8 @@ public class GameSettingsController implements Initializable {
     n3.setToggleGroup(g3);
     n4.setToggleGroup(g3);
 
-    kontra = false;
-    limitedTime = false;
+    en[0] = false;
+    enT[0] = false;
 
     System.out.println(LoginController.interfGL.toString());
 
@@ -390,7 +343,7 @@ public class GameSettingsController implements Initializable {
   public void allButtonsSet() {
     if (r1.isSelected() || r3.isSelected() || r18.isSelected() || r36.isSelected()) {
       selected[0] = true;
-    }else {
+    } else {
       System.out.println("Please Select the number orf rounds you wanna play");
       pane.getChildren().remove(r);
     }
@@ -401,7 +354,7 @@ public class GameSettingsController implements Initializable {
       selected[2] = true;
     }
   }
-  
+
   /**
    * @author lstrauch
    */
@@ -414,9 +367,10 @@ public class GameSettingsController implements Initializable {
     r.setFont(Font.font("System", FontWeight.BOLD, 15));
     r.setStyle("-fx-background-color: white; -fx-text-fill: red");
     r.setAlignment(Pos.CENTER);
-    
+
     pane.getChildren().add(r);
   }
+
   /**
    * @author lstrauch
    */
@@ -429,10 +383,11 @@ public class GameSettingsController implements Initializable {
     s.setFont(Font.font("System", FontWeight.BOLD, 15));
     s.setStyle("-fx-background-color: white; -fx-text-fill: red");
     s.setAlignment(Pos.CENTER);
-    
+
     pane.getChildren().add(s);
-    
+
   }
+
   /**
    * @author lstrauch
    */
@@ -445,7 +400,7 @@ public class GameSettingsController implements Initializable {
     p.setFont(Font.font("System", FontWeight.BOLD, 15));
     p.setStyle("-fx-background-color: white; -fx-text-fill: red");
     p.setAlignment(Pos.CENTER);
-    
+
     pane.getChildren().add(p);
   }
 }

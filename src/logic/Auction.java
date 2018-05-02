@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Auction implements Serializable{
 
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Player winner; // winner of the auction
   private int[] possibleBets; // list of the possible bets
   private int betValue;

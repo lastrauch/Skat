@@ -1,6 +1,8 @@
 package logic;
 
-public enum Number {
+import java.io.Serializable;
+
+public enum Number implements Serializable{
   SEVEN(1), EIGHT(2), NINE(3), JACK(4), QUEEN(5), KING(6), TEN(7), ASS(8);
   private int value;
   private int rankingNorm;

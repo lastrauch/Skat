@@ -386,6 +386,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     return result;
   }
 
+  
+  //!!!!! WE CAN CHANGE IT SO THE METHOD ONLY USES this.playState
   /**
    * calculates the play value with the other methods implemented for the special contracts
    * 
@@ -407,22 +409,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player.addToGamePoints(points);
   }
 
-  // /**
-  // * returns the given player in the playstate group array
-  // *
-  // * @author awesch
-  // * @param player
-  // * @return
-  // */
-  // public Player searchPlayer(Player player) {
-  // for (Player p : this.playState.getGroup()) {
-  // if (p.equals(player)) {
-  // return p;
-  // }
-  // }
-  // return null;
-  // }
-
   /*
    * (non-Javadoc)
    * 
@@ -435,7 +421,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     // Achtung!!!! Methode noch nicht implementiert
     if (!this.player.isBot()) {
-      this.guiController.updateLobby(gs, group);
+      for (Player p : this.group) {
+        System.out.println(p.getName());
+      }
+      System.out.println(gs.getNrOfPlayers() + " -> gs null???");
+      this.guiController.updateLobby(gs, this.group);
     }
   }
 
@@ -448,11 +438,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     Tools.shuffleCards(this.cards);
     // secound deal out cards
     this.dealOutCards();
-    // Play.dealOutCards(Tools.getPlayingGroup(this.playState.getGroup()), cards, this.playState);
-    // this.netController.sendPlayState(playState); // hands are saved in playState
-    // if (this.inGameController == null) {
-    // this.inGameController = this.guiController.startInGameScreen();
-    // }
 
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
 
@@ -545,7 +530,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveChatMessage(Player player, String msg) {
-
+    this.guiController.showReceivedChatMessage(msg, player);
   }
 
   public void sendChatMessage(String msg) {
@@ -572,13 +557,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // instead gui should open the ingameScreen in startPlay
       // // TODO Auto-generated method stub
-      // if (this.inGameController == null) {
-      // this.guiController.startInGameScreen();
-      //
-      // InGameInterface igf = new InGameController();
-      // this.inGameController = igf;
-      // System.out.println(this.inGameController);
-      // }
+      if (!this.player.isBot()) {
+        this.inGameController = this.guiController.startInGameScreen();
+      }
 
 
       // set position
@@ -790,8 +771,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           p.setDeclarer(false);
         }
       }
-      this.inGameController.askToTakeUpSkat(this.playState);
-      // maybe change to: this.playState = this.inGameController.askToTakeUpSkat(this.playState);
+      this.playState = this.inGameController.askToTakeUpSkat(this.playState);
+      this.calculatePlayValue(this.playState);
       this.netController.sendPlayState(this.playState);
     }
   }
@@ -806,24 +787,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
     this.playState = ps;
     this.inGameController.setPlaySettings(ps);
-
-    // damn did not see that its already written something like this ..
-    // // check if we start a new play
-    // if(this.checkIfAuctionIsOver(18)) {
-    //
-    // // get cards for gui
-    // this.player.setHand(Tools.searchPlayer(this.player, this.playState.getGroup()).getHand());
-    //
-    // // start new game on gui
-    // this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
-    //
-    // // evt. start new auction
-    // if(this.checkIfItsMyTurnAuction(this.player)) {
-    // this.inGameController.askForBet(18);
-    // }
-    // }
-
-    // yes.. BUT we should start the play here right??
 
     if (this.player.getPosition().equals(Position.FOREHAND)) {
       this.netController.sendCardPlayed(this.playCard(null));
@@ -899,12 +862,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
 
-    // i think
-    // this has
-    // to be done
-    // here???
-    // this.inGameController.updateHand(this.player.getHand());
-
     // Start auction here
     if (this.player.getPosition() == Position.MIDDLEHAND) {
       // go with first bet
@@ -925,8 +882,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     Player[] playWinner;
     Player gameWinner;
 
-    Thread t = new Thread(); // waits after telling gui/ai what is to do
-
     // check if trick is over
     if (this.playState.getCurrentTrick().isFull()) {
       // trick is over
@@ -946,7 +901,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // show winner of trick
       this.inGameController.showWinnerTrick(trickWinner);
       try {
-        t.wait(3000);
+        this.wait(3000);
       } catch (InterruptedException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -968,7 +923,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // show winner of play
         this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
         try {
-          t.wait(3000);
+          this.wait(3000);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
@@ -982,14 +937,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // show winner of game
           this.inGameController.showWinnerGame(gameWinner);
           try {
-            t.wait(3000);
+            this.wait(3000);
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
 
         } else {
 
-          // shouldn't this start in recieveCards?? at least the auction does start there
           // game is not over
           // createNewPlay!
           this.playState.resetPlayState();
@@ -1004,14 +958,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
             }
           }
 
+          // with start play you deal out cards and in receive cards the auction will start
           if (this.player.getPosition() == Position.FOREHAND) {
             this.startPlay();
           }
 
-          // // start auction if "i am" middlehand
-          // if (this.player.getPosition() == Position.MIDDLEHAND) {
-          // this.inGameController.askForBet(18);
-          // }
         }
       } else {
         // generate new trick
@@ -1071,7 +1022,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   @Override
   public void announceKontra() {
-    if (this.playState.getTrickNr() == 0) {
+    if (this.playState.getTrickNr() == 0 && this.gameSettings.isEnableKontra()) {
       this.netController.sendKontra();
     }
   }
@@ -1087,6 +1038,19 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveRekontra() {
     this.playState.setAnnouncedRekontra(true);
+  }
+  
+  public void setGameSetting(GameSettings gs) {
+    this.gameSettings = gs;
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.NetworkLogic#allReceivedCards()
+   */
+  @Override
+  public void allReceivedCards() {
+    // TODO Auto-generated method stub
+    
   }
 
 }
