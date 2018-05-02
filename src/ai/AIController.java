@@ -47,7 +47,7 @@ public class AIController implements InGameInterface {
 
   public int askToPlayCard() {
     try {
-      wait(Settings.DELAY);
+      Thread.sleep(Settings.DELAY);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -71,7 +71,7 @@ public class AIController implements InGameInterface {
 
   public PlayState askToTakeUpSkat(PlayState ps) {
     try {
-      wait(Settings.DELAY);
+      Thread.sleep(Settings.DELAY);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -90,7 +90,7 @@ public class AIController implements InGameInterface {
 
   public boolean askForBet(int bet, Player player) {
     try {
-      wait(Settings.DELAY);
+      Thread.sleep(Settings.DELAY);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -209,13 +209,13 @@ public class AIController implements InGameInterface {
 
   public boolean askToRekontra() {
     try {
-      wait(Settings.DELAY);
+      Thread.sleep(Settings.DELAY);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
     switch (this.bot.getDifficulty()) {
       case EASY:
-        return false;
+        return Easy.askToRekontra(this);
       case MEDIUM:
         return Medium.askToRekontra(this);
       case HARD:
