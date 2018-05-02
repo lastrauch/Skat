@@ -22,8 +22,6 @@ public class Database {
    * 
    * @param file
    *            Name und Pfad der Datenbank
-   */
-  /**
    * @author dpervane
    */
   
