@@ -1094,10 +1094,9 @@ public class InGameController implements Initializable, InGameInterface {
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
-      public void handle(MouseEvent e) {
-      }
+      public void handle(MouseEvent e) {}
     });
-//    return ret[0];
+    // return ret[0];
   }
 
 
@@ -1688,7 +1687,7 @@ public class InGameController implements Initializable, InGameInterface {
         });
       }
     });
-    
+
   }
 
 
@@ -1790,7 +1789,7 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        
+
       }
     });
     return false;
@@ -1847,7 +1846,6 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-  }
   }
 
 
