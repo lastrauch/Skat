@@ -1,14 +1,13 @@
 package ai;
 
-import java.util.ArrayList;
-import java.util.List;
 import logic.PlayMode;
 import logic.PlayState;
-import logic.Player;
+import java.util.ArrayList;
+import java.util.List;
+import logic.Card;
 
 public class Easy {
-  
-  
+    
   public static int playCard(AIController controller){
     return General.playRandomCard(controller);
   }
@@ -29,41 +28,26 @@ public class Easy {
     }
   
   public static PlayState setPlayState(AIController controller){
-    return null;
-  }
-//    PlayState playState = controller.getPlayState();
-//    playState.getDeclarerStack();
-//    playState.setPlayMode(controller.getSinglePlay().getPlayMode().SUIT);
-//    playState.setSkat(null);
-//    playState.setTrump(controller.getSinglePlay().getColour());
-//    playState.setHandGame(false);
-//    playState.setSchneiderAnnounced(false);
-//    playState.setSchwarzAnnounced(false);
-//    playState.setOpen(false);
-//    
-//    controller.setPartner(null);
-//    List<Player> opponents = new ArrayList<Player>();
-//    for (int i = 0; i < controller.getAllPlayer().size(); i++) {
-//      opponents.add(controller.getAllPlayer().get(i));
-//    }
-//    while()
-//   
-//      controller.setExistingTrumps(11);
-//    
-//      
-//    }
     
-   
-//    
-////    playState.setTrump(controller.getSinglePlay().getColour());
-//	 SinglePlay singlePlayer;
-//	 //wenn Reiz gewonnen 
-//	 //bestimmt der Alleinspieker Art des Spiels : hier: Suit
-////	 singlePlayer = new SinglePlay(PlayMode.SUIT);
-//	 
-// 
-//	 //entscheiden, was für ein Spiel gespielt werden soll
-//	 //also einer der Farben als Trumpf wählen
-	  
+    PlayState playState = controller.getPlayState();
+    List<Card> skatList = new ArrayList<Card>();
+    for(int i=0; i<controller.getPlayState().getSkat().length; i++) {
+      skatList.add(controller.getPlayState().getSkat()[i]);
+    }
+    playState.getDeclarerStack().addCards(skatList);
+    playState.setPlayMode(controller.getSinglePlay().getPlayMode());    
+    playState.setSkat(null);
+    playState.setTrump(controller.getSinglePlay().getColour());
+    playState.setHandGame(false);
+    playState.setSchneiderAnnounced(false);
+    playState.setSchwarzAnnounced(false);
+    playState.setOpen(false);
+
+    return playState;
+  }
+  
+  public static boolean askToRekontra(AIController controller) {
+    return false;
+  }
 
 }
