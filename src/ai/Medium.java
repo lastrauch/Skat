@@ -35,6 +35,8 @@ public class Medium {
   }
 
   public static PlayState setPlayState(AIController controller) {
+    //TODO If SinglePlay is null????
+    
     PlayState ps = controller.getPlayState();
     ps.getDeclarerStack()
         .addCards(Medium.returnSkat(controller, controller.getSinglePlay().getPlayMode()));
