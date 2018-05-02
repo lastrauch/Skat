@@ -50,9 +50,10 @@ public class InGameController implements Initializable, InGameInterface {
   JFXButton pass = new JFXButton();
   JFXButton betB = new JFXButton();
   boolean b = false;
+  boolean notpressed = true;
 
   /**
-   * Initialize what chooseTrumPScreen
+   * Initialize what chooseTrumPScreen l
    * 
    * @author lstrauch
    */
@@ -1078,13 +1079,18 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent e) {
         ret[0] = false;
-        displayWannaTakeSkat();
+        notpressed = true;
+
+        // displayWannaTakeSkat();
       }
     });
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ret[0] = true;
+        System.out.println("Should be TRUE now!!!!");
+        // displayWannaTakeSkat();
+        notpressed = true;
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1684,7 +1690,7 @@ public class InGameController implements Initializable, InGameInterface {
         });
       }
     });
-    
+
   }
 
 
@@ -1786,7 +1792,7 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        
+
       }
     });
     return false;
@@ -1811,25 +1817,41 @@ public class InGameController implements Initializable, InGameInterface {
     return null;
   }
 
+
   /*
-   * (non-Javadoc)
+   * (non-Javadoc)l
    * 
    * @see interfaces.InGameInterface#askForBet(int, logic.Player)
    */
   @Override
   public boolean askForBet(int bet, Player lastBet) {
     // deletePane(paneBet);
+    while (notpressed) {
+      ButtonListener();
+    }
+    return b;
+  }
+
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openAskForBet(int)
+   */
+  @Override
+  public void openAskForBet(int bet) {
+    // TODO Auto-generated method stub
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        betB.setText(String.valueOf(bet));
-        displayAuctionScreen();
-        b = ButtonListener();
+        while (notpressed) {
+          displayAuctionScreen();
+          betB.setText(String.valueOf(bet));
+        }
       }
     });
-    System.out.println(b);
-    return b;
   }
+
 
 
 }
