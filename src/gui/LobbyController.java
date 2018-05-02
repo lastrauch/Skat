@@ -164,28 +164,20 @@ public class LobbyController implements Initializable {
             break;
           case 2:
             displayTwo(name.get(0).getName(), name.get(1).getName());
-            System.out.println("Name 1: " + name.get(0).getName());
-            System.out.println("Name 2: " + name.get(1).getName());
             break;
           case 3:
             displayThree(name.get(0).getName(), name.get(1).getName(), name.get(2).getName());
-            System.out.println("Name 1: " + name.get(0).getName());
-            System.out.println("Name 2: " + name.get(1).getName());
-            System.out.println("Name 3: " + name.get(2).getName());
             nrofplayers = 3;
             break;
           case 4:
             displayFour(name.get(0).getName(), name.get(1).getName(), name.get(2).getName(),
                 name.get(3).getName());
-            System.out.println("Name 1: " + name.get(0).getName());
-            System.out.println("Name 2: " + name.get(1).getName());
-            System.out.println("Name 3: " + name.get(2).getName());
-            System.out.println("Name 4: " + name.get(3).getName());
             break;
         }
       }
 
     });
+    
   }
 
   public void displayOne(String name) {
