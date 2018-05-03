@@ -63,13 +63,6 @@ public interface InGameInterface {
   public void updateHand(List<Card> list);
 
   /**
-   * should open the play settings screen and edit the playState ps with setters
-   * 
-   * @param ps
-   */
-  public void setPlaySettings(PlayState ps);
-
-  /**
    * updates the current trick
    * 
    * @param currentTrick
