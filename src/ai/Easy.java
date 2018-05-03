@@ -9,28 +9,28 @@ import logic.Card;
 import logic.Colour;
 
 public class Easy {
-	
+
 	// This is a static class to implement methods to play with an easy ai.
 	// Available methods are:
-	
+
 	// askForBet(AIController, int) : boolean
 	// Checks if the easy AI wants to place a bet of passed value.
-	
+
 	// askToTakeUpSkat(AIController) : boolean
 	// Checks if the AI wants to pick up the skat.
-	
+
 	// switchSkat(AIController) : List<Card>
 	// Gives back the cards, the AI wants to put on the skat after picking it up.
-	
+
 	// askToSetPlayState(AIController) : PlayState
 	// If the AI won the auction, it needs to set a PlayState.
-	
+
 	// askToRekontra(AIController) : boolean
 	// If someone called Kontra, check if the AI wants to call Rekontra.
-	
+
 	// askToPlayCard(AIController) : int
 	// Gives back the index of a Card on the hand, that the AI wants to play.
-	
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Methods called by AIController
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ public class Easy {
 
 		}
 	}
-	
+
 	/**
 	 * Checks if the AI wants to pick up the skat.
 	 * 
@@ -68,7 +68,7 @@ public class Easy {
 	public static boolean askToTakeUpSkat(AIController controller) {
 		return false;
 	}
-	
+
 	/**
 	 * Gives back the cards, the AI wants to put on the skat after picking it up.
 	 * 
@@ -76,7 +76,7 @@ public class Easy {
 	 * @param controller
 	 * @return List(Card)
 	 */
-	public static List<Card> switchSkat(AIController controller){
+	public static List<Card> switchSkat(AIController controller) {
 		return Arrays.asList(controller.getPlayState().getSkat());
 	}
 
@@ -146,7 +146,7 @@ public class Easy {
 	public static boolean askToRekontra(AIController controller) {
 		return false;
 	}
-	
+
 	/**
 	 * Gives back the index of a Card on the hand, that the AI wants to play.
 	 * 
