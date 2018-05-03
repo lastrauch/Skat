@@ -45,7 +45,7 @@ public interface InGameInterface {
    * 
    * @param seconds
    */
-  public void showSecoundsLeftToPlayCard(int seconds);
+  public void showSecondsLeftToPlayCard(int seconds);
 
   /**
    * asks the player if he wants to take up the skat
