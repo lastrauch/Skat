@@ -51,6 +51,8 @@ public class InGameController implements Initializable, InGameInterface {
   JFXButton betB = new JFXButton();
   boolean b = false;
   boolean notpressed = true;
+  boolean skatpressed = false;
+  boolean wantskat = false;
 
   /**
    * Initialize what chooseTrumPScreen
@@ -87,6 +89,7 @@ public class InGameController implements Initializable, InGameInterface {
   private ImageView sk1 = new ImageView();
   private ImageView sk2 = new ImageView();
   private JFXButton ok = new JFXButton();
+  List<Card> skatLogic = new ArrayList<Card>();
 
 
   /**
@@ -761,20 +764,9 @@ public class InGameController implements Initializable, InGameInterface {
     skatHbox.setLayoutX(118);
     skatHbox.setLayoutY(158);
 
-    ok.setPrefHeight(31);
-    ok.setPrefWidth(67);
-    ok.setLayoutX(501);
-    ok.setLayoutY(270);
-    ok.setText("OK");
-    ok.setFont(Font.font("System", FontWeight.BOLD, 15));
-    ok.setButtonType(ButtonType.RAISED);
-
-
 
     skatPane.getChildren().add(skatLabel);
     skatPane.getChildren().add(skatHbox);
-    skatPane.getChildren().add(ok);
-
     mainPane.getChildren().add(skatPane);
   }
 
@@ -805,8 +797,18 @@ public class InGameController implements Initializable, InGameInterface {
     sk2.setLayoutY(37);
     sk2.setStyle("-fx-background-color: black");
 
+    ok.setPrefHeight(31);
+    ok.setPrefWidth(67);
+    ok.setLayoutX(501);
+    ok.setLayoutY(270);
+    ok.setText("OK");
+    ok.setFont(Font.font("System", FontWeight.BOLD, 15));
+    ok.setButtonType(ButtonType.RAISED);
+
+
     handPane.getChildren().add(sk1);
     handPane.getChildren().add(sk2);
+    handPane.getChildren().add(ok);
 
     mainPane.getChildren().add(handPane);
   }
@@ -1078,7 +1080,7 @@ public class InGameController implements Initializable, InGameInterface {
     pass.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ret[0] = false;
+        b = false;
         notpressed = false;
 
         // displayWannaTakeSkat();
@@ -1087,9 +1089,10 @@ public class InGameController implements Initializable, InGameInterface {
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ret[0] = true;
         // displayWannaTakeSkat();
         notpressed = false;
+        b = true;
+        // System.out.println("RET: "+ret[0]);
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1181,13 +1184,15 @@ public class InGameController implements Initializable, InGameInterface {
   /**
    * @author lstrauch
    * @param ps
+   * @return
    */
   public void ButtonListenrWantSkat(PlayState ps) {
     yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ps.setHandGame(true);
-        displaySwitchSkat(ps);
+        ps.setHandGame(false);
+        wantskat = true;
+        // displaySwitchSkat(ps);
         sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
             ps.getSkat()[0].getNumber().toString().toLowerCase()));
         sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
@@ -1207,8 +1212,9 @@ public class InGameController implements Initializable, InGameInterface {
     no.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ps.setHandGame(false);
-        displayAuctionWinnerScreen();
+        ps.setHandGame(true);
+        wantskat = false;
+        // displayAuctionWinnerScreen();
       }
     });
   }
@@ -1685,6 +1691,14 @@ public class InGameController implements Initializable, InGameInterface {
             }
           }
         });
+        ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            skatLogic.set(0, skat.get(0));
+            skatLogic.set(1, skat.get(1));
+            skatpressed = true;
+          }
+        });
       }
     });
 
@@ -1801,18 +1815,18 @@ public class InGameController implements Initializable, InGameInterface {
    * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
    */
   @Override
-  public PlayState askToTakeUpSkat(PlayState ps) {
+  public List<Card> askToTakeUpSkat(PlayState ps) {
     // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        deletePane(paneBet);
-        displayWannaTakeSkat();
-        ButtonListenrWantSkat(ps);
-      }
-    });
-    return null;
+    displayWannaTakeSkat();
+    ButtonListenrWantSkat(ps);
+    if (wantskat == true) {
+      displaySwitchSkat(ps);
+    }
+    return skatLogic;
   }
+  
+
+
 
   /*
    * (non-Javadoc)
@@ -1825,6 +1839,7 @@ public class InGameController implements Initializable, InGameInterface {
     while (notpressed) {
       ButtonListener();
     }
+    System.out.println("B: " + b);
     return b;
   }
 
@@ -1845,6 +1860,45 @@ public class InGameController implements Initializable, InGameInterface {
       }
     });
   }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#updateBet(int)
+   */
+  @Override
+  public void updateBet(int bet) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        betB.setText(String.valueOf(bet));
+      }
+    });
+
+  }
+
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openAuctionWinnerScreen()
+   */
+  @Override
+  public void openAuctionWinnerScreen() {
+    // TODO Auto-generated method stub
+
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#openTakeUpSkat()
+   */
+  @Override
+  public void openTakeUpSkat() {
+    // TODO Auto-generated method stub
+    
+  }
+
 
 
 }

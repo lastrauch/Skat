@@ -45,7 +45,7 @@ public interface InGameInterface {
    * asks the player if he wants to take up the skat
    * 
    */
-  public PlayState askToTakeUpSkat(PlayState ps);
+  public boolean askToTakeUpSkat();
 
   /**
    * supposed to ask the Player if he wants to go with the bet or if he wants to pass like
@@ -110,5 +110,15 @@ public interface InGameInterface {
   public void showWinnerGame(Player player);
   
   public void openAskForBet(int bet);
+  
+  public void updateBet(int bet);
+  
+  public void openTakeUpSkat();
+  
+  public void openAuctionWinnerScreen();
+  
+  public void openSwitchSkat(PlayState ps);
+  
+  public List<Card> switchSkat(PlayState ps);
 
 }
