@@ -388,4 +388,16 @@ public void setPlaySettingsAfterAuction(PlayState ps) {
 	this.ps = ps;
 }
 
+@Override
+public void itsYourTurn() {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void recievedNewCard(Card card, Player player) {
+	// TODO Auto-generated method stub
+	
+}
+
 }
