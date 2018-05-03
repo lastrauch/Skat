@@ -16,9 +16,13 @@ import logic.Player;
 import logic.Trick;
 
 /**
+ * This class tests the method of ClientLogic in which it is tested if a card is possible to play.
+ * "ClientLogic.checkIfCardPossible" adapts itself to the current playMode and to the first card on the trick
+ * 
  * @author sandfisc
  *
  */
+// @RunWith(Parameterized.class)
 class CheckIfCardPossibleTest {
 
   static Player p2; // player of second trick card
@@ -40,7 +44,6 @@ class CheckIfCardPossibleTest {
     ps = new PlayState(new Player[3]);
   }
 
-
   @BeforeEach
   void setUp() {
     // PlayState
@@ -49,17 +52,9 @@ class CheckIfCardPossibleTest {
     ps.setCurrentTrick(new Trick());
     ps.getCurrentTrick().addCard(firstCard);
 
-    // set PlaymMode and Trump
-    ps.setPlayMode(PlayMode.NULL); // HIERUM GEHT ES !!!!!!!!!!!!!!!!
-    ps.setTrump(Colour.HEARTS); // is ignored if the PlayMode is not SUIT
-
     // good cards because they do serve the first card
     goodCard1 = new Card(Colour.HEARTS, Number.TEN); // HEARTS = Trump
-    if (ps.getPlayMode() != PlayMode.NULL) {
-      goodCard2 = new Card(Colour.CLUBS, Number.JACK); // JACK = Trump
-    } else {
-      goodCard2 = new Card(Colour.HEARTS, Number.QUEEN);
-    }
+    goodCard2 = new Card(Colour.CLUBS, Number.JACK); // JACK = Trump
 
     // bad cards because they do not serve the first card
     badCard1 = new Card(Colour.CLUBS, Number.NINE);
@@ -78,8 +73,35 @@ class CheckIfCardPossibleTest {
     p3.addToHand(badCard2);
   }
 
+  /* PlayMode : SUIT */
   @Test
-  void testCheckIfCardPossible() throws LogicException {
+  void testCheckIfCardPossibleColour() throws LogicException {
+    ps.setPlayMode(PlayMode.SUIT);
+    ps.setTrump(Colour.HEARTS);
+    this.test();
+  }
+
+  /* PlayMode : GRAND */
+  @Test
+  void testCheckIfCardPossibleGrand() throws LogicException {
+    ps.setPlayMode(PlayMode.GRAND);
+    this.test();
+  }
+
+  /* PlayMode : NULL */
+  @Test
+  void testCheckIfCardPossibleNull() throws LogicException {
+    ps.setPlayMode(PlayMode.NULL);
+    this.test();
+  }
+
+  void test() throws LogicException {
+    
+    // in PlayMode null goodCard2 would be wrong to play -> it has to be changed
+    if (ps.getPlayMode() == PlayMode.NULL) {
+      goodCard2 = new Card(Colour.HEARTS, Number.QUEEN);
+    }
+
     // test player 2 (he has got cards to serve the first card on the trick)
     assertTrue(
         ClientLogic.checkIfCardPossible(goodCard1, ps.getCurrentTrick().getFirstCard(), ps, p2));
@@ -90,12 +112,12 @@ class CheckIfCardPossibleTest {
     assertFalse(
         ClientLogic.checkIfCardPossible(badCard2, ps.getCurrentTrick().getFirstCard(), ps, p2));
 
-    // test player 3 (he has got no cards to serve the first card on the trick 
+    // test player 3 (he has got no cards to serve the first card on the trick
     // and is allowed to play any card he/she wants)
     assertTrue(
         ClientLogic.checkIfCardPossible(badCard1, ps.getCurrentTrick().getFirstCard(), ps, p3));
     assertTrue(
         ClientLogic.checkIfCardPossible(badCard2, ps.getCurrentTrick().getFirstCard(), ps, p3));
-
   }
 }
+
