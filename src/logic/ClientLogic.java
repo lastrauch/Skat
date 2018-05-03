@@ -786,6 +786,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
             .addCards(this.inGameController.switchSkat(this.playState));
       }
       this.inGameController.openAuctionWinnerScreen();
+      this.playState = this.inGameController.playsettings(this.playState);
       // playState has to be set here by the inGameController !!!!!!
 
       this.calculatePlayValue(this.playState);
@@ -802,7 +803,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receivePlayState(PlayState ps) {
     // TODO Auto-generated method stub
     this.playState = ps;
-    this.inGameController.setPlaySettings(ps);
+    // this.inGameController.setPlaySettings(ps);
 
     if (this.player.getPosition().equals(Position.FOREHAND)) {
       this.netController.sendCardPlayed(this.playCard(null));

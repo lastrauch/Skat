@@ -1265,8 +1265,6 @@ public class InGameController implements Initializable, InGameInterface {
    * @param ps
    */
   public void switchSkatListener(PlayState ps) {
-    skat.add(ps.getSkat()[0]);
-    skat.add(ps.getSkat()[1]);
 
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
@@ -1950,6 +1948,8 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public List<Card> switchSkat(PlayState ps) {
     // TODO Auto-generated method stub
+    skat.add(ps.getSkat()[0]);
+    skat.add(ps.getSkat()[1]);
     while (skatpressed == false) {
       switchSkatListener(ps);
     }
