@@ -17,6 +17,9 @@ public class Medium {
 			controller.setMaxBet(Medium.calculateBet(controller));
 		}
 		if (controller.getMaxBet() >= bet) {
+			int[] bets = controller.getBets();
+			bets[0] = bet;
+			controller.setBets(bets);
 			return true;
 		} else {
 			return false;
@@ -68,6 +71,7 @@ public class Medium {
 			controller.setExistingTrumps(0);
 		}
 
+		controller.setPlayState(ps);
 		return ps;
 	}
 	

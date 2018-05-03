@@ -344,7 +344,7 @@ public class AIController implements InGameInterface {
 	 * @param player
 	 */
 	public void receivedNewCard(Card card, Player player) {
-		// TODO Auto-generated method stub
+		// TODO
 
 	}
 
