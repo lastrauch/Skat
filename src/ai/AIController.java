@@ -62,29 +62,15 @@ public class AIController implements InGameInterface {
 			return -1;
 		}
 	}
-
-	public void showSecoundsLeftToPlayCard(int seconds) {
-		// Do nothing and expect the AI to react in sufficient time.
-	}
-
-	public PlayState askToTakeUpSkat(PlayState ps) {
-		try {
-			Thread.sleep(Settings.DELAY);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+	
+	public boolean askToTakeUpSkat() {
+		  switch(this.bot.getDifficulty()) {
+		  case EASY: return Easy.askToTakeUpSkat(this);
+		  case MEDIUM: return Medium.askToTakeUpSkat(this);
+		  case HARD: return Hard.askToTakeUpSkat(this);
+		  }
+		  return false;
 		}
-		this.ps = ps;
-		this.currentTrick = ps.getCurrentTrick().getTrickCards();
-		switch (this.bot.getDifficulty()) {
-		case EASY:
-			return Easy.setPlayState(this);
-		case MEDIUM:
-			return Medium.setPlayState(this);
-		case HARD:
-			return Hard.setPlayState(this);
-		}
-		return null;
-	}
 
 	public boolean askForBet(int bet, Player player) {
 		try {
@@ -168,10 +154,6 @@ public class AIController implements InGameInterface {
 		this.currentTrick = currentTrick;
 	}
 
-	public void setGameSettings(GameSettings gs) {
-		this.gs = gs;
-	}
-
 	public void showWinnerPlay(Player player1, Player player2) {
 		// Reset play informations
 		this.ps = null;
@@ -205,6 +187,10 @@ public class AIController implements InGameInterface {
 			return Hard.askToRekontra(this);
 		}
 		return false;
+	}
+	
+	public void setGameSettings(GameSettings gs) {
+		this.gs = gs;
 	}
 
 	public GameSettings getGameSettings() {
@@ -319,6 +305,10 @@ public class AIController implements InGameInterface {
 		return this.existingTrumps;
 	}
 	
+	public void showSecoundsLeftToPlayCard(int seconds) {
+		// Do nothing and expect the AI to react in sufficient time.
+	}
+	
 	public void stopGame(String reason) {
 		// Do nothing
 	}
@@ -345,19 +335,34 @@ public class AIController implements InGameInterface {
 
 	public void openSwitchSkat(PlayState ps) {
 		// Do nothing
+		//TODO initialize ps??
 	}
 	
 	
 	
 	
+	//TODO Methode is being replaced through two different methods
+		public PlayState askToTakeUpSkat(PlayState ps) {
+			try {
+				Thread.sleep(Settings.DELAY);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.ps = ps;
+			this.currentTrick = ps.getCurrentTrick().getTrickCards();
+			switch (this.bot.getDifficulty()) {
+			case EASY:
+				return Easy.setPlayState(this);
+			case MEDIUM:
+				return Medium.setPlayState(this);
+			case HARD:
+				return Hard.setPlayState(this);
+			}
+			return null;
+		}
 	
 	
-	
-@Override
-public boolean askToTakeUpSkat() {
-  // TODO Auto-generated method stub
-  return false;
-}
+
 
 @Override
 public void updateBet(int bet) {
@@ -377,10 +382,10 @@ public PlayState playsettings(PlayState ps) {
   return null;
 }
 
-@Override
+
 public void setPlaySettingsAfterAuction(PlayState ps) {
-	// TODO Auto-generated method stub
-	
+	//TODO ??
+	this.ps = ps;
 }
 
 }
