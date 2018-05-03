@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import interfaces.InGameInterface;
 import logic.Card;
-import logic.ClientLogic;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
@@ -173,14 +172,6 @@ public class AIController implements InGameInterface {
 		this.gs = gs;
 	}
 
-	public void stopGame(String reason) {
-		// Do nothing
-	}
-
-	public void showWinnerTrick(Player player) {
-		// Do nothing
-	}
-
 	public void showWinnerPlay(Player player1, Player player2) {
 		// Reset play informations
 		this.ps = null;
@@ -191,10 +182,6 @@ public class AIController implements InGameInterface {
 		this.opponents = new ArrayList<Player>();
 		this.hasColour = new boolean[4][3];
 		this.hasTrump = new boolean[3];
-	}
-
-	public void showWinnerGame(Player player) {
-		// Do nothing
 	}
 
 	public void startPlay(List<Card> hand, Position position) {
@@ -331,72 +318,69 @@ public class AIController implements InGameInterface {
 	public int getExistingTrumps() {
 		return this.existingTrumps;
 	}
+	
+	public void stopGame(String reason) {
+		// Do nothing
+	}
+
+	public void showWinnerTrick(Player player) {
+		// Do nothing
+	}
+	
+	public void showWinnerGame(Player player) {
+		// Do nothing
+	}
 
 	public void openAskForBet(int bet) {
 		// Do nothing
 	}
 
-/* (non-Javadoc)
- * @see interfaces.InGameInterface#askToTakeUpSkat()
- */
+	public void openTakeUpSkat() {
+		// Do nothing
+	}
+
+	public void openAuctionWinnerScreen() {
+		// Do nothing
+	}
+
+	public void openSwitchSkat(PlayState ps) {
+		// Do nothing
+	}
+	
+	
+	
+	
+	
+	
+	
 @Override
 public boolean askToTakeUpSkat() {
   // TODO Auto-generated method stub
   return false;
 }
 
-/* (non-Javadoc)
- * @see interfaces.InGameInterface#updateBet(int)
- */
 @Override
 public void updateBet(int bet) {
   // TODO Auto-generated method stub
   
 }
 
-/* (non-Javadoc)
- * @see interfaces.InGameInterface#openTakeUpSkat()
- */
-@Override
-public void openTakeUpSkat() {
-  // TODO Auto-generated method stub
-  
-}
-
-/* (non-Javadoc)
- * @see interfaces.InGameInterface#openAuctionWinnerScreen()
- */
-@Override
-public void openAuctionWinnerScreen() {
-  // TODO Auto-generated method stub
-  
-}
-
-/* (non-Javadoc)
- * @see interfaces.InGameInterface#openSwitchSkat(logic.PlayState)
- */
-@Override
-public void openSwitchSkat(PlayState ps) {
-  // TODO Auto-generated method stub
-  
-}
-
-/* (non-Javadoc)
- * @see interfaces.InGameInterface#switchSkat(logic.PlayState)
- */
 @Override
 public List<Card> switchSkat(PlayState ps) {
   // TODO Auto-generated method stub
   return null;
 }
 
-/* (non-Javadoc)
- * @see interfaces.InGameInterface#playsettings(logic.PlayState)
- */
 @Override
 public PlayState playsettings(PlayState ps) {
   // TODO Auto-generated method stub
   return null;
+}
+
+@Override
+public void setPlaySettingsAfterAuction(PlayState ps) {
+	// TODO Auto-generated method stub
+	
 }
 
 }
