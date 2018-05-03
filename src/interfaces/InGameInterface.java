@@ -67,7 +67,7 @@ public interface InGameInterface {
    * @param bet
    * @param player
    */
-  public void recievedNewBet(int bet, Player player);
+  public void receivedNewBet(int bet, Player player);
 
   /**
    * should reload the hand cards in the given order
@@ -81,7 +81,7 @@ public interface InGameInterface {
    * 
    * @param currentTrick
    */
-  public void recievedNewCard(Card card, Player player);
+  public void receivedNewCard(Card card, Player player);
 
   /**
    * 
