@@ -2225,13 +2225,11 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#playSettings(logic.PlayState)
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#askToSetPlayState(logic.PlayState)
    */
   @Override
-  public PlayState playSettings(PlayState ps) {
+  public PlayState askToSetPlayState(PlayState ps) {
     // TODO Auto-generated method stub
     while (setSettings == false) {
       ButtonListenerPlaySettings(ps);
