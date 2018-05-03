@@ -1,11 +1,9 @@
 package network.server;
 
 import logic.Player;
-import network.Settings;
 import network.messages.*;
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
 
 public class ClientConnection extends Thread {
 	private Server server;

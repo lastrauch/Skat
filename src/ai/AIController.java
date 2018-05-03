@@ -55,6 +55,7 @@ public class AIController implements InGameInterface {
 	// Interface Methods
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	@Override
 	/**
 	 * Starts the play with the given hand on the given position. The PlayState was
 	 * introduced earlier.
@@ -64,12 +65,12 @@ public class AIController implements InGameInterface {
 	 * @param hand
 	 * @param position
 	 */
-	@Override
 	public void startPlay(List<Card> hand, Position position) {
 		this.bot.setHand(hand);
 		this.bot.setPosition(position);
 	}
 
+	@Override
 	/**
 	 * Asks the bot to play a card. Returns the index of the card within the bots
 	 * hand.
@@ -78,7 +79,6 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @return int
 	 */
-	@Override
 	public int askToPlayCard() {
 		try {
 			Thread.sleep(Settings.DELAY);
@@ -97,6 +97,7 @@ public class AIController implements InGameInterface {
 		}
 	}
 
+	@Override
 	/**
 	 * Asks the bot wether it wants to take up the Skat. Returns a boolean
 	 * representing the decision.
@@ -105,7 +106,6 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @return boolean
 	 */
-	@Override
 	public boolean askToTakeUpSkat() {
 		switch (this.bot.getDifficulty()) {
 		case EASY:
@@ -118,6 +118,7 @@ public class AIController implements InGameInterface {
 		return false;
 	}
 
+	@Override
 	/**
 	 * Asks the bot if he wants to place a bet. The passed bet is the height that is
 	 * asked for. The passed player is the last player, that placed a bet. Returns a
@@ -130,7 +131,6 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @return boolean
 	 */
-	@Override
 	public boolean askForBet(int bet, Player player) {
 		try {
 			Thread.sleep(Settings.DELAY);
@@ -161,6 +161,7 @@ public class AIController implements InGameInterface {
 		}
 	}
 	
+	@Override
 	/**
 	 * Passes the last bet that was set by a player.
 	 * This will update setBet so the AI holds track of the bets.
@@ -170,11 +171,11 @@ public class AIController implements InGameInterface {
 	 * @param bet
 	 * @param player
 	 */
-	@Override
 	public void receivedNewBet(int bet, Player player) {
 		// TODO
 	}
 
+	@Override
 	/**
 	 * Updates the hand of the bot.
 	 * 
@@ -182,7 +183,6 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @param hand
 	 */
-	@Override
 	public void updateHand(List<Card> hand) {
 		if (hand.size() == 10) {
 			this.cardProbability = General.initializeProbabilities(hand);
@@ -190,6 +190,7 @@ public class AIController implements InGameInterface {
 		this.bot.setHand(hand);
 	}
 
+	@Override
 	/**
 	 * TODO
 	 * 
@@ -198,7 +199,6 @@ public class AIController implements InGameInterface {
 	 * @param player1
 	 * @param player2
 	 */
-	@Override
 	public void showWinnerPlay(Player player1, Player player2) {
 		// Reset play informations
 		this.playState = null;
@@ -211,6 +211,7 @@ public class AIController implements InGameInterface {
 		this.hasTrump = new boolean[3];
 	}
 
+	@Override
 	/**
 	 * Asks the bot if he wants de declare Rekontra. Returns a boolean representing
 	 * this decision.
@@ -219,7 +220,6 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @return boolean
 	 */
-	@Override
 	public boolean askToRekontra() {
 		try {
 			Thread.sleep(Settings.DELAY);
@@ -237,16 +237,17 @@ public class AIController implements InGameInterface {
 		return false;
 	}
 
+	@Override
 	/**
 	 * Sets the GameSettings.
 	 * 
 	 * @author fkleinoe
 	 */
-	@Override
 	public void setGameSettings(GameSettings gameSettings) {
 		this.gameSettings = gameSettings;
 	}
 
+	@Override
 	/**
 	 * Passes the seconds that the bot has left, to play a card.
 	 * 
@@ -254,11 +255,11 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @param seconds
 	 */
-	@Override
 	public void showSecondsLeftToPlayCard(int seconds) {
 		// Do nothing
 	}
 
+	@Override
 	/**
 	 * Only important for the ui.
 	 * 
@@ -266,11 +267,11 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @param bet
 	 */
-	@Override
 	public void updateBet(int bet) {
 		// Do nothing
 	}
 
+	@Override
 	/**
 	 * Only important for the ui.
 	 * 
@@ -278,11 +279,11 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @param reason
 	 */
-	@Override
 	public void stopGame(String reason) {
 		// Do nothing
 	}
 
+	@Override
 	/**
 	 * Only important for the ui.
 	 * 
@@ -290,11 +291,11 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @param player
 	 */
-	@Override
 	public void showWinnerTrick(Player player) {
 		// Do nothing
 	}
 
+	@Override
 	/**
 	 * Only important for the ui.
 	 * 
@@ -302,11 +303,11 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @param player
 	 */
-	@Override
 	public void showWinnerGame(Player player) {
 		// Do nothing
 	}
 
+	@Override
 	/**
 	 * Only important for the ui.
 	 * 
@@ -314,31 +315,31 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @author bet
 	 */
-	@Override
 	public void openAskForBet(int bet) {
 		// Do nothing
 	}
 
+	@Override
 	/**
 	 * Only important for the ui.
 	 * 
 	 * @author fkleinoe
 	 */
-	@Override
 	public void openTakeUpSkat() {
 		// Do nothing
 	}
 
+	@Override
 	/**
 	 * Only important for the ui.
 	 * 
 	 * @author fkleinoe
 	 */
-	@Override
 	public void openAuctionWinnerScreen() {
 		// Do nothing
 	}
 
+	@Override
 	/**
 	 * Only important for the ui.
 	 * 
@@ -346,7 +347,6 @@ public class AIController implements InGameInterface {
 	 * 
 	 * @param playState
 	 */
-	@Override
 	public void openSwitchSkat(PlayState playState) {
 		// Do nothing
 	}

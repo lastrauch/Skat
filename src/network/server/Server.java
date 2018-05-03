@@ -138,6 +138,6 @@ public class Server extends Thread {
   }
   
   public int getNewPlayerID(){
-	  return this.playerID++;
+	  return playerID++;
   }
 }
