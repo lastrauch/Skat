@@ -787,7 +787,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
             .addCards(this.inGameController.switchSkat(this.playState));
       }
       this.inGameController.openAuctionWinnerScreen();
-      this.playState = this.inGameController.playsettings(this.playState);
+      this.playState = this.inGameController.playSettings(this.playState);
 
       this.calculatePlayValue(this.playState);
       this.netController.sendPlayState(this.playState);
@@ -827,7 +827,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       e.printStackTrace();
     }
     // show update on gui/ai
-    this.inGameController.updateTrick(this.playState.getCurrentTrick().getTrickCards());
+    this.inGameController.recievedNewCard(card, player);
 
     try {
       this.checkWhatHappensNext(player);
