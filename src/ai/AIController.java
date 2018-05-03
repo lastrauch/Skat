@@ -336,4 +336,67 @@ public class AIController implements InGameInterface {
 		// Do nothing
 	}
 
+/* (non-Javadoc)
+ * @see interfaces.InGameInterface#askToTakeUpSkat()
+ */
+@Override
+public boolean askToTakeUpSkat() {
+  // TODO Auto-generated method stub
+  return false;
+}
+
+/* (non-Javadoc)
+ * @see interfaces.InGameInterface#updateBet(int)
+ */
+@Override
+public void updateBet(int bet) {
+  // TODO Auto-generated method stub
+  
+}
+
+/* (non-Javadoc)
+ * @see interfaces.InGameInterface#openTakeUpSkat()
+ */
+@Override
+public void openTakeUpSkat() {
+  // TODO Auto-generated method stub
+  
+}
+
+/* (non-Javadoc)
+ * @see interfaces.InGameInterface#openAuctionWinnerScreen()
+ */
+@Override
+public void openAuctionWinnerScreen() {
+  // TODO Auto-generated method stub
+  
+}
+
+/* (non-Javadoc)
+ * @see interfaces.InGameInterface#openSwitchSkat(logic.PlayState)
+ */
+@Override
+public void openSwitchSkat(PlayState ps) {
+  // TODO Auto-generated method stub
+  
+}
+
+/* (non-Javadoc)
+ * @see interfaces.InGameInterface#switchSkat(logic.PlayState)
+ */
+@Override
+public List<Card> switchSkat(PlayState ps) {
+  // TODO Auto-generated method stub
+  return null;
+}
+
+/* (non-Javadoc)
+ * @see interfaces.InGameInterface#playsettings(logic.PlayState)
+ */
+@Override
+public PlayState playsettings(PlayState ps) {
+  // TODO Auto-generated method stub
+  return null;
+}
+
 }

@@ -13,6 +13,7 @@ import interfaces.NetworkLogic;
 import javafx.scene.image.Image;
 import network.NetworkController;
 
+
 public class ClientLogic implements NetworkLogic, AILogic {
 
   Player player;
@@ -424,9 +425,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
       for (Player p : this.group) {
         System.out.println(p.getName());
       }
-      System.out.println(gs.getNrOfPlayers() + " -> gs null???");
       this.guiController.updateLobby(gs, this.group);
     }
+
   }
 
   public List<Player> getLobby() {
@@ -559,6 +560,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // // TODO Auto-generated method stub
       if (!this.player.isBot()) {
         this.inGameController = this.guiController.startInGameScreen();
+
       }
 
 
@@ -601,7 +603,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param bet
    */
   public void receiveBet(Player player, int bet) {
-    System.out.println(this.player.getName() + "recieved new bet: " + bet + " from "
+    System.out.println(this.player.getName() + " recieved new bet: " + bet + " from "
         + player.getName() + " with the Position " + player.getPosition());
 
     // if auction is still running
@@ -611,11 +613,17 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // if it is my turn
       if (this.checkIfItsMyTurnAuction(player, bet)) {
         // if the player goes with the bet
-        this.inGameController.openAskForBet(newBet);
+        if (this.player.getBet() == 0) {
+          this.inGameController.openAskForBet(newBet);
+        } else {
+          this.inGameController.updateBet(newBet);
+        }
         if (this.inGameController.askForBet(newBet, player)) {
           this.netController.bet(newBet, this.player);
+          System.out.println(this.player.getName() + "bet " + newBet);
         } else {
           this.netController.bet(-1, this.player);
+          System.out.println(this.player.getName() + "bet " + -1);
         }
       }
       this.updateBet(player, bet);
@@ -627,7 +635,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   }
 
- 
+
   /**
    * @author awesch
    * @param player
@@ -759,7 +767,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // change to id if setted by network !!!!!!!
     if (this.playState.getAuction().getWinner().getName().equals(this.player.getName())) {
       // this player is declarer
-      System.out.println(this.player.getName() + "won auction");
+      System.out.println(this.player.getName() + " won auction");
       this.player.setDeclarer(true);
       // the others not(update after the last auction) ... maybe not important later (if we reset
       // everything after one play)
@@ -769,7 +777,18 @@ public class ClientLogic implements NetworkLogic, AILogic {
           p.setDeclarer(false);
         }
       }
-      this.playState = this.inGameController.askToTakeUpSkat(this.playState);
+      System.out.println("I won the auctiooooon !! (" + this.player.getName() + ")");
+      this.inGameController.openTakeUpSkat();
+      if (this.inGameController.askToTakeUpSkat()) {
+        System.out.println("ask to take up skat returned true");
+        this.inGameController.openSwitchSkat(this.playState);
+        this.playState.getDeclarerStack()
+            .addCards(this.inGameController.switchSkat(this.playState));
+      }
+      this.inGameController.openAuctionWinnerScreen();
+      this.playState = this.inGameController.playsettings(this.playState);
+      // playState has to be set here by the inGameController !!!!!!
+
       this.calculatePlayValue(this.playState);
       this.netController.sendPlayState(this.playState);
     }
@@ -784,7 +803,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receivePlayState(PlayState ps) {
     // TODO Auto-generated method stub
     this.playState = ps;
-    this.inGameController.setPlaySettings(ps);
+    // this.inGameController.setPlaySettings(ps);
 
     if (this.player.getPosition().equals(Position.FOREHAND)) {
       this.netController.sendCardPlayed(this.playCard(null));
@@ -872,10 +891,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
       if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0], null)) {
         this.player.setBet(this.playState.getAuction().getPossibleBets()[0]);
         this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
+        System.out.println(
+            this.player.getName() + " bet " + this.playState.getAuction().getPossibleBets()[0]);
       } else {
         // pass
         System.out.println(this.player.getName() + "passed");
         this.netController.bet(-1, this.player);
+        System.out.println(this.player.getName() + " bet " + -1);
       }
 
     }
