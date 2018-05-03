@@ -1176,9 +1176,6 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         if(pressed[0] == true) {
           setSettings = true;
-        } else {
-          System.out.println("No m"
-              + "ode selected");
         }
       }
     });
@@ -1812,24 +1809,6 @@ public class InGameController implements Initializable, InGameInterface {
     });
     return false;
   }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
-   */
-  // @Override
-  // public List<Card> askToTakeUpSkat(PlayState ps) {
-  // // TODO Auto-generated method stub
-  // displayWannaTakeSkat();
-  // ButtonListenrWantSkat(ps);
-  // if (wantskat == true) {
-  // displaySwitchSkat(ps);
-  // }
-  // return skatLogic;
-  // }
-
-
 
   /**
    * Auction
