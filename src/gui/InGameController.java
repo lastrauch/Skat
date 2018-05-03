@@ -147,6 +147,10 @@ public class InGameController implements Initializable, InGameInterface {
   private JFXTextArea chatM;
   @FXML
   private JFXTextField textM;
+  @FXML
+  private Label labelLeft, labelRight, labelMe;
+  @FXML
+  private ImageView profilepictureLeft, profilepictureRight;
 
 
 
@@ -586,7 +590,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void displayAuctionWinnerScreen() {
     ToggleGroup g1 = new ToggleGroup();
-    
+
     paneAuc.setPrefHeight(315);
     paneAuc.setPrefWidth(582);
     paneAuc.setLayoutX(334);
@@ -1174,7 +1178,7 @@ public class InGameController implements Initializable, InGameInterface {
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        if(pressed[0] == true) {
+        if (pressed[0] == true) {
           setSettings = true;
         }
       }
@@ -1965,12 +1969,46 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public PlayState playsettings(PlayState ps) {
     // TODO Auto-generated method stub
-    while(setSettings == false) {
+    while (setSettings == false) {
       ButtonListenerPlaySettings(ps);
     }
     return ps;
   }
-  
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#setPlaySettingsAfterAuction(logic.PlayState)
+   */
+  @Override
+  public void setPlaySettingsAfterAuction(PlayState ps) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+          if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+            labelLeft.setText(ps.getPlayMode().toString());
+          } else {
+            labelLeft.setText(ps.getPlayMode().toString());
+          }
+        } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+          if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+            labelRight.setText(ps.getPlayMode().toString());
+          } else {
+            labelLeft.setText(ps.getPlayMode().toString());
+          }
+        } else {
+          if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+            labelRight.setText(ps.getPlayMode().toString());
+          } else {
+            labelLeft.setText(ps.getPlayMode().toString());
+          }
+        }
+      }
+    });
+
+  }
 
 
 
