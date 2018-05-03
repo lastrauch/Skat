@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -92,6 +93,7 @@ public class InGameController implements Initializable, InGameInterface {
   boolean decidepressed = false;
   boolean wantskat = false;
   boolean skatpressed = false;
+  boolean setSettings = false;
 
 
   /**
@@ -384,14 +386,6 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @author lstrauch
    */
-  @Override
-  public void setPlaySettings(PlayState ps) {
-    // TODO Auto-generated method stub
-    deletePane(paneAuc);
-    displayAuctionWinnerScreen();
-    ButtonListenerPlaySettings(ps);
-
-  }
 
 
 
@@ -408,34 +402,6 @@ public class InGameController implements Initializable, InGameInterface {
     return MouseHandler();
   }
 
-  /**
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
-   * 
-   * @author lstrauch
-   */
-  // @Override
-  // public void askToTakeUpSkat(PlayState ps) {
-  // // TODO Auto-generated method stub
-  // deletePane(paneBet);
-  // displayWannaTakeSkat();
-  // ButtonListenrWantSkat(ps);
-  //
-  // }
-  //
-  // /** (non-Javadoc)
-  // * @see interfaces.InGameInterface#askForBet(int)
-  // *
-  // * @author lstrauch
-  // */
-  // @Override
-  // public boolean askForBet(int bet) {
-  // // TODO Auto-generated method stub
-  // betB.setText(String.valueOf(bet));
-  // displayAuctionScreen();
-  // return ButtonListener();
-  // }
 
 
   /**
@@ -619,6 +585,8 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    */
   public void displayAuctionWinnerScreen() {
+    ToggleGroup g1 = new ToggleGroup();
+    
     paneAuc.setPrefHeight(315);
     paneAuc.setPrefWidth(582);
     paneAuc.setLayoutX(334);
@@ -646,6 +614,12 @@ public class InGameController implements Initializable, InGameInterface {
     clubs.setText("Clubs");
     clubs.setFont(Font.font("System", FontWeight.BOLD, 20));
     clubs.setStyle("-fx-background-color: tan;");
+    diamonds.setToggleGroup(g1);
+    hearts.setToggleGroup(g1);
+    spades.setToggleGroup(g1);
+    clubs.setToggleGroup(g1);
+    grand.setToggleGroup(g1);
+    nullG.setToggleGroup(g1);
 
     boxWin1.getChildren().add(diamonds);
     boxWin1.getChildren().add(hearts);
@@ -1132,11 +1106,13 @@ public class InGameController implements Initializable, InGameInterface {
    * @param ps
    */
   public PlayState ButtonListenerPlaySettings(PlayState ps) {
+    boolean[] pressed = new boolean[1];
     diamonds.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.DIAMONDS);
+        pressed[0] = true;
       }
     });
     hearts.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1144,6 +1120,7 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.HEARTS);
+        pressed[0] = true;
       }
     });
     clubs.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1151,6 +1128,7 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.CLUBS);
+        pressed[0] = true;
       }
     });
     spades.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1158,18 +1136,21 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.SPADES);
+        pressed[0] = true;
       }
     });
     grand.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.GRAND);
+        pressed[0] = true;
       }
     });
     nullG.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.NULL);
+        pressed[0] = true;
       }
     });
     ouvert.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1188,6 +1169,17 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent e) {
         ps.setSchwarzAnnounced(true);
+      }
+    });
+    ok.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        if(pressed[0] == true) {
+          setSettings = true;
+        } else {
+          System.out.println("No m"
+              + "ode selected");
+        }
       }
     });
 
@@ -1977,6 +1969,7 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
+        deletePane(paneAuc);
         displayAuctionWinnerScreen();
       }
     });
@@ -1990,8 +1983,12 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public PlayState playsettings(PlayState ps) {
     // TODO Auto-generated method stub
-    return null;
+    while(setSettings == false) {
+      ButtonListenerPlaySettings(ps);
+    }
+    return ps;
   }
+  
 
 
 
