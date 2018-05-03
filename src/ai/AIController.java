@@ -12,6 +12,12 @@ import logic.Position;
 import network.Settings;
 
 public class AIController implements InGameInterface {
+	
+	// TODO
+	// Available methods are:
+	// setCardProbability(probability, colour, number, player) : void
+	
+	
 	private Bot bot;
 	private GameSettings gameSettings;
 	private PlayState playState;
@@ -39,7 +45,6 @@ public class AIController implements InGameInterface {
 	 * up Lists
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param name
 	 * @param difficulty
 	 * @param gameSettings
@@ -62,7 +67,6 @@ public class AIController implements InGameInterface {
 	 * introduced earlier.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param hand
 	 * @param position
 	 */
@@ -78,10 +82,8 @@ public class AIController implements InGameInterface {
 	 * boolean representing the decision.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param bet
 	 * @param player
-	 * 
 	 * @return boolean
 	 */
 	public boolean askForBet(int bet, Player player) {
@@ -126,7 +128,6 @@ public class AIController implements InGameInterface {
 	 * representing the decision.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return boolean
 	 */
 	public boolean askToTakeUpSkat() {
@@ -146,9 +147,7 @@ public class AIController implements InGameInterface {
 	 * After the Bot decided to pick up the Skat, it needs to return two Cards.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param playState
-	 * 
 	 * @return List(Card)
 	 */
 	public List<Card> switchSkat(PlayState playState) {
@@ -170,9 +169,7 @@ public class AIController implements InGameInterface {
 	 * the current PlayState, because it is not able to construct one itself.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param playState
-	 * 
 	 * @return PlayState
 	 */
 	public PlayState askToSetPlayState(PlayState playState) {
@@ -199,7 +196,6 @@ public class AIController implements InGameInterface {
 	 * this decision.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return boolean
 	 */
 	public boolean askToRekontra() {
@@ -225,7 +221,6 @@ public class AIController implements InGameInterface {
 	 * hand.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return int
 	 */
 	public int askToPlayCard() {
@@ -252,7 +247,6 @@ public class AIController implements InGameInterface {
 	 * AI holds track of the bets.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param bet
 	 * @param player
 	 */
@@ -289,7 +283,6 @@ public class AIController implements InGameInterface {
 	 * Updates the hand of the bot.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param hand
 	 */
 	public void updateHand(List<Card> hand) {
@@ -304,7 +297,6 @@ public class AIController implements InGameInterface {
 	 * Reset play informations.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param player1
 	 * @param player2
 	 */
@@ -327,6 +319,7 @@ public class AIController implements InGameInterface {
 	 * Sets the GameSettings.
 	 * 
 	 * @author fkleinoe
+	 * @param gameSettings
 	 */
 	public void setGameSettings(GameSettings gameSettings) {
 		this.gameSettings = gameSettings;
@@ -339,7 +332,6 @@ public class AIController implements InGameInterface {
 	 * currentTrick.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param card
 	 * @param player
 	 */
@@ -354,7 +346,6 @@ public class AIController implements InGameInterface {
 	 * a human player.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param seconds
 	 */
 	public void showSecondsLeftToPlayCard(int seconds) {
@@ -366,7 +357,6 @@ public class AIController implements InGameInterface {
 	 * Only important for the ui.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param bet
 	 */
 	public void updateBet(int bet) {
@@ -378,7 +368,6 @@ public class AIController implements InGameInterface {
 	 * Only important for the ui.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param reason
 	 */
 	public void stopGame(String reason) {
@@ -390,7 +379,6 @@ public class AIController implements InGameInterface {
 	 * Only important for the ui.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param player
 	 */
 	public void showWinnerTrick(Player player) {
@@ -402,7 +390,6 @@ public class AIController implements InGameInterface {
 	 * Only important for the ui.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param player
 	 */
 	public void showWinnerGame(Player player) {
@@ -414,7 +401,6 @@ public class AIController implements InGameInterface {
 	 * Only important for the ui.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @author bet
 	 */
 	public void openAskForBet(int bet) {
@@ -446,7 +432,6 @@ public class AIController implements InGameInterface {
 	 * Only important for the ui.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param playState
 	 */
 	public void openSwitchSkat(PlayState playState) {
@@ -465,8 +450,6 @@ public class AIController implements InGameInterface {
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Internal Methods
-	// Available methods are:
-	// setCardProbability(probability, colour, number, player) : void
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void setCardProbability(double probability, int colour, int number, int player) {
 		this.cardProbability[colour * 8 + number][player] = probability;
@@ -480,7 +463,6 @@ public class AIController implements InGameInterface {
 	 * Set bot.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param bot
 	 */
 	public void setBot(Bot bot) {
@@ -491,7 +473,6 @@ public class AIController implements InGameInterface {
 	 * Get bot.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return Bot
 	 */
 	public Bot getBot() {
@@ -506,7 +487,6 @@ public class AIController implements InGameInterface {
 	 * Get GameSettings.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return GameSettings
 	 */
 	public GameSettings getGameSettings() {
@@ -517,7 +497,6 @@ public class AIController implements InGameInterface {
 	 * Set playState.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param playState
 	 */
 	public void setPlayState(PlayState playState) {
@@ -528,7 +507,6 @@ public class AIController implements InGameInterface {
 	 * Get PlayState.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return PlayState
 	 */
 	public PlayState getPlayState() {
@@ -539,7 +517,6 @@ public class AIController implements InGameInterface {
 	 * Set player.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param player
 	 */
 	public void setPlayer(List<Player> player) {
@@ -550,7 +527,6 @@ public class AIController implements InGameInterface {
 	 * Get player.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return List(Player)
 	 */
 	public List<Player> getPlayer() {
@@ -561,7 +537,6 @@ public class AIController implements InGameInterface {
 	 * Set opponents.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param opponents
 	 */
 	public void setOpponents(List<Player> opponents) {
@@ -572,7 +547,6 @@ public class AIController implements InGameInterface {
 	 * Get opponents.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return List(Player)
 	 */
 	public List<Player> getOpponents() {
@@ -583,7 +557,6 @@ public class AIController implements InGameInterface {
 	 * Set partner.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param partner
 	 */
 	public void setPartner(Player partner) {
@@ -594,7 +567,6 @@ public class AIController implements InGameInterface {
 	 * Get partner.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return Player
 	 */
 	public Player getPartner() {
@@ -605,7 +577,6 @@ public class AIController implements InGameInterface {
 	 * Set bets.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param bets
 	 */
 	public void setBets(int[] bets) {
@@ -616,7 +587,6 @@ public class AIController implements InGameInterface {
 	 * Get bets.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return int[]
 	 */
 	public int[] getBets() {
@@ -627,7 +597,6 @@ public class AIController implements InGameInterface {
 	 * Set maxBet.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param maxBet
 	 */
 	public void setMaxBet(int maxBet) {
@@ -638,7 +607,6 @@ public class AIController implements InGameInterface {
 	 * Get maxBet.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return int
 	 */
 	public int getMaxBet() {
@@ -649,7 +617,6 @@ public class AIController implements InGameInterface {
 	 * Set singlePlay.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param singlePlay
 	 */
 	public void setSinglePlay(SinglePlay singlePlay) {
@@ -660,7 +627,6 @@ public class AIController implements InGameInterface {
 	 * Get singlePlay.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return SinglePlay
 	 */
 	public SinglePlay getSinglePlay() {
@@ -671,7 +637,6 @@ public class AIController implements InGameInterface {
 	 * Set playedCards.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param playedCards
 	 */
 	public void setPlayedCards(Card[][] playedCards) {
@@ -682,7 +647,6 @@ public class AIController implements InGameInterface {
 	 * Get playedCards.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return Card[][]
 	 */
 	public Card[][] getPlayedCards() {
@@ -693,7 +657,6 @@ public class AIController implements InGameInterface {
 	 * Set cardProbabilities.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param cardProbabilities
 	 */
 	public void setCardProbabilities(double[][] cardProbabilities) {
@@ -704,7 +667,6 @@ public class AIController implements InGameInterface {
 	 * Get cardProbability.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return double[][]
 	 */
 	public double[][] getCardProbabilities() {
@@ -715,7 +677,6 @@ public class AIController implements InGameInterface {
 	 * Set hasColour.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param hasColour
 	 */
 	public void setHasColour(boolean[][] hasColour) {
@@ -726,7 +687,6 @@ public class AIController implements InGameInterface {
 	 * Get hasColour.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return boolean[][]
 	 */
 	public boolean[][] getHasColour() {
@@ -737,7 +697,6 @@ public class AIController implements InGameInterface {
 	 * Set hasTrump.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param hasTrump
 	 */
 	public void setHasTrump(boolean[] hasTrump) {
@@ -748,7 +707,6 @@ public class AIController implements InGameInterface {
 	 * Get hasTrump.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return boolean[]
 	 */
 	public boolean[] getHasTrump() {
@@ -759,7 +717,6 @@ public class AIController implements InGameInterface {
 	 * Set existingTrumps.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param existingTrumps
 	 */
 	public void setExistingTrumps(int existingTrumps) {
@@ -770,7 +727,6 @@ public class AIController implements InGameInterface {
 	 * Get existingTrumps.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return int
 	 */
 	public int getExistingTrumps() {
@@ -781,7 +737,6 @@ public class AIController implements InGameInterface {
 	 * Set currentTrick.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param currentTrick
 	 */
 	public void setCurrentTrick(List<Card> currentTrick) {
@@ -792,7 +747,6 @@ public class AIController implements InGameInterface {
 	 * Get currentTrick.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return List(Card)
 	 */
 	public List<Card> getCurrentTrick() {
