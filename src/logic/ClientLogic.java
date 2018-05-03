@@ -777,7 +777,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
           p.setDeclarer(false);
         }
       }
+      System.out.println("I won the auctiooooon !! (" + this.player.getName() + ")");
+      this.inGameController.openTakeUpSkat();
       if (this.inGameController.askToTakeUpSkat()) {
+        System.out.println("ask to take up skat returned true");
         this.inGameController.openSwitchSkat(this.playState);
         this.playState.getDeclarerStack()
             .addCards(this.inGameController.switchSkat(this.playState));
