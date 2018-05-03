@@ -1861,7 +1861,7 @@ public class InGameController implements Initializable, InGameInterface {
     while (notpressed) {
       ButtonListener();
     }
-    System.out.println("B: " + b);
+    notpressed = true;
     return b;
   }
 
@@ -1913,6 +1913,7 @@ public class InGameController implements Initializable, InGameInterface {
     while(decidepressed == false) {
       ButtonListenrWantSkat();
     }
+    decidepressed = false;
     return wantskat;
   }
 
@@ -1948,6 +1949,7 @@ public class InGameController implements Initializable, InGameInterface {
     while(skatpressed == false) {
       switchSkatListener(ps);
     }
+    skatpressed = false;
     return skatLogic;
   }
 
