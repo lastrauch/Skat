@@ -21,8 +21,7 @@ import logic.Trick;
  * 
  * @author sandfisc
  *
- */
-// @RunWith(Parameterized.class)
+ */ 
 class CheckIfCardPossibleTest {
 
   static Player p2; // player of second trick card
@@ -33,7 +32,7 @@ class CheckIfCardPossibleTest {
 
   // cards possible to play
   static Card goodCard1;
-  static Card goodCard2;
+  static Card goodCard2; // initialized depending on the PlayMode/Test
 
   // cards not possible to play
   static Card badCard1;
@@ -54,14 +53,13 @@ class CheckIfCardPossibleTest {
 
     // good cards because they do serve the first card
     goodCard1 = new Card(Colour.HEARTS, Number.TEN); // HEARTS = Trump
-    goodCard2 = new Card(Colour.CLUBS, Number.JACK); // JACK = Trump
 
     // bad cards because they do not serve the first card
     badCard1 = new Card(Colour.CLUBS, Number.NINE);
     badCard2 = new Card(Colour.DIAMONDS, Number.NINE);
 
     // player 2 and his hand
-    p2 = new Player("P2.");
+    p2 = new Player("P2");
     p2.addToHand(goodCard1);
     p2.addToHand(goodCard2);
     p2.addToHand(badCard1);
@@ -75,32 +73,31 @@ class CheckIfCardPossibleTest {
 
   /* PlayMode : SUIT */
   @Test
-  void testCheckIfCardPossibleColour() throws LogicException {
+  void testSuit() throws LogicException {
     ps.setPlayMode(PlayMode.SUIT);
     ps.setTrump(Colour.HEARTS);
+    goodCard2 = new Card(Colour.CLUBS, Number.JACK); // JACK = Trump
+    
     this.test();
   }
 
   /* PlayMode : GRAND */
   @Test
-  void testCheckIfCardPossibleGrand() throws LogicException {
+  void testGrand() throws LogicException {
     ps.setPlayMode(PlayMode.GRAND);
+    goodCard2 = new Card(Colour.HEARTS, Number.SEVEN);
     this.test();
   }
 
   /* PlayMode : NULL */
   @Test
-  void testCheckIfCardPossibleNull() throws LogicException {
+  void testNull() throws LogicException {
     ps.setPlayMode(PlayMode.NULL);
+    goodCard2 = new Card(Colour.HEARTS, Number.QUEEN);
     this.test();
   }
 
   void test() throws LogicException {
-    
-    // in PlayMode null goodCard2 would be wrong to play -> it has to be changed
-    if (ps.getPlayMode() == PlayMode.NULL) {
-      goodCard2 = new Card(Colour.HEARTS, Number.QUEEN);
-    }
 
     // test player 2 (he has got cards to serve the first card on the trick)
     assertTrue(
