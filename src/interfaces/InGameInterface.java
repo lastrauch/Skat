@@ -163,7 +163,7 @@ public interface InGameInterface {
    * @param ps
    * @return
    */
-  public PlayState playSettings(PlayState ps);
+  public PlayState askToSetPlayState(PlayState ps);
 
   /**
    * especially for the ai to know which PlayMode is played
