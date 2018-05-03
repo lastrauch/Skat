@@ -60,6 +60,9 @@ public class Auction implements Serializable {
     if (this.bets.get(this.bets.size() - 1) == this.bets.get(this.bets.size() - 2)) {
       return this.possibleBets[this.indexOfBetValue + 1];
     }
+    if (this.bets.get(this.bets.size()) == -1) {
+      return this.possibleBets[this.indexOfBetValue + 1];
+    }
     return this.betValue;
   }
 
