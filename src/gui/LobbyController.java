@@ -37,13 +37,13 @@ public class LobbyController implements Initializable {
   Label p2 = new Label();
   Label p3 = new Label();
   Label p4 = new Label();
+  Label notenoughpl = new Label();
   private GameMode gm;
   private GuiController guiCon;
   private GameSettings gs;
   // private static GameSettings gs;
   private static int nrofplayers = 1;
   // private static List<Player> list = new ArrayList<Player>();
-  private static boolean addedBot = false;
 
   @FXML
   private Label rounds;
@@ -93,9 +93,7 @@ public class LobbyController implements Initializable {
     start.setText("Start");
     start.setTextFill(Color.WHITE);
     start.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
-//    start.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
-    start.setStyle(
-        "-fx-background-color: peru; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20;");
+    start.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
     start.setButtonType(ButtonType.RAISED);
     start.setTextAlignment(TextAlignment.CENTER);
 
@@ -109,9 +107,7 @@ public class LobbyController implements Initializable {
     back.setText("Back");
     back.setTextFill(Color.WHITE);
     back.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
-//    back.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
-    back.setStyle(
-        "-fx-background-color: peru; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20;");
+    back.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
     back.setButtonType(ButtonType.RAISED);
     back.setTextAlignment(TextAlignment.CENTER);
 
@@ -126,9 +122,7 @@ public class LobbyController implements Initializable {
     addBot.setText("Add Bot");
     addBot.setTextFill(Color.WHITE);
     addBot.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18));
-//    addBot.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
-    addBot.setStyle(
-        "-fx-background-color: peru; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20;");
+    addBot.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
     addBot.setButtonType(ButtonType.RAISED);
     addBot.setTextAlignment(TextAlignment.CENTER);
 
@@ -143,9 +137,7 @@ public class LobbyController implements Initializable {
     deleteBot.setText("Delte Bot");
     deleteBot.setTextFill(Color.WHITE);
     deleteBot.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18));
-//    deleteBot.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
-    deleteBot.setStyle(
-        "-fx-background-color: peru; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: 20;");
+    deleteBot.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
     deleteBot.setButtonType(ButtonType.RAISED);
     deleteBot.setTextAlignment(TextAlignment.CENTER);
 
@@ -160,9 +152,8 @@ public class LobbyController implements Initializable {
     change.setText("Change Gamesettings");
     change.setTextFill(Color.WHITE);
     change.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
-//    change.getStylesheets().add(getClass().getResource("/inGame.css").toExternalForm());
-    change.setStyle(
-        "-fx-background-color: peru;-fx-border-radius: 20; -fx-background-radius: 20.0; -fx-border-color: 20.0;");
+    change.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
+   
     change.setButtonType(ButtonType.RAISED);
     change.setTextAlignment(TextAlignment.CENTER);
 
@@ -284,9 +275,11 @@ public class LobbyController implements Initializable {
 
       @Override
       public void handle(MouseEvent event) {
-        if(nrofplayers <= 4) {
+//        if(nrofplayers == 3 || nrofplayers == 4) {
           LoginController.interfGL.startGame(gs); 
-        }
+//        } else {
+//          System.out.println("Not enough players selected");
+//        }
       }
     });
     back.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -338,5 +331,18 @@ public class LobbyController implements Initializable {
       displayStartButton();
 
     }
+  }
+  
+  public void displayNoUser() {
+    notenoughpl.setLayoutX(14);
+    notenoughpl.setLayoutY(375);
+    notenoughpl.setPrefHeight(44);
+    notenoughpl.setPrefWidth(718);
+    notenoughpl.setText("Username not found!");
+    notenoughpl.setFont(Font.font("System", FontWeight.BOLD, 21));
+    notenoughpl.setStyle("-fx-background-color: white; -fx-text-fill: red");
+    notenoughpl.setAlignment(Pos.CENTER);
+    
+    mainPane.getChildren().add(notenoughpl);
   }
 }

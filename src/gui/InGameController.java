@@ -1176,9 +1176,6 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         if(pressed[0] == true) {
           setSettings = true;
-        } else {
-          System.out.println("No m"
-              + "ode selected");
         }
       }
     });
@@ -1719,6 +1716,7 @@ public class InGameController implements Initializable, InGameInterface {
       public void run() {
         switch (anz) {
           case (10):
+            extra1.setImage(null);
             c1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
                 (cardlist2.get(0).getNumber().toString().toLowerCase())));
             c2.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
@@ -1739,6 +1737,7 @@ public class InGameController implements Initializable, InGameInterface {
                 (cardlist2.get(8).getNumber().toString().toLowerCase())));
             c10.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
                 (cardlist2.get(9).getNumber().toString().toLowerCase())));
+            extra2.setImage(null);
             break;
           case (11):
             System.out.println("11");
@@ -1764,6 +1763,7 @@ public class InGameController implements Initializable, InGameInterface {
                 (cardlist2.get(9).getNumber().toString().toLowerCase())));
             c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
                 (cardlist2.get(10).getNumber().toString().toLowerCase())));
+            extra2.setImage(null);
             break;
           case (12):
             extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
@@ -1812,24 +1812,6 @@ public class InGameController implements Initializable, InGameInterface {
     });
     return false;
   }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
-   */
-  // @Override
-  // public List<Card> askToTakeUpSkat(PlayState ps) {
-  // // TODO Auto-generated method stub
-  // displayWannaTakeSkat();
-  // ButtonListenrWantSkat(ps);
-  // if (wantskat == true) {
-  // displaySwitchSkat(ps);
-  // }
-  // return skatLogic;
-  // }
-
-
 
   /**
    * Auction

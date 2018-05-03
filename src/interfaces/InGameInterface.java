@@ -48,8 +48,8 @@ public interface InGameInterface {
   public boolean askToTakeUpSkat();
 
   /**
-   * supposed to ask the Player if he wants to go with the bet or if he wants to pass like
-   * "18 or pass?" (if bet=18)
+   * supposed to ask the Player if he wants to go with the bet or if he wants to pass like "18 or
+   * pass?" (if bet=18)
    * 
    * @param bet
    */
@@ -97,23 +97,65 @@ public interface InGameInterface {
   public void showWinnerPlay(Player player1, Player player2);
 
   /**
+   * relevant for the ui
    * 
    * @param player
    */
   public void showWinnerGame(Player player);
-  
+
+  /**
+   * only relevant for the ui
+   * 
+   * @param bet
+   */
   public void openAskForBet(int bet);
-  
+
+  /**
+   * only relevant for the ui
+   * 
+   * @param bet
+   */
   public void updateBet(int bet);
-  
+
+  /**
+   * only relevant for the ui
+   */
   public void openTakeUpSkat();
-  
+
+  /**
+   * only relevant for the ui
+   */
   public void openAuctionWinnerScreen();
-  
+
+  /**
+   * only relevant for the ui
+   * 
+   * @param ps
+   */
   public void openSwitchSkat(PlayState ps);
-  
+
+  /**
+   * relevant for the ai and the ui, returns the two cards so lay on the declarers stack, only if
+   * askToTakeUpSkat returns true
+   * 
+   * @param ps
+   * @return
+   */
   public List<Card> switchSkat(PlayState ps);
- 
+
+  /**
+   * relevant for the ai and the ui, returns the changed PlayState after the Player won the auction
+   * 
+   * @param ps
+   * @return
+   */
   public PlayState playsettings(PlayState ps);
+
+  /**
+   * especially for the ai to
+   * 
+   * @param ps
+   */
+  public void setPlaySettingsAfterAuction(PlayState ps);
 
 }
