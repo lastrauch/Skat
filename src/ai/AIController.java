@@ -38,6 +38,7 @@ public class AIController implements InGameInterface {
 		this.gs = gs;
 		this.player = new ArrayList<Player>();
 		this.opponents = new ArrayList<Player>();
+		this.currentTrick = new ArrayList<Card>();
 	}
 
 	public void startPlay(ArrayList<Card> hand, Position position) {
