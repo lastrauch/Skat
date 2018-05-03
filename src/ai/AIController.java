@@ -17,7 +17,7 @@ public class AIController implements InGameInterface {
 	private List<Player> player; // These are the other players
 	private List<Player> opponents; // Opponents in this play
 	private Player partner; // Partner in this play; If bot is declarer: null
-	private int[] bets; // Vector of bets by player i
+	private int[] bets; // Vector of bets by player i. The last bet will be written forward
 	private int maxBet = 0; // Set to -1, if bot doesn't want to play single
 	private SinglePlay singlePlay; // PlayMode and colour the bot wants to play, if so; otherwise null
 	private Card[][] playedCards; // Matrix of played Cards. Columns are the players, rows are the Cards
@@ -159,6 +159,20 @@ public class AIController implements InGameInterface {
 		default:
 			return false;
 		}
+	}
+	
+	/**
+	 * Passes the last bet that was set by a player.
+	 * This will update setBet so the AI holds track of the bets.
+	 * 
+	 * @author fkleinoe
+	 * 
+	 * @param bet
+	 * @param player
+	 */
+	@Override
+	public void receivedNewBet(int bet, Player player) {
+		// TODO
 	}
 
 	/**
@@ -364,13 +378,13 @@ public class AIController implements InGameInterface {
 	}
 
 	@Override
-	public PlayState askToSetPlaySettingameSettings(PlayState playState) {
+	public PlayState askToSetPlayState(PlayState playState) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setPlaySettingameSettingsAfterAuction(PlayState playState) {
+	public void setPlaySettingsAfterAuction(PlayState playState) {
 		// TODO ??
 		this.playState = playState;
 	}
