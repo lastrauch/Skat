@@ -29,6 +29,12 @@ public interface InGameInterface {
   public boolean askToRekontra();
 
   /**
+   * only relevant for the ui, tells the player he's supposed to play a card, used before
+   * askToPlayCard
+   */
+  public void itsYourTurn();
+
+  /**
    * asks the player to play a card
    * 
    */
@@ -39,7 +45,7 @@ public interface InGameInterface {
    * 
    * @param seconds
    */
-  public void showSecoundsLeftToPlayCard(int seconds);
+  public void showSecondsLeftToPlayCard(int seconds);
 
   /**
    * asks the player if he wants to take up the skat
@@ -56,6 +62,14 @@ public interface InGameInterface {
   public boolean askForBet(int bet, Player lastBet);
 
   /**
+   * updates the last bet (you don't need to be part of the conversation)
+   * 
+   * @param bet
+   * @param player
+   */
+  public void receivedNewBet(int bet, Player player);
+
+  /**
    * should reload the hand cards in the given order
    * 
    * @param list
@@ -63,11 +77,11 @@ public interface InGameInterface {
   public void updateHand(List<Card> list);
 
   /**
-   * updates the current trick
+   * updates the current trick with the last played card and the Player, who played it
    * 
    * @param currentTrick
    */
-  public void updateTrick(List<Card> currentTrick);
+  public void receivedNewCard(Card card, Player player);
 
   /**
    * 
@@ -149,10 +163,10 @@ public interface InGameInterface {
    * @param ps
    * @return
    */
-  public PlayState playsettings(PlayState ps);
+  public PlayState playSettings(PlayState ps);
 
   /**
-   * especially for the ai to
+   * especially for the ai to know which PlayMode is played
    * 
    * @param ps
    */
