@@ -3,17 +3,14 @@ package ai;
 import logic.PlayMode;
 import logic.PlayState;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import logic.Card;
 import logic.Colour;
 
 public class Easy {
 
-	public static int playCard(AIController controller) {
-		return General.playRandomCard(controller);
-	}
-
-	public static boolean setBet(AIController controller, int bet) {
+	public static boolean askForBet(AIController controller, int bet) {
 		int maxBet = General.getHighestPossibleBet(controller, PlayMode.SUIT);
 		double random = Math.random();
 		if (maxBet >= bet) {
@@ -31,8 +28,12 @@ public class Easy {
 	public static boolean askToTakeUpSkat(AIController controller) {
 		return false;
 	}
+	
+	public static List<Card> switchSkat(AIController controller){
+		return Arrays.asList(controller.getPlayState().getSkat());
+	}
 
-	public static PlayState setPlayState(AIController controller) {
+	public static PlayState askToSetPlayState(AIController controller) {
 
 		PlayState playState = controller.getPlayState();
 		List<Card> skatList = new ArrayList<Card>();
@@ -83,6 +84,10 @@ public class Easy {
 
 	public static boolean askToRekontra(AIController controller) {
 		return false;
+	}
+	
+	public static int askToPlayCard(AIController controller) {
+		return General.playRandomCard(controller);
 	}
 
 }

@@ -1,6 +1,7 @@
 package ai;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import logic.Card;
 import logic.Colour;
@@ -10,20 +11,8 @@ import logic.Player;
 import logic.Number;
 
 public class Medium {
-
-	public static int playCard(AIController controller) {
-		switch (controller.getPlayState().getPlayMode()) {
-		case GRAND:
-			return Medium.playCardGrand(controller);
-		case SUIT:
-			return Medium.playCardSuit(controller);
-		case NULL:
-			return Medium.playCardNull(controller);
-		}
-		return General.playRandomCard(controller);
-	}
-
-	public static boolean setBet(AIController controller, int bet) {
+	
+	public static boolean askForBet(AIController controller, int bet) {
 		if (controller.getMaxBet() == 0) {
 			controller.setMaxBet(Medium.calculateBet(controller));
 		}
@@ -35,24 +24,34 @@ public class Medium {
 	}
 	
 	public static boolean askToTakeUpSkat(AIController controller) {
-		// TODO
-		return false;
+		return true;
 	}
-
-	public static PlayState setPlayState(AIController controller) {
-		// TODO If SinglePlay is null????
-
+	
+	public static List<Card> switchSkat(AIController controller){
+		if(controller.getSinglePlay() != null && controller.getSinglePlay().getPlayMode() != null) {
+			return Medium.returnSkat(controller, controller.getSinglePlay().getPlayMode());
+		}else {
+			return Arrays.asList(controller.getPlayState().getSkat());
+		}
+	}
+	
+	public static PlayState askToSetPlayState(AIController controller) {
+		if(controller.getSinglePlay() == null || controller.getSinglePlay().getPlayMode() == null) {
+			Medium.calculateBet(controller);
+		}
+		if(controller.getSinglePlay() == null) {
+			controller.setSinglePlay(new SinglePlay(PlayMode.NULL));
+		}
+		
 		PlayState ps = controller.getPlayState();
-		ps.getDeclarerStack().addCards(Medium.returnSkat(controller, controller.getSinglePlay().getPlayMode()));
-		ps.setSkat(null);
-		ps.setTrump(controller.getSinglePlay().getColour());
-		// ps.setPlayValue(controller.getMaxBet()); //Will be set by Logic
 		ps.setPlayMode(controller.getSinglePlay().getPlayMode());
+		if(controller.getSinglePlay().getPlayMode() == PlayMode.SUIT) {
+			ps.setTrump(controller.getSinglePlay().getColour());
+		}
 		ps.setHandGame(false);
 		ps.setSchneiderAnnounced(false);
 		ps.setSchwarzAnnounced(false);
 		ps.setOpen(false);
-		// int baseValue; //Will be set by Logic
 
 		controller.setPartner(null);
 		List<Player> opponents = new ArrayList<Player>();
@@ -71,7 +70,7 @@ public class Medium {
 
 		return ps;
 	}
-
+	
 	public static boolean askToRekontra(AIController controller) {
 		if (controller.getSinglePlay().getCertainty() > 9) {
 			return true;
@@ -80,21 +79,38 @@ public class Medium {
 		}
 	}
 
-	public static List<Card> returnSkat(AIController controller, PlayMode playMode) {
-		// TODO Check if player has the correct hand after this method. Check in
-		// AIController and in
-		// Logic
-		// TODO Check if Skat/declarerStack is correct in PlayState in AIController and
-		// in Logic
-		List<Card> cards = controller.getBot().getHand();
-		Card[] skatArray = controller.getPlayState().getSkat();
-		List<Card> skatList = new ArrayList<Card>();
-		for (int i = 0; i < skatArray.length; i++) {
-			skatList.add(skatArray[i]);
+	public static int askToPlayCard(AIController controller) {
+		switch (controller.getPlayState().getPlayMode()) {
+		case GRAND:
+			return Medium.playCardGrand(controller);
+		case SUIT:
+			return Medium.playCardSuit(controller);
+		case NULL:
+			return Medium.playCardNull(controller);
 		}
-		List<Card> skatReturn = new ArrayList<Card>();
+		return General.playRandomCard(controller);
+	}
 
-		cards.addAll(skatList);
+
+	
+
+
+
+
+
+
+	public static List<Card> returnSkat(AIController controller, PlayMode playMode) {	
+		List<Card> skat = Arrays.asList(controller.getPlayState().getSkat());
+		List<Card> skatReturn = new ArrayList<Card>();
+		
+		List<Card> cards = new ArrayList<Card>();	//Intermediate hand with twelve cards
+		for(int i=0; i<controller.getBot().getHand().size(); i++) {
+			cards.add(controller.getBot().getHand().get(i));
+		}
+		for(int i=0; i<skat.size(); i++) {
+			cards.add(skat.get(i));
+		}
+
 		controller.setCardProbabilities(General.initializeProbabilities(cards));
 
 		int[] hasColour = new int[4];
@@ -120,9 +136,7 @@ public class Medium {
 						for (int i = 0; i < cards.size(); i++) {
 							if ((3 - cards.get(i).getColour().ordinal()) == minIndex
 									&& (7 - cards.get(i).getNumber().ordinal()) == j) {
-								skatReturn.add(cards.get(i)); // TODO evtl. Hardcopy is needed
-								cards.remove(i);
-								continue;
+								skatReturn.add(cards.get(i));
 							}
 						}
 					}
@@ -137,15 +151,17 @@ public class Medium {
 						for (int i = 0; i < cards.size(); i++) {
 							if ((3 - cards.get(i).getColour().ordinal()) == minIndex
 									&& (7 - cards.get(i).getNumber().ordinal()) == j) {
-								skatReturn.add(cards.get(i)); // TODO evtl. Hardcopy is needed
-								cards.remove(i);
-								continue;
+								skatReturn.add(cards.get(i));
 							}
 						}
 					}
 					j++;
 				}
 			}
+		}
+		
+		for(int i=0; i<skatReturn.size(); i++) {
+			controller.setCardProbability(0, 3 - skatReturn.get(i).getColour().ordinal(), 7 - skatReturn.get(i).getNumber().ordinal(), 0);
 		}
 
 		return skatReturn;
@@ -652,6 +668,8 @@ public class Medium {
 	}
 
 	public static int playCardSuit(AIController controller) {
+		//TODO
+		
 		List<Card> cards = controller.getBot().getHand();
 		List<Card> trick = controller.getCurrentTrick();
 
