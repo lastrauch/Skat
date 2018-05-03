@@ -120,5 +120,7 @@ public interface InGameInterface {
   public void openSwitchSkat(PlayState ps);
   
   public List<Card> switchSkat(PlayState ps);
+ 
+  public PlayState playsettings(PlayState ps);
 
 }
