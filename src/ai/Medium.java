@@ -56,8 +56,8 @@ public class Medium {
 
 		controller.setPartner(null);
 		List<Player> opponents = new ArrayList<Player>();
-		for (int i = 0; i < controller.getAllPlayer().size(); i++) {
-			opponents.add(controller.getAllPlayer().get(i));
+		for (int i = 0; i < controller.getPlayer().size(); i++) {
+			opponents.add(controller.getPlayer().get(i));
 		}
 		controller.setOpponents(opponents);
 		switch (ps.getPlayMode()) {
