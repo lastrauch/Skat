@@ -33,6 +33,11 @@ public class Medium {
 			return false;
 		}
 	}
+	
+	public static boolean askToTakeUpSkat(AIController controller) {
+		// TODO
+		return false;
+	}
 
 	public static PlayState setPlayState(AIController controller) {
 		// TODO If SinglePlay is null????
