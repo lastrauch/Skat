@@ -165,8 +165,17 @@
       </JFXButton>
       <AnchorPane layoutX="261.0" layoutY="128.0" prefHeight="315.0" prefWidth="770.0" style="-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20;">
          <children>
-            <JFXRadioButton layoutX="14.0" layoutY="37.0" />
-            <JFXRadioButton layoutX="157.0" layoutY="37.0" />
+            <JFXRadioButton layoutX="14.0" layoutY="37.0" text="Diamonds" />
+            <JFXRadioButton layoutX="157.0" layoutY="37.0" text="Hearts" />
+            <JFXRadioButton layoutX="323.0" layoutY="37.0" text="S" />
+            <JFXRadioButton layoutX="523.0" layoutY="37.0" />
+            <JFXRadioButton layoutX="33.0" layoutY="110.0" />
+            <JFXRadioButton layoutX="208.0" layoutY="110.0" />
+            <JFXRadioButton layoutX="33.0" layoutY="236.0" />
+            <JFXRadioButton layoutX="245.0" layoutY="247.0" />
+            <JFXRadioButton layoutX="379.0" layoutY="247.0" />
+            <JFXRadioButton layoutX="511.0" layoutY="247.0" />
+            <JFXButton layoutX="669.0" layoutY="253.0" />
          </children>
       </AnchorPane>
    </children>

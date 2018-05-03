@@ -147,6 +147,10 @@ public class InGameController implements Initializable, InGameInterface {
   private JFXTextArea chatM;
   @FXML
   private JFXTextField textM;
+  @FXML
+  private Label labelLeft, labelRight, labelMe;
+  @FXML
+  private ImageView profilepictureLeft, profilepictureRight;
 
 
 
@@ -586,7 +590,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void displayAuctionWinnerScreen() {
     ToggleGroup g1 = new ToggleGroup();
-    
+
     paneAuc.setPrefHeight(315);
     paneAuc.setPrefWidth(582);
     paneAuc.setLayoutX(334);
@@ -1174,11 +1178,8 @@ public class InGameController implements Initializable, InGameInterface {
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        if(pressed[0] == true) {
+        if (pressed[0] == true) {
           setSettings = true;
-        } else {
-          System.out.println("No m"
-              + "ode selected");
         }
       }
     });
@@ -1265,8 +1266,6 @@ public class InGameController implements Initializable, InGameInterface {
    * @param ps
    */
   public void switchSkatListener(PlayState ps) {
-    skat.add(ps.getSkat()[0]);
-    skat.add(ps.getSkat()[1]);
 
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
@@ -1721,6 +1720,7 @@ public class InGameController implements Initializable, InGameInterface {
       public void run() {
         switch (anz) {
           case (10):
+            extra1.setImage(null);
             c1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
                 (cardlist2.get(0).getNumber().toString().toLowerCase())));
             c2.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
@@ -1741,6 +1741,7 @@ public class InGameController implements Initializable, InGameInterface {
                 (cardlist2.get(8).getNumber().toString().toLowerCase())));
             c10.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
                 (cardlist2.get(9).getNumber().toString().toLowerCase())));
+            extra2.setImage(null);
             break;
           case (11):
             System.out.println("11");
@@ -1766,6 +1767,7 @@ public class InGameController implements Initializable, InGameInterface {
                 (cardlist2.get(9).getNumber().toString().toLowerCase())));
             c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
                 (cardlist2.get(10).getNumber().toString().toLowerCase())));
+            extra2.setImage(null);
             break;
           case (12):
             extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
@@ -1814,24 +1816,6 @@ public class InGameController implements Initializable, InGameInterface {
     });
     return false;
   }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
-   */
-  // @Override
-  // public List<Card> askToTakeUpSkat(PlayState ps) {
-  // // TODO Auto-generated method stub
-  // displayWannaTakeSkat();
-  // ButtonListenrWantSkat(ps);
-  // if (wantskat == true) {
-  // displaySwitchSkat(ps);
-  // }
-  // return skatLogic;
-  // }
-
-
 
   /**
    * Auction
@@ -1950,6 +1934,8 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public List<Card> switchSkat(PlayState ps) {
     // TODO Auto-generated method stub
+    skat.add(ps.getSkat()[0]);
+    skat.add(ps.getSkat()[1]);
     while (skatpressed == false) {
       switchSkatListener(ps);
     }
@@ -1983,12 +1969,46 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public PlayState playsettings(PlayState ps) {
     // TODO Auto-generated method stub
-    while(setSettings == false) {
+    while (setSettings == false) {
       ButtonListenerPlaySettings(ps);
     }
     return ps;
   }
-  
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#setPlaySettingsAfterAuction(logic.PlayState)
+   */
+  @Override
+  public void setPlaySettingsAfterAuction(PlayState ps) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+          if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+            labelLeft.setText(ps.getPlayMode().toString());
+          } else {
+            labelLeft.setText(ps.getPlayMode().toString());
+          }
+        } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+          if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+            labelRight.setText(ps.getPlayMode().toString());
+          } else {
+            labelLeft.setText(ps.getPlayMode().toString());
+          }
+        } else {
+          if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+            labelRight.setText(ps.getPlayMode().toString());
+          } else {
+            labelLeft.setText(ps.getPlayMode().toString());
+          }
+        }
+      }
+    });
+
+  }
 
 
 
