@@ -62,6 +62,14 @@ public interface InGameInterface {
   public boolean askForBet(int bet, Player lastBet);
 
   /**
+   * updates the last bet (you don't need to be part of the conversation)
+   * 
+   * @param bet
+   * @param player
+   */
+  public void recievedNewBet(int bet, Player player);
+
+  /**
    * should reload the hand cards in the given order
    * 
    * @param list
@@ -155,10 +163,10 @@ public interface InGameInterface {
    * @param ps
    * @return
    */
-  public PlayState playsettings(PlayState ps);
+  public PlayState playSettings(PlayState ps);
 
   /**
-   * especially for the ai to
+   * especially for the ai to know which PlayMode is played
    * 
    * @param ps
    */
