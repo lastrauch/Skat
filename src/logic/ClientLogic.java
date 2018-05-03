@@ -608,7 +608,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     // if auction is still running
     if (!this.checkIfAuctionIsOver(bet)) {
+      // Update in auction
       this.playState.getAuction().addToBets(bet);
+      if (bet != -1) {
+        this.playState.setBetValue(bet);
+      }
       int newBet = this.playState.getAuction().calculateNewBet();
       // if it is my turn
       if (this.checkIfItsMyTurnAuction(player, bet)) {
@@ -642,9 +646,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param bet
    */
   public void updateBet(Player player, int bet) {
-    if (bet != -1) {
-      this.playState.setBetValue(bet);
-    }
     // change to ID later !!!!
     for (Player p : this.playState.getGroup()) {
       if (p.getName().equals(player.getName())) {
@@ -787,7 +788,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
       }
       this.inGameController.openAuctionWinnerScreen();
       this.playState = this.inGameController.playsettings(this.playState);
-      // playState has to be set here by the inGameController !!!!!!
 
       this.calculatePlayValue(this.playState);
       this.netController.sendPlayState(this.playState);
@@ -803,8 +803,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receivePlayState(PlayState ps) {
     // TODO Auto-generated method stub
     this.playState = ps;
-    // this.inGameController.setPlaySettings(ps);
-
+    this.inGameController.setPlaySettingsAfterAuction(this.playState);
     if (this.player.getPosition().equals(Position.FOREHAND)) {
       this.netController.sendCardPlayed(this.playCard(null));
     }
