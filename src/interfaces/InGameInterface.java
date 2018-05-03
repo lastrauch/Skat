@@ -29,6 +29,12 @@ public interface InGameInterface {
   public boolean askToRekontra();
 
   /**
+   * only relevant for the ui, tells the player he's supposed to play a card, used before
+   * askToPlayCard
+   */
+  public void itsYourTurn();
+
+  /**
    * asks the player to play a card
    * 
    */
@@ -63,11 +69,11 @@ public interface InGameInterface {
   public void updateHand(List<Card> list);
 
   /**
-   * updates the current trick
+   * updates the current trick with the last played card and the Player, who played it
    * 
    * @param currentTrick
    */
-  public void updateTrick(List<Card> currentTrick);
+  public void recievedNewCard(Card card, Player player);
 
   /**
    * 
