@@ -1171,7 +1171,7 @@ public class InGameController implements Initializable, InGameInterface {
         ps.setSchwarzAnnounced(true);
       }
     });
-    ok.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         if(pressed[0] == true) {
