@@ -100,21 +100,19 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
-
-
   /**
    * asks the gui/AI to play a card and checks if it is possible to play it
    * 
    * @param firstCard (it depends on the first played card if it is possible to play the following)
    * @return
    */
-  public Card playCard(Card firstCard) {
+  public void playCard(Card firstCard) {
     Card playedCard = this.player.getHand().get(this.inGameController.askToPlayCard());
     System.out.println(this.player.getName() + " played " + playedCard.toString());
 
     // the first card is null it is allowed to play any card
     if (firstCard == null) {
-      //update this players hand
+      // update this players hand
       try {
         this.player.removeCardFromHand(playedCard);
       } catch (LogicException e) {
@@ -122,30 +120,37 @@ public class ClientLogic implements NetworkLogic, AILogic {
         e.printStackTrace();
       }
       this.inGameController.updateHand(this.player.getHand());
-      return playedCard;
- 
-    }
+      this.netController.sendCardPlayed(playedCard, this.player);
 
-    // if it is not possible to play the card the gui/AI is asked to play another card
-    try {
-      if (checkIfCardPossible(playedCard, firstCard, this.playState, this.player)) {
-        //update this players hand
-        try {
-          this.player.removeCardFromHand(playedCard);
-        } catch (LogicException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
+    } else {
+      // if it is not possible to play the card the gui/AI is asked to play another card
+      try {
+        if (checkIfCardPossible(playedCard, firstCard, this.playState, this.player)) {
+          // update this players hand
+          try {
+            this.player.removeCardFromHand(playedCard);
+          } catch (LogicException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+          this.inGameController.updateHand(this.player.getHand());
+          this.netController.sendCardPlayed(playedCard, this.player);
+
+        } else {
+          // !!!!!!!!!! funktioniert so leider (noch) nicht, da der gui controller bei askToPlayCard
+          // immer
+          // wieder die geliche karte zurück gibt
+          if (this.player.isBot()) {
+            this.playCard(firstCard);
+          }
+          System.out.println(
+              "die ausgewählte Karte kann nicht gespielt werden und als auffangen kann die logik das momentan nur bei den Bots, aber nicht bei der gui.");
         }
-        this.inGameController.updateHand(this.player.getHand());
-        return playedCard;
-      } else {
-        return this.playCard(firstCard);
+      } catch (LogicException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
       }
-    } catch (LogicException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
     }
-    return null;
   }
 
   /**
@@ -823,7 +828,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.playState = ps;
     this.inGameController.setPlaySettingsAfterAuction(this.playState);
     if (this.player.getPosition().equals(Position.FOREHAND)) {
-      this.netController.sendCardPlayed(this.playCard(null), this.player);
+      this.playCard(null);
     }
   }
 
@@ -836,14 +841,15 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receiveCardPlayed(Player player, Card card) {
     // TODO Auto-generated method stub
     // update current trick
+    this.checkIfTrickIsFull();
     this.playState.getCurrentTrick().addCard(card);
 
     // update players hand why??
-//    try {
-//      player.removeCardFromHand(card);
-//    } catch (LogicException e) {
-//      e.printStackTrace();
-//    }
+    // try {
+    // player.removeCardFromHand(card);
+    // } catch (LogicException e) {
+    // e.printStackTrace();
+    // }
     // show update on gui/ai
     this.inGameController.receivedNewCard(card, player);
 
@@ -861,10 +867,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveYourTurn() {
-    // TODO Auto-generated method stub
-    Card playedCard = this.playCard(this.playState.getCurrentTrick().getFirstCard());
-    // send played card
-    this.netController.sendCardPlayed(playedCard, this.player);
+    // DIESE METHODE BRAUCHEN WIR VERMUTLICH NICHT
+
+    // // TODO Auto-generated method stub
+    // Card playedCard = this.playCard(this.playState.getCurrentTrick().getFirstCard());
+    // // send played card
+    // this.netController.sendCardPlayed(playedCard, this.player);
   }
 
   /*
@@ -896,7 +904,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
     System.out.println(this.player.getName() + " before start Play");
     this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
-    System.out.println(this.player.getName() + " after start Play");
+    // System.out.println(this.player.getName() + " after start Play");
 
     // Start auction here
     if (this.player.getPosition() == Position.MIDDLEHAND) {
@@ -945,12 +953,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // show winner of trick
       this.inGameController.showWinnerTrick(trickWinner);
-      try {
-        this.wait(3000);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
+      // illegalMonitorStateException..
+      // try {
+      // this.wait(3000);
+      // } catch (InterruptedException e) {
+      // // TODO Auto-generated catch block
+      // e.printStackTrace();
+      // }
 
       // check if play is over
       if (this.playState.getTrickNr() == 10) {
@@ -967,11 +976,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
         // show winner of play
         this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
-        try {
-          this.wait(3000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
+        // illegalMonitorStateException..
+        // try {
+        // this.wait(3000);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // }
 
         // check if the whole game is over
         if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()) {
@@ -981,11 +991,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
           gameWinner = Game.calculateWinner(this.playState);
           // show winner of game
           this.inGameController.showWinnerGame(gameWinner);
-          try {
-            this.wait(3000);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
+          // illegalMonitorStateException..
+          // try {
+          // this.wait(3000);
+          // } catch (InterruptedException e) {
+          // e.printStackTrace();
+          // }
 
         } else {
 
@@ -1023,16 +1034,19 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // trick is not over
     // check if it is "my" turn
     if (this.checkIfMyTurnTrick(playedLastCard)) {
-      this.inGameController.askToPlayCard();
+      if (this.playState.getCurrentTrick().getTrickCards().size() == 0) {
+        this.playCard(null);
+      } else {
+        this.playCard(this.playState.getCurrentTrick().getFirstCard());
+      }
     }
   }
 
   public boolean checkIfTrickIsFull() {
     if (this.playState.getCurrentTrick().isFull()) {
-
       this.playState.setCurrentTrick(new Trick(this.playState));
+      return true;
     }
-
     return false;
   }
 
@@ -1057,8 +1071,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   @Override
   public Player copyPlayer(Player player) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.player.copyMe();
   }
 
   public void setInGameController(InGameInterface inGameController) {
