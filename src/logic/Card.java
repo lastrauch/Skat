@@ -1,9 +1,9 @@
- package logic;
+package logic;
 
 import java.io.Serializable;
 import javafx.scene.image.Image;
 
-public class Card implements Serializable{
+public class Card implements Serializable {
   /**
    * 
    */
@@ -12,7 +12,7 @@ public class Card implements Serializable{
   private Number number;
   private Image img;
   private Image imgDarker;
-  
+
 
   public Card(Colour colour, Number number) {
     this.colour = colour;
@@ -23,6 +23,10 @@ public class Card implements Serializable{
     this.colour = colour;
     this.number = number;
     this.img = img;
+  }
+
+  public String toString() {
+    return this.colour + " " + this.number;
   }
 
   public int getMatadorValue() {
