@@ -10,7 +10,7 @@ import logic.Colour;
 
 public class Easy {
 
-	// This is a static class to implement methods to play with an easy ai.
+	// This is a static class to implement methods to play with an easy AI.
 	// Available methods are:
 
 	// askForBet(AIController, int) : boolean

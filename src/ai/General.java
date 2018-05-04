@@ -11,27 +11,35 @@ import logic.LogicException;
 
 public class General {
 
-	// This is a static class to implement methods which are used through different Bot-difficulties.
+	// This is a static class to implement methods which are used through different
+	// Bot-difficulties.
 	// Available Methods are:
-	
+
 	// playRandomCard(AIController) : int
 	// Returns the index of a playable card on the hand of the bot.
-	
+
 	// getHighesPossibleBet(AIController) : int
 	// Returns the highest possible bet, with the current hand of the bot
-	
+
 	// getHighestPossibleBet(AIController, PlayMode) : int
 	// Returns the highest possible bet, playing PlayMode
-	
+
 	// getGameLevel(AIController) : int
 	// Returns the game level, the bot is playing
-	
+
 	// with initializeProbabiliteis(List<Card>) : double[][]
 	// Returns the initialization of card probabilities, first column is bot
-	
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Interface methods
+	// Internal methods
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the index of a playable card on the hand of the bot.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return int
+	 */
 	public static int playRandomCard(AIController controller) {
 		List<Card> cards = controller.getBot().getHand();
 		List<Card> possibleCards = new ArrayList<Card>();
@@ -57,10 +65,25 @@ public class General {
 		return index;
 	}
 
+	/**
+	 * Returns the highest possible bet, with the current hand of the bot
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return int
+	 */
 	public static int getHighestPossibleBet(AIController controller) {
 		return getHighestPossibleBet(controller, PlayMode.GRAND);
 	}
 
+	/**
+	 * Returns the highest possible bet, playing PlayMode
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @param playMode
+	 * @return
+	 */
 	public static int getHighestPossibleBet(AIController controller, PlayMode playMode) {
 		if (playMode == PlayMode.NULL) {
 			return 23;
@@ -74,6 +97,13 @@ public class General {
 		}
 	}
 
+	/**
+	 * Returns the game level, the bot is playing
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return int
+	 */
 	public static int getGameLevel(AIController controller) {
 		List<Card> cards = controller.getBot().getHand();
 		// Determine the Jacks
@@ -108,6 +138,13 @@ public class General {
 		return gameLevel;
 	}
 
+	/**
+	 * Returns the initialization of card probabilities, first column is bot
+	 * 
+	 * @author fkleinoe
+	 * @param hand
+	 * @return double[][]
+	 */
 	public static double[][] initializeProbabilities(List<Card> hand) {
 		double prob[][] = new double[32][3];
 		for (int i = 0; i < prob.length; i++) {
