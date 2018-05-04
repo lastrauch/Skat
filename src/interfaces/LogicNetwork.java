@@ -46,7 +46,7 @@ public interface LogicNetwork {
   void sendPlayState(PlayState ps);
 
   // Card played
-  void sendCardPlayed(Card card);
+  void sendCardPlayed(Card card, Player player);
 
   // Exit Game
   void exitGame();
