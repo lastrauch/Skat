@@ -100,9 +100,15 @@ public class AIController implements InGameInterface {
     this.playedCards = new Card[0][3];
     this.cardProbability = new double[32][3];
     this.hasColour = new boolean[4][3];
-    Arrays.fill(this.hasColour, true);
+    for (int i = 0; i < this.hasColour.length; i++) {
+      for (int j = 0; j < this.hasColour[0].length; j++) {
+        this.hasColour[i][j] = true;
+      }
+    }
     this.hasTrump = new boolean[3];
-    Arrays.fill(this.hasTrump, true);
+    for (int i = 0; i < this.hasTrump.length; i++) {
+      this.hasTrump[i] = true;
+    }
     this.existingTrumps = 0;
     this.currentTrick = new ArrayList<Card>();
   }
