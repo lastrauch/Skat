@@ -46,6 +46,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
     return this.gameSettings;
   }
 
+  /**
+   * initializes the cards
+   * 
+   * @author awesch
+   */
   public void initializeCards() {
     cards = new ArrayList<Card>();
     for (int i = 1; i <= 4; i++) {
@@ -354,34 +359,33 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param ps
    * @return
    */
-
-  public int calculateMultiplier(PlayState ps) {
+  public int calculateMultiplier() {
     int result = 1; // 1 for the game
     result += this.calculateMatador(); // + matadors
     // 1 point for schneider
-    if (ps.isSchneider()) {
+    if (this.playState.isSchneider()) {
       result++;
       // 1 point for schwarz
-      if (ps.isSchwarz()) {
+      if (this.playState.isSchwarz()) {
         result++;
       }
     }
 
 
     // possibilities if the Player plays hand
-    if (ps.getHandGame()) {
+    if (this.playState.getHandGame()) {
       // 1 point for hand game
       result++;
       // 1 point for schneider announced
-      if (ps.getSchneiderAnnounced()) {
+      if (this.playState.getSchneiderAnnounced()) {
         result++;
       }
       // 1 point for schwarz announced AND for schneider announced
-      if (ps.getSchwarzAnnounced()) {
+      if (this.playState.getSchwarzAnnounced()) {
         result += 2;;
       }
       // 1 point for open
-      if (ps.isOpen()) {
+      if (this.playState.isOpen()) {
         result += 1;
       }
     }
@@ -396,9 +400,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param ps
    * @return
    */
-  public int calculatePlayValueSuitorGrand(PlayState ps) {
-    int multiplier = this.calculateMultiplier(ps);
-    return ps.getBaseValue() * multiplier;
+  public int calculatePlayValueSuitorGrand() {
+    int multiplier = this.calculateMultiplier();
+    return this.playState.getBaseValue() * multiplier;
   }
 
   /**
@@ -408,22 +412,20 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param ps
    * @return
    */
-  public int calculatePlayValueNull(PlayState ps) {
+  public int calculatePlayValueNull() {
     int result = 23;
-    if (ps.getHandGame()) {
+    if (this.playState.getHandGame()) {
       result = 35;
     }
-    if (ps.isOpen()) {
+    if (this.playState.isOpen()) {
       result = 46;
     }
-    if (ps.getHandGame() && ps.isOpen()) {
+    if (this.playState.getHandGame() && this.playState.isOpen()) {
       result = 59;
     }
     return result;
   }
 
-
-  // !!!!! WE CAN CHANGE IT SO THE METHOD ONLY USES this.playState
   /**
    * calculates the play value with the other methods implemented for the special contracts
    * 
@@ -431,24 +433,27 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param ps
    * @return
    */
-  public int calculatePlayValue(PlayState ps) {
+  public int calculatePlayValue() {
     int result = 0;
-    if (ps.getPlayMode() == PlayMode.NULL) {
-      result = this.calculatePlayValueNull(ps);
+    if (this.playState.getPlayMode() == PlayMode.NULL) {
+      result = this.calculatePlayValueNull();
     } else {
-      result = this.calculatePlayValueSuitorGrand(ps);
+      result = this.calculatePlayValueSuitorGrand();
     }
     return result;
   }
 
+  /**
+   * adds the points to the players score
+   * 
+   * @param points
+   */
   public void addToGamePoints(int points) {
     this.player.addToGamePoints(points);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveLobby(java.util.List, logic.GameSettings)
+  /**
+   * updates the lobby
    */
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
@@ -461,6 +466,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   }
 
+  /**
+   * 
+   * @return
+   */
   public List<Player> getLobby() {
     return this.group;
   }
@@ -471,7 +480,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // secound deal out cards
     this.dealOutCards();
 
-    this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
+//    this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
 
   }
 
@@ -544,10 +553,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveGameSettings(logic.GameSettings)
+  /**
+   * sets the gameSettings
    */
   @Override
   public void receiveGameSettings(GameSettings gs) {
@@ -613,8 +620,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
       }
 
-      // Start Game if Player sits forehand
-      if (this.player.getPosition() == Position.FOREHAND) {
+      // Start Game if Player sits rearhand (rearhand is also the dealer)
+      if (this.player.getPosition() == Position.REARHAND) {
         this.startPlay();
       }
     }
@@ -820,7 +827,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.inGameController.openAuctionWinnerScreen();
       this.playState = this.inGameController.askToSetPlayState(this.playState);
 
-      this.calculatePlayValue(this.playState);
+      this.calculatePlayValue();
       this.netController.sendPlayState(this.playState);
     }
   }
