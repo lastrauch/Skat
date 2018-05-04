@@ -861,10 +861,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveYourTurn() {
-    // TODO Auto-generated method stub
-    Card playedCard = this.playCard(this.playState.getCurrentTrick().getFirstCard());
-    // send played card
-    this.netController.sendCardPlayed(playedCard, this.player);
+    //DIESE METHODE BRAUCHEN WIR VERMUTLICH NICHT
+    
+//    // TODO Auto-generated method stub
+//    Card playedCard = this.playCard(this.playState.getCurrentTrick().getFirstCard());
+//    // send played card
+//    this.netController.sendCardPlayed(playedCard, this.player);
   }
 
   /*
