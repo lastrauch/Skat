@@ -27,7 +27,7 @@ public class General {
 	// getGameLevel(AIController) : int
 	// Returns the game level, the bot is playing
 
-	// with initializeProbabiliteis(List<Card>) : double[][]
+	// with initializeProbabilities(List<Card>) : double[][]
 	// Returns the initialization of card probabilities, first column is bot
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

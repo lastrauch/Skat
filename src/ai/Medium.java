@@ -97,7 +97,7 @@ public class Medium {
 	}
 	
 	/**
-	 * If the AI won the auction, it needs to set a PlayState.
+	 * If the AI won the auction, it needs to return a PlayState.
 	 * 
 	 * @author fkleinoe
 	 * @param controller
@@ -121,22 +121,6 @@ public class Medium {
 		ps.setSchwarzAnnounced(false);
 		ps.setOpen(false);
 
-		controller.setPartner(null);
-		List<Player> opponents = new ArrayList<Player>();
-		for (int i = 0; i < controller.getPlayer().size(); i++) {
-			opponents.add(controller.getPlayer().get(i));
-		}
-		controller.setOpponents(opponents);
-		switch (ps.getPlayMode()) {
-		case GRAND:
-			controller.setExistingTrumps(4);
-		case SUIT:
-			controller.setExistingTrumps(11);
-		case NULL:
-			controller.setExistingTrumps(0);
-		}
-
-		controller.setPlayState(ps);
 		return ps;
 	}
 	
