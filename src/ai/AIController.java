@@ -97,7 +97,7 @@ public class AIController implements InGameInterface {
     this.opponents = new ArrayList<Player>();
     this.bets = new int[3];
     this.maxBet = 0;
-    this.playedCards = new Card[0][3];
+    this.playedCards = new Card[1][3];
     this.cardProbability = new double[32][3];
     this.hasColour = new boolean[4][3];
     for (int i = 0; i < this.hasColour.length; i++) {
@@ -547,7 +547,7 @@ public class AIController implements InGameInterface {
     this.singlePlay = null;
     this.maxBet = 0;
     this.bets = new int[3];
-    this.playedCards = new Card[0][3];
+    this.playedCards = new Card[1][3];
     this.cardProbability = new double[32][3];
     this.partner = null;
     this.opponents = new ArrayList<Player>();
