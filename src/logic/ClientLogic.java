@@ -443,11 +443,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.gameSettings = gs;
     this.group = player;
 
-    // Achtung!!!! Methode noch nicht implementiert
     if (!this.player.isBot()) {
-      for (Player p : this.group) {
-        System.out.println(p.getName());
-      }
       this.guiController.updateLobby(gs, this.group);
     }
 
