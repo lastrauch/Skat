@@ -106,7 +106,7 @@ public class NetworkController implements LogicNetwork {
   }
 
   public void exitGame() {
-    this.client.disconnect();	//TODO Lobby updaten
+    this.client.disconnect();
   }
 
   public void sendKontra() {
