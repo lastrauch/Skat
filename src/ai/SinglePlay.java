@@ -9,7 +9,7 @@ public class SinglePlay{
 	
 	private PlayMode playMode;
 	private Colour colour;
-	private double certainty;
+	private double certainty;  //The certainty to play the specified playmode is in [0;10]
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Constructor
