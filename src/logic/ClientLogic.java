@@ -110,15 +110,33 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   public Card playCard(Card firstCard) {
     Card playedCard = this.player.getHand().get(this.inGameController.askToPlayCard());
+    System.out.println(this.player.getName() + " played " + playedCard.toString());
 
     // the first card is null it is allowed to play any card
-    if (firstCard.equals(null)) {
+    if (firstCard == null) {
+      //update this players hand
+      try {
+        this.player.removeCardFromHand(playedCard);
+      } catch (LogicException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      this.inGameController.updateHand(this.player.getHand());
       return playedCard;
+ 
     }
 
     // if it is not possible to play the card the gui/AI is asked to play another card
     try {
       if (checkIfCardPossible(playedCard, firstCard, this.playState, this.player)) {
+        //update this players hand
+        try {
+          this.player.removeCardFromHand(playedCard);
+        } catch (LogicException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+        this.inGameController.updateHand(this.player.getHand());
         return playedCard;
       } else {
         return this.playCard(firstCard);
@@ -805,7 +823,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.playState = ps;
     this.inGameController.setPlaySettingsAfterAuction(this.playState);
     if (this.player.getPosition().equals(Position.FOREHAND)) {
-      this.netController.sendCardPlayed(this.playCard(null));
+      this.netController.sendCardPlayed(this.playCard(null), this.player);
     }
   }
 
@@ -820,12 +838,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // update current trick
     this.playState.getCurrentTrick().addCard(card);
 
-    // update players hand
-    try {
-      player.removeCardFromHand(card);
-    } catch (LogicException e) {
-      e.printStackTrace();
-    }
+    // update players hand why??
+//    try {
+//      player.removeCardFromHand(card);
+//    } catch (LogicException e) {
+//      e.printStackTrace();
+//    }
     // show update on gui/ai
     this.inGameController.receivedNewCard(card, player);
 
@@ -846,7 +864,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
     Card playedCard = this.playCard(this.playState.getCurrentTrick().getFirstCard());
     // send played card
-    this.netController.sendCardPlayed(playedCard);
+    this.netController.sendCardPlayed(playedCard, this.player);
   }
 
   /*
