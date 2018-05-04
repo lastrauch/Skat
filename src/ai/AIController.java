@@ -375,8 +375,8 @@ public class AIController implements InGameInterface {
     // Update playedCards
     for (int i = 0; i < this.player.size(); i++) {
       if (this.player.get(i).getName().equals(Integer.toString(player.getId()))) {
-        if (this.playedCards[this.playedCards.length][this.player.get(i).getId()] == null) {
-          this.playedCards[this.playedCards.length][this.player.get(i).getId()] = card;
+        if (this.playedCards[this.playedCards.length - 1][this.player.get(i).getId()] == null) {
+          this.playedCards[this.playedCards.length - 1][this.player.get(i).getId()] = card;
           return;
         } else {
           Card[][] playedCards = new Card[this.playedCards.length + 1][3];
