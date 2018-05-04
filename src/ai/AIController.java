@@ -65,7 +65,7 @@ public class AIController implements InGameInterface {
   private List<Player> opponents; // Opponents in this play
   private Player partner; // Partner in this play; If bot is declarer: null
   private int[] bets; // Vector of the last bets by player i.
-  private int maxBet = 0; // Set to -1, if bot doesn't want to play single
+  private int maxBet; // Set to -1, if bot doesn't want to play single
   private SinglePlay singlePlay; // PlayMode and colour the bot wants to play, if so; otherwise null
   private Card[][] playedCards; // Matrix of played Cards. Columns are the players, rows are the
                                 // Cards
@@ -95,6 +95,15 @@ public class AIController implements InGameInterface {
     this.gameSettings = gameSettings;
     this.player = new ArrayList<Player>();
     this.opponents = new ArrayList<Player>();
+    this.bets = new int[3];
+    this.maxBet = 0;
+    this.playedCards = new Card[0][3];
+    this.cardProbability = new double[32][3];
+    this.hasColour = new boolean[4][3];
+    Arrays.fill(this.hasColour, true);
+    this.hasTrump = new boolean[3];
+    Arrays.fill(this.hasTrump, true);
+    this.existingTrumps = 0;
     this.currentTrick = new ArrayList<Card>();
   }
 
