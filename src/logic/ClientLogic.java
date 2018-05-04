@@ -480,7 +480,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // secound deal out cards
     this.dealOutCards();
 
-//    this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
+    // this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
 
   }
 
@@ -979,7 +979,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // }
 
       // check if play is over
-      if (this.playState.getTrickNr() == 10) {
+      if (this.playState.getTrickNr() == 10 || ((this.playState.getPlayMode() == PlayMode.NULL)
+          && Play.calculateWinner(this.playState)[0].isDeclarer())) {
         // calculate winner play
         playWinner = Play.calculateWinner(playState);
 
@@ -1001,7 +1002,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // }
 
         // check if the whole game is over
-        if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()) {
+        if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()
+            || this.checkifGameOverBierlachs()) {
 
           // game is over
           // calculate winner game
@@ -1057,6 +1059,15 @@ public class ClientLogic implements NetworkLogic, AILogic {
         this.playCard(this.playState.getCurrentTrick().getFirstCard());
       }
     }
+  }
+
+  public boolean checkifGameOverBierlachs() {
+    for (Player p : this.playState.getGroup()) {
+      if (p.getGamePoints() >= this.gameSettings.getEndPointsBierlachs()) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public boolean checkIfTrickIsFull() {
