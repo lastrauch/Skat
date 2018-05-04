@@ -72,7 +72,8 @@ public class LobbyOnlineController implements Initializable{
    */
   @FXML
   public void startNewGame() {
-    main.displayGameSettings(GameMode.MULTIPLAYER);
+    main.displayGameSettings();
+    main.getGameSetCon().setGameMode(GameMode.MULTIPLAYER);
   }
   
   

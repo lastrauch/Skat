@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Database {
+  /**
+   * @author dpervane
+   */
   protected Connection connection;
   Properties properties;
   
@@ -19,6 +22,7 @@ public class Database {
    * 
    * @param file
    *            Name und Pfad der Datenbank
+   * @author dpervane
    */
   
   private void connect(String file) {

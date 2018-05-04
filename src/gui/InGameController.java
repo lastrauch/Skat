@@ -12,11 +12,13 @@ import com.jfoenix.controls.JFXTextField;
 import database.ImplementsGuiInterface;
 import interfaces.GuiData;
 import interfaces.InGameInterface;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -48,18 +50,21 @@ public class InGameController implements Initializable, InGameInterface {
   JFXButton qu = new JFXButton();
   JFXButton pass = new JFXButton();
   JFXButton betB = new JFXButton();
+  boolean b = false;
+  boolean notpressed = true;
 
   /**
-   * Initialize what chooseTrumPScreen
+   * Initialize what auctionWinnerScreen
+   * 
    * @author lstrauch
    */
   AnchorPane paneAuc = new AnchorPane();
-  JFXButton diamonds = new JFXButton();
-  JFXButton hearts = new JFXButton();
-  JFXButton spades = new JFXButton();
-  JFXButton clubs = new JFXButton();
-  JFXButton nullG = new JFXButton();
-  JFXButton grand = new JFXButton();
+  JFXRadioButton diamonds = new JFXRadioButton();
+  JFXRadioButton hearts = new JFXRadioButton();
+  JFXRadioButton spades = new JFXRadioButton();
+  JFXRadioButton clubs = new JFXRadioButton();
+  JFXRadioButton nullG = new JFXRadioButton();
+  JFXRadioButton grand = new JFXRadioButton();
   JFXButton submit = new JFXButton();
   JFXRadioButton ouvert = new JFXRadioButton();
   JFXRadioButton schneider = new JFXRadioButton();
@@ -69,6 +74,7 @@ public class InGameController implements Initializable, InGameInterface {
   HBox boxWin3 = new HBox();
   VBox vBoxWin = new VBox();
   Label labelWin = new Label();
+
 
 
   /**
@@ -83,6 +89,11 @@ public class InGameController implements Initializable, InGameInterface {
   private ImageView sk1 = new ImageView();
   private ImageView sk2 = new ImageView();
   private JFXButton ok = new JFXButton();
+  List<Card> skatLogic = new ArrayList<Card>();
+  boolean decidepressed = false;
+  boolean wantskat = false;
+  boolean skatpressed = false;
+  boolean setSettings = false;
 
 
   /**
@@ -95,10 +106,12 @@ public class InGameController implements Initializable, InGameInterface {
   private GuiData inte = new ImplementsGuiInterface();
   private List<Card> cardlist = new ArrayList<Card>();
   private Image noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
-  ArrayList<Card> skat = new ArrayList<Card>();
+  private List<Card> skat = new ArrayList<Card>();
   Card p1 = new Card(Colour.CLUBS, Number.SEVEN);
   Card p2 = new Card(Colour.CLUBS, Number.EIGHT);
   Boolean[] da = new Boolean[2];
+  private boolean clicked = false;
+  int[] ret = new int[1];
 
 
 
@@ -127,7 +140,7 @@ public class InGameController implements Initializable, InGameInterface {
   @FXML
   private AnchorPane mainPane;
   @FXML
-  private Label position;
+  private Label pos;
   @FXML
   private JFXButton sendB;
   @FXML
@@ -136,6 +149,10 @@ public class InGameController implements Initializable, InGameInterface {
   private JFXTextArea chatM;
   @FXML
   private JFXTextField textM;
+  @FXML
+  private Label labelLeft, labelRight, labelMe;
+  @FXML
+  private ImageView profilepictureLeft, profilepictureRight;
 
 
 
@@ -161,10 +178,12 @@ public class InGameController implements Initializable, InGameInterface {
     // this.implements = new ImplementsInGameInterface();
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
    * 
-   * initializes attributes and enabeles Buttonlistener
+   *      initializes attributes and enabeles Buttonlistener
    * @author lstrauch
    **/
   @Override
@@ -201,7 +220,7 @@ public class InGameController implements Initializable, InGameInterface {
 
     da[0] = true;
     da[1] = true;
-//    askForBet(18);
+    // askForBet(18);
     displayChatClosed();
     chatButtonListener();
   }
@@ -259,7 +278,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void showChat() {
     JFXTextField rMes = new JFXTextField();
-//    rMes.setText((LoginController.interfGL.getChatText()));
+    // rMes.setText((LoginController.interfGL.getChatText()));
     chatM.appendText(rMes + "\n");
 
   }
@@ -288,71 +307,72 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    */
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#startPlay(java.util.List, logic.Position)
    * 
    * @author lstrauch
    */
   @Override
   public void startPlay(List<Card> hand, Position position) {
-    // TODO Auto-generated method stub
-    System.out.println("Hand 0: "+hand.get(0).toString());
-    c1.setImage(LoginController.interfGD.getImage(hand.get(0).getColour().toString().toLowerCase(),
-        (hand.get(0).getNumber().toString().toLowerCase())));
-    c2.setImage(LoginController.interfGD.getImage(hand.get(1).getColour().toString().toLowerCase(),
-        (hand.get(1).getNumber().toString().toLowerCase())));
-    c3.setImage(LoginController.interfGD.getImage(hand.get(2).getColour().toString().toLowerCase(),
-        (hand.get(2).getNumber().toString().toLowerCase())));
-    c4.setImage(LoginController.interfGD.getImage(hand.get(3).getColour().toString().toLowerCase(),
-        (hand.get(3).getNumber().toString().toLowerCase())));
-    c5.setImage(LoginController.interfGD.getImage(hand.get(4).getColour().toString().toLowerCase(),
-        (hand.get(4).getNumber().toString().toLowerCase())));
-    c6.setImage(LoginController.interfGD.getImage(hand.get(5).getColour().toString().toLowerCase(),
-        (hand.get(5).getNumber().toString().toLowerCase())));
-    c7.setImage(LoginController.interfGD.getImage(hand.get(6).getColour().toString().toLowerCase(),
-        (hand.get(6).getNumber().toString().toLowerCase())));
-    c8.setImage(LoginController.interfGD.getImage(hand.get(7).getColour().toString().toLowerCase(),
-        (hand.get(7).getNumber().toString().toLowerCase())));
-    c9.setImage(LoginController.interfGD.getImage(hand.get(8).getColour().toString().toLowerCase(),
-        (hand.get(8).getNumber().toString().toLowerCase())));
-    c10.setImage(LoginController.interfGD.getImage(hand.get(9).getColour().toString().toLowerCase(),
-        (hand.get(9).getNumber().toString().toLowerCase())));
-    this.position.setText(position.toString());
-    displayChatScreenOpen();
-    cardlist = hand;
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        pos.setText(position.toString());
+        c1.setImage(
+            LoginController.interfGD.getImage(hand.get(0).getColour().toString().toLowerCase(),
+                (hand.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(
+            LoginController.interfGD.getImage(hand.get(1).getColour().toString().toLowerCase(),
+                (hand.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(
+            LoginController.interfGD.getImage(hand.get(2).getColour().toString().toLowerCase(),
+                (hand.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(
+            LoginController.interfGD.getImage(hand.get(3).getColour().toString().toLowerCase(),
+                (hand.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(
+            LoginController.interfGD.getImage(hand.get(4).getColour().toString().toLowerCase(),
+                (hand.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(
+            LoginController.interfGD.getImage(hand.get(5).getColour().toString().toLowerCase(),
+                (hand.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(
+            LoginController.interfGD.getImage(hand.get(6).getColour().toString().toLowerCase(),
+                (hand.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(
+            LoginController.interfGD.getImage(hand.get(7).getColour().toString().toLowerCase(),
+                (hand.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(
+            LoginController.interfGD.getImage(hand.get(8).getColour().toString().toLowerCase(),
+                (hand.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(
+            LoginController.interfGD.getImage(hand.get(9).getColour().toString().toLowerCase(),
+                (hand.get(9).getNumber().toString().toLowerCase())));
+        cardlist = hand;
+
+        // cardlist.set(0, null);
+        // cardlist.set(1, hand.get(0));
+        // cardlist.set(2, hand.get(1));
+        // cardlist.set(3, hand.get(2));
+        // cardlist.set(4, hand.get(3));
+        // cardlist.set(5, hand.get(4));
+        // cardlist.set(6, hand.get(5));
+        // cardlist.set(7, hand.get(6));
+        // cardlist.set(8, hand.get(7));
+        // cardlist.set(9, hand.get(8));
+        // cardlist.set(10, hand.get(9));
+        // cardlist.set(11, hand.get(10));
+      }
+
+    });
 
   }
 
-
-  /** (non-Javadoc)
-   * @see interfaces.InGameInterface#showSecoundsLeftToPlayCard(int)
+  /**
+   * (non-Javadoc)
    * 
-   * @author lstrauch
-   */
-  @Override
-  public void showSecoundsLeftToPlayCard(int seconds) {
-    // TODO Auto-generated method stub
-
-  }
-
-
-  /** (non-Javadoc)
-   * @see interfaces.InGameInterface#setPlaySettings(logic.PlayState)
-   * 
-   * @author lstrauch
-   */
-  @Override
-  public void setPlaySettings(PlayState ps) {
-    // TODO Auto-generated method stub
-    deletePane(paneAuc);
-    displayAuctionWinnerScreen();
-    ButtonListenerPlaySettings(ps);
-
-  }
-
-
-
-  /** (non-Javadoc)
    * @see interfaces.InGameInterface#askToPlayCard()
    * 
    * @author lstrauch
@@ -360,35 +380,12 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public int askToPlayCard() {
     // TODO Auto-generated method stub
-    return MouseHandler();
+    while (clicked == false) {
+      MouseHandler();
+    }
+    return ret[0];
   }
 
-  /** (non-Javadoc)
-   * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
-   * 
-   * @author lstrauch
-   */
-//  @Override
-//  public void askToTakeUpSkat(PlayState ps) {
-//    // TODO Auto-generated method stub
-//    deletePane(paneBet);
-//    displayWannaTakeSkat();
-//    ButtonListenrWantSkat(ps);
-//
-//  }
-//
-//  /** (non-Javadoc)
-//   * @see interfaces.InGameInterface#askForBet(int)
-//   * 
-//   * @author lstrauch
-//   */
-//  @Override
-//  public boolean askForBet(int bet) {
-//    // TODO Auto-generated method stub
-//    betB.setText(String.valueOf(bet));
-//    displayAuctionScreen();
-//    return ButtonListener();
-//  }
 
 
   /**
@@ -400,7 +397,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#updateHand(java.util.List)
    * 
    * @author lstrauch
@@ -413,29 +412,31 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /** (non-Javadoc)
-   * @see interfaces.InGameInterface#updateTrick(java.util.List)
+  // /**
+  // * (non-Javadoc)
+  // *
+  // * @see interfaces.InGameInterface#updateTrick(java.util.List)
+  // *
+  // * @author lstrauch
+  // */
+  // @Override
+  // public void updateTrick(List<Card> currentTrick) {
+  // // TODO Auto-generated method stub
+  // if (currentTrick.get(0) != null) {
+  // s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+  // (currentTrick.get(1).getNumber().toString().toLowerCase())));
+  // } else if (currentTrick.get(0) != null) {
+  // s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+  // (currentTrick.get(0).getNumber().toString().toLowerCase())));
+  // } else if (currentTrick.get(2) != null) {
+  // s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+  // (currentTrick.get(0).getNumber().toString().toLowerCase())));
+  // }
+  // }
+
+  /**
+   * (non-Javadoc)
    * 
-   * @author lstrauch
-   */
-  @Override
-  public void updateTrick(List<Card> currentTrick) {
-    // TODO Auto-generated method stub
-    if (currentTrick.get(0) != null) {
-      s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(1).getNumber().toString().toLowerCase())));
-    } else if (currentTrick.get(0) != null) {
-      s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-    } else if (currentTrick.get(2) != null) {
-      s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-    }
-
-
-  }
-
-  /** (non-Javadoc)
    * @see interfaces.InGameInterface#stopGame(java.lang.String)
    * 
    * @author lstrauch
@@ -446,7 +447,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showWinnerTrick(logic.Player)
    * 
    * @author lstrauch
@@ -457,7 +460,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showWinnerPlay(logic.Player, logic.Player)
    * 
    * @author lstrauch
@@ -468,7 +473,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showWinnerGame(logic.Player)
    * 
    * @author lstrauch
@@ -532,7 +539,7 @@ public class InGameController implements Initializable, InGameInterface {
     labelBet.setPrefHeight(53);
     labelBet.setLayoutX(88);
     labelBet.setLayoutY(36);
-    labelBet.setText("Midde");
+    labelBet.setText("");
     labelBet.setFont(Font.font("System", FontWeight.BOLD, 36));
     labelBet.setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(labelBet, 0.0);
@@ -560,6 +567,8 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    */
   public void displayAuctionWinnerScreen() {
+    ToggleGroup g1 = new ToggleGroup();
+
     paneAuc.setPrefHeight(315);
     paneAuc.setPrefWidth(582);
     paneAuc.setLayoutX(334);
@@ -587,6 +596,12 @@ public class InGameController implements Initializable, InGameInterface {
     clubs.setText("Clubs");
     clubs.setFont(Font.font("System", FontWeight.BOLD, 20));
     clubs.setStyle("-fx-background-color: tan;");
+    diamonds.setToggleGroup(g1);
+    hearts.setToggleGroup(g1);
+    spades.setToggleGroup(g1);
+    clubs.setToggleGroup(g1);
+    grand.setToggleGroup(g1);
+    nullG.setToggleGroup(g1);
 
     boxWin1.getChildren().add(diamonds);
     boxWin1.getChildren().add(hearts);
@@ -720,20 +735,9 @@ public class InGameController implements Initializable, InGameInterface {
     skatHbox.setLayoutX(118);
     skatHbox.setLayoutY(158);
 
-    ok.setPrefHeight(31);
-    ok.setPrefWidth(67);
-    ok.setLayoutX(501);
-    ok.setLayoutY(270);
-    ok.setText("OK");
-    ok.setFont(Font.font("System", FontWeight.BOLD, 15));
-    ok.setButtonType(ButtonType.RAISED);
-
-
 
     skatPane.getChildren().add(skatLabel);
     skatPane.getChildren().add(skatHbox);
-    skatPane.getChildren().add(ok);
-
     mainPane.getChildren().add(skatPane);
   }
 
@@ -757,15 +761,29 @@ public class InGameController implements Initializable, InGameInterface {
     sk1.setLayoutX(83);
     sk1.setLayoutY(37);
     sk1.setStyle("-fx-background-color: black");
+    sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
+        ps.getSkat()[1].getNumber().toString().toLowerCase()));
 
     sk2.setFitHeight(227);
     sk2.setFitWidth(182);
     sk2.setLayoutX(326);
     sk2.setLayoutY(37);
     sk2.setStyle("-fx-background-color: black");
+    sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
+        ps.getSkat()[0].getNumber().toString().toLowerCase()));
+
+    ok.setPrefHeight(31);
+    ok.setPrefWidth(67);
+    ok.setLayoutX(501);
+    ok.setLayoutY(270);
+    ok.setText("OK");
+    ok.setFont(Font.font("System", FontWeight.BOLD, 15));
+    ok.setButtonType(ButtonType.RAISED);
+
 
     handPane.getChildren().add(sk1);
     handPane.getChildren().add(sk2);
+    handPane.getChildren().add(ok);
 
     mainPane.getChildren().add(handPane);
   }
@@ -913,76 +931,70 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    */
 
-  public int MouseHandler() {
-    final int[] ret = new int[1];
+  public void MouseHandler() {
+
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c1.getImage();
-        // c1.setImage(null);
-        AnzStichblatt();
         ret[0] = 0;
+        cardlist.remove(0);
+        clicked = true;
       }
     });
     c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c2.getImage();
-        // c2.setImage(null);
-        AnzStichblatt();
         ret[0] = 1;
+        cardlist.remove(1);
+
+        clicked = true;
       }
     });
     c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c3.getImage();
-        // c3.setImage(null);
-        AnzStichblatt();
         ret[0] = 2;
+        cardlist.remove(2);
+        clicked = true;
       }
     });
     c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c4.getImage();
-        // c4.setImage(null);
-        AnzStichblatt();
         ret[0] = 3;
+        cardlist.remove(3);
+        clicked = true;
       }
     });
     c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c5.getImage();
-        // c5.setImage(null);
-        AnzStichblatt();
         ret[0] = 4;
+        cardlist.remove(4);
+        clicked = true;
       }
     });
     c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c6.getImage();
-        // c6.setImage(null);
-        AnzStichblatt();
         ret[0] = 5;
+        cardlist.remove(5);
+        clicked = true;
       }
     });
     c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c7.getImage();
-        // c7.setImage(null);
-        AnzStichblatt();
         ret[0] = 6;
+        cardlist.remove(6);
+        clicked = true;
 
       }
     });
@@ -990,33 +1002,29 @@ public class InGameController implements Initializable, InGameInterface {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c8.getImage();
-        // c8.setImage(null);
-        AnzStichblatt();
         ret[0] = 7;
+        cardlist.remove(7);
+        clicked = true;
       }
     });
     c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c9.getImage();
-        // c9.setImage(null);
-        AnzStichblatt();
         ret[0] = 8;
+        cardlist.remove(8);
+        clicked = true;
       }
     });
     c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c10.getImage();
-        // c10.setImage(null);
-        AnzStichblatt();
         ret[0] = 9;
+        cardlist.remove(9);
+        clicked = true;
       }
     });
-    return ret[0];
   }
 
 
@@ -1025,9 +1033,7 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    * @return
    */
-  public boolean ButtonListener() {
-    final boolean[] ret = new boolean[1];
-
+  public void ButtonListener() {
     qu.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -1037,23 +1043,26 @@ public class InGameController implements Initializable, InGameInterface {
     pass.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ret[0] = false;
-        displayWannaTakeSkat();
+        b = false;
+        notpressed = false;
+
+        // displayWannaTakeSkat();
       }
     });
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ret[0] = true;
+        // displayWannaTakeSkat();
+        notpressed = false;
+        b = true;
+        // System.out.println("RET: "+ret[0]);
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
-      public void handle(MouseEvent e) {
-
-      }
+      public void handle(MouseEvent e) {}
     });
-    return ret[0];
+    // return ret[0];
   }
 
 
@@ -1067,11 +1076,13 @@ public class InGameController implements Initializable, InGameInterface {
    * @param ps
    */
   public PlayState ButtonListenerPlaySettings(PlayState ps) {
+    boolean[] pressed = new boolean[1];
     diamonds.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.DIAMONDS);
+        pressed[0] = true;
       }
     });
     hearts.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1079,6 +1090,7 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.HEARTS);
+        pressed[0] = true;
       }
     });
     clubs.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1086,6 +1098,7 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.CLUBS);
+        pressed[0] = true;
       }
     });
     spades.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1093,18 +1106,21 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.SPADES);
+        pressed[0] = true;
       }
     });
     grand.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.GRAND);
+        pressed[0] = true;
       }
     });
     nullG.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.NULL);
+        pressed[0] = true;
       }
     });
     ouvert.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1125,7 +1141,15 @@ public class InGameController implements Initializable, InGameInterface {
         ps.setSchwarzAnnounced(true);
       }
     });
-    
+    submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        if (pressed[0] == true) {
+          setSettings = true;
+        }
+      }
+    });
+
     return ps;
   }
 
@@ -1138,19 +1162,14 @@ public class InGameController implements Initializable, InGameInterface {
   /**
    * @author lstrauch
    * @param ps
+   * @return
    */
-  public void ButtonListenrWantSkat(PlayState ps) {
+  public void ButtonListenrWantSkat() {
     yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ps.setHandGame(true);
-        displaySwitchSkat(ps);
-        sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
-            ps.getSkat()[0].getNumber().toString().toLowerCase()));
-        sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
-            ps.getSkat()[1].getNumber().toString().toLowerCase()));
-        skat.add(ps.getSkat()[0]);
-        skat.add(ps.getSkat()[1]);
+        wantskat = true;
+        decidepressed = true;
 
         /**
          * Testzwecke:
@@ -1164,8 +1183,9 @@ public class InGameController implements Initializable, InGameInterface {
     no.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ps.setHandGame(false);
-        displayAuctionWinnerScreen();
+        wantskat = false;
+        decidepressed = true;
+        // displayAuctionWinnerScreen();
       }
     });
   }
@@ -1178,22 +1198,27 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    */
   public void chatButtonListener() {
-    sendB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    Platform.runLater(new Runnable() {
       @Override
-      public void handle(MouseEvent e) {
-        sendChat();
-      }
-    });
-    pf.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      public void run() {
+        sendB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent e) {
+            sendChat();
+          }
+        });
+        pf.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-      @Override
-      public void handle(MouseEvent event) {
-        if (pf.getImage().equals(pfUnten)) {
-          displayChatScreenOpen();
-        } else {
-          displayChatClosed();
-        }
-        System.out.println(pf.getImage());
+          @Override
+          public void handle(MouseEvent event) {
+            if (pf.getImage().equals(pfUnten)) {
+              displayChatScreenOpen();
+            } else {
+              displayChatClosed();
+            }
+            System.out.println(pf.getImage());
+          }
+        });
       }
     });
   }
@@ -1207,6 +1232,7 @@ public class InGameController implements Initializable, InGameInterface {
    * @param ps
    */
   public void switchSkatListener(PlayState ps) {
+
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
@@ -1215,13 +1241,13 @@ public class InGameController implements Initializable, InGameInterface {
           if (da[0] == false) {
             sk1.setImage(c1.getImage());
             skat.set(0, cardlist.get(1));
-            cardlist.remove(cardlist.get(1));
+            cardlist.remove(cardlist.get(0));
             LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(c1.getImage());
-            skat.set(1, cardlist.get(1));
+            skat.set(1, cardlist.get(0));
             cardlist.remove(cardlist.get(1));
             LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
@@ -1230,8 +1256,8 @@ public class InGameController implements Initializable, InGameInterface {
         } else if (cardlist.size() == 12) {
           // Skat leer
           sk1.setImage(c1.getImage());
-          skat.set(0, cardlist.get(1));
-          cardlist.remove(cardlist.get(1));
+          skat.set(0, cardlist.get(0));
+          cardlist.remove(cardlist.get(0));
           LoginController.interfGL.sortHand(ps, cardlist);
           displayCards(cardlist.size(), cardlist);
           da[0] = true;
@@ -1590,18 +1616,20 @@ public class InGameController implements Initializable, InGameInterface {
       }
     });
     sk1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
       @Override
       public void handle(MouseEvent event) {
         if (cardlist.size() == 10) {
+          System.out.println("Länge 10");
           // Beide Karten auf dem Skat
           cardlist.add(ps.getSkat()[0]);
           // cardlist.add(0, skat.get(0));
           LoginController.interfGL.sortHand(ps, cardlist);
+          System.out.println("Cardlist size: " + cardlist.size());
           displayCards(cardlist.size(), cardlist);
           sk1.setImage(noCard);
           da[0] = false;
         } else if (cardlist.size() == 11) {
+          System.out.println("Länge 11");
           cardlist.add(11, ps.getSkat()[0]);
           // cardlist.add(11, skat.get(0));
           LoginController.interfGL.sortHand(ps, cardlist);
@@ -1634,7 +1662,196 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
+    ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        skatLogic.add(0, skat.get(0));
+        skatLogic.add(1, skat.get(1));
+        skatpressed = true;
+      }
+    });
+
   }
+
+  public void rearrangeCards(int size, List<Card> list) {
+    switch (size) {
+      case 1:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(null);
+        c3.setImage(null);
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 2:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(null);
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 3:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+      case 4:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 5:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 6:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 7:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 8:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 9:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
+            (list.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(null);
+        break;
+      case 10:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
+            (list.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
+            (list.get(9).getNumber().toString().toLowerCase())));
+        break;
+    }
+  }
+
 
 
   /**
@@ -1643,113 +1860,384 @@ public class InGameController implements Initializable, InGameInterface {
    * @param cardlist2
    */
   public void displayCards(int anz, List<Card> cardlist2) {
-    switch (anz) {
-      case (10):
-        c1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
-            (cardlist2.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
-            (cardlist2.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
-            (cardlist2.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
-            (cardlist2.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
-            (cardlist2.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
-            (cardlist2.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
-            (cardlist2.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
-            (cardlist2.get(7).getNumber().toString().toLowerCase())));
-        c9.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
-            (cardlist2.get(8).getNumber().toString().toLowerCase())));
-        c10.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
-            (cardlist2.get(9).getNumber().toString().toLowerCase())));
-        break;
-      case (11):
-        extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
-            (cardlist2.get(0).getNumber().toString().toLowerCase())));
-        c1.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
-            (cardlist2.get(1).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
-            (cardlist2.get(2).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
-            (cardlist2.get(3).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
-            (cardlist2.get(4).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
-            (cardlist2.get(5).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
-            (cardlist2.get(6).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
-            (cardlist2.get(7).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
-            (cardlist2.get(8).getNumber().toString().toLowerCase())));
-        c9.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
-            (cardlist2.get(9).getNumber().toString().toLowerCase())));
-        c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
-            (cardlist2.get(10).getNumber().toString().toLowerCase())));
-        break;
-      case (12):
-        extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
-            (cardlist2.get(0).getNumber().toString().toLowerCase())));
-        c1.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
-            (cardlist2.get(1).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
-            (cardlist2.get(2).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
-            (cardlist2.get(3).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
-            (cardlist2.get(4).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
-            (cardlist2.get(5).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
-            (cardlist2.get(6).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
-            (cardlist2.get(7).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
-            (cardlist2.get(8).getNumber().toString().toLowerCase())));
-        c9.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
-            (cardlist2.get(9).getNumber().toString().toLowerCase())));
-        c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
-            (cardlist2.get(10).getNumber().toString().toLowerCase())));
-        extra2.setImage(inte.getImage(cardlist2.get(11).getColour().toString().toLowerCase(),
-            (cardlist2.get(11).getNumber().toString().toLowerCase())));
-        break;
-    }
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        switch (anz) {
+          case (10):
+            extra1.setImage(null);
+            c1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
+                (cardlist2.get(0).getNumber().toString().toLowerCase())));
+            c2.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
+                (cardlist2.get(1).getNumber().toString().toLowerCase())));
+            c3.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
+                (cardlist2.get(2).getNumber().toString().toLowerCase())));
+            c4.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
+                (cardlist2.get(3).getNumber().toString().toLowerCase())));
+            c5.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
+                (cardlist2.get(4).getNumber().toString().toLowerCase())));
+            c6.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
+                (cardlist2.get(5).getNumber().toString().toLowerCase())));
+            c7.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
+                (cardlist2.get(6).getNumber().toString().toLowerCase())));
+            c8.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
+                (cardlist2.get(7).getNumber().toString().toLowerCase())));
+            c9.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
+                (cardlist2.get(8).getNumber().toString().toLowerCase())));
+            c10.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
+                (cardlist2.get(9).getNumber().toString().toLowerCase())));
+            extra2.setImage(null);
+            break;
+          case (11):
+            System.out.println("11");
+            extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
+                (cardlist2.get(0).getNumber().toString().toLowerCase())));
+            c1.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
+                (cardlist2.get(1).getNumber().toString().toLowerCase())));
+            c2.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
+                (cardlist2.get(2).getNumber().toString().toLowerCase())));
+            c3.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
+                (cardlist2.get(3).getNumber().toString().toLowerCase())));
+            c4.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
+                (cardlist2.get(4).getNumber().toString().toLowerCase())));
+            c5.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
+                (cardlist2.get(5).getNumber().toString().toLowerCase())));
+            c6.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
+                (cardlist2.get(6).getNumber().toString().toLowerCase())));
+            c7.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
+                (cardlist2.get(7).getNumber().toString().toLowerCase())));
+            c8.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
+                (cardlist2.get(8).getNumber().toString().toLowerCase())));
+            c9.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
+                (cardlist2.get(9).getNumber().toString().toLowerCase())));
+            c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
+                (cardlist2.get(10).getNumber().toString().toLowerCase())));
+            extra2.setImage(null);
+            break;
+          case (12):
+            extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
+                (cardlist2.get(0).getNumber().toString().toLowerCase())));
+            c1.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
+                (cardlist2.get(1).getNumber().toString().toLowerCase())));
+            c2.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
+                (cardlist2.get(2).getNumber().toString().toLowerCase())));
+            c3.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
+                (cardlist2.get(3).getNumber().toString().toLowerCase())));
+            c4.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
+                (cardlist2.get(4).getNumber().toString().toLowerCase())));
+            c5.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
+                (cardlist2.get(5).getNumber().toString().toLowerCase())));
+            c6.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
+                (cardlist2.get(6).getNumber().toString().toLowerCase())));
+            c7.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
+                (cardlist2.get(7).getNumber().toString().toLowerCase())));
+            c8.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
+                (cardlist2.get(8).getNumber().toString().toLowerCase())));
+            c9.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
+                (cardlist2.get(9).getNumber().toString().toLowerCase())));
+            c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
+                (cardlist2.get(10).getNumber().toString().toLowerCase())));
+            extra2.setImage(inte.getImage(cardlist2.get(11).getColour().toString().toLowerCase(),
+                (cardlist2.get(11).getNumber().toString().toLowerCase())));
+            break;
+        }
+      }
+    });
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#askToRekontra()
    */
   @Override
   public boolean askToRekontra() {
     // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+
+      }
+    });
     return false;
   }
 
-  /* (non-Javadoc)
-   * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
+  /**
+   * Auction
+   */
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openAskForBet(int)
    */
   @Override
-  public PlayState askToTakeUpSkat(PlayState ps) {
+  public void openAskForBet(int bet) {
     // TODO Auto-generated method stub
-    deletePane(paneBet);
-    displayWannaTakeSkat();
-    ButtonListenrWantSkat(ps);
-    return null;
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        displayAuctionScreen();
+        betB.setText(String.valueOf(bet));
+      }
+    });
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#askForBet(int, logic.Player)
    */
   @Override
   public boolean askForBet(int bet, Player lastBet) {
-    //     deletePane(paneBet);
-    betB.setText(String.valueOf(bet));
-    displayAuctionScreen();
-    return ButtonListener();
+    // deletePane(paneBet);
+    while (notpressed) {
+      ButtonListener();
+    }
+    notpressed = true;
+    return b;
   }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#updateBet(int)
+   */
+  @Override
+  public void updateBet(int bet) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        betB.setText(String.valueOf(bet));
+      }
+    });
+
+  }
+
+
+  /**
+   * Do you want to take the Skat?
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openTakeUpSkat()
+   */
+  @Override
+  public void openTakeUpSkat() {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        displayWannaTakeSkat();
+      }
+    });
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askToTakeUpSkat()
+   */
+  @Override
+  public boolean askToTakeUpSkat() {
+    // TODO Auto-generated method stub
+    while (decidepressed == false) {
+      ButtonListenrWantSkat();
+    }
+    decidepressed = false;
+    return wantskat;
+  }
+
+
+
+  /**
+   * Declarer Stack
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openSwitchSkat(logic.PlayState)
+   */
+  @Override
+  public void openSwitchSkat(PlayState ps) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(skatPane);
+        displaySwitchSkat(ps);
+      }
+    });
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#switchSkat(logic.PlayState)
+   */
+  @Override
+  public List<Card> switchSkat(PlayState ps) {
+    // TODO Auto-generated method stub
+    skat.add(ps.getSkat()[0]);
+    skat.add(ps.getSkat()[1]);
+    while (skatpressed == false) {
+      switchSkatListener(ps);
+    }
+    skatpressed = false;
+    return skatLogic;
+  }
+
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openAuctionWinnerScreen()
+   */
+  @Override
+  public void openAuctionWinnerScreen() {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(paneBet);
+        deletePane(skatPane);
+        deletePane(handPane);
+        displayAuctionWinnerScreen();
+      }
+    });
+  }
+
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#setPlaySettingsAfterAuction(logic.PlayState)
+   */
+  @Override
+  public void setPlaySettingsAfterAuction(PlayState ps) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(paneAuc);
+        if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+          if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+            labelLeft.setText(ps.getTrump().toString());
+          } else {
+            labelLeft.setText(ps.getTrump().toString());
+          }
+        } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+          if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+            labelRight.setText(ps.getTrump().toString());
+          } else {
+            labelLeft.setText(ps.getTrump().toString());
+          }
+        } else {
+          if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+            labelRight.setText(ps.getTrump().toString());
+          } else {
+            labelLeft.setText(ps.getTrump().toString());
+          }
+        }
+      }
+    });
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#itsYourTurn()
+   */
+  @Override
+  public void itsYourTurn() {
+    // TODO Auto-generated method stub
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#showSecondsLeftToPlayCard(int)
+   */
+  @Override
+  public void showSecondsLeftToPlayCard(int seconds) {
+    // TODO Auto-generated method stub
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#receivedNewBet(int, logic.Player)
+   */
+  @Override
+  public void receivedNewBet(int bet, Player player) {
+    // TODO Auto-generated method stub
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#receivedNewCard(logic.Card, logic.Player)
+   */
+  @Override
+  public void receivedNewCard(Card card, Player player) {
+    // TODO Auto-generated method stub
+    rearrangeCards(cardlist.size(), cardlist);
+    if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+      if (player.getPosition() == Position.MIDDLEHAND) {
+        s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else if (player.getPosition() == Position.REARHAND) {
+        s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else {
+        s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      }
+    } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+      if (player.getPosition() == Position.MIDDLEHAND) {
+        s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else if (player.getPosition() == Position.FOREHAND) {
+        s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else {
+        s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      }
+    } else {
+      if (player.getPosition() == Position.REARHAND) {
+        s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else if (player.getPosition() == Position.FOREHAND) {
+        s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else {
+        s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      }
+    }
+
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#askToSetPlayState(logic.PlayState)
+   */
+  @Override
+  public PlayState askToSetPlayState(PlayState ps) {
+    // TODO Auto-generated method stub
+    while (setSettings == false) {
+      ButtonListenerPlaySettings(ps);
+
+    }
+    return ps;
+  }
+
 
 
 }

@@ -26,12 +26,12 @@ public class GameSettingsController implements Initializable {
   /**
    * @author lstrauch
    */
-  private int[] rounds;
-  private CountRule[] cr;
+  private int[] rounds = new int[1];
+  private CountRule[] cr = new CountRule[1];
   private boolean[] en = new boolean[1];
   private boolean[] enT = new boolean[1];
   private int setLimitedTime;
-  private int numbOfPl;
+  private int numbOfPl = 0;
   private JFXTextField sec = new JFXTextField();
   protected GameSettings gs = new GameSettings();
   private String ms;
@@ -84,7 +84,6 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    */
   public void numberOfRounds() {
-    rounds = new int[1];
     r1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -115,7 +114,8 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    */
   public void countRule() {
-    cr = new CountRule[1];
+    
+    
     sSys.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -235,7 +235,7 @@ public class GameSettingsController implements Initializable {
    * @author lstrauch
    * @param gm
    */
-  public void setMode(GameMode gm) {
+  public void setGameMode(GameMode gm) {
     this.gm = gm;
   }
 
@@ -285,23 +285,15 @@ public class GameSettingsController implements Initializable {
         gs.setTimeLimit(setLimitedTime());
       }
       ms = message.getText();
-      // LoginController.interfGL.hostGame(ms, gs);
-      // LobbyController.getGameSettings(gs);
-      if (gm.equals(GameMode.SINGLEPLAYER)) {
-        // guiCon.displayLobby(GameMode.SINGLEPLAYER);
+      if (GuiController.prevScreen != 2) {
+        setGameMode(GameMode.SINGLEPLAYER);
       } else {
-        // guiCon.displayLobby(GameMode.MULTIPLAYER);
+        setGameMode(GameMode.MULTIPLAYER);
       }
-      guiCon.displayLobby(gs);
+      guiCon.displayLobby();
       if(guiCon.getLobbyCon() != null) {
-        System.out.println("lobbycon: "+ guiCon.getLobbyCon());
-        if(GuiController.prevScreen != 2) {
-          LoginController.interfGL.hostGame(ms, gs);
-          System.out.println("singleplayer");
-        }else {
-          guiCon.displayLobby(gs);
-          System.out.println("multiplayer");
-        }
+        System.out.println("gs screen Gamesettings: " + gs.getNrOfPlays() + "  " + gs.getCountRule());
+        LoginController.interfGL.hostGame(ms, gs);
       }
     }
 
@@ -309,6 +301,10 @@ public class GameSettingsController implements Initializable {
 
   public GameSettings getGS() {
     return gs;
+  }
+
+  public GameMode getGM() {
+    return gm;
   }
 
   /**
@@ -325,16 +321,22 @@ public class GameSettingsController implements Initializable {
     r3.setToggleGroup(g1);
     r18.setToggleGroup(g1);
     r36.setToggleGroup(g1);
-
+    g1.selectToggle(r3);
+  
     sSys.setToggleGroup(g2);
     bSys.setToggleGroup(g2);
     nSys.setToggleGroup(g2);
+    g2.selectToggle(bSys);
 
     n3.setToggleGroup(g3);
     n4.setToggleGroup(g3);
+    g3.selectToggle(n3);
 
     en[0] = false;
     enT[0] = false;
+    rounds[0] = 3;
+    numbOfPl = 3;
+    cr[0] = CountRule.BIERLACHS;
 
     System.out.println(LoginController.interfGL.toString());
 

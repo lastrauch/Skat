@@ -29,6 +29,12 @@ public interface InGameInterface {
   public boolean askToRekontra();
 
   /**
+   * only relevant for the ui, tells the player he's supposed to play a card, used before
+   * askToPlayCard
+   */
+  public void itsYourTurn();
+
+  /**
    * asks the player to play a card
    * 
    */
@@ -39,21 +45,29 @@ public interface InGameInterface {
    * 
    * @param seconds
    */
-  public void showSecoundsLeftToPlayCard(int seconds);
+  public void showSecondsLeftToPlayCard(int seconds);
 
   /**
    * asks the player if he wants to take up the skat
    * 
    */
-  public PlayState askToTakeUpSkat(PlayState ps);
+  public boolean askToTakeUpSkat();
 
   /**
-   * supposed to ask the Player if he wants to go with the bet or if he wants to pass like
-   * "18 or pass?" (if bet=18)
+   * supposed to ask the Player if he wants to go with the bet or if he wants to pass like "18 or
+   * pass?" (if bet=18)
    * 
    * @param bet
    */
   public boolean askForBet(int bet, Player lastBet);
+
+  /**
+   * updates the last bet (you don't need to be part of the conversation)
+   * 
+   * @param bet
+   * @param player
+   */
+  public void receivedNewBet(int bet, Player player);
 
   /**
    * should reload the hand cards in the given order
@@ -63,18 +77,11 @@ public interface InGameInterface {
   public void updateHand(List<Card> list);
 
   /**
-   * should open the play settings screen and edit the playState ps with setters
-   * 
-   * @param ps
-   */
-  public void setPlaySettings(PlayState ps);
-
-  /**
-   * updates the current trick
+   * updates the current trick with the last played card and the Player, who played it
    * 
    * @param currentTrick
    */
-  public void updateTrick(List<Card> currentTrick);
+  public void receivedNewCard(Card card, Player player);
 
   /**
    * 
@@ -104,9 +111,65 @@ public interface InGameInterface {
   public void showWinnerPlay(Player player1, Player player2);
 
   /**
+   * relevant for the ui
    * 
    * @param player
    */
   public void showWinnerGame(Player player);
+
+  /**
+   * only relevant for the ui
+   * 
+   * @param bet
+   */
+  public void openAskForBet(int bet);
+
+  /**
+   * only relevant for the ui
+   * 
+   * @param bet
+   */
+  public void updateBet(int bet);
+
+  /**
+   * only relevant for the ui
+   */
+  public void openTakeUpSkat();
+
+  /**
+   * only relevant for the ui
+   */
+  public void openAuctionWinnerScreen();
+
+  /**
+   * only relevant for the ui
+   * 
+   * @param ps
+   */
+  public void openSwitchSkat(PlayState ps);
+
+  /**
+   * relevant for the ai and the ui, returns the two cards so lay on the declarers stack, only if
+   * askToTakeUpSkat returns true
+   * 
+   * @param ps
+   * @return
+   */
+  public List<Card> switchSkat(PlayState ps);
+
+  /**
+   * relevant for the ai and the ui, returns the changed PlayState after the Player won the auction
+   * 
+   * @param ps
+   * @return
+   */
+  public PlayState askToSetPlayState(PlayState ps);
+
+  /**
+   * especially for the ai to know which PlayMode is played
+   * 
+   * @param ps
+   */
+  public void setPlaySettingsAfterAuction(PlayState ps);
 
 }
