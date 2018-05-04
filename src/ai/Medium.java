@@ -1,6 +1,7 @@
 package ai;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import logic.Card;
 import logic.Colour;
@@ -10,49 +11,115 @@ import logic.Player;
 import logic.Number;
 
 public class Medium {
+	
+	// This is a static class to implement methods to play with a medium AI.
+	// Available methods are:
 
-	public static int playCard(AIController controller) {
-		switch (controller.getPlayState().getPlayMode()) {
-		case GRAND:
-			return Medium.playCardGrand(controller);
-		case SUIT:
-			return Medium.playCardSuit(controller);
-		case NULL:
-			return Medium.playCardNull(controller);
-		}
-		return General.playRandomCard(controller);
-	}
+	// askForBet(AIController, int) : boolean
+	// Checks if the easy AI wants to place a bet of passed value.
 
-	public static boolean setBet(AIController controller, int bet) {
+	// askToTakeUpSkat(AIController) : boolean
+	// Checks if the AI wants to pick up the skat.
+
+	// switchSkat(AIController) : List<Card>
+	// Gives back the cards, the AI wants to put on the skat after picking it up.
+
+	// askToSetPlayState(AIController) : PlayState
+	// If the AI won the auction, it needs to set a PlayState.
+
+	// askToRekontra(AIController) : boolean
+	// If someone called Kontra, check if the AI wants to call Rekontra.
+
+	// askToPlayCard(AIController) : int
+	// Gives back the index of a Card on the hand, that the AI wants to play.
+	
+	
+	
+	
+	/* TODO
+	List<Card> returnSkat(AIController controller, PlayMode playMode)
+	private static int calculateBet(AIController controller) 
+		private static SinglePlay playSingle(AIController controller) 
+		public static int playCardGrand(AIController controller)
+		public static int playCardSuit(AIController controller)
+		public static int playCardNull(AIController controller)
+	*/
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Methods called by AIController
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Checks if the easy AI wants to place a bet of passed value.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @param bet
+	 * @return boolean
+	 */
+	public static boolean askForBet(AIController controller, int bet) {
 		if (controller.getMaxBet() == 0) {
 			controller.setMaxBet(Medium.calculateBet(controller));
 		}
 		if (controller.getMaxBet() >= bet) {
+			int[] bets = controller.getBets();
+			bets[0] = bet;
+			controller.setBets(bets);
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
+	/**
+	 * Checks if the AI wants to pick up the skat.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return boolean
+	 */
 	public static boolean askToTakeUpSkat(AIController controller) {
-		// TODO
-		return false;
+		return true;
 	}
-
-	public static PlayState setPlayState(AIController controller) {
-		// TODO If SinglePlay is null????
-
+	
+	/**
+	 * Gives back the cards, the AI wants to put on the skat after picking it up.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return List(Card)
+	 */
+	public static List<Card> switchSkat(AIController controller){
+		if(controller.getSinglePlay() != null && controller.getSinglePlay().getPlayMode() != null) {
+			return Medium.returnSkat(controller, controller.getSinglePlay().getPlayMode());
+		}else {
+			return Arrays.asList(controller.getPlayState().getSkat());
+		}
+	}
+	
+	/**
+	 * If the AI won the auction, it needs to set a PlayState.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return PlayState
+	 */
+	public static PlayState askToSetPlayState(AIController controller) {
+		if(controller.getSinglePlay() == null || controller.getSinglePlay().getPlayMode() == null) {
+			Medium.calculateBet(controller);
+		}
+		if(controller.getSinglePlay() == null) {
+			controller.setSinglePlay(new SinglePlay(PlayMode.NULL));
+		}
+		
 		PlayState ps = controller.getPlayState();
-		ps.getDeclarerStack().addCards(Medium.returnSkat(controller, controller.getSinglePlay().getPlayMode()));
-		ps.setSkat(null);
-		ps.setTrump(controller.getSinglePlay().getColour());
-		// ps.setPlayValue(controller.getMaxBet()); //Will be set by Logic
 		ps.setPlayMode(controller.getSinglePlay().getPlayMode());
+		if(controller.getSinglePlay().getPlayMode() == PlayMode.SUIT) {
+			ps.setTrump(controller.getSinglePlay().getColour());
+		}
 		ps.setHandGame(false);
 		ps.setSchneiderAnnounced(false);
 		ps.setSchwarzAnnounced(false);
 		ps.setOpen(false);
-		// int baseValue; //Will be set by Logic
 
 		controller.setPartner(null);
 		List<Player> opponents = new ArrayList<Player>();
@@ -69,9 +136,17 @@ public class Medium {
 			controller.setExistingTrumps(0);
 		}
 
+		controller.setPlayState(ps);
 		return ps;
 	}
-
+	
+	/**
+	 * If someone called Kontra, check if the AI wants to call Rekontra.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return boolean
+	 */
 	public static boolean askToRekontra(AIController controller) {
 		if (controller.getSinglePlay().getCertainty() > 9) {
 			return true;
@@ -80,21 +155,40 @@ public class Medium {
 		}
 	}
 
-	public static List<Card> returnSkat(AIController controller, PlayMode playMode) {
-		// TODO Check if player has the correct hand after this method. Check in
-		// AIController and in
-		// Logic
-		// TODO Check if Skat/declarerStack is correct in PlayState in AIController and
-		// in Logic
-		List<Card> cards = controller.getBot().getHand();
-		Card[] skatArray = controller.getPlayState().getSkat();
-		List<Card> skatList = new ArrayList<Card>();
-		for (int i = 0; i < skatArray.length; i++) {
-			skatList.add(skatArray[i]);
+	/**
+	 * Gives back the index of a Card on the hand, that the AI wants to play.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return int
+	 */
+	public static int askToPlayCard(AIController controller) {
+		switch (controller.getPlayState().getPlayMode()) {
+		case GRAND:
+			return Medium.playCardGrand(controller);
+		case SUIT:
+			return Medium.playCardSuit(controller);
+		case NULL:
+			return Medium.playCardNull(controller);
 		}
-		List<Card> skatReturn = new ArrayList<Card>();
+		return General.playRandomCard(controller);
+	}
 
-		cards.addAll(skatList);
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Internal Methods
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static List<Card> returnSkat(AIController controller, PlayMode playMode) {	
+		List<Card> skat = Arrays.asList(controller.getPlayState().getSkat());
+		List<Card> skatReturn = new ArrayList<Card>();
+		
+		List<Card> cards = new ArrayList<Card>();	//Intermediate hand with twelve cards
+		for(int i=0; i<controller.getBot().getHand().size(); i++) {
+			cards.add(controller.getBot().getHand().get(i));
+		}
+		for(int i=0; i<skat.size(); i++) {
+			cards.add(skat.get(i));
+		}
+
 		controller.setCardProbabilities(General.initializeProbabilities(cards));
 
 		int[] hasColour = new int[4];
@@ -120,9 +214,7 @@ public class Medium {
 						for (int i = 0; i < cards.size(); i++) {
 							if ((3 - cards.get(i).getColour().ordinal()) == minIndex
 									&& (7 - cards.get(i).getNumber().ordinal()) == j) {
-								skatReturn.add(cards.get(i)); // TODO evtl. Hardcopy is needed
-								cards.remove(i);
-								continue;
+								skatReturn.add(cards.get(i));
 							}
 						}
 					}
@@ -137,15 +229,17 @@ public class Medium {
 						for (int i = 0; i < cards.size(); i++) {
 							if ((3 - cards.get(i).getColour().ordinal()) == minIndex
 									&& (7 - cards.get(i).getNumber().ordinal()) == j) {
-								skatReturn.add(cards.get(i)); // TODO evtl. Hardcopy is needed
-								cards.remove(i);
-								continue;
+								skatReturn.add(cards.get(i));
 							}
 						}
 					}
 					j++;
 				}
 			}
+		}
+		
+		for(int i=0; i<skatReturn.size(); i++) {
+			controller.setCardProbability(0, 3 - skatReturn.get(i).getColour().ordinal(), 7 - skatReturn.get(i).getNumber().ordinal(), 0);
 		}
 
 		return skatReturn;
@@ -652,6 +746,8 @@ public class Medium {
 	}
 
 	public static int playCardSuit(AIController controller) {
+		//TODO
+		
 		List<Card> cards = controller.getBot().getHand();
 		List<Card> trick = controller.getCurrentTrick();
 

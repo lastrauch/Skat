@@ -1,6 +1,7 @@
 package ai;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import interfaces.InGameInterface;
 import logic.Card;
@@ -11,13 +12,19 @@ import logic.Position;
 import network.Settings;
 
 public class AIController implements InGameInterface {
+	
+	// TODO
+	// Available methods are:
+	// setCardProbability(probability, colour, number, player) : void
+	
+	
 	private Bot bot;
 	private GameSettings gameSettings;
 	private PlayState playState;
 	private List<Player> player; // These are the other players
 	private List<Player> opponents; // Opponents in this play
 	private Player partner; // Partner in this play; If bot is declarer: null
-	private int[] bets; // Vector of bets by player i. The last bet will be written forward
+	private int[] bets; // Vector of the last bets by player i.
 	private int maxBet = 0; // Set to -1, if bot doesn't want to play single
 	private SinglePlay singlePlay; // PlayMode and colour the bot wants to play, if so; otherwise null
 	private Card[][] playedCards; // Matrix of played Cards. Columns are the players, rows are the Cards
@@ -38,7 +45,6 @@ public class AIController implements InGameInterface {
 	 * up Lists
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param name
 	 * @param difficulty
 	 * @param gameSettings
@@ -55,57 +61,75 @@ public class AIController implements InGameInterface {
 	// Interface Methods
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	@Override
 	/**
 	 * Starts the play with the given hand on the given position. The PlayState was
 	 * introduced earlier.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param hand
 	 * @param position
 	 */
-	@Override
 	public void startPlay(List<Card> hand, Position position) {
 		this.bot.setHand(hand);
 		this.bot.setPosition(position);
 	}
 
+	@Override
 	/**
-	 * Asks the bot to play a card. Returns the index of the card within the bots
-	 * hand.
+	 * Asks the bot if he wants to place a bet. The passed bet is the height that is
+	 * asked for. The passed player is the last player, that placed a bet. Returns a
+	 * boolean representing the decision.
 	 * 
 	 * @author fkleinoe
-	 * 
-	 * @return int
+	 * @param bet
+	 * @param player
+	 * @return boolean
 	 */
-	@Override
-	public int askToPlayCard() {
+	public boolean askForBet(int bet, Player player) {
 		try {
 			Thread.sleep(Settings.DELAY);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		// TODO Player is the one who put the last bet;
+		// TODO Does the Player has a proper id??
+		if (player != null) {
+			if (this.player.size() < 2) {
+				boolean existing = false;
+				for (int i = 0; i < this.player.size(); i++) {
+					if (this.player.get(i).getName() == Integer.toString(player.getId())) {
+						existing = true;
+					}
+				}
+				if (!existing) {
+					Player p = new Player(Integer.toString(player.getId()));
+					p.setId(this.player.size());
+					this.player.add(p);
+				}
+			}
+		}
+
 		switch (this.bot.getDifficulty()) {
 		case EASY:
-			return Easy.playCard(this);
+			return Easy.askForBet(this, bet);
 		case MEDIUM:
-			return Medium.playCard(this);
+			return Medium.askForBet(this, bet);
 		case HARD:
-			return Hard.playCard(this);
+			return Hard.askForBet(this, bet);
 		default:
-			return -1;
+			return false;
 		}
 	}
 
+	@Override
 	/**
 	 * Asks the bot wether it wants to take up the Skat. Returns a boolean
 	 * representing the decision.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return boolean
 	 */
-	@Override
 	public boolean askToTakeUpSkat() {
 		switch (this.bot.getDifficulty()) {
 		case EASY:
@@ -118,108 +142,62 @@ public class AIController implements InGameInterface {
 		return false;
 	}
 
+	@Override
 	/**
-	 * Asks the bot if he wants to place a bet. The passed bet is the height that is
-	 * asked for. The passed player is the last player, that placed a bet. Returns a
-	 * boolean representing the decision.
+	 * After the Bot decided to pick up the Skat, it needs to return two Cards.
 	 * 
 	 * @author fkleinoe
-	 * 
-	 * @param bet
-	 * @param player
-	 * 
-	 * @return boolean
+	 * @param playState
+	 * @return List(Card)
 	 */
+	public List<Card> switchSkat(PlayState playState) {
+		this.playState = playState;
+		switch (this.bot.getDifficulty()) {
+		case EASY:
+			return Easy.switchSkat(this);
+		case MEDIUM:
+			return Medium.switchSkat(this);
+		case HARD:
+			return Hard.switchSkat(this);
+		}
+		return Arrays.asList(playState.getSkat());
+	}
+
 	@Override
-	public boolean askForBet(int bet, Player player) {
+	/**
+	 * If the bot won the auction, it now needs to set the PlayState. It recieves
+	 * the current PlayState, because it is not able to construct one itself.
+	 * 
+	 * @author fkleinoe
+	 * @param playState
+	 * @return PlayState
+	 */
+	public PlayState askToSetPlayState(PlayState playState) {
 		try {
 			Thread.sleep(Settings.DELAY);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		// TODO Player is the one who put the last bet; Null if one is the first one to
-		// bet
-		if (this.player.size() < 2) {
-			for (int i = 0; i < this.player.size(); i++) {
-				if (this.player.get(i).getName() != Integer.toString(player.getId())) {
-					Player p = new Player(Integer.toString(player.getId()));
-					p.setId(this.player.size() + 1);
-					this.player.add(p);
-				}
-			}
-		}
-
+		this.playState = playState;
 		switch (this.bot.getDifficulty()) {
 		case EASY:
-			return Easy.setBet(this, bet);
+			return Easy.askToSetPlayState(this);
 		case MEDIUM:
-			return Medium.setBet(this, bet);
+			return Medium.askToSetPlayState(this);
 		case HARD:
-			return Hard.setBet(this, bet);
-		default:
-			return false;
+			return Hard.askToSetPlayState(this);
 		}
-	}
-	
-	/**
-	 * Passes the last bet that was set by a player.
-	 * This will update setBet so the AI holds track of the bets.
-	 * 
-	 * @author fkleinoe
-	 * 
-	 * @param bet
-	 * @param player
-	 */
-	@Override
-	public void receivedNewBet(int bet, Player player) {
-		// TODO
+		return playState;
 	}
 
-	/**
-	 * Updates the hand of the bot.
-	 * 
-	 * @author fkleinoe
-	 * 
-	 * @param hand
-	 */
 	@Override
-	public void updateHand(List<Card> hand) {
-		if (hand.size() == 10) {
-			this.cardProbability = General.initializeProbabilities(hand);
-		}
-		this.bot.setHand(hand);
-	}
-
-	/**
-	 * TODO
-	 * 
-	 * @author fkleinoe
-	 * 
-	 * @param player1
-	 * @param player2
-	 */
-	@Override
-	public void showWinnerPlay(Player player1, Player player2) {
-		// Reset play informations
-		this.playState = null;
-		this.singlePlay = null;
-		this.bets = new int[0];
-		this.cardProbability = new double[32][3];
-		this.partner = null;
-		this.opponents = new ArrayList<Player>();
-		this.hasColour = new boolean[4][3];
-		this.hasTrump = new boolean[3];
-	}
-
 	/**
 	 * Asks the bot if he wants de declare Rekontra. Returns a boolean representing
 	 * this decision.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return boolean
 	 */
-	@Override
 	public boolean askToRekontra() {
 		try {
 			Thread.sleep(Settings.DELAY);
@@ -237,225 +215,242 @@ public class AIController implements InGameInterface {
 		return false;
 	}
 
+	@Override
 	/**
-	 * Sets the GameSettings.
+	 * Asks the bot to play a card. Returns the index of the card within the bots
+	 * hand.
 	 * 
 	 * @author fkleinoe
+	 * @return int
 	 */
-	@Override
-	public void setGameSettings(GameSettings gameSettings) {
-		this.gameSettings = gameSettings;
-	}
-
-	/**
-	 * Passes the seconds that the bot has left, to play a card.
-	 * 
-	 * @author fkleinoe
-	 * 
-	 * @param seconds
-	 */
-	@Override
-	public void showSecondsLeftToPlayCard(int seconds) {
-		// Do nothing
-	}
-
-	/**
-	 * Only important for the ui.
-	 * 
-	 * @author fkleinoe
-	 * 
-	 * @param bet
-	 */
-	@Override
-	public void updateBet(int bet) {
-		// Do nothing
-	}
-
-	/**
-	 * Only important for the ui.
-	 * 
-	 * @author fkleinoe
-	 * 
-	 * @param reason
-	 */
-	@Override
-	public void stopGame(String reason) {
-		// Do nothing
-	}
-
-	/**
-	 * Only important for the ui.
-	 * 
-	 * @author fkleinoe
-	 * 
-	 * @param player
-	 */
-	@Override
-	public void showWinnerTrick(Player player) {
-		// Do nothing
-	}
-
-	/**
-	 * Only important for the ui.
-	 * 
-	 * @author fkleinoe
-	 * 
-	 * @param player
-	 */
-	@Override
-	public void showWinnerGame(Player player) {
-		// Do nothing
-	}
-
-	/**
-	 * Only important for the ui.
-	 * 
-	 * @author fkleinoe
-	 * 
-	 * @author bet
-	 */
-	@Override
-	public void openAskForBet(int bet) {
-		// Do nothing
-	}
-
-	/**
-	 * Only important for the ui.
-	 * 
-	 * @author fkleinoe
-	 */
-	@Override
-	public void openTakeUpSkat() {
-		// Do nothing
-	}
-
-	/**
-	 * Only important for the ui.
-	 * 
-	 * @author fkleinoe
-	 */
-	@Override
-	public void openAuctionWinnerScreen() {
-		// Do nothing
-	}
-
-	/**
-	 * Only important for the ui.
-	 * 
-	 * @author fkleinoe
-	 * 
-	 * @param playState
-	 */
-	@Override
-	public void openSwitchSkat(PlayState playState) {
-		// Do nothing
-	}
-
-	// TODO Methode is being replaced through two different methods
-	public PlayState askToTakeUpSkat(PlayState playState) {
+	public int askToPlayCard() {
 		try {
 			Thread.sleep(Settings.DELAY);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		this.playState = playState;
-		this.currentTrick = playState.getCurrentTrick().getTrickCards();
 		switch (this.bot.getDifficulty()) {
 		case EASY:
-			return Easy.setPlayState(this);
+			return Easy.askToPlayCard(this);
 		case MEDIUM:
-			return Medium.setPlayState(this);
+			return Medium.askToPlayCard(this);
 		case HARD:
-			return Hard.setPlayState(this);
+			return Hard.askToPlayCard(this);
+		default:
+			return -1;
 		}
-		return null;
 	}
 
 	@Override
-	public List<Card> switchSkat(PlayState playState) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+	 * Passes the last bet that was set by a player. This will update setBet so the
+	 * AI holds track of the bets.
+	 * 
+	 * @author fkleinoe
+	 * @param bet
+	 * @param player
+	 */
+	public void receivedNewBet(int bet, Player player) {
+		if (this.player.size() < 2) {
+			boolean existing = false;
+			for (int i = 0; i < this.player.size(); i++) {
+				if (this.player.get(i).getName() == Integer.toString(player.getId())) {
+					existing = true;
+				}
+			}
+			if (!existing) {
+				Player p = new Player(Integer.toString(player.getId()));
+				p.setId(this.player.size());
+				this.player.add(p);
+			}
+		}
 
-	@Override
-	public PlayState askToSetPlayState(PlayState playState) {
-		// TODO Auto-generated method stub
-		return null;
+		for (int i = 0; i < this.player.size(); i++) {
+			if (this.player.get(i).getName() == Integer.toString(player.getId())) {
+				this.bets[this.player.get(i).getId()] = bet;
+			}
+		}
 	}
 
 	@Override
 	public void setPlaySettingsAfterAuction(PlayState playState) {
-		// TODO ??
 		this.playState = playState;
+		Hard.decideToPlayKontra(this);
 	}
 
 	@Override
-	public void itsYourTurn() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override // TODO Replaces updateTrick
-	public void receivedNewCard(Card card, Player player) {
-		// TODO Auto-generated method stub
-
-	}
-
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 * Internal Methods Available methods are: setCardProbability(probability,
-	 * colour, number, player) : void //Sets the probability of one card and one
-	 * player to specified value; //Pay attention to the indices specified at the
-	 * top of this file
+	/**
+	 * Updates the hand of the bot.
+	 * 
+	 * @author fkleinoe
+	 * @param hand
 	 */
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public void updateHand(List<Card> hand) {
+		if (hand.size() == 10) {
+			this.cardProbability = General.initializeProbabilities(hand);
+		}
+		this.bot.setHand(hand);
+	}
 
-	public void setPlaySettingameSettings(PlayState playState) {
-		this.currentTrick = playState.getCurrentTrick().getTrickCards();
+	@Override
+	/**
+	 * Reset play informations.
+	 * 
+	 * @author fkleinoe
+	 * @param player1
+	 * @param player2
+	 */
+	public void showWinnerPlay(Player player1, Player player2) {
+		this.playState = null;
+		this.singlePlay = null;
+		this.maxBet = 0;
+		this.bets = new int[3];
+		this.playedCards = new Card[0][3];
+		this.cardProbability = new double[32][3];
 		this.partner = null;
 		this.opponents = new ArrayList<Player>();
-		for (int i = 0; i < playState.getGroup().length; i++) {
-			if (playState.getGroup()[i].isDeclarer()) {
-				for (int j = 0; j < this.player.size(); i++) {
-					if (this.player.get(j).getName() == Integer.toString(playState.getGroup()[i].getId())) {
-						this.opponents.add(this.player.get(j));
-					}
-				}
-			} else if (playState.getGroup()[i].getPosition() != Position.DEALER
-					&& this.bot.getId() != playState.getGroup()[i].getId()) {
-				for (int j = 0; j < this.player.size(); i++) {
-					if (this.player.get(j).getName() == Integer.toString(playState.getGroup()[i].getId())) {
-						this.partner = this.player.get(j);
-					}
-				}
-			}
-		}
-
-		switch (playState.getPlayMode()) {
-		case GRAND:
-			this.existingTrumps = 4;
-			break;
-		case SUIT:
-			this.existingTrumps = 11;
-			break;
-		case NULL:
-			this.existingTrumps = 0;
-			break;
-		}
-		this.playState = playState;
-
-		// Check if AI wants to play Kontra
-		if (this.bot.getDifficulty() == BotDifficulty.HARD) {
-			Hard.playKontra(this);
-		}
+		this.hasColour = new boolean[4][3];
+		this.hasTrump = new boolean[3];
+		this.currentTrick = new ArrayList<Card>();
 	}
 
-	// TODO Replaced through receiveNewCard
-	public void updateTrick(List<Card> currentTrick) {
-		// TODO update card played, hasTrump, hasColour, cardProbabilities
-		this.currentTrick = currentTrick;
+	@Override
+	/**
+	 * Sets the GameSettings.
+	 * 
+	 * @author fkleinoe
+	 * @param gameSettings
+	 */
+	public void setGameSettings(GameSettings gameSettings) {
+		this.gameSettings = gameSettings;
 	}
 
+	@Override
+	/**
+	 * Adds a new Card to the trick, played by player. Therefore updates
+	 * playedCards, cardProbabilities, hasColour, hasTrump, existingTrumps,
+	 * currentTrick.
+	 * 
+	 * @author fkleinoe
+	 * @param card
+	 * @param player
+	 */
+	public void receivedNewCard(Card card, Player player) {
+		// TODO
+
+	}
+
+	@Override
+	/**
+	 * Passes the seconds that the bot has left, to play a card. Only important for
+	 * a human player.
+	 * 
+	 * @author fkleinoe
+	 * @param seconds
+	 */
+	public void showSecondsLeftToPlayCard(int seconds) {
+		// Do nothing
+	}
+
+	@Override
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 * @param bet
+	 */
+	public void updateBet(int bet) {
+		// Do nothing
+	}
+
+	@Override
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 * @param reason
+	 */
+	public void stopGame(String reason) {
+		// Do nothing
+	}
+
+	@Override
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 * @param player
+	 */
+	public void showWinnerTrick(Player player) {
+		// Do nothing
+	}
+
+	@Override
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 * @param player
+	 */
+	public void showWinnerGame(Player player) {
+		// Do nothing
+	}
+
+	@Override
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 * @author bet
+	 */
+	public void openAskForBet(int bet) {
+		// Do nothing
+	}
+
+	@Override
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 */
+	public void openTakeUpSkat() {
+		// Do nothing
+	}
+
+	@Override
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 */
+	public void openAuctionWinnerScreen() {
+		// Do nothing
+	}
+
+	@Override
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 * @param playState
+	 */
+	public void openSwitchSkat(PlayState playState) {
+		// Do nothing
+	}
+
+	@Override
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 */
+	public void itsYourTurn() {
+		// Do nothing.
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Internal Methods
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void setCardProbability(double probability, int colour, int number, int player) {
 		this.cardProbability[colour * 8 + number][player] = probability;
 	}
@@ -468,7 +463,6 @@ public class AIController implements InGameInterface {
 	 * Set bot.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param bot
 	 */
 	public void setBot(Bot bot) {
@@ -479,7 +473,6 @@ public class AIController implements InGameInterface {
 	 * Get bot.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return Bot
 	 */
 	public Bot getBot() {
@@ -494,7 +487,6 @@ public class AIController implements InGameInterface {
 	 * Get GameSettings.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return GameSettings
 	 */
 	public GameSettings getGameSettings() {
@@ -505,7 +497,6 @@ public class AIController implements InGameInterface {
 	 * Set playState.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param playState
 	 */
 	public void setPlayState(PlayState playState) {
@@ -516,7 +507,6 @@ public class AIController implements InGameInterface {
 	 * Get PlayState.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return PlayState
 	 */
 	public PlayState getPlayState() {
@@ -527,7 +517,6 @@ public class AIController implements InGameInterface {
 	 * Set player.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param player
 	 */
 	public void setPlayer(List<Player> player) {
@@ -538,7 +527,6 @@ public class AIController implements InGameInterface {
 	 * Get player.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return List(Player)
 	 */
 	public List<Player> getPlayer() {
@@ -549,7 +537,6 @@ public class AIController implements InGameInterface {
 	 * Set opponents.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param opponents
 	 */
 	public void setOpponents(List<Player> opponents) {
@@ -560,7 +547,6 @@ public class AIController implements InGameInterface {
 	 * Get opponents.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return List(Player)
 	 */
 	public List<Player> getOpponents() {
@@ -571,7 +557,6 @@ public class AIController implements InGameInterface {
 	 * Set partner.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param partner
 	 */
 	public void setPartner(Player partner) {
@@ -582,7 +567,6 @@ public class AIController implements InGameInterface {
 	 * Get partner.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return Player
 	 */
 	public Player getPartner() {
@@ -593,7 +577,6 @@ public class AIController implements InGameInterface {
 	 * Set bets.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param bets
 	 */
 	public void setBets(int[] bets) {
@@ -604,7 +587,6 @@ public class AIController implements InGameInterface {
 	 * Get bets.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return int[]
 	 */
 	public int[] getBets() {
@@ -615,7 +597,6 @@ public class AIController implements InGameInterface {
 	 * Set maxBet.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param maxBet
 	 */
 	public void setMaxBet(int maxBet) {
@@ -626,7 +607,6 @@ public class AIController implements InGameInterface {
 	 * Get maxBet.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return int
 	 */
 	public int getMaxBet() {
@@ -637,7 +617,6 @@ public class AIController implements InGameInterface {
 	 * Set singlePlay.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param singlePlay
 	 */
 	public void setSinglePlay(SinglePlay singlePlay) {
@@ -648,7 +627,6 @@ public class AIController implements InGameInterface {
 	 * Get singlePlay.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return SinglePlay
 	 */
 	public SinglePlay getSinglePlay() {
@@ -659,7 +637,6 @@ public class AIController implements InGameInterface {
 	 * Set playedCards.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param playedCards
 	 */
 	public void setPlayedCards(Card[][] playedCards) {
@@ -670,7 +647,6 @@ public class AIController implements InGameInterface {
 	 * Get playedCards.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return Card[][]
 	 */
 	public Card[][] getPlayedCards() {
@@ -681,7 +657,6 @@ public class AIController implements InGameInterface {
 	 * Set cardProbabilities.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param cardProbabilities
 	 */
 	public void setCardProbabilities(double[][] cardProbabilities) {
@@ -692,7 +667,6 @@ public class AIController implements InGameInterface {
 	 * Get cardProbability.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return double[][]
 	 */
 	public double[][] getCardProbabilities() {
@@ -703,7 +677,6 @@ public class AIController implements InGameInterface {
 	 * Set hasColour.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param hasColour
 	 */
 	public void setHasColour(boolean[][] hasColour) {
@@ -714,7 +687,6 @@ public class AIController implements InGameInterface {
 	 * Get hasColour.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return boolean[][]
 	 */
 	public boolean[][] getHasColour() {
@@ -725,7 +697,6 @@ public class AIController implements InGameInterface {
 	 * Set hasTrump.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param hasTrump
 	 */
 	public void setHasTrump(boolean[] hasTrump) {
@@ -736,7 +707,6 @@ public class AIController implements InGameInterface {
 	 * Get hasTrump.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return boolean[]
 	 */
 	public boolean[] getHasTrump() {
@@ -747,7 +717,6 @@ public class AIController implements InGameInterface {
 	 * Set existingTrumps.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param existingTrumps
 	 */
 	public void setExistingTrumps(int existingTrumps) {
@@ -758,7 +727,6 @@ public class AIController implements InGameInterface {
 	 * Get existingTrumps.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return int
 	 */
 	public int getExistingTrumps() {
@@ -769,7 +737,6 @@ public class AIController implements InGameInterface {
 	 * Set currentTrick.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @param currentTrick
 	 */
 	public void setCurrentTrick(List<Card> currentTrick) {
@@ -780,7 +747,6 @@ public class AIController implements InGameInterface {
 	 * Get currentTrick.
 	 * 
 	 * @author fkleinoe
-	 * 
 	 * @return List(Card)
 	 */
 	public List<Card> getCurrentTrick() {
