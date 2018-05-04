@@ -182,8 +182,8 @@ public class Player implements Serializable{
     ArrayList<Card> jacks = new ArrayList<Card>();
 
     // first step: jacks at the beginning
-    if (ps.getPlayMode() == PlayMode.SUIT | ps.getPlayMode() == PlayMode.GRAND
-        | ps.getPlayMode() == null) {
+    if (ps.getPlayMode() == PlayMode.SUIT || ps.getPlayMode() == PlayMode.GRAND
+        || ps.getPlayMode() == null) {
       Card temp;
       for (int i = 0; i < this.hand.size(); i++) {
         if (this.hand.get(i).getNumber() == Number.JACK) {
@@ -225,8 +225,8 @@ public class Player implements Serializable{
     }
 
     // sort different colours depending on the Playmode by their numbers
-    if (ps.getPlayMode() == PlayMode.SUIT | ps.getPlayMode() == PlayMode.GRAND
-        | ps.getPlayMode() == null) {
+    if (ps.getPlayMode() == PlayMode.SUIT || ps.getPlayMode() == PlayMode.GRAND
+        || ps.getPlayMode() == null) {
       ps.sortCardsValueNorm(clubs);
       ps.sortCardsValueNorm(spades);
       ps.sortCardsValueNorm(hearts);
