@@ -22,22 +22,32 @@ class EasyTest {
   void tearDown() throws Exception {}
 
   @Test
-  void testPlayCard() {
+  void testAskForBet() {
     fail("Not yet implemented");
   }
 
   @Test
-  void testSetBet() {
+  void testAskToTakeUpSkat() {
     fail("Not yet implemented");
   }
 
   @Test
-  void testSetPlayState() {
+  void testSwitchSkat() {
+    fail("Not yet implemented");
+  }
+
+  @Test
+  void testAskToSetPlayState() {
     fail("Not yet implemented");
   }
 
   @Test
   void testAskToRekontra() {
+    fail("Not yet implemented");
+  }
+
+  @Test
+  void testAskToPlayCard() {
     fail("Not yet implemented");
   }
 
