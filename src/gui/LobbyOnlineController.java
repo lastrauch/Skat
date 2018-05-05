@@ -80,6 +80,11 @@ public class LobbyOnlineController implements Initializable{
   public void displayServer() {
     ArrayList<Label> a= new ArrayList<Label>();
     ArrayList<JFXButton> b = new ArrayList<JFXButton>();
+    if(LoginController.interfGL.lobbyInformation().size() == 0) {
+      System.out.println("NULL!!!!"
+          + "");
+    }
+    System.out.println("Size: " +LoginController.interfGL.lobbyInformation().size());
     for(int i = 0; i < LoginController.interfGL.lobbyInformation().size(); i++) {
       a.add(new Label());
       b.add(new JFXButton());
