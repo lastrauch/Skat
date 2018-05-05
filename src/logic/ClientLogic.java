@@ -120,6 +120,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // update this players hand
       try {
         this.player.removeCardFromHand(playedCard);
+        if (!this.player.isBot()) {
+          System.out.println("And here is my new hand:");
+          for (Card c : this.player.getHand()) {
+            System.out.println(c.toString());
+          }
+        }
       } catch (LogicException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -152,7 +158,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // immer
           // wieder die geliche karte zurück gibt
           // if (this.player.isBot()) {
-           this.playCard(firstCard);
+          // this.playCard(firstCard);
           // }
           // System.out.println(
           // "die ausgewählte Karte kann nicht gespielt werden und als auffangen kann die logik das
@@ -824,7 +830,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       this.calculatePlayValue();
       this.netController.sendPlayState(this.playState);
-      
     }
   }
 
@@ -853,21 +858,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveCardPlayed(Player player, Card card) {
     // TODO Auto-generated method stub
-    // update current trick
-    this.checkIfTrickIsFull();
-    this.playState.getCurrentTrick().addCard(card, player);
-
-    // update players hand why??
-    // try {
-    // player.removeCardFromHand(card);
-    // } catch (LogicException e) {
-    // e.printStackTrace();
-    // }
     // show update on gui/ai
     this.inGameController.receivedNewCard(card, player);
 
     try {
-      this.checkWhatHappensNext(player);
+      this.checkWhatHappensNext(player, card);
     } catch (LogicException e) {
       e.printStackTrace();
     }
@@ -942,8 +937,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
 
-  public void checkWhatHappensNext(Player playedLastCard) throws LogicException {
-
+  public void checkWhatHappensNext(Player playedLastCard, Card card) throws LogicException {
+    this.playState.getCurrentTrick().addCard(card, player);
+    
     Player trickWinner;
     Player[] playWinner;
     Player gameWinner;
@@ -951,7 +947,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // check if trick is over
     if (this.playState.getCurrentTrick().isFull()) {
       // trick is over
-
       // calculate winner trick
       trickWinner = this.playState.getCurrentTrick().calculateWinner(playState);
 
