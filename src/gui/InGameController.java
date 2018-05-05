@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -49,19 +50,21 @@ public class InGameController implements Initializable, InGameInterface {
   JFXButton qu = new JFXButton();
   JFXButton pass = new JFXButton();
   JFXButton betB = new JFXButton();
+  boolean b = false;
+  boolean notpressed = true;
 
   /**
-   * Initialize what chooseTrumPScreen
+   * Initialize what auctionWinnerScreen
    * 
    * @author lstrauch
    */
   AnchorPane paneAuc = new AnchorPane();
-  JFXButton diamonds = new JFXButton();
-  JFXButton hearts = new JFXButton();
-  JFXButton spades = new JFXButton();
-  JFXButton clubs = new JFXButton();
-  JFXButton nullG = new JFXButton();
-  JFXButton grand = new JFXButton();
+  JFXRadioButton diamonds = new JFXRadioButton();
+  JFXRadioButton hearts = new JFXRadioButton();
+  JFXRadioButton spades = new JFXRadioButton();
+  JFXRadioButton clubs = new JFXRadioButton();
+  JFXRadioButton nullG = new JFXRadioButton();
+  JFXRadioButton grand = new JFXRadioButton();
   JFXButton submit = new JFXButton();
   JFXRadioButton ouvert = new JFXRadioButton();
   JFXRadioButton schneider = new JFXRadioButton();
@@ -71,6 +74,7 @@ public class InGameController implements Initializable, InGameInterface {
   HBox boxWin3 = new HBox();
   VBox vBoxWin = new VBox();
   Label labelWin = new Label();
+
 
 
   /**
@@ -85,6 +89,11 @@ public class InGameController implements Initializable, InGameInterface {
   private ImageView sk1 = new ImageView();
   private ImageView sk2 = new ImageView();
   private JFXButton ok = new JFXButton();
+  List<Card> skatLogic = new ArrayList<Card>();
+  boolean decidepressed = false;
+  boolean wantskat = false;
+  boolean skatpressed = false;
+  boolean setSettings = false;
 
 
   /**
@@ -97,10 +106,12 @@ public class InGameController implements Initializable, InGameInterface {
   private GuiData inte = new ImplementsGuiInterface();
   private List<Card> cardlist = new ArrayList<Card>();
   private Image noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
-  ArrayList<Card> skat = new ArrayList<Card>();
+  private List<Card> skat = new ArrayList<Card>();
   Card p1 = new Card(Colour.CLUBS, Number.SEVEN);
   Card p2 = new Card(Colour.CLUBS, Number.EIGHT);
   Boolean[] da = new Boolean[2];
+  private boolean clicked = false;
+  int[] ret = new int[1];
 
 
 
@@ -138,6 +149,10 @@ public class InGameController implements Initializable, InGameInterface {
   private JFXTextArea chatM;
   @FXML
   private JFXTextField textM;
+  @FXML
+  private Label labelLeft, labelRight, labelMe;
+  @FXML
+  private ImageView profilepictureLeft, profilepictureRight;
 
 
 
@@ -336,44 +351,24 @@ public class InGameController implements Initializable, InGameInterface {
             LoginController.interfGD.getImage(hand.get(9).getColour().toString().toLowerCase(),
                 (hand.get(9).getNumber().toString().toLowerCase())));
         cardlist = hand;
+
+        // cardlist.set(0, null);
+        // cardlist.set(1, hand.get(0));
+        // cardlist.set(2, hand.get(1));
+        // cardlist.set(3, hand.get(2));
+        // cardlist.set(4, hand.get(3));
+        // cardlist.set(5, hand.get(4));
+        // cardlist.set(6, hand.get(5));
+        // cardlist.set(7, hand.get(6));
+        // cardlist.set(8, hand.get(7));
+        // cardlist.set(9, hand.get(8));
+        // cardlist.set(10, hand.get(9));
+        // cardlist.set(11, hand.get(10));
       }
 
     });
 
   }
-
-
-  /**
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#showSecoundsLeftToPlayCard(int)
-   * 
-   * @author lstrauch
-   */
-  @Override
-  public void showSecoundsLeftToPlayCard(int seconds) {
-    // TODO Auto-generated method stub
-
-  }
-
-
-  /**
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#setPlaySettings(logic.PlayState)
-   * 
-   * @author lstrauch
-   */
-  @Override
-  public void setPlaySettings(PlayState ps) {
-    // TODO Auto-generated method stub
-    deletePane(paneAuc);
-    displayAuctionWinnerScreen();
-    ButtonListenerPlaySettings(ps);
-
-  }
-
-
 
   /**
    * (non-Javadoc)
@@ -385,37 +380,12 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public int askToPlayCard() {
     // TODO Auto-generated method stub
-    return MouseHandler();
+    while (clicked == false) {
+      MouseHandler();
+    }
+    return ret[0];
   }
 
-  /**
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
-   * 
-   * @author lstrauch
-   */
-  // @Override
-  // public void askToTakeUpSkat(PlayState ps) {
-  // // TODO Auto-generated method stub
-  // deletePane(paneBet);
-  // displayWannaTakeSkat();
-  // ButtonListenrWantSkat(ps);
-  //
-  // }
-  //
-  // /** (non-Javadoc)
-  // * @see interfaces.InGameInterface#askForBet(int)
-  // *
-  // * @author lstrauch
-  // */
-  // @Override
-  // public boolean askForBet(int bet) {
-  // // TODO Auto-generated method stub
-  // betB.setText(String.valueOf(bet));
-  // displayAuctionScreen();
-  // return ButtonListener();
-  // }
 
 
   /**
@@ -442,29 +412,27 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /**
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#updateTrick(java.util.List)
-   * 
-   * @author lstrauch
-   */
-  @Override
-  public void updateTrick(List<Card> currentTrick) {
-    // TODO Auto-generated method stub
-    if (currentTrick.get(0) != null) {
-      s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(1).getNumber().toString().toLowerCase())));
-    } else if (currentTrick.get(0) != null) {
-      s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-    } else if (currentTrick.get(2) != null) {
-      s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-          (currentTrick.get(0).getNumber().toString().toLowerCase())));
-    }
-
-
-  }
+  // /**
+  // * (non-Javadoc)
+  // *
+  // * @see interfaces.InGameInterface#updateTrick(java.util.List)
+  // *
+  // * @author lstrauch
+  // */
+  // @Override
+  // public void updateTrick(List<Card> currentTrick) {
+  // // TODO Auto-generated method stub
+  // if (currentTrick.get(0) != null) {
+  // s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+  // (currentTrick.get(1).getNumber().toString().toLowerCase())));
+  // } else if (currentTrick.get(0) != null) {
+  // s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+  // (currentTrick.get(0).getNumber().toString().toLowerCase())));
+  // } else if (currentTrick.get(2) != null) {
+  // s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
+  // (currentTrick.get(0).getNumber().toString().toLowerCase())));
+  // }
+  // }
 
   /**
    * (non-Javadoc)
@@ -599,6 +567,8 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    */
   public void displayAuctionWinnerScreen() {
+    ToggleGroup g1 = new ToggleGroup();
+
     paneAuc.setPrefHeight(315);
     paneAuc.setPrefWidth(582);
     paneAuc.setLayoutX(334);
@@ -626,6 +596,12 @@ public class InGameController implements Initializable, InGameInterface {
     clubs.setText("Clubs");
     clubs.setFont(Font.font("System", FontWeight.BOLD, 20));
     clubs.setStyle("-fx-background-color: tan;");
+    diamonds.setToggleGroup(g1);
+    hearts.setToggleGroup(g1);
+    spades.setToggleGroup(g1);
+    clubs.setToggleGroup(g1);
+    grand.setToggleGroup(g1);
+    nullG.setToggleGroup(g1);
 
     boxWin1.getChildren().add(diamonds);
     boxWin1.getChildren().add(hearts);
@@ -759,20 +735,9 @@ public class InGameController implements Initializable, InGameInterface {
     skatHbox.setLayoutX(118);
     skatHbox.setLayoutY(158);
 
-    ok.setPrefHeight(31);
-    ok.setPrefWidth(67);
-    ok.setLayoutX(501);
-    ok.setLayoutY(270);
-    ok.setText("OK");
-    ok.setFont(Font.font("System", FontWeight.BOLD, 15));
-    ok.setButtonType(ButtonType.RAISED);
-
-
 
     skatPane.getChildren().add(skatLabel);
     skatPane.getChildren().add(skatHbox);
-    skatPane.getChildren().add(ok);
-
     mainPane.getChildren().add(skatPane);
   }
 
@@ -796,15 +761,29 @@ public class InGameController implements Initializable, InGameInterface {
     sk1.setLayoutX(83);
     sk1.setLayoutY(37);
     sk1.setStyle("-fx-background-color: black");
+    sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
+        ps.getSkat()[1].getNumber().toString().toLowerCase()));
 
     sk2.setFitHeight(227);
     sk2.setFitWidth(182);
     sk2.setLayoutX(326);
     sk2.setLayoutY(37);
     sk2.setStyle("-fx-background-color: black");
+    sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
+        ps.getSkat()[0].getNumber().toString().toLowerCase()));
+
+    ok.setPrefHeight(31);
+    ok.setPrefWidth(67);
+    ok.setLayoutX(501);
+    ok.setLayoutY(270);
+    ok.setText("OK");
+    ok.setFont(Font.font("System", FontWeight.BOLD, 15));
+    ok.setButtonType(ButtonType.RAISED);
+
 
     handPane.getChildren().add(sk1);
     handPane.getChildren().add(sk2);
+    handPane.getChildren().add(ok);
 
     mainPane.getChildren().add(handPane);
   }
@@ -952,76 +931,70 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    */
 
-  public int MouseHandler() {
-    final int[] ret = new int[1];
+  public void MouseHandler() {
+
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c1.getImage();
-        // c1.setImage(null);
-        AnzStichblatt();
         ret[0] = 0;
+        cardlist.remove(0);
+        clicked = true;
       }
     });
     c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c2.getImage();
-        // c2.setImage(null);
-        AnzStichblatt();
         ret[0] = 1;
+        cardlist.remove(1);
+
+        clicked = true;
       }
     });
     c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c3.getImage();
-        // c3.setImage(null);
-        AnzStichblatt();
         ret[0] = 2;
+        cardlist.remove(2);
+        clicked = true;
       }
     });
     c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c4.getImage();
-        // c4.setImage(null);
-        AnzStichblatt();
         ret[0] = 3;
+        cardlist.remove(3);
+        clicked = true;
       }
     });
     c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c5.getImage();
-        // c5.setImage(null);
-        AnzStichblatt();
         ret[0] = 4;
+        cardlist.remove(4);
+        clicked = true;
       }
     });
     c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c6.getImage();
-        // c6.setImage(null);
-        AnzStichblatt();
         ret[0] = 5;
+        cardlist.remove(5);
+        clicked = true;
       }
     });
     c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c7.getImage();
-        // c7.setImage(null);
-        AnzStichblatt();
         ret[0] = 6;
+        cardlist.remove(6);
+        clicked = true;
 
       }
     });
@@ -1029,33 +1002,29 @@ public class InGameController implements Initializable, InGameInterface {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c8.getImage();
-        // c8.setImage(null);
-        AnzStichblatt();
         ret[0] = 7;
+        cardlist.remove(7);
+        clicked = true;
       }
     });
     c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c9.getImage();
-        // c9.setImage(null);
-        AnzStichblatt();
         ret[0] = 8;
+        cardlist.remove(8);
+        clicked = true;
       }
     });
     c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        temp = c10.getImage();
-        // c10.setImage(null);
-        AnzStichblatt();
         ret[0] = 9;
+        cardlist.remove(9);
+        clicked = true;
       }
     });
-    return ret[0];
   }
 
 
@@ -1064,9 +1033,7 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    * @return
    */
-  public boolean ButtonListener() {
-    final boolean[] ret = new boolean[1];
-
+  public void ButtonListener() {
     qu.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -1076,23 +1043,26 @@ public class InGameController implements Initializable, InGameInterface {
     pass.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ret[0] = false;
-        displayWannaTakeSkat();
+        b = false;
+        notpressed = false;
+
+        // displayWannaTakeSkat();
       }
     });
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ret[0] = true;
+        // displayWannaTakeSkat();
+        notpressed = false;
+        b = true;
+        // System.out.println("RET: "+ret[0]);
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
-      public void handle(MouseEvent e) {
-
-      }
+      public void handle(MouseEvent e) {}
     });
-    return ret[0];
+    // return ret[0];
   }
 
 
@@ -1106,11 +1076,13 @@ public class InGameController implements Initializable, InGameInterface {
    * @param ps
    */
   public PlayState ButtonListenerPlaySettings(PlayState ps) {
+    boolean[] pressed = new boolean[1];
     diamonds.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.DIAMONDS);
+        pressed[0] = true;
       }
     });
     hearts.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1118,6 +1090,7 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.HEARTS);
+        pressed[0] = true;
       }
     });
     clubs.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1125,6 +1098,7 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.CLUBS);
+        pressed[0] = true;
       }
     });
     spades.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1132,18 +1106,21 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
         ps.setTrump(Colour.SPADES);
+        pressed[0] = true;
       }
     });
     grand.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.GRAND);
+        pressed[0] = true;
       }
     });
     nullG.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.NULL);
+        pressed[0] = true;
       }
     });
     ouvert.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1164,6 +1141,14 @@ public class InGameController implements Initializable, InGameInterface {
         ps.setSchwarzAnnounced(true);
       }
     });
+    submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        if (pressed[0] == true) {
+          setSettings = true;
+        }
+      }
+    });
 
     return ps;
   }
@@ -1177,19 +1162,14 @@ public class InGameController implements Initializable, InGameInterface {
   /**
    * @author lstrauch
    * @param ps
+   * @return
    */
-  public void ButtonListenrWantSkat(PlayState ps) {
+  public void ButtonListenrWantSkat() {
     yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ps.setHandGame(true);
-        displaySwitchSkat(ps);
-        sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
-            ps.getSkat()[0].getNumber().toString().toLowerCase()));
-        sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
-            ps.getSkat()[1].getNumber().toString().toLowerCase()));
-        skat.add(ps.getSkat()[0]);
-        skat.add(ps.getSkat()[1]);
+        wantskat = true;
+        decidepressed = true;
 
         /**
          * Testzwecke:
@@ -1203,8 +1183,9 @@ public class InGameController implements Initializable, InGameInterface {
     no.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        ps.setHandGame(false);
-        displayAuctionWinnerScreen();
+        wantskat = false;
+        decidepressed = true;
+        // displayAuctionWinnerScreen();
       }
     });
   }
@@ -1251,440 +1232,626 @@ public class InGameController implements Initializable, InGameInterface {
    * @param ps
    */
   public void switchSkatListener(PlayState ps) {
-    Platform.runLater(new Runnable() {
+
+    c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
-      public void run() {
-        c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(c1.getImage());
-                skat.set(0, cardlist.get(1));
-                cardlist.remove(cardlist.get(1));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(c1.getImage());
-                skat.set(1, cardlist.get(1));
-                cardlist.remove(cardlist.get(1));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(c1.getImage());
-              skat.set(0, cardlist.get(1));
-              cardlist.remove(cardlist.get(1));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(c1.getImage());
+            skat.set(0, cardlist.get(1));
+            cardlist.remove(cardlist.get(0));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(c1.getImage());
+            skat.set(1, cardlist.get(0));
+            cardlist.remove(cardlist.get(1));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
           }
-        });
-        c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(c2.getImage());
-                skat.set(0, cardlist.get(2));
-                cardlist.remove(cardlist.get(2));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(c2.getImage());
-                skat.set(1, cardlist.get(2));
-                cardlist.remove(cardlist.get(2));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(c2.getImage());
-              skat.set(0, cardlist.get(2));
-              cardlist.remove(cardlist.get(2));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
-          }
-        });
-        c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(c3.getImage());
-                skat.set(0, cardlist.get(3));
-                cardlist.remove(cardlist.get(3));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(c3.getImage());
-                skat.set(1, cardlist.get(3));
-                cardlist.remove(cardlist.get(3));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(c3.getImage());
-              skat.set(0, cardlist.get(3));
-              cardlist.remove(cardlist.get(3));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
-          }
-        });
-        c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(c4.getImage());
-                skat.set(0, cardlist.get(4));
-                cardlist.remove(cardlist.get(4));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(c4.getImage());
-                skat.set(1, cardlist.get(4));
-                cardlist.remove(cardlist.get(4));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(c4.getImage());
-              skat.set(0, cardlist.get(4));
-              cardlist.remove(cardlist.get(4));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
-          }
-        });
-        c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(c5.getImage());
-                skat.set(0, cardlist.get(5));
-                cardlist.remove(cardlist.get(5));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(c5.getImage());
-                skat.set(1, cardlist.get(4));
-                cardlist.remove(cardlist.get(5));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(c5.getImage());
-              skat.set(0, cardlist.get(5));
-              cardlist.remove(cardlist.get(5));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
-          }
-        });
-        c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(c6.getImage());
-                skat.set(0, cardlist.get(6));
-                cardlist.remove(cardlist.get(6));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(c6.getImage());
-                skat.set(1, cardlist.get(6));
-                cardlist.remove(cardlist.get(6));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(c6.getImage());
-              skat.set(0, cardlist.get(6));
-              cardlist.remove(cardlist.get(6));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
-          }
-        });
-        c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(c7.getImage());
-                skat.set(0, cardlist.get(7));
-                cardlist.remove(cardlist.get(7));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(c7.getImage());
-                skat.set(1, cardlist.get(7));
-                cardlist.remove(cardlist.get(7));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(c7.getImage());
-              skat.set(0, cardlist.get(7));
-              cardlist.remove(cardlist.get(7));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
-          }
-        });
-        c8.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(c8.getImage());
-                skat.set(0, cardlist.get(8));
-                cardlist.remove(cardlist.get(8));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(c8.getImage());
-                skat.set(1, cardlist.get(8));
-                cardlist.remove(cardlist.get(8));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(c8.getImage());
-              skat.set(0, cardlist.get(8));
-              cardlist.remove(cardlist.get(8));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
-          }
-        });
-        c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(c9.getImage());
-                skat.set(0, cardlist.get(9));
-                cardlist.remove(cardlist.get(9));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(c9.getImage());
-                skat.set(1, cardlist.get(9));
-                cardlist.remove(cardlist.get(9));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(c9.getImage());
-              skat.set(0, cardlist.get(9));
-              cardlist.remove(cardlist.get(9));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
-          }
-        });
-        c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(c10.getImage());
-                skat.set(0, cardlist.get(10));
-                cardlist.remove(cardlist.get(10));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(c10.getImage());
-                skat.set(1, cardlist.get(10));
-                cardlist.remove(cardlist.get(10));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(c10.getImage());
-              skat.set(0, cardlist.get(10));
-              cardlist.remove(cardlist.get(10));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
-          }
-        });
-        extra1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(extra1.getImage());
-                skat.set(0, cardlist.get(0));
-                cardlist.remove(cardlist.get(0));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(extra1.getImage());
-                skat.set(1, cardlist.get(0));
-                cardlist.remove(cardlist.get(0));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(extra1.getImage());
-              skat.set(0, cardlist.get(0));
-              cardlist.remove(cardlist.get(0));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
-          }
-        });
-        extra2.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 11) {
-              // Nur eine Karte auf dem Skat
-              if (da[0] == false) {
-                sk1.setImage(extra2.getImage());
-                skat.set(0, cardlist.get(11));
-                cardlist.remove(cardlist.get(11));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[0] = true;
-              } else if (da[1] == false) {
-                sk2.setImage(extra2.getImage());
-                skat.set(1, cardlist.get(11));
-                cardlist.remove(cardlist.get(11));
-                LoginController.interfGL.sortHand(ps, cardlist);
-                displayCards(cardlist.size(), cardlist);
-                da[1] = true;
-              }
-            } else if (cardlist.size() == 12) {
-              // Skat leer
-              sk1.setImage(extra2.getImage());
-              skat.set(0, cardlist.get(11));
-              cardlist.remove(cardlist.get(11));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              da[0] = true;
-            }
-          }
-        });
-        sk1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 10) {
-              // Beide Karten auf dem Skat
-              cardlist.add(ps.getSkat()[0]);
-              // cardlist.add(0, skat.get(0));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              sk1.setImage(noCard);
-              da[0] = false;
-            } else if (cardlist.size() == 11) {
-              cardlist.add(11, ps.getSkat()[0]);
-              // cardlist.add(11, skat.get(0));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              sk1.setImage(noCard);
-              da[0] = false;
-            }
-          }
-        });
-        sk2.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (cardlist.size() == 10) {
-              // Beide Karten auf dem Skat
-              cardlist.add(ps.getSkat()[1]);
-              // cardlist.add(skat.get(1));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              sk2.setImage(noCard);
-              da[1] = false;
-              System.out.println("da[1] set false ");
-            } else if (cardlist.size() == 11) {
-              cardlist.add(ps.getSkat()[1]);
-              // cardlist.add(skat.get(1));
-              LoginController.interfGL.sortHand(ps, cardlist);
-              displayCards(cardlist.size(), cardlist);
-              sk2.setImage(noCard);
-              da[1] = false;
-            }
-          }
-        });
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(c1.getImage());
+          skat.set(0, cardlist.get(0));
+          cardlist.remove(cardlist.get(0));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
       }
     });
-    
+    c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(c2.getImage());
+            skat.set(0, cardlist.get(2));
+            cardlist.remove(cardlist.get(2));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(c2.getImage());
+            skat.set(1, cardlist.get(2));
+            cardlist.remove(cardlist.get(2));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
+          }
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(c2.getImage());
+          skat.set(0, cardlist.get(2));
+          cardlist.remove(cardlist.get(2));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
+      }
+    });
+    c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(c3.getImage());
+            skat.set(0, cardlist.get(3));
+            cardlist.remove(cardlist.get(3));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(c3.getImage());
+            skat.set(1, cardlist.get(3));
+            cardlist.remove(cardlist.get(3));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
+          }
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(c3.getImage());
+          skat.set(0, cardlist.get(3));
+          cardlist.remove(cardlist.get(3));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
+      }
+    });
+    c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(c4.getImage());
+            skat.set(0, cardlist.get(4));
+            cardlist.remove(cardlist.get(4));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(c4.getImage());
+            skat.set(1, cardlist.get(4));
+            cardlist.remove(cardlist.get(4));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
+          }
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(c4.getImage());
+          skat.set(0, cardlist.get(4));
+          cardlist.remove(cardlist.get(4));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
+      }
+    });
+    c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(c5.getImage());
+            skat.set(0, cardlist.get(5));
+            cardlist.remove(cardlist.get(5));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(c5.getImage());
+            skat.set(1, cardlist.get(4));
+            cardlist.remove(cardlist.get(5));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
+          }
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(c5.getImage());
+          skat.set(0, cardlist.get(5));
+          cardlist.remove(cardlist.get(5));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
+      }
+    });
+    c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(c6.getImage());
+            skat.set(0, cardlist.get(6));
+            cardlist.remove(cardlist.get(6));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(c6.getImage());
+            skat.set(1, cardlist.get(6));
+            cardlist.remove(cardlist.get(6));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
+          }
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(c6.getImage());
+          skat.set(0, cardlist.get(6));
+          cardlist.remove(cardlist.get(6));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
+      }
+    });
+    c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(c7.getImage());
+            skat.set(0, cardlist.get(7));
+            cardlist.remove(cardlist.get(7));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(c7.getImage());
+            skat.set(1, cardlist.get(7));
+            cardlist.remove(cardlist.get(7));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
+          }
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(c7.getImage());
+          skat.set(0, cardlist.get(7));
+          cardlist.remove(cardlist.get(7));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
+      }
+    });
+    c8.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(c8.getImage());
+            skat.set(0, cardlist.get(8));
+            cardlist.remove(cardlist.get(8));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(c8.getImage());
+            skat.set(1, cardlist.get(8));
+            cardlist.remove(cardlist.get(8));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
+          }
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(c8.getImage());
+          skat.set(0, cardlist.get(8));
+          cardlist.remove(cardlist.get(8));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
+      }
+    });
+    c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(c9.getImage());
+            skat.set(0, cardlist.get(9));
+            cardlist.remove(cardlist.get(9));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(c9.getImage());
+            skat.set(1, cardlist.get(9));
+            cardlist.remove(cardlist.get(9));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
+          }
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(c9.getImage());
+          skat.set(0, cardlist.get(9));
+          cardlist.remove(cardlist.get(9));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
+      }
+    });
+    c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(c10.getImage());
+            skat.set(0, cardlist.get(10));
+            cardlist.remove(cardlist.get(10));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(c10.getImage());
+            skat.set(1, cardlist.get(10));
+            cardlist.remove(cardlist.get(10));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
+          }
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(c10.getImage());
+          skat.set(0, cardlist.get(10));
+          cardlist.remove(cardlist.get(10));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
+      }
+    });
+    extra1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(extra1.getImage());
+            skat.set(0, cardlist.get(0));
+            cardlist.remove(cardlist.get(0));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(extra1.getImage());
+            skat.set(1, cardlist.get(0));
+            cardlist.remove(cardlist.get(0));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
+          }
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(extra1.getImage());
+          skat.set(0, cardlist.get(0));
+          cardlist.remove(cardlist.get(0));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
+      }
+    });
+    extra2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 11) {
+          // Nur eine Karte auf dem Skat
+          if (da[0] == false) {
+            sk1.setImage(extra2.getImage());
+            skat.set(0, cardlist.get(11));
+            cardlist.remove(cardlist.get(11));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[0] = true;
+          } else if (da[1] == false) {
+            sk2.setImage(extra2.getImage());
+            skat.set(1, cardlist.get(11));
+            cardlist.remove(cardlist.get(11));
+            LoginController.interfGL.sortHand(ps, cardlist);
+            displayCards(cardlist.size(), cardlist);
+            da[1] = true;
+          }
+        } else if (cardlist.size() == 12) {
+          // Skat leer
+          sk1.setImage(extra2.getImage());
+          skat.set(0, cardlist.get(11));
+          cardlist.remove(cardlist.get(11));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          da[0] = true;
+        }
+      }
+    });
+    sk1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 10) {
+          System.out.println("Länge 10");
+          // Beide Karten auf dem Skat
+          cardlist.add(ps.getSkat()[0]);
+          // cardlist.add(0, skat.get(0));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          System.out.println("Cardlist size: " + cardlist.size());
+          displayCards(cardlist.size(), cardlist);
+          sk1.setImage(noCard);
+          da[0] = false;
+        } else if (cardlist.size() == 11) {
+          System.out.println("Länge 11");
+          cardlist.add(11, ps.getSkat()[0]);
+          // cardlist.add(11, skat.get(0));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          sk1.setImage(noCard);
+          da[0] = false;
+        }
+      }
+    });
+    sk2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        if (cardlist.size() == 10) {
+          // Beide Karten auf dem Skat
+          cardlist.add(ps.getSkat()[1]);
+          // cardlist.add(skat.get(1));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          sk2.setImage(noCard);
+          da[1] = false;
+          System.out.println("da[1] set false ");
+        } else if (cardlist.size() == 11) {
+          cardlist.add(ps.getSkat()[1]);
+          // cardlist.add(skat.get(1));
+          LoginController.interfGL.sortHand(ps, cardlist);
+          displayCards(cardlist.size(), cardlist);
+          sk2.setImage(noCard);
+          da[1] = false;
+        }
+      }
+    });
+    ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        skatLogic.add(0, skat.get(0));
+        skatLogic.add(1, skat.get(1));
+        skatpressed = true;
+      }
+    });
+
   }
+
+  public void rearrangeCards(int size, List<Card> list) {
+    switch (size) {
+      case 1:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(null);
+        c3.setImage(null);
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 2:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(null);
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 3:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+      case 4:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 5:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 6:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 7:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 8:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 9:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
+            (list.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(null);
+        break;
+      case 10:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
+            (list.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
+            (list.get(9).getNumber().toString().toLowerCase())));
+        break;
+    }
+  }
+
 
 
   /**
@@ -1698,6 +1865,7 @@ public class InGameController implements Initializable, InGameInterface {
       public void run() {
         switch (anz) {
           case (10):
+            extra1.setImage(null);
             c1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
                 (cardlist2.get(0).getNumber().toString().toLowerCase())));
             c2.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
@@ -1718,8 +1886,10 @@ public class InGameController implements Initializable, InGameInterface {
                 (cardlist2.get(8).getNumber().toString().toLowerCase())));
             c10.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
                 (cardlist2.get(9).getNumber().toString().toLowerCase())));
+            extra2.setImage(null);
             break;
           case (11):
+            System.out.println("11");
             extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
                 (cardlist2.get(0).getNumber().toString().toLowerCase())));
             c1.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
@@ -1742,6 +1912,7 @@ public class InGameController implements Initializable, InGameInterface {
                 (cardlist2.get(9).getNumber().toString().toLowerCase())));
             c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
                 (cardlist2.get(10).getNumber().toString().toLowerCase())));
+            extra2.setImage(null);
             break;
           case (12):
             extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
@@ -1785,29 +1956,31 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        
+
       }
     });
     return false;
   }
 
+  /**
+   * Auction
+   */
+
   /*
    * (non-Javadoc)
    * 
-   * @see interfaces.InGameInterface#askToTakeUpSkat(logic.PlayState)
+   * @see interfaces.InGameInterface#openAskForBet(int)
    */
   @Override
-  public PlayState askToTakeUpSkat(PlayState ps) {
+  public void openAskForBet(int bet) {
     // TODO Auto-generated method stub
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        deletePane(paneBet);
-        displayWannaTakeSkat();
-        ButtonListenrWantSkat(ps);
+        displayAuctionScreen();
+        betB.setText(String.valueOf(bet));
       }
     });
-    return null;
   }
 
   /*
@@ -1818,15 +1991,276 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public boolean askForBet(int bet, Player lastBet) {
     // deletePane(paneBet);
+    while (notpressed) {
+      ButtonListener();
+    }
+    notpressed = true;
+    return b;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#updateBet(int)
+   */
+  @Override
+  public void updateBet(int bet) {
+    // TODO Auto-generated method stub
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
         betB.setText(String.valueOf(bet));
-        displayAuctionScreen();
       }
     });
-    return ButtonListener();
+
   }
+
+
+  /**
+   * Do you want to take the Skat?
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openTakeUpSkat()
+   */
+  @Override
+  public void openTakeUpSkat() {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        displayWannaTakeSkat();
+      }
+    });
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askToTakeUpSkat()
+   */
+  @Override
+  public boolean askToTakeUpSkat() {
+    // TODO Auto-generated method stub
+    while (decidepressed == false) {
+      ButtonListenrWantSkat();
+    }
+    decidepressed = false;
+    return wantskat;
+  }
+
+
+
+  /**
+   * Declarer Stack
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openSwitchSkat(logic.PlayState)
+   */
+  @Override
+  public void openSwitchSkat(PlayState ps) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(skatPane);
+        displaySwitchSkat(ps);
+      }
+    });
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#switchSkat(logic.PlayState)
+   */
+  @Override
+  public List<Card> switchSkat(PlayState ps) {
+    // TODO Auto-generated method stub
+    skat.add(ps.getSkat()[0]);
+    skat.add(ps.getSkat()[1]);
+    while (skatpressed == false) {
+      switchSkatListener(ps);
+    }
+    skatpressed = false;
+    return skatLogic;
+  }
+
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openAuctionWinnerScreen()
+   */
+  @Override
+  public void openAuctionWinnerScreen() {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(paneBet);
+        deletePane(skatPane);
+        deletePane(handPane);
+        displayAuctionWinnerScreen();
+      }
+    });
+  }
+
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#setPlaySettingsAfterAuction(logic.PlayState)
+   */
+  @Override
+  public void setPlaySettingsAfterAuction(PlayState ps) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(paneAuc);
+        if(ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelLeft.setText(ps.getPlayMode().toString());
+            } else {
+              labelLeft.setText(ps.getPlayMode().toString());
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelRight.setText(ps.getPlayMode().toString());
+            } else {
+              labelLeft.setText(ps.getPlayMode().toString());
+            }
+          } else {
+            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+              labelRight.setText(ps.getTrump().toString());
+            } else {
+              labelLeft.setText(ps.getTrump().toString());
+            }
+          }
+        } else {
+          
+        }
+        if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+          if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+            labelLeft.setText(ps.getTrump().toString());
+          } else {
+            labelLeft.setText(ps.getTrump().toString());
+          }
+        } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+          if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+            labelRight.setText(ps.getTrump().toString());
+          } else {
+            labelLeft.setText(ps.getTrump().toString());
+          }
+        } else {
+          if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+            labelRight.setText(ps.getTrump().toString());
+          } else {
+            labelLeft.setText(ps.getTrump().toString());
+          }
+        }
+      }
+    });
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#itsYourTurn()
+   */
+  @Override
+  public void itsYourTurn() {
+    // TODO Auto-generated method stub
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#showSecondsLeftToPlayCard(int)
+   */
+  @Override
+  public void showSecondsLeftToPlayCard(int seconds) {
+    // TODO Auto-generated method stub
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#receivedNewBet(int, logic.Player)
+   */
+  @Override
+  public void receivedNewBet(int bet, Player player) {
+    // TODO Auto-generated method stub
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#receivedNewCard(logic.Card, logic.Player)
+   */
+  @Override
+  public void receivedNewCard(Card card, Player player) {
+    // TODO Auto-generated method stub
+    rearrangeCards(cardlist.size(), cardlist);
+    if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+      if (player.getPosition() == Position.MIDDLEHAND) {
+        s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else if (player.getPosition() == Position.REARHAND) {
+        s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else {
+        s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      }
+    } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+      if (player.getPosition() == Position.MIDDLEHAND) {
+        s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else if (player.getPosition() == Position.FOREHAND) {
+        s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else {
+        s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      }
+    } else {
+      if (player.getPosition() == Position.REARHAND) {
+        s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else if (player.getPosition() == Position.FOREHAND) {
+        s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      } else {
+        s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+            card.getNumber().toString().toLowerCase()));
+      }
+    }
+
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#askToSetPlayState(logic.PlayState)
+   */
+  @Override
+  public PlayState askToSetPlayState(PlayState ps) {
+    // TODO Auto-generated method stub
+    while (setSettings == false) {
+      ButtonListenerPlaySettings(ps);
+
+    }
+    return ps;
+  }
+
 
 
 }

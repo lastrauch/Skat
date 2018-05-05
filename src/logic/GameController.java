@@ -69,7 +69,7 @@ public class GameController implements GuiLogic {
     this.clientLogic.add(clientLogic);
     this.networkController = networkController;
   }
-  
+
   @Override
   /**
    * @author awesch
@@ -122,7 +122,9 @@ public class GameController implements GuiLogic {
 
   @Override
   public void hostGame(String comment, GameSettings gs) {
-    this.myServer = this.networkController.hostGame(this.clientLogic.get(0).player, this.gameSettings, comment);
+    this.gameSettings = gs;
+    this.myServer =
+        this.networkController.hostGame(this.clientLogic.get(0).player, this.gameSettings, comment);
     this.clientLogic.get(0).setGameSetting(gs);
   }
 

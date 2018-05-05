@@ -125,7 +125,6 @@ public class Client extends Thread {
     return false;
   }
 
-  // TODO Nachrichten eventuell verwerfen, wenn nicht ben�tigt
   private synchronized void receiveMessage(Message message) {
     switch (message.getType()) {
       case YOUR_TURN:

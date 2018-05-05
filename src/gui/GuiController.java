@@ -396,7 +396,7 @@ public class GuiController extends Application {
    * @author lstrauch
    * @param gm
    */
-  public void displayGameSettings(GameMode gm) {
+  public void displayGameSettings() {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("GameSettings.fxml"));
