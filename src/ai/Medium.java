@@ -841,16 +841,66 @@ public class Medium {
       }
 
       // 2nd card in trick
+      if(trick.size() == 1) {
       // If predecessor is declarer, try to win, else low value
-      // If predecessor is not declarer and threw high value, try to win, else throw
+      if(controller.getPlayedCards()[controller.getPlayedCards().length-1][declarer] != null) {
+        
+        
+     // If predecessor is not declarer and threw high value, try to win, else throw
+      }else {
+        
+      }
       // low value
+      if(trick.get(0).getNumber() == Number.JACK && ownTrumps > 0) {
+        for (int colour = 3; colour >= 0; colour--) {
+         int number = 7 - Number.JACK.ordinal();
+            if (controller.getCardProbabilities()[colour * 8 + number][0] == 1) {
+              for (int i = 0; i < cards.size(); i++) {
+                if ((3 - cards.get(i).getColour().ordinal()) == colour
+                    && (7 - cards.get(i).getNumber().ordinal()) == number) {
+                  return i;
+                }
+              }
+          }
+        }
+      }else {
+      for (int colour = 3; colour >= 0; colour--) {
+        for (int number = 7; number >= 0; number--) {
+          if (controller.getCardProbabilities()[colour * 8 + number][0] == 1) {
+            for (int i = 0; i < cards.size(); i++) {
+              if ((3 - cards.get(i).getColour().ordinal()) == colour
+                  && (7 - cards.get(i).getNumber().ordinal()) == number) {
+                return i;
+              }
+            }
+          }
+        }
+      }
+      }
+      int colour = 3 - trick.get(0).getColour().ordinal();
+      for (int number = 7; number >= 0; number--) {
+        if (controller.getCardProbabilities()[colour * 8 + number][0] == 1) {
+          for (int i = 0; i < cards.size(); i++) {
+            if ((3 - cards.get(i).getColour().ordinal()) == colour
+                && (7 - cards.get(i).getNumber().ordinal()) == number) {
+              return i;
+            }
+          }
+        }
+      }
       // Else play random card
-
+      return General.playRandomCard(controller);
+      }
+      
       // 3rd card in trick
-      // If already on, throw points
-      // If not, try to win, if value > 10 with own card
-      // If do not want to win, throw low value card
-      // Else play random
+      if(trick.size() == 2) {
+        // If already won, throw points
+        
+        // If not, try to win, if value > 7
+        // If do not want to win, throw low value card
+        // Else play random
+        return General.playRandomCard(controller);
+      }
     }
 
     return General.playRandomCard(controller);
@@ -863,93 +913,18 @@ public class Medium {
     List<Card> trick = controller.getCurrentTrick();
 
     // Bot is declarer
-    if (controller.getBot().isDeclarer()) {
-
       // Play 2nd or 3rd card
       // Bot has colour
-      if (controller.getHasColour()[3 - trick.get(0).getColour().ordinal()][0]
-          || (trick.get(0).getColour() == controller.getPlayState().getTrump()
-              && controller.getHasTrump()[0])) {
         // Colour is trump
-        if (trick.get(0).getColour() == controller.getPlayState().getTrump()) {
           // Play highest Jack
-          int number = 7 - Number.JACK.ordinal();
-          for (int colour = 0; colour < 4; colour++) {
-            if (controller.getCardProbabilities()[colour * 8 + number][0] == 1) {
-              for (int j = 0; j < cards.size(); j++) {
-                if ((3 - cards.get(j).getColour().ordinal()) == colour
-                    && cards.get(j).getNumber() == Number.JACK) {
-                  return j;
-                }
-              }
-            }
-          }
-        }
         // Try to win with colour
-        int colour = 3 - trick.get(0).getColour().ordinal();
-        if (trick.size() == 1) {
-          int number = 0;
-          while (number < 8 && controller.getCardProbabilities()[colour * 8 + number][0] == 0) {
-            number++;
-          }
-          for (int j = 0; j < cards.size(); j++) {
-            if ((3 - cards.get(j).getColour().ordinal()) == colour
-                && (7 - cards.get(j).getNumber().ordinal()) == number) {
-              return j;
-            }
-          }
-        }
-        if (trick.size() == 2) {
-          if (trick.get(0).getColour() == trick.get(1).getColour()
-              || trick.get(1).getNumber() != Number.JACK) {
-            int value;
-            if (trick.get(0).getNumber().ordinal() > trick.get(1).getNumber().ordinal()) {
-              value = 7 - trick.get(0).getNumber().ordinal();
-            } else {
-              value = 7 - trick.get(1).getNumber().ordinal();
-            }
             // Try to win
-            int number = value;
-            while (number >= 0 && controller.getCardProbabilities()[colour * 8 + number][0] == 0) {
-              number--;
-            }
-            if (number != -1) {
-              for (int j = 0; j < cards.size(); j++) {
-                if ((3 - cards.get(j).getColour().ordinal()) == colour
-                    && (7 - cards.get(j).getNumber().ordinal()) == number) {
-                  return j;
-                }
-              }
-            }
             // Else play lowest card of colour
-            number = 7;
-            while (number > value
-                && controller.getCardProbabilities()[colour * 8 + number][0] == 0) {
-              number--;
-            }
-            if (number != value) {
-              for (int j = 0; j < cards.size(); j++) {
-                if ((3 - cards.get(j).getColour().ordinal()) == colour
-                    && (7 - cards.get(j).getNumber().ordinal()) == number) {
-                  return j;
-                }
-              }
-            }
-          }
-          return General.playRandomCard(controller);
-        }
-
         // Bot does not have colour
-      } else {
         // Check if he wants to and can play trump
-      }
       // Else play low card
-      return General.playRandomCard(controller);
-
       // Bot is not declarer
-    } else {
 
-    }
     return General.playRandomCard(controller);
   }
 
