@@ -830,6 +830,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       this.calculatePlayValue();
       this.netController.sendPlayState(this.playState);
+      
     }
   }
 
