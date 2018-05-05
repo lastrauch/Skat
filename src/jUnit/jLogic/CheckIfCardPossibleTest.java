@@ -80,7 +80,7 @@ class CheckIfCardPossibleTest {
     
     this.test();
   }
-
+ 
   /* PlayMode : GRAND */
   @Test
   void testGrand() throws LogicException {

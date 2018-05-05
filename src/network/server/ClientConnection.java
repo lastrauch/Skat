@@ -1,11 +1,9 @@
 package network.server;
 
 import logic.Player;
-import network.Settings;
 import network.messages.*;
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
 
 public class ClientConnection extends Thread {
 	private Server server;
@@ -152,9 +150,6 @@ public class ClientConnection extends Thread {
 
 	}
 
-	// TODO evtl. muss ich an alle au�er mir senden, dann die Connection
-	// schlie�en und dann erst aus
-	// der Liste des Servers l�schen
 	private void clientDisconnectHandler(ClientDisconnect_Msg message) {
 		this.server.removePlayer(message.getPlayer());
 		this.server.removeClientConnection(this);

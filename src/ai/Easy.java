@@ -3,17 +3,47 @@ package ai;
 import logic.PlayMode;
 import logic.PlayState;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import logic.Card;
 import logic.Colour;
 
 public class Easy {
 
-	public static int playCard(AIController controller) {
-		return General.playRandomCard(controller);
-	}
+	// This is a static class to implement methods to play with an easy AI.
+	// Available methods are:
 
-	public static boolean setBet(AIController controller, int bet) {
+	// askForBet(AIController, int) : boolean
+	// Checks if the easy AI wants to place a bet of passed value.
+
+	// askToTakeUpSkat(AIController) : boolean
+	// Checks if the AI wants to pick up the skat.
+
+	// switchSkat(AIController) : List<Card>
+	// Gives back the cards, the AI wants to put on the skat after picking it up.
+
+	// askToSetPlayState(AIController) : PlayState
+	// If the AI won the auction, it needs to set a PlayState.
+
+	// askToRekontra(AIController) : boolean
+	// If someone called Kontra, check if the AI wants to call Rekontra.
+
+	// askToPlayCard(AIController) : int
+	// Gives back the index of a Card on the hand, that the AI wants to play.
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Methods called by AIController
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Checks if the easy AI wants to place a bet of passed value.
+	 * 
+	 * @author dpervane
+	 * @param controller
+	 * @param bet
+	 * @return boolean
+	 */
+	public static boolean askForBet(AIController controller, int bet) {
 		int maxBet = General.getHighestPossibleBet(controller, PlayMode.SUIT);
 		double random = Math.random();
 		if (maxBet >= bet) {
@@ -27,12 +57,37 @@ public class Easy {
 
 		}
 	}
-	
+
+	/**
+	 * Checks if the AI wants to pick up the skat.
+	 * 
+	 * @author dpervane
+	 * @param controller
+	 * @return boolean
+	 */
 	public static boolean askToTakeUpSkat(AIController controller) {
 		return false;
 	}
 
-	public static PlayState setPlayState(AIController controller) {
+	/**
+	 * Gives back the cards, the AI wants to put on the skat after picking it up.
+	 * 
+	 * @author dpervane
+	 * @param controller
+	 * @return List(Card)
+	 */
+	public static List<Card> switchSkat(AIController controller) {
+		return Arrays.asList(controller.getPlayState().getSkat());
+	}
+
+	/**
+	 * If the AI won the auction, it needs to set a PlayState.
+	 * 
+	 * @author dpervane
+	 * @param controller
+	 * @return PlayState
+	 */
+	public static PlayState askToSetPlayState(AIController controller) {
 
 		PlayState playState = controller.getPlayState();
 		List<Card> skatList = new ArrayList<Card>();
@@ -81,8 +136,26 @@ public class Easy {
 		return playState;
 	}
 
+	/**
+	 * If someone called Kontra, check if the AI wants to call Rekontra.
+	 * 
+	 * @author dpervane
+	 * @param controller
+	 * @return boolean
+	 */
 	public static boolean askToRekontra(AIController controller) {
 		return false;
+	}
+
+	/**
+	 * Gives back the index of a Card on the hand, that the AI wants to play.
+	 * 
+	 * @author dpervane
+	 * @param controller
+	 * @return int
+	 */
+	public static int askToPlayCard(AIController controller) {
+		return General.playRandomCard(controller);
 	}
 
 }
