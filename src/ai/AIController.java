@@ -263,6 +263,8 @@ public class AIController implements InGameInterface {
    * @return PlayState
    */
   public PlayState askToSetPlayState(PlayState playState) {
+    // TODO
+    /*
     try {
       Thread.sleep(Settings.DELAY);
     } catch (InterruptedException e) {
@@ -308,6 +310,7 @@ public class AIController implements InGameInterface {
     }
 
     this.playState = playState;
+    */
     return playState;
   }
 
