@@ -109,6 +109,7 @@ public class InGameController implements Initializable, InGameInterface {
   Boolean[] da = new Boolean[2];
   private boolean clicked = false;
   int[] ret = new int[1];
+  private int count = 10;
 
 
 
@@ -301,7 +302,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public int askToPlayCard() {
     // TODO Auto-generated method stub
-    for(int i = 0; i < cardlist.size(); i++) {
+    for (int i = 0; i < cardlist.size(); i++) {
       System.out.println("Cardlist(" + i + "): " + cardlist.get(i));
     }
     while (clicked == false) {
@@ -334,7 +335,7 @@ public class InGameController implements Initializable, InGameInterface {
     // TODO Auto-generated method stub
     cardlist = list;
     System.out.println("List.size: " + list.size());
-    for(int i = 0; i < cardlist.size(); i++) {
+    for (int i = 0; i < cardlist.size(); i++) {
       System.out.println("Cardlist(" + i + "): " + cardlist.get(i));
     }
     rearrangeCards(list.size(), list);
@@ -364,6 +365,13 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showWinnerTrick(Player player) {
     // TODO Auto-generated method stub
+    if (s1.getStyleClass() != null && s2.getImage() != null && s3.getImage() != null) {
+      s1.setImage(null);
+      s2.setImage(null);
+      s3.setImage(null);
+    }
+    betB.setText(LoginController.interfGL.getPlayer().getPosition().toString());
+    
 
   }
 
@@ -394,390 +402,6 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
-  /**
-   * 
-   * 
-   * 
-   * 
-   * Initialize Screens
-   * 
-   * 
-   * 
-   * 
-   * 
-   */
-
-
-
-  /**
-   * Display Auction part
-   * 
-   * @author lstrauch
-   */
-  public void displayAuctionScreen() {
-    paneBet.setLayoutX(475);
-    paneBet.setLayoutY(128);
-    paneBet.setPrefHeight(315);
-    paneBet.setPrefWidth(395);
-    paneBet.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
-
-    qu.setId("?");
-    qu.setPrefHeight(44);
-    qu.setPrefWidth(69);
-    qu.setText("?");
-    qu.setFont(Font.font("System", FontWeight.BOLD, 20));
-    qu.setTextFill(Color.WHITE);
-    qu.setStyle("-fx-background-color: tan;");
-    pass.setId("pass");
-    pass.setPrefHeight(44);
-    pass.setPrefWidth(69);
-    pass.setText("Pass");
-    pass.setFont(Font.font("System", FontWeight.BOLD, 20));
-    pass.setTextFill(Color.WHITE);
-    pass.setStyle("-fx-background-color: tan;");
-    betB.setId("value");
-    betB.setPrefHeight(44);
-    betB.setPrefWidth(69);
-    betB.setFont(Font.font("System", FontWeight.BOLD, 20));
-    betB.setTextFill(Color.WHITE);
-    betB.setStyle("-fx-background-color: tan;");
-
-    labelBet.setPrefHeight(53);
-    labelBet.setLayoutX(88);
-    labelBet.setLayoutY(36);
-    labelBet.setText("");
-    labelBet.setFont(Font.font("System", FontWeight.BOLD, 36));
-    labelBet.setTextFill(Color.WHITE);
-    AnchorPane.setLeftAnchor(labelBet, 0.0);
-    AnchorPane.setRightAnchor(labelBet, 0.0);
-    labelBet.setAlignment(Pos.CENTER);
-
-    box.getChildren().add(qu);
-    box.getChildren().add(pass);
-    box.getChildren().add(betB);
-    box.setSpacing(50);
-    box.setPrefWidth(307);
-    box.setPrefHeight(44);
-    box.setLayoutX(37);
-    box.setLayoutY(158);
-
-    paneBet.getChildren().add(box);
-    paneBet.getChildren().add(labelBet);
-
-    mainPane.getChildren().add(paneBet);
-  }
-
-
-
-  /**
-   * @author lstrauch
-   */
-  public void displayAuctionWinnerScreen() {
-    ToggleGroup g1 = new ToggleGroup();
-
-    paneAuc.setPrefHeight(315);
-    paneAuc.setPrefWidth(582);
-    paneAuc.setLayoutX(334);
-    paneAuc.setLayoutY(128);
-    paneAuc.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
-
-    diamonds.setPrefHeight(42);
-    diamonds.setPrefWidth(117);
-    diamonds.setText("Diamonds");
-    diamonds.setFont(Font.font("System", FontWeight.BOLD, 20));
-    diamonds.setStyle("-fx-background-color: tan;");
-    hearts.setPrefHeight(42);
-    hearts.setPrefWidth(117);
-    hearts.setText("Hearts");
-    hearts.setFont(Font.font("System", FontWeight.BOLD, 20));
-    hearts.setStyle("-fx-background-color: tan;");
-    spades.setPrefHeight(42);
-    spades.setPrefWidth(117);
-    spades.setText("Spades");
-    spades.setFont(Font.font("System", FontWeight.BOLD, 20));
-    spades.setStyle("-fx-background-color: tan;");
-    clubs.setPrefHeight(42);
-    clubs.setPrefWidth(117);
-    clubs.setText("Clubs");
-    clubs.setFont(Font.font("System", FontWeight.BOLD, 20));
-    clubs.setStyle("-fx-background-color: tan;");
-    diamonds.setToggleGroup(g1);
-    hearts.setToggleGroup(g1);
-    spades.setToggleGroup(g1);
-    clubs.setToggleGroup(g1);
-    grand.setToggleGroup(g1);
-    nullG.setToggleGroup(g1);
-
-    boxWin1.getChildren().add(diamonds);
-    boxWin1.getChildren().add(hearts);
-    boxWin1.getChildren().add(spades);
-    boxWin1.getChildren().add(clubs);
-    boxWin1.setSpacing(20);
-    boxWin1.setPrefWidth(528);
-    boxWin1.setPrefHeight(42);
-    boxWin1.setLayoutX(28);
-    boxWin1.setLayoutY(60);
-
-    grand.setPrefHeight(42);
-    grand.setPrefWidth(117);
-    grand.setText("Grand");
-    grand.setFont(Font.font("System", FontWeight.BOLD, 20));
-    grand.setStyle("-fx-background-color: tan;");
-    nullG.setPrefHeight(42);
-    nullG.setPrefWidth(117);
-    nullG.setText("Null");
-    nullG.setFont(Font.font("System", FontWeight.BOLD, 20));
-    nullG.setStyle("-fx-background-color: tan;");
-
-    boxWin2.getChildren().add(grand);
-    boxWin2.getChildren().add(nullG);
-    boxWin2.setSpacing(158);
-    boxWin2.setPrefWidth(528);
-    boxWin2.setPrefHeight(42);
-    boxWin2.setLayoutX(28);
-    boxWin2.setLayoutY(158);
-
-    ouvert.setPrefHeight(21);
-    ouvert.setPrefWidth(102);
-    ouvert.setText("Ouvert");
-    ouvert.setFont(Font.font("System", 15));
-    ouvert.setStyle("-fx-background-color: tan;");
-    schneider.setPrefHeight(21);
-    schneider.setPrefWidth(102);
-    schneider.setText("Schneider");
-    schneider.setFont(Font.font("System", 15));
-    schneider.setStyle("-fx-background-color: tan;");
-    schwarz.setPrefHeight(21);
-    schwarz.setPrefWidth(102);
-    schwarz.setText("Schwarz");
-    schwarz.setFont(Font.font("System", 15));
-    schwarz.setStyle("-fx-background-color: tan;");
-
-    boxWin3.getChildren().add(ouvert);
-    boxWin3.getChildren().add(schneider);
-    boxWin3.getChildren().add(schwarz);
-    boxWin3.setSpacing(35);
-    boxWin3.setPrefWidth(528);
-    boxWin3.setPrefHeight(21);
-    boxWin3.setLayoutX(28);
-    boxWin3.setLayoutY(266);
-
-    vBoxWin.getChildren().add(boxWin1);
-    vBoxWin.getChildren().add(boxWin2);
-    vBoxWin.getChildren().add(boxWin3);
-    vBoxWin.setPrefHeight(185);
-    vBoxWin.setPrefWidth(528);
-    vBoxWin.setLayoutX(14);
-    vBoxWin.setLayoutY(97);
-    vBoxWin.setSpacing(40);
-
-    submit.setPrefHeight(33);
-    submit.setPrefWidth(69);
-    submit.setText("Submit");
-    submit.setFont(Font.font("System", 15));
-    submit.setStyle("-fx-background-color: tan; -fx-border-color: black;");
-    submit.setButtonType(ButtonType.RAISED);
-    submit.setLayoutX(499);
-    submit.setLayoutY(268);
-
-    labelWin.setPrefHeight(49);
-    labelWin.setPrefWidth(401);
-    labelWin.setLayoutX(14);
-    labelWin.setLayoutY(28);
-    labelWin.setText("What do you wanna play?");
-    labelWin.setFont(Font.font("System", FontWeight.BOLD, 33));
-    labelWin.setTextFill(Color.WHITE);
-
-    paneAuc.getChildren().add(vBoxWin);
-    paneAuc.getChildren().add(labelWin);
-    paneAuc.getChildren().add(submit);
-
-    mainPane.getChildren().add(paneAuc);
-  }
-
-
-
-  /**
-   * @author lstrauch
-   */
-  public void displayWannaTakeSkat() {
-    skatPane.setPrefHeight(315);
-    skatPane.setPrefWidth(582);
-    skatPane.setLayoutX(334);
-    skatPane.setLayoutY(128);
-    skatPane.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
-
-    skatLabel.setPrefHeight(49);
-    skatLabel.setPrefWidth(467);
-    skatLabel.setLayoutX(58);
-    skatLabel.setLayoutY(48);
-    skatLabel.setText("Do you want to take the Skat?");
-    skatLabel.setFont(Font.font("System", FontWeight.BOLD, 33));
-    skatLabel.setTextFill(Color.WHITE);
-    AnchorPane.setLeftAnchor(skatLabel, 0.0);
-    AnchorPane.setRightAnchor(skatLabel, 0.0);
-    skatLabel.setAlignment(Pos.CENTER);
-
-    yes.setPrefHeight(123);
-    yes.setPrefWidth(154);
-    yes.setText("Yes");
-    yes.setFont(Font.font("System", FontWeight.BOLD, 25));
-    yes.setStyle("-fx-background-color: tan;");
-    yes.setButtonType(ButtonType.RAISED);
-    no.setPrefHeight(123);
-    no.setPrefWidth(154);
-    no.setText("No");
-    no.setFont(Font.font("System", FontWeight.BOLD, 25));
-    no.setStyle("-fx-background-color: tan;");
-    no.setButtonType(ButtonType.RAISED);
-
-    skatHbox.getChildren().add(yes);
-    skatHbox.getChildren().add(no);
-    skatHbox.setSpacing(100);
-    skatHbox.setPrefWidth(346);
-    skatHbox.setPrefHeight(54);
-    skatHbox.setLayoutX(118);
-    skatHbox.setLayoutY(158);
-
-
-    skatPane.getChildren().add(skatLabel);
-    skatPane.getChildren().add(skatHbox);
-    mainPane.getChildren().add(skatPane);
-  }
-
-  /**
-   * display part in which the player can choose the cards he wants to put on the skat
-   */
-  /**
-   * @author lstrauch
-   * @param ps
-   */
-  public void displaySwitchSkat(PlayState ps) {
-    handPane.setPrefHeight(315);
-    handPane.setPrefWidth(582);
-    handPane.setLayoutX(334);
-    handPane.setLayoutY(128);
-    handPane.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
-
-    sk1.setFitHeight(227);
-    sk1.setFitWidth(182);
-    sk1.setLayoutX(83);
-    sk1.setLayoutY(37);
-    sk1.setStyle("-fx-background-color: black");
-    sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
-        ps.getSkat()[1].getNumber().toString().toLowerCase()));
-
-    sk2.setFitHeight(227);
-    sk2.setFitWidth(182);
-    sk2.setLayoutX(326);
-    sk2.setLayoutY(37);
-    sk2.setStyle("-fx-background-color: black");
-    sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
-        ps.getSkat()[0].getNumber().toString().toLowerCase()));
-
-    ok.setPrefHeight(31);
-    ok.setPrefWidth(67);
-    ok.setLayoutX(501);
-    ok.setLayoutY(270);
-    ok.setText("OK");
-    ok.setFont(Font.font("System", FontWeight.BOLD, 15));
-    ok.setButtonType(ButtonType.RAISED);
-
-
-    handPane.getChildren().add(sk1);
-    handPane.getChildren().add(sk2);
-    handPane.getChildren().add(ok);
-
-    mainPane.getChildren().add(handPane);
-  }
-
-  /**
-   * @author lstrauch
-   */
-  public void displayChatScreenOpen() {
-    chatM.setPrefWidth(1280);
-    chatM.setPrefHeight(97);
-    chatM.setLayoutX(3);
-    chatM.setLayoutY(5);
-    chatM.setStyle("-fx-background-color: peru");
-    chatM.setEditable(false);
-    chatM.setUnFocusColor(Color.PERU);
-    chatM.setFocusColor(Color.WHITE);
-    chatM.setOpacity(0.33);
-
-    textM.setPrefHeight(50);
-    textM.setPrefWidth(1280);
-    textM.setLayoutX(3);
-    textM.setLayoutY(97);
-    textM.setStyle("-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2");
-    textM.setOpacity(0.33);
-
-    pf.setImage(pfOben);
-    pf.setFitHeight(32);
-    pf.setFitWidth(40);
-    pf.setLayoutX(624);
-    pf.setLayoutY(130);
-    pf.toFront();
-
-    sendB.setLayoutX(1167);
-    sendB.setLayoutY(97);
-    sendB.setPrefHeight(50);
-    sendB.setPrefWidth(113);
-    sendB.setFont(Font.font("System", 20));
-
-
-    s1.setLayoutX(533);
-    s1.setLayoutY(149);
-    s2.setLayoutX(590);
-    s2.setLayoutY(184);
-    s3.setLayoutX(619);
-    s3.setLayoutY(200);
-  }
-
-  /**
-   * @author lstrauch
-   */
-  public void displayChatClosed() {
-    chatM.setPrefWidth(1280);
-    chatM.setPrefHeight(35);
-    chatM.setLayoutX(3);
-    chatM.setLayoutY(5);
-    chatM.setStyle("-fx-background-color: peru");
-    chatM.setEditable(false);
-    chatM.setUnFocusColor(Color.PERU);
-    chatM.setFocusColor(Color.WHITE);
-    chatM.setOpacity(0.33);
-
-    textM.setPrefHeight(32);
-    textM.setPrefWidth(1280);
-    textM.setLayoutX(3);
-    textM.setLayoutY(33);
-    textM.setStyle("-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2");
-    textM.setOpacity(0.33);
-
-    pf.setImage(pfUnten);
-    pf.setFitHeight(32);
-    pf.setFitWidth(40);
-    pf.setLayoutX(624);
-    pf.setLayoutY(52);
-
-    sendB.setLayoutX(1167);
-    sendB.setLayoutY(33);
-    sendB.setPrefHeight(32);
-    sendB.setPrefWidth(113);
-    sendB.setFont(Font.font("System", 15));
-
-    s1.setLayoutX(533);
-    s1.setLayoutY(89);
-    s2.setLayoutX(590);
-    s2.setLayoutY(114);
-    s3.setLayoutX(619);
-    s3.setLayoutY(140);
-  }
 
 
 
@@ -906,21 +530,21 @@ public class InGameController implements Initializable, InGameInterface {
         clicked = true;
       }
     });
-    c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 8;
-        System.out.println("C9 DRAUFGEKLICKT");
-        clicked = true;
-      }
-    });
     c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
         ret[0] = 9;
         System.out.println("C10 DRAUFGEKLICKT");
+        clicked = true;
+      }
+    });
+    c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        ret[0] = 8;
+        System.out.println("C9 DRAUFGEKLICKT");
         clicked = true;
       }
     });
@@ -1109,6 +733,759 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
+ 
+
+  public void rearrangeCards(int size, List<Card> list) {
+    switch (size) {
+      case 1:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(null);
+        c3.setImage(null);
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+        // cardlist.set(0, list.get(0));
+        break;
+      case 2:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(null);
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 3:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 4:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 5:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+        // cardlist.set(0, list.get(0));
+        // cardlist.set(1, list.get(1));
+        // cardlist.set(2, list.get(2));
+        // cardlist.set(3, list.get(3));
+        // cardlist.set(4, list.get(4));
+        // cardlist.set(5, list.get(5));
+        // cardlist.set(6, list.get(6));
+        // cardlist.set(7, list.get(7));
+        // cardlist.remove(8);
+        // cardlist.remove(9);
+        break;
+      case 6:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+        // cardlist.set(0, list.get(0));
+        // cardlist.set(1, list.get(1));
+        // cardlist.set(2, list.get(2));
+        // cardlist.set(3, list.get(3));
+        // cardlist.set(4, list.get(4));
+        // cardlist.set(5, list.get(5));
+        // cardlist.remove(6);
+        // cardlist.remove(7);
+        // cardlist.remove(8);
+        // cardlist.remove(9);
+        break;
+      case 7:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+        // cardlist.set(0, list.get(0));
+        // cardlist.set(1, list.get(1));
+        // cardlist.set(2, list.get(2));
+        // cardlist.set(3, list.get(3));
+        // cardlist.set(4, list.get(4));
+        // cardlist.set(5, list.get(5));
+        // cardlist.set(6, list.get(6));
+        // cardlist.remove(7);
+        // cardlist.remove(8);
+        // cardlist.remove(9);
+        break;
+      case 8:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(null);
+        c10.setImage(null);
+
+        // cardlist.set(0, list.get(0));
+        // cardlist.set(1, list.get(1));
+        // cardlist.set(2, list.get(2));
+        // cardlist.set(3, list.get(3));
+        // cardlist.set(4, list.get(4));
+        // cardlist.set(5, list.get(5));
+        // cardlist.set(6, list.get(6));
+        // cardlist.set(7, list.get(7));
+        // cardlist.remove(8);
+        // cardlist.remove(9);
+        break;
+      case 9:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
+            (list.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(null);
+
+        // cardlist.set(0, list.get(0));
+        // cardlist.set(1, list.get(1));
+        // cardlist.set(2, list.get(2));
+        // cardlist.set(3, list.get(3));
+        // cardlist.set(4, list.get(4));
+        // cardlist.set(5, list.get(5));
+        // cardlist.set(6, list.get(6));
+        // cardlist.set(7, list.get(7));
+        // cardlist.set(8, list.get(8));
+        // cardlist.remove(9);
+        break;
+      case 10:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
+            (list.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
+            (list.get(9).getNumber().toString().toLowerCase())));
+        System.out.println("Karte draufgelegt");
+        System.out.println("c10: " + c10.getImage());
+
+        // cardlist.set(0, list.get(0));
+        // cardlist.set(1, list.get(1));
+        // cardlist.set(2, list.get(2));
+        // cardlist.set(3, list.get(3));
+        // cardlist.set(4, list.get(4));
+        // cardlist.set(5, list.get(5));
+        // cardlist.set(6, list.get(6));
+        // cardlist.set(7, list.get(7));
+        // cardlist.set(8, list.get(8));
+        // cardlist.set(9, list.get(9));
+        break;
+    }
+  }
+
+
+
+  /**
+   * @author lstrauch
+   * @param anz
+   * @param cardlist2
+   */
+  public void displayCards(int anz, List<Card> cardlist2) {
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        switch (anz) {
+          case (10):
+            extra1.setImage(null);
+            c1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
+                (cardlist2.get(0).getNumber().toString().toLowerCase())));
+            c2.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
+                (cardlist2.get(1).getNumber().toString().toLowerCase())));
+            c3.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
+                (cardlist2.get(2).getNumber().toString().toLowerCase())));
+            c4.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
+                (cardlist2.get(3).getNumber().toString().toLowerCase())));
+            c5.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
+                (cardlist2.get(4).getNumber().toString().toLowerCase())));
+            c6.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
+                (cardlist2.get(5).getNumber().toString().toLowerCase())));
+            c7.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
+                (cardlist2.get(6).getNumber().toString().toLowerCase())));
+            c8.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
+                (cardlist2.get(7).getNumber().toString().toLowerCase())));
+            c9.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
+                (cardlist2.get(8).getNumber().toString().toLowerCase())));
+            c10.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
+                (cardlist2.get(9).getNumber().toString().toLowerCase())));
+            extra2.setImage(null);
+            break;
+          case (11):
+            System.out.println("11");
+            extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
+                (cardlist2.get(0).getNumber().toString().toLowerCase())));
+            c1.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
+                (cardlist2.get(1).getNumber().toString().toLowerCase())));
+            c2.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
+                (cardlist2.get(2).getNumber().toString().toLowerCase())));
+            c3.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
+                (cardlist2.get(3).getNumber().toString().toLowerCase())));
+            c4.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
+                (cardlist2.get(4).getNumber().toString().toLowerCase())));
+            c5.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
+                (cardlist2.get(5).getNumber().toString().toLowerCase())));
+            c6.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
+                (cardlist2.get(6).getNumber().toString().toLowerCase())));
+            c7.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
+                (cardlist2.get(7).getNumber().toString().toLowerCase())));
+            c8.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
+                (cardlist2.get(8).getNumber().toString().toLowerCase())));
+            c9.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
+                (cardlist2.get(9).getNumber().toString().toLowerCase())));
+            c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
+                (cardlist2.get(10).getNumber().toString().toLowerCase())));
+            extra2.setImage(null);
+            break;
+          case (12):
+            extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
+                (cardlist2.get(0).getNumber().toString().toLowerCase())));
+            c1.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
+                (cardlist2.get(1).getNumber().toString().toLowerCase())));
+            c2.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
+                (cardlist2.get(2).getNumber().toString().toLowerCase())));
+            c3.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
+                (cardlist2.get(3).getNumber().toString().toLowerCase())));
+            c4.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
+                (cardlist2.get(4).getNumber().toString().toLowerCase())));
+            c5.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
+                (cardlist2.get(5).getNumber().toString().toLowerCase())));
+            c6.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
+                (cardlist2.get(6).getNumber().toString().toLowerCase())));
+            c7.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
+                (cardlist2.get(7).getNumber().toString().toLowerCase())));
+            c8.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
+                (cardlist2.get(8).getNumber().toString().toLowerCase())));
+            c9.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
+                (cardlist2.get(9).getNumber().toString().toLowerCase())));
+            c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
+                (cardlist2.get(10).getNumber().toString().toLowerCase())));
+            extra2.setImage(inte.getImage(cardlist2.get(11).getColour().toString().toLowerCase(),
+                (cardlist2.get(11).getNumber().toString().toLowerCase())));
+            break;
+        }
+      }
+    });
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askToRekontra()
+   */
+  @Override
+  public boolean askToRekontra() {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+
+      }
+    });
+    return false;
+  }
+
+  /**
+   * Auction
+   */
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openAskForBet(int)
+   */
+  @Override
+  public void openAskForBet(int bet) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        displayAuctionScreen();
+        betB.setText(String.valueOf(bet));
+      }
+    });
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askForBet(int, logic.Player)
+   */
+  @Override
+  public boolean askForBet(int bet, Player lastBet) {
+    // deletePane(paneBet);
+    while (notpressed) {
+      ButtonListener();
+    }
+    notpressed = true;
+    return b;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#updateBet(int)
+   */
+  @Override
+  public void updateBet(int bet) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        betB.setText(String.valueOf(bet));
+      }
+    });
+
+  }
+
+
+  /**
+   * Do you want to take the Skat?
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openTakeUpSkat()
+   */
+  @Override
+  public void openTakeUpSkat() {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        displayWannaTakeSkat();
+      }
+    });
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askToTakeUpSkat()
+   */
+  @Override
+  public boolean askToTakeUpSkat() {
+    // TODO Auto-generated method stub
+    while (decidepressed == false) {
+      ButtonListenrWantSkat();
+    }
+    decidepressed = false;
+    return wantskat;
+  }
+
+
+
+  /**
+   * Declarer Stack
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openSwitchSkat(logic.PlayState)
+   */
+  @Override
+  public void openSwitchSkat(PlayState ps) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(skatPane);
+        displaySwitchSkat(ps);
+      }
+    });
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#switchSkat(logic.PlayState)
+   */
+  @Override
+  public List<Card> switchSkat(PlayState ps) {
+    // TODO Auto-generated method stub
+    skat.add(ps.getSkat()[0]);
+    skat.add(ps.getSkat()[1]);
+    while (skatpressed == false) {
+      switchSkatListener(ps);
+    }
+    skatpressed = false;
+    return skatLogic;
+  }
+
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openAuctionWinnerScreen()
+   */
+  @Override
+  public void openAuctionWinnerScreen() {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(paneBet);
+        deletePane(skatPane);
+        deletePane(handPane);
+        displayAuctionWinnerScreen();
+      }
+    });
+  }
+
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#setPlaySettingsAfterAuction(logic.PlayState)
+   */
+  @Override
+  public void setPlaySettingsAfterAuction(PlayState ps) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(paneBet);
+        deletePane(skatPane);
+        deletePane(handPane);
+        deletePane(paneAuc);
+        if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelLeft.setText(ps.getPlayMode().toString());
+            } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND){
+              labelRight.setText(ps.getPlayMode().toString());
+            } else {
+              labelMe.setText(ps.getPlayMode().toString());
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelRight.setText(ps.getPlayMode().toString());
+            } else if(ps.getAuction().getWinner().getPosition() == Position.FOREHAND){
+              labelLeft.setText(ps.getPlayMode().toString());
+            } else {
+              labelMe.setText(ps.getPlayMode().toString());
+            }
+          } else {
+            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+              labelRight.setText(ps.getPlayMode().toString());
+            } else if(ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+              labelLeft.setText(ps.getPlayMode().toString());
+            } else {
+              labelMe.setText(ps.getPlayMode().toString());
+            }
+          }
+        } else {
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelLeft.setText(ps.getTrump().toString());
+            } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND){
+              labelRight.setText(ps.getTrump().toString());
+            } else {
+              labelMe.setText(ps.getTrump().toString());
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelRight.setText(ps.getTrump().toString());
+            } else if(ps.getAuction().getWinner().getPosition() == Position.FOREHAND){
+              labelLeft.setText(ps.getTrump().toString());
+            } else {
+              labelMe.setText(ps.getTrump().toString());
+            }
+          } else {
+            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+              labelRight.setText(ps.getTrump().toString());
+            } else if(ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+              labelLeft.setText(ps.getTrump().toString());
+            } else {
+              labelMe.setText(ps.getTrump().toString());
+            }
+          }
+        }
+      }
+    });
+
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#itsYourTurn()
+   */
+  @Override
+  public void itsYourTurn() {
+    // TODO Auto-generated method stub
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#showSecondsLeftToPlayCard(int)
+   */
+  @Override
+  public void showSecondsLeftToPlayCard(int seconds) {
+    // TODO Auto-generated method stub
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#receivedNewBet(int, logic.Player)
+   */
+  @Override
+  public void receivedNewBet(int bet, Player player) {
+    // TODO Auto-generated method stub
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#receivedNewCard(logic.Card, logic.Player)
+   */
+  @Override
+  public void receivedNewCard(Card card, Player player) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+          if (player.getPosition() == Position.MIDDLEHAND) {
+            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsLeft(count);
+            count --;
+            s1.toFront();
+          } else if (player.getPosition() == Position.REARHAND) {
+            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsRight(count);
+            count--;
+            s3.toFront();
+          } else {
+            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s2.toFront();
+          }
+        } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+          if (player.getPosition() == Position.MIDDLEHAND) {
+            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsRight(count);
+            count--;
+            s3.toFront();
+          } else if (player.getPosition() == Position.FOREHAND) {
+            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsLeft(count);
+            count --;
+            s1.toFront();
+          } else {
+            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s2.toFront();
+          }
+        } else {
+          if (player.getPosition() == Position.REARHAND) {
+            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsLeft(count);
+            count --;
+            s1.toFront();
+          } else if (player.getPosition() == Position.FOREHAND) {
+            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsRight(count);
+            count--;
+            s3.toFront();
+          } else {
+            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s2.toFront();
+          }
+        }
+      }
+    });
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askToSetPlayState(logic.PlayState)
+   */
+  @Override
+  public PlayState askToSetPlayState(PlayState ps) {
+    // TODO Auto-generated method stub
+    while (setSettings == false) {
+      ButtonListenerPlaySettings(ps);
+
+    }
+    return ps;
+  }
+
+  public void removeOpponentCardsRight(int anz) {
+    switch (anz) {
+      case 1: mainPane.getChildren().remove(r1);
+        break;
+      case 2: mainPane.getChildren().remove(r2);
+        break;
+      case 3: mainPane.getChildren().remove(r3);
+        break;
+      case 4:mainPane.getChildren().remove(r4);
+        break;
+      case 5: mainPane.getChildren().remove(r5);
+        break;
+      case 6: mainPane.getChildren().remove(r6);
+        break;
+      case 7: mainPane.getChildren().remove(r7);
+        break;
+      case 8: mainPane.getChildren().remove(r8);
+        break;
+      case 9: mainPane.getChildren().remove(r9);
+        break;
+      case 10: mainPane.getChildren().remove(r10);
+        break;
+    }
+  }
+  
+  public void removeOpponentCardsLeft(int anz) {
+    switch (anz) {
+      case 1: mainPane.getChildren().remove(l1);
+        break;
+      case 2: mainPane.getChildren().remove(l2);
+        break;
+      case 3: mainPane.getChildren().remove(l3);
+        break;
+      case 4:mainPane.getChildren().remove(l4);
+        break;
+      case 5: mainPane.getChildren().remove(l5);
+        break;
+      case 6: mainPane.getChildren().remove(l6);
+        break;
+      case 7: mainPane.getChildren().remove(l7);
+        break;
+      case 8: mainPane.getChildren().remove(l8);
+        break;
+      case 9: mainPane.getChildren().remove(l9);
+        break;
+      case 10: mainPane.getChildren().remove(l10);
+        break;
+    }
+  }
+  
   /**
    * ButtonListener to switch Skat
    */
@@ -1553,695 +1930,390 @@ public class InGameController implements Initializable, InGameInterface {
     });
 
   }
+  
+  /**
+   * 
+   * 
+   * 
+   * 
+   * Initialize Screens
+   * 
+   * 
+   * 
+   * 
+   * 
+   */
 
-  public void rearrangeCards(int size, List<Card> list) {
-    switch (size) {
-      case 1:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(null);
-        c3.setImage(null);
-        c4.setImage(null);
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        
-//        cardlist.set(0, list.get(0));
-        break;
-      case 2:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(null);
-        c4.setImage(null);
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        break;
-      case 3:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(null);
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-      case 4:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        break;
-      case 5:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        
-//        cardlist.set(0, list.get(0));
-//        cardlist.set(1, list.get(1));
-//        cardlist.set(2, list.get(2));
-//        cardlist.set(3, list.get(3));
-//        cardlist.set(4, list.get(4));
-//        cardlist.set(5, list.get(5));
-//        cardlist.set(6, list.get(6));
-//        cardlist.set(7, list.get(7));
-//        cardlist.remove(8);
-//        cardlist.remove(9);
-        break;
-      case 6:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        
-//        cardlist.set(0, list.get(0));
-//        cardlist.set(1, list.get(1));
-//        cardlist.set(2, list.get(2));
-//        cardlist.set(3, list.get(3));
-//        cardlist.set(4, list.get(4));
-//        cardlist.set(5, list.get(5));
-//        cardlist.remove(6);
-//        cardlist.remove(7);
-//        cardlist.remove(8);
-//        cardlist.remove(9);
-        break;
-      case 7:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        
-//        cardlist.set(0, list.get(0));
-//        cardlist.set(1, list.get(1));
-//        cardlist.set(2, list.get(2));
-//        cardlist.set(3, list.get(3));
-//        cardlist.set(4, list.get(4));
-//        cardlist.set(5, list.get(5));
-//        cardlist.set(6, list.get(6));
-//        cardlist.remove(7);
-//        cardlist.remove(8);
-//        cardlist.remove(9);
-        break;
-      case 8:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
-            (list.get(7).getNumber().toString().toLowerCase())));
-        c9.setImage(null);
-        c10.setImage(null);
-        
-//        cardlist.set(0, list.get(0));
-//        cardlist.set(1, list.get(1));
-//        cardlist.set(2, list.get(2));
-//        cardlist.set(3, list.get(3));
-//        cardlist.set(4, list.get(4));
-//        cardlist.set(5, list.get(5));
-//        cardlist.set(6, list.get(6));
-//        cardlist.set(7, list.get(7));
-//        cardlist.remove(8);
-//        cardlist.remove(9);
-        break;
-      case 9:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
-            (list.get(7).getNumber().toString().toLowerCase())));
-        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
-            (list.get(8).getNumber().toString().toLowerCase())));
-        c10.setImage(null);
-        
-//        cardlist.set(0, list.get(0));
-//        cardlist.set(1, list.get(1));
-//        cardlist.set(2, list.get(2));
-//        cardlist.set(3, list.get(3));
-//        cardlist.set(4, list.get(4));
-//        cardlist.set(5, list.get(5));
-//        cardlist.set(6, list.get(6));
-//        cardlist.set(7, list.get(7));
-//        cardlist.set(8, list.get(8));
-//        cardlist.remove(9);
-        break;
-      case 10:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
-            (list.get(7).getNumber().toString().toLowerCase())));
-        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
-            (list.get(8).getNumber().toString().toLowerCase())));
-        c10.setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
-            (list.get(9).getNumber().toString().toLowerCase())));
-        
-//        cardlist.set(0, list.get(0));
-//        cardlist.set(1, list.get(1));
-//        cardlist.set(2, list.get(2));
-//        cardlist.set(3, list.get(3));
-//        cardlist.set(4, list.get(4));
-//        cardlist.set(5, list.get(5));
-//        cardlist.set(6, list.get(6));
-//        cardlist.set(7, list.get(7));
-//        cardlist.set(8, list.get(8));
-//        cardlist.set(9, list.get(9));
-        break;
-    }
+
+
+  /**
+   * Display Auction part
+   * 
+   * @author lstrauch
+   */
+  public void displayAuctionScreen() {
+    paneBet.setLayoutX(475);
+    paneBet.setLayoutY(128);
+    paneBet.setPrefHeight(315);
+    paneBet.setPrefWidth(395);
+    paneBet.setStyle(
+        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+
+    qu.setId("?");
+    qu.setPrefHeight(44);
+    qu.setPrefWidth(69);
+    qu.setText("?");
+    qu.setFont(Font.font("System", FontWeight.BOLD, 20));
+    qu.setTextFill(Color.WHITE);
+    qu.setStyle("-fx-background-color: tan;");
+    pass.setId("pass");
+    pass.setPrefHeight(44);
+    pass.setPrefWidth(69);
+    pass.setText("Pass");
+    pass.setFont(Font.font("System", FontWeight.BOLD, 20));
+    pass.setTextFill(Color.WHITE);
+    pass.setStyle("-fx-background-color: tan;");
+    betB.setId("value");
+    betB.setPrefHeight(44);
+    betB.setPrefWidth(69);
+    betB.setFont(Font.font("System", FontWeight.BOLD, 20));
+    betB.setTextFill(Color.WHITE);
+    betB.setStyle("-fx-background-color: tan;");
+
+    labelBet.setPrefHeight(53);
+    labelBet.setLayoutX(88);
+    labelBet.setLayoutY(36);
+    labelBet.setText("");
+    labelBet.setFont(Font.font("System", FontWeight.BOLD, 36));
+    labelBet.setTextFill(Color.WHITE);
+    AnchorPane.setLeftAnchor(labelBet, 0.0);
+    AnchorPane.setRightAnchor(labelBet, 0.0);
+    labelBet.setAlignment(Pos.CENTER);
+
+    box.getChildren().add(qu);
+    box.getChildren().add(pass);
+    box.getChildren().add(betB);
+    box.setSpacing(50);
+    box.setPrefWidth(307);
+    box.setPrefHeight(44);
+    box.setLayoutX(37);
+    box.setLayoutY(158);
+
+    paneBet.getChildren().add(box);
+    paneBet.getChildren().add(labelBet);
+
+    mainPane.getChildren().add(paneBet);
   }
 
 
 
   /**
    * @author lstrauch
-   * @param anz
-   * @param cardlist2
    */
-  public void displayCards(int anz, List<Card> cardlist2) {
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        switch (anz) {
-          case (10):
-            extra1.setImage(null);
-            c1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
-                (cardlist2.get(0).getNumber().toString().toLowerCase())));
-            c2.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
-                (cardlist2.get(1).getNumber().toString().toLowerCase())));
-            c3.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
-                (cardlist2.get(2).getNumber().toString().toLowerCase())));
-            c4.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
-                (cardlist2.get(3).getNumber().toString().toLowerCase())));
-            c5.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
-                (cardlist2.get(4).getNumber().toString().toLowerCase())));
-            c6.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
-                (cardlist2.get(5).getNumber().toString().toLowerCase())));
-            c7.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
-                (cardlist2.get(6).getNumber().toString().toLowerCase())));
-            c8.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
-                (cardlist2.get(7).getNumber().toString().toLowerCase())));
-            c9.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
-                (cardlist2.get(8).getNumber().toString().toLowerCase())));
-            c10.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
-                (cardlist2.get(9).getNumber().toString().toLowerCase())));
-            extra2.setImage(null);
-            break;
-          case (11):
-            System.out.println("11");
-            extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
-                (cardlist2.get(0).getNumber().toString().toLowerCase())));
-            c1.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
-                (cardlist2.get(1).getNumber().toString().toLowerCase())));
-            c2.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
-                (cardlist2.get(2).getNumber().toString().toLowerCase())));
-            c3.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
-                (cardlist2.get(3).getNumber().toString().toLowerCase())));
-            c4.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
-                (cardlist2.get(4).getNumber().toString().toLowerCase())));
-            c5.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
-                (cardlist2.get(5).getNumber().toString().toLowerCase())));
-            c6.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
-                (cardlist2.get(6).getNumber().toString().toLowerCase())));
-            c7.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
-                (cardlist2.get(7).getNumber().toString().toLowerCase())));
-            c8.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
-                (cardlist2.get(8).getNumber().toString().toLowerCase())));
-            c9.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
-                (cardlist2.get(9).getNumber().toString().toLowerCase())));
-            c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
-                (cardlist2.get(10).getNumber().toString().toLowerCase())));
-            extra2.setImage(null);
-            break;
-          case (12):
-            extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
-                (cardlist2.get(0).getNumber().toString().toLowerCase())));
-            c1.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
-                (cardlist2.get(1).getNumber().toString().toLowerCase())));
-            c2.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
-                (cardlist2.get(2).getNumber().toString().toLowerCase())));
-            c3.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
-                (cardlist2.get(3).getNumber().toString().toLowerCase())));
-            c4.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
-                (cardlist2.get(4).getNumber().toString().toLowerCase())));
-            c5.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
-                (cardlist2.get(5).getNumber().toString().toLowerCase())));
-            c6.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
-                (cardlist2.get(6).getNumber().toString().toLowerCase())));
-            c7.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
-                (cardlist2.get(7).getNumber().toString().toLowerCase())));
-            c8.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
-                (cardlist2.get(8).getNumber().toString().toLowerCase())));
-            c9.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
-                (cardlist2.get(9).getNumber().toString().toLowerCase())));
-            c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
-                (cardlist2.get(10).getNumber().toString().toLowerCase())));
-            extra2.setImage(inte.getImage(cardlist2.get(11).getColour().toString().toLowerCase(),
-                (cardlist2.get(11).getNumber().toString().toLowerCase())));
-            break;
-        }
-      }
-    });
-  }
+  public void displayAuctionWinnerScreen() {
+    ToggleGroup g1 = new ToggleGroup();
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToRekontra()
-   */
-  @Override
-  public boolean askToRekontra() {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
+    paneAuc.setPrefHeight(315);
+    paneAuc.setPrefWidth(582);
+    paneAuc.setLayoutX(334);
+    paneAuc.setLayoutY(128);
+    paneAuc.setStyle(
+        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
 
-      }
-    });
-    return false;
-  }
+    diamonds.setPrefHeight(42);
+    diamonds.setPrefWidth(117);
+    diamonds.setText("Diamonds");
+    diamonds.setFont(Font.font("System", FontWeight.BOLD, 20));
+    diamonds.setStyle("-fx-background-color: tan;");
+    hearts.setPrefHeight(42);
+    hearts.setPrefWidth(117);
+    hearts.setText("Hearts");
+    hearts.setFont(Font.font("System", FontWeight.BOLD, 20));
+    hearts.setStyle("-fx-background-color: tan;");
+    spades.setPrefHeight(42);
+    spades.setPrefWidth(117);
+    spades.setText("Spades");
+    spades.setFont(Font.font("System", FontWeight.BOLD, 20));
+    spades.setStyle("-fx-background-color: tan;");
+    clubs.setPrefHeight(42);
+    clubs.setPrefWidth(117);
+    clubs.setText("Clubs");
+    clubs.setFont(Font.font("System", FontWeight.BOLD, 20));
+    clubs.setStyle("-fx-background-color: tan;");
+    diamonds.setToggleGroup(g1);
+    hearts.setToggleGroup(g1);
+    spades.setToggleGroup(g1);
+    clubs.setToggleGroup(g1);
+    grand.setToggleGroup(g1);
+    nullG.setToggleGroup(g1);
 
-  /**
-   * Auction
-   */
+    boxWin1.getChildren().add(diamonds);
+    boxWin1.getChildren().add(hearts);
+    boxWin1.getChildren().add(spades);
+    boxWin1.getChildren().add(clubs);
+    boxWin1.setSpacing(20);
+    boxWin1.setPrefWidth(528);
+    boxWin1.setPrefHeight(42);
+    boxWin1.setLayoutX(28);
+    boxWin1.setLayoutY(60);
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#openAskForBet(int)
-   */
-  @Override
-  public void openAskForBet(int bet) {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        displayAuctionScreen();
-        betB.setText(String.valueOf(bet));
-      }
-    });
-  }
+    grand.setPrefHeight(42);
+    grand.setPrefWidth(117);
+    grand.setText("Grand");
+    grand.setFont(Font.font("System", FontWeight.BOLD, 20));
+    grand.setStyle("-fx-background-color: tan;");
+    nullG.setPrefHeight(42);
+    nullG.setPrefWidth(117);
+    nullG.setText("Null");
+    nullG.setFont(Font.font("System", FontWeight.BOLD, 20));
+    nullG.setStyle("-fx-background-color: tan;");
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askForBet(int, logic.Player)
-   */
-  @Override
-  public boolean askForBet(int bet, Player lastBet) {
-    // deletePane(paneBet);
-    while (notpressed) {
-      ButtonListener();
-    }
-    notpressed = true;
-    return b;
-  }
+    boxWin2.getChildren().add(grand);
+    boxWin2.getChildren().add(nullG);
+    boxWin2.setSpacing(158);
+    boxWin2.setPrefWidth(528);
+    boxWin2.setPrefHeight(42);
+    boxWin2.setLayoutX(28);
+    boxWin2.setLayoutY(158);
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#updateBet(int)
-   */
-  @Override
-  public void updateBet(int bet) {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        betB.setText(String.valueOf(bet));
-      }
-    });
+    ouvert.setPrefHeight(21);
+    ouvert.setPrefWidth(102);
+    ouvert.setText("Ouvert");
+    ouvert.setFont(Font.font("System", 15));
+    ouvert.setStyle("-fx-background-color: tan;");
+    schneider.setPrefHeight(21);
+    schneider.setPrefWidth(102);
+    schneider.setText("Schneider");
+    schneider.setFont(Font.font("System", 15));
+    schneider.setStyle("-fx-background-color: tan;");
+    schwarz.setPrefHeight(21);
+    schwarz.setPrefWidth(102);
+    schwarz.setText("Schwarz");
+    schwarz.setFont(Font.font("System", 15));
+    schwarz.setStyle("-fx-background-color: tan;");
 
-  }
+    boxWin3.getChildren().add(ouvert);
+    boxWin3.getChildren().add(schneider);
+    boxWin3.getChildren().add(schwarz);
+    boxWin3.setSpacing(35);
+    boxWin3.setPrefWidth(528);
+    boxWin3.setPrefHeight(21);
+    boxWin3.setLayoutX(28);
+    boxWin3.setLayoutY(266);
 
+    vBoxWin.getChildren().add(boxWin1);
+    vBoxWin.getChildren().add(boxWin2);
+    vBoxWin.getChildren().add(boxWin3);
+    vBoxWin.setPrefHeight(185);
+    vBoxWin.setPrefWidth(528);
+    vBoxWin.setLayoutX(14);
+    vBoxWin.setLayoutY(97);
+    vBoxWin.setSpacing(40);
 
-  /**
-   * Do you want to take the Skat?
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#openTakeUpSkat()
-   */
-  @Override
-  public void openTakeUpSkat() {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        displayWannaTakeSkat();
-      }
-    });
-  }
+    submit.setPrefHeight(33);
+    submit.setPrefWidth(69);
+    submit.setText("Submit");
+    submit.setFont(Font.font("System", 15));
+    submit.setStyle("-fx-background-color: tan; -fx-border-color: black;");
+    submit.setButtonType(ButtonType.RAISED);
+    submit.setLayoutX(499);
+    submit.setLayoutY(268);
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToTakeUpSkat()
-   */
-  @Override
-  public boolean askToTakeUpSkat() {
-    // TODO Auto-generated method stub
-    while (decidepressed == false) {
-      ButtonListenrWantSkat();
-    }
-    decidepressed = false;
-    return wantskat;
+    labelWin.setPrefHeight(49);
+    labelWin.setPrefWidth(401);
+    labelWin.setLayoutX(14);
+    labelWin.setLayoutY(28);
+    labelWin.setText("What do you wanna play?");
+    labelWin.setFont(Font.font("System", FontWeight.BOLD, 33));
+    labelWin.setTextFill(Color.WHITE);
+
+    paneAuc.getChildren().add(vBoxWin);
+    paneAuc.getChildren().add(labelWin);
+    paneAuc.getChildren().add(submit);
+
+    mainPane.getChildren().add(paneAuc);
   }
 
 
 
   /**
-   * Declarer Stack
+   * @author lstrauch
    */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#openSwitchSkat(logic.PlayState)
-   */
-  @Override
-  public void openSwitchSkat(PlayState ps) {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        deletePane(skatPane);
-        displaySwitchSkat(ps);
-      }
-    });
+  public void displayWannaTakeSkat() {
+    skatPane.setPrefHeight(315);
+    skatPane.setPrefWidth(582);
+    skatPane.setLayoutX(334);
+    skatPane.setLayoutY(128);
+    skatPane.setStyle(
+        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+
+    skatLabel.setPrefHeight(49);
+    skatLabel.setPrefWidth(467);
+    skatLabel.setLayoutX(58);
+    skatLabel.setLayoutY(48);
+    skatLabel.setText("Do you want to take the Skat?");
+    skatLabel.setFont(Font.font("System", FontWeight.BOLD, 33));
+    skatLabel.setTextFill(Color.WHITE);
+    AnchorPane.setLeftAnchor(skatLabel, 0.0);
+    AnchorPane.setRightAnchor(skatLabel, 0.0);
+    skatLabel.setAlignment(Pos.CENTER);
+
+    yes.setPrefHeight(123);
+    yes.setPrefWidth(154);
+    yes.setText("Yes");
+    yes.setFont(Font.font("System", FontWeight.BOLD, 25));
+    yes.setStyle("-fx-background-color: tan;");
+    yes.setButtonType(ButtonType.RAISED);
+    no.setPrefHeight(123);
+    no.setPrefWidth(154);
+    no.setText("No");
+    no.setFont(Font.font("System", FontWeight.BOLD, 25));
+    no.setStyle("-fx-background-color: tan;");
+    no.setButtonType(ButtonType.RAISED);
+
+    skatHbox.getChildren().add(yes);
+    skatHbox.getChildren().add(no);
+    skatHbox.setSpacing(100);
+    skatHbox.setPrefWidth(346);
+    skatHbox.setPrefHeight(54);
+    skatHbox.setLayoutX(118);
+    skatHbox.setLayoutY(158);
+
+
+    skatPane.getChildren().add(skatLabel);
+    skatPane.getChildren().add(skatHbox);
+    mainPane.getChildren().add(skatPane);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#switchSkat(logic.PlayState)
+  /**
+   * display part in which the player can choose the cards he wants to put on the skat
    */
-  @Override
-  public List<Card> switchSkat(PlayState ps) {
-    // TODO Auto-generated method stub
-    skat.add(ps.getSkat()[0]);
-    skat.add(ps.getSkat()[1]);
-    while (skatpressed == false) {
-      switchSkatListener(ps);
-    }
-    skatpressed = false;
-    return skatLogic;
+  /**
+   * @author lstrauch
+   * @param ps
+   */
+  public void displaySwitchSkat(PlayState ps) {
+    handPane.setPrefHeight(315);
+    handPane.setPrefWidth(582);
+    handPane.setLayoutX(334);
+    handPane.setLayoutY(128);
+    handPane.setStyle(
+        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+
+    sk1.setFitHeight(227);
+    sk1.setFitWidth(182);
+    sk1.setLayoutX(83);
+    sk1.setLayoutY(37);
+    sk1.setStyle("-fx-background-color: black");
+    sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
+        ps.getSkat()[1].getNumber().toString().toLowerCase()));
+
+    sk2.setFitHeight(227);
+    sk2.setFitWidth(182);
+    sk2.setLayoutX(326);
+    sk2.setLayoutY(37);
+    sk2.setStyle("-fx-background-color: black");
+    sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
+        ps.getSkat()[0].getNumber().toString().toLowerCase()));
+
+    ok.setPrefHeight(31);
+    ok.setPrefWidth(67);
+    ok.setLayoutX(501);
+    ok.setLayoutY(270);
+    ok.setText("OK");
+    ok.setFont(Font.font("System", FontWeight.BOLD, 15));
+    ok.setButtonType(ButtonType.RAISED);
+
+
+    handPane.getChildren().add(sk1);
+    handPane.getChildren().add(sk2);
+    handPane.getChildren().add(ok);
+
+    mainPane.getChildren().add(handPane);
   }
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#openAuctionWinnerScreen()
+  /**
+   * @author lstrauch
    */
-  @Override
-  public void openAuctionWinnerScreen() {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        deletePane(paneBet);
-        deletePane(skatPane);
-        deletePane(handPane);
-        displayAuctionWinnerScreen();
-      }
-    });
+  public void displayChatScreenOpen() {
+    chatM.setPrefWidth(1280);
+    chatM.setPrefHeight(97);
+    chatM.setLayoutX(3);
+    chatM.setLayoutY(5);
+    chatM.setStyle("-fx-background-color: peru");
+    chatM.setEditable(false);
+    chatM.setUnFocusColor(Color.PERU);
+    chatM.setFocusColor(Color.WHITE);
+    chatM.setOpacity(0.33);
+
+    textM.setPrefHeight(50);
+    textM.setPrefWidth(1280);
+    textM.setLayoutX(3);
+    textM.setLayoutY(97);
+    textM.setStyle("-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2");
+    textM.setOpacity(0.33);
+
+    pf.setImage(pfOben);
+    pf.setFitHeight(32);
+    pf.setFitWidth(40);
+    pf.setLayoutX(624);
+    pf.setLayoutY(130);
+    pf.toFront();
+
+    sendB.setLayoutX(1167);
+    sendB.setLayoutY(97);
+    sendB.setPrefHeight(50);
+    sendB.setPrefWidth(113);
+    sendB.setFont(Font.font("System", 20));
+
+
+    s1.setLayoutX(533);
+    s1.setLayoutY(149);
+    s2.setLayoutX(590);
+    s2.setLayoutY(184);
+    s3.setLayoutX(619);
+    s3.setLayoutY(200);
   }
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#setPlaySettingsAfterAuction(logic.PlayState)
+  /**
+   * @author lstrauch
    */
-  @Override
-  public void setPlaySettingsAfterAuction(PlayState ps) {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        deletePane(paneBet);
-        deletePane(skatPane);
-        deletePane(handPane);
-        deletePane(paneAuc);
-        if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
-          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelLeft.setText(ps.getPlayMode().toString());
-            } else {
-              labelLeft.setText(ps.getPlayMode().toString());
-            }
-          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelRight.setText(ps.getPlayMode().toString());
-            } else {
-              labelLeft.setText(ps.getPlayMode().toString());
-            }
-          } else {
-            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
-              labelRight.setText(ps.getPlayMode().toString());
-            } else {
-              labelLeft.setText(ps.getPlayMode().toString());
-            }
-          }
-        } else {
-          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelLeft.setText(ps.getTrump().toString());
-            } else {
-              labelLeft.setText(ps.getTrump().toString());
-            }
-          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelRight.setText(ps.getTrump().toString());
-            } else {
-              labelLeft.setText(ps.getTrump().toString());
-            }
-          } else {
-            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
-              labelRight.setText(ps.getTrump().toString());
-            } else {
-              labelLeft.setText(ps.getTrump().toString());
-            }
-          }
-        }
-      }
-    });
+  public void displayChatClosed() {
+    chatM.setPrefWidth(1280);
+    chatM.setPrefHeight(35);
+    chatM.setLayoutX(3);
+    chatM.setLayoutY(5);
+    chatM.setStyle("-fx-background-color: peru");
+    chatM.setEditable(false);
+    chatM.setUnFocusColor(Color.PERU);
+    chatM.setFocusColor(Color.WHITE);
+    chatM.setOpacity(0.33);
 
+    textM.setPrefHeight(32);
+    textM.setPrefWidth(1280);
+    textM.setLayoutX(3);
+    textM.setLayoutY(33);
+    textM.setStyle("-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2");
+    textM.setOpacity(0.33);
 
-  }
+    pf.setImage(pfUnten);
+    pf.setFitHeight(32);
+    pf.setFitWidth(40);
+    pf.setLayoutX(624);
+    pf.setLayoutY(52);
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#itsYourTurn()
-   */
-  @Override
-  public void itsYourTurn() {
-    // TODO Auto-generated method stub
+    sendB.setLayoutX(1167);
+    sendB.setLayoutY(33);
+    sendB.setPrefHeight(32);
+    sendB.setPrefWidth(113);
+    sendB.setFont(Font.font("System", 15));
 
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#showSecondsLeftToPlayCard(int)
-   */
-  @Override
-  public void showSecondsLeftToPlayCard(int seconds) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#receivedNewBet(int, logic.Player)
-   */
-  @Override
-  public void receivedNewBet(int bet, Player player) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#receivedNewCard(logic.Card, logic.Player)
-   */
-  @Override
-  public void receivedNewCard(Card card, Player player) {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-          if (player.getPosition() == Position.MIDDLEHAND) {
-            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s1.toFront();
-            System.out.println("FOREHAND - MIDDLEHAND");
-          } else if (player.getPosition() == Position.REARHAND) {
-            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s3.toFront();
-            System.out.println("FOREHAND - REARHAND");
-          } else {
-            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s2.toFront();
-            System.out.println("FOREHAND - FOREHAND - s2.toFront()");
-          }
-        } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-          if (player.getPosition() == Position.MIDDLEHAND) {
-            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s3.toFront();
-            System.out.println("REARHAND - MIDDLEHAND");
-          } else if (player.getPosition() == Position.FOREHAND) {
-            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s1.toFront();
-            System.out.println("REARHAND - FOREHAND");
-          } else {
-            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s2.toFront();
-            System.out.println("REARHAND - REARHAND - s2.toFront()");
-          }
-        } else {
-          if (player.getPosition() == Position.REARHAND) {
-            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s1.toFront();
-            System.out.println("MIDDLEHAND - REARHAND");
-          } else if (player.getPosition() == Position.FOREHAND) {
-            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s3.toFront();
-            System.out.println("MIDDLEHAND - FOREHAND");
-          } else {
-            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s2.toFront();
-            System.out.println("MIDDLEHAND - MIDDLEHAND -  s2.toFront()");
-            
-            
-          }
-        }
-        if(s1.getStyleClass() != null && s2.getImage() != null && s3.getImage() != null) {
-          s1.setImage(null);
-          s2.setImage(null);
-          s3.setImage(null);
-        }
-      }
-    });
-   
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToSetPlayState(logic.PlayState)
-   */
-  @Override
-  public PlayState askToSetPlayState(PlayState ps) {
-    // TODO Auto-generated method stub
-    while (setSettings == false) {
-      ButtonListenerPlaySettings(ps);
-
-    }
-    return ps;
+    s1.setLayoutX(533);
+    s1.setLayoutY(89);
+    s2.setLayoutX(590);
+    s2.setLayoutY(114);
+    s3.setLayoutX(619);
+    s3.setLayoutY(140);
   }
 
 
