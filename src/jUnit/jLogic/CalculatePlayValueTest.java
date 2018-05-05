@@ -33,6 +33,7 @@ class CalculatePlayValueTest {
   Card whatEver4;
   Card whatEver5;
   int matador;
+  int playValue;
 
   @BeforeEach
   void setUp() throws Exception {
@@ -145,6 +146,7 @@ class CalculatePlayValueTest {
     assertEquals(matador, this.clientLogic.calculateMatador());
   }
 
+  
   
   
 
