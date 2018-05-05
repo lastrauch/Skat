@@ -2122,6 +2122,29 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void run() {
         deletePane(paneAuc);
+        if(ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelLeft.setText(ps.getPlayMode().toString());
+            } else {
+              labelLeft.setText(ps.getPlayMode().toString());
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelRight.setText(ps.getPlayMode().toString());
+            } else {
+              labelLeft.setText(ps.getPlayMode().toString());
+            }
+          } else {
+            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+              labelRight.setText(ps.getTrump().toString());
+            } else {
+              labelLeft.setText(ps.getTrump().toString());
+            }
+          }
+        } else {
+          
+        }
         if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
           if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
             labelLeft.setText(ps.getTrump().toString());
