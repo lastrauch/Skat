@@ -301,7 +301,6 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public int askToPlayCard() {
     // TODO Auto-generated method stub
-    deletePane(paneBet);
     for(int i = 0; i < cardlist.size(); i++) {
       System.out.println("Cardlist(" + i + "): " + cardlist.get(i));
     }
@@ -334,6 +333,7 @@ public class InGameController implements Initializable, InGameInterface {
   public void updateHand(List<Card> list) {
     // TODO Auto-generated method stub
     cardlist = list;
+    System.out.println("List.size: " + list.size());
     for(int i = 0; i < cardlist.size(); i++) {
       System.out.println("Cardlist(" + i + "): " + cardlist.get(i));
     }
@@ -2070,6 +2070,9 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
+        deletePane(paneBet);
+        deletePane(skatPane);
+        deletePane(handPane);
         deletePane(paneAuc);
         if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
