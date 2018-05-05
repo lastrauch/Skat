@@ -149,7 +149,7 @@ public class GameController implements GuiLogic {
   @Override
   public ArrayList<Server> lobbyInformation() {
     ArrayList<Server> lobbyInfo = new ArrayList<Server>();
-    lobbyInfo = (ArrayList<Server>) this.networkController.getServer();
+    lobbyInfo = (ArrayList<Server>) this.networkController.getServer(); 
     return lobbyInfo;
   }
 

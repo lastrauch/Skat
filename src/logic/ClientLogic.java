@@ -46,6 +46,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
     return this.gameSettings;
   }
 
+  /**
+   * initializes the cards
+   * 
+   * @author awesch
+   */
   public void initializeCards() {
     cards = new ArrayList<Card>();
     for (int i = 1; i <= 4; i++) {
@@ -115,6 +120,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // update this players hand
       try {
         this.player.removeCardFromHand(playedCard);
+        if (!this.player.isBot()) {
+          System.out.println("And here is my new hand:");
+          for (Card c : this.player.getHand()) {
+            System.out.println(c.toString());
+          }
+        }
       } catch (LogicException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -129,6 +140,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // update this players hand
           try {
             this.player.removeCardFromHand(playedCard);
+            if (!this.player.isBot()) {
+              System.out.println("And here is my new hand:");
+              for (Card c : this.player.getHand()) {
+                System.out.println(c.toString());
+              }
+            }
           } catch (LogicException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -140,11 +157,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // !!!!!!!!!! funktioniert so leider (noch) nicht, da der gui controller bei askToPlayCard
           // immer
           // wieder die geliche karte zurück gibt
-          if (this.player.isBot()) {
-            this.playCard(firstCard);
-          }
-          System.out.println(
-              "die ausgewählte Karte kann nicht gespielt werden und als auffangen kann die logik das momentan nur bei den Bots, aber nicht bei der gui.");
+          // if (this.player.isBot()) {
+          // this.playCard(firstCard);
+          // }
+          // System.out.println(
+          // "die ausgewählte Karte kann nicht gespielt werden und als auffangen kann die logik das
+          // momentan nur bei den Bots, aber nicht bei der gui.");
         }
       } catch (LogicException e) {
         // TODO Auto-generated catch block
@@ -342,34 +360,33 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param ps
    * @return
    */
-
-  public int calculateMultiplier(PlayState ps) {
+  public int calculateMultiplier() {
     int result = 1; // 1 for the game
     result += this.calculateMatador(); // + matadors
     // 1 point for schneider
-    if (ps.isSchneider()) {
+    if (this.playState.isSchneider()) {
       result++;
       // 1 point for schwarz
-      if (ps.isSchwarz()) {
+      if (this.playState.isSchwarz()) {
         result++;
       }
     }
 
 
     // possibilities if the Player plays hand
-    if (ps.getHandGame()) {
+    if (this.playState.getHandGame()) {
       // 1 point for hand game
       result++;
       // 1 point for schneider announced
-      if (ps.getSchneiderAnnounced()) {
+      if (this.playState.getSchneiderAnnounced()) {
         result++;
       }
       // 1 point for schwarz announced AND for schneider announced
-      if (ps.getSchwarzAnnounced()) {
+      if (this.playState.getSchwarzAnnounced()) {
         result += 2;;
       }
       // 1 point for open
-      if (ps.isOpen()) {
+      if (this.playState.isOpen()) {
         result += 1;
       }
     }
@@ -384,9 +401,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param ps
    * @return
    */
-  public int calculatePlayValueSuitorGrand(PlayState ps) {
-    int multiplier = this.calculateMultiplier(ps);
-    return ps.getBaseValue() * multiplier;
+  public int calculatePlayValueSuitorGrand() {
+    int multiplier = this.calculateMultiplier();
+    return this.playState.getBaseValue() * multiplier;
   }
 
   /**
@@ -396,22 +413,20 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param ps
    * @return
    */
-  public int calculatePlayValueNull(PlayState ps) {
+  public int calculatePlayValueNull() {
     int result = 23;
-    if (ps.getHandGame()) {
+    if (this.playState.getHandGame()) {
       result = 35;
     }
-    if (ps.isOpen()) {
+    if (this.playState.isOpen()) {
       result = 46;
     }
-    if (ps.getHandGame() && ps.isOpen()) {
+    if (this.playState.getHandGame() && this.playState.isOpen()) {
       result = 59;
     }
     return result;
   }
 
-
-  // !!!!! WE CAN CHANGE IT SO THE METHOD ONLY USES this.playState
   /**
    * calculates the play value with the other methods implemented for the special contracts
    * 
@@ -419,40 +434,43 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param ps
    * @return
    */
-  public int calculatePlayValue(PlayState ps) {
+  public int calculatePlayValue() {
     int result = 0;
-    if (ps.getPlayMode() == PlayMode.NULL) {
-      result = this.calculatePlayValueNull(ps);
+    if (this.playState.getPlayMode() == PlayMode.NULL) {
+      result = this.calculatePlayValueNull();
     } else {
-      result = this.calculatePlayValueSuitorGrand(ps);
+      result = this.calculatePlayValueSuitorGrand();
     }
     return result;
   }
 
+  /**
+   * adds the points to the players score
+   * 
+   * @param points
+   */
   public void addToGamePoints(int points) {
     this.player.addToGamePoints(points);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveLobby(java.util.List, logic.GameSettings)
+  /**
+   * updates the lobby
    */
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
     this.gameSettings = gs;
     this.group = player;
 
-    // Achtung!!!! Methode noch nicht implementiert
     if (!this.player.isBot()) {
-      for (Player p : this.group) {
-        System.out.println(p.getName());
-      }
       this.guiController.updateLobby(gs, this.group);
     }
 
   }
 
+  /**
+   * 
+   * @return
+   */
   public List<Player> getLobby() {
     return this.group;
   }
@@ -463,7 +481,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // secound deal out cards
     this.dealOutCards();
 
-    this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
+    // this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
 
   }
 
@@ -536,10 +554,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveGameSettings(logic.GameSettings)
+  /**
+   * sets the gameSettings
    */
   @Override
   public void receiveGameSettings(GameSettings gs) {
@@ -605,8 +621,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
       }
 
-      // Start Game if Player sits forehand
-      if (this.player.getPosition() == Position.FOREHAND) {
+      // Start Game if Player sits rearhand (rearhand is also the dealer)
+      if (this.player.getPosition() == Position.REARHAND) {
         this.startPlay();
       }
     }
@@ -812,7 +828,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.inGameController.openAuctionWinnerScreen();
       this.playState = this.inGameController.askToSetPlayState(this.playState);
 
-      this.calculatePlayValue(this.playState);
+      this.calculatePlayValue();
       this.netController.sendPlayState(this.playState);
     }
   }
@@ -826,6 +842,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receivePlayState(PlayState ps) {
     // TODO Auto-generated method stub
     this.playState = ps;
+    this.player.sortHand(this.playState);
+    this.inGameController.updateHand(this.player.getHand());
     this.inGameController.setPlaySettingsAfterAuction(this.playState);
     if (this.player.getPosition().equals(Position.FOREHAND)) {
       this.playCard(null);
@@ -842,7 +860,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
     // update current trick
     this.checkIfTrickIsFull();
-    this.playState.getCurrentTrick().addCard(card);
+    this.playState.getCurrentTrick().addCard(card, player);
 
     // update players hand why??
     // try {
@@ -953,16 +971,16 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // show winner of trick
       this.inGameController.showWinnerTrick(trickWinner);
-      // illegalMonitorStateException..
-      // try {
-      // this.wait(3000);
-      // } catch (InterruptedException e) {
-      // // TODO Auto-generated catch block
-      // e.printStackTrace();
-      // }
+       try {
+       Thread.sleep(3000);
+       } catch (InterruptedException e) {
+       // TODO Auto-generated catch block
+       e.printStackTrace();
+       }
 
       // check if play is over
-      if (this.playState.getTrickNr() == 10) {
+      if (this.playState.getTrickNr() == 10 || ((this.playState.getPlayMode() == PlayMode.NULL)
+          && Play.calculateWinner(this.playState)[0].isDeclarer())) {
         // calculate winner play
         playWinner = Play.calculateWinner(playState);
 
@@ -976,27 +994,28 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
         // show winner of play
         this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
-        // illegalMonitorStateException..
-        // try {
-        // this.wait(3000);
-        // } catch (InterruptedException e) {
-        // e.printStackTrace();
-        // }
+        try {
+          Thread.sleep(3000);
+          } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+          }
 
         // check if the whole game is over
-        if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()) {
+        if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()
+            || this.checkifGameOverBierlachs()) {
 
           // game is over
           // calculate winner game
           gameWinner = Game.calculateWinner(this.playState);
           // show winner of game
           this.inGameController.showWinnerGame(gameWinner);
-          // illegalMonitorStateException..
-          // try {
-          // this.wait(3000);
-          // } catch (InterruptedException e) {
-          // e.printStackTrace();
-          // }
+          try {
+            Thread.sleep(3000);
+            } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
 
         } else {
 
@@ -1027,7 +1046,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
         // if "i am" winner of last trick --> ask inGameController to play new card
         if (this.player.equals(trickWinner)) {
-          this.inGameController.askToPlayCard();
+          this.playCard(null);
         }
       }
     }
@@ -1042,9 +1061,18 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
+  public boolean checkifGameOverBierlachs() {
+    for (Player p : this.playState.getGroup()) {
+      if (p.getGamePoints() >= this.gameSettings.getEndPointsBierlachs()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public boolean checkIfTrickIsFull() {
     if (this.playState.getCurrentTrick().isFull()) {
-      this.playState.setCurrentTrick(new Trick(this.playState));
+      this.playState.setCurrentTrick(new Trick());
       return true;
     }
     return false;
