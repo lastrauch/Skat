@@ -159,7 +159,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // immer
           // wieder die geliche karte zurück gibt
           // if (this.player.isBot()) {
-          // this.playCard(firstCard);
+          this.playCard(firstCard);
           // }
           // System.out.println(
           // "die ausgewählte Karte kann nicht gespielt werden und als auffangen kann die logik das
