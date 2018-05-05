@@ -100,9 +100,6 @@ public class InGameController implements Initializable, InGameInterface {
    * Initializies all other attributes
    */
   private GuiController main;
-  private int count = 0;
-  private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
-  private Image temp;
   private GuiData inte = new ImplementsGuiInterface();
   private List<Card> cardlist = new ArrayList<Card>();
   private Image noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
@@ -175,7 +172,6 @@ public class InGameController implements Initializable, InGameInterface {
   public InGameController() {
     this.main = new GuiController();
     GuiController.prevScreen = 4;
-    // this.implements = new ImplementsInGameInterface();
   }
 
   /**
@@ -189,75 +185,12 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // TODO Auto-generated method stub
-    /**
-     * Testzwecke:
-     */
-    // Card m1 = new Card(Colour.DIAMONDS, Number.ASS);
-    // Card m2 = new Card(Colour.DIAMONDS, Number.TEN);
-    // Card m3 = new Card(Colour.DIAMONDS, Number.KING);
-    // Card m4 = new Card(Colour.DIAMONDS, Number.QUEEN);
-    // Card m5 = new Card(Colour.DIAMONDS, Number.JACK);
-    // Card m6 = new Card(Colour.DIAMONDS, Number.NINE);
-    // Card m7 = new Card(Colour.DIAMONDS, Number.EIGHT);
-    // Card m8 = new Card(Colour.DIAMONDS, Number.SEVEN);
-    // Card m9 = new Card(Colour.HEARTS, Number.ASS);
-    // Card m10 = new Card(Colour.SPADES, Number.ASS);
-    // cardlist.add(m1);
-    // cardlist.add(m2);
-    // cardlist.add(m3);
-    // cardlist.add(m4);
-    // cardlist.add(m5);
-    // cardlist.add(m6);
-    // cardlist.add(m7);
-    // cardlist.add(m8);
-    // cardlist.add(m9);
-    // cardlist.add(m10);
-    // skat.add(p1);
-    // skat.add(p2);
-    // ButtonListenrWantSkat();
-    // switchSkatListener();
-
-
     da[0] = true;
     da[1] = true;
-    // askForBet(18);
     displayChatClosed();
     chatButtonListener();
   }
 
-
-  /**
-   * Diese Methode definiert auf welchen Teil des Stichblattes die ausgewählte Karte plaziert wird
-   * 
-   * @author lstrauch
-   */
-
-  public void AnzStichblatt() {
-    switch (count) {
-      case 0:
-        s1.setImage(temp);
-        count++;
-        break;
-      case 1:
-        s2.setImage(temp);
-        count++;
-        break;
-      case 2:
-        s3.setImage(temp);
-        count++;
-        break;
-      case 3:
-        count = 0;
-        s1.setImage(null);
-        s2.setImage(null);
-        s3.setImage(null);
-        stichLinks.setImage(rueckseite);
-
-
-        AnzStichblatt();
-        break;
-    }
-  }
 
   /**
    * 
@@ -352,21 +285,6 @@ public class InGameController implements Initializable, InGameInterface {
                 (hand.get(9).getNumber().toString().toLowerCase())));
         cardlist = hand;
 
-        // cardlist.set(0, null);
-        // cardlist.set(1, hand.get(0));
-        // cardlist.set(2, hand.get(1));
-        // cardlist.set(3, hand.get(2));
-        // cardlist.set(4, hand.get(3));
-        // cardlist.set(5, hand.get(4));
-        // cardlist.set(6, hand.get(5));
-        // cardlist.set(7, hand.get(6));
-        // cardlist.set(8, hand.get(7));
-        // cardlist.set(9, hand.get(8));
-        // cardlist.set(10, hand.get(9));
-        // cardlist.set(11, hand.get(10));
-        for(int i = 0; i < cardlist.size(); i++) {
-          System.out.println("Initialize - Cardlist(" + i + "): " + cardlist.get(i));
-        }
       }
 
     });
@@ -384,6 +302,9 @@ public class InGameController implements Initializable, InGameInterface {
   public int askToPlayCard() {
     // TODO Auto-generated method stub
     deletePane(paneBet);
+    for(int i = 0; i < cardlist.size(); i++) {
+      System.out.println("Cardlist(" + i + "): " + cardlist.get(i));
+    }
     while (clicked == false) {
       MouseHandler();
     }
@@ -412,30 +333,13 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void updateHand(List<Card> list) {
     // TODO Auto-generated method stub
+    cardlist = list;
+    for(int i = 0; i < cardlist.size(); i++) {
+      System.out.println("Cardlist(" + i + "): " + cardlist.get(i));
+    }
     rearrangeCards(list.size(), list);
   }
 
-  // /**
-  // * (non-Javadoc)
-  // *
-  // * @see interfaces.InGameInterface#updateTrick(java.util.List)
-  // *
-  // * @author lstrauch
-  // */
-  // @Override
-  // public void updateTrick(List<Card> currentTrick) {
-  // // TODO Auto-generated method stub
-  // if (currentTrick.get(0) != null) {
-  // s1.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-  // (currentTrick.get(1).getNumber().toString().toLowerCase())));
-  // } else if (currentTrick.get(0) != null) {
-  // s2.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-  // (currentTrick.get(0).getNumber().toString().toLowerCase())));
-  // } else if (currentTrick.get(2) != null) {
-  // s3.setImage(inte.getImage(currentTrick.get(0).getColour().toString().toLowerCase(),
-  // (currentTrick.get(0).getNumber().toString().toLowerCase())));
-  // }
-  // }
 
   /**
    * (non-Javadoc)
@@ -941,6 +845,7 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         ret[0] = 0;
+        System.out.println("C1 DRAUFGEKLICKT");
         clicked = true;
       }
     });
@@ -1006,6 +911,7 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         ret[0] = 8;
+        System.out.println("C9 DRAUFGEKLICKT");
         clicked = true;
       }
     });
@@ -1014,6 +920,7 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         ret[0] = 9;
+        System.out.println("C10 DRAUFGEKLICKT");
         clicked = true;
       }
     });
@@ -1037,24 +944,19 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         b = false;
         notpressed = false;
-
-        // displayWannaTakeSkat();
       }
     });
     betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        // displayWannaTakeSkat();
         notpressed = false;
         b = true;
-        // System.out.println("RET: "+ret[0]);
       }
     });
     submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {}
     });
-    // return ret[0];
   }
 
 
@@ -1162,14 +1064,6 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         wantskat = true;
         decidepressed = true;
-
-        /**
-         * Testzwecke:
-         */
-        // sk1.setImage(inte.getImage(p1.getColour().toString().toLowerCase(),
-        // p1.getNumber().toString().toLowerCase()));
-        // sk2.setImage(inte.getImage(p2.getColour().toString().toLowerCase(),
-        // p2.getNumber().toString().toLowerCase()));
       }
     });
     no.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -1177,7 +1071,6 @@ public class InGameController implements Initializable, InGameInterface {
       public void handle(MouseEvent e) {
         wantskat = false;
         decidepressed = true;
-        // displayAuctionWinnerScreen();
       }
     });
   }
@@ -1582,16 +1475,16 @@ public class InGameController implements Initializable, InGameInterface {
         if (cardlist.size() == 11) {
           // Nur eine Karte auf dem Skat
           if (da[0] == false) {
-            sk1.setImage(extra2.getImage());
-            skat.set(0, cardlist.get(11));
-            cardlist.remove(cardlist.get(11));
+            sk2.setImage(extra2.getImage());
+            skat.set(0, cardlist.get(10));
+            cardlist.remove(cardlist.get(10));
             LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[0] = true;
           } else if (da[1] == false) {
             sk2.setImage(extra2.getImage());
-            skat.set(1, cardlist.get(11));
-            cardlist.remove(cardlist.get(11));
+            skat.set(1, cardlist.get(10));
+            cardlist.remove(cardlist.get(10));
             LoginController.interfGL.sortHand(ps, cardlist);
             displayCards(cardlist.size(), cardlist);
             da[1] = true;
@@ -1675,6 +1568,8 @@ public class InGameController implements Initializable, InGameInterface {
         c8.setImage(null);
         c9.setImage(null);
         c10.setImage(null);
+        
+//        cardlist.set(0, list.get(0));
         break;
       case 2:
         c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
@@ -1736,6 +1631,17 @@ public class InGameController implements Initializable, InGameInterface {
         c8.setImage(null);
         c9.setImage(null);
         c10.setImage(null);
+        
+//        cardlist.set(0, list.get(0));
+//        cardlist.set(1, list.get(1));
+//        cardlist.set(2, list.get(2));
+//        cardlist.set(3, list.get(3));
+//        cardlist.set(4, list.get(4));
+//        cardlist.set(5, list.get(5));
+//        cardlist.set(6, list.get(6));
+//        cardlist.set(7, list.get(7));
+//        cardlist.remove(8);
+//        cardlist.remove(9);
         break;
       case 6:
         c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
@@ -1754,6 +1660,17 @@ public class InGameController implements Initializable, InGameInterface {
         c8.setImage(null);
         c9.setImage(null);
         c10.setImage(null);
+        
+//        cardlist.set(0, list.get(0));
+//        cardlist.set(1, list.get(1));
+//        cardlist.set(2, list.get(2));
+//        cardlist.set(3, list.get(3));
+//        cardlist.set(4, list.get(4));
+//        cardlist.set(5, list.get(5));
+//        cardlist.remove(6);
+//        cardlist.remove(7);
+//        cardlist.remove(8);
+//        cardlist.remove(9);
         break;
       case 7:
         c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
@@ -1773,6 +1690,17 @@ public class InGameController implements Initializable, InGameInterface {
         c8.setImage(null);
         c9.setImage(null);
         c10.setImage(null);
+        
+//        cardlist.set(0, list.get(0));
+//        cardlist.set(1, list.get(1));
+//        cardlist.set(2, list.get(2));
+//        cardlist.set(3, list.get(3));
+//        cardlist.set(4, list.get(4));
+//        cardlist.set(5, list.get(5));
+//        cardlist.set(6, list.get(6));
+//        cardlist.remove(7);
+//        cardlist.remove(8);
+//        cardlist.remove(9);
         break;
       case 8:
         c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
@@ -1793,6 +1721,17 @@ public class InGameController implements Initializable, InGameInterface {
             (list.get(7).getNumber().toString().toLowerCase())));
         c9.setImage(null);
         c10.setImage(null);
+        
+//        cardlist.set(0, list.get(0));
+//        cardlist.set(1, list.get(1));
+//        cardlist.set(2, list.get(2));
+//        cardlist.set(3, list.get(3));
+//        cardlist.set(4, list.get(4));
+//        cardlist.set(5, list.get(5));
+//        cardlist.set(6, list.get(6));
+//        cardlist.set(7, list.get(7));
+//        cardlist.remove(8);
+//        cardlist.remove(9);
         break;
       case 9:
         c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
@@ -1814,6 +1753,17 @@ public class InGameController implements Initializable, InGameInterface {
         c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
             (list.get(8).getNumber().toString().toLowerCase())));
         c10.setImage(null);
+        
+//        cardlist.set(0, list.get(0));
+//        cardlist.set(1, list.get(1));
+//        cardlist.set(2, list.get(2));
+//        cardlist.set(3, list.get(3));
+//        cardlist.set(4, list.get(4));
+//        cardlist.set(5, list.get(5));
+//        cardlist.set(6, list.get(6));
+//        cardlist.set(7, list.get(7));
+//        cardlist.set(8, list.get(8));
+//        cardlist.remove(9);
         break;
       case 10:
         c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
@@ -1836,6 +1786,17 @@ public class InGameController implements Initializable, InGameInterface {
             (list.get(8).getNumber().toString().toLowerCase())));
         c10.setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
             (list.get(9).getNumber().toString().toLowerCase())));
+        
+//        cardlist.set(0, list.get(0));
+//        cardlist.set(1, list.get(1));
+//        cardlist.set(2, list.get(2));
+//        cardlist.set(3, list.get(3));
+//        cardlist.set(4, list.get(4));
+//        cardlist.set(5, list.get(5));
+//        cardlist.set(6, list.get(6));
+//        cardlist.set(7, list.get(7));
+//        cardlist.set(8, list.get(8));
+//        cardlist.set(9, list.get(9));
         break;
     }
   }
@@ -2198,41 +2159,71 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void receivedNewCard(Card card, Player player) {
     // TODO Auto-generated method stub
-    if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-      if (player.getPosition() == Position.MIDDLEHAND) {
-        s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-            card.getNumber().toString().toLowerCase()));
-      } else if (player.getPosition() == Position.REARHAND) {
-        s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-            card.getNumber().toString().toLowerCase()));
-      } else {
-        s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-            card.getNumber().toString().toLowerCase()));
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+          if (player.getPosition() == Position.MIDDLEHAND) {
+            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s1.toFront();
+            System.out.println("FOREHAND - MIDDLEHAND");
+          } else if (player.getPosition() == Position.REARHAND) {
+            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s3.toFront();
+            System.out.println("FOREHAND - REARHAND");
+          } else {
+            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s2.toFront();
+            System.out.println("FOREHAND - FOREHAND - s2.toFront()");
+          }
+        } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+          if (player.getPosition() == Position.MIDDLEHAND) {
+            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s3.toFront();
+            System.out.println("REARHAND - MIDDLEHAND");
+          } else if (player.getPosition() == Position.FOREHAND) {
+            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s1.toFront();
+            System.out.println("REARHAND - FOREHAND");
+          } else {
+            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s2.toFront();
+            System.out.println("REARHAND - REARHAND - s2.toFront()");
+          }
+        } else {
+          if (player.getPosition() == Position.REARHAND) {
+            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s1.toFront();
+            System.out.println("MIDDLEHAND - REARHAND");
+          } else if (player.getPosition() == Position.FOREHAND) {
+            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s3.toFront();
+            System.out.println("MIDDLEHAND - FOREHAND");
+          } else {
+            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s2.toFront();
+            System.out.println("MIDDLEHAND - MIDDLEHAND -  s2.toFront()");
+            
+            
+          }
+        }
+        if(s1.getStyleClass() != null && s2.getImage() != null && s3.getImage() != null) {
+          s1.setImage(null);
+          s2.setImage(null);
+          s3.setImage(null);
+        }
       }
-    } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-      if (player.getPosition() == Position.MIDDLEHAND) {
-        s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-            card.getNumber().toString().toLowerCase()));
-      } else if (player.getPosition() == Position.FOREHAND) {
-        s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-            card.getNumber().toString().toLowerCase()));
-      } else {
-        s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-            card.getNumber().toString().toLowerCase()));
-      }
-    } else {
-      if (player.getPosition() == Position.REARHAND) {
-        s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-            card.getNumber().toString().toLowerCase()));
-      } else if (player.getPosition() == Position.FOREHAND) {
-        s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-            card.getNumber().toString().toLowerCase()));
-      } else {
-        s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-            card.getNumber().toString().toLowerCase()));
-      }
-    }
-
+    });
+   
   }
 
   /*
