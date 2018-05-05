@@ -16,16 +16,16 @@ import logic.Player;
 class SortHandTest {
   static Player player;
   static PlayState ps;
-  static Card card1;
-  static Card card2;
-  static Card card3;
-  static Card card4;
-  static Card card5;
-  static Card card6;
-  static Card card7;
-  static Card card8;
-  static Card card9;
-  static Card card10;
+  static Card heartsTen;
+  static Card diamondsAss;
+  static Card heartsKing;
+  static Card clubsJack;
+  static Card spadesJack;
+  static Card heartsQueen;
+  static Card clubsNine;
+  static Card clubsEight;
+  static Card spadesSeven;
+  static Card heartsAss;
   static List<Card> hand;
 
 
@@ -34,45 +34,45 @@ class SortHandTest {
     ps = new PlayState(new Player[3]);
     player = new Player("player");
     hand = new ArrayList<Card>();
-    hand.add(card1);
-    hand.add(card2);
-    hand.add(card3);
-    hand.add(card4);
-    hand.add(card5);
-    hand.add(card6);
-    hand.add(card7);
-    hand.add(card8);
-    hand.add(card9);
-    hand.add(card10);
+    hand.add(heartsTen);
+    hand.add(diamondsAss);
+    hand.add(heartsKing);
+    hand.add(clubsJack);
+    hand.add(spadesJack);
+    hand.add(heartsQueen);
+    hand.add(clubsNine);
+    hand.add(clubsEight);
+    hand.add(spadesSeven);
+    hand.add(heartsAss);
   }
 
   @BeforeEach
   void setUp() throws Exception {
-    card1 = new Card(Colour.HEARTS, Number.TEN);
-    card2 = new Card(Colour.DIAMONDS, Number.ASS);
-    card3 = new Card(Colour.HEARTS, Number.KING);
-    card4 = new Card(Colour.CLUBS, Number.JACK);
-    card5 = new Card(Colour.SPADES, Number.JACK);
-    card6 = new Card(Colour.HEARTS, Number.QUEEN);
-    card7 = new Card(Colour.CLUBS, Number.NINE);
-    card8 = new Card(Colour.CLUBS, Number.EIGHT);
-    card9 = new Card(Colour.SPADES, Number.SEVEN);
-    card10 = new Card(Colour.HEARTS, Number.ASS);
+    heartsTen = new Card(Colour.HEARTS, Number.TEN);
+    diamondsAss = new Card(Colour.DIAMONDS, Number.ASS);
+    heartsKing = new Card(Colour.HEARTS, Number.KING);
+    clubsJack = new Card(Colour.CLUBS, Number.JACK);
+    spadesJack = new Card(Colour.SPADES, Number.JACK);
+    heartsQueen = new Card(Colour.HEARTS, Number.QUEEN);
+    clubsNine = new Card(Colour.CLUBS, Number.NINE);
+    clubsEight = new Card(Colour.CLUBS, Number.EIGHT);
+    spadesSeven = new Card(Colour.SPADES, Number.SEVEN);
+    heartsAss = new Card(Colour.HEARTS, Number.ASS);
   }
 
   @Test
   void testNoPlayMode() {
     List<Card> goodHand = new ArrayList<Card>();
-    goodHand.add(card4);
-    goodHand.add(card5);
-    goodHand.add(card7);
-    goodHand.add(card8);
-    goodHand.add(card9);
-    goodHand.add(card10);
-    goodHand.add(card1);
-    goodHand.add(card3);
-    goodHand.add(card6);
-    goodHand.add(card2);
+    goodHand.add(clubsJack);
+    goodHand.add(spadesJack);
+    goodHand.add(clubsNine);
+    goodHand.add(clubsEight);
+    goodHand.add(spadesSeven);
+    goodHand.add(heartsAss);
+    goodHand.add(heartsTen);
+    goodHand.add(heartsKing);
+    goodHand.add(heartsQueen);
+    goodHand.add(diamondsAss);
     
     this.test(goodHand);
   }
@@ -83,16 +83,16 @@ class SortHandTest {
     ps.setTrump(Colour.HEARTS);
 
     List<Card> goodHand = new ArrayList<Card>();
-    goodHand.add(card4);
-    goodHand.add(card5);
-    goodHand.add(card10);
-    goodHand.add(card1);
-    goodHand.add(card3);
-    goodHand.add(card6);
-    goodHand.add(card7);
-    goodHand.add(card8);
-    goodHand.add(card9);
-    goodHand.add(card2);
+    goodHand.add(clubsJack);
+    goodHand.add(spadesJack);
+    goodHand.add(heartsAss);
+    goodHand.add(heartsTen);
+    goodHand.add(heartsKing);
+    goodHand.add(heartsQueen);
+    goodHand.add(clubsNine);
+    goodHand.add(clubsEight);
+    goodHand.add(spadesSeven);
+    goodHand.add(diamondsAss);
     
     this.test(goodHand);
   }
@@ -102,16 +102,16 @@ class SortHandTest {
     ps.setPlayMode(PlayMode.GRAND);
 
     List<Card> goodHand = new ArrayList<Card>();
-    goodHand.add(card4);
-    goodHand.add(card5);
-    goodHand.add(card7);
-    goodHand.add(card8);
-    goodHand.add(card9);
-    goodHand.add(card10);
-    goodHand.add(card1);
-    goodHand.add(card3);
-    goodHand.add(card6);
-    goodHand.add(card2);
+    goodHand.add(clubsJack);
+    goodHand.add(spadesJack);
+    goodHand.add(clubsNine);
+    goodHand.add(clubsEight);
+    goodHand.add(spadesSeven);
+    goodHand.add(heartsAss);
+    goodHand.add(heartsTen);
+    goodHand.add(heartsKing);
+    goodHand.add(heartsQueen);
+    goodHand.add(diamondsAss);
     
     this.test(goodHand);
   }
@@ -123,16 +123,16 @@ class SortHandTest {
     ps.setPlayMode(PlayMode.NULL);
 
     List<Card> goodHand = new ArrayList<Card>();
-    goodHand.add(card4);
-    goodHand.add(card7);
-    goodHand.add(card8);
-    goodHand.add(card5);
-    goodHand.add(card9);
-    goodHand.add(card10);
-    goodHand.add(card3);
-    goodHand.add(card6);
-    goodHand.add(card1);
-    goodHand.add(card2);
+    goodHand.add(clubsJack);
+    goodHand.add(clubsNine);
+    goodHand.add(clubsEight);
+    goodHand.add(spadesJack);
+    goodHand.add(spadesSeven);
+    goodHand.add(heartsAss);
+    goodHand.add(heartsKing);
+    goodHand.add(heartsQueen);
+    goodHand.add(heartsTen);
+    goodHand.add(diamondsAss);
     
     this.test(goodHand);
   }
@@ -140,7 +140,10 @@ class SortHandTest {
   
   void test(List<Card> goodHand) {
     player.sortHand(ps);
-    assertEquals(player.getHand(), goodHand);
+   for(int i=0; i<player.getHand().size(); i++) {
+     assertEquals(goodHand.get(i), player.getHand().get(i));
+   }
+  
   }
 
 }
