@@ -24,6 +24,7 @@ import logic.Trick;
  */ 
 class CheckIfCardPossibleTest {
 
+  static Player p1; // player of first card
   static Player p2; // player of second trick card
   static Player p3; // player of third trick card
 
@@ -40,7 +41,11 @@ class CheckIfCardPossibleTest {
 
   @BeforeAll
   static void setUpBeforeClass() {
-    ps = new PlayState(new Player[3]);
+    p1 = new Player("P1");
+    p2 = new Player("P2");
+    p3 = new Player("P3");
+    
+    ps = new PlayState(new Player[] {p1, p2, p3});
   }
 
   @BeforeEach
@@ -49,7 +54,7 @@ class CheckIfCardPossibleTest {
     // we start with one card on the trick
     firstCard = new Card(Colour.HEARTS, Number.NINE); // <3 9
     ps.setCurrentTrick(new Trick());
-    ps.getCurrentTrick().addCard(firstCard);
+    ps.getCurrentTrick().addCard(firstCard, p1);
 
     // good cards because they do serve the first card
     goodCard1 = new Card(Colour.HEARTS, Number.TEN); // HEARTS = Trump
@@ -59,14 +64,12 @@ class CheckIfCardPossibleTest {
     badCard2 = new Card(Colour.DIAMONDS, Number.NINE);
 
     // player 2 and his hand
-    p2 = new Player("P2");
     p2.addToHand(goodCard1);
     p2.addToHand(goodCard2);
     p2.addToHand(badCard1);
     p2.addToHand(badCard2);
 
     // player 3 and his hand
-    p3 = new Player("P3");
     p3.addToHand(badCard1);
     p3.addToHand(badCard2);
   }

@@ -6,54 +6,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trick implements Serializable {
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
-  private int indexWinner;
-  private List<Card> trickCards;
 
-  public Trick(PlayState ps) {
-    this.trickCards = new ArrayList<Card>();
-    this.indexWinner = 0;
-  }
+  /*
+   * This class includes all methods which belong to a trick. A trick has to be created (by the
+   * logic) and filled (by Players). Then a winner can be calculated.
+   */
+
+  // The constructor initializes the List "trickCards"
+
+  // addCard: void
+  // Adds the given card to the trickCards
+  
+  // isFull: boolean
+  // checks if 3 cards are saved in the trickCards 
+
+  // calculateWinner : Player
+  // With the PlayState (parameter) and the trickCards
+
+
+  private static final long serialVersionUID = 1L;
+  private List<Card> trickCards; // the list of trick cards includes 0,1,2 or 3 cards
+  private List<Player> cardPlayers;
+
+  /* ------------------- CONSTRUCTOR ------------------------------------------------- */
+
 
   public Trick() {
     this.trickCards = new ArrayList<Card>();
+    cardPlayers = new ArrayList<Player>();
   }
 
-  public List<Card> getTrickCards() {
-    return this.trickCards;
-  }
+  /* ------------------- HANDLING OF A TRICK ----------------------------------------- */
 
-  public int getIndexWinner() {
-    return this.indexWinner;
-  }
-
-  public Colour getFirstColour() {
-    return this.trickCards.get(0).getColour();
-  }
-
-  public Card getFirstCard() {
-    return this.trickCards.get(0);
-  }
-  
-  public void setCard1(Card card1) {
-    this.trickCards.set(0, card1);
-  }
-
-  public void setCard2(Card card2) {
-    this.trickCards.set(0, card2);
-  }
-
-  public void setCard3(Card card3) {
-    this.trickCards.set(0, card3);
-  }
-
-  public void addCard(Card card) {
+  /**
+   * adds the given card to the trickCards
+   * 
+   * @author sandfisc
+   * @param card
+   */
+  public void addCard(Card card, Player player) {
     this.trickCards.add(card);
+    this.cardPlayers.add(player);
   }
 
+  /**
+   * checks if 3 cards are saved in the trickCards
+   * 
+   * @author sandfisc
+   * @return if trick is full / over
+   */
   public boolean isFull() {
     if (this.trickCards.size() == 3) {
       return true;
@@ -63,8 +64,10 @@ public class Trick implements Serializable {
   }
 
 
+  /* -------------------- CALCULATE WINNER ------------------------------------------- */
+
   /**
-   * the winning card is calculated and the index of the winner is saved in indexWinner (submethods:
+   * the winning card is calculated and the winner is returned (submethods (depending on PlayMode):
    * calculateWinnerColour(), calculateWinnerGrand(), calculateWinnerNull())
    * 
    * @author sandfisc
@@ -74,14 +77,14 @@ public class Trick implements Serializable {
 
     // calculate winner when PlayMode is Colour
     if (ps.getPlayMode() == PlayMode.SUIT) {
-      return ps.getGroup()[this.calculateWinnerColour(ps)];
+      return this.cardPlayers.get(this.calculateWinnerColour(ps));
       // calculate winner when PlayMode is Grand
     } else if (ps.getPlayMode() == PlayMode.GRAND) {
-      return ps.getGroup()[this.calculateWinnerGrand()];
+      return this.cardPlayers.get(this.calculateWinnerGrand());
 
       // calculate winner when PlayMode is Null or NullOuvert
     } else {
-      return ps.getGroup()[this.calculateWinnerNull()];
+      return this.cardPlayers.get(this.calculateWinnerNull());
     }
   }
 
@@ -288,4 +291,29 @@ public class Trick implements Serializable {
     }
   }
 
+  /* ------------------------ SETTER AND GETTER ------------------------------------------- */
+
+  public List<Card> getTrickCards() {
+    return this.trickCards;
+  }
+
+  public Colour getFirstColour() {
+    return this.trickCards.get(0).getColour();
+  }
+
+  public Card getFirstCard() {
+    return this.trickCards.get(0);
+  }
+
+  public void setCard1(Card card1) {
+    this.trickCards.set(0, card1);
+  }
+
+  public void setCard2(Card card2) {
+    this.trickCards.set(0, card2);
+  }
+
+  public void setCard3(Card card3) {
+    this.trickCards.set(0, card3);
+  }
 }
