@@ -36,10 +36,12 @@ public class Medium {
 
   // TODO Description for internal methods
 
-  private static final int minTrickValue = 7; // The value the trick needs to have, so that the AI wants to win it
+  private static final int minTrickValue = 7; // The value the trick needs to have, so that the AI
+                                              // wants to win it
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Methods called by AIController
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   /**
    * Checks if the easy AI wants to place a bet of passed value.
    * 
@@ -407,7 +409,7 @@ public class Medium {
     // CHeck if AI wants to play Null
     double minCertNull = 25;
     int seven = 4;
-    int eight = seven; // You can't win a trick if you have an eight
+    int eight = seven; // You can not win a trick if you have an eight
     int nine = 2;
     ten = 1;
     missingColour = 3;
@@ -547,7 +549,7 @@ public class Medium {
 
     // Check if AI wants to solely play one PlayMode after the above
     // discrimination and return this one
-    // If the AI doesn't want to play single, return null
+    // If the AI does not want to play single, return null
     if ((wantsGrand ^ wantsSuit ^ wantsNull)
         && ((wantsGrand != wantsSuit) || (wantsGrand != wantsNull))) {
       if (wantsGrand) {
@@ -668,7 +670,7 @@ public class Medium {
                 }
               }
             }
-            // Bot needs to play trump, but can't win --> play low Jack
+            // Bot needs to play trump, but can not win --> play low Jack
             for (int colour = 3; colour > maxColour; colour--) {
               if (controller.getCardProbabilities()[colour * 8 + number][0] == 1) {
                 for (int j = 0; j < cards.size(); j++) {
@@ -680,7 +682,7 @@ public class Medium {
               }
             }
           }
-          // Bot doesn't have trump, so play low value
+          // Bot does not have trump, so play low value
           int number = 7;
           while (number >= 0) {
             for (int colour = 0; colour < 4; colour++) {
@@ -700,8 +702,7 @@ public class Medium {
           // If bot has colour
           if (controller.getHasColour()[3 - trick.get(0).getColour().ordinal()][0]) {
             // Try to win with colour
-            if (trick.size() < 2
-                || trick.get(1).getNumber() != Number.JACK) {
+            if (trick.size() < 2 || trick.get(1).getNumber() != Number.JACK) {
               int value = 7;
               for (int i = 0; i < trick.size(); i++) {
                 if (trick.get(i).getColour() == trick.get(0).getColour()
@@ -746,16 +747,18 @@ public class Medium {
             for (int i = 0; i < trick.size(); i++) {
               trickValue += trick.get(i).getValue();
             }
-         // If AI wants to win, play lowest trump
-            if(trickValue >= minTrickValue) {
+            // If AI wants to win, play lowest trump
+            if (trickValue >= minTrickValue) {
               int number = 7 - Number.JACK.ordinal();
               int colour = 3;
-              while(colour >= 0 && controller.getCardProbabilities()[colour*8 + number][0] != 1) {
+              while (colour >= 0
+                  && controller.getCardProbabilities()[colour * 8 + number][0] != 1) {
                 colour--;
               }
-              if(colour != 0) {
-                for(int i=0; i<cards.size(); i++) {
-                  if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+              if (colour != 0) {
+                for (int i = 0; i < cards.size(); i++) {
+                  if ((3 - cards.get(i).getColour().ordinal()) == colour
+                      && (7 - cards.get(i).getNumber().ordinal()) == number) {
                     return i;
                   }
                 }
@@ -763,11 +766,12 @@ public class Medium {
             }
           }
           // If AI does not want to win or does not have trump, play any low card
-          for(int number = 7; number >= 0; number--) {
-            for(int colour = 3; colour >= 0; colour--) {
-              if(controller.getCardProbabilities()[colour*8 + number][0] == 1) {
-                for(int i=0; i<cards.size(); i++) {
-                  if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+          for (int number = 7; number >= 0; number--) {
+            for (int colour = 3; colour >= 0; colour--) {
+              if (controller.getCardProbabilities()[colour * 8 + number][0] == 1) {
+                for (int i = 0; i < cards.size(); i++) {
+                  if ((3 - cards.get(i).getColour().ordinal()) == colour
+                      && (7 - cards.get(i).getNumber().ordinal()) == number) {
                     return i;
                   }
                 }
@@ -777,29 +781,32 @@ public class Medium {
         }
       }
 
-      // Bot isn't declarer
+      // Bot is not declarer
     } else {
       // Get declarer index
       int declarer = 0;
-      for(int i=0; i<controller.getPlayState().getGroup().length; i++) {
-        if(controller.getPlayState().getGroup()[i].isDeclarer()) {
-          for(int j=0; j<controller.getPlayer().size(); j++) {
-            if(controller.getPlayer().get(j).getName().equals(Integer.toString(controller.getPlayState().getGroup()[i].getId()))){
+      for (int i = 0; i < controller.getPlayState().getGroup().length; i++) {
+        if (controller.getPlayState().getGroup()[i].isDeclarer()) {
+          for (int j = 0; j < controller.getPlayer().size(); j++) {
+            if (controller.getPlayer().get(j).getName()
+                .equals(Integer.toString(controller.getPlayState().getGroup()[i].getId()))) {
               declarer = j;
             }
           }
         }
       }
-      
+
       // First Card in trick
-      if(trick.size() == 0) {
-      // Existing trumps, # not own trumps > 0 --> Play low value
-        if((controller.getExistingTrumps() - ownTrumps) > 0 && controller.getHasTrump()[declarer]) {
-          for(int colour = 3; colour >= 0; colour--) {
-            for(int number = 7; number >= 0; number --) {
-              if(controller.getCardProbabilities()[colour*8 + number][0] == 1) {
-                for(int i=0; i<cards.size(); i++) {
-                  if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+      if (trick.size() == 0) {
+        // Existing trumps, # not own trumps > 0 --> Play low value
+        if ((controller.getExistingTrumps() - ownTrumps) > 0
+            && controller.getHasTrump()[declarer]) {
+          for (int colour = 3; colour >= 0; colour--) {
+            for (int number = 7; number >= 0; number--) {
+              if (controller.getCardProbabilities()[colour * 8 + number][0] == 1) {
+                for (int i = 0; i < cards.size(); i++) {
+                  if ((3 - cards.get(i).getColour().ordinal()) == colour
+                      && (7 - cards.get(i).getNumber().ordinal()) == number) {
                     return i;
                   }
                 }
@@ -807,21 +814,42 @@ public class Medium {
             }
           }
         }
-      // No exisiting trumps --> play Ace or play ten
-        
-      // Else play random
+        // No exisiting trumps --> play high value
+        if ((controller.getExistingTrumps() - ownTrumps) == 0) {
+          if (ownTrumps > 0) {
+            for (int i = 0; i < cards.size(); i++) {
+              if (cards.get(i).getNumber() == Number.JACK) {
+                return i;
+              }
+            }
+          }
+          for (int number = 0; number < 8; number++) {
+            for (int colour = 0; colour < 4; colour++) {
+              if (controller.getCardProbabilities()[colour * 8 + number][0] == 1) {
+                for (int i = 0; i < cards.size(); i++) {
+                  if ((7 - cards.get(i).getNumber().ordinal()) == number
+                      && (3 - cards.get(i).getColour().ordinal()) == colour) {
+                    return i;
+                  }
+                }
+              }
+            }
+          }
+        }
+        // Else play random
+        return General.playRandomCard(controller);
       }
 
       // 2nd card in trick
       // If predecessor is declarer, try to win, else low value
-      // If predecessor isn't declarer and threw high value, try to win, else throw
+      // If predecessor is not declarer and threw high value, try to win, else throw
       // low value
       // Else play random card
 
       // 3rd card in trick
       // If already on, throw points
       // If not, try to win, if value > 10 with own card
-      // If don't want to win, throw low value card
+      // If do not want to win, throw low value card
       // Else play random
     }
 
@@ -911,14 +939,14 @@ public class Medium {
           return General.playRandomCard(controller);
         }
 
-        // Bot doesn't have colour
+        // Bot does not have colour
       } else {
         // Check if he wants to and can play trump
       }
       // Else play low card
       return General.playRandomCard(controller);
 
-      // Bot isn't declarer
+      // Bot is not declarer
     } else {
 
     }
@@ -941,9 +969,9 @@ public class Medium {
         }
       }
       return cardIndex;
-      // Bot doesn't play the first card, so he needs to react to the first card
+      // Bot does not play the first card, so he needs to react to the first card
     } else {
-      // Bot doesn't have colour
+      // Bot does not have colour
       if (controller.getHasColour()[4 - trick.get(0).getColour().ordinal()][0]) {
 
         // Play highest Card of colour, where amount is < 3
@@ -978,7 +1006,7 @@ public class Medium {
 
         // Bot has color
       } else {
-        // If bot hasColour, play the predecessor, if it doen't exist, play the
+        // If bot hasColour, play the predecessor, if it does not exist, play the
         // successor
         int colour = 3 - trick.get(0).getColour().ordinal();
         int value = 7 - trick.get(0).getNumber().ordinal();

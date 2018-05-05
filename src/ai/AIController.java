@@ -47,7 +47,7 @@ public class AIController implements InGameInterface {
   // A player played a card
 
   // setPlaySettingsAfterAuction(PlayState) : void
-  // Sets the PlayState, if the AI didn't win the auction
+  // Sets the PlayState, if the AI did not win the auction
 
   // updateHand(List<Card>) : void
   // Updates the hand
@@ -462,7 +462,7 @@ public class AIController implements InGameInterface {
 
   @Override
   /**
-   * This method sets the PlayState, if the AI isn't declarer. These parameters will be updated:
+   * This method sets the PlayState, if the AI is not declarer. These parameters will be updated:
    * partner, opponents, hasTrump, existingTrumps. Also the if the AI difficulty is hard, the AI is
    * asked if it wants to declare kontra.
    * 
