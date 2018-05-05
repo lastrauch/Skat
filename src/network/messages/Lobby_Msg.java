@@ -6,7 +6,6 @@ import logic.Player;
 
 public class Lobby_Msg extends Message {
   private static final long serialVersionUID = 1L;
-  //private List<Player> player;
   private Player[] player;
   private GameSettings gs;
 
