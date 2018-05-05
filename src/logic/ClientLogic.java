@@ -157,11 +157,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // !!!!!!!!!! funktioniert so leider (noch) nicht, da der gui controller bei askToPlayCard
           // immer
           // wieder die geliche karte zurück gibt
-          if (this.player.isBot()) {
-            this.playCard(firstCard);
-          }
-          System.out.println(
-              "die ausgewählte Karte kann nicht gespielt werden und als auffangen kann die logik das momentan nur bei den Bots, aber nicht bei der gui.");
+          // if (this.player.isBot()) {
+          // this.playCard(firstCard);
+          // }
+          // System.out.println(
+          // "die ausgewählte Karte kann nicht gespielt werden und als auffangen kann die logik das
+          // momentan nur bei den Bots, aber nicht bei der gui.");
         }
       } catch (LogicException e) {
         // TODO Auto-generated catch block
@@ -859,7 +860,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
     // update current trick
     this.checkIfTrickIsFull();
-    this.playState.getCurrentTrick().addCard(card);
+    this.playState.getCurrentTrick().addCard(card, player);
 
     // update players hand why??
     // try {
@@ -1045,7 +1046,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
         // if "i am" winner of last trick --> ask inGameController to play new card
         if (this.player.equals(trickWinner)) {
-          this.inGameController.askToPlayCard();
+          this.playCard(null);
         }
       }
     }
@@ -1071,7 +1072,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   public boolean checkIfTrickIsFull() {
     if (this.playState.getCurrentTrick().isFull()) {
-      this.playState.setCurrentTrick(new Trick(this.playState));
+      this.playState.setCurrentTrick(new Trick());
       return true;
     }
     return false;
