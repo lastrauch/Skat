@@ -951,8 +951,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     Player trickWinner;
     Player[] playWinner;
     Player gameWinner;
-    
-    Thread thread = new Thread();
 
     // check if trick is over
     if (this.playState.getCurrentTrick().isFull()) {
@@ -972,7 +970,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // show winner of trick
       this.inGameController.showWinnerTrick(trickWinner);
-      // illegalMonitorStateException.. probieren wir es mal mit nem richtigen thread
        try {
        Thread.sleep(3000);
        } catch (InterruptedException e) {
@@ -996,12 +993,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
         // show winner of play
         this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
-        // illegalMonitorStateException..
-        // try {
-        // this.wait(3000);
-        // } catch (InterruptedException e) {
-        // e.printStackTrace();
-        // }
+        try {
+          Thread.sleep(3000);
+          } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+          }
 
         // check if the whole game is over
         if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()
@@ -1012,12 +1009,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
           gameWinner = Game.calculateWinner(this.playState);
           // show winner of game
           this.inGameController.showWinnerGame(gameWinner);
-          // illegalMonitorStateException..
-          // try {
-          // this.wait(3000);
-          // } catch (InterruptedException e) {
-          // e.printStackTrace();
-          // }
+          try {
+            Thread.sleep(3000);
+            } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
 
         } else {
 
