@@ -2170,53 +2170,42 @@ public class InGameController implements Initializable, InGameInterface {
             s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
                 card.getNumber().toString().toLowerCase()));
             s1.toFront();
-            System.out.println("FOREHAND - MIDDLEHAND");
           } else if (player.getPosition() == Position.REARHAND) {
             s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
                 card.getNumber().toString().toLowerCase()));
             s3.toFront();
-            System.out.println("FOREHAND - REARHAND");
           } else {
             s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
                 card.getNumber().toString().toLowerCase()));
             s2.toFront();
-            System.out.println("FOREHAND - FOREHAND - s2.toFront()");
           }
         } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
           if (player.getPosition() == Position.MIDDLEHAND) {
             s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
                 card.getNumber().toString().toLowerCase()));
             s3.toFront();
-            System.out.println("REARHAND - MIDDLEHAND");
           } else if (player.getPosition() == Position.FOREHAND) {
             s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
                 card.getNumber().toString().toLowerCase()));
             s1.toFront();
-            System.out.println("REARHAND - FOREHAND");
           } else {
             s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
                 card.getNumber().toString().toLowerCase()));
             s2.toFront();
-            System.out.println("REARHAND - REARHAND - s2.toFront()");
           }
         } else {
           if (player.getPosition() == Position.REARHAND) {
             s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
                 card.getNumber().toString().toLowerCase()));
             s1.toFront();
-            System.out.println("MIDDLEHAND - REARHAND");
           } else if (player.getPosition() == Position.FOREHAND) {
             s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
                 card.getNumber().toString().toLowerCase()));
             s3.toFront();
-            System.out.println("MIDDLEHAND - FOREHAND");
           } else {
             s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
                 card.getNumber().toString().toLowerCase()));
-            s2.toFront();
-            System.out.println("MIDDLEHAND - MIDDLEHAND -  s2.toFront()");
-            
-            
+            s2.toFront();            
           }
         }
         if(s1.getStyleClass() != null && s2.getImage() != null && s3.getImage() != null) {
