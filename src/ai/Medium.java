@@ -779,10 +779,38 @@ public class Medium {
 
       // Bot isn't declarer
     } else {
+      // Get declarer index
+      int declarer = 0;
+      for(int i=0; i<controller.getPlayState().getGroup().length; i++) {
+        if(controller.getPlayState().getGroup()[i].isDeclarer()) {
+          for(int j=0; j<controller.getPlayer().size(); j++) {
+            if(controller.getPlayer().get(j).getName().equals(Integer.toString(controller.getPlayState().getGroup()[i].getId()))){
+              declarer = j;
+            }
+          }
+        }
+      }
+      
       // First Card in trick
-      // Existing trumps, not own > 0 --> Play low value
+      if(trick.size() == 0) {
+      // Existing trumps, # not own trumps > 0 --> Play low value
+        if((controller.getExistingTrumps() - ownTrumps) > 0 && controller.getHasTrump()[declarer]) {
+          for(int colour = 3; colour >= 0; colour--) {
+            for(int number = 7; number >= 0; number --) {
+              if(controller.getCardProbabilities()[colour*8 + number][0] == 1) {
+                for(int i=0; i<cards.size(); i++) {
+                  if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+                    return i;
+                  }
+                }
+              }
+            }
+          }
+        }
       // No exisiting trumps --> play Ace or play ten
+        
       // Else play random
+      }
 
       // 2nd card in trick
       // If predecessor is declarer, try to win, else low value
