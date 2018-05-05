@@ -943,7 +943,6 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent e) {
         b = false;
-        deletePane(paneBet);
         notpressed = false;
       }
     });
@@ -2071,6 +2070,9 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
+        deletePane(paneBet);
+        deletePane(skatPane);
+        deletePane(handPane);
         deletePane(paneAuc);
         if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
