@@ -948,7 +948,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   public void checkWhatHappensNext(Player playedLastCard, Card card) throws LogicException {
 
-    this.playState.getCurrentTrick().addCard(card, player);
+    this.playState.getCurrentTrick().addCard(card, playedLastCard);
 
     Player trickWinner;
     Player[] playWinner;
