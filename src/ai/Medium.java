@@ -104,24 +104,25 @@ public class Medium {
 	 * @return PlayState
 	 */
 	public static PlayState askToSetPlayState(AIController controller) {
-		if(controller.getSinglePlay() == null || controller.getSinglePlay().getPlayMode() == null) {
-			Medium.calculateBet(controller);
-		}
-		if(controller.getSinglePlay() == null) {
-			controller.setSinglePlay(new SinglePlay(PlayMode.NULL));
-		}
-		
-		PlayState ps = controller.getPlayState();
-		ps.setPlayMode(controller.getSinglePlay().getPlayMode());
-		if(controller.getSinglePlay().getPlayMode() == PlayMode.SUIT) {
-			ps.setTrump(controller.getSinglePlay().getColour());
-		}
-		ps.setHandGame(false);
-		ps.setSchneiderAnnounced(false);
-		ps.setSchwarzAnnounced(false);
-		ps.setOpen(false);
-
-		return ps;
+//		if(controller.getSinglePlay() == null || controller.getSinglePlay().getPlayMode() == null) {
+//			Medium.calculateBet(controller);
+//		}
+//		if(controller.getSinglePlay() == null) {
+//			controller.setSinglePlay(new SinglePlay(PlayMode.NULL));
+//		}
+//		
+//		PlayState ps = controller.getPlayState();
+//		ps.setPlayMode(controller.getSinglePlay().getPlayMode());
+//		if(controller.getSinglePlay().getPlayMode() == PlayMode.SUIT) {
+//			ps.setTrump(controller.getSinglePlay().getColour());
+//		}
+//		ps.setHandGame(false);
+//		ps.setSchneiderAnnounced(false);
+//		ps.setSchwarzAnnounced(false);
+//		ps.setOpen(false);
+//
+//		return ps;
+	  return null;
 	}
 	
 	/**

@@ -263,51 +263,51 @@ public class AIController implements InGameInterface {
    * @return PlayState
    */
   public PlayState askToSetPlayState(PlayState playState) {
-    try {
-      Thread.sleep(Settings.DELAY);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    this.playState = playState;
-    switch (this.bot.getDifficulty()) {
-      case EASY:
-        playState = Easy.askToSetPlayState(this);
-      case MEDIUM:
-        playState = Medium.askToSetPlayState(this);
-      case HARD:
-        playState = Hard.askToSetPlayState(this);
-    }
-    // Update hasTrump
-    if (playState.getPlayMode() != PlayMode.NULL) {
-      int j = 0;
-      while (!hasTrump[0] && j < this.bot.getHand().size()) {
-        if (this.bot.getHand().get(j).getNumber() == Number.JACK
-            || (playState.getPlayMode() == PlayMode.SUIT
-                && this.bot.getHand().get(j).getColour() == playState.getTrump())) {
-          this.hasTrump[0] = true;
-        }
-      }
-    }
-    this.hasTrump[1] = this.hasTrump[2] = true;
-    // Update partner
-    this.setPartner(null);
-    // Update opponents
-    List<Player> opponents = new ArrayList<Player>();
-    for (int i = 0; i < this.getPlayer().size(); i++) {
-      opponents.add(this.getPlayer().get(i));
-    }
-    this.setOpponents(opponents);
-    // Update existingTrumps
-    switch (playState.getPlayMode()) {
-      case GRAND:
-        this.setExistingTrumps(4);
-      case SUIT:
-        this.setExistingTrumps(11);
-      case NULL:
-        this.setExistingTrumps(0);
-    }
-
-    this.playState = playState;
+//    try {
+//      Thread.sleep(Settings.DELAY);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+//    this.playState = playState;
+//    switch (this.bot.getDifficulty()) {
+//      case EASY:
+//        playState = Easy.askToSetPlayState(this);
+//      case MEDIUM:
+//        playState = Medium.askToSetPlayState(this);
+//      case HARD:
+//        playState = Hard.askToSetPlayState(this);
+//    }
+//    // Update hasTrump
+//    if (playState.getPlayMode() != PlayMode.NULL) {
+//      int j = 0;
+//      while (!hasTrump[0] && j < this.bot.getHand().size()) {
+//        if (this.bot.getHand().get(j).getNumber() == Number.JACK
+//            || (playState.getPlayMode() == PlayMode.SUIT
+//                && this.bot.getHand().get(j).getColour() == playState.getTrump())) {
+//          this.hasTrump[0] = true;
+//        }
+//      }
+//    }
+//    this.hasTrump[1] = this.hasTrump[2] = true;
+//    // Update partner
+//    this.setPartner(null);
+//    // Update opponents
+//    List<Player> opponents = new ArrayList<Player>();
+//    for (int i = 0; i < this.getPlayer().size(); i++) {
+//      opponents.add(this.getPlayer().get(i));
+//    }
+//    this.setOpponents(opponents);
+//    // Update existingTrumps
+//    switch (playState.getPlayMode()) {
+//      case GRAND:
+//        this.setExistingTrumps(4);
+//      case SUIT:
+//        this.setExistingTrumps(11);
+//      case NULL:
+//        this.setExistingTrumps(0);
+//    }
+//
+//    this.playState = playState;
     return playState;
   }
 

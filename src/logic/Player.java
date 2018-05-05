@@ -57,7 +57,7 @@ public class Player implements Serializable{
     this.gamePoints = gamePoints;
     this.declarer = declarer;
     this.bot = false;
-    this.hand  = new ArrayList<Card>();
+    this.hand = new ArrayList<Card>();
   }
 
   public Player copyMe() {

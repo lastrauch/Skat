@@ -90,7 +90,7 @@ public class PlayState implements Serializable{
    */
   public void sortCardsValueNorm(ArrayList<Card> cards) {
     Card temp;
-    for (int i = 1; i < cards.size(); i++) {
+    for (int i = 0; i < cards.size(); i++) {
       for (int j = 0; j < cards.size() - 1; j++) {
         if (cards.get(j).isLowerAsNorm(cards.get(j + 1))) {
           temp = cards.get(j);
@@ -109,7 +109,7 @@ public class PlayState implements Serializable{
    */
   public void sortCardsValueLowTen(ArrayList<Card> cards) {
     Card temp;
-    for (int i = 1; i < cards.size(); i++) {
+    for (int i = 0; i < cards.size(); i++) {
       for (int j = 0; j < cards.size() - 1; j++) {
         if (cards.get(j).isLowerAsLowTen(cards.get(j + 1))) {
           temp = cards.get(j);
