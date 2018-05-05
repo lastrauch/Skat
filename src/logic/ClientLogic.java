@@ -29,6 +29,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public ClientLogic(Player player) {
     // System.out.println("created ClientLogic for Player " + player.getName());
     this.player = player;
+    this.playState = new PlayState(new Player[4]);
     this.initializeCards();
     group = new ArrayList<Player>();
     group.add(this.player);
