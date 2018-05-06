@@ -1001,8 +1001,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
       }
 
       // show winner of trick
+      this.waitFor(1000);
       this.inGameController.showWinnerTrick(trickWinner);
-      this.waitFor(2000);
+      this.waitFor(1000);
 
       // check if play is over
       if (this.playState.getTrickNr() == 10
@@ -1043,7 +1044,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.playState.setPlayNr(this.playState.getPlayNr() + 1);
 
           // update position !!!!!!! UPDATE POSITION IN CLIENTLOGIC
-          Tools.updatePosition(this.playState.getGroup());
+          this.updatePosition();
           // change to id later
           for (Player p : this.playState.getGroup()) {
             if (p.getName().equals(this.player.getName())) {
@@ -1078,6 +1079,33 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.playCard(this.playState.getCurrentTrick().getFirstCard());
       // }
     }
+  }
+  
+  /**
+   * position (forehand, middlehand, rearhand) changes ater every play
+   * 
+   * @author sandfisc
+   */
+  public void updatePosition() {
+    int pointerForehand = this.searchForehand();
+
+    this.playState.getGroup()[pointerForehand].setPosition(Position.FOREHAND);
+    this.playState.getGroup()[((pointerForehand + 1) % this.playState.getGroup().length)].setPosition(Position.MIDDLEHAND);
+    this.playState.getGroup()[((pointerForehand + 2) % this.playState.getGroup().length)].setPosition(Position.REARHAND);
+
+
+    if (this.playState.getGroup().length == 4) {
+      this.playState.getGroup()[((pointerForehand + 3) % this.playState.getGroup().length)].setPosition(Position.DEALER);
+    }
+  }
+  
+  public int searchForehand() {
+    for (int i = 0; i < this.playState.getGroup().length; i++) {
+      if (this.playState.getGroup()[i].getPosition() == Position.FOREHAND) {
+        return i;
+      }
+    }
+    return 0;
   }
 
   public boolean checkifGameOverBierlachs() {
