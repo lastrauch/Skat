@@ -478,4 +478,7 @@ public class GuiController extends Application {
     return lobbyCon;
   }
 
+  public ChooseGameController getChooseGameCon() {
+    return gameModeCon;
+  }
 }

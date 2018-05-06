@@ -32,6 +32,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
         InputStream in = rs.getBinaryStream("image");
         img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
       }
+      rs.close();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -54,9 +55,10 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
         InputStream in = rs.getBinaryStream("image");
         img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
       }
+      rs.close();
     } catch (Exception e) {
       e.printStackTrace();
-    }
+    } 
     return img;
   }
   
