@@ -1,4 +1,4 @@
-package jUnit.jLogic;
+package jUnitLogic;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
