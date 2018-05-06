@@ -16,7 +16,7 @@ public class NetworkController implements LogicNetwork {
 
   // This class is the connection between the logic interface and the network.
   // It implements the interface methods as well as some other methods to reach out to the client,
-  // which communicates with it's ClientConnection on the server.
+  // which communicates with its ClientConnection on the server.
   // Available methods are:
 
   // hostGame(Player, GameSettings, String) : Server
