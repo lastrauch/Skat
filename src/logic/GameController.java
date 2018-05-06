@@ -135,6 +135,9 @@ public class GameController implements GuiLogic {
     System.out.println("start game method");
     this.gameSettings = gs;
     this.group = this.clientLogic.get(0).getLobby();
+    for(ClientLogic cl: this.clientLogic) {
+      cl.setInGame(true);
+    }
 
     // if the lobby does not contain enough players
     if (this.group.size() < this.gameSettings.getNrOfPlayers()) {
