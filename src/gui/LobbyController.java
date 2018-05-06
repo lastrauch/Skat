@@ -265,18 +265,24 @@ public class LobbyController implements Initializable {
 
 
   public void setGameSettingsLabel(GameSettings gs) {
-    rounds.setText(String.valueOf(gs.getNrOfPlays()));
-    system.setText(gs.getCountRule().toString());
-    if (gs.isLimitedTime()) {
-      timelimit.setText(String.valueOf(gs.getTimeLimit()));
-    } else {
-      timelimit.setText("Disabled");
-    }
-    if (gs.isEnableKontra()) {
-      kontra.setText("Enabled");
-    } else {
-      kontra.setText("Disabled");
-    }
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        // TODO Auto-generated method stub
+        rounds.setText(String.valueOf(gs.getNrOfPlays()));
+        system.setText(gs.getCountRule().toString());
+        if (gs.isLimitedTime()) {
+          timelimit.setText(String.valueOf(gs.getTimeLimit()));
+        } else {
+          timelimit.setText("Disabled");
+        }
+        if (gs.isEnableKontra()) {
+          kontra.setText("Enabled");
+        } else {
+          kontra.setText("Disabled");
+        }
+      }
+    });
   }
 
   public void setGS() {
