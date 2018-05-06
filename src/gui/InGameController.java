@@ -2506,5 +2506,14 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#showPossibleCards()
+   */
+  @Override
+  public List<Card> showPossibleCards() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 
 }
