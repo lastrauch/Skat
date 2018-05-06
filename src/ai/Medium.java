@@ -323,7 +323,7 @@ public class Medium {
     for (int i = 0; i < 4; i++) {
       int j = 0;
       double row = ace / rowFactorPerCard;
-      while (controller.getCardProbabilities()[8 * i + j][0] == 1 || j < 8) {
+      while (j < 8 && controller.getCardProbabilities()[8 * i + j][0] == 1) {
         row *= rowFactorPerCard;
         j++;
       }
@@ -844,11 +844,88 @@ public class Medium {
       if(trick.size() == 1) {
       // If predecessor is declarer, try to win, else low value
       if(controller.getPlayedCards()[controller.getPlayedCards().length-1][declarer] != null) {
-        
+        //If first card is trump
+        if(trick.get(0).getNumber() == Number.JACK && controller.getHasTrump()[0]) {
+          int number = 7 - Number.JACK.ordinal();
+          int colourValue = 3 - trick.get(0).getColour().ordinal();
+          for(int colour = 0; colour < colourValue; colour++) {
+            if(controller.getCardProbabilities()[colour*8 + number][0] == 1) {
+              for(int i=0; i<cards.size(); i++) {
+                if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+                  return i;
+                }
+              }
+            }
+          }
+          for(int colour = 3; colour > colourValue; colour--) {
+            if(controller.getCardProbabilities()[colour*8 + number][0] == 1) {
+              for(int i=0; i<cards.size(); i++) {
+                if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+                  return i;
+                }
+              }
+            }
+          }
+          //First Card is not Trump
+        }else {
+          if(controller.getHasColour()[3 - trick.get(0).getColour().ordinal()][0]) {
+            int colour = 3 - trick.get(0).getColour().ordinal();
+            int numberValue = 7 - trick.get(0).getNumber().ordinal();
+            for(int number = numberValue+1; number >= 0; number++) {
+              if(controller.getCardProbabilities()[colour*8 + number][0] == 1) {
+                for(int i=0; i<cards.size(); i++) {
+                  if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+                    return i;
+                  }
+                }
+              }
+            }
+            for(int number = 7; number > numberValue; number--) {
+              if(controller.getCardProbabilities()[colour*8 + number][0] == 1) {
+                for(int i=0; i<cards.size(); i++) {
+                  if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+                    return i;
+                  }
+                }
+              }
+            }
+          }
+        }
         
      // If predecessor is not declarer and threw high value, try to win, else throw
       }else {
-        
+        //Needs to play trump
+        if(trick.get(0).getNumber() == Number.JACK) {
+          // Can play trump
+          if(ownTrumps > 0) {
+            int number = 7 - Number.JACK.ordinal();
+            for(int colour = 3; colour >= 0; colour--) {
+              if(controller.getCardProbabilities()[colour*8 + number][0] == 1) {
+                for(int i=0; i<cards.size(); i++) {
+                  if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+                    return i;
+                  }
+                }
+              }
+            }
+          }else {
+            for(int number = 0; number < 8; number++) {
+              for(int colour = 0; colour < 4; colour++) {
+                if(controller.getCardProbabilities()[colour*8 + number][0] == 1) {
+                  for(int i=0; i<cards.size(); i++) {
+                    if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+                      return i;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        // Needs to play colour
+        if(trick.get(0).getValue() > 3) {
+          //TODO
+        }
       }
       // low value
       if(trick.get(0).getNumber() == Number.JACK && ownTrumps > 0) {
@@ -957,7 +1034,7 @@ public class Medium {
         for (int colour = 0; colour < hasColour.length; colour++) {
           if (hasColour[colour] < 3 && hasColour[colour] > 0) {
             int number = 0;
-            while (controller.getCardProbabilities()[colour * 8 + number][0] == 0) {
+            while (number < 8 && controller.getCardProbabilities()[colour * 8 + number][0] == 0) {
               number++;
             }
             for (int h = 0; h < cards.size(); h++) {
@@ -986,7 +1063,7 @@ public class Medium {
         int colour = 3 - trick.get(0).getColour().ordinal();
         int value = 7 - trick.get(0).getNumber().ordinal();
         int j = value;
-        while (j < 7 && controller.getCardProbabilities()[colour * 8 + j][0] == 0) {
+        while (j < 8 && controller.getCardProbabilities()[colour * 8 + j][0] == 0) {
           j++;
         }
         if (j != 7) {

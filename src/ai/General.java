@@ -58,7 +58,7 @@ public class General {
 			possibleCards = cards;
 		}
 
-		int rnd = (int) (Math.random() * (possibleCards.size()-1));
+		int rnd = (int) (Math.random() * possibleCards.size());
 		Card playCard = possibleCards.get(rnd);
 		int index = cards.indexOf(playCard);
 
