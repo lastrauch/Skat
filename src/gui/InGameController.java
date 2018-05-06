@@ -365,11 +365,9 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showWinnerTrick(Player player) {
     // TODO Auto-generated method stub
-    if (s1.getStyleClass() != null && s2.getImage() != null && s3.getImage() != null) {
       s1.setImage(null);
       s2.setImage(null);
       s3.setImage(null);
-    }
     betB.setText(LoginController.interfGL.getPlayer().getPosition().toString());
     
 

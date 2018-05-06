@@ -47,7 +47,7 @@ public class AIController implements InGameInterface {
   // A player played a card
 
   // setPlaySettingsAfterAuction(PlayState) : void
-  // Sets the PlayState, if the AI didn't win the auction
+  // Sets the PlayState, if the AI did not win the auction
 
   // updateHand(List<Card>) : void
   // Updates the hand
@@ -263,51 +263,54 @@ public class AIController implements InGameInterface {
    * @return PlayState
    */
   public PlayState askToSetPlayState(PlayState playState) {
-//    try {
-//      Thread.sleep(Settings.DELAY);
-//    } catch (InterruptedException e) {
-//      e.printStackTrace();
-//    }
-//    this.playState = playState;
-//    switch (this.bot.getDifficulty()) {
-//      case EASY:
-//        playState = Easy.askToSetPlayState(this);
-//      case MEDIUM:
-//        playState = Medium.askToSetPlayState(this);
-//      case HARD:
-//        playState = Hard.askToSetPlayState(this);
-//    }
-//    // Update hasTrump
-//    if (playState.getPlayMode() != PlayMode.NULL) {
-//      int j = 0;
-//      while (!hasTrump[0] && j < this.bot.getHand().size()) {
-//        if (this.bot.getHand().get(j).getNumber() == Number.JACK
-//            || (playState.getPlayMode() == PlayMode.SUIT
-//                && this.bot.getHand().get(j).getColour() == playState.getTrump())) {
-//          this.hasTrump[0] = true;
-//        }
-//      }
-//    }
-//    this.hasTrump[1] = this.hasTrump[2] = true;
-//    // Update partner
-//    this.setPartner(null);
-//    // Update opponents
-//    List<Player> opponents = new ArrayList<Player>();
-//    for (int i = 0; i < this.getPlayer().size(); i++) {
-//      opponents.add(this.getPlayer().get(i));
-//    }
-//    this.setOpponents(opponents);
-//    // Update existingTrumps
-//    switch (playState.getPlayMode()) {
-//      case GRAND:
-//        this.setExistingTrumps(4);
-//      case SUIT:
-//        this.setExistingTrumps(11);
-//      case NULL:
-//        this.setExistingTrumps(0);
-//    }
-//
-//    this.playState = playState;
+    // TODO
+    /*
+    try {
+      Thread.sleep(Settings.DELAY);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    this.playState = playState;
+    switch (this.bot.getDifficulty()) {
+      case EASY:
+        playState = Easy.askToSetPlayState(this);
+      case MEDIUM:
+        playState = Medium.askToSetPlayState(this);
+      case HARD:
+        playState = Hard.askToSetPlayState(this);
+    }
+    // Update hasTrump
+    if (playState.getPlayMode() != PlayMode.NULL) {
+      int j = 0;
+      while (!hasTrump[0] && j < this.bot.getHand().size()) {
+        if (this.bot.getHand().get(j).getNumber() == Number.JACK
+            || (playState.getPlayMode() == PlayMode.SUIT
+                && this.bot.getHand().get(j).getColour() == playState.getTrump())) {
+          this.hasTrump[0] = true;
+        }
+      }
+    }
+    this.hasTrump[1] = this.hasTrump[2] = true;
+    // Update partner
+    this.setPartner(null);
+    // Update opponents
+    List<Player> opponents = new ArrayList<Player>();
+    for (int i = 0; i < this.getPlayer().size(); i++) {
+      opponents.add(this.getPlayer().get(i));
+    }
+    this.setOpponents(opponents);
+    // Update existingTrumps
+    switch (playState.getPlayMode()) {
+      case GRAND:
+        this.setExistingTrumps(4);
+      case SUIT:
+        this.setExistingTrumps(11);
+      case NULL:
+        this.setExistingTrumps(0);
+    }
+
+    this.playState = playState;
+    */
     return playState;
   }
 
@@ -375,8 +378,8 @@ public class AIController implements InGameInterface {
     // Update playedCards
     for (int i = 0; i < this.player.size(); i++) {
       if (this.player.get(i).getName().equals(Integer.toString(player.getId()))) {
-        if (this.playedCards[this.playedCards.length - 1][this.player.get(i).getId()] == null) {
-          this.playedCards[this.playedCards.length - 1][this.player.get(i).getId()] = card;
+        if (this.playedCards[this.playedCards.length-1][this.player.get(i).getId()] == null) {
+          this.playedCards[this.playedCards.length-1][this.player.get(i).getId()] = card;
           return;
         } else {
           Card[][] playedCards = new Card[this.playedCards.length + 1][3];
@@ -462,7 +465,7 @@ public class AIController implements InGameInterface {
 
   @Override
   /**
-   * This method sets the PlayState, if the AI isn't declarer. These parameters will be updated:
+   * This method sets the PlayState, if the AI is not declarer. These parameters will be updated:
    * partner, opponents, hasTrump, existingTrumps. Also the if the AI difficulty is hard, the AI is
    * asked if it wants to declare kontra.
    * 
