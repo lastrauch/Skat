@@ -32,8 +32,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.player = player;
     this.playState = new PlayState(new Player[4]);
     this.initializeCards();
-    group = new ArrayList<Player>();
-    group.add(this.player);
+    this.group = new ArrayList<Player>();
+    this.group.add(this.player);
     this.inGame = false;
   }
 
