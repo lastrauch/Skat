@@ -164,5 +164,17 @@ public class General {
 
 		return prob;
 	}
+	
+	//TODO
+	public static int checkIfPossibleAndGetIndex(double[][] cardProbabilities, List<Card> cards, int colour, int number, int playerIndex) {
+	  if(cardProbabilities[colour*8 + number][playerIndex] > 0) {
+	    for(int i=0; i<cards.size(); i++) {
+	      if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+	        return i;
+	      }
+	    }
+	  }
+	  return -1;
+	}
 
 }

@@ -380,7 +380,12 @@ public class AIController implements InGameInterface {
    */
   public void receivedNewCard(Card card, Player player) {
     // Update currentTrick
+    if (this.currentTrick.size() == 3) {
+      this.currentTrick.clear();
+
+    }
     this.currentTrick.add(card);
+
     // Update playedCards
     for (int i = 0; i < this.player.size(); i++) {
       if (this.player.get(i).getName().equals(Integer.toString(player.getId()))) {
