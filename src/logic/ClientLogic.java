@@ -107,12 +107,31 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * asks the gui/AI to play a card and checks if it is possible to play it
+   * to wait with the ui methods
    * 
+   * @author awesch
+   * @param time
+   */
+  public void waitFor(long time) {
+    try {
+      Thread.sleep(time);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * asks the ui/AI to play a card and checks if it is possible to play it
+   * 
+   * @author awesch
+   * @author sandfisc
    * @param firstCard (it depends on the first played card if it is possible to play the following)
    * @return
    */
   public void playCard(Card firstCard) {
+    this.inGameController.itsYourTurn();
+    this.waitFor(2000);
     Card playedCard = this.player.getHand().get(this.inGameController.askToPlayCard());
     System.out.println(this.player.getName() + " played " + playedCard.toString());
 
@@ -1002,7 +1021,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // game is over
           // calculate winner game
           gameWinner = Game.calculateWinner(this.playState);
-          
+
           try {
             Thread.sleep(1000);
           } catch (InterruptedException e) {
