@@ -1002,6 +1002,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // game is over
           // calculate winner game
           gameWinner = Game.calculateWinner(this.playState);
+          
+          try {
+            Thread.sleep(3000);
+          } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
           // show winner of game
           this.inGameController.showWinnerGame(gameWinner);
           try {
