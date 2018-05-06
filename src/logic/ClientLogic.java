@@ -190,7 +190,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       }
     }
   }
-
+ 
   public void showPossibleCards(Card firstCard) throws LogicException {
     List<Card> cards = new ArrayList<Card>();
     for (Card c : this.player.getHand()) {
