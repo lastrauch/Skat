@@ -146,8 +146,13 @@ class CalculatePlayValueTest {
     assertEquals(matador, this.clientLogic.calculateMatador());
   }
 
+  void testPlayValueNullOuvertHand() {
+    playState.setPlayMode(PlayMode.NULL);
+    assertEquals(59, clientLogic.calculatePlayValue());
+  }
   
-  
+  /*against 3, play hand, schneiderAnnounced and schneider played --> multiplayer 7
+     */
   
 
 }
