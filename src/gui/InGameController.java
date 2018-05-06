@@ -335,9 +335,6 @@ public class InGameController implements Initializable, InGameInterface {
     // TODO Auto-generated method stub
     cardlist = list;
     System.out.println("List.size: " + list.size());
-    for (int i = 0; i < cardlist.size(); i++) {
-      System.out.println("Cardlist(" + i + "): " + cardlist.get(i));
-    }
     rearrangeCards(list.size(), list);
   }
 
@@ -365,12 +362,10 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showWinnerTrick(Player player) {
     // TODO Auto-generated method stub
-    if (s1.getStyleClass() != null && s2.getImage() != null && s3.getImage() != null) {
+    System.out.println("Show Winner Trick");
       s1.setImage(null);
       s2.setImage(null);
       s3.setImage(null);
-    }
-    betB.setText(LoginController.interfGL.getPlayer().getPosition().toString());
     
 
   }
@@ -463,7 +458,6 @@ public class InGameController implements Initializable, InGameInterface {
    */
 
   public void MouseHandler() {
-
     c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
@@ -530,21 +524,21 @@ public class InGameController implements Initializable, InGameInterface {
         clicked = true;
       }
     });
-    c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 9;
-        System.out.println("C10 DRAUFGEKLICKT");
-        clicked = true;
-      }
-    });
     c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
         ret[0] = 8;
         System.out.println("C9 DRAUFGEKLICKT");
+        clicked = true;
+      }
+    });
+    c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      
+      @Override
+      public void handle(MouseEvent event) {
+        ret[0] = 9;
+        System.out.println("C10 DRAUFGEKLICKT!!!");
         clicked = true;
       }
     });
@@ -1358,6 +1352,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void receivedNewCard(Card card, Player player) {
     // TODO Auto-generated method stub
+    System.out.println("Rceiver new Card");
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
