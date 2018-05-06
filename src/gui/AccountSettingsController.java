@@ -8,22 +8,17 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import database.ImplementsGuiInterface;
-import interfaces.GuiData;
-import interfaces.GuiLogic;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import logic.Player;
+import javax.imageio.ImageIO;
 
-public class AccountSettingsController implements Initializable{
-
+public class AccountSettingsController implements Initializable {
 
   /**
    * 
@@ -31,8 +26,8 @@ public class AccountSettingsController implements Initializable{
    */
   private String username = null;
   private Image img = null;
-  
-  
+
+
   /**
    * 
    * @author lstrauch
@@ -43,13 +38,12 @@ public class AccountSettingsController implements Initializable{
   private JFXButton newPP;
   @FXML
   private ImageView pp;
-  
+
 
   /**
-   *@author lstrauch
+   * @author lstrauch
    */
-  public AccountSettingsController() {
-  }
+  public AccountSettingsController() {}
 
   /**
    * @author lstrauch
@@ -59,7 +53,9 @@ public class AccountSettingsController implements Initializable{
     LoginController.displayPrev();
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
    * 
    * @author lstrauch
@@ -68,11 +64,11 @@ public class AccountSettingsController implements Initializable{
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
     System.out.println(LoginController.interfGL.getPlayer());
-    if(LoginController.interfGL.getPlayer().getImage() != null) {
+    if (LoginController.interfGL.getPlayer().getImage() != null) {
       pp.setImage(LoginController.interfGL.getPlayer().getImage());
     }
   }
-  
+
   /**
    * @author lstrauch
    */
@@ -82,20 +78,20 @@ public class AccountSettingsController implements Initializable{
     try {
       if (LoginController.interfGD.checkIfPlayerNew(username)) {
         System.out.println("acc: " + LoginController.interfGL.getPlayer().getName());
-        if(username != null) {
+        if (username != null) {
           LoginController.interfGD.changeName(username, LoginController.interfGL.getPlayer());
           LoginController.displayPrev();
-        } 
+        }
       }
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-//    if(img != null) {
-//      LoginController.interfGD.changeImage(LoginController.interfGL.getPlayer(), img);
-//    }
+    // if(img != null) {
+    // LoginController.interfGD.changeImage(LoginController.interfGL.getPlayer(), img);
+    // }
   }
-  
+
   /**
    * @author lstrauch
    */
@@ -121,7 +117,7 @@ public class AccountSettingsController implements Initializable{
       Logger.getLogger(CreateNewAccountController.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
-  
 
-  
+
+
 }
