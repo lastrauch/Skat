@@ -8,7 +8,6 @@ import logic.Player;
 public class DealtCards_Msg extends Message {
   private static final long serialVersionUID = 1L;
   private Player player;
-  //private List<Card> cards;
   private Card[] cards;
   private PlayState ps;
 

@@ -47,7 +47,7 @@ public class AIController implements InGameInterface {
   // A player played a card
 
   // setPlaySettingsAfterAuction(PlayState) : void
-  // Sets the PlayState, if the AI didn't win the auction
+  // Sets the PlayState, if the AI did not win the auction
 
   // updateHand(List<Card>) : void
   // Updates the hand
@@ -263,6 +263,8 @@ public class AIController implements InGameInterface {
    * @return PlayState
    */
   public PlayState askToSetPlayState(PlayState playState) {
+    // TODO
+    /*
     try {
       Thread.sleep(Settings.DELAY);
     } catch (InterruptedException e) {
@@ -308,6 +310,7 @@ public class AIController implements InGameInterface {
     }
 
     this.playState = playState;
+    */
     return playState;
   }
 
@@ -375,8 +378,8 @@ public class AIController implements InGameInterface {
     // Update playedCards
     for (int i = 0; i < this.player.size(); i++) {
       if (this.player.get(i).getName().equals(Integer.toString(player.getId()))) {
-        if (this.playedCards[this.playedCards.length - 1][this.player.get(i).getId()] == null) {
-          this.playedCards[this.playedCards.length - 1][this.player.get(i).getId()] = card;
+        if (this.playedCards[this.playedCards.length-1][this.player.get(i).getId()] == null) {
+          this.playedCards[this.playedCards.length-1][this.player.get(i).getId()] = card;
           return;
         } else {
           Card[][] playedCards = new Card[this.playedCards.length + 1][3];
@@ -462,7 +465,7 @@ public class AIController implements InGameInterface {
 
   @Override
   /**
-   * This method sets the PlayState, if the AI isn't declarer. These parameters will be updated:
+   * This method sets the PlayState, if the AI is not declarer. These parameters will be updated:
    * partner, opponents, hasTrump, existingTrumps. Also the if the AI difficulty is hard, the AI is
    * asked if it wants to declare kontra.
    * 
