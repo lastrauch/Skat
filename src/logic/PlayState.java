@@ -251,7 +251,6 @@ public class PlayState implements Serializable {
       this.trump = null;
     }
 
-    this.initializeBaseValue();
   }
 
   /**

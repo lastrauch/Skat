@@ -1,10 +1,5 @@
 package jUnitLogic;
 
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import logic.Card;
 import logic.ClientLogic;
 import logic.Colour;
@@ -12,9 +7,16 @@ import logic.Number;
 import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
+import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
- * this class tests the method calculatePlayValue in ClientLogic 
+ * this class tests the method calculatePlayValue in ClientLogic .
+ * 
  * @author awesch
  *
  */
@@ -39,6 +41,11 @@ class CalculatePlayValueTest {
   int matador;
   int playValue;
 
+  /**
+   * sets playMode suit, playmode trump and initializes.
+   * 
+   * @throws Exception
+   */
   @BeforeEach
   void setUp() throws Exception {
     player = new Player("player");
@@ -66,6 +73,11 @@ class CalculatePlayValueTest {
     whatEver5 = new Card(Colour.SPADES, Number.NINE);
   }
 
+  /* Tests for calculateMatador in ClientLogic */
+
+  /**
+   * with clubs Jack, but no spades jack --> with 1.
+   */
   @Test
   void testMatadorWith1() {
 
@@ -82,10 +94,13 @@ class CalculatePlayValueTest {
 
     player.setHand(hand);
     matador = 1;
-    
+
     this.testCalculateMatador();
   }
-  
+
+  /**
+   * with clubs and all other jacks and 7 trumps in a row --> with 7.
+   */
   @Test
   void testMatadorWith7() {
 
@@ -102,10 +117,13 @@ class CalculatePlayValueTest {
 
     player.setHand(hand);
     matador = 7;
-    
+
     this.testCalculateMatador();
   }
-  
+
+  /**
+   * no clubs jack, but with spades jack --> with 1.
+   */
   @Test
   void testMatadorAgainst1() {
 
@@ -122,10 +140,13 @@ class CalculatePlayValueTest {
 
     player.setHand(hand);
     matador = 1;
-    
+
     this.testCalculateMatador();
   }
-  
+
+  /**
+   * without clubs, spades and hearts jack, but with diamons jack --> without 3.
+   */
   @Test
   void testMatadorAgainst3() {
 
@@ -142,34 +163,45 @@ class CalculatePlayValueTest {
 
     player.setHand(hand);
     matador = 3;
-    
+
     this.testCalculateMatador();
   }
 
+  /**
+   * helps with the other matador methods.
+   */
   void testCalculateMatador() {
     assertEquals(matador, this.clientLogic.calculateMatador());
   }
 
+  /**
+   * tests fixed values for null.
+   */
   void testPlayValueNullOuvertHand() {
     playState.setPlayMode(PlayMode.NULL);
     assertEquals(59, clientLogic.calculatePlayValue());
   }
-  
-  //against 3, play hand, schneiderAnnounced and schneider played --> multiplayer 7
+
+  /**
+   * against 3, play hand, schneiderAnnounced and schneider played --> multiplier 7.
+   */
   @Test
   void testCalculateMultiplier() {
     this.testMatadorAgainst3();
     playState.setHandGame(true);
     playState.setSchneider(true);
     playState.setSchneiderAnnounced(true);
-    
+
     assertEquals(7, clientLogic.calculateMultiplier());
   }
-  //playmode hearts --> 7* 10
-    @Test
-    void testCalculatePlayValue() {
-      this.testCalculateMultiplier();
-      assertEquals(70, clientLogic.calculatePlayValue());
-    }
+
+  /**
+   * playmode hearts --> 7* 10.
+   */
+  @Test
+  void testCalculatePlayValue() {
+    this.testCalculateMultiplier();
+    assertEquals(70, clientLogic.calculatePlayValue());
+  }
 
 }
