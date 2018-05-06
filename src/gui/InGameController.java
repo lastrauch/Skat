@@ -749,14 +749,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showPossibleCards(List<Card> cards) {
     // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        // TODO Auto-generated method stub
         rearrangeCardsNotPossible(cards);
-      }
-    });
-    
   }
 
   /**
@@ -915,10 +908,9 @@ public class InGameController implements Initializable, InGameInterface {
   public void rearrangeCardsNotPossible(List<Card> list) {
     for(int i = 0; i < list.size(); i++) {
       if(list.get(i) != null) {
-        System.out.println("OKOKOK: "+ inte.getImageDarker(list.get(i).getColour().toString().toLowerCase(),
-            (list.get(i).getNumber().toString().toLowerCase())));
         cArray[i].setImage(inte.getImageDarker(list.get(i).getColour().toString().toLowerCase(),
-            (list.get(i).getNumber().toString().toLowerCase())));
+            (list.get(i).getNumber().toString().toLowerCase())));      
+        
       } else {
         cArray[i].setImage(inte.getImage(cardlist.get(i).getColour().toString().toLowerCase(),
             (cardlist.get(i).getNumber().toString().toLowerCase())));
