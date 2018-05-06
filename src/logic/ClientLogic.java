@@ -22,11 +22,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
   LogicGui guiController;
   PlayState playState;
   GameSettings gameSettings;
-  Game game; // we need this for calcutlating the winner --> maybe in playstate
   List<Card> cards;
   List<Player> group;
   boolean inGame;
 
+  /*------------------------  CONSTRUCTOR  ----------------------------------*/
   public ClientLogic(Player player) {
     // System.out.println("created ClientLogic for Player " + player.getName());
     this.player = player;
@@ -37,22 +37,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.inGame = false;
   }
 
-  public void setLogicGui(LogicGui lg) {
-    this.guiController = lg;
-  }
-
-  public void setInGame(boolean inGame) {
-    this.inGame = inGame;
-  }
-
-  public List<Player> getGroup() {
-    return this.group;
-  }
-
-  public GameSettings getGameSettings() {
-    return this.gameSettings;
-  }
-
+  /*---------------------  PREPARE PLAY/GAME --------------------------------*/
   /**
    * initializes the cards
    * 
@@ -113,388 +98,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * to wait with the ui methods
-   * 
-   * @author awesch
-   * @param time
-   */
-  public void waitFor(long time) {
-    try {
-      Thread.sleep(time);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
-
-  /**
-   * asks the ui/AI to play a card and checks if it is possible to play it
-   * 
-   * @author awesch
-   * @author sandfisc
-   * @param firstCard (it depends on the first played card if it is possible to play the following)
-   * @return
-   */
-  public void playCard(Card firstCard) {
-    this.inGameController.itsYourTurn();
-    this.waitFor(1000);
-    int indexNewCard = this.inGameController.askToPlayCard();
-    // because we had some to high results from askToPlayCard
-    if (indexNewCard >= this.player.getHand().size()) {
-      this.playCard(firstCard);
-    } else {
-      Card playedCard = this.player.getHand().get(indexNewCard);
-      System.out.println(this.player.getName() + " played " + playedCard.toString());
-
-      // the first card is null it is allowed to play any card
-      if (firstCard == null) {
-        // update this players hand
-        try {
-          this.player.removeCardFromHand(playedCard);
-        } catch (LogicException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-        this.inGameController.updateHand(this.player.getHand());
-        this.netController.sendCardPlayed(playedCard, this.player);
-
-      } else {
-        // if it is not possible to play the card the gui/AI is asked to play another card
-        try {
-          if (checkIfCardPossible(playedCard, firstCard, this.playState, this.player)) {
-            // update this players hand
-            try {
-              this.player.removeCardFromHand(playedCard);
-              if (!this.player.isBot()) {
-                System.out.println("And here is my new hand:");
-                for (Card c : this.player.getHand()) {
-                  System.out.println(c.toString());
-                }
-              }
-            } catch (LogicException e) {
-              // TODO Auto-generated catch block
-              e.printStackTrace();
-            }
-            this.inGameController.updateHand(this.player.getHand());
-            this.netController.sendCardPlayed(playedCard, this.player);
-
-          } else {
-            // !!!!!!!!!! funktioniert so leider (noch) nicht, da der gui controller bei
-            // askToPlayCard
-            // immer
-            // wieder die geliche karte zurück gibt
-            // if (this.player.isBot()) {
-            this.showPossibleCards(firstCard);
-            this.playCard(firstCard);
-            // }
-            // System.out.println(
-            // "die ausgewählte Karte kann nicht gespielt werden und als auffangen kann die logik
-            // das
-            // momentan nur bei den Bots, aber nicht bei der gui.");
-          }
-        } catch (LogicException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-      }
-    }
-  }
-
-  public void showPossibleCards(Card firstCard) throws LogicException {
-    List<Card> cards = new ArrayList<Card>();
-    for (Card c : this.player.getHand()) {
-      if (checkIfCardPossible(c, firstCard, this.playState, this.player)) {
-        cards.add(null);
-      } else {
-        cards.add(c);
-      }
-    }
-    this.inGameController.showPossibleCards(cards);
-  }
-
-  /**
-   * its is checked if the card can be played by the player depending on his hand, the first Colour
-   * of the trick and the PlayMode
-   * 
-   * @param card (the player wants to play)
-   * @param firstCard (the first played card in the current trick)
-   * @return if card can be played
-   * @throws LogicException
-   * @author sandfisc
-   */
-  public static boolean checkIfCardPossible(Card card, Card firstCard, PlayState playState,
-      Player player) throws LogicException {
-    if (playState.getPlayMode() == PlayMode.SUIT) {
-      return checkIfCardPossibleColour(card, firstCard, playState, player);
-    } else if (playState.getPlayMode() == PlayMode.GRAND) {
-      return checkIfCardPossibleGrand(card, firstCard, player, playState);
-    } else if (playState.getPlayMode() == PlayMode.NULL) {
-      return checkIfCardPossibleNull(card, firstCard, player);
-    }
-    return false;
-  }
-
-  /**
-   * submethod of checkIfCardPossible
-   * 
-   * @author sandfisc
-   * @param card (the player wants to play)
-   * @param firstCard (the first played card in the current trick)
-   * @param player (who wants to play the card)
-   * @return if card is possible in PlayMode Colour
-   */
-  public static boolean checkIfCardPossibleColour(Card card, Card firstCard, PlayState playState,
-      Player player) {
-
-    // check if card serves first played card
-    if (checkIfServedColour(card, firstCard, playState)) {
-      return true;
-    }
-
-    // check if the player has a card which would serve the first card
-    for (int i = 0; i < player.getHand().size(); i++) {
-      if (checkIfServedColour(player.getHand().get(i), firstCard, playState)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  /**
-   * checks if the serving card serves the served card --> checks is both are trump/jack or have the
-   * same color.
-   * 
-   * @author sandfisc
-   * @param servingCard
-   * @param servedCard
-   * @return
-   */
-  public static boolean checkIfServedColour(Card servingCard, Card servedCard,
-      PlayState playState) {
-
-    if (servedCard.getColour() == playState.getTrump() || servedCard.getNumber() == Number.JACK) {
-      // first card is trump
-      if (servingCard.getColour() == playState.getTrump()
-          || servingCard.getNumber() == Number.JACK) {
-        return true;
-      }
-    } else {
-      // first card is not trump
-      if (servingCard.getColour() == servedCard.getColour()
-          && servingCard.getNumber() != Number.JACK) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * submethod of checkIfCardPossible.
-   * 
-   * @author sandfisc
-   * @param card (the player wants to play)
-   * @param firstCard (the first played card in the current trick)
-   * @param player (who wants to play the card)
-   * @return if card is possible in PlayMode Grand
-   */
-  public static boolean checkIfCardPossibleGrand(Card card, Card firstCard, Player player,
-      PlayState playState) {
-
-    // check if card serves first played card
-    if (checkIfServedColour(card, firstCard, playState)) {
-      return true;
-    }
-
-    // check if the player has a card which would serve the first card
-    for (int i = 0; i < player.getHand().size(); i++) {
-      if (checkIfServedGrand(player.getHand().get(i), firstCard)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  /**
-   * checks if the serving card serves the served card --> checks is both are jack or have the same
-   * color.
-   * 
-   * @author sandfisc
-   * @param servingCard
-   * @param servedCard
-   * @return
-   */
-  public static boolean checkIfServedGrand(Card servingCard, Card servedCard) {
-
-    // both cards are jack
-    if (servedCard.getNumber() == Number.JACK && servingCard.getNumber() == Number.JACK) {
-      return true;
-    }
-
-    // both cards are no jack
-    if (servedCard.getNumber() != Number.JACK && servingCard.getNumber() != Number.JACK) {
-      if (servedCard.getColour() == servingCard.getColour()) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * submethod of checkIfCardPossible.
-   * 
-   * @author sandfisc
-   * @param card (the player wants to play)
-   * @param firstCard (the first played card in the current trick)
-   * @param player (who wants to play the card)
-   * @return if card is possible in PlayMode Null or NullOuvert
-   */
-  public static boolean checkIfCardPossibleNull(Card card, Card firstCard, Player player) {
-
-    if (card.getColour() == firstCard.getColour()) {
-      return true;
-
-    } else {
-      for (int i = 0; i < player.getHand().size(); i++) {
-        if (player.getHand().get(i).getColour() == firstCard.getColour()) {
-          return false;
-        }
-      }
-      return true;
-    }
-  }
-
-  /**
-   * calculates the the Matadors the hand has to be sorted before! with the (chosen/possible) trump
-   * 
-   * @return
-   * @author awesch
-   */
-  public int calculateMatador() {
-    // seperated to give a better overview and to have the possibility to give "with i" / "against
-    // i"
-    int with = 0;
-    int against = 0;
-    // play with(if first card is the clubs jack)
-    if (this.player.getHand().get(0).getMatadorValue() == 0) {
-      // go through the hand until the row of trumps stops
-      for (int i = 0; i < this.player.getHand().size(); i++) {
-        if (this.player.getHand().get(i).getMatadorValue() == i) {
-          with++;
-        } else {
-          return with;
-        }
-      }
-    }
-    // play against(if first card is not clubs jack)
-    else {
-      // matadorValue of first card is number
-      against = this.player.getHand().get(0).getMatadorValue();
-      return against;
-    }
-    return 0;
-  }
-
-  /**
-   * calculates the multiplier to calculate the value of a suit or grand game
-   * 
-   * @author awesch
-   * @param ps
-   * @return
-   */
-  public int calculateMultiplier() {
-    int result = 1; // 1 for the game
-    result += this.calculateMatador(); // + matadors
-    // 1 point for schneider
-    if (this.playState.isSchneider()) {
-      result++;
-      // 1 point for schwarz
-      if (this.playState.isSchwarz()) {
-        result++;
-      }
-    }
-
-
-    // possibilities if the Player plays hand
-    if (this.playState.getHandGame()) {
-      // 1 point for hand game
-      result++;
-      // 1 point for schneider announced
-      if (this.playState.getSchneiderAnnounced()) {
-        result++;
-      }
-      // 1 point for schwarz announced AND for schneider announced
-      if (this.playState.getSchwarzAnnounced()) {
-        result += 2;;
-      }
-      // 1 point for open
-      if (this.playState.isOpen()) {
-        result += 1;
-      }
-    }
-
-    return result;
-  }
-
-  /**
-   * calculates the play value for suit or grand plays
-   * 
-   * @author awesch
-   * @param ps
-   * @return
-   */
-  public int calculatePlayValueSuitorGrand() {
-    int multiplier = this.calculateMultiplier();
-    return this.playState.getBaseValue() * multiplier;
-  }
-
-  /**
-   * initializes the play value for a null play
-   * 
-   * @author awesch
-   * @param ps
-   * @return
-   */
-  public int calculatePlayValueNull() {
-    int result = 23;
-    if (this.playState.getHandGame()) {
-      result = 35;
-    }
-    if (this.playState.isOpen()) {
-      result = 46;
-    }
-    if (this.playState.getHandGame() && this.playState.isOpen()) {
-      result = 59;
-    }
-    return result;
-  }
-
-  /**
-   * calculates the play value with the other methods implemented for the special contracts
-   * 
-   * @author awesch
-   * @param ps
-   * @return
-   */
-  public int calculatePlayValue() {
-    int result = 0;
-    if (this.playState.getPlayMode() == PlayMode.NULL) {
-      result = this.calculatePlayValueNull();
-    } else {
-      result = this.calculatePlayValueSuitorGrand();
-    }
-    return result;
-  }
-
-  /**
-   * adds the points to the players score
-   * 
-   * @param points
-   */
-  public void addToGamePoints(int points) {
-    this.player.addToGamePoints(points);
-  }
-
-  /**
    * updates the lobby
    */
   @Override
@@ -505,7 +108,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     if (!this.player.isBot() && !this.inGame) {
       this.guiController.updateLobby(gs, this.group);
     }
-
   }
 
   /**
@@ -514,16 +116,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   public List<Player> getLobby() {
     return this.group;
-  }
-
-  public void startPlay() {
-    // First shuffle cards
-    Tools.shuffleCards(this.cards);
-    // secound deal out cards
-    this.dealOutCards();
-
-    // this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
-
   }
 
   public void dealOutCards() {
@@ -601,48 +193,32 @@ public class ClientLogic implements NetworkLogic, AILogic {
   @Override
   public void receiveGameSettings(GameSettings gs) {
     this.gameSettings = gs;
-
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveChatMessage(logic.Player, java.lang.String)
-   */
-  @Override
-  public void receiveChatMessage(Player player, String msg) {
-    this.guiController.showReceivedChatMessage(msg, player);
-  }
-
-  public void sendChatMessage(String msg) {
-    this.netController.sendChatMessage(msg);
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveStartGame()
-   */
   @Override
   public void receiveStartGame() {
     // check to have received the right nr of players
     if (this.group.size() == this.gameSettings.getNrOfPlayers()) {
-      // random number points on the one in the list to be the forehand
-      Player[] group = new Player[this.group.size()];
+      // Sort group
+      List<Player> temp = new ArrayList<Player>();
       for (int i = 0; i < this.group.size(); i++) {
-        group[i] =
-            this.group.get((this.gameSettings.getRandomSeatingIndex() + i) % this.group.size());
-      }
-      this.playState = new PlayState(group);
-
+        temp.add(this.group.get((this.gameSettings.getRandomSeatingIndex() + i) % this.group.size()));
+       }
+      
+      this.playState = new PlayState(this.getPlayingGroup(temp));
+//      // random number points on the one in the list to be the forehand
+//      Player[] group = new Player[this.group.size()];
+//      for (int i = 0; i < this.group.size(); i++) {
+//        group[i] =
+//            this.group.get((this.gameSettings.getRandomSeatingIndex() + i) % this.group.size());
+//      }
+//      this.playState = new PlayState(group);
 
       // instead gui should open the ingameScreen in startPlay
       // // TODO Auto-generated method stub
       if (!this.player.isBot()) {
         this.inGameController = this.guiController.startInGameScreen();
-
       }
-
 
       // set position
       System.out.println(
@@ -668,19 +244,16 @@ public class ClientLogic implements NetworkLogic, AILogic {
       }
     }
   }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveBet(logic.Player, int)
-   */
+  
   @Override
+  public Player copyPlayer(Player player) {
+    return this.player.copyMe();
+  }
+  
+  /*----------------- RUN AUCTION -------------------------------------------*/
+
   /**
-   * works with a received bet
-   * 
    * @author awesch
-   * @param player
-   * @param bet
    */
   public void receiveBet(Player player, int bet) {
     System.out.println(this.player.getName() + " recieved new bet: " + bet + " from "
@@ -716,9 +289,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.setAuctionWinner();
       this.checkIfAuctionWinner();
     }
-
   }
-
 
   /**
    * @author awesch
@@ -874,11 +445,151 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
-  /*
-   * (non-Javadoc)
+  
+  /*---------------------  RUN GAME -----------------------------------------*/
+  public void startPlay() {
+    // First shuffle cards
+    Tools.shuffleCards(this.cards);
+    // secound deal out cards
+    this.dealOutCards();
+
+    // this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
+  }
+
+  @Override
+  public void receiveKontra() {
+    this.playState.setAnnouncedKontra(true);
+    if (this.player.isDeclarer()) {
+      this.inGameController.askToRekontra();
+    }
+  }
+
+  @Override
+  public void receiveRekontra() {
+    this.playState.setAnnouncedRekontra(true);
+  }
+  
+  @Override
+  public void announceKontra() {
+    if (this.playState.getTrickNr() == 0 && this.gameSettings.isEnableKontra()) {
+      this.netController.sendKontra();
+    }
+  }
+ 
+  @Override
+  public void allReceivedCards() {
+    // TODO Auto-generated method stub
+  }
+  
+  /**
+   * to wait with the ui methods
    * 
-   * @see interfaces.NetworkLogic#receivePlayState(logic.PlayState)
+   * @author awesch
+   * @param time
    */
+  public void waitFor(long time) {
+    try {
+      Thread.sleep(time);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * asks the ui/AI to play a card and checks if it is possible to play it
+   * 
+   * @author awesch
+   * @author sandfisc
+   * @param firstCard (it depends on the first played card if it is possible to play the following)
+   * @return
+   */
+  public void playCard(Card firstCard) {
+    this.inGameController.itsYourTurn();
+    this.waitFor(1000);
+    int indexNewCard = this.inGameController.askToPlayCard();
+    // because we had some to high results from askToPlayCard
+    if (indexNewCard >= this.player.getHand().size()) {
+      this.playCard(firstCard);
+    } else {
+      Card playedCard = this.player.getHand().get(indexNewCard);
+      System.out.println(this.player.getName() + " played " + playedCard.toString());
+
+      // the first card is null it is allowed to play any card
+      if (firstCard == null) {
+        // update this players hand
+        try {
+          this.player.removeCardFromHand(playedCard);
+        } catch (LogicException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+        this.inGameController.updateHand(this.player.getHand());
+        this.netController.sendCardPlayed(playedCard, this.player);
+
+      } else {
+        // if it is not possible to play the card the gui/AI is asked to play another card
+        try {
+          if (checkIfCardPossible(playedCard, firstCard, this.playState, this.player)) {
+            // update this players hand
+            try {
+              this.player.removeCardFromHand(playedCard);
+              if (!this.player.isBot()) {
+                System.out.println("And here is my new hand:");
+                for (Card c : this.player.getHand()) {
+                  System.out.println(c.toString());
+                }
+              }
+            } catch (LogicException e) {
+              // TODO Auto-generated catch block
+              e.printStackTrace();
+            }
+            this.inGameController.updateHand(this.player.getHand());
+            this.netController.sendCardPlayed(playedCard, this.player);
+
+          } else {
+            // !!!!!!!!!! funktioniert so leider (noch) nicht, da der gui controller bei
+            // askToPlayCard
+            // immer
+            // wieder die geliche karte zurück gibt
+            // if (this.player.isBot()) {
+            this.showPossibleCards(firstCard);
+            this.playCard(firstCard);
+            // }
+            // System.out.println(
+            // "die ausgewählte Karte kann nicht gespielt werden und als auffangen kann die logik
+            // das
+            // momentan nur bei den Bots, aber nicht bei der gui.");
+          }
+        } catch (LogicException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  public void showPossibleCards(Card firstCard) throws LogicException {
+    List<Card> cards = new ArrayList<Card>();
+    for (Card c : this.player.getHand()) {
+      if (checkIfCardPossible(c, firstCard, this.playState, this.player)) {
+        cards.add(null);
+      } else {
+        cards.add(c);
+      }
+    }
+    this.inGameController.showPossibleCards(cards);
+  }
+
+  /**
+   * adds the points to the players score
+   * 
+   * @param points
+   */
+  public void addToGamePoints(int points) {
+    this.player.addToGamePoints(points);
+  }
+  
   @Override
   public void receivePlayState(PlayState ps) {
     // TODO Auto-generated method stub
@@ -891,11 +602,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveCardPlayed(logic.Player, logic.Card)
-   */
   @Override
   public void receiveCardPlayed(Player player, Card card) {
     System.out.println(
@@ -911,11 +617,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveYourTurn()
-   */
   @Override
   public void receiveYourTurn() {
     // DIESE METHODE BRAUCHEN WIR VERMUTLICH NICHT
@@ -925,23 +626,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // // send played card
     // this.netController.sendCardPlayed(playedCard, this.player);
   }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receivePlayerDisconnected(logic.Player)
-   */
-  @Override
-  public void receivePlayerDisconnected(Player player) {
-    // TODO Auto-generated method stub
-    this.inGameController.stopGame("player disconnected");
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#receiveCards(java.util.List)
-   */
+  
   @Override
   public void receiveCards(List<Card> cards, PlayState ps) {
     if (!this.player.isBot()) {
@@ -984,7 +669,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     }
   }
-
 
   public void checkWhatHappensNext(Player playedLastCard, Card card) throws LogicException {
 
@@ -1047,7 +731,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.waitFor(3000);
 
         } else {
-
           // game is not over
           // createNewPlay!
           this.playState.resetPlayState();
@@ -1056,12 +739,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // update position !!!!!!! UPDATE POSITION IN CLIENTLOGIC
           this.updatePosition();
           // change to id later
-          for (Player p : this.playState.getGroup()) {
+          for (Player p : this.group) {
             if (p.getName().equals(this.player.getName())) {
               this.player.setPosition(p.getPosition());
             }
           }
-
+          // set playing group
+          this.playState.setGroup(this.getPlayingGroup(this.group));
+          
           System.out.println(this.player.getName() + " the play is over and I sit position "
               + this.player.getPosition());
 
@@ -1156,39 +841,322 @@ public class ClientLogic implements NetworkLogic, AILogic {
       return false;
     }
   }
-
-  public void setNetworkController(LogicNetwork networkController) {
-    this.netController = networkController;
+  
+  /**
+   * @author sandfisc
+   * 
+   * @param group2
+   * @return
+   */
+  public Player[] getPlayingGroup(List<Player> group) {
+    // the playing group consists of forehand, middlehand, rarehand, NOT dealer
+    Player[] playingGroup = new Player[3];
+    int index = 0;
+    for(Player p : group) {
+      if (p.getPosition() != Position.DEALER) {
+        playingGroup[index] = p;
+        index ++;
+      }
+    }
+    return playingGroup;
+  }
+  
+  /*--------------  CHECK IF A CARD IS POSSIBLE TO PLAY  ----------------------------------------*/
+  
+  /**
+   * its is checked if the card can be played by the player depending on his hand, the first Colour
+   * of the trick and the PlayMode
+   * 
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @return if card can be played
+   * @throws LogicException
+   * @author sandfisc
+   */
+  public static boolean checkIfCardPossible(Card card, Card firstCard, PlayState playState,
+      Player player) throws LogicException {
+    if (playState.getPlayMode() == PlayMode.SUIT) {
+      return checkIfCardPossibleColour(card, firstCard, playState, player);
+    } else if (playState.getPlayMode() == PlayMode.GRAND) {
+      return checkIfCardPossibleGrand(card, firstCard, player, playState);
+    } else if (playState.getPlayMode() == PlayMode.NULL) {
+      return checkIfCardPossibleNull(card, firstCard, player);
+    }
+    return false;
   }
 
-  @Override
-  public Player copyPlayer(Player player) {
-    return this.player.copyMe();
+  /**
+   * submethod of checkIfCardPossible
+   * 
+   * @author sandfisc
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @param player (who wants to play the card)
+   * @return if card is possible in PlayMode Colour
+   */
+  public static boolean checkIfCardPossibleColour(Card card, Card firstCard, PlayState playState,
+      Player player) {
+
+    // check if card serves first played card
+    if (checkIfServedColour(card, firstCard, playState)) {
+      return true;
+    }
+
+    // check if the player has a card which would serve the first card
+    for (int i = 0; i < player.getHand().size(); i++) {
+      if (checkIfServedColour(player.getHand().get(i), firstCard, playState)) {
+        return false;
+      }
+    }
+    return true;
   }
 
-  public void setInGameController(InGameInterface inGameController) {
-    this.inGameController = inGameController;
+  /**
+   * checks if the serving card serves the served card --> checks is both are trump/jack or have the
+   * same color.
+   * 
+   * @author sandfisc
+   * @param servingCard
+   * @param servedCard
+   * @return
+   */
+  public static boolean checkIfServedColour(Card servingCard, Card servedCard,
+      PlayState playState) {
+
+    if (servedCard.getColour() == playState.getTrump() || servedCard.getNumber() == Number.JACK) {
+      // first card is trump
+      if (servingCard.getColour() == playState.getTrump()
+          || servingCard.getNumber() == Number.JACK) {
+        return true;
+      }
+    } else {
+      // first card is not trump
+      if (servingCard.getColour() == servedCard.getColour()
+          && servingCard.getNumber() != Number.JACK) {
+        return true;
+      }
+    }
+    return false;
   }
 
-  @Override
-  public void announceKontra() {
-    if (this.playState.getTrickNr() == 0 && this.gameSettings.isEnableKontra()) {
-      this.netController.sendKontra();
+  /**
+   * submethod of checkIfCardPossible.
+   * 
+   * @author sandfisc
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @param player (who wants to play the card)
+   * @return if card is possible in PlayMode Grand
+   */
+  public static boolean checkIfCardPossibleGrand(Card card, Card firstCard, Player player,
+      PlayState playState) {
+
+    // check if card serves first played card
+    if (checkIfServedColour(card, firstCard, playState)) {
+      return true;
+    }
+
+    // check if the player has a card which would serve the first card
+    for (int i = 0; i < player.getHand().size(); i++) {
+      if (checkIfServedGrand(player.getHand().get(i), firstCard)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * checks if the serving card serves the served card --> checks is both are jack or have the same
+   * color.
+   * 
+   * @author sandfisc
+   * @param servingCard
+   * @param servedCard
+   * @return
+   */
+  public static boolean checkIfServedGrand(Card servingCard, Card servedCard) {
+
+    // both cards are jack
+    if (servedCard.getNumber() == Number.JACK && servingCard.getNumber() == Number.JACK) {
+      return true;
+    }
+
+    // both cards are no jack
+    if (servedCard.getNumber() != Number.JACK && servingCard.getNumber() != Number.JACK) {
+      if (servedCard.getColour() == servingCard.getColour()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * submethod of checkIfCardPossible.
+   * 
+   * @author sandfisc
+   * @param card (the player wants to play)
+   * @param firstCard (the first played card in the current trick)
+   * @param player (who wants to play the card)
+   * @return if card is possible in PlayMode Null or NullOuvert
+   */
+  public static boolean checkIfCardPossibleNull(Card card, Card firstCard, Player player) {
+
+    if (card.getColour() == firstCard.getColour()) {
+      return true;
+
+    } else {
+      for (int i = 0; i < player.getHand().size(); i++) {
+        if (player.getHand().get(i).getColour() == firstCard.getColour()) {
+          return false;
+        }
+      }
+      return true;
     }
   }
 
-  @Override
-  public void receiveKontra() {
-    this.playState.setAnnouncedKontra(true);
-    if (this.player.isDeclarer()) {
-      this.inGameController.askToRekontra();
+  /*-------------------------  CALCULATE PLAY VALUE -----------------------------------------------*/
+  
+  /**
+   * calculates the the Matadors the hand has to be sorted before! with the (chosen/possible) trump
+   * 
+   * @return
+   * @author awesch
+   */
+  public int calculateMatador() {
+    // seperated to give a better overview and to have the possibility to give "with i" / "against
+    // i"
+    int with = 0;
+    int against = 0;
+    // play with(if first card is the clubs jack)
+    if (this.player.getHand().get(0).getMatadorValue() == 0) {
+      // go through the hand until the row of trumps stops
+      for (int i = 0; i < this.player.getHand().size(); i++) {
+        if (this.player.getHand().get(i).getMatadorValue() == i) {
+          with++;
+        } else {
+          return with;
+        }
+      }
     }
+    // play against(if first card is not clubs jack)
+    else {
+      // matadorValue of first card is number
+      against = this.player.getHand().get(0).getMatadorValue();
+      return against;
+    }
+    return 0;
   }
 
-  @Override
-  public void receiveRekontra() {
-    this.playState.setAnnouncedRekontra(true);
+  /**
+   * calculates the multiplier to calculate the value of a suit or grand game
+   * 
+   * @author awesch
+   * @param ps
+   * @return
+   */
+  public int calculateMultiplier() {
+    int result = 1; // 1 for the game
+    result += this.calculateMatador(); // + matadors
+    // 1 point for schneider
+    if (this.playState.isSchneider()) {
+      result++;
+      // 1 point for schwarz
+      if (this.playState.isSchwarz()) {
+        result++;
+      }
+    }
+
+
+    // possibilities if the Player plays hand
+    if (this.playState.getHandGame()) {
+      // 1 point for hand game
+      result++;
+      // 1 point for schneider announced
+      if (this.playState.getSchneiderAnnounced()) {
+        result++;
+      }
+      // 1 point for schwarz announced AND for schneider announced
+      if (this.playState.getSchwarzAnnounced()) {
+        result += 2;;
+      }
+      // 1 point for open
+      if (this.playState.isOpen()) {
+        result += 1;
+      }
+    }
+
+    return result;
   }
+
+  /**
+   * calculates the play value for suit or grand plays
+   * 
+   * @author awesch
+   * @param ps
+   * @return
+   */
+  public int calculatePlayValueSuitorGrand() {
+    int multiplier = this.calculateMultiplier();
+    return this.playState.getBaseValue() * multiplier;
+  }
+
+  /**
+   * initializes the play value for a null play
+   * 
+   * @author awesch
+   * @param ps
+   * @return
+   */
+  public int calculatePlayValueNull() {
+    int result = 23;
+    if (this.playState.getHandGame()) {
+      result = 35;
+    }
+    if (this.playState.isOpen()) {
+      result = 46;
+    }
+    if (this.playState.getHandGame() && this.playState.isOpen()) {
+      result = 59;
+    }
+    return result;
+  }
+
+  /**
+   * calculates the play value with the other methods implemented for the special contracts
+   * 
+   * @author awesch
+   * @param ps
+   * @return
+   */
+  public int calculatePlayValue() {
+    int result = 0;
+    if (this.playState.getPlayMode() == PlayMode.NULL) {
+      result = this.calculatePlayValueNull();
+    } else {
+      result = this.calculatePlayValueSuitorGrand();
+    }
+    return result;
+  }
+
+
+ /*------------------------------  CHAT ------------------------------------------------------------*/
+  @Override
+  public void receiveChatMessage(Player player, String msg) {
+    this.guiController.showReceivedChatMessage(msg, player);
+  }
+
+  public void sendChatMessage(String msg) {
+    this.netController.sendChatMessage(msg);
+  }
+
+  /*------------------------------ BREAK ----------------------------------------------------------*/
+  @Override
+  public void receivePlayerDisconnected(Player player) {
+    // TODO Auto-generated method stub
+    this.inGameController.stopGame("player disconnected");
+  }
+
+  /*---------------------  SETTER AND GETTER  -------------------------------*/
 
   public void setGameSetting(GameSettings gs) {
     this.gameSettings = gs;
@@ -1197,16 +1165,28 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void setPlayState(PlayState ps) {
     this.playState = ps;
   }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.NetworkLogic#allReceivedCards()
-   */
-  @Override
-  public void allReceivedCards() {
-    // TODO Auto-generated method stub
-
+  
+  public void setLogicGui(LogicGui lg) {
+    this.guiController = lg;
   }
 
+  public void setInGame(boolean inGame) {
+    this.inGame = inGame;
+  }
+
+  public List<Player> getGroup() {
+    return this.group;
+  }
+
+  public GameSettings getGameSettings() {
+    return this.gameSettings;
+  }
+
+  public void setInGameController(InGameInterface inGameController) {
+    this.inGameController = inGameController;
+  }
+
+  public void setNetworkController(LogicNetwork networkController) {
+    this.netController = networkController;
+  }
 }
