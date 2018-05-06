@@ -1092,7 +1092,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @author sandfisc
    */
   public void updatePosition() {
-    int pointerForehand = this.searchForehand();
+    int pointerForehand = this.searchForehand() + 1;
 
     this.playState.getGroup()[pointerForehand].setPosition(Position.FOREHAND);
     this.playState.getGroup()[((pointerForehand + 1) % this.playState.getGroup().length)]
