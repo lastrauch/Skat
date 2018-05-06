@@ -180,6 +180,6 @@ public interface InGameInterface {
    * @author lstrauch
    * @return not playable cards
    */
-  public List<Card> showPossibleCards();
+  public void showPossibleCards(List<Card> cards);
 
 }
