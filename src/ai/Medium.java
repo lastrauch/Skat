@@ -568,7 +568,7 @@ public class Medium {
   }
 
   public static int playCardGrand(AIController controller) {
-    // TODO
+    // TODO Grand Method
     List<Card> cards = controller.getBot().getHand();
     List<Card> trick = controller.getCurrentTrick();
 
@@ -924,7 +924,7 @@ public class Medium {
         }
         // Needs to play colour
         if(trick.get(0).getValue() > 3) {
-          //TODO
+          //TODO Grand stop
         }
       }
       // low value
@@ -984,7 +984,7 @@ public class Medium {
   }
 
   public static int playCardSuit(AIController controller) {
-    // TODO
+    // TODO Suit Method
 
     List<Card> cards = controller.getBot().getHand();
     List<Card> trick = controller.getCurrentTrick();
