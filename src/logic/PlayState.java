@@ -57,6 +57,7 @@ public class PlayState implements Serializable{
     this.schneiderAnnounced = false;
     this.schwarz = false;
     this.schwarzAnnounced = false;    
+    this.initializeBaseValue();
   }
   
   public void resetPlayState() {
@@ -252,6 +253,7 @@ public class PlayState implements Serializable{
    */
   public void setTrump(Colour trump) {
     this.trump = trump;
+    this.initializeBaseValue();
   }
 
   /**

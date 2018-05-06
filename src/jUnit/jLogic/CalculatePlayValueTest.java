@@ -151,19 +151,20 @@ class CalculatePlayValueTest {
     assertEquals(59, clientLogic.calculatePlayValue());
   }
   
-  /*against 3, play hand, schneiderAnnounced and schneider played --> multiplayer 7
-    playmode hearts --> 7*10 */
+  //against 3, play hand, schneiderAnnounced and schneider played --> multiplayer 7
   @Test
   void testCalculateMultiplier() {
+    this.testMatadorAgainst3();
+    playState.setHandGame(true);
+    playState.setSchneider(true);
+    playState.setSchneiderAnnounced(true);
     
+    assertEquals(7, clientLogic.calculateMultiplier());
   }
+  //playmode hearts --> 7* 10
     @Test
     void testCalculatePlayValue() {
-      this.testMatadorAgainst3();
-      playState.setHandGame(true);
-      playState.setSchneiderAnnounced(true);
-      playState.setSchneider(true);
-      clientLogic.setPlayState(playState);
+      this.testCalculateMultiplier();
       assertEquals(70, clientLogic.calculatePlayValue());
     }
 
