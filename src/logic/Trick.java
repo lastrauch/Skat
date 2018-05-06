@@ -16,13 +16,47 @@ public class Trick implements Serializable {
 
   // addCard: void
   // Adds the given card to the trickCards
-  
+
   // isFull: boolean
-  // checks if 3 cards are saved in the trickCards 
+  // Checks if 3 cards are saved in the trickCards
 
-  // calculateWinner : Player
-  // With the PlayState (parameter) and the trickCards
+  // calculateWinner: Player
+  // The winner of the trick is calculated with the PlayState (parameter) and the trickCards
 
+  // calculateWinnerSuit: int
+  // Calculates the winning card of the trick and returns the index. Therefore the methode compares
+  // two cards
+  // and the higher one is compared to the third card of the trick.
+  // submethod: compareCardsSuit
+
+  // calculateWinnerGrand: int
+  // Calculates the winning card of the trick and returns the index. Therefore the methode compares
+  // two cards
+  // and the higher one is compared to the third card of the trick.
+  // submethod: compareCardsGrand
+
+  // calculateWinnerNull: int
+  // Calculates the winning card of the trick and returns the index. Therefore the methode compares
+  // two cards
+  // and the higher one is compared to the third card of the trick.
+  // submethod: compareNumberLowTen
+
+  // compareCardsSuit: int
+  // Compares two cards and returns 0 or 1 depending on which card is higher
+  // submethods: compareJacks, compareNumber
+
+  // compareCardsGrand: int
+  // Compares two cards and returns 0 or 1 depending on which card is higher
+  // submethods: compareJacks, compareNumber
+
+  // compareNumber: int
+  // Checks which given card is higher depending on the number (with high ten)
+
+  // compareNumberLowTen: int
+  // Checks which given card is higher depending on the number (with high ten)
+
+  // compareJacks: int
+  // Checks which given card is higher depending on the Jack
 
   private static final long serialVersionUID = 1L;
   private List<Card> trickCards; // the list of trick cards includes 0,1,2 or 3 cards
@@ -67,7 +101,7 @@ public class Trick implements Serializable {
   /* -------------------- CALCULATE WINNER ------------------------------------------- */
 
   /**
-   * the winning card is calculated and the winner is returned (submethods (depending on PlayMode):
+   * the winning card is calculated and the winner is returned submethods (depending on PlayMode):
    * calculateWinnerColour(), calculateWinnerGrand(), calculateWinnerNull())
    * 
    * @author sandfisc
@@ -75,13 +109,12 @@ public class Trick implements Serializable {
    */
   public Player calculateWinner(PlayState ps) throws LogicException {
 
-    // calculate winner when PlayMode is Colour
+    // calculate winner when PlayMode is Suit
     if (ps.getPlayMode() == PlayMode.SUIT) {
-      return this.cardPlayers.get(this.calculateWinnerColour(ps));
+      return this.cardPlayers.get(this.calculateWinnerSuit(ps));
       // calculate winner when PlayMode is Grand
     } else if (ps.getPlayMode() == PlayMode.GRAND) {
       return this.cardPlayers.get(this.calculateWinnerGrand());
-
       // calculate winner when PlayMode is Null or NullOuvert
     } else {
       return this.cardPlayers.get(this.calculateWinnerNull());
@@ -89,20 +122,20 @@ public class Trick implements Serializable {
   }
 
   /**
-   * calulates the winning card in the playmode Colour
+   * calulates the winning card in the playmode Suit
    * 
    * @author sandfisc
    * @return index of the winning card
    */
-  public int calculateWinnerColour(PlayState ps) {
-    if (this.compareCardsColour(this.trickCards.get(0), this.trickCards.get(1), ps) == 0) {
-      if (this.compareCardsColour(this.trickCards.get(0), this.trickCards.get(2), ps) == 0) {
+  public int calculateWinnerSuit(PlayState ps) {
+    if (this.compareCardsSuit(this.trickCards.get(0), this.trickCards.get(1), ps) == 0) {
+      if (this.compareCardsSuit(this.trickCards.get(0), this.trickCards.get(2), ps) == 0) {
         return 0;
       } else {
         return 2;
       }
     } else {
-      if (this.compareCardsColour(this.trickCards.get(1), this.trickCards.get(2), ps) == 0) {
+      if (this.compareCardsSuit(this.trickCards.get(1), this.trickCards.get(2), ps) == 0) {
         return 1;
       } else {
         return 2;
@@ -111,14 +144,60 @@ public class Trick implements Serializable {
   }
 
   /**
-   * compares two cards with the trump which we have when playing in playmode colour
+   * calculates the winner when the PlayMode is Grand
+   * 
+   * @author sandfisc
+   * @return index of the winning card
+   */
+  public int calculateWinnerGrand() {
+
+    if (this.compareCardsGrand(this.trickCards.get(0), this.trickCards.get(1)) == 0) {
+      if (this.compareCardsGrand(this.trickCards.get(0), this.trickCards.get(2)) == 0) {
+        return 0;
+      } else {
+        return 2;
+      }
+    } else {
+      if (this.compareCardsGrand(this.trickCards.get(1), this.trickCards.get(2)) == 0) {
+        return 1;
+      } else {
+        return 2;
+      }
+    }
+  }
+
+  /**
+   * calculates the winner when the PlayMode is Null/NullOuvert
+   * 
+   * @author sandfisc
+   * @return index of the winning card
+   */
+  public int calculateWinnerNull() {
+
+    if (this.compareNumberLowTen(this.trickCards.get(0), this.trickCards.get(1)) == 0) {
+      if (this.compareNumberLowTen(this.trickCards.get(0), this.trickCards.get(2)) == 0) {
+        return 0;
+      } else {
+        return 2;
+      }
+    } else {
+      if (this.compareNumberLowTen(this.trickCards.get(1), this.trickCards.get(2)) == 0) {
+        return 1;
+      } else {
+        return 2;
+      }
+    }
+  }
+
+  /**
+   * compares two cards with the current trump
    * 
    * @author sandfisc
    * @param card1
    * @param card2
    * @return which card won (0 = card1, 1= card2)
    */
-  public int compareCardsColour(Card card1, Card card2, PlayState ps) {
+  public int compareCardsSuit(Card card1, Card card2, PlayState ps) {
 
     // search for jacks and compare them if necessary
     if (card1.getNumber() == Number.JACK) {
@@ -151,72 +230,6 @@ public class Trick implements Serializable {
   }
 
   /**
-   * checks if the player watched out for the first played cards colour and which cards number is
-   * higher
-   * 
-   * @author sandfisc
-   * @param card1
-   * @param card2
-   * @return which card won (0 = card1, 1= card2)
-   */
-  public int compareNumber(Card card1, Card card2) {
-
-    if (card1.getColour() != this.trickCards.get(0).getColour()
-        && card2.getColour() == this.trickCards.get(0).getColour()) {
-      return 1;
-
-    } else if (card1.getColour() == this.trickCards.get(0).getColour()
-        && card2.getColour() != this.trickCards.get(0).getColour()) {
-      return 0;
-
-    } else if (card1.getNumber().getRankingNorm() > card2.getNumber().getRankingNorm()) {
-      return 0;
-    } else {
-      return 1;
-    }
-  }
-
-  /**
-   * only used to compare jacks, the one with the higher Colour wins
-   * 
-   * @author sandfisc
-   * @param card1
-   * @param card2
-   * @return which card won (0 = card1, 1= card2)
-   */
-  public int compareJacks(Card card1, Card card2) {
-    if (card1.getColour().compareColourIntern(card2.getColour()) == 1) {
-      return 0;
-    } else {
-      return 1;
-    }
-  }
-
-
-  /**
-   * calculates the winner when the PlayMode is Grand
-   * 
-   * @author sandfisc
-   * @return index of the winning card
-   */
-  public int calculateWinnerGrand() {
-
-    if (this.compareCardsGrand(this.trickCards.get(0), this.trickCards.get(1)) == 0) {
-      if (this.compareCardsGrand(this.trickCards.get(0), this.trickCards.get(2)) == 0) {
-        return 0;
-      } else {
-        return 2;
-      }
-    } else {
-      if (this.compareCardsGrand(this.trickCards.get(1), this.trickCards.get(2)) == 0) {
-        return 1;
-      } else {
-        return 2;
-      }
-    }
-  }
-
-  /**
    * compares two cards when the only trump cards are jacks
    * 
    * @author sandfisc
@@ -243,25 +256,28 @@ public class Trick implements Serializable {
   }
 
   /**
-   * calculates the winner when the PlayMode is Null/NullOuvert
+   * checks if the player watched out for the first played cards colour and which cards number is
+   * higher
    * 
    * @author sandfisc
-   * @return index of the winning card
+   * @param card1
+   * @param card2
+   * @return which card won (0 = card1, 1= card2)
    */
-  public int calculateWinnerNull() {
+  public int compareNumber(Card card1, Card card2) {
 
-    if (this.compareNumberLowTen(this.trickCards.get(0), this.trickCards.get(1)) == 0) {
-      if (this.compareNumberLowTen(this.trickCards.get(0), this.trickCards.get(2)) == 0) {
-        return 0;
-      } else {
-        return 2;
-      }
+    if (card1.getColour() != this.trickCards.get(0).getColour()
+        && card2.getColour() == this.trickCards.get(0).getColour()) {
+      return 1;
+
+    } else if (card1.getColour() == this.trickCards.get(0).getColour()
+        && card2.getColour() != this.trickCards.get(0).getColour()) {
+      return 0;
+
+    } else if (card1.getNumber().getRankingNorm() > card2.getNumber().getRankingNorm()) {
+      return 0;
     } else {
-      if (this.compareNumberLowTen(this.trickCards.get(1), this.trickCards.get(2)) == 0) {
-        return 1;
-      } else {
-        return 2;
-      }
+      return 1;
     }
   }
 
@@ -285,6 +301,22 @@ public class Trick implements Serializable {
       return 0;
 
     } else if (card1.getNumber().getRankingLowTen() > card2.getNumber().getRankingLowTen()) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
+  /**
+   * only used to compare jacks, the one with the higher Colour wins
+   * 
+   * @author sandfisc
+   * @param card1
+   * @param card2
+   * @return which card won (0 = card1, 1= card2)
+   */
+  public int compareJacks(Card card1, Card card2) {
+    if (card1.getColour().compareColourIntern(card2.getColour()) == 1) {
       return 0;
     } else {
       return 1;

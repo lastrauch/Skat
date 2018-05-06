@@ -13,20 +13,28 @@ import java.util.List;
  */
 public class Stack implements Serializable{
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = 1L;
-  private List<Card> stack;
+  private List<Card> stack; // List of cards on a stack
   
+  /*-------------------------  CONSTRUCTOR  -------------------------------------*/
   public Stack() {
     stack = new ArrayList();
   }
   
+  /*-------------------------  HANDLING OF A STACK -----------------------------*/
+  /**
+   * Adds a card to the list "stack"
+   * @author sandfisc
+   * @param card
+   */
   public void addCard(Card card) {
     this.stack.add(card);
   }
   
+  /**
+   * Adds a list of cards to the list "stack"
+   * @param cards
+   */
   public void addCards(List<Card> cards) {
     this.stack.addAll(cards);
   }
@@ -46,6 +54,13 @@ public class Stack implements Serializable{
     return sum;
   }
   
+  /*----------------------------  GETTER  -------------------------------------------*/
+  
+  /**
+   * Returns the stack
+   * @author sandfisc
+   * @return
+   */
   public List<Card> getStack(){
     return this.stack;
   }
