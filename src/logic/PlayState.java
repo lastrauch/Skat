@@ -131,7 +131,7 @@ public class PlayState implements Serializable{
     for (int i = 0; i < cards.size(); i++) {
       for (int j = 0; j < cards.size() - 1; j++) {
         if (cards.get(j).getColour().compareColourIntern(cards.get(j + 1).getColour()) < 0) {
-          temp = cards.get(i);
+          temp = cards.get(j);
           cards.set(j, cards.get(j + 1));
           cards.set(j + 1, temp);
         }

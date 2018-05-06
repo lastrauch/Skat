@@ -152,7 +152,7 @@ class CalculatePlayValueTest {
   }
   
   /*against 3, play hand, schneiderAnnounced and schneider played --> multiplayer 7
-     */
+    playmode diamonds --> 7*9 */
   
 
 }
