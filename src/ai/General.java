@@ -40,31 +40,32 @@ public class General {
 	 * @param controller
 	 * @return int
 	 */
-	public static int playRandomCard(AIController controller) {
-		List<Card> cards = controller.getBot().getHand();
-		List<Card> possibleCards = new ArrayList<Card>();
-		if (controller.getCurrentTrick().size() > 0) {
-			for (int i = 0; i < cards.size(); i++) {
-				try {
-					if (ClientLogic.checkIfCardPossible(cards.get(i), controller.getCurrentTrick().get(0),
-							controller.getPlayState(), controller.getBot())) {
-						possibleCards.add(cards.get(i));
-					}
-				} catch (LogicException e) {
-					e.printStackTrace();
-				}
-			}
-		} else {
-			possibleCards = cards;
-		}
+  public static int playRandomCard(AIController controller) {
+    List<Card> cards = controller.getBot().getHand();
+    // List<Card> possibleCards = new ArrayList<Card>();
+    // if (controller.getCurrentTrick().size() > 0) {
+    // for (int i = 0; i < cards.size(); i++) {
+    // try {
+    // if (ClientLogic.checkIfCardPossible(cards.get(i), controller.getCurrentTrick().get(0),
+    // controller.getPlayState(), controller.getBot())) {
+    // possibleCards.add(cards.get(i));
+    // }
+    // } catch (LogicException e) {
+    // e.printStackTrace();
+    // }
+    // }
+    // } else {
+    // possibleCards = cards;
+    // }
+    //
+    // int rnd = (int) (Math.random() * (possibleCards.size()-1));
+    // Card playCard = possibleCards.get(rnd);
+    // int index = cards.indexOf(playCard);
 
-		int rnd = (int) (Math.random() * (possibleCards.size()-1));
-		Card playCard = possibleCards.get(rnd);
-		int index = cards.indexOf(playCard);
+    int index = (int) (Math.random() * cards.size());
 
-		return index;
-	}
-
+    return index;
+  }
 	/**
 	 * Returns the highest possible bet, with the current hand of the bot
 	 * 

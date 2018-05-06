@@ -994,4 +994,10 @@ public class AIController implements InGameInterface {
     return this.currentTrick;
   }
 
+  @Override
+  public void showPossibleCards(List<Card> cards) {
+    // TODO Auto-generated method stub
+    
+  }
+
 }
