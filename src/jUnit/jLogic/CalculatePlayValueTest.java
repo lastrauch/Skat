@@ -3,7 +3,6 @@ package jUnit.jLogic;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import logic.Card;
@@ -14,6 +13,11 @@ import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
 
+/**
+ * this class tests the method calculatePlayValue in ClientLogic 
+ * @author awesch
+ *
+ */
 class CalculatePlayValueTest {
   Player player;
   ClientLogic clientLogic;
