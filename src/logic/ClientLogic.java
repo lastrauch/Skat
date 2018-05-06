@@ -121,12 +121,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // update this players hand
       try {
         this.player.removeCardFromHand(playedCard);
-        if (!this.player.isBot()) {
-          System.out.println("And here is my new hand:");
-          for (Card c : this.player.getHand()) {
-            System.out.println(c.toString());
-          }
-        }
       } catch (LogicException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -1008,6 +1002,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // game is over
           // calculate winner game
           gameWinner = Game.calculateWinner(this.playState);
+          
+          try {
+            Thread.sleep(1000);
+          } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
           // show winner of game
           this.inGameController.showWinnerGame(gameWinner);
           try {
