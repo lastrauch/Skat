@@ -131,7 +131,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   public void playCard(Card firstCard) {
     this.inGameController.itsYourTurn();
-    this.waitFor(2000);
+    this.waitFor(1000);
     int indexNewCard = this.inGameController.askToPlayCard();
     //because we had some to high results from askToPlayCard
     if(indexNewCard >= this.player.getHand().size()) {
@@ -1002,7 +1002,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // show winner of trick
       this.inGameController.showWinnerTrick(trickWinner);
-      this.waitFor(3000);
+      this.waitFor(2000);
 
       // check if play is over
       if (this.playState.getTrickNr() == 10
