@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LeaderboardController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Leaderboard3Controller">
    <effect>
       <ColorAdjust />
    </effect>
@@ -28,128 +28,16 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <HBox layoutX="40.0" layoutY="194.0" spacing="30.0" style="-fx-background-color: tan; -fx-background-radius: 20;" AnchorPane.rightAnchor="40.0">
+            <HBox layoutX="40.0" layoutY="194.0" prefHeight="449.0" prefWidth="680.0" spacing="30.0" style="-fx-background-color: tan; -fx-background-radius: 20;" AnchorPane.rightAnchor="40.0">
                <children>
-                  <VBox layoutX="70.0" layoutY="170.0" spacing="15.0">
-                     <children>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nr." textAlignment="CENTER" underline="true" wrappingWidth="72.25">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="CENTER" wrappingWidth="64.40625">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" textAlignment="CENTER" wrappingWidth="68.40625">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" textAlignment="CENTER" wrappingWidth="72.40625">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="=" textAlignment="CENTER" wrappingWidth="72.626953125">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
-                  <VBox layoutX="120.0" layoutY="181.0" spacing="15.0">
-                     <children>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ich" textAlignment="CENTER" underline="true" wrappingWidth="143.58203125">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="RED" layoutX="70.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-48" textAlignment="CENTER" wrappingWidth="139.208984375">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="138.40625">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="141.6708984375">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="-48" textAlignment="CENTER" wrappingWidth="145.208984375">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
-                  <VBox layoutX="220.0" layoutY="188.0" spacing="15.0">
-                     <children>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Koenig$4" textAlignment="CENTER" underline="true" wrappingWidth="175.90625">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="173.40625">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="170.40625">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="174.40625">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="177.40625">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
-                  <VBox layoutX="30.0" layoutY="10.0" prefHeight="192.0" prefWidth="108.0" spacing="15.0">
-                     <children>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SkatMau$" textAlignment="CENTER" underline="true" wrappingWidth="188.95703125">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="70.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="178.40625">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="RED" layoutX="70.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-54" textAlignment="CENTER" wrappingWidth="183.208984375">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#58ff58" layoutX="70.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="36" textAlignment="CENTER" wrappingWidth="186.6708984375">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="-18" textAlignment="CENTER" wrappingWidth="192.208984375">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
+                  <VBox fx:id="vBoxNr" layoutX="70.0" layoutY="170.0" spacing="15.0" />
+                  <VBox fx:id="vBox1" layoutX="120.0" layoutY="181.0" spacing="15.0" />
+                  <VBox fx:id="vBox2" layoutX="220.0" layoutY="188.0" spacing="15.0" />
+                  <VBox fx:id="vBox3" layoutX="30.0" layoutY="10.0" prefHeight="192.0" prefWidth="108.0" spacing="15.0" />
                </children>
             </HBox>
             <Line endX="716.0" layoutY="447.0" startX="44.0" stroke="WHITE" AnchorPane.rightAnchor="43.5" />
-            <JFXButton fx:id="back" buttonType="RAISED" layoutX="543.0" layoutY="662.0" onAction="#back" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back to Menu">
+            <JFXButton fx:id="back" buttonType="RAISED" layoutX="553.0" layoutY="14.0" onAction="#back" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back to Menu">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
