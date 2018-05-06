@@ -133,8 +133,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.inGameController.itsYourTurn();
     this.waitFor(1000);
     int indexNewCard = this.inGameController.askToPlayCard();
-    //because we had some to high results from askToPlayCard
-    if(indexNewCard >= this.player.getHand().size()) {
+    // because we had some to high results from askToPlayCard
+    if (indexNewCard >= this.player.getHand().size()) {
       this.playCard(firstCard);
     }
     Card playedCard = this.player.getHand().get(indexNewCard);
@@ -192,17 +192,17 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   public void showPossibleCards(Card firstCard) throws LogicException {
-    List<Card>cards = new ArrayList<Card>();
-    for(Card c : cards) {
-      if(checkIfCardPossible(c, firstCard, this.playState, this.player)) {
+    List<Card> cards = new ArrayList<Card>();
+    for (Card c : cards) {
+      if (checkIfCardPossible(c, firstCard, this.playState, this.player)) {
         cards.add(null);
-      }else {
+      } else {
         cards.add(c);
       }
     }
     this.inGameController.showPossibleCards(cards);
   }
-  
+
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
    * of the trick and the PlayMode
@@ -1008,6 +1008,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // check if play is over
       if (this.playState.getTrickNr() == 10
           || ((this.playState.getPlayMode() == PlayMode.NULL) && trickWinner.isDeclarer())) {
+        System.out.println(this.player.getName() + " I got that the play is over");
         // calculate winner play
         playWinner = Play.calculateWinner(playState);
 
@@ -1052,8 +1053,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
             }
           }
 
+          System.out.println(this.player.getName() + " the play is over and I sit position "
+              + this.player.getPosition());
+
           // with start play you deal out cards and in receive cards the auction will start
           if (this.player.getPosition() == Position.FOREHAND) {
+            System.out.println(this.player.getName() + " I'll start the new play now ;)");
             this.startPlay();
           }
 
@@ -1080,7 +1085,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // }
     }
   }
-  
+
   /**
    * position (forehand, middlehand, rearhand) changes ater every play
    * 
@@ -1090,15 +1095,18 @@ public class ClientLogic implements NetworkLogic, AILogic {
     int pointerForehand = this.searchForehand();
 
     this.playState.getGroup()[pointerForehand].setPosition(Position.FOREHAND);
-    this.playState.getGroup()[((pointerForehand + 1) % this.playState.getGroup().length)].setPosition(Position.MIDDLEHAND);
-    this.playState.getGroup()[((pointerForehand + 2) % this.playState.getGroup().length)].setPosition(Position.REARHAND);
+    this.playState.getGroup()[((pointerForehand + 1) % this.playState.getGroup().length)]
+        .setPosition(Position.MIDDLEHAND);
+    this.playState.getGroup()[((pointerForehand + 2) % this.playState.getGroup().length)]
+        .setPosition(Position.REARHAND);
 
 
     if (this.playState.getGroup().length == 4) {
-      this.playState.getGroup()[((pointerForehand + 3) % this.playState.getGroup().length)].setPosition(Position.DEALER);
+      this.playState.getGroup()[((pointerForehand + 3) % this.playState.getGroup().length)]
+          .setPosition(Position.DEALER);
     }
   }
-  
+
   public int searchForehand() {
     for (int i = 0; i < this.playState.getGroup().length; i++) {
       if (this.playState.getGroup()[i].getPosition() == Position.FOREHAND) {
