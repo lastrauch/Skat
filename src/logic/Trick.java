@@ -16,21 +16,48 @@ public class Trick implements Serializable {
 
   // addCard: void
   // Adds the given card to the trickCards
-  
+
   // isFull: boolean
-  // Checks if 3 cards are saved in the trickCards 
+  // Checks if 3 cards are saved in the trickCards
 
-  // calculateWinner : Player
-  // The winner of the trick is calculated with the PlayState (parameter) and the trickCards 
+  // calculateWinner: Player
+  // The winner of the trick is calculated with the PlayState (parameter) and the trickCards
 
-  // calculateWinnerSuit : int
-  // Calculates the winning card of the trick and returns the index. Therefore the methode compares two cards  
+  // calculateWinnerSuit: int
+  // Calculates the winning card of the trick and returns the index. Therefore the methode compares
+  // two cards
   // and the higher one is compared to the third card of the trick.
   // submethod: compareCardsSuit
-  
-  // compareCardSuit: int
+
+  // calculateWinnerGrand: int
+  // Calculates the winning card of the trick and returns the index. Therefore the methode compares
+  // two cards
+  // and the higher one is compared to the third card of the trick.
+  // submethod: compareCardsGrand
+
+  // calculateWinnerNull: int
+  // Calculates the winning card of the trick and returns the index. Therefore the methode compares
+  // two cards
+  // and the higher one is compared to the third card of the trick.
+  // submethod: compareNumberLowTen
+
+  // compareCardsSuit: int
   // Compares two cards and returns 0 or 1 depending on which card is higher
   // submethods: compareJacks, compareNumber
+
+  // compareCardsGrand: int
+  // Compares two cards and returns 0 or 1 depending on which card is higher
+  // submethods: compareJacks, compareNumber
+
+  // compareNumber: int
+  // Checks which given card is higher depending on the number (with high ten)
+
+  // compareNumberLowTen: int
+  // Checks which given card is higher depending on the number (with high ten)
+
+  // compareJacks: int
+  // Checks which given card is higher depending on the Jack
+
   private static final long serialVersionUID = 1L;
   private List<Card> trickCards; // the list of trick cards includes 0,1,2 or 3 cards
   private List<Player> cardPlayers;
@@ -74,8 +101,8 @@ public class Trick implements Serializable {
   /* -------------------- CALCULATE WINNER ------------------------------------------- */
 
   /**
-   * the winning card is calculated and the winner is returned 
-   * submethods (depending on PlayMode): calculateWinnerColour(), calculateWinnerGrand(), calculateWinnerNull())
+   * the winning card is calculated and the winner is returned submethods (depending on PlayMode):
+   * calculateWinnerColour(), calculateWinnerGrand(), calculateWinnerNull())
    * 
    * @author sandfisc
    * @throws LogicException
@@ -161,9 +188,9 @@ public class Trick implements Serializable {
       }
     }
   }
-  
+
   /**
-   * compares two cards with the current trump 
+   * compares two cards with the current trump
    * 
    * @author sandfisc
    * @param card1
@@ -227,7 +254,7 @@ public class Trick implements Serializable {
       }
     }
   }
-  
+
   /**
    * checks if the player watched out for the first played cards colour and which cards number is
    * higher
@@ -279,7 +306,7 @@ public class Trick implements Serializable {
       return 1;
     }
   }
-  
+
   /**
    * only used to compare jacks, the one with the higher Colour wins
    * 
