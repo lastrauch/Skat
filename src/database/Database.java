@@ -17,7 +17,7 @@ public class Database {
             + System.getProperty("file.separator") + "SkatData.db");
   }
   
-  /**
+  /**l
    * Stellt die Verbindung mit der Datenbank her.
    * 
    * @param file

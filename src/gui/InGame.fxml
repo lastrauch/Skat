@@ -142,7 +142,7 @@
       <JFXTextArea fx:id="chatM" focusColor="WHITE" layoutX="3.0" layoutY="5.0" opacity="0.33" prefHeight="97.0" prefWidth="1280.0" style="-fx-background-color: peru;" unFocusColor="PERU" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <ImageView fx:id="s1" fitHeight="205.0" fitWidth="132.0" layoutX="533.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" rotate="125.0" />
       <JFXTextField fx:id="textM" layoutY="97.0" opacity="0.33" prefHeight="50.0" prefWidth="1280.0" style="-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <JFXButton fx:id="sendB" layoutX="1167.0" layoutY="97.0" onAction="#sendChat" opacity="0.89" prefHeight="50.0" prefWidth="113.0" style="-fx-border-radius: 0; -fx-background-color: peru; -fx-border-color: grey; -fx-border-radius: 2;" text="Send" textFill="WHITE" AnchorPane.rightAnchor="0.0">
+      <JFXButton fx:id="sendB" layoutX="1167.0" layoutY="97.0" onAction="#sendChat" opacity="0.89" prefHeight="50.0" prefWidth="113.0" style="-fx-background-color: peru; -fx-border-color: grey;" text="Send" textFill="WHITE" AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
@@ -180,5 +180,6 @@
       </Label>
       <ImageView fx:id="profilepictureLeft" fitHeight="97.0" fitWidth="84.0" layoutX="95.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="profilepictureRight" fitHeight="97.0" fitWidth="84.0" layoutX="1098.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="529.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

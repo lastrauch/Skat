@@ -60,7 +60,8 @@ public class GameSettingsController implements Initializable {
   private AnchorPane pane;
   @FXML
   private JFXTextField message;
-
+  @FXML 
+  private Label messageLabel;
   /**
    * @author lstrauch
    */
@@ -238,6 +239,7 @@ public class GameSettingsController implements Initializable {
   public void setGameMode(GameMode gm) {
     this.gm = gm;
   }
+  
 
 
   /**
@@ -317,6 +319,7 @@ public class GameSettingsController implements Initializable {
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
+
     r1.setToggleGroup(g1);
     r3.setToggleGroup(g1);
     r18.setToggleGroup(g1);
@@ -337,10 +340,17 @@ public class GameSettingsController implements Initializable {
     rounds[0] = 3;
     numbOfPl = 3;
     cr[0] = CountRule.BIERLACHS;
+    
+    setGM();
+    if(gm == GameMode.SINGLEPLAYER) {
+      pane.getChildren().remove(message);
+      pane.getChildren().remove(messageLabel);
 
-    System.out.println(LoginController.interfGL.toString());
+    }
 
-    this.listener();
+    
+
+    listener();
   }
 
   /**
@@ -409,4 +419,9 @@ public class GameSettingsController implements Initializable {
 
     pane.getChildren().add(p);
   }
+  
+  public void setGM() {
+    this.gm = guiCon.getChooseGameCon().getGameMode();
+  }
+  
 }

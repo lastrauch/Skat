@@ -1,19 +1,16 @@
 package interfaces;
 
-import java.util.ArrayList;
-import java.util.List;
-import ai.BotDifficulty;
 import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
 import logic.Position;
-import logic.Trick;
+import java.util.List;
 
 public interface InGameInterface {
 
   /**
-   * should open the InGameScreen and show the Player his cards and his position
+   * should open the InGameScreen and show the Player his cards and his position.
    * 
    * @param hand
    * @param position
@@ -171,5 +168,18 @@ public interface InGameInterface {
    * @param ps
    */
   public void setPlaySettingsAfterAuction(PlayState ps);
+  
+  
+  /**
+   * 
+   * Example: Clubs-Jack, Spades-Jack, Clubs-10, Clubs-8, Hearts-7, Diamonds-9
+   * Playable: Trump (Jack + Clubs)
+   * Return Array: (null, null, null, null, Hearts-7, Diamonds-9)
+   * 
+   * 
+   * @author lstrauch
+   * @return not playable cards
+   */
+  public void showPossibleCards(List<Card> cards);
 
 }

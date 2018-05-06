@@ -31,8 +31,8 @@ public class ChooseGameController {
    */
   @FXML
   public void SinglePlayer() {
+    setGameMode(GameMode.SINGLEPLAYER);
     main.displayGameSettings();
-    main.getGameSetCon().setGameMode(GameMode.SINGLEPLAYER);
   }
 
   /**
@@ -68,12 +68,13 @@ public class ChooseGameController {
     main.displayAccountSettings();
   }
 
-  /**
-   * @author lstrauch
-   * @return
-   */
+  
+  public void setGameMode(GameMode gm) {
+    this.gamemode = gm;
+  }
+  
   public GameMode getGameMode() {
-    return gamemode;
+    return this.gamemode;
   }
 
 }
