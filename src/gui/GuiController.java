@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import logic.GameMode;
 import logic.GameSettings;
+import logic.Player;
 
 public class GuiController extends Application {
 
@@ -86,7 +87,7 @@ public class GuiController extends Application {
   private static HelpVariationsController helpVarCon;
   private AnchorPane helpVar;
 
-  private static LeaderboardController leaderbordCon;
+  private static Leaderboard3Controller leaderbordCon;
   private AnchorPane leaderbord;
   
   
@@ -452,7 +453,7 @@ public class GuiController extends Application {
   /**
    * @author lstrauch
    */
-  public void displayLeaderboard() {
+  public void displayLeaderboard3() {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("Leaderboard.fxml"));
@@ -480,5 +481,9 @@ public class GuiController extends Application {
 
   public ChooseGameController getChooseGameCon() {
     return gameModeCon;
+  }
+  
+  public InGameController getInGameCon() {
+    return inGameCon;
   }
 }
