@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayState implements Serializable{
+public class PlayState implements Serializable {
   /**
    * 
    */
@@ -17,7 +17,7 @@ public class PlayState implements Serializable{
   private int playValue;
   private PlayMode pm;
   private int playNr;
-  private int trickNr; 
+  private int trickNr;
   private boolean auctionPossible;
   private boolean handGame;
   private boolean schneider;
@@ -31,7 +31,7 @@ public class PlayState implements Serializable{
   private boolean announcedKontra;
   private boolean announcedRekontra;
 
-  
+
   /**
    * constructor (default) the attributes are initialized but we want the player(s) to change them
    * during the game
@@ -56,24 +56,24 @@ public class PlayState implements Serializable{
     this.schneider = false;
     this.schneiderAnnounced = false;
     this.schwarz = false;
-    this.schwarzAnnounced = false;    
+    this.schwarzAnnounced = false;
     this.initializeBaseValue();
   }
-  
+
   public void resetPlayState() {
     this.declarerStack = new Stack();
-    this.opponentsStack = new Stack();   
-    
+    this.opponentsStack = new Stack();
+
     this.skat = new Card[2];
     this.trump = Colour.CLUBS;
     this.playValue = 0;
     this.pm = PlayMode.SUIT;
-    
+
     this.trickNr = 0;
     this.currentTrick = new Trick();
     this.auctionPossible = true;
     this.auction = new Auction();
-    
+
     this.schneider = false;
     this.schneiderAnnounced = false;
     this.schwarz = false;
@@ -246,6 +246,12 @@ public class PlayState implements Serializable{
    */
   public void setPlayMode(PlayMode pm) {
     this.pm = pm;
+
+    if (pm == PlayMode.GRAND || pm == PlayMode.NULL) {
+      this.trump = null;
+    }
+
+    this.initializeBaseValue();
   }
 
   /**
@@ -382,11 +388,11 @@ public class PlayState implements Serializable{
   public Auction getAuction() {
     return this.auction;
   }
-  
+
   public Stack getDeclarerStack() {
     return this.declarerStack;
   }
-  
+
   public Stack getOpponentsStack() {
     return this.opponentsStack;
   }
