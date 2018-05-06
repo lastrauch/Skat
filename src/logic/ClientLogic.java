@@ -132,7 +132,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void playCard(Card firstCard) {
     this.inGameController.itsYourTurn();
     this.waitFor(2000);
-    Card playedCard = this.player.getHand().get(this.inGameController.askToPlayCard());
+    int indexNewCard = this.inGameController.askToPlayCard();
+    //because we had some to high results from askToPlayCard
+    if(indexNewCard >= this.player.getHand().size()) {
+      this.playCard(firstCard);
+    }
+    Card playedCard = this.player.getHand().get(indexNewCard);
     System.out.println(this.player.getName() + " played " + playedCard.toString());
 
     // the first card is null it is allowed to play any card
