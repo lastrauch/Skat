@@ -146,8 +146,25 @@ class CalculatePlayValueTest {
     assertEquals(matador, this.clientLogic.calculateMatador());
   }
 
+  void testPlayValueNullOuvertHand() {
+    playState.setPlayMode(PlayMode.NULL);
+    assertEquals(59, clientLogic.calculatePlayValue());
+  }
   
-  
-  
+  /*against 3, play hand, schneiderAnnounced and schneider played --> multiplayer 7
+    playmode hearts --> 7*10 */
+  @Test
+  void testCalculateMultiplier() {
+    
+  }
+    @Test
+    void testCalculatePlayValue() {
+      this.testMatadorAgainst3();
+      playState.setHandGame(true);
+      playState.setSchneiderAnnounced(true);
+      playState.setSchneider(true);
+      clientLogic.setPlayState(playState);
+      assertEquals(70, clientLogic.calculatePlayValue());
+    }
 
 }
