@@ -204,6 +204,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
       for (int i = 0; i < this.group.size(); i++) {
         temp.add(this.group.get((this.gameSettings.getRandomSeatingIndex() + i) % this.group.size()));
        }
+      this.group = temp;  
+      if (this.group.size() == 4) {
+        this.group.get(3).setPosition(Position.DEALER);
+      }
       
       this.playState = new PlayState(this.getPlayingGroup(temp));
 //      // random number points on the one in the list to be the forehand
@@ -745,11 +749,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
             }
           }
           // set playing group
-          this.playState.setGroup(this.getPlayingGroup(this.group));
-          
+          this.playState.setGroup(this.getPlayingGroup(this.group));          
           System.out.println(this.player.getName() + " the play is over and I sit position "
               + this.player.getPosition());
 
+          // restart inGameController
+          this.inGameController = new InGameController();
+          
           // with start play you deal out cards and in receive cards the auction will start
           if (this.player.getPosition() == Position.FOREHAND) {
             System.out.println(this.player.getName() + " I'll start the new play now ;)");
