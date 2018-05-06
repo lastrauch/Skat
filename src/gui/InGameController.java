@@ -257,16 +257,15 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void run() {
         pos.setText(position.toString());
-        rearrangeCardsDark(hand.size(), hand);
+        rearrangeCardsLight(hand.size(), hand);
         cardlist = hand;
-
       }
 
     });
 
   }
 
-  
+
   /**
    * @author lstrauch
    */
@@ -301,8 +300,7 @@ public class InGameController implements Initializable, InGameInterface {
   public void updateHand(List<Card> list) {
     // TODO Auto-generated method stub
     cardlist = list;
-    System.out.println("List.size: " + list.size());
-    rearrangeCardsDark(list.size(), list);
+    rearrangeCardsLight(list.size(), list);
   }
 
 
@@ -335,11 +333,16 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showWinnerTrick(Player player) {
     // TODO Auto-generated method stub
-    System.out.println("Show Winner Trick");
-      s1.setImage(null);
-      s2.setImage(null);
-      s3.setImage(null);
-    
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        // TODO Auto-generated method stub
+        s1.setImage(null);
+        s2.setImage(null);
+        s3.setImage(null);
+      }
+    });
+
 
   }
 
@@ -377,8 +380,6 @@ public class InGameController implements Initializable, InGameInterface {
 
 
 
-
-
   /**
    * 
    * 
@@ -405,6 +406,893 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
+
+
+
+  /**
+   * @author lstrauch
+   * @param size
+   * @param list
+   */
+  public void rearrangeCardsLight(int size, List<Card> list) {
+    switch (size) {
+      case 1:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(null);
+        c3.setImage(null);
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+        break;
+      case 2:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(null);
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 3:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 4:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 5:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+
+        break;
+      case 6:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+        break;
+      case 7:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+        break;
+      case 8:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(null);
+        c10.setImage(null);
+
+        break;
+      case 9:
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
+            (list.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(null);
+        break;
+      case 10:
+        System.out.println(list.get(0).getColour().toString().toLowerCase());
+        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
+            (list.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
+            (list.get(9).getNumber().toString().toLowerCase())));
+
+        break;
+    }
+  }
+
+  /**
+   * @author lstrauch
+   * @param size
+   * @param list
+   */
+  public void rearrangeCardsDark(int size, List<Card> list) {
+    switch (size) {
+      case 1:
+        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(null);
+        c3.setImage(null);
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+        break;
+      case 2:
+        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(null);
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 3:
+        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(null);
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 4:
+        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(null);
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+        break;
+      case 5:
+        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(null);
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+
+        break;
+      case 6:
+        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImageDarker(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(null);
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+        break;
+      case 7:
+        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImageDarker(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImageDarker(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(null);
+        c9.setImage(null);
+        c10.setImage(null);
+
+        break;
+      case 8:
+        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImageDarker(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImageDarker(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImageDarker(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(null);
+        c10.setImage(null);
+
+        break;
+      case 9:
+        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImageDarker(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImageDarker(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImageDarker(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(inte.getImageDarker(list.get(8).getColour().toString().toLowerCase(),
+            (list.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(null);
+
+        break;
+      case 10:
+        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
+            (list.get(0).getNumber().toString().toLowerCase())));
+        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
+            (list.get(1).getNumber().toString().toLowerCase())));
+        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
+            (list.get(2).getNumber().toString().toLowerCase())));
+        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
+            (list.get(3).getNumber().toString().toLowerCase())));
+        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
+            (list.get(4).getNumber().toString().toLowerCase())));
+        c6.setImage(inte.getImageDarker(list.get(5).getColour().toString().toLowerCase(),
+            (list.get(5).getNumber().toString().toLowerCase())));
+        c7.setImage(inte.getImageDarker(list.get(6).getColour().toString().toLowerCase(),
+            (list.get(6).getNumber().toString().toLowerCase())));
+        c8.setImage(inte.getImageDarker(list.get(7).getColour().toString().toLowerCase(),
+            (list.get(7).getNumber().toString().toLowerCase())));
+        c9.setImage(inte.getImageDarker(list.get(8).getColour().toString().toLowerCase(),
+            (list.get(8).getNumber().toString().toLowerCase())));
+        c10.setImage(inte.getImageDarker(list.get(9).getColour().toString().toLowerCase(),
+            (list.get(9).getNumber().toString().toLowerCase())));
+        System.out.println("Karte draufgelegt");
+        System.out.println("c10: " + c10.getImage());
+
+        break;
+    }
+  }
+
+
+
+  /**
+   * @author lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askToRekontra()
+   */
+  @Override
+  public boolean askToRekontra() {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+
+      }
+    });
+    return false;
+  }
+
+  /**
+   * Auction
+   * 
+   * @author lstrauch
+   */
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openAskForBet(int)
+   */
+  @Override
+  public void openAskForBet(int bet) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        displayAuctionScreen();
+        betB.setText(String.valueOf(bet));
+      }
+    });
+  }
+
+  /**
+   * @author lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askForBet(int, logic.Player)
+   */
+  @Override
+  public boolean askForBet(int bet, Player lastBet) {
+    // deletePane(paneBet);
+    while (notpressed) {
+      ButtonListener();
+    }
+    notpressed = true;
+    return b;
+  }
+
+  /**
+   * @author lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#updateBet(int)
+   */
+  @Override
+  public void updateBet(int bet) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        betB.setText(String.valueOf(bet));
+      }
+    });
+
+  }
+
+
+  /**
+   * Do you want to take the Skat?
+   * 
+   * @author lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openTakeUpSkat()
+   */
+  @Override
+  public void openTakeUpSkat() {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        displayWannaTakeSkat();
+      }
+    });
+  }
+
+
+  /**
+   * @author lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askToTakeUpSkat()
+   */
+  @Override
+  public boolean askToTakeUpSkat() {
+    // TODO Auto-generated method stub
+    while (decidepressed == false) {
+      ButtonListenrWantSkat();
+    }
+    decidepressed = false;
+    return wantskat;
+  }
+
+
+
+  /**
+   * Declarer Stack
+   * 
+   * @author lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openSwitchSkat(logic.PlayState)
+   */
+  @Override
+  public void openSwitchSkat(PlayState ps) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(skatPane);
+        displaySwitchSkat(ps);
+      }
+    });
+  }
+
+  /**
+   * @author lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#switchSkat(logic.PlayState)
+   */
+  @Override
+  public List<Card> switchSkat(PlayState ps) {
+    // TODO Auto-generated method stub
+    skat.add(ps.getSkat()[0]);
+    skat.add(ps.getSkat()[1]);
+    while (skatpressed == false) {
+      switchSkatListener(ps);
+    }
+    skatpressed = false;
+    return skatLogic;
+  }
+
+
+  /**
+   * @author lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#openAuctionWinnerScreen()
+   */
+  @Override
+  public void openAuctionWinnerScreen() {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(paneBet);
+        deletePane(skatPane);
+        deletePane(handPane);
+        displayAuctionWinnerScreen();
+      }
+    });
+  }
+
+
+  /**
+   * @author lstrauch
+   * @param ps
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#setPlaySettingsAfterAuction(logic.PlayState)
+   */
+  @Override
+  public void setPlaySettingsAfterAuction(PlayState ps) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        deletePane(paneBet);
+        deletePane(skatPane);
+        deletePane(handPane);
+        deletePane(paneAuc);
+
+        rearrangeCardsDark(cardlist.size(), cardlist);
+
+        if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelLeft.setText(ps.getPlayMode().toString());
+            } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+              labelRight.setText(ps.getPlayMode().toString());
+            } else {
+              labelMe.setText(ps.getPlayMode().toString());
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelRight.setText(ps.getPlayMode().toString());
+            } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+              labelLeft.setText(ps.getPlayMode().toString());
+            } else {
+              labelMe.setText(ps.getPlayMode().toString());
+            }
+          } else {
+            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+              labelRight.setText(ps.getPlayMode().toString());
+            } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+              labelLeft.setText(ps.getPlayMode().toString());
+            } else {
+              labelMe.setText(ps.getPlayMode().toString());
+            }
+          }
+        } else {
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelLeft.setText(ps.getTrump().toString());
+            } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+              labelRight.setText(ps.getTrump().toString());
+            } else {
+              labelMe.setText(ps.getTrump().toString());
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+              labelRight.setText(ps.getTrump().toString());
+            } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+              labelLeft.setText(ps.getTrump().toString());
+            } else {
+              labelMe.setText(ps.getTrump().toString());
+            }
+          } else {
+            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+              labelRight.setText(ps.getTrump().toString());
+            } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+              labelLeft.setText(ps.getTrump().toString());
+            } else {
+              labelMe.setText(ps.getTrump().toString());
+            }
+          }
+        }
+      }
+    });
+
+
+  }
+
+
+  /**
+   * @author lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#itsYourTurn()
+   */
+  @Override
+  public void itsYourTurn() {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+
+      @Override
+      public void run() {
+        // TODO Auto-generated method stub
+        rearrangeCardsLight(cardlist.size(), cardlist);
+      }
+
+    });
+  }
+
+
+  /**
+   * lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#showSecondsLeftToPlayCard(int)
+   */
+  @Override
+  public void showSecondsLeftToPlayCard(int seconds) {
+    // TODO Auto-generated method stub
+
+  }
+
+  /**
+   * lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#receivedNewBet(int, logic.Player)
+   */
+  @Override
+  public void receivedNewBet(int bet, Player player) {
+    // TODO Auto-generated method stub
+
+  }
+
+  /**
+   * lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#receivedNewCard(logic.Card, logic.Player)
+   */
+  @Override
+  public void receivedNewCard(Card card, Player player) {
+    // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        rearrangeCardsDark(cardlist.size(), cardlist);
+        if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+          if (player.getPosition() == Position.MIDDLEHAND) {
+            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsLeft(count);
+            count--;
+            s1.toFront();
+          } else if (player.getPosition() == Position.REARHAND) {
+            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsRight(count);
+            count--;
+            s3.toFront();
+          } else {
+            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s2.toFront();
+          }
+        } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+          if (player.getPosition() == Position.MIDDLEHAND) {
+            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsRight(count);
+            count--;
+            s3.toFront();
+          } else if (player.getPosition() == Position.FOREHAND) {
+            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsLeft(count);
+            count--;
+            s1.toFront();
+          } else {
+            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s2.toFront();
+          }
+        } else {
+          if (player.getPosition() == Position.REARHAND) {
+            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsLeft(count);
+            count--;
+            s1.toFront();
+          } else if (player.getPosition() == Position.FOREHAND) {
+            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            removeOpponentCardsRight(count);
+            count--;
+            s3.toFront();
+          } else {
+            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                card.getNumber().toString().toLowerCase()));
+            s2.toFront();
+          }
+        }
+      }
+    });
+
+  }
+
+  /**
+   * lstrauch
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askToSetPlayState(logic.PlayState)
+   */
+  @Override
+  public PlayState askToSetPlayState(PlayState ps) {
+    // TODO Auto-generated method stub
+    while (setSettings == false) {
+      ButtonListenerPlaySettings(ps);
+
+    }
+    return ps;
+  }
+
+  /**
+   * @author lstrauch
+   * @param anz
+   */
+  public void removeOpponentCardsRight(int anz) {
+    switch (anz) {
+      case 1:
+        mainPane.getChildren().remove(r1);
+        break;
+      case 2:
+        mainPane.getChildren().remove(r2);
+        break;
+      case 3:
+        mainPane.getChildren().remove(r3);
+        break;
+      case 4:
+        mainPane.getChildren().remove(r4);
+        break;
+      case 5:
+        mainPane.getChildren().remove(r5);
+        break;
+      case 6:
+        mainPane.getChildren().remove(r6);
+        break;
+      case 7:
+        mainPane.getChildren().remove(r7);
+        break;
+      case 8:
+        mainPane.getChildren().remove(r8);
+        break;
+      case 9:
+        mainPane.getChildren().remove(r9);
+        break;
+      case 10:
+        mainPane.getChildren().remove(r10);
+        break;
+    }
+  }
+
+  /**
+   * @author lstrauch
+   * @param anz
+   */
+  public void removeOpponentCardsLeft(int anz) {
+    switch (anz) {
+      case 1:
+        mainPane.getChildren().remove(l1);
+        break;
+      case 2:
+        mainPane.getChildren().remove(l2);
+        break;
+      case 3:
+        mainPane.getChildren().remove(l3);
+        break;
+      case 4:
+        mainPane.getChildren().remove(l4);
+        break;
+      case 5:
+        mainPane.getChildren().remove(l5);
+        break;
+      case 6:
+        mainPane.getChildren().remove(l6);
+        break;
+      case 7:
+        mainPane.getChildren().remove(l7);
+        break;
+      case 8:
+        mainPane.getChildren().remove(l8);
+        break;
+      case 9:
+        mainPane.getChildren().remove(l9);
+        break;
+      case 10:
+        mainPane.getChildren().remove(l10);
+        break;
+    }
+  }
+  
   /**
    * 
    * 
@@ -512,7 +1400,7 @@ public class InGameController implements Initializable, InGameInterface {
       }
     });
     c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
-      
+
       @Override
       public void handle(MouseEvent event) {
         ret[0] = 9;
@@ -704,863 +1592,6 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
- 
-
-  /**
-   * @author lstrauch
-   * @param size
-   * @param list
-   */
-  public void rearrangeCardsLight(int size, List<Card> list) {
-    switch (size) {
-      case 1:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(null);
-        c3.setImage(null);
-        c4.setImage(null);
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-
-        break;
-      case 2:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(null);
-        c4.setImage(null);
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        break;
-      case 3:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(null);
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        break;
-      case 4:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        break;
-      case 5:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-
-
-        break;
-      case 6:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-
-        break;
-      case 7:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-
-        break;
-      case 8:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
-            (list.get(7).getNumber().toString().toLowerCase())));
-        c9.setImage(null);
-        c10.setImage(null);
-
-        break;
-      case 9:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
-            (list.get(7).getNumber().toString().toLowerCase())));
-        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
-            (list.get(8).getNumber().toString().toLowerCase())));
-        c10.setImage(null);
-        break;
-      case 10:
-        c1.setImage(inte.getImage(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImage(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImage(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImage(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImage(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImage(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImage(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImage(list.get(7).getColour().toString().toLowerCase(),
-            (list.get(7).getNumber().toString().toLowerCase())));
-        c9.setImage(inte.getImage(list.get(8).getColour().toString().toLowerCase(),
-            (list.get(8).getNumber().toString().toLowerCase())));
-        c10.setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
-            (list.get(9).getNumber().toString().toLowerCase())));
-
-        break;
-    }
-  }
-  
-  /**
-   * @author lstrauch
-   * @param size
-   * @param list
-   */
-  public void rearrangeCardsDark(int size, List<Card> list) {
-    switch (size) {
-      case 1:
-        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(null);
-        c3.setImage(null);
-        c4.setImage(null);
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-
-        break;
-      case 2:
-        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(null);
-        c4.setImage(null);
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        break;
-      case 3:
-        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(null);
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        break;
-      case 4:
-        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(null);
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-        break;
-      case 5:
-        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(null);
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-
-
-        break;
-      case 6:
-        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImageDarker(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(null);
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-
-        break;
-      case 7:
-        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImageDarker(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImageDarker(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(null);
-        c9.setImage(null);
-        c10.setImage(null);
-
-        break;
-      case 8:
-        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImageDarker(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImageDarker(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImageDarker(list.get(7).getColour().toString().toLowerCase(),
-            (list.get(7).getNumber().toString().toLowerCase())));
-        c9.setImage(null);
-        c10.setImage(null);
-
-        break;
-      case 9:
-        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImageDarker(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImageDarker(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImageDarker(list.get(7).getColour().toString().toLowerCase(),
-            (list.get(7).getNumber().toString().toLowerCase())));
-        c9.setImage(inte.getImageDarker(list.get(8).getColour().toString().toLowerCase(),
-            (list.get(8).getNumber().toString().toLowerCase())));
-        c10.setImage(null);
-        
-        break;
-      case 10:
-        c1.setImage(inte.getImageDarker(list.get(0).getColour().toString().toLowerCase(),
-            (list.get(0).getNumber().toString().toLowerCase())));
-        c2.setImage(inte.getImageDarker(list.get(1).getColour().toString().toLowerCase(),
-            (list.get(1).getNumber().toString().toLowerCase())));
-        c3.setImage(inte.getImageDarker(list.get(2).getColour().toString().toLowerCase(),
-            (list.get(2).getNumber().toString().toLowerCase())));
-        c4.setImage(inte.getImageDarker(list.get(3).getColour().toString().toLowerCase(),
-            (list.get(3).getNumber().toString().toLowerCase())));
-        c5.setImage(inte.getImageDarker(list.get(4).getColour().toString().toLowerCase(),
-            (list.get(4).getNumber().toString().toLowerCase())));
-        c6.setImage(inte.getImageDarker(list.get(5).getColour().toString().toLowerCase(),
-            (list.get(5).getNumber().toString().toLowerCase())));
-        c7.setImage(inte.getImageDarker(list.get(6).getColour().toString().toLowerCase(),
-            (list.get(6).getNumber().toString().toLowerCase())));
-        c8.setImage(inte.getImageDarker(list.get(7).getColour().toString().toLowerCase(),
-            (list.get(7).getNumber().toString().toLowerCase())));
-        c9.setImage(inte.getImageDarker(list.get(8).getColour().toString().toLowerCase(),
-            (list.get(8).getNumber().toString().toLowerCase())));
-        c10.setImage(inte.getImageDarker(list.get(9).getColour().toString().toLowerCase(),
-            (list.get(9).getNumber().toString().toLowerCase())));
-        System.out.println("Karte draufgelegt");
-        System.out.println("c10: " + c10.getImage());
-
-        break;
-    }
-  }
-
-
-
-  /**
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToRekontra()
-   */
-  @Override
-  public boolean askToRekontra() {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-
-      }
-    });
-    return false;
-  }
-
-  /**
-   * Auction
-   * 
-   * @author lstrauch
-   */
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#openAskForBet(int)
-   */
-  @Override
-  public void openAskForBet(int bet) {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        displayAuctionScreen();
-        betB.setText(String.valueOf(bet));
-      }
-    });
-  }
-
-  /**
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askForBet(int, logic.Player)
-   */
-  @Override
-  public boolean askForBet(int bet, Player lastBet) {
-    // deletePane(paneBet);
-    while (notpressed) {
-      ButtonListener();
-    }
-    notpressed = true;
-    return b;
-  }
-
-  /**
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#updateBet(int)
-   */
-  @Override
-  public void updateBet(int bet) {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        betB.setText(String.valueOf(bet));
-      }
-    });
-
-  }
-
-
-  /**
-   * Do you want to take the Skat?
-   * 
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#openTakeUpSkat()
-   */
-  @Override
-  public void openTakeUpSkat() {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        displayWannaTakeSkat();
-      }
-    });
-  }
-
-  
-  /**
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToTakeUpSkat()
-   */
-  @Override
-  public boolean askToTakeUpSkat() {
-    // TODO Auto-generated method stub
-    while (decidepressed == false) {
-      ButtonListenrWantSkat();
-    }
-    decidepressed = false;
-    return wantskat;
-  }
-
-
-
-  /**
-   * Declarer Stack
-   * 
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#openSwitchSkat(logic.PlayState)
-   */
-  @Override
-  public void openSwitchSkat(PlayState ps) {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        deletePane(skatPane);
-        displaySwitchSkat(ps);
-      }
-    });
-  }
-
-  /**
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#switchSkat(logic.PlayState)
-   */
-  @Override
-  public List<Card> switchSkat(PlayState ps) {
-    // TODO Auto-generated method stub
-    skat.add(ps.getSkat()[0]);
-    skat.add(ps.getSkat()[1]);
-    while (skatpressed == false) {
-      switchSkatListener(ps);
-    }
-    skatpressed = false;
-    return skatLogic;
-  }
-
-  
-  /**
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#openAuctionWinnerScreen()
-   */
-  @Override
-  public void openAuctionWinnerScreen() {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        deletePane(paneBet);
-        deletePane(skatPane);
-        deletePane(handPane);
-        displayAuctionWinnerScreen();
-      }
-    });
-  }
-
-
-  /**
-   * @author lstrauch
-   * @param ps
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#setPlaySettingsAfterAuction(logic.PlayState)
-   */
-  @Override
-  public void setPlaySettingsAfterAuction(PlayState ps) {
-    // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        deletePane(paneBet);
-        deletePane(skatPane);
-        deletePane(handPane);
-        deletePane(paneAuc);
-        
-        
-        if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
-          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelLeft.setText(ps.getPlayMode().toString());
-            } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND){
-              labelRight.setText(ps.getPlayMode().toString());
-            } else {
-              labelMe.setText(ps.getPlayMode().toString());
-            }
-          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelRight.setText(ps.getPlayMode().toString());
-            } else if(ps.getAuction().getWinner().getPosition() == Position.FOREHAND){
-              labelLeft.setText(ps.getPlayMode().toString());
-            } else {
-              labelMe.setText(ps.getPlayMode().toString());
-            }
-          } else {
-            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
-              labelRight.setText(ps.getPlayMode().toString());
-            } else if(ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
-              labelLeft.setText(ps.getPlayMode().toString());
-            } else {
-              labelMe.setText(ps.getPlayMode().toString());
-            }
-          }
-        } else {
-          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelLeft.setText(ps.getTrump().toString());
-            } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND){
-              labelRight.setText(ps.getTrump().toString());
-            } else {
-              labelMe.setText(ps.getTrump().toString());
-            }
-          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelRight.setText(ps.getTrump().toString());
-            } else if(ps.getAuction().getWinner().getPosition() == Position.FOREHAND){
-              labelLeft.setText(ps.getTrump().toString());
-            } else {
-              labelMe.setText(ps.getTrump().toString());
-            }
-          } else {
-            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
-              labelRight.setText(ps.getTrump().toString());
-            } else if(ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
-              labelLeft.setText(ps.getTrump().toString());
-            } else {
-              labelMe.setText(ps.getTrump().toString());
-            }
-          }
-        }
-      }
-    });
-
-
-  }
-
-  
-  /**
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#itsYourTurn()
-   */
-  @Override
-  public void itsYourTurn() {
-    // TODO Auto-generated method stub
-    rearrangeCardsLight(cardlist.size(), cardlist);
-  }
-
-  
-  /**
-   * lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#showSecondsLeftToPlayCard(int)
-   */
-  @Override
-  public void showSecondsLeftToPlayCard(int seconds) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /**
-   * lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#receivedNewBet(int, logic.Player)
-   */
-  @Override
-  public void receivedNewBet(int bet, Player player) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /**
-   * lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#receivedNewCard(logic.Card, logic.Player)
-   */
-  @Override
-  public void receivedNewCard(Card card, Player player) {
-    // TODO Auto-generated method stub
-    System.out.println("Rceiver new Card");
-    rearrangeCardsDark(cardlist.size(), cardlist);
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-          if (player.getPosition() == Position.MIDDLEHAND) {
-            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsLeft(count);
-            count --;
-            s1.toFront();
-          } else if (player.getPosition() == Position.REARHAND) {
-            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsRight(count);
-            count--;
-            s3.toFront();
-          } else {
-            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s2.toFront();
-          }
-        } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-          if (player.getPosition() == Position.MIDDLEHAND) {
-            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsRight(count);
-            count--;
-            s3.toFront();
-          } else if (player.getPosition() == Position.FOREHAND) {
-            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsLeft(count);
-            count --;
-            s1.toFront();
-          } else {
-            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s2.toFront();
-          }
-        } else {
-          if (player.getPosition() == Position.REARHAND) {
-            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsLeft(count);
-            count --;
-            s1.toFront();
-          } else if (player.getPosition() == Position.FOREHAND) {
-            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsRight(count);
-            count--;
-            s3.toFront();
-          } else {
-            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s2.toFront();
-          }
-        }
-      }
-    });
-
-  }
-
-  /**
-   * lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToSetPlayState(logic.PlayState)
-   */
-  @Override
-  public PlayState askToSetPlayState(PlayState ps) {
-    // TODO Auto-generated method stub
-    while (setSettings == false) {
-      ButtonListenerPlaySettings(ps);
-
-    }
-    return ps;
-  }
-
-  /**
-   * @author lstrauch
-   * @param anz
-   */
-  public void removeOpponentCardsRight(int anz) {
-    switch (anz) {
-      case 1: mainPane.getChildren().remove(r1);
-        break;
-      case 2: mainPane.getChildren().remove(r2);
-        break;
-      case 3: mainPane.getChildren().remove(r3);
-        break;
-      case 4:mainPane.getChildren().remove(r4);
-        break;
-      case 5: mainPane.getChildren().remove(r5);
-        break;
-      case 6: mainPane.getChildren().remove(r6);
-        break;
-      case 7: mainPane.getChildren().remove(r7);
-        break;
-      case 8: mainPane.getChildren().remove(r8);
-        break;
-      case 9: mainPane.getChildren().remove(r9);
-        break;
-      case 10: mainPane.getChildren().remove(r10);
-        break;
-    }
-  }
-  
-  /**
-   * @author lstrauch
-   * @param anz
-   */
-  public void removeOpponentCardsLeft(int anz) {
-    switch (anz) {
-      case 1: mainPane.getChildren().remove(l1);
-        break;
-      case 2: mainPane.getChildren().remove(l2);
-        break;
-      case 3: mainPane.getChildren().remove(l3);
-        break;
-      case 4:mainPane.getChildren().remove(l4);
-        break;
-      case 5: mainPane.getChildren().remove(l5);
-        break;
-      case 6: mainPane.getChildren().remove(l6);
-        break;
-      case 7: mainPane.getChildren().remove(l7);
-        break;
-      case 8: mainPane.getChildren().remove(l8);
-        break;
-      case 9: mainPane.getChildren().remove(l9);
-        break;
-      case 10: mainPane.getChildren().remove(l10);
-        break;
-    }
-  }
-  
   /**
    * ButtonListener to switch Skat
    */
@@ -2005,7 +2036,7 @@ public class InGameController implements Initializable, InGameInterface {
     });
 
   }
-  
+
   /**
    * @author lstrauch
    * @param anz
@@ -2096,7 +2127,7 @@ public class InGameController implements Initializable, InGameInterface {
       }
     });
   }
-  
+
   /**
    * 
    * 
@@ -2481,7 +2512,7 @@ public class InGameController implements Initializable, InGameInterface {
     s3.setLayoutX(619);
     s3.setLayoutY(140);
   }
-  
+
   /**
    * 
    * 
@@ -2506,7 +2537,9 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showPossibleCards()
    */
   @Override

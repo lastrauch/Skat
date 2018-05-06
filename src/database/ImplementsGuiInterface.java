@@ -20,13 +20,14 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
    * @author dpervane
    */
   
+//  ResultSet rs;
+  
   @Override
   public Image getImage(String colour, String number) {
     Image img = null;
     try {
       selectCard.setString(1, colour);
       selectCard.setString(2, number);
-      selectCard.execute();
       ResultSet rs = selectCard.executeQuery();
       while (rs.next()) {
         InputStream in = rs.getBinaryStream("image");
@@ -49,7 +50,6 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     try {
       selectCardDarker.setString(1, colour);
       selectCardDarker.setString(2, number);
-      selectCardDarker.execute();
       ResultSet rs = selectCardDarker.executeQuery();
       while (rs.next()) {
         InputStream in = rs.getBinaryStream("image");
