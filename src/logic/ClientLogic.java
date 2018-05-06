@@ -708,6 +708,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
         System.out.println(this.player.getName() + " I got that the play is over");
         // calculate winner play
         playWinner = Play.calculateWinner(playState);
+        System.out.println(playWinner[0].getName());
+        System.out.println(playWinner[1].getName());
 
         // calculate points
         if (playWinner[0].isDeclarer()) {
@@ -719,6 +721,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
         // show winner of play
         this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
+        if (playWinner[0].equals(this.player) || playWinner[1].equals(this.player)) {
+          System.out.println(this.player.getName() + ": I won the play!!");
+        }
         this.waitFor(3000);
 
         // check if the whole game is over
@@ -732,6 +737,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.waitFor(3000);
           // show winner of game
           this.inGameController.showWinnerGame(gameWinner);
+          if (gameWinner.equals(this.player)) {
+            System.out.println(this.player.getName() + ": I won the game!!");
+          }
           this.waitFor(3000);
 
         } else {
