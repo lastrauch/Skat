@@ -132,7 +132,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void playCard(Card firstCard) {
     this.inGameController.itsYourTurn();
     this.waitFor(2000);
-    Card playedCard = this.player.getHand().get(this.inGameController.askToPlayCard());
+    int indexNewCard = this.inGameController.askToPlayCard();
+    //because we had some to high results from askToPlayCard
+    if(indexNewCard >= this.player.getHand().size()) {
+      this.playCard(firstCard);
+    }
+    Card playedCard = this.player.getHand().get(indexNewCard);
     System.out.println(this.player.getName() + " played " + playedCard.toString());
 
     // the first card is null it is allowed to play any card
@@ -172,6 +177,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // immer
           // wieder die geliche karte zurück gibt
           // if (this.player.isBot()) {
+          this.showPossibleCards(firstCard);
           this.playCard(firstCard);
           // }
           // System.out.println(
@@ -185,6 +191,18 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
+  public void showPossibleCards(Card firstCard) throws LogicException {
+    List<Card>cards = new ArrayList<Card>();
+    for(Card c : cards) {
+      if(checkIfCardPossible(c, firstCard, this.playState, this.player)) {
+        cards.add(null);
+      }else {
+        cards.add(c);
+      }
+    }
+    this.inGameController.showPossibleCards(cards);
+  }
+  
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
    * of the trick and the PlayMode
@@ -984,12 +1002,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // show winner of trick
       this.inGameController.showWinnerTrick(trickWinner);
-      try {
-        Thread.sleep(3000);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
+      this.waitFor(3000);
 
       // check if play is over
       if (this.playState.getTrickNr() == 10
@@ -1007,12 +1020,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
         // show winner of play
         this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
-        try {
-          Thread.sleep(3000);
-        } catch (InterruptedException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
+        this.waitFor(3000);
 
         // check if the whole game is over
         if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()
@@ -1022,20 +1030,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // calculate winner game
           gameWinner = Game.calculateWinner(this.playState);
 
-          try {
-            Thread.sleep(1000);
-          } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-          }
+          this.waitFor(3000);
           // show winner of game
           this.inGameController.showWinnerGame(gameWinner);
-          try {
-            Thread.sleep(3000);
-          } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-          }
+          this.waitFor(3000);
 
         } else {
 
