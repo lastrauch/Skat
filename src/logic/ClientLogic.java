@@ -121,12 +121,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // update this players hand
       try {
         this.player.removeCardFromHand(playedCard);
-        if (!this.player.isBot()) {
-          System.out.println("And here is my new hand:");
-          for (Card c : this.player.getHand()) {
-            System.out.println(c.toString());
-          }
-        }
       } catch (LogicException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
