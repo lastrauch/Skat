@@ -171,5 +171,18 @@ public interface InGameInterface {
    * @param ps
    */
   public void setPlaySettingsAfterAuction(PlayState ps);
+  
+  
+  /**
+   * 
+   * Example: Clubs-Jack, Spades-Jack, Clubs-10, Clubs-8, Hearts-7, Diamonds-9
+   * Playable: Trump (Jack + Clubs)
+   * Return Array: (null, null, null, null, Hearts-7, Diamonds-9)
+   * 
+   * 
+   * @author lstrauch
+   * @return not playable cards
+   */
+  public List<Card> showPossibleCards();
 
 }
