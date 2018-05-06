@@ -152,7 +152,19 @@ class CalculatePlayValueTest {
   }
   
   /*against 3, play hand, schneiderAnnounced and schneider played --> multiplayer 7
-    playmode diamonds --> 7*9 */
-  
+    playmode hearts --> 7*10 */
+  @Test
+  void testCalculateMultiplier() {
+    
+  }
+    @Test
+    void testCalculatePlayValue() {
+      this.testMatadorAgainst3();
+      playState.setHandGame(true);
+      playState.setSchneiderAnnounced(true);
+      playState.setSchneider(true);
+      clientLogic.setPlayState(playState);
+      assertEquals(70, clientLogic.calculatePlayValue());
+    }
 
 }
