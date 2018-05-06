@@ -3,7 +3,6 @@ package jUnit.jLogic;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import logic.Card;
@@ -14,6 +13,11 @@ import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
 
+/**
+ * this class tests the method calculatePlayValue in ClientLogic 
+ * @author awesch
+ *
+ */
 class CalculatePlayValueTest {
   Player player;
   ClientLogic clientLogic;
@@ -151,19 +155,20 @@ class CalculatePlayValueTest {
     assertEquals(59, clientLogic.calculatePlayValue());
   }
   
-  /*against 3, play hand, schneiderAnnounced and schneider played --> multiplayer 7
-    playmode hearts --> 7*10 */
+  //against 3, play hand, schneiderAnnounced and schneider played --> multiplayer 7
   @Test
   void testCalculateMultiplier() {
+    this.testMatadorAgainst3();
+    playState.setHandGame(true);
+    playState.setSchneider(true);
+    playState.setSchneiderAnnounced(true);
     
+    assertEquals(7, clientLogic.calculateMultiplier());
   }
+  //playmode hearts --> 7* 10
     @Test
     void testCalculatePlayValue() {
-      this.testMatadorAgainst3();
-      playState.setHandGame(true);
-      playState.setSchneiderAnnounced(true);
-      playState.setSchneider(true);
-      clientLogic.setPlayState(playState);
+      this.testCalculateMultiplier();
       assertEquals(70, clientLogic.calculatePlayValue());
     }
 

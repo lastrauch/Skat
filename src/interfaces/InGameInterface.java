@@ -1,19 +1,16 @@
 package interfaces;
 
-import java.util.ArrayList;
-import java.util.List;
-import ai.BotDifficulty;
 import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
 import logic.Position;
-import logic.Trick;
+import java.util.List;
 
 public interface InGameInterface {
 
   /**
-   * should open the InGameScreen and show the Player his cards and his position
+   * should open the InGameScreen and show the Player his cards and his position.
    * 
    * @param hand
    * @param position
