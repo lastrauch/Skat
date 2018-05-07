@@ -181,5 +181,12 @@ public interface InGameInterface {
    * @param cards
    */
   public void showPossibleCards(List<Card> cards);
+  
+  /**
+   * should show the cards of the given player, who plays open.
+   * 
+   * @param player
+   */
+  public void showOpen(Player player);
 
 }
