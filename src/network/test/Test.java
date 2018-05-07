@@ -11,6 +11,12 @@ public class Test {
 		
 		
 		MulticastServer server = new MulticastServer("Felix", 3000);
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		MulticastClient client = new MulticastClient(3000);
 	}
 
