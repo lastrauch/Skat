@@ -89,7 +89,6 @@ public class LobbyController implements Initializable {
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
-    setGS();
     setGM();
     displaydiffentGameModes();
     System.out.println("GM: "+gm);
@@ -265,6 +264,7 @@ public class LobbyController implements Initializable {
 
 
   public void setGameSettingsLabel(GameSettings gs) {
+    this.gs = gs;
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -285,8 +285,8 @@ public class LobbyController implements Initializable {
     });
   }
 
-  public void setGS() {
-    this.gs = guiCon.getGameSetCon().getGS();
+  public GameSettings getGS() {
+    return this.gs;
   }
 
 
