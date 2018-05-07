@@ -255,6 +255,49 @@ public class ClientLogic implements NetworkLogic, AILogic {
     return this.player.copyMe();
   }
   
+  
+  @Override
+  public void receiveCards(List<Card> cards, PlayState ps) {
+    if (!this.player.isBot()) {
+      System.out.println("I received this hand:");
+      for (Card c : cards) {
+        System.out.println(c.toString());
+      }
+    }
+    // TODO Auto-generated method stub
+    this.playState = ps;
+    this.player.setHand((ArrayList<Card>) cards);
+    this.player.sortHand(this.playState);
+
+    System.out.println("print hand from" + this.player.getName() + ":");
+    for (Card c : this.player.getHand()) {
+      System.out.println(c.getColour() + " " + c.getNumber());
+    }
+    System.out.println(this.player.getName() + " before start Play");
+    this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
+    // System.out.println(this.player.getName() + " after start Play");
+
+    // Start auction here
+    if (this.player.getPosition() == Position.MIDDLEHAND) {
+      System.out
+          .println(this.player.getName() + " I'm middlehand and supposed to start the auction.");
+      // go with first bet
+      System.out.println(this.playState.getAuction().getPossibleBets()[0]);
+      this.inGameController.openAskForBet(this.playState.getAuction().getPossibleBets()[0]);
+      if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0], null)) {
+        this.player.setBet(this.playState.getAuction().getPossibleBets()[0]);
+        this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
+        System.out.println(
+            this.player.getName() + " bet " + this.playState.getAuction().getPossibleBets()[0]);
+      } else {
+        // pass
+        System.out.println(this.player.getName() + "passed");
+        this.netController.bet(-1, this.player);
+        System.out.println(this.player.getName() + " bet " + -1);
+      }
+
+    }
+  }
   /*----------------- RUN AUCTION -------------------------------------------*/
 
   /**
@@ -451,7 +494,19 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   
-  /*---------------------  RUN GAME -----------------------------------------*/
+  /*---------------------  RUN GAME -----------------------------------------*/  
+  @Override
+  public void receivePlayState(PlayState ps) {
+    // TODO Auto-generated method stub
+    this.playState = ps;
+    this.player.sortHand(this.playState);
+    this.inGameController.updateHand(this.player.getHand());
+    this.inGameController.setPlaySettingsAfterAuction(this.playState);
+    if (this.player.getPosition().equals(Position.FOREHAND)) {
+      this.playCard(null);
+    }
+  }
+  
   public void startPlay() {
     // First shuffle cards
     Tools.shuffleCards(this.cards);
@@ -594,18 +649,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void addToGamePoints(int points) {
     this.player.addToGamePoints(points);
   }
-  
-  @Override
-  public void receivePlayState(PlayState ps) {
-    // TODO Auto-generated method stub
-    this.playState = ps;
-    this.player.sortHand(this.playState);
-    this.inGameController.updateHand(this.player.getHand());
-    this.inGameController.setPlaySettingsAfterAuction(this.playState);
-    if (this.player.getPosition().equals(Position.FOREHAND)) {
-      this.playCard(null);
-    }
-  }
 
   @Override
   public void receiveCardPlayed(Player player, Card card) {
@@ -631,49 +674,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // // send played card
     // this.netController.sendCardPlayed(playedCard, this.player);
   }
-  
-  @Override
-  public void receiveCards(List<Card> cards, PlayState ps) {
-    if (!this.player.isBot()) {
-      System.out.println("I received this hand:");
-      for (Card c : cards) {
-        System.out.println(c.toString());
-      }
-    }
-    // TODO Auto-generated method stub
-    this.playState = ps;
-    this.player.setHand((ArrayList<Card>) cards);
-    this.player.sortHand(this.playState);
 
-    System.out.println("print hand from" + this.player.getName() + ":");
-    for (Card c : this.player.getHand()) {
-      System.out.println(c.getColour() + " " + c.getNumber());
-    }
-    System.out.println(this.player.getName() + " before start Play");
-    this.inGameController.startPlay(this.player.getHand(), this.player.getPosition());
-    // System.out.println(this.player.getName() + " after start Play");
-
-    // Start auction here
-    if (this.player.getPosition() == Position.MIDDLEHAND) {
-      System.out
-          .println(this.player.getName() + " I'm middlehand and supposed to start the auction.");
-      // go with first bet
-      System.out.println(this.playState.getAuction().getPossibleBets()[0]);
-      this.inGameController.openAskForBet(this.playState.getAuction().getPossibleBets()[0]);
-      if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0], null)) {
-        this.player.setBet(this.playState.getAuction().getPossibleBets()[0]);
-        this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
-        System.out.println(
-            this.player.getName() + " bet " + this.playState.getAuction().getPossibleBets()[0]);
-      } else {
-        // pass
-        System.out.println(this.player.getName() + "passed");
-        this.netController.bet(-1, this.player);
-        System.out.println(this.player.getName() + " bet " + -1);
-      }
-
-    }
-  }
 
   public void checkWhatHappensNext(Player playedLastCard, Card card) throws LogicException {
 
@@ -701,7 +702,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // show winner of trick
       this.waitFor(1000);
       this.inGameController.showWinnerTrick(trickWinner);
-      this.waitFor(1000);
+      this.waitFor(2000);
 
       // check if play is over
       if (this.playState.getTrickNr() == 10
@@ -713,13 +714,20 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // calculate points
         if (playWinner[0].isDeclarer()) {
           // calculate points: declarer won
-          Play.calculatePoints(playState, gameSettings, true);
+          Play.calculatePoints(this.playState, this.gameSettings, true);
+          for (Player p : this.playState.getGroup()) {
+            System.out.println(this.player.getName() + "'s points: " + this.player.getGamePoints());
+          }
         } else {
           // calculate points: opponents won
-          Play.calculatePoints(playState, gameSettings, false);
+          Play.calculatePoints(this.playState, this.gameSettings, false);
+          for (Player p : this.playState.getGroup()) {
+            System.out.println(this.player.getName() + "'s points: " + this.player.getGamePoints());
+          }
         }
         // show winner of play
-        this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
+        // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
+        this.inGameController.showPoints(this.group);
         if (playWinner[0].getName().equals(this.player.getName()) || playWinner[1].getName().equals(this.player.getName())) {
           System.out.println(this.player.getName() + ": I won the play!!");
         }
@@ -763,7 +771,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
               + this.player.getPosition());
 
           // restart inGameController
-          this.inGameController = new InGameController();
+          this.inGameController = this.guiController.startInGameScreen();
           
           // with start play you deal out cards and in receive cards the auction will start
           if (this.player.getPosition() == Position.FOREHAND) {

@@ -110,11 +110,10 @@ public interface InGameInterface {
   public void showWinnerPlay(Player player1, Player player2);
 
   /**
-   * relevant for the ui.
-   * 
+   * shows the points of all players.
    * @param player
    */
-  public void showWinnerGame(Player player);
+  public void showPoints(List<Player> player);
 
   /**
    * only relevant for the ui.
