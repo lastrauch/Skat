@@ -202,9 +202,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // Sort group
       List<Player> temp = new ArrayList<Player>();
       for (int i = 0; i < this.group.size(); i++) {
-        temp.add(this.group.get(((this.gameSettings.getRandomSeatingIndex()) + i) % this.group.size())); 
-       }
-      this.group = new ArrayList<Player>();  
+        temp.add(
+            this.group.get(((this.gameSettings.getRandomSeatingIndex()) + i) % this.group.size()));
+      }
+      this.group = new ArrayList<Player>();
       this.group.addAll(temp);
 
       // set position
@@ -212,8 +213,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           "Bei " + this.player.getName() + " groesse group: " + this.playState.getGroup().length);
       this.group.get(0).setPosition(Position.FOREHAND);
       this.group.get(1).setPosition(Position.MIDDLEHAND);
-      this.group.get(2).setPosition(Position.REARHAND);      
-      
+      this.group.get(2).setPosition(Position.REARHAND);
+
       if (this.group.size() == 4) {
         this.group.get(3).setPosition(Position.DEALER);
         if (this.player.getName().equals(this.group.get(3).getName())) {
@@ -226,7 +227,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // instead gui should open the ingameScreen in startPlay
       // // TODO Auto-generated method stub
       if (!this.player.isBot()) {
-        this.inGameController = this.guiController.startInGameScreen();
+        this.guiController.startInGameScreen();
+        this.inGameController = this.guiController.getInGameController();
       }
 
       // set player position
@@ -243,13 +245,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
       }
     }
   }
-  
+
   @Override
   public Player copyPlayer(Player player) {
     return this.player.copyMe();
   }
-  
-  
+
+
   @Override
   public void receiveCards(List<Card> cards, PlayState ps) {
     if (!this.player.isBot()) {
@@ -487,8 +489,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
-  
-  /*---------------------  RUN GAME -----------------------------------------*/  
+
+  /*---------------------  RUN GAME -----------------------------------------*/
   @Override
   public void receivePlayState(PlayState ps) {
     // TODO Auto-generated method stub
@@ -500,7 +502,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.playCard(null);
     }
   }
-  
+
   public void startPlay() {
     // First shuffle cards
     Tools.shuffleCards(this.cards);
@@ -522,19 +524,19 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receiveRekontra() {
     this.playState.setAnnouncedRekontra(true);
   }
-  
+
   @Override
   public void announceKontra() {
     if (this.playState.getTrickNr() == 0 && this.gameSettings.isEnableKontra()) {
       this.netController.sendKontra();
     }
   }
- 
+
   @Override
   public void allReceivedCards() {
     // TODO Auto-generated method stub
   }
-  
+
   /**
    * to wait with the ui methods
    * 
@@ -713,29 +715,30 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // calculate points: opponents won
           this.playState = Play.calculatePoints(this.playState, this.gameSettings, false);
         }
-        
-        //save playPionts from playState in this group
-        
-        for(Player pg: this.group) {
-          for(Player ps: this.playState.getGroup()) {
-            if(pg.getName().equals(ps.getName())) {
+
+        // save playPionts from playState in this group
+
+        for (Player pg : this.group) {
+          for (Player ps : this.playState.getGroup()) {
+            if (pg.getName().equals(ps.getName())) {
               pg.setPlayPoints(ps.getPlayPoints());
             }
           }
-          if(pg.getName().equals(this.player.getName())) {
+          if (pg.getName().equals(this.player.getName())) {
             this.player.setPlayPoints(pg.getPlayPoints());
           }
         }
-        
-        System.out.println(this.player.getName()+ " got all these points:");
-        for(int points: this.player.getPlayPoints()) {
+
+        System.out.println(this.player.getName() + " got all these points:");
+        for (int points : this.player.getPlayPoints()) {
           System.out.println(points);
         }
-        
+
         // show winner of play
         // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
         this.inGameController.showPoints(this.group);
-        if (playWinner[0].getName().equals(this.player.getName()) || playWinner[1].getName().equals(this.player.getName())) {
+        if (playWinner[0].getName().equals(this.player.getName())
+            || playWinner[1].getName().equals(this.player.getName())) {
           System.out.println(this.player.getName() + ": I won the play!!");
         }
         this.waitFor(3000);
@@ -762,24 +765,27 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // game is not over
           // update position !!!!!!! UPDATE POSITION IN CLIENTLOGIC
           this.updatePosition();
-          
+
           // createNewPlay!
           this.playState.resetPlayState();
           this.playState.setGroup(this.getPlayingGroup());
           this.playState.setPlayNr(this.playState.getPlayNr() + 1);
-          
+
           // change to id later
           for (Player p : this.group) {
             if (p.getName().equals(this.player.getName())) {
               this.player.setPosition(p.getPosition());
             }
-          }       
+          }
           System.out.println(this.player.getName() + " the play is over and I sit position "
               + this.player.getPosition());
 
           // restart inGameController
-          this.inGameController = this.guiController.startInGameScreen();
-          
+          if (!this.player.isBot()) {
+            this.guiController.startInGameScreen();
+            this.inGameController = this.guiController.getInGameController();
+          }
+
           // with start play you deal out cards and in receive cards the auction will start
           if (this.player.getPosition() == Position.FOREHAND) {
             System.out.println(this.player.getName() + " I'll start the new play now ;)");
@@ -818,12 +824,16 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void updatePosition() {
     int pointerForehand = this.searchForehand() + 1;
 
-    this.group.get((pointerForehand) % this.playState.getGroup().length).setPosition(Position.FOREHAND);
-    this.group.get((pointerForehand + 1) % this.playState.getGroup().length).setPosition(Position.MIDDLEHAND);
-    this.group.get((pointerForehand + 2) % this.playState.getGroup().length).setPosition(Position.REARHAND);
-    
+    this.group.get((pointerForehand) % this.playState.getGroup().length)
+        .setPosition(Position.FOREHAND);
+    this.group.get((pointerForehand + 1) % this.playState.getGroup().length)
+        .setPosition(Position.MIDDLEHAND);
+    this.group.get((pointerForehand + 2) % this.playState.getGroup().length)
+        .setPosition(Position.REARHAND);
+
     if (this.group.size() == 4) {
-      this.group.get((pointerForehand + 3) % this.playState.getGroup().length).setPosition(Position.REARHAND);
+      this.group.get((pointerForehand + 3) % this.playState.getGroup().length)
+          .setPosition(Position.REARHAND);
     }
   }
 
@@ -867,7 +877,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       return false;
     }
   }
-  
+
   /**
    * @author sandfisc
    * 
@@ -878,17 +888,17 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // the playing group consists of forehand, middlehand, rarehand, NOT dealer
     Player[] playingGroup = new Player[3];
     int index = 0;
-    for(Player p : this.group) {
+    for (Player p : this.group) {
       if (p.getPosition() != Position.DEALER) {
         playingGroup[index] = p;
-        index ++;
+        index++;
       }
     }
     return playingGroup;
   }
-  
+
   /*--------------  CHECK IF A CARD IS POSSIBLE TO PLAY  ----------------------------------------*/
-  
+
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
    * of the trick and the PlayMode
@@ -1041,7 +1051,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /*-------------------------  CALCULATE PLAY VALUE -----------------------------------------------*/
-  
+
   /**
    * calculates the the Matadors the hand has to be sorted before! with the (chosen/possible) trump
    * 
@@ -1165,7 +1175,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
 
- /*------------------------------  CHAT ------------------------------------------------------------*/
+  /*------------------------------  CHAT ------------------------------------------------------------*/
   @Override
   public void receiveChatMessage(Player player, String msg) {
     this.guiController.showReceivedChatMessage(msg, player);
@@ -1191,7 +1201,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void setPlayState(PlayState ps) {
     this.playState = ps;
   }
-  
+
   public void setLogicGui(LogicGui lg) {
     this.guiController = lg;
   }
