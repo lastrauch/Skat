@@ -202,14 +202,18 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // Sort group
       List<Player> temp = new ArrayList<Player>();
       for (int i = 0; i < this.group.size(); i++) {
-        temp.add(this.group.get((this.gameSettings.getRandomSeatingIndex() + i) % this.group.size()));
+        temp.add(this.group.get(((this.gameSettings.getRandomSeatingIndex()) + i) % this.group.size())); 
        }
-      this.group = temp;  
+      this.group = new ArrayList<Player>();  
+      this.group.addAll(temp);
       if (this.group.size() == 4) {
         this.group.get(3).setPosition(Position.DEALER);
+        if (this.player.getName().equals(this.group.get(3).getName())) {
+          this.player.setPosition(Position.DEALER);
+        }
       }
       
-      this.playState = new PlayState(this.getPlayingGroup(temp));
+      this.playState = new PlayState(this.getPlayingGroup());
 //      // random number points on the one in the list to be the forehand
 //      Player[] group = new Player[this.group.size()];
 //      for (int i = 0; i < this.group.size(); i++) {
@@ -230,9 +234,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.playState.getGroup()[0].setPosition(Position.FOREHAND);
       this.playState.getGroup()[1].setPosition(Position.MIDDLEHAND);
       this.playState.getGroup()[2].setPosition(Position.REARHAND);
-      if (this.playState.getGroup().length == 4) {
-        this.playState.getGroup()[3].setPosition(Position.DEALER);
-      }
 
       // set player position
       for (int i = 0; i < this.playState.getGroup().length; i++) {
@@ -729,6 +730,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
             || this.checkIfGameOverBierlachs()) {
 
           // game is over
+          System.out.println(this.player.getName() + ": The game is over");
           // calculate winner game
           gameWinner = new Player[2];
           gameWinner[0] = Game.calculateWinner(this.playState);
@@ -743,20 +745,20 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
         } else {
           // game is not over
-          // createNewPlay!
-          this.playState.resetPlayState();
-          this.playState.setPlayNr(this.playState.getPlayNr() + 1);
-
           // update position !!!!!!! UPDATE POSITION IN CLIENTLOGIC
           this.updatePosition();
+          
+          // createNewPlay!
+          this.playState.resetPlayState();
+          this.playState.setGroup(this.getPlayingGroup());
+          this.playState.setPlayNr(this.playState.getPlayNr() + 1);
+          
           // change to id later
           for (Player p : this.group) {
             if (p.getName().equals(this.player.getName())) {
               this.player.setPosition(p.getPosition());
             }
-          }
-          // set playing group
-          this.playState.setGroup(this.getPlayingGroup(this.group));          
+          }       
           System.out.println(this.player.getName() + " the play is over and I sit position "
               + this.player.getPosition());
 
@@ -801,16 +803,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void updatePosition() {
     int pointerForehand = this.searchForehand() + 1;
 
-    this.playState.getGroup()[pointerForehand].setPosition(Position.FOREHAND);
-    this.playState.getGroup()[((pointerForehand + 1) % this.playState.getGroup().length)]
-        .setPosition(Position.MIDDLEHAND);
-    this.playState.getGroup()[((pointerForehand + 2) % this.playState.getGroup().length)]
-        .setPosition(Position.REARHAND);
-
-
-    if (this.playState.getGroup().length == 4) {
-      this.playState.getGroup()[((pointerForehand + 3) % this.playState.getGroup().length)]
-          .setPosition(Position.DEALER);
+    this.group.get((pointerForehand) % this.playState.getGroup().length).setPosition(Position.FOREHAND);
+    this.group.get((pointerForehand + 1) % this.playState.getGroup().length).setPosition(Position.MIDDLEHAND);
+    this.group.get((pointerForehand + 2) % this.playState.getGroup().length).setPosition(Position.REARHAND);
+    
+    if (this.group.size() == 4) {
+      this.group.get((pointerForehand + 3) % this.playState.getGroup().length).setPosition(Position.REARHAND);
     }
   }
 
@@ -861,11 +859,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @param group2
    * @return
    */
-  public Player[] getPlayingGroup(List<Player> group) {
+  public Player[] getPlayingGroup() {
     // the playing group consists of forehand, middlehand, rarehand, NOT dealer
     Player[] playingGroup = new Player[3];
     int index = 0;
-    for(Player p : group) {
+    for(Player p : this.group) {
       if (p.getPosition() != Position.DEALER) {
         playingGroup[index] = p;
         index ++;
