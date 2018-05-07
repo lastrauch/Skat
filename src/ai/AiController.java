@@ -153,7 +153,6 @@ public class AiController implements InGameInterface {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		// TODO Does the Player has a proper id to give it as a name??
 		if (player != null) {
 			if (this.player.size() < 2) {
 				boolean existing = false;
@@ -267,8 +266,6 @@ public class AiController implements InGameInterface {
 	 * @return PlayState
 	 */
 	public PlayState askToSetPlayState(PlayState playState) {
-		// TODO
-
 		try {
 			Thread.sleep(Settings.DELAY);
 		} catch (InterruptedException e) {
@@ -578,7 +575,6 @@ public class AiController implements InGameInterface {
 		this.currentTrick = new ArrayList<Card>();
 	}
 
-
 	@Override
 	/**
 	 * Sets the GameSettings.
@@ -688,16 +684,23 @@ public class AiController implements InGameInterface {
 	}
 
 	@Override
-	// TODO
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 */
 	public void showPossibleCards(List<Card> cards) {
-		// TODO Auto-generated method stub
-
+		// Do nothing
 	}
 
 	@Override
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 */
 	public void showOpen(Player player) {
-		// TODO Auto-generated method stub
-		
+		// Do nothing.
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
