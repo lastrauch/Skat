@@ -41,7 +41,8 @@ public class MulticastFinder implements Runnable{
             		if(msg.trim().equals("DISCOVER_SERVER_REQUEST")){
             			InetAddress address = packet.getAddress();
             			//TODO apply infos
-            			data = this.serverName.getBytes();
+            			//data = this.serverName.getBytes();
+            			data = "DISCOVER_SERVER_RESPONSE".getBytes();
             			DatagramPacket sendPacket = new DatagramPacket(data, data.length, address, packet.getPort());
             			this.socket.send(sendPacket);
             		}

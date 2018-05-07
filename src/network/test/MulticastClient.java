@@ -38,7 +38,7 @@ public class MulticastClient {
 
         //Check if the message is correct
         String message = new String(receivePacket.getData()).trim();
-        if (message.equals("DISCOVER_FUIFSERVER_RESPONSE")) {
+        if (message.equals("DISCOVER_SERVER_RESPONSE")) {
           //DO SOMETHING WITH THE SERVER'S IP (for example, store it in your controller)
           //Controller_Base.setServerIp(receivePacket.getAddress());
           System.out.println(receivePacket.getAddress());
