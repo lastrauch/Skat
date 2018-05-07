@@ -837,13 +837,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     this.group.get((pointerForehand) % this.group.size())
         .setPosition(Position.FOREHAND);
-    this.group.get((pointerForehand + 1) % this.group.size())
+    this.group.get((pointerForehand - 1) % this.group.size())
         .setPosition(Position.MIDDLEHAND);
-    this.group.get((pointerForehand + 2) % this.group.size())
+    this.group.get((pointerForehand - 2) % this.group.size())
         .setPosition(Position.REARHAND);
 
     if (this.group.size() == 4) {
-      this.group.get((pointerForehand + 3) % this.group.size())
+      this.group.get((pointerForehand - 3) % this.group.size())
           .setPosition(Position.DEALER);
     }
   }
