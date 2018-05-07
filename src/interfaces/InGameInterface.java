@@ -110,11 +110,10 @@ public interface InGameInterface {
   public void showWinnerPlay(Player player1, Player player2);
 
   /**
-   * relevant for the ui.
-   * 
+   * shows the points of all players.
    * @param player
    */
-  public void showWinnerGame(Player player);
+  public void showPoints(List<Player> player);
 
   /**
    * only relevant for the ui.
@@ -182,5 +181,12 @@ public interface InGameInterface {
    * @param cards
    */
   public void showPossibleCards(List<Card> cards);
+  
+  /**
+   * should show the cards of the given player, who plays open.
+   * 
+   * @param player
+   */
+  public void showOpen(Player player);
 
 }
