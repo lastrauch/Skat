@@ -359,7 +359,7 @@ public class AiController implements InGameInterface {
 	 * @author fkleinoe
 	 * @return int
 	 */
-	public int askToPlayCard() {
+	public int askToPlayCard(int timeToPlay) {
 		try {
 			Thread.sleep(Settings.DELAY);
 		} catch (InterruptedException e) {
@@ -553,7 +553,7 @@ public class AiController implements InGameInterface {
 		this.bot.setHand(hand);
 	}
 
-	@Override
+	// TODO
 	/**
 	 * Reset play informations.
 	 * 
@@ -639,17 +639,6 @@ public class AiController implements InGameInterface {
 	 * Only important for the ui.
 	 * 
 	 * @author fkleinoe
-	 * @param player
-	 */
-	public void showWinnerGame(Player player) {
-		// Do nothing
-	}
-
-	@Override
-	/**
-	 * Only important for the ui.
-	 * 
-	 * @author fkleinoe
 	 * @author bet
 	 */
 	public void openAskForBet(int bet) {
@@ -702,6 +691,18 @@ public class AiController implements InGameInterface {
 	public void showPossibleCards(List<Card> cards) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void showScore(List<Player> player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showOpen(Player player) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
