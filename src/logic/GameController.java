@@ -3,7 +3,7 @@ package logic;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import ai.AIController;
+import ai.AiController;
 import ai.Bot;
 import ai.BotDifficulty;
 import gui.ImplementsLogicGui;
@@ -91,7 +91,7 @@ public class GameController implements GuiLogic {
     String name = "bot" + this.group.size();
     Player p = new Bot(name, difficulty);
     this.group.add(p);
-    InGameInterface inGameController = new AIController(name, difficulty, this.gameSettings);
+    InGameInterface inGameController = new AiController(name, difficulty, this.gameSettings);
     ClientLogic clientLogic = new ClientLogic(p);
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setInGameController(inGameController);
@@ -135,6 +135,9 @@ public class GameController implements GuiLogic {
     System.out.println("start game method");
     this.gameSettings = gs;
     this.group = this.clientLogic.get(0).getLobby();
+    for(ClientLogic cl: this.clientLogic) {
+      cl.setInGame(true);
+    }
 
     // if the lobby does not contain enough players
     if (this.group.size() < this.gameSettings.getNrOfPlayers()) {

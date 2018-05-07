@@ -25,6 +25,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   Game game; // we need this for calcutlating the winner --> maybe in playstate
   List<Card> cards;
   List<Player> group;
+  boolean inGame;
 
   public ClientLogic(Player player) {
     // System.out.println("created ClientLogic for Player " + player.getName());
@@ -33,10 +34,15 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.initializeCards();
     group = new ArrayList<Player>();
     group.add(this.player);
+    this.inGame = false;
   }
 
   public void setLogicGui(LogicGui lg) {
     this.guiController = lg;
+  }
+
+  public void setInGame(boolean inGame) {
+    this.inGame = inGame;
   }
 
   public List<Player> getGroup() {
@@ -107,63 +113,103 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * asks the gui/AI to play a card and checks if it is possible to play it
+   * to wait with the ui methods
    * 
+   * @author awesch
+   * @param time
+   */
+  public void waitFor(long time) {
+    try {
+      Thread.sleep(time);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * asks the ui/AI to play a card and checks if it is possible to play it
+   * 
+   * @author awesch
+   * @author sandfisc
    * @param firstCard (it depends on the first played card if it is possible to play the following)
    * @return
    */
   public void playCard(Card firstCard) {
-    Card playedCard = this.player.getHand().get(this.inGameController.askToPlayCard());
-    System.out.println(this.player.getName() + " played " + playedCard.toString());
-
-    // the first card is null it is allowed to play any card
-    if (firstCard == null) {
-      // update this players hand
-      try {
-        this.player.removeCardFromHand(playedCard);
-      } catch (LogicException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-      this.inGameController.updateHand(this.player.getHand());
-      this.netController.sendCardPlayed(playedCard, this.player);
-
+    this.inGameController.itsYourTurn();
+    this.waitFor(1000);
+    int indexNewCard = this.inGameController.askToPlayCard();
+    // because we had some to high results from askToPlayCard
+    if (indexNewCard >= this.player.getHand().size()) {
+      this.playCard(firstCard);
     } else {
-      // if it is not possible to play the card the gui/AI is asked to play another card
-      try {
-        if (checkIfCardPossible(playedCard, firstCard, this.playState, this.player)) {
-          // update this players hand
-          try {
-            this.player.removeCardFromHand(playedCard);
-            if (!this.player.isBot()) {
-              System.out.println("And here is my new hand:");
-              for (Card c : this.player.getHand()) {
-                System.out.println(c.toString());
-              }
-            }
-          } catch (LogicException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-          }
-          this.inGameController.updateHand(this.player.getHand());
-          this.netController.sendCardPlayed(playedCard, this.player);
+      Card playedCard = this.player.getHand().get(indexNewCard);
+      System.out.println(this.player.getName() + " played " + playedCard.toString());
 
-        } else {
-          // !!!!!!!!!! funktioniert so leider (noch) nicht, da der gui controller bei askToPlayCard
-          // immer
-          // wieder die geliche karte zurück gibt
-          // if (this.player.isBot()) {
-          this.playCard(firstCard);
-          // }
-          // System.out.println(
-          // "die ausgewählte Karte kann nicht gespielt werden und als auffangen kann die logik das
-          // momentan nur bei den Bots, aber nicht bei der gui.");
+      // the first card is null it is allowed to play any card
+      if (firstCard == null) {
+        // update this players hand
+        try {
+          this.player.removeCardFromHand(playedCard);
+        } catch (LogicException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
         }
-      } catch (LogicException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+        this.inGameController.updateHand(this.player.getHand());
+        this.netController.sendCardPlayed(playedCard, this.player);
+
+      } else {
+        // if it is not possible to play the card the gui/AI is asked to play another card
+        try {
+          if (checkIfCardPossible(playedCard, firstCard, this.playState, this.player)) {
+            // update this players hand
+            try {
+              this.player.removeCardFromHand(playedCard);
+              if (!this.player.isBot()) {
+                System.out.println("And here is my new hand:");
+                for (Card c : this.player.getHand()) {
+                  System.out.println(c.toString());
+                }
+              }
+            } catch (LogicException e) {
+              // TODO Auto-generated catch block
+              e.printStackTrace();
+            }
+            this.inGameController.updateHand(this.player.getHand());
+            this.netController.sendCardPlayed(playedCard, this.player);
+
+          } else {
+            // !!!!!!!!!! funktioniert so leider (noch) nicht, da der gui controller bei
+            // askToPlayCard
+            // immer
+            // wieder die geliche karte zurück gibt
+            // if (this.player.isBot()) {
+            this.showPossibleCards(firstCard);
+            this.playCard(firstCard);
+            // }
+            // System.out.println(
+            // "die ausgewählte Karte kann nicht gespielt werden und als auffangen kann die logik
+            // das
+            // momentan nur bei den Bots, aber nicht bei der gui.");
+          }
+        } catch (LogicException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
     }
+  }
+
+  public void showPossibleCards(Card firstCard) throws LogicException {
+    List<Card> cards = new ArrayList<Card>();
+    for (Card c : this.player.getHand()) {
+      if (checkIfCardPossible(c, firstCard, this.playState, this.player)) {
+        cards.add(null);
+      } else {
+        cards.add(c);
+      }
+    }
+    this.inGameController.showPossibleCards(cards);
   }
 
   /**
@@ -456,7 +502,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.gameSettings = gs;
     this.group = player;
 
-    if (!this.player.isBot()) {
+    if (!this.player.isBot() && !this.inGame) {
       this.guiController.updateLobby(gs, this.group);
     }
 
@@ -964,17 +1010,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
       }
 
       // show winner of trick
+      this.waitFor(1000);
       this.inGameController.showWinnerTrick(trickWinner);
-      try {
-        Thread.sleep(3000);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
+      this.waitFor(1000);
 
       // check if play is over
       if (this.playState.getTrickNr() == 10
           || ((this.playState.getPlayMode() == PlayMode.NULL) && trickWinner.isDeclarer())) {
+        System.out.println(this.player.getName() + " I got that the play is over");
         // calculate winner play
         playWinner = Play.calculateWinner(playState);
 
@@ -988,35 +1031,20 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
         // show winner of play
         this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
-        try {
-          Thread.sleep(3000);
-        } catch (InterruptedException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
+        this.waitFor(3000);
 
         // check if the whole game is over
         if (this.gameSettings.getNrOfPlays() == this.playState.getPlayNr()
-            || this.checkifGameOverBierlachs()) {
+            || this.checkIfGameOverBierlachs()) {
 
           // game is over
           // calculate winner game
           gameWinner = Game.calculateWinner(this.playState);
-          
-          try {
-            Thread.sleep(1000);
-          } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-          }
+
+          this.waitFor(3000);
           // show winner of game
           this.inGameController.showWinnerGame(gameWinner);
-          try {
-            Thread.sleep(3000);
-          } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-          }
+          this.waitFor(3000);
 
         } else {
 
@@ -1026,7 +1054,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.playState.setPlayNr(this.playState.getPlayNr() + 1);
 
           // update position !!!!!!! UPDATE POSITION IN CLIENTLOGIC
-          Tools.updatePosition(this.playState.getGroup());
+          this.updatePosition();
           // change to id later
           for (Player p : this.playState.getGroup()) {
             if (p.getName().equals(this.player.getName())) {
@@ -1034,8 +1062,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
             }
           }
 
+          System.out.println(this.player.getName() + " the play is over and I sit position "
+              + this.player.getPosition());
+
           // with start play you deal out cards and in receive cards the auction will start
           if (this.player.getPosition() == Position.FOREHAND) {
+            System.out.println(this.player.getName() + " I'll start the new play now ;)");
             this.startPlay();
           }
 
@@ -1063,7 +1095,37 @@ public class ClientLogic implements NetworkLogic, AILogic {
     }
   }
 
-  public boolean checkifGameOverBierlachs() {
+  /**
+   * position (forehand, middlehand, rearhand) changes ater every play
+   * 
+   * @author sandfisc
+   */
+  public void updatePosition() {
+    int pointerForehand = this.searchForehand() + 1;
+
+    this.playState.getGroup()[pointerForehand].setPosition(Position.FOREHAND);
+    this.playState.getGroup()[((pointerForehand + 1) % this.playState.getGroup().length)]
+        .setPosition(Position.MIDDLEHAND);
+    this.playState.getGroup()[((pointerForehand + 2) % this.playState.getGroup().length)]
+        .setPosition(Position.REARHAND);
+
+
+    if (this.playState.getGroup().length == 4) {
+      this.playState.getGroup()[((pointerForehand + 3) % this.playState.getGroup().length)]
+          .setPosition(Position.DEALER);
+    }
+  }
+
+  public int searchForehand() {
+    for (int i = 0; i < this.playState.getGroup().length; i++) {
+      if (this.playState.getGroup()[i].getPosition() == Position.FOREHAND) {
+        return i;
+      }
+    }
+    return 0;
+  }
+
+  public boolean checkIfGameOverBierlachs() {
     for (Player p : this.playState.getGroup()) {
       if (p.getGamePoints() >= this.gameSettings.getEndPointsBierlachs()) {
         return true;

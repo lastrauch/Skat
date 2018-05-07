@@ -41,7 +41,7 @@ public class Hard {
    * @param bet
    * @return boolean
    */
-  public static boolean askForBet(AIController controlle, int bet) {
+  public static boolean askForBet(AiController controlle, int bet) {
     // TODO
     return false;
   }
@@ -53,7 +53,7 @@ public class Hard {
    * @param controller
    * @return boolean
    */
-  public static boolean askToTakeUpSkat(AIController controller) {
+  public static boolean askToTakeUpSkat(AiController controller) {
     // TODO
     return false;
   }
@@ -65,7 +65,7 @@ public class Hard {
    * @param controller
    * @return List(Card)
    */
-  public static List<Card> switchSkat(AIController controller) {
+  public static List<Card> switchSkat(AiController controller) {
     // TODO
     return null;
   }
@@ -77,7 +77,7 @@ public class Hard {
    * @param controller
    * @return PlayState
    */
-  public static PlayState askToSetPlayState(AIController controller) {
+  public static PlayState askToSetPlayState(AiController controller) {
     // TODO
     return null;
   }
@@ -89,7 +89,7 @@ public class Hard {
    * @author fkleinoe
    * @param controller
    */
-  public static void decideToPlayKontra(AIController controller) {
+  public static void decideToPlayKontra(AiController controller) {
     // TODO
     // Needs to call the interface method announceKontra() of AILogic.
     // TODO AI doesn't have an instance to call this method on.
@@ -102,7 +102,7 @@ public class Hard {
    * @param controller
    * @return boolean
    */
-  public static boolean askToRekontra(AIController controller) {
+  public static boolean askToRekontra(AiController controller) {
     if (controller.getSinglePlay().getCertainty() > 9) {
       return true;
     } else {
@@ -117,7 +117,7 @@ public class Hard {
    * @param controller
    * @return int
    */
-  public static int askToPlayCard(AIController controller) {
+  public static int askToPlayCard(AiController controller) {
     // TODO
     return 0;
   }
