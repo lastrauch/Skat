@@ -153,7 +153,6 @@ public class AiController implements InGameInterface {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		// TODO Does the Player has a proper id to give it as a name??
 		if (player != null) {
 			if (this.player.size() < 2) {
 				boolean existing = false;
@@ -267,8 +266,6 @@ public class AiController implements InGameInterface {
 	 * @return PlayState
 	 */
 	public PlayState askToSetPlayState(PlayState playState) {
-		// TODO
-
 		try {
 			Thread.sleep(Settings.DELAY);
 		} catch (InterruptedException e) {
@@ -553,7 +550,7 @@ public class AiController implements InGameInterface {
 		this.bot.setHand(hand);
 	}
 
-	// TODO
+	@Override
 	/**
 	 * Reset play informations.
 	 * 
@@ -561,7 +558,7 @@ public class AiController implements InGameInterface {
 	 * @param player1
 	 * @param player2
 	 */
-	public void showWinnerPlay(Player player1, Player player2) {
+	public void showScore(List<Player> player) {
 		this.playState = null;
 		this.singlePlay = null;
 		this.maxBet = 0;
@@ -687,22 +684,23 @@ public class AiController implements InGameInterface {
 	}
 
 	@Override
-	// TODO
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 */
 	public void showPossibleCards(List<Card> cards) {
-		// TODO Auto-generated method stub
-
+		// Do nothing
 	}
 
 	@Override
-	public void showScore(List<Player> player) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
+	/**
+	 * Only important for the ui.
+	 * 
+	 * @author fkleinoe
+	 */
 	public void showOpen(Player player) {
-		// TODO Auto-generated method stub
-		
+		// Do nothing.
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
