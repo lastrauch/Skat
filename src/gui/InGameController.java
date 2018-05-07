@@ -332,10 +332,9 @@ public class InGameController implements Initializable, InGameInterface {
       public void run() {
         System.out.println("Start Play");
         cardlist = hand;
+        rearrangeCardsLight(hand);
+        pos.setText(position.toString());
         if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
-          if (LoginController.interfGL.getPlayer().getPosition() != Position.DEALER) {
-            rearrangeCardsLight(hand);
-          }
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
             for (int i = 0; i < rArray.length; i++) {
               rArray[i].setImage(null);
@@ -848,82 +847,148 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void receivedNewBet(int bet, Player player) {
     // TODO Auto-generated method stub
-    System.out.println("BETTTT");
     Platform.runLater(new Runnable() {
+
       @Override
       public void run() {
+        // TODO Auto-generated method stub
+        bubbleLeft.setImage(null);
+        bubbleRight.setImage(null);
+        betRight.setText(null);
+        betLeft.setText(null);
+        // TODO Auto-generated method stub
         if (main.getGameSetCon().getGS().getNrOfPlayers() == 3) {
-          rearrangeCardsDark(cardlist);
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
             if (player.getPosition() == Position.MIDDLEHAND) {
-              displayBubbleLeft(bet);
-              bubbleLeft.setImage(null);
-            } else if (player.getPosition() == Position.REARHAND) {
-              displayBubbleRight(bet);
-              bubbleRight.setImage(null);
-            } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-              if (player.getPosition() == Position.MIDDLEHAND) {
-                displayBubbleRight(bet);
-                bubbleRight.setImage(null);
-              } else if (player.getPosition() == Position.FOREHAND) {
-                displayBubbleLeft(bet);
-                bubbleLeft.setImage(null);
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
               } else {
-                if (player.getPosition() == Position.REARHAND) {
-                  displayBubbleLeft(bet);
-                  bubbleLeft.setImage(null);
-                } else if (player.getPosition() == Position.FOREHAND) {
-                  displayBubbleRight(bet);
-                  bubbleRight.setImage(null);
-                }
+                betLeft.setText("Pass");
               }
-
-
-              // 4 Players:
-
-            } else {
-              System.out.println("Recieved ne card");
-              rearrangeCardsDark(cardlist);
-              if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-                if (player.getPosition() == Position.MIDDLEHAND) {
-                  displayBubbleLeft(bet);
-                  bubbleLeft.setImage(null);
-                } else if (player.getPosition() == Position.REARHAND) {
-                  displayBubbleRight(bet);
-                  bubbleRight.setImage(null);
-                }
-              } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-                if (player.getPosition() == Position.MIDDLEHAND) {
-                  displayBubbleRight(bet);
-                  bubbleRight.setImage(null);
-                } else if (player.getPosition() == Position.FOREHAND) {
-                  displayBubbleLeft(bet);
-                  bubbleLeft.setImage(null);
-                }
-              } else if (LoginController.interfGL.getPlayer()
-                  .getPosition() == Position.MIDDLEHAND) {
-                if (player.getPosition() == Position.FOREHAND) {
-                  displayBubbleLeft(bet);
-                  bubbleLeft.setImage(null);
-                } else if (player.getPosition() == Position.REARHAND) {
-                  displayBubbleRight(bet);
-                  bubbleRight.setImage(null);
-                }
+            } else if (player.getPosition() == Position.REARHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
               } else {
-                if (player.getPosition() == Position.REARHAND) {
-                  displayBubbleRight(bet);
-                  bubbleRight.setImage(null);
-                } else if (player.getPosition() == Position.FOREHAND) {
-                  displayBubbleLeft(bet);
-                  bubbleLeft.setImage(null);
+                betRight.setText("Pass");
+              }
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (player.getPosition() == Position.MIDDLEHAND) {
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
+              } else {
+                betLeft.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.FOREHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
+              } else {
+                betRight.setText("Pass");
+              }
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+            if (player.getPosition() == Position.REARHAND) {
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
+              } else {
+                betLeft.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.FOREHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
+              } else {
+                betRight.setText("Pass");
+              }
+            }
+          }
+
+
+          // 4 Players:
+
+        } else {
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            if (player.getPosition() == Position.MIDDLEHAND) {
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
+              } else {
+                betLeft.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.REARHAND) {
+              bubbleUp.setImage(bubbleU);
+              if (bet != -1) {
+                betUp.setText(String.valueOf(bet));
+              } else {
+                betUp.setText("Pass");
+              }
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (player.getPosition() == Position.MIDDLEHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
+              } else {
+                betRight.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.FOREHAND) {
+              bubbleUp.setImage(bubbleU);
+              if (bet != -1) {
+                betUp.setText(String.valueOf(bet));
+              } else {
+                betUp.setText("Pass");
+              }
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+            if (player.getPosition() == Position.FOREHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
+              } else {
+                betRight.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.REARHAND) {
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
+              } else {
+                betLeft.setText("Pass");
+              }
+            }
+          } else {
+            if (player.getPosition() == Position.REARHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
+              } else {
+                betRight.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.FOREHAND) {
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
+              } else {
+                bubbleUp.setImage(bubbleU);
+                if (bet != -1) {
+                  betUp.setText(String.valueOf(bet));
+                } else {
+                  betUp.setText("Pass");
                 }
               }
             }
           }
         }
+        
+        
       }
-    });
 
+    });
+  
 
   }
 
@@ -1186,14 +1251,12 @@ public class InGameController implements Initializable, InGameInterface {
             (cardlist.get(i).getNumber().toString().toLowerCase())));
       }
     }
-    if (list.size() == 10) {
-      if (list.get(9) != null) {
-        cArray[9].setImage(inte.getImageDarker(list.get(9).getColour().toString().toLowerCase(),
-            (list.get(9).getNumber().toString().toLowerCase())));
-      } else {
-        cArray[9].setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
-            (list.get(9).getNumber().toString().toLowerCase())));
-      }
+    if (list.get(9) != null) {
+      cArray[9].setImage(inte.getImageDarker(list.get(9).getColour().toString().toLowerCase(),
+          (list.get(9).getNumber().toString().toLowerCase())));
+    } else {
+      cArray[9].setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
+          (list.get(9).getNumber().toString().toLowerCase())));
     }
   }
 
