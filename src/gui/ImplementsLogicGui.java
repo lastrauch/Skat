@@ -21,12 +21,13 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public InGameController startInGameScreen() {
     // TODO Auto-generated method stub
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        guiCon.displayInGame();
-      }
-    });
+//    Platform.runLater(new Runnable() {
+//      @Override
+//      public void run() {
+//        guiCon.displayInGame();
+//      }
+//    });
+    guiCon.displayInGame();
     return guiCon.getCon();
   }
  
