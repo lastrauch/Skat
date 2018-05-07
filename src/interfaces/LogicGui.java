@@ -9,11 +9,16 @@ import java.util.List;
 public interface LogicGui {
 
   /**
-   * should start the in game screen and return an inGameController.
+   * should start the inGameScreen.
+   */
+  public void startInGameScreen();
+  
+  /**
+   * return an inGameController for every round.
    * 
    * @return inGameController
    */
-  public InGameController startInGameScreen();
+  public InGameController getInGameController();
 
   /**
    * should update the lobbyscreen, if recieved new one.
