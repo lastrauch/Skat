@@ -247,6 +247,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         this.guiController.startInGameScreen();
         this.inGameController = this.guiController.getInGameController();
       }
+      this.waitFor(2000);
     }
   }
 
@@ -304,6 +305,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @author awesch
    */
   public void receiveBet(Player player, int bet) {
+    this.inGameController.receivedNewBet(bet, player);
     System.out.println(this.player.getName() + " recieved new bet: " + bet + " from "
         + player.getName() + " with the Position " + player.getPosition());
 
@@ -567,7 +569,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void playCard(Card firstCard) {
     this.inGameController.itsYourTurn();
     this.waitFor(1000);
-    int indexNewCard = this.inGameController.askToPlayCard();
+    int indexNewCard = this.inGameController.askToPlayCard(this.gameSettings.getTimeLimit());
     // because we had some to high results from askToPlayCard
     if (indexNewCard >= this.player.getHand().size()) {
       this.playCard(firstCard);
@@ -657,6 +659,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
     // show update on gui/ai
     this.inGameController.receivedNewCard(card, player);
+    
+    //check if open and player is declarer to showOpen
+    if(this.playState.isOpen() && player.isDeclarer()) {
+      this.inGameController.showOpen(player);
+    }
 
     try {
       this.checkWhatHappensNext(player, card);
@@ -725,22 +732,22 @@ public class ClientLogic implements NetworkLogic, AILogic {
         for (Player pg : this.group) {
           for (Player ps : this.playState.getGroup()) {
             if (pg.getName().equals(ps.getName())) {
-              pg.setPlayPoints(ps.getPlayPoints());
+              pg.setPlayScore(ps.getPlayScore());
             }
           }
           if (pg.getName().equals(this.player.getName())) {
-            this.player.setPlayPoints(pg.getPlayPoints());
+            this.player.setPlayScore(pg.getPlayScore());
           }
         }
 
         System.out.println(this.player.getName() + " got all these points:");
-        for (int points : this.player.getPlayPoints()) {
+        for (int points : this.player.getPlayScore()) {
           System.out.println(points);
         }
 
         // show winner of play
         // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
-        this.inGameController.showPoints(this.group);
+        this.inGameController.showScore(this.group);
         if (playWinner[0].getName().equals(this.player.getName())
             || playWinner[1].getName().equals(this.player.getName())) {
           System.out.println(this.player.getName() + ": I won the play!!");
@@ -759,7 +766,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
           this.waitFor(3000);
           // show winner of game
-          this.inGameController.showWinnerPlay(gameWinner[0], null);
+          this.inGameController.showScore(this.group);
           if (gameWinner[0].getName().equals(this.player.getName())) {
             System.out.println(this.player.getName() + ": I won the game!!");
           }
@@ -852,7 +859,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   public boolean checkIfGameOverBierlachs() {
     for (Player p : this.playState.getGroup()) {
-      if (p.getGamePoints() >= this.gameSettings.getEndPointsBierlachs()) {
+      if (p.getGameScore() >= this.gameSettings.getEndPointsBierlachs()) {
         return true;
       }
     }

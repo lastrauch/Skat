@@ -123,9 +123,9 @@ class PlayTest {
   void testCalculatePointsNormal1() throws LogicException {
     gs.setCountRule(CountRule.NORMAL);
     Play.calculatePoints(ps, gs, true);
-    assertEquals(p1.getGamePoints(), ps.getPlayValue());
-    assertEquals(p2.getGamePoints(), 0);
-    assertEquals(p3.getGamePoints(), 0);
+    assertEquals(p1.getGameScore(), ps.getPlayValue());
+    assertEquals(p2.getGameScore(), 0);
+    assertEquals(p3.getGameScore(), 0);
   }
   
   /* Calculate Points Normal (Opponents won) */
@@ -133,9 +133,9 @@ class PlayTest {
   void testCalculatePointsNormal2() throws LogicException {
     gs.setCountRule(CountRule.NORMAL);
     Play.calculatePoints(ps, gs, false);
-    assertEquals(p1.getGamePoints(), ps.getPlayValue() * (-2));
-    assertEquals(p2.getGamePoints(), 0);
-    assertEquals(p3.getGamePoints(), 0);
+    assertEquals(p1.getGameScore(), ps.getPlayValue() * (-2));
+    assertEquals(p2.getGameScore(), 0);
+    assertEquals(p3.getGameScore(), 0);
   }
   
   /* Calculate Points Bierlachs (Declarer won) */
@@ -143,9 +143,9 @@ class PlayTest {
   void testCalculatePointsBierlachs1() throws LogicException {
     gs.setCountRule(CountRule.BIERLACHS);
     Play.calculatePoints(ps, gs, true);
-    assertEquals(p1.getGamePoints(), 0);
-    assertEquals(p2.getGamePoints(), ps.getPlayValue() * (-1));
-    assertEquals(p3.getGamePoints(), ps.getPlayValue() * (-1));
+    assertEquals(p1.getGameScore(), 0);
+    assertEquals(p2.getGameScore(), ps.getPlayValue() * (-1));
+    assertEquals(p3.getGameScore(), ps.getPlayValue() * (-1));
   }
 
   /* Calculate Points Bierlachs (Opponents won) */
@@ -153,9 +153,9 @@ class PlayTest {
   void testCalculatePointsBierlachs2() throws LogicException {
     gs.setCountRule(CountRule.BIERLACHS);
     Play.calculatePoints(ps, gs, false);
-    assertEquals(p1.getGamePoints(), ps.getPlayValue() * (-2));
-    assertEquals(p2.getGamePoints(), 0);
-    assertEquals(p3.getGamePoints(), 0);
+    assertEquals(p1.getGameScore(), ps.getPlayValue() * (-2));
+    assertEquals(p2.getGameScore(), 0);
+    assertEquals(p3.getGameScore(), 0);
   }
   
   /* Calculate Points Seegerfabian (Opponents won) */
@@ -163,9 +163,9 @@ class PlayTest {
   void testCalculatePointsSeeger1() throws LogicException {
     gs.setCountRule(CountRule.SEEGERFABIAN);
     Play.calculatePoints(ps, gs, true);
-    assertEquals(p1.getGamePoints(), ps.getPlayValue() + 50);
-    assertEquals(p2.getGamePoints(), 0);
-    assertEquals(p3.getGamePoints(), 0);
+    assertEquals(p1.getGameScore(), ps.getPlayValue() + 50);
+    assertEquals(p2.getGameScore(), 0);
+    assertEquals(p3.getGameScore(), 0);
   }
   
   /* Calculate Points Seegerfabian (Opponents won) */
@@ -173,8 +173,8 @@ class PlayTest {
   void testCalculatePointsSeeger2() throws LogicException {
     gs.setCountRule(CountRule.SEEGERFABIAN);
     Play.calculatePoints(ps, gs, false);
-    assertEquals(p1.getGamePoints(), (-1) * (ps.getPlayValue() + 50));
-    assertEquals(p2.getGamePoints(), 0);
-    assertEquals(p3.getGamePoints(), 0);
+    assertEquals(p1.getGameScore(), (-1) * (ps.getPlayValue() + 50));
+    assertEquals(p2.getGameScore(), 0);
+    assertEquals(p3.getGameScore(), 0);
   }
 }

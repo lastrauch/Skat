@@ -35,7 +35,7 @@ public interface InGameInterface {
    * asks the player to play a card.
    * 
    */
-  public int askToPlayCard();
+  public int askToPlayCard(int timeToPlay);
 
   /**
    * should show the number "seconds" at the corner of the screen.
@@ -102,18 +102,10 @@ public interface InGameInterface {
   public void showWinnerTrick(Player player);
 
   /**
-   * winner of play/round.
-   * 
-   * @param player1
-   * @param player2 is null when declarer won
-   */
-  public void showWinnerPlay(Player player1, Player player2);
-
-  /**
    * shows the points of all players.
    * @param player
    */
-  public void showPoints(List<Player> player);
+  public void showScore(List<Player> player);
 
   /**
    * only relevant for the ui.
