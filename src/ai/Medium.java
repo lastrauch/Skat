@@ -50,7 +50,7 @@ public class Medium {
    * @param bet
    * @return boolean
    */
-  public static boolean askForBet(AIController controller, int bet) {
+  public static boolean askForBet(AiController controller, int bet) {
     if (controller.getMaxBet() == 0) {
       controller.setMaxBet(Medium.calculateBet(controller));
     }
@@ -71,7 +71,7 @@ public class Medium {
    * @param controller
    * @return boolean
    */
-  public static boolean askToTakeUpSkat(AIController controller) {
+  public static boolean askToTakeUpSkat(AiController controller) {
     return true;
   }
 
@@ -82,7 +82,7 @@ public class Medium {
    * @param controller
    * @return List(Card)
    */
-  public static List<Card> switchSkat(AIController controller) {
+  public static List<Card> switchSkat(AiController controller) {
     if (controller.getSinglePlay() != null && controller.getSinglePlay().getPlayMode() != null) {
       return Medium.returnSkat(controller, controller.getSinglePlay().getPlayMode());
     } else {
@@ -97,7 +97,7 @@ public class Medium {
    * @param controller
    * @return PlayState
    */
-  public static PlayState askToSetPlayState(AIController controller) {
+  public static PlayState askToSetPlayState(AiController controller) {
     if (controller.getSinglePlay() == null || controller.getSinglePlay().getPlayMode() == null) {
       Medium.calculateBet(controller);
     }
@@ -125,7 +125,7 @@ public class Medium {
    * @param controller
    * @return boolean
    */
-  public static boolean askToRekontra(AIController controller) {
+  public static boolean askToRekontra(AiController controller) {
     if (controller.getSinglePlay().getCertainty() > 9) {
       return true;
     } else {
@@ -140,7 +140,7 @@ public class Medium {
    * @param controller
    * @return int
    */
-  public static int askToPlayCard(AIController controller) {
+  public static int askToPlayCard(AiController controller) {
     switch (controller.getPlayState().getPlayMode()) {
       case GRAND:
         return Medium.playCardGrand(controller);
@@ -155,7 +155,7 @@ public class Medium {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Internal Methods
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  public static List<Card> returnSkat(AIController controller, PlayMode playMode) {
+  public static List<Card> returnSkat(AiController controller, PlayMode playMode) {
     List<Card> skat = Arrays.asList(controller.getPlayState().getSkat());
     List<Card> skatReturn = new ArrayList<Card>();
 
@@ -224,7 +224,7 @@ public class Medium {
     return skatReturn;
   }
 
-  private static int calculateBet(AIController controller) {
+  private static int calculateBet(AiController controller) {
     SinglePlay singlePlay = Medium.playSingle(controller);
     controller.setSinglePlay(singlePlay);
     if (singlePlay != null) {
@@ -257,7 +257,7 @@ public class Medium {
     return -1;
   }
 
-  private static SinglePlay playSingle(AIController controller) {
+  private static SinglePlay playSingle(AiController controller) {
     List<Card> cards = controller.getBot().getHand();
 
     boolean wantsGrand = false;
@@ -567,7 +567,7 @@ public class Medium {
     }
   }
 
-  public static int playCardGrand(AIController controller) {
+  public static int playCardGrand(AiController controller) {
     // TODO Grand Method
     List<Card> cards = controller.getBot().getHand();
     List<Card> trick = controller.getCurrentTrick();
@@ -1119,7 +1119,7 @@ public class Medium {
     return General.playRandomCard(controller);
   }
 
-  public static int playCardSuit(AIController controller) {
+  public static int playCardSuit(AiController controller) {
     // TODO Suit Method
 
     List<Card> cards = controller.getBot().getHand();
@@ -1141,7 +1141,7 @@ public class Medium {
     return General.playRandomCard(controller);
   }
 
-  public static int playCardNull(AIController controller) {
+  public static int playCardNull(AiController controller) {
     List<Card> cards = controller.getBot().getHand();
     List<Card> trick = controller.getCurrentTrick();
 
