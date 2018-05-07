@@ -41,8 +41,6 @@ public class ImplementsLogicGui implements LogicGui {
 
   }
 
-
-
   /*
    * (non-Javadoc)
    * 
@@ -52,12 +50,6 @@ public class ImplementsLogicGui implements LogicGui {
   public void startInGameScreen() {
     // TODO Auto-generated method stub
     guiCon.displayInGame();
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
   }
 
 
@@ -70,7 +62,6 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public InGameController getInGameController() {
     // TODO Auto-generated method stub
-
     return guiCon.getCon();
   }
 

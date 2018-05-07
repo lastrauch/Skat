@@ -659,9 +659,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
     // show update on gui/ai
     this.inGameController.receivedNewCard(card, player);
-    
-    //check if open and player is declarer to showOpen
-    if(this.playState.isOpen() && player.isDeclarer()) {
+
+    // check if open and player is declarer to showOpen
+    if (this.playState.isOpen() && player.isDeclarer()) {
       this.inGameController.showOpen(player);
     }
 
@@ -835,22 +835,18 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void updatePosition() {
     int pointerForehand = this.searchForehand() + 1;
 
-    this.group.get((pointerForehand) % this.playState.getGroup().length)
-        .setPosition(Position.FOREHAND);
-    this.group.get((pointerForehand + 1) % this.playState.getGroup().length)
-        .setPosition(Position.MIDDLEHAND);
-    this.group.get((pointerForehand + 2) % this.playState.getGroup().length)
-        .setPosition(Position.REARHAND);
+    this.group.get((pointerForehand + 2) % this.group.size()).setPosition(Position.FOREHAND);
+    this.group.get((pointerForehand + 1) % this.group.size()).setPosition(Position.MIDDLEHAND);
+    this.group.get((pointerForehand) % this.group.size()).setPosition(Position.REARHAND);
 
     if (this.group.size() == 4) {
-      this.group.get((pointerForehand + 3) % this.playState.getGroup().length)
-          .setPosition(Position.REARHAND);
+      this.group.get((pointerForehand - 1) % this.group.size()).setPosition(Position.DEALER);
     }
   }
 
   public int searchForehand() {
-    for (int i = 0; i < this.playState.getGroup().length; i++) {
-      if (this.playState.getGroup()[i].getPosition() == Position.FOREHAND) {
+    for (int i = 0; i < this.group.size(); i++) {
+      if (this.group.get(i).getPosition() == Position.FOREHAND) {
         return i;
       }
     }
