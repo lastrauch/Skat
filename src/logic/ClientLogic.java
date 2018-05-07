@@ -680,7 +680,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     Player trickWinner;
     Player[] playWinner;
-    Player gameWinner;
+    Player[] gameWinner;
 
     // check if trick is over
     if (this.playState.getCurrentTrick().isFull()) {
@@ -732,11 +732,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
           // game is over
           // calculate winner game
-          gameWinner = Game.calculateWinner(this.playState);
+          gameWinner = new Player[2];
+          gameWinner[0] = Game.calculateWinner(this.playState);
 
           this.waitFor(3000);
           // show winner of game
-          this.inGameController.showWinnerGame(gameWinner);
+          this.inGameController.showWinnerPlay(gameWinner[0], null);
           if (gameWinner.equals(this.player)) {
             System.out.println(this.player.getName() + ": I won the game!!");
           }
