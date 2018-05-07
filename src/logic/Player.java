@@ -16,8 +16,8 @@ public class Player implements Serializable{
   private Position position;
   private List<Card> hand;
   private int bet; // -1 if you passed
-  private List<Integer> playPoints; // points of one round
-  private int gamePoints; // saves the points of every Play until the whole game is over
+  private List<Integer> playScore; // points of one round
+  private int gameScore; // saves the points of every Play until the whole game is over
   private boolean declarer; // true if the player is declarer and false when he/she is opponents
   private boolean bot;
 
@@ -26,7 +26,7 @@ public class Player implements Serializable{
     this.bet = 0;
     this.bot = false;
     this.hand  = new ArrayList<Card>();
-    this.setPlayPoints(new ArrayList<Integer>());
+    this.setPlayScore(new ArrayList<Integer>());
   }
   
   public Player(String name, boolean bot) {
@@ -34,7 +34,7 @@ public class Player implements Serializable{
     this.bet = 0;
     this.bot = bot;
     this.hand  = new ArrayList<Card>();
-    this.setPlayPoints(new ArrayList<Integer>());
+    this.setPlayScore(new ArrayList<Integer>());
   }
 
   public Player(String name, Image img) {
@@ -43,7 +43,7 @@ public class Player implements Serializable{
     this.bet = 0;
     this.bot = false;
     this.hand  = new ArrayList<Card>();
-    this.setPlayPoints(new ArrayList<Integer>());
+    this.setPlayScore(new ArrayList<Integer>());
   }
 
   public Player(String name, int id, Image img, Position position, List<Card> hand, int bet,
@@ -54,15 +54,15 @@ public class Player implements Serializable{
     this.position = position;
     this.hand = hand;
     this.bet = bet;
-    this.gamePoints = gamePoints;
+    this.gameScore = gamePoints;
     this.declarer = declarer;
     this.bot = bot;
-    this.playPoints = playPoints;
+    this.playScore = playPoints;
   }
 
   public Player copyMe() {
     return new Player(this.name, this.id, this.img, this.position, this.hand, this.bet,
-        this.gamePoints, this.declarer, this.bot, this.playPoints);
+        this.gameScore, this.declarer, this.bot, this.playScore);
   }
 
   public Card chooseRandomCardFromHand() {
@@ -118,12 +118,12 @@ public class Player implements Serializable{
   }
 
 
-  public int getGamePoints() {
-    return this.gamePoints;
+  public int getGameScore() {
+    return this.gameScore;
   }
 
-  public void setGamePoints(int gamePoints) {
-    this.gamePoints = gamePoints;
+  public void setGameScore(int gamePoints) {
+    this.gameScore = gamePoints;
   }
 
   public int getBet() {
@@ -414,17 +414,17 @@ public class Player implements Serializable{
    * @param points
    */
   public void addToGamePoints(int points) {
-    this.gamePoints += points;
+    this.gameScore += points;
   }
   public boolean isBot() {
     return this.bot;
   }
 
-  public List<Integer> getPlayPoints() {
-    return playPoints;
+  public List<Integer> getPlayScore() {
+    return playScore;
   }
 
-  public void setPlayPoints(List<Integer> playPoints) {
-    this.playPoints = playPoints;
+  public void setPlayScore(List<Integer> playPoints) {
+    this.playScore = playPoints;
   }
 }
