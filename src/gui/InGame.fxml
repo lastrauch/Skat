@@ -181,32 +181,20 @@
       <ImageView fx:id="profilepictureLeft" fitHeight="97.0" fitWidth="84.0" layoutX="95.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="profilepictureRight" fitHeight="97.0" fitWidth="84.0" layoutX="1098.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="529.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="bubbleLeft" fitHeight="150.0" fitWidth="200.0" layoutX="77.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../resources/Sprechblase_links.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="betLeft" layoutX="125.0" layoutY="157.0" prefHeight="58.0" prefWidth="55.0" text="48">
+      <ImageView fx:id="bubbleLeft" fitHeight="150.0" fitWidth="200.0" layoutX="77.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="betLeft" layoutX="125.0" layoutY="157.0" prefHeight="58.0" prefWidth="55.0">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <ImageView fx:id="bubbleRight" fitHeight="150.0" fitWidth="200.0" layoutX="1052.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../resources/Sprechblase_rechts.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="betRight" layoutX="1100.0" layoutY="158.0" prefHeight="58.0" prefWidth="55.0" text="48">
+      <ImageView fx:id="bubbleRight" fitHeight="150.0" fitWidth="200.0" layoutX="1052.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="betRight" layoutX="1100.0" layoutY="158.0" prefHeight="58.0" prefWidth="55.0">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <ImageView fx:id="bubbleUp" fitHeight="150.0" fitWidth="200.0" layoutX="540.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../resources/Sprechblase_oben.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="betUp" layoutX="589.0" layoutY="137.0" prefHeight="58.0" prefWidth="55.0" text="48">
+      <ImageView fx:id="bubbleUp" fitHeight="150.0" fitWidth="200.0" layoutX="540.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="betUp" layoutX="589.0" layoutY="137.0" prefHeight="58.0" prefWidth="55.0">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
