@@ -227,16 +227,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // instead gui should open the ingameScreen in startPlay
       // // TODO Auto-generated method stub
-      if (!this.player.isBot()) {
-        Platform.runLater(new Runnable() {
-          @Override
-          public void run() {
-            guiController.startInGameScreen();
-            inGameController = guiController.getInGameController();
-          }
-        });
 
-      }
 
       // set player position
       for (int i = 0; i < this.playState.getGroup().length; i++) {
@@ -249,6 +240,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // Start Game if Player sits rearhand (rearhand is also the dealer)
       if (this.player.getPosition() == Position.REARHAND) {
         this.startPlay();
+      }
+
+
+      if (!this.player.isBot()) {
+        this.guiController.startInGameScreen();
+        this.inGameController = this.guiController.getInGameController();
       }
     }
   }
