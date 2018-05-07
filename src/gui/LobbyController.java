@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import javax.swing.GroupLayout.Alignment;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -59,6 +62,17 @@ public class LobbyController implements Initializable {
   private VBox vbox1;
   @FXML
   private VBox vbox2;
+  @FXML
+  private Label allChat;
+  @FXML
+  private JFXTextArea chatM;
+  @FXML
+  private JFXTextField textM;
+  @FXML
+  private JFXButton sendB;
+  @FXML
+  private Rectangle rec;
+  
 
 
   public LobbyController() {
@@ -251,18 +265,24 @@ public class LobbyController implements Initializable {
 
 
   public void setGameSettingsLabel(GameSettings gs) {
-    rounds.setText(String.valueOf(gs.getNrOfPlays()));
-    system.setText(gs.getCountRule().toString());
-    if (gs.isLimitedTime()) {
-      timelimit.setText(String.valueOf(gs.getTimeLimit()));
-    } else {
-      timelimit.setText("Disabled");
-    }
-    if (gs.isEnableKontra()) {
-      kontra.setText("Enabled");
-    } else {
-      kontra.setText("Disabled");
-    }
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        // TODO Auto-generated method stub
+        rounds.setText(String.valueOf(gs.getNrOfPlays()));
+        system.setText(gs.getCountRule().toString());
+        if (gs.isLimitedTime()) {
+          timelimit.setText(String.valueOf(gs.getTimeLimit()));
+        } else {
+          timelimit.setText("Disabled");
+        }
+        if (gs.isEnableKontra()) {
+          kontra.setText("Enabled");
+        } else {
+          kontra.setText("Disabled");
+        }
+      }
+    });
   }
 
   public void setGS() {
@@ -329,8 +349,19 @@ public class LobbyController implements Initializable {
       displayAddBotButton();
       displayDeleteBotButton();
       displayStartButton();
-
+      mainPane.getChildren().remove(allChat);
+      mainPane.getChildren().remove(chatM);
+      mainPane.getChildren().remove(textM);
+      mainPane.getChildren().remove(sendB);
+      rec.setHeight(684);
+      start.setLayoutY(262);
+      change.setLayoutY(491);
+      addBot.setLayoutY(591);
+      deleteBot.setLayoutY(591);
+      vbox1.setLayoutY(211);
+      vbox2.setLayoutY(211);
     }
+    
   }
   
   public void displayNoUser() {

@@ -130,7 +130,7 @@
                <font>
                   <Font size="24.0" />
                </font></JFXButton>
-            <Label layoutX="22.0" layoutY="570.0" text="Message: " textFill="WHITE">
+            <Label fx:id="messageLabel" layoutX="22.0" layoutY="570.0" text="Message: " textFill="WHITE">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>

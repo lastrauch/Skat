@@ -9,11 +9,14 @@ public class Play {
    * @return
    */
   public static boolean checkOverBid(PlayState ps) {
-    if (ps.getPlayValue() < Tools.getDeclarer(ps.getGroup()).getBet()) {
-      return true;
-    } else {
-      return false;
+    for (int i = 0; i < ps.getGroup().length; i++) {
+      if (ps.getPlayValue() < ps.getGroup()[i].getBet() && ps.getGroup()[i].isDeclarer()) {
+        return true;
+      } else {
+        return false;
+      }
     }
+    return false;
   }
 
   /**
@@ -168,6 +171,8 @@ public class Play {
       }    
     }
   }
+  
+  
 
 }
 
