@@ -660,6 +660,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
     // show update on gui/ai
     this.inGameController.receivedNewCard(card, player);
+    
+    //check if open and player is declarer to showOpen
+    if(this.playState.isOpen() && player.isDeclarer()) {
+      this.inGameController.showOpen(player);
+    }
 
     try {
       this.checkWhatHappensNext(player, card);
@@ -762,7 +767,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
           this.waitFor(3000);
           // show winner of game
-          this.inGameController.showWinnerPlay(gameWinner[0], null);
+          this.inGameController.showPoints(this.group);
           if (gameWinner[0].getName().equals(this.player.getName())) {
             System.out.println(this.player.getName() + ": I won the game!!");
           }

@@ -102,14 +102,6 @@ public interface InGameInterface {
   public void showWinnerTrick(Player player);
 
   /**
-   * winner of play/round.
-   * 
-   * @param player1
-   * @param player2 is null when declarer won
-   */
-  public void showWinnerPlay(Player player1, Player player2);
-
-  /**
    * shows the points of all players.
    * @param player
    */
