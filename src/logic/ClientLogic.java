@@ -212,7 +212,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           "Bei " + this.player.getName() + " groesse group: " + this.playState.getGroup().length);
       this.group.get(0).setPosition(Position.FOREHAND);
       this.group.get(1).setPosition(Position.MIDDLEHAND);
-      this.group.get(3).setPosition(Position.REARHAND);      
+      this.group.get(2).setPosition(Position.REARHAND);      
       
       if (this.group.size() == 4) {
         this.group.get(3).setPosition(Position.DEALER);
