@@ -9,7 +9,7 @@ public class PlayState implements Serializable {
    * 
    */
   private static final long serialVersionUID = 1L;
-  private Player[] group;
+  private Player[] playingGroup;
   private Stack declarerStack;
   private Stack opponentsStack;
   private Card[] skat;
@@ -40,7 +40,7 @@ public class PlayState implements Serializable {
    * @author awesch
    */
   public PlayState(Player[] group) {
-    this.group = group;
+    this.playingGroup = group;
     this.declarerStack = new Stack();
     this.opponentsStack = new Stack();
     this.skat = new Card[2];
@@ -251,7 +251,6 @@ public class PlayState implements Serializable {
       this.trump = null;
     }
 
-    this.initializeBaseValue();
   }
 
   /**
@@ -362,11 +361,11 @@ public class PlayState implements Serializable {
   }
 
   public Player[] getGroup() {
-    return group;
+    return playingGroup;
   }
 
   public void setGroup(Player[] group) {
-    this.group = group;
+    this.playingGroup = group;
   }
 
   public void setPlayNr(int nr) {

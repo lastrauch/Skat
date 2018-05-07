@@ -250,26 +250,6 @@ public class Tools {
     }
   }
 
-  /**
-   * @author sandfisc
-   * 
-   * @param group
-   * @return
-   */
-  public static Player[] getPlayingGroup(Player[] group) {
-    // the playing group consists of forehand, middlehand, rarehand, NOT dealer
-    Player[] playingGroup = new Player[4];
 
-    if (group.length == 4) {
-      int index = 0;
-      for (int j = 0; j < group.length; j++) {
-        if (group[j].getPosition() != Position.DEALER) {
-          playingGroup[index] = group[j];
-          index++;
-        }
-      }
-    }
-    return playingGroup;
-  }
 
 }

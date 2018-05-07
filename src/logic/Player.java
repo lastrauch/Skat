@@ -3,10 +3,6 @@ package logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import interfaces.InGameInterface;
-import interfaces.LogicData;
-import interfaces.LogicGui;
-import interfaces.LogicNetwork;
 import javafx.scene.image.Image;
 
 public class Player implements Serializable{
