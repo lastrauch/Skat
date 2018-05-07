@@ -69,7 +69,7 @@ public class PlayState implements Serializable {
     this.playValue = 0;
     this.pm = PlayMode.SUIT;
 
-    this.trickNr = 0;
+    this.trickNr = 1;
     this.currentTrick = new Trick();
     this.auctionPossible = true;
     this.auction = new Auction();

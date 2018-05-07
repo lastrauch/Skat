@@ -485,6 +485,10 @@ public class InGameController implements Initializable, InGameInterface {
         System.out.println("Position: " + LoginController.interfGL.getPlayer().getPosition());
         if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
           initialize4();
+        } else {
+          for (int i = 0; i < 10; i++) {
+            oArray[i].setImage(null);
+          }
         }
         displayAuctionScreen();
         betB.setText(String.valueOf(bet));
