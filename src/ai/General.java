@@ -2,12 +2,11 @@ package ai;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import logic.Card;
 import logic.ClientLogic;
+import logic.LogicException;
 import logic.Number;
 import logic.PlayMode;
-import logic.LogicException;
 
 public class General {
 
@@ -30,9 +29,9 @@ public class General {
 	// with initializeProbabilities(List<Card>) : double[][]
 	// Returns the initialization of card probabilities, first column is bot
 
-	  //////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// Internal methods
-	  //////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Returns the index of a playable card on the hand of the bot.
 	 * 
@@ -164,17 +163,19 @@ public class General {
 
 		return prob;
 	}
-	
-	//TODO
-	public static int checkIfPossibleAndGetIndex(double[][] cardProbabilities, List<Card> cards, int colour, int number, int playerIndex) {
-	  if(cardProbabilities[colour*8 + number][playerIndex] > 0) {
-	    for(int i=0; i<cards.size(); i++) {
-	      if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
-	        return i;
-	      }
-	    }
-	  }
-	  return -1;
+
+	// TODO
+	public static int checkIfPossibleAndGetIndex(double[][] cardProbabilities, List<Card> cards, int colour, int number,
+			int playerIndex) {
+		if (cardProbabilities[colour * 8 + number][playerIndex] > 0) {
+			for (int i = 0; i < cards.size(); i++) {
+				if ((3 - cards.get(i).getColour().ordinal()) == colour
+						&& (7 - cards.get(i).getNumber().ordinal()) == number) {
+					return i;
+				}
+			}
+		}
+		return -1;
 	}
 
 }
