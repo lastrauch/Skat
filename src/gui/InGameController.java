@@ -241,30 +241,23 @@ public class InGameController implements Initializable, InGameInterface {
     oArray[8] = o9;
     oArray[9] = o10;
 
-    if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
-      if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-        for (int i = 0; i < rArray.length; i++) {
-          System.out.println("forehand");
-          rArray[i].setImage(null);
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.DEALER
+              || LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+            for (int i = 0; i < 10; i++) {
+              oArray[i].setImage(null);
+            }
+          }
         }
-      } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
-        for (int i = 0; i < rArray.length; i++) {
-          System.out.println("Middlehand");
-          oArray[i].setImage(null);
-        }
-      } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-        for (int i = 0; i < rArray.length; i++) {
-          lArray[i].setImage(null);
-          System.out.println("Rearhand");
-        }
-      }
-    } else {
-      for (int i = 0; i < 10; i++) {
-        oArray[i].setImage(null);
-      }
-    }
-    chatButtonListener();
 
+      }
+
+    });
+
+    chatButtonListener();
   }
 
 
@@ -332,18 +325,48 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void run() {
         System.out.println("Start Play");
-        displayChatClosed();
         cardlist = hand;
-        for(int i = 0; i < hand.size(); i++) {
+        for (int i = 0; i < hand.size(); i++) {
           System.out.println("Hand: " + hand.get(i));
         }
-        if (LoginController.interfGL.getPlayer().getPosition() != Position.DEALER) {
-          System.out.println("Start Play- nicht dealer");
-          rearrangeCardsLight(hand);
-          pos.setText(position.toString());
+        if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
+          if (LoginController.interfGL.getPlayer().getPosition() != Position.DEALER) {
+            rearrangeCardsLight(hand);
+            pos.setText(position.toString());
+          }
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            for (int i = 0; i < rArray.length; i++) {
+              rArray[i].setImage(null);
+              try {
+                Thread.sleep(1000);
+              } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+              }
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+            for (int i = 0; i < rArray.length; i++) {
+              oArray[i].setImage(null);
+              try {
+                Thread.sleep(1000);
+              } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+              }
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            for (int i = 0; i < rArray.length; i++) {
+              lArray[i].setImage(null);
+              try {
+                Thread.sleep(1000);
+              } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+              }
+            }
+          }
         }
       }
-
     });
 
   }
@@ -487,8 +510,6 @@ public class InGameController implements Initializable, InGameInterface {
   public Player getPlayer2() {
     return this.pl2;
   }
-
-  
 
 
 
@@ -2461,27 +2482,6 @@ public class InGameController implements Initializable, InGameInterface {
     s3.setLayoutY(140);
   }
 
-  public void displayObserver() {
-    List<ImageView> oList = new ArrayList<ImageView>();
-    for (int i = 0; i < 10; i++) {
-      oList.add(new ImageView());
-    }
-    oList.get(9).setLayoutX(840);
-    oList.get(9).setLayoutY(-50);
-    oList.get(9).setFitHeight(100);
-    oList.get(9).setFitWidth(150);
-    oList.get(9).setImage(rueckseite);
-    mainPane.getChildren().add(oList.get(9));
-    for (int i = 8; i == 0; i--) {
-      oList.get(i).setLayoutX(oList.get(i + 1).getLayoutX() - 50);
-      oList.get(i).setLayoutY(-50);
-      oList.get(i).setFitHeight(100);
-      oList.get(i).setFitWidth(150);
-      oList.get(i).setImage(rueckseite);
-      oList.get(i).toFront();
-      mainPane.getChildren().add(oList.get(i));
-    }
-  }
 
 
   /**
@@ -2508,22 +2508,26 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showPoints(java.util.List)
    */
   @Override
   public void showPoints(List<Player> player) {
     // TODO Auto-generated method stub
-    
+
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showOpen(logic.Player)
    */
   @Override
   public void showOpen(Player player) {
     // TODO Auto-generated method stub
-    
+
   }
 
 
