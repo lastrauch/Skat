@@ -1,19 +1,19 @@
 package ai;
 
+import interfaces.InGameInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import interfaces.InGameInterface;
 import logic.Card;
 import logic.GameSettings;
+import logic.Number;
 import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
 import logic.Position;
-import logic.Number;
 import network.Settings;
 
-public class AIController implements InGameInterface {
+public class AiController implements InGameInterface {
 
   // This class is the main class of the AI.
   // It inherits the InGameInterface methods to call different actions on the AI.
@@ -90,7 +90,7 @@ public class AIController implements InGameInterface {
    * @param difficulty
    * @param gameSettings
    */
-  public AIController(String name, BotDifficulty difficulty, GameSettings gameSettings) {
+  public AiController(String name, BotDifficulty difficulty, GameSettings gameSettings) {
     this.bot = new Bot(name, difficulty);
     this.gameSettings = gameSettings;
     this.player = new ArrayList<Player>();
@@ -264,7 +264,7 @@ public class AIController implements InGameInterface {
    */
   public PlayState askToSetPlayState(PlayState playState) {
     // TODO
-    /*
+
     try {
       Thread.sleep(Settings.DELAY);
     } catch (InterruptedException e) {
@@ -274,10 +274,13 @@ public class AIController implements InGameInterface {
     switch (this.bot.getDifficulty()) {
       case EASY:
         playState = Easy.askToSetPlayState(this);
+        break;
       case MEDIUM:
         playState = Medium.askToSetPlayState(this);
+        break;
       case HARD:
         playState = Hard.askToSetPlayState(this);
+        break;
     }
     // Update hasTrump
     if (playState.getPlayMode() != PlayMode.NULL) {
@@ -303,14 +306,17 @@ public class AIController implements InGameInterface {
     switch (playState.getPlayMode()) {
       case GRAND:
         this.setExistingTrumps(4);
+        break;
       case SUIT:
         this.setExistingTrumps(11);
+        break;
       case NULL:
         this.setExistingTrumps(0);
+        break;
     }
 
     this.playState = playState;
-    */
+
     return playState;
   }
 
@@ -374,12 +380,17 @@ public class AIController implements InGameInterface {
    */
   public void receivedNewCard(Card card, Player player) {
     // Update currentTrick
+    if (this.currentTrick.size() == 3) {
+      this.currentTrick.clear();
+
+    }
     this.currentTrick.add(card);
+
     // Update playedCards
     for (int i = 0; i < this.player.size(); i++) {
       if (this.player.get(i).getName().equals(Integer.toString(player.getId()))) {
-        if (this.playedCards[this.playedCards.length-1][this.player.get(i).getId()] == null) {
-          this.playedCards[this.playedCards.length-1][this.player.get(i).getId()] = card;
+        if (this.playedCards[this.playedCards.length - 1][this.player.get(i).getId()] == null) {
+          this.playedCards[this.playedCards.length - 1][this.player.get(i).getId()] = card;
           return;
         } else {
           Card[][] playedCards = new Card[this.playedCards.length + 1][3];
@@ -678,6 +689,13 @@ public class AIController implements InGameInterface {
    */
   public void itsYourTurn() {
     // Do nothing.
+  }
+  
+  @Override
+  //TODO
+  public void showPossibleCards(List<Card> cards) {
+  	// TODO Auto-generated method stub
+  	
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -992,15 +1010,6 @@ public class AIController implements InGameInterface {
    */
   public List<Card> getCurrentTrick() {
     return this.currentTrick;
-  }
-//  TODO
-//  /* (non-Javadoc)
-//   * @see interfaces.InGameInterface#showPossibleCards(java.util.List)
-//   */
-//  @Override
-  public void showPossibleCards(List<Card> cards) {
-    // TODO Auto-generated method stub
-
   }
 
 }

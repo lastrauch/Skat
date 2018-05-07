@@ -40,7 +40,7 @@ public class General {
 	 * @param controller
 	 * @return int
 	 */
-	public static int playRandomCard(AIController controller) {
+	public static int playRandomCard(AiController controller) {
 		List<Card> cards = controller.getBot().getHand();
 		List<Card> possibleCards = new ArrayList<Card>();
 		if (controller.getCurrentTrick().size() > 0) {
@@ -58,7 +58,7 @@ public class General {
 			possibleCards = cards;
 		}
 
-		int rnd = (int) (Math.random() * (possibleCards.size()-1));
+		int rnd = (int) (Math.random() * possibleCards.size());
 		Card playCard = possibleCards.get(rnd);
 		int index = cards.indexOf(playCard);
 
@@ -72,7 +72,7 @@ public class General {
 	 * @param controller
 	 * @return int
 	 */
-	public static int getHighestPossibleBet(AIController controller) {
+	public static int getHighestPossibleBet(AiController controller) {
 		return getHighestPossibleBet(controller, PlayMode.GRAND);
 	}
 
@@ -84,7 +84,7 @@ public class General {
 	 * @param playMode
 	 * @return
 	 */
-	public static int getHighestPossibleBet(AIController controller, PlayMode playMode) {
+	public static int getHighestPossibleBet(AiController controller, PlayMode playMode) {
 		if (playMode == PlayMode.NULL) {
 			return 23;
 		} else {
@@ -104,7 +104,7 @@ public class General {
 	 * @param controller
 	 * @return int
 	 */
-	public static int getGameLevel(AIController controller) {
+	public static int getGameLevel(AiController controller) {
 		List<Card> cards = controller.getBot().getHand();
 		// Determine the Jacks
 		boolean[] jacks = new boolean[4];
@@ -163,6 +163,18 @@ public class General {
 		}
 
 		return prob;
+	}
+	
+	//TODO
+	public static int checkIfPossibleAndGetIndex(double[][] cardProbabilities, List<Card> cards, int colour, int number, int playerIndex) {
+	  if(cardProbabilities[colour*8 + number][playerIndex] > 0) {
+	    for(int i=0; i<cards.size(); i++) {
+	      if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+	        return i;
+	      }
+	    }
+	  }
+	  return -1;
 	}
 
 }
