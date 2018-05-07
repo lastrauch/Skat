@@ -100,7 +100,7 @@ public class InGameController implements Initializable, InGameInterface {
    * Initializies all other attributes
    */
   private GuiController main;
-  private Player pl1, pl2;
+  private Player pl1, pl2, pl3;
   private GuiData inte = new ImplementsGuiInterface();
   private List<Card> cardlist = new ArrayList<Card>();
   private Image noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
@@ -112,9 +112,9 @@ public class InGameController implements Initializable, InGameInterface {
   private Image bubbleU =
       new Image(getClass().getResource("/Sprechblase_rechts.png").toExternalForm());
   private List<Card> skat = new ArrayList<Card>();
-  Card p1 = new Card(Colour.CLUBS, Number.SEVEN);
-  Card p2 = new Card(Colour.CLUBS, Number.EIGHT);
-  Boolean[] da = new Boolean[2];
+  private Card p1 = new Card(Colour.CLUBS, Number.SEVEN);
+  private Card p2 = new Card(Colour.CLUBS, Number.EIGHT);
+  private Boolean[] da = new Boolean[2];
   private boolean clicked = false;
   int[] ret = new int[1];
   private int countl = 10;
@@ -446,6 +446,10 @@ public class InGameController implements Initializable, InGameInterface {
   public Player getPlayer2() {
     return this.pl2;
   }
+  
+  public Player getPlayer3() {
+    return this.pl3;
+  }
 
 
 
@@ -655,11 +659,18 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void run() {
         rearrangeCardsDark(cardlist);
+        bubbleLeft.setImage(null);
+        bubbleRight.setImage(null);
+        bubbleUp.setImage(null);
+        betRight.setText(null);
+        betLeft.setText(null);
+        betUp.setText(null);
         if (main.getLobbyCon().getGS().getNrOfPlayers() == 3) {
           deletePane(paneBet);
           deletePane(skatPane);
           deletePane(handPane);
           deletePane(paneAuc);
+          
 
 
           if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
@@ -854,9 +865,11 @@ public class InGameController implements Initializable, InGameInterface {
         // TODO Auto-generated method stub
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
+        bubbleUp.setImage(null);
         betRight.setText(null);
         betLeft.setText(null);
-        // TODO Auto-generated method stub
+        betUp.setText(null);
+        deletePane(paneBet);
         if (main.getGameSetCon().getGS().getNrOfPlayers() == 3) {
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
             if (player.getPosition() == Position.MIDDLEHAND) {
@@ -1001,6 +1014,57 @@ public class InGameController implements Initializable, InGameInterface {
   public void showPossibleCards(List<Card> cards) {
     // TODO Auto-generated method stub
     rearrangeCardsNotPossible(cards);
+  }
+  
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#showOpen(logic.Player)
+   */
+  @Override
+  public void showOpen(Player player) {
+    // TODO Auto-generated method stub
+
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askToPlayCard(int)
+   */
+  @Override
+  public int askToPlayCard(int timeToPlay) {
+    // TODO Auto-generated method stub
+    while (clicked == false) {
+      MouseHandler();
+    }
+    clicked = false;
+    return ret[0];
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#showScore(java.util.List)
+   */
+  @Override
+  public void showScore(List<Player> player) {
+    // TODO Auto-generated method stub
+    this.pl1 = player.get(0);
+    this.pl2 = player.get(1);
+    if(player.size() == 3) {
+      this.pl3 = player.get(2);
+    }
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        if (main.getLobbyCon().getGS().getNrOfPlayers() == 3) {
+          main.displayLeaderboard3();
+        }
+      }
+    });
+
   }
 
   /**
@@ -1251,11 +1315,11 @@ public class InGameController implements Initializable, InGameInterface {
             (cardlist.get(i).getNumber().toString().toLowerCase())));
       }
     }
-    if (list.get(9) != null) {
-      cArray[9].setImage(inte.getImageDarker(list.get(9).getColour().toString().toLowerCase(),
+    if (list.get(list.size()-1) != null) {
+      cArray[list.size()-1].setImage(inte.getImageDarker(list.get(9).getColour().toString().toLowerCase(),
           (list.get(9).getNumber().toString().toLowerCase())));
     } else {
-      cArray[9].setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
+      cArray[list.size()-1].setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
           (list.get(9).getNumber().toString().toLowerCase())));
     }
   }
@@ -2605,54 +2669,6 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#showOpen(logic.Player)
-   */
-  @Override
-  public void showOpen(Player player) {
-    // TODO Auto-generated method stub
-
-
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToPlayCard(int)
-   */
-  @Override
-  public int askToPlayCard(int timeToPlay) {
-    // TODO Auto-generated method stub
-    while (clicked == false) {
-      MouseHandler();
-    }
-    mainPane.getChildren().remove(cArray[ret[0]]);
-    clicked = false;
-    return ret[0];
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#showScore(java.util.List)
-   */
-  @Override
-  public void showScore(List<Player> player) {
-    // TODO Auto-generated method stub
-    this.pl1 = player.get(0);
-    this.pl2 = player.get(1);
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-
-        main.displayLeaderboard3();
-      }
-    });
-
-  }
 
 
 

@@ -1,3 +1,6 @@
+/**
+ * @author lstrauch
+ */
 package gui;
 
 import java.net.URL;
@@ -12,12 +15,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import logic.Player;
 
-public class Leaderboard3Controller implements Initializable {
-
+/**
+ * @author lstrauch
+ *
+ */
+public class Leaderboard4Controller implements Initializable{
+  
   /**
    * @author lstrauch
    */
@@ -25,12 +29,12 @@ public class Leaderboard3Controller implements Initializable {
 
 
   @FXML
-  private VBox vBoxNr, vBox1, vBox2, vBox3;
+  private VBox vBoxNr, vBox1, vBox2, vBox3, vBox4;
 
   /**
    * @author lstrauch
    */
-  public Leaderboard3Controller() {
+  public Leaderboard4Controller() {
     this.main = new GuiController();
   }
 
@@ -59,19 +63,15 @@ public class Leaderboard3Controller implements Initializable {
     List<Label> rounds1 = new ArrayList<Label>();
     List<Label> rounds2 = new ArrayList<Label>();
     List<Label> rounds3 = new ArrayList<Label>();
+    List<Label> rounds4 = new ArrayList<Label>();
 
 
-    for (int i = 0; i < main.getGameSetCon().getGS().getNrOfPlays() + 1; i++) {
-      roundsNr.add(new Label());
-    }
     for (int i = 0; i < main.getGameSetCon().getGS().getNrOfPlays() + 1; i++) {
       rounds1.add(new Label());
-    }
-    for (int i = 0; i < main.getGameSetCon().getGS().getNrOfPlays() + 1; i++) {
       rounds2.add(new Label());
-    }
-    for (int i = 0; i < main.getGameSetCon().getGS().getNrOfPlays() + 1; i++) {
       rounds3.add(new Label());
+      rounds4.add(new Label());
+      roundsNr.add(new Label());
     }
 
     System.out.println("Name layer1 Leaderboard: " + main.getInGameCon().getPlayer1().getName());
@@ -80,10 +80,12 @@ public class Leaderboard3Controller implements Initializable {
     rounds1.get(0).setText("Me");
     rounds2.get(0).setText(main.getInGameCon().getPlayer1().getName());
     rounds3.get(0).setText(main.getInGameCon().getPlayer2().getName());
+    rounds4.get(0).setText(main.getInGameCon().getPlayer3().getName());
     vBoxNr.getChildren().add(roundsNr.get(0));
     vBox1.getChildren().add(rounds1.get(0));
     vBox2.getChildren().add(rounds2.get(0));
     vBox3.getChildren().add(rounds3.get(0));
+    vBox4.getChildren().add(rounds4.get(0));
 
     for (int i = 1; i < roundsNr.size(); i++) {
       int count = i;
@@ -152,9 +154,27 @@ public class Leaderboard3Controller implements Initializable {
       rounds3.get(i).setAlignment(Pos.CENTER);
       vBox3.getChildren().add(rounds3.get(i));
     }
+    for (int i = 1; i < rounds4.size(); i++) {
+      int points = LoginController.interfGL.getPlayer().getPlayScore().get(i);
+      rounds4.get(i).setText(String.valueOf(LoginController.interfGL.getPlayer().getPlayScore().get(i)));
+      rounds4.get(i).setFont(Font.font("System", 33));
+      if (points < 0) {
+        rounds4.get(i).setTextFill(Color.RED);
+      }
+      if (points > 0) {
+        rounds3.get(i).setTextFill(Color.GREEN);
+      }
+      if (points == 0) {
+        rounds3.get(i).setTextFill(Color.WHITE);
+      }
+
+      AnchorPane.setLeftAnchor(rounds3.get(i), 0.0);
+      AnchorPane.setRightAnchor(rounds3.get(i), 0.0);
+      rounds3.get(i).setAlignment(Pos.CENTER);
+      vBox3.getChildren().add(rounds3.get(i));
+    }
 
 
   }
-
 
 }

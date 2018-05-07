@@ -87,8 +87,11 @@ public class GuiController extends Application {
   private static HelpVariationsController helpVarCon;
   private AnchorPane helpVar;
 
-  private static Leaderboard3Controller leaderbordCon;
-  private AnchorPane leaderbord;
+  private static Leaderboard3Controller leaderbord3Con;
+  private AnchorPane leaderbord3;
+  
+  private static Leaderboard3Controller leaderbord4Con;
+  private AnchorPane leaderbord4;
   
   
   
@@ -457,10 +460,27 @@ public class GuiController extends Application {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("Leaderboard3.fxml"));
-      this.leaderbord = (AnchorPane) loader.load();
-      mprimaryStage.getScene().setRoot(leaderbord);
+      this.leaderbord3 = (AnchorPane) loader.load();
+      mprimaryStage.getScene().setRoot(leaderbord3);
 
-      leaderbordCon = loader.getController();
+      leaderbord3Con = loader.getController();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+  
+  /**
+   * @author lstrauch
+   */
+  public void displayLeaderboard4() {
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("Leaderboard4.fxml"));
+      this.leaderbord4 = (AnchorPane) loader.load();
+      mprimaryStage.getScene().setRoot(leaderbord4);
+
+      leaderbord4Con = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
