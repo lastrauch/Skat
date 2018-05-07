@@ -247,6 +247,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         this.guiController.startInGameScreen();
         this.inGameController = this.guiController.getInGameController();
       }
+      this.waitFor(2000);
     }
   }
 
