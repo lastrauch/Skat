@@ -31,7 +31,7 @@ public class MulticastFinder implements Runnable{
         try {
 			socket = new MulticastSocket(this.port);
 		
-        InetAddress group = InetAddress.getByName("224.0.0.0");
+        InetAddress group = InetAddress.getByName("230.0.0.0");
         socket.joinGroup(group);
         while (this.running) {
             DatagramPacket packet = new DatagramPacket(data, data.length);
@@ -39,6 +39,7 @@ public class MulticastFinder implements Runnable{
             
             String msg = new String(packet.getData());
             		if(msg.trim().equals("DISCOVER_SERVER_REQUEST")){
+            		  System.out.println(getClass().getName() + " >>> Server request from: " +  packet.getAddress());
             			InetAddress address = packet.getAddress();
             			//TODO apply infos
             			//data = this.serverName.getBytes();

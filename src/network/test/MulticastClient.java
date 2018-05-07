@@ -21,8 +21,8 @@ public class MulticastClient {
     public void findServer() {
         try {
 			socket = new DatagramSocket();
-
-        group = InetAddress.getByName("224.0.0.0");
+			System.out.println(getClass().getName() + " >>> Search for Servers"); 
+        group = InetAddress.getByName("230.0.0.0");
         buf = "DISCOVER_SERVER_REQUEST".getBytes();
  
         DatagramPacket packet = new DatagramPacket(buf, buf.length, group, port);
@@ -34,7 +34,7 @@ public class MulticastClient {
         socket.receive(receivePacket);
 
         //We have a response
-        System.out.println(getClass().getName() + ">>> Multicast response from server: " + receivePacket.getAddress().getHostAddress());
+        System.out.println(getClass().getName() + " >>> Multicast response from server: " + receivePacket.getAddress().getHostAddress());
 
         //Check if the message is correct
         String message = new String(receivePacket.getData()).trim();
