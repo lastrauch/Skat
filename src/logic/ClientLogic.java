@@ -833,14 +833,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @author sandfisc
    */
   public void updatePosition() {
-    int pointerForehand = this.searchForehand() + 1;
+    int pointerForehand = this.searchForehand();
 
-    this.group.get((pointerForehand + 2) % this.group.size()).setPosition(Position.FOREHAND);
-    this.group.get((pointerForehand + 1) % this.group.size()).setPosition(Position.MIDDLEHAND);
-    this.group.get((pointerForehand) % this.group.size()).setPosition(Position.REARHAND);
+    this.group.get((pointerForehand + 1) % this.group.size()).setPosition(Position.FOREHAND);
+    this.group.get((pointerForehand + 2) % this.group.size()).setPosition(Position.MIDDLEHAND);
+    this.group.get((pointerForehand + 3) % this.group.size()).setPosition(Position.REARHAND);
 
     if (this.group.size() == 4) {
-      this.group.get((pointerForehand - 1) % this.group.size()).setPosition(Position.DEALER);
+      this.group.get((pointerForehand + 4) % this.group.size()).setPosition(Position.DEALER);
     }
   }
 
