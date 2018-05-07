@@ -43,7 +43,7 @@ public class Easy {
 	 * @param bet
 	 * @return boolean
 	 */
-	public static boolean askForBet(AIController controller, int bet) {
+	public static boolean askForBet(AiController controller, int bet) {
 		int maxBet = General.getHighestPossibleBet(controller, PlayMode.SUIT);
 		double random = Math.random();
 		if (maxBet >= bet) {
@@ -65,7 +65,7 @@ public class Easy {
 	 * @param controller
 	 * @return boolean
 	 */
-	public static boolean askToTakeUpSkat(AIController controller) {
+	public static boolean askToTakeUpSkat(AiController controller) {
 		return false;
 	}
 
@@ -76,7 +76,7 @@ public class Easy {
 	 * @param controller
 	 * @return List(Card)
 	 */
-	public static List<Card> switchSkat(AIController controller) {
+	public static List<Card> switchSkat(AiController controller) {
 		return Arrays.asList(controller.getPlayState().getSkat());
 	}
 
@@ -87,7 +87,7 @@ public class Easy {
 	 * @param controller
 	 * @return PlayState
 	 */
-	public static PlayState askToSetPlayState(AIController controller) {
+	public static PlayState askToSetPlayState(AiController controller) {
 
 		PlayState playState = controller.getPlayState();
 		List<Card> skatList = new ArrayList<Card>();
@@ -143,7 +143,7 @@ public class Easy {
 	 * @param controller
 	 * @return boolean
 	 */
-	public static boolean askToRekontra(AIController controller) {
+	public static boolean askToRekontra(AiController controller) {
 		return false;
 	}
 
@@ -154,7 +154,7 @@ public class Easy {
 	 * @param controller
 	 * @return int
 	 */
-	public static int askToPlayCard(AIController controller) {
+	public static int askToPlayCard(AiController controller) {
 		return General.playRandomCard(controller);
 	}
 

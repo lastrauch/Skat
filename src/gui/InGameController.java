@@ -100,6 +100,7 @@ public class InGameController implements Initializable, InGameInterface {
    * Initializies all other attributes
    */
   private GuiController main;
+  private Player pl1, pl2;
   private GuiData inte = new ImplementsGuiInterface();
   private List<Card> cardlist = new ArrayList<Card>();
   private Image noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
@@ -399,12 +400,23 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showWinnerPlay(Player player1, Player player2) {
     // TODO Auto-generated method stub
-
+    this.pl1 = player1;
+    this.pl2 = player2;
+    
+    main.displayLeaderboard3();
+    
+  }
+  
+  public Player getPlayer1() {
+    return this.pl1;
+  }
+  
+  public Player getPlayer2() {
+    return this.pl2;
   }
 
   /**
    * @author lstrauch
-   */
   /*
    * (non-Javadoc)
    * 
@@ -629,7 +641,7 @@ public class InGameController implements Initializable, InGameInterface {
         deletePane(skatPane);
         deletePane(handPane);
         deletePane(paneAuc);
-
+        
         rearrangeCardsDark(cardlist);
 
         if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
@@ -1035,7 +1047,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
 
   public void MouseHandler() {
-    c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c1.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1044,7 +1056,7 @@ public class InGameController implements Initializable, InGameInterface {
         clicked = true;
       }
     });
-    c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c2.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1052,7 +1064,7 @@ public class InGameController implements Initializable, InGameInterface {
         clicked = true;
       }
     });
-    c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c3.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1060,7 +1072,7 @@ public class InGameController implements Initializable, InGameInterface {
         clicked = true;
       }
     });
-    c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c4.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1068,7 +1080,7 @@ public class InGameController implements Initializable, InGameInterface {
         clicked = true;
       }
     });
-    c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c5.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1076,7 +1088,7 @@ public class InGameController implements Initializable, InGameInterface {
         clicked = true;
       }
     });
-    c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c6.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1084,7 +1096,7 @@ public class InGameController implements Initializable, InGameInterface {
         clicked = true;
       }
     });
-    c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c7.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1093,7 +1105,7 @@ public class InGameController implements Initializable, InGameInterface {
 
       }
     });
-    c8.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c8.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1101,7 +1113,7 @@ public class InGameController implements Initializable, InGameInterface {
         clicked = true;
       }
     });
-    c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c9.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1109,7 +1121,7 @@ public class InGameController implements Initializable, InGameInterface {
         clicked = true;
       }
     });
-    c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c10.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1126,27 +1138,27 @@ public class InGameController implements Initializable, InGameInterface {
    * @return
    */
   public void ButtonListener() {
-    qu.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    qu.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         System.out.println("qu");
       }
     });
-    pass.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    pass.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         b = false;
         notpressed = false;
       }
     });
-    betB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    betB.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         notpressed = false;
         b = true;
       }
     });
-    submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    submit.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {}
     });
@@ -1164,7 +1176,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public PlayState ButtonListenerPlaySettings(PlayState ps) {
     boolean[] pressed = new boolean[1];
-    diamonds.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    diamonds.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
@@ -1172,7 +1184,7 @@ public class InGameController implements Initializable, InGameInterface {
         pressed[0] = true;
       }
     });
-    hearts.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    hearts.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
@@ -1180,7 +1192,7 @@ public class InGameController implements Initializable, InGameInterface {
         pressed[0] = true;
       }
     });
-    clubs.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    clubs.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
@@ -1188,7 +1200,7 @@ public class InGameController implements Initializable, InGameInterface {
         pressed[0] = true;
       }
     });
-    spades.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    spades.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.SUIT);
@@ -1196,39 +1208,39 @@ public class InGameController implements Initializable, InGameInterface {
         pressed[0] = true;
       }
     });
-    grand.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    grand.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.GRAND);
         pressed[0] = true;
       }
     });
-    nullG.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    nullG.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setPlayMode(PlayMode.NULL);
         pressed[0] = true;
       }
     });
-    ouvert.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    ouvert.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setOpen(true);
       }
     });
-    schneider.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    schneider.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setSchneider(true);
       }
     });
-    schwarz.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    schwarz.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         ps.setSchwarzAnnounced(true);
       }
     });
-    submit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    submit.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         if (pressed[0] == true) {
@@ -1252,14 +1264,14 @@ public class InGameController implements Initializable, InGameInterface {
    * @return
    */
   public void ButtonListenrWantSkat() {
-    yes.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    yes.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         wantskat = true;
         decidepressed = true;
       }
     });
-    no.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    no.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         wantskat = false;
@@ -1279,13 +1291,13 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        sendB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+        sendB.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent e) {
             sendChat();
           }
         });
-        pf.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        pf.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 
           @Override
           public void handle(MouseEvent event) {
@@ -1311,7 +1323,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void switchSkatListener(PlayState ps) {
 
-    c1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c1.setOnMousePressed(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
         if (cardlist.size() == 11) {
@@ -1342,7 +1354,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    c2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c2.setOnMousePressed(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
         if (cardlist.size() == 11) {
@@ -1373,7 +1385,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    c3.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c3.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1405,7 +1417,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    c4.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c4.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1437,7 +1449,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    c5.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c5.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1469,7 +1481,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    c6.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c6.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1501,7 +1513,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    c7.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c7.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1533,7 +1545,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    c8.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c8.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1565,7 +1577,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    c9.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c9.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1597,7 +1609,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    c10.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    c10.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1629,7 +1641,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    extra1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    extra1.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1661,7 +1673,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    extra2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    extra2.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1693,7 +1705,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    sk1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    sk1.setOnMousePressed(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
         if (cardlist.size() == 10) {
@@ -1714,7 +1726,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    sk2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    sk2.setOnMousePressed(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
@@ -1736,7 +1748,7 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     });
-    ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    ok.setOnMousePressed(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
         skatLogic.add(0, skat.get(0));
@@ -2222,6 +2234,7 @@ public class InGameController implements Initializable, InGameInterface {
     s3.setLayoutX(619);
     s3.setLayoutY(140);
   }
+  
 
   /**
    * 

@@ -30,6 +30,7 @@ public class General {
     // with initializeProbabilities(List<Card>) : double[][]
     // Returns the initialization of card probabilities, first column is bot
 
+<<<<<<< HEAD
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Internal methods
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,14 +58,50 @@ public class General {
         } else {
             possibleCards = cards;
         }
+=======
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Internal methods
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the index of a playable card on the hand of the bot.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return int
+	 */
+	public static int playRandomCard(AiController controller) {
+		List<Card> cards = controller.getBot().getHand();
+		List<Card> possibleCards = new ArrayList<Card>();
+		if (controller.getCurrentTrick().size() > 0) {
+			for (int i = 0; i < cards.size(); i++) {
+				try {
+					if (ClientLogic.checkIfCardPossible(cards.get(i), controller.getCurrentTrick().get(0),
+							controller.getPlayState(), controller.getBot())) {
+						possibleCards.add(cards.get(i));
+					}
+				} catch (LogicException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			possibleCards = cards;
+		}
+>>>>>>> refs/heads/master
 
+<<<<<<< HEAD
         int rnd = (int) (Math.random() * possibleCards.size());
         Card playCard = possibleCards.get(rnd);
         int index = cards.indexOf(playCard);
+=======
+		int rnd = (int) (Math.random() * possibleCards.size());
+		Card playCard = possibleCards.get(rnd);
+		int index = cards.indexOf(playCard);
+>>>>>>> refs/heads/master
 
         return index;
     }
 
+<<<<<<< HEAD
     /**
      * Returns the highest possible bet, with the current hand of the bot
      * 
@@ -75,7 +112,20 @@ public class General {
     public static int getHighestPossibleBet(AiController controller) {
         return getHighestPossibleBet(controller, PlayMode.GRAND);
     }
+=======
+	/**
+	 * Returns the highest possible bet, with the current hand of the bot
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return int
+	 */
+	public static int getHighestPossibleBet(AiController controller) {
+		return getHighestPossibleBet(controller, PlayMode.GRAND);
+	}
+>>>>>>> refs/heads/master
 
+<<<<<<< HEAD
     /**
      * Returns the highest possible bet, playing PlayMode
      * 
@@ -96,7 +146,30 @@ public class General {
             }
         }
     }
+=======
+	/**
+	 * Returns the highest possible bet, playing PlayMode
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @param playMode
+	 * @return
+	 */
+	public static int getHighestPossibleBet(AiController controller, PlayMode playMode) {
+		if (playMode == PlayMode.NULL) {
+			return 23;
+		} else {
+			int gameLevel = General.getGameLevel(controller);
+			if (playMode == PlayMode.GRAND) {
+				return 24 * gameLevel;
+			} else {
+				return 12 * gameLevel;
+			}
+		}
+	}
+>>>>>>> refs/heads/master
 
+<<<<<<< HEAD
     /**
      * Returns the game level, the bot is playing
      * 
@@ -126,6 +199,37 @@ public class General {
                 }
             }
         }
+=======
+	/**
+	 * Returns the game level, the bot is playing
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return int
+	 */
+	public static int getGameLevel(AiController controller) {
+		List<Card> cards = controller.getBot().getHand();
+		// Determine the Jacks
+		boolean[] jacks = new boolean[4];
+		for (int i = 0; i < cards.size(); i++) {
+			if (cards.get(i).getNumber() == Number.JACK) {
+				switch (cards.get(i).getColour()) {
+				case CLUBS:
+					jacks[0] = true;
+					break;
+				case SPADES:
+					jacks[1] = true;
+					break;
+				case HEARTS:
+					jacks[2] = true;
+					break;
+				case DIAMONDS:
+					jacks[3] = true;
+					break;
+				}
+			}
+		}
+>>>>>>> refs/heads/master
 
         // Determine the gameLevel
         int gameLevel = 1;
@@ -162,6 +266,7 @@ public class General {
             prob[colour * 8 + number][2] = 0;
         }
 
+<<<<<<< HEAD
         return prob;
     }
     
@@ -176,5 +281,21 @@ public class General {
       }
       return -1;
     }
+=======
+		return prob;
+	}
+	
+	//TODO
+	public static int checkIfPossibleAndGetIndex(double[][] cardProbabilities, List<Card> cards, int colour, int number, int playerIndex) {
+	  if(cardProbabilities[colour*8 + number][playerIndex] > 0) {
+	    for(int i=0; i<cards.size(); i++) {
+	      if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
+	        return i;
+	      }
+	    }
+	  }
+	  return -1;
+	}
+>>>>>>> refs/heads/master
 
 }
