@@ -731,16 +731,16 @@ public class ClientLogic implements NetworkLogic, AILogic {
         for (Player pg : this.group) {
           for (Player ps : this.playState.getGroup()) {
             if (pg.getName().equals(ps.getName())) {
-              pg.setPlayPoints(ps.getPlayPoints());
+              pg.setPlayScore(ps.getPlayScore());
             }
           }
           if (pg.getName().equals(this.player.getName())) {
-            this.player.setPlayPoints(pg.getPlayPoints());
+            this.player.setPlayScore(pg.getPlayScore());
           }
         }
 
         System.out.println(this.player.getName() + " got all these points:");
-        for (int points : this.player.getPlayPoints()) {
+        for (int points : this.player.getPlayScore()) {
           System.out.println(points);
         }
 
@@ -858,7 +858,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   public boolean checkIfGameOverBierlachs() {
     for (Player p : this.playState.getGroup()) {
-      if (p.getGamePoints() >= this.gameSettings.getEndPointsBierlachs()) {
+      if (p.getGameScore() >= this.gameSettings.getEndPointsBierlachs()) {
         return true;
       }
     }

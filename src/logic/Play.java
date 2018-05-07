@@ -146,7 +146,7 @@ public class Play {
     }
     for (Player p : ps.getGroup()) {
       if (p.isDeclarer()) {
-       p.getPlayPoints().add((points * (-2)));
+       p.getPlayScore().add((points * (-2)));
       }
     }   
     return ps;
@@ -162,13 +162,13 @@ public class Play {
     if (declarerWins) {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
-          ps.getGroup()[i].getPlayPoints().add(ps.getPlayValue());
+          ps.getGroup()[i].getPlayScore().add(ps.getPlayValue());
         }
       }   
     } else {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
-          ps.getGroup()[i].getPlayPoints().add((-2) * (ps.getPlayValue()));
+          ps.getGroup()[i].getPlayScore().add((-2) * (ps.getPlayValue()));
         }
       }   
     }
@@ -184,13 +184,13 @@ public class Play {
     if (declarerWins) {      
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (!ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
-          ps.getGroup()[i].getPlayPoints().add((-1) * (ps.getPlayValue()));
+          ps.getGroup()[i].getPlayScore().add((-1) * (ps.getPlayValue()));
         }
       }     
     } else {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
-          ps.getGroup()[i].getPlayPoints().add((-2) * (ps.getPlayValue()));
+          ps.getGroup()[i].getPlayScore().add((-2) * (ps.getPlayValue()));
         }
       }
     }
@@ -206,13 +206,13 @@ public class Play {
     if (declarerWins) {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
-          ps.getGroup()[i].getPlayPoints().add(ps.getPlayValue() + 50);
+          ps.getGroup()[i].getPlayScore().add(ps.getPlayValue() + 50);
         }
       }     
     } else {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
-          ps.getGroup()[i].getPlayPoints().add((-1) * (ps.getPlayValue() + 50));
+          ps.getGroup()[i].getPlayScore().add((-1) * (ps.getPlayValue() + 50));
         }
       }    
     }
