@@ -553,7 +553,7 @@ public class AiController implements InGameInterface {
 		this.bot.setHand(hand);
 	}
 
-	// TODO
+	@Override
 	/**
 	 * Reset play informations.
 	 * 
@@ -561,7 +561,7 @@ public class AiController implements InGameInterface {
 	 * @param player1
 	 * @param player2
 	 */
-	public void showWinnerPlay(Player player1, Player player2) {
+	public void showScore(List<Player> player) {
 		this.playState = null;
 		this.singlePlay = null;
 		this.maxBet = 0;
@@ -577,6 +577,7 @@ public class AiController implements InGameInterface {
 		}
 		this.currentTrick = new ArrayList<Card>();
 	}
+
 
 	@Override
 	/**
@@ -691,12 +692,6 @@ public class AiController implements InGameInterface {
 	public void showPossibleCards(List<Card> cards) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void showScore(List<Player> player) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
