@@ -206,34 +206,28 @@ public class ClientLogic implements NetworkLogic, AILogic {
        }
       this.group = new ArrayList<Player>();  
       this.group.addAll(temp);
+
+      // set position
+      System.out.println(
+          "Bei " + this.player.getName() + " groesse group: " + this.playState.getGroup().length);
+      this.group.get(0).setPosition(Position.FOREHAND);
+      this.group.get(1).setPosition(Position.MIDDLEHAND);
+      this.group.get(3).setPosition(Position.REARHAND);      
+      
       if (this.group.size() == 4) {
         this.group.get(3).setPosition(Position.DEALER);
         if (this.player.getName().equals(this.group.get(3).getName())) {
           this.player.setPosition(Position.DEALER);
         }
       }
-      
+      // Generate new PlayState
       this.playState = new PlayState(this.getPlayingGroup());
-//      // random number points on the one in the list to be the forehand
-//      Player[] group = new Player[this.group.size()];
-//      for (int i = 0; i < this.group.size(); i++) {
-//        group[i] =
-//            this.group.get((this.gameSettings.getRandomSeatingIndex() + i) % this.group.size());
-//      }
-//      this.playState = new PlayState(group);
 
       // instead gui should open the ingameScreen in startPlay
       // // TODO Auto-generated method stub
       if (!this.player.isBot()) {
         this.inGameController = this.guiController.startInGameScreen();
       }
-
-      // set position
-      System.out.println(
-          "Bei " + this.player.getName() + " groesse group: " + this.playState.getGroup().length);
-      this.playState.getGroup()[0].setPosition(Position.FOREHAND);
-      this.playState.getGroup()[1].setPosition(Position.MIDDLEHAND);
-      this.playState.getGroup()[2].setPosition(Position.REARHAND);
 
       // set player position
       for (int i = 0; i < this.playState.getGroup().length; i++) {
