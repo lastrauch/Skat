@@ -169,7 +169,7 @@ public class InGameController implements Initializable, InGameInterface {
   @FXML
   private ImageView bubbleLeft, bubbleRight, bubbleUp;
   @FXML
-  private Label betlLeft, betUp, betRight;
+  private Label betLeft, betUp, betRight;
 
 
 
@@ -251,23 +251,19 @@ public class InGameController implements Initializable, InGameInterface {
     oArray[8] = o9;
     oArray[9] = o10;
 
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
-          if (LoginController.interfGL.getPlayer().getPosition() == Position.DEALER
-              || LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
-            for (int i = 0; i < 10; i++) {
-              oArray[i].setImage(null);
-            }
-          }
+    if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
+      if (LoginController.interfGL.getPlayer().getPosition() == Position.DEALER
+          || LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+        for (int i = 0; i < 10; i++) {
+          oArray[i].setImage(null);
         }
-
       }
+    }
 
-    });
+
 
     chatButtonListener();
+
   }
 
 
@@ -852,6 +848,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void receivedNewBet(int bet, Player player) {
     // TODO Auto-generated method stub
+    System.out.println("BETTTT");
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -859,60 +856,24 @@ public class InGameController implements Initializable, InGameInterface {
           rearrangeCardsDark(cardlist);
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
             if (player.getPosition() == Position.MIDDLEHAND) {
-              displayBubbleLeft();
-              try {
-                Thread.sleep(2000);
-              } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-              }
+              displayBubbleLeft(bet);
               bubbleLeft.setImage(null);
             } else if (player.getPosition() == Position.REARHAND) {
-              displayBubbleRight();
-              try {
-                Thread.sleep(2000);
-              } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-              }
+              displayBubbleRight(bet);
               bubbleRight.setImage(null);
             } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
               if (player.getPosition() == Position.MIDDLEHAND) {
-                displayBubbleRight();
-                try {
-                  Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                  // TODO Auto-generated catch block
-                  e.printStackTrace();
-                }
+                displayBubbleRight(bet);
                 bubbleRight.setImage(null);
               } else if (player.getPosition() == Position.FOREHAND) {
-                displayBubbleLeft();
-                try {
-                  Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                  // TODO Auto-generated catch block
-                  e.printStackTrace();
-                }
+                displayBubbleLeft(bet);
                 bubbleLeft.setImage(null);
               } else {
                 if (player.getPosition() == Position.REARHAND) {
-                  displayBubbleLeft();
-                  try {
-                    Thread.sleep(2000);
-                  } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                  }
+                  displayBubbleLeft(bet);
                   bubbleLeft.setImage(null);
                 } else if (player.getPosition() == Position.FOREHAND) {
-                  displayBubbleRight();
-                  try {
-                    Thread.sleep(2000);
-                  } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                  }
+                  displayBubbleRight(bet);
                   bubbleRight.setImage(null);
                 }
               }
@@ -925,83 +886,35 @@ public class InGameController implements Initializable, InGameInterface {
               rearrangeCardsDark(cardlist);
               if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
                 if (player.getPosition() == Position.MIDDLEHAND) {
-                  displayBubbleLeft();
-                  try {
-                    Thread.sleep(2000);
-                  } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                  }
+                  displayBubbleLeft(bet);
                   bubbleLeft.setImage(null);
                 } else if (player.getPosition() == Position.REARHAND) {
-                  displayBubbleRight();
-                  try {
-                    Thread.sleep(2000);
-                  } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                  }
+                  displayBubbleRight(bet);
                   bubbleRight.setImage(null);
                 }
               } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
                 if (player.getPosition() == Position.MIDDLEHAND) {
-                  displayBubbleRight();
-                  try {
-                    Thread.sleep(2000);
-                  } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                  }
+                  displayBubbleRight(bet);
                   bubbleRight.setImage(null);
                 } else if (player.getPosition() == Position.FOREHAND) {
-                  displayBubbleLeft();
-                  try {
-                    Thread.sleep(2000);
-                  } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                  }
+                  displayBubbleLeft(bet);
                   bubbleLeft.setImage(null);
                 }
               } else if (LoginController.interfGL.getPlayer()
                   .getPosition() == Position.MIDDLEHAND) {
                 if (player.getPosition() == Position.FOREHAND) {
-                  displayBubbleLeft();
-                  try {
-                    Thread.sleep(2000);
-                  } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                  }
+                  displayBubbleLeft(bet);
                   bubbleLeft.setImage(null);
                 } else if (player.getPosition() == Position.REARHAND) {
-                  displayBubbleRight();
-                  try {
-                    Thread.sleep(2000);
-                  } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                  }
+                  displayBubbleRight(bet);
                   bubbleRight.setImage(null);
                 }
               } else {
                 if (player.getPosition() == Position.REARHAND) {
-                  displayBubbleRight();
-                  try {
-                    Thread.sleep(2000);
-                  } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                  }
+                  displayBubbleRight(bet);
                   bubbleRight.setImage(null);
                 } else if (player.getPosition() == Position.FOREHAND) {
-                  displayBubbleLeft();
-                  try {
-                    Thread.sleep(2000);
-                  } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                  }
+                  displayBubbleLeft(bet);
                   bubbleLeft.setImage(null);
                 }
               }
@@ -2589,16 +2502,19 @@ public class InGameController implements Initializable, InGameInterface {
     s3.setLayoutY(140);
   }
 
-  public void displayBubbleLeft() {
+  public void displayBubbleLeft(int bet) {
     bubbleLeft.setImage(bubbleL);
+    betLeft.setText(String.valueOf(bet));
   }
 
-  public void displayBubbleRight() {
+  public void displayBubbleRight(int bet) {
     bubbleRight.setImage(bubbleR);
+    betRight.setText(String.valueOf(bet));
   }
 
-  public void displayBubbleUp() {
+  public void displayBubbleUp(int bet) {
     bubbleUp.setImage(bubbleU);
+    betUp.setText(String.valueOf(bet));
   }
 
 
@@ -2635,11 +2551,13 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showOpen(Player player) {
     // TODO Auto-generated method stub
-    
+
 
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#askToPlayCard(int)
    */
   @Override
@@ -2653,7 +2571,9 @@ public class InGameController implements Initializable, InGameInterface {
     return ret[0];
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showScore(java.util.List)
    */
   @Override
@@ -2668,7 +2588,7 @@ public class InGameController implements Initializable, InGameInterface {
         main.displayLeaderboard3();
       }
     });
-    
+
   }
 
 
