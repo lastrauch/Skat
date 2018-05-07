@@ -1,19 +1,19 @@
 package ai;
 
+import interfaces.InGameInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import interfaces.InGameInterface;
 import logic.Card;
 import logic.GameSettings;
+import logic.Number;
 import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
 import logic.Position;
-import logic.Number;
 import network.Settings;
 
-public class AIController implements InGameInterface {
+public class AiController implements InGameInterface {
 
   // This class is the main class of the AI.
   // It inherits the InGameInterface methods to call different actions on the AI.
@@ -90,7 +90,7 @@ public class AIController implements InGameInterface {
    * @param difficulty
    * @param gameSettings
    */
-  public AIController(String name, BotDifficulty difficulty, GameSettings gameSettings) {
+  public AiController(String name, BotDifficulty difficulty, GameSettings gameSettings) {
     this.bot = new Bot(name, difficulty);
     this.gameSettings = gameSettings;
     this.player = new ArrayList<Player>();
@@ -689,6 +689,13 @@ public class AIController implements InGameInterface {
    */
   public void itsYourTurn() {
     // Do nothing.
+  }
+  
+  @Override
+  //TODO
+  public void showPossibleCards(List<Card> cards) {
+  	// TODO Auto-generated method stub
+  	
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
