@@ -909,6 +909,7 @@ public class InGameController implements Initializable, InGameInterface {
               }
             } else if (player.getPosition() == Position.REARHAND) {
               bubbleUp.setImage(bubbleU);
+              bubbleUp.toFront();
               if (bet != -1) {
                 betUp.setText(String.valueOf(bet));
               } else {
@@ -925,6 +926,7 @@ public class InGameController implements Initializable, InGameInterface {
               }
             } else if (player.getPosition() == Position.FOREHAND) {
               bubbleUp.setImage(bubbleU);
+              bubbleUp.toFront();
               if (bet != -1) {
                 betUp.setText(String.valueOf(bet));
               } else {
@@ -961,6 +963,7 @@ public class InGameController implements Initializable, InGameInterface {
                 betLeft.setText(String.valueOf(bet));
               } else {
                 bubbleUp.setImage(bubbleU);
+                bubbleUp.toFront();
                 if (bet != -1) {
                   betUp.setText(String.valueOf(bet));
                 } else {
@@ -1339,8 +1342,7 @@ public class InGameController implements Initializable, InGameInterface {
       }
     }
     if (list.get(list.size() - 1) != null) {
-      cArray[list.size() - 1].setImage(
-          inte.getImageDarker(list.get(list.size() - 1).getColour().toString().toLowerCase(),
+      cArray[list.size() - 1].setImage(inte.getImageDarker(list.get(list.size() - 1).getColour().toString().toLowerCase(),
               (list.get(list.size() - 1).getNumber().toString().toLowerCase())));
     } else {
       cArray[list.size() - 1].setImage(inte.getImage(list.get(list.size() - 1).getColour().toString().toLowerCase(),
