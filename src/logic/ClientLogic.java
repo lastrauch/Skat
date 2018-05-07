@@ -709,15 +709,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
         if (playWinner[0].isDeclarer()) {
           // calculate points: declarer won
           this.playState = Play.calculatePoints(this.playState, this.gameSettings, true);
-          for (Player p : this.playState.getGroup()) {
-            System.out.println(this.player.getName() + "'s points: " + this.player.getGamePoints());
-          }
         } else {
           // calculate points: opponents won
           this.playState = Play.calculatePoints(this.playState, this.gameSettings, false);
-          for (Player p : this.playState.getGroup()) {
-            System.out.println(this.player.getName() + "'s points: " + this.player.getGamePoints());
-          }
         }
         
         //save playPionts from playState in this group
@@ -725,12 +719,17 @@ public class ClientLogic implements NetworkLogic, AILogic {
         for(Player pg: this.group) {
           for(Player ps: this.playState.getGroup()) {
             if(pg.getName().equals(ps.getName())) {
-              pg.setGamePoints(ps.getGamePoints());
+              pg.setPlayPoints(ps.getPlayPoints());
             }
           }
           if(pg.getName().equals(this.player.getName())) {
-            this.player.setGamePoints(pg.getGamePoints());
+            this.player.setPlayPoints(pg.getPlayPoints());
           }
+        }
+        
+        System.out.println(this.player.getName()+ " got all these points:");
+        for(int points: this.player.getPlayPoints()) {
+          System.out.println(points);
         }
         
         // show winner of play
