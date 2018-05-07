@@ -29,7 +29,7 @@ public class ServerFinderThread extends Thread {
 				this.socket.receive(packet);
 				String msg = new String(packet.getData());
 				System.out.println("Das ist die Nachricht: " + msg);
-				if (msg.trim().equals("ping")) {
+				if (msg.trim().equals("DISCOVER_SERVER_REQUEST")) {
 					InetAddress address = packet.getAddress();
 					data = this.serverName.getBytes();
 					DatagramPacket sendPacket = new DatagramPacket(data, data.length, address, packet.getPort());

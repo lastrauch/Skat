@@ -6,9 +6,12 @@ import network.test.Server2;
 public class Test {
 
 	public static void test() {
-		Server2 server = new Server2("Felix", 3000);
-		Client2 client = new Client2(3000);
-
+//		Server3 server = new Server3("Felix", 3000);
+//		Client3 client = new Client3(3000);
+		
+		
+		MulticastServer server = new MulticastServer("Felix", 3000);
+		MulticastClient client = new MulticastClient(3000);
 	}
 
 }

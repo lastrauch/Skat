@@ -7,14 +7,14 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class Server2 extends Thread {
+public class Server3 extends Thread {
   private String serverName;
   private String ip;
   private ServerSocket serverSocket;
   private int port;
   private boolean serverRunning = false;
 
-  public Server2(String serverName, int port) {
+  public Server3(String serverName, int port) {
     this.serverName = serverName;
     this.port = port;
     try {
@@ -33,7 +33,7 @@ public class Server2 extends Thread {
     
     
     
-    Thread serverFinderThread = new Thread(ServerFinderThread2.getInstance());
+    Thread serverFinderThread = new Thread(ServerFinderThread3.getInstance(this.port));
     serverFinderThread.start();
   }
 
