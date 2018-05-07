@@ -87,11 +87,11 @@ public class GuiController extends Application {
   private static HelpVariationsController helpVarCon;
   private AnchorPane helpVar;
 
-  private static Leaderboard3Controller leaderbord3Con;
-  private AnchorPane leaderbord3;
+  private static Leaderboard3Controller leaderboard3Con;
+  private AnchorPane leaderboard3;
   
-  private static Leaderboard3Controller leaderbord4Con;
-  private AnchorPane leaderbord4;
+  private static Leaderboard4Controller leaderboard4Con;
+  private AnchorPane leaderboard4;
   
   
   
@@ -116,6 +116,7 @@ public class GuiController extends Application {
       Scene loginScene = new Scene(login);
 
       loginCon = loader.getController();
+
 
       mprimaryStage.setScene(loginScene);
       mprimaryStage.show();
@@ -460,10 +461,10 @@ public class GuiController extends Application {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("Leaderboard3.fxml"));
-      this.leaderbord3 = (AnchorPane) loader.load();
-      mprimaryStage.getScene().setRoot(leaderbord3);
+      this.leaderboard3 = (AnchorPane) loader.load();
+      mprimaryStage.getScene().setRoot(leaderboard3);
 
-      leaderbord3Con = loader.getController();
+      leaderboard3Con = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -477,10 +478,10 @@ public class GuiController extends Application {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("Leaderboard4.fxml"));
-      this.leaderbord4 = (AnchorPane) loader.load();
-      mprimaryStage.getScene().setRoot(leaderbord4);
+      leaderboard4 = (AnchorPane) loader.load();
+      mprimaryStage.getScene().setRoot(leaderboard4);
 
-      leaderbord4Con = loader.getController();
+      leaderboard4Con = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -506,4 +507,11 @@ public class GuiController extends Application {
   public InGameController getInGameCon() {
     return inGameCon;
   }
+  
+
 }
+
+
+
+
+

@@ -159,7 +159,7 @@ public class GameController implements GuiLogic {
 
   @Override
   public Player getPlayer() {
-    return this.group.get(0);
+    return this.clientLogic.get(0).getPlayer();
   }
 
   @Override

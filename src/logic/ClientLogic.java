@@ -501,6 +501,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receivePlayState(PlayState ps) {
     // TODO Auto-generated method stub
     this.playState = ps;
+    //!!!!!TEST
+    this.playState.setOpen(true);
+    
     this.player.sortHand(this.playState);
     this.inGameController.updateHand(this.player.getHand());
     this.inGameController.setPlaySettingsAfterAuction(this.playState);
@@ -1231,5 +1234,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   public void setNetworkController(LogicNetwork networkController) {
     this.netController = networkController;
+  }
+  
+  public Player getPlayer() {
+    return this.player;
   }
 }
