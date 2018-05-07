@@ -16,6 +16,7 @@ public class Player implements Serializable{
   private Position position;
   private List<Card> hand;
   private int bet; // -1 if you passed
+  private int [] playPoints; // points of one round
   private int gamePoints; // saves the points of every Play until the whole game is over
   private boolean declarer; // true if the player is declarer and false when he/she is opponents
   private boolean bot;

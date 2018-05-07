@@ -92,21 +92,21 @@ public class Play {
    * @author sandfisc
    * @throws LogicException
    */
-  public static void calculatePoints(PlayState ps, GameSettings gameSettings, boolean declarerWins)
+  public static PlayState calculatePoints(PlayState ps, GameSettings gameSettings, boolean declarerWins)
       throws LogicException {
 
     // check if the declarer over bid
     if (checkOverBid(ps)) {
-      calculatePointsOverBit(ps);
+      return calculatePointsOverBit(ps);
 
       // calculate the players points with the countRule
     } else {
       if (gameSettings.getCountRule() == CountRule.NORMAL) {
-        calculatePointsNormal(ps, declarerWins);
+        return calculatePointsNormal(ps, declarerWins);
       } else if (gameSettings.getCountRule() == CountRule.BIERLACHS) {
-        calculatePointsBierlachs(ps, declarerWins);
+        return calculatePointsBierlachs(ps, declarerWins);
       } else {
-        calculatePointsSeegerfabian(ps, declarerWins);
+        return calculatePointsSeegerfabian(ps, declarerWins);
       }
     }
   }
@@ -115,12 +115,17 @@ public class Play {
    * The amount subtracted from the declarer's score is twice the least multiple of the base value
    * of the game actually played which would have fulfilled the bid
    */
-  public static void calculatePointsOverBit(PlayState ps) {
+  public static PlayState calculatePointsOverBit(PlayState ps) {
     int points = ps.getBaseValue();
     while (points < ps.getBetValue()) {
       points += points;
     }
-    Tools.getDeclarer(ps.getGroup()).addToGamePoints(points * (-2));
+    for (Player p : ps.getGroup()) {
+      if (p.isDeclarer()) {
+       p.addToGamePoints(points * (-2));
+      }
+    }   
+    return ps;
   }
 
   /**
@@ -129,7 +134,7 @@ public class Play {
    * 
    * @author sandfisc
    */
-  public static void calculatePointsNormal(PlayState ps, boolean declarerWins) {
+  public static PlayState calculatePointsNormal(PlayState ps, boolean declarerWins) {
     if (declarerWins) {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
@@ -143,6 +148,7 @@ public class Play {
         }
       }   
     }
+    return ps;
   }
 
   /**
@@ -150,7 +156,7 @@ public class Play {
    * 
    * @author sandfisc
    */
-  public static void calculatePointsBierlachs(PlayState ps, boolean declarerWins) {
+  public static PlayState calculatePointsBierlachs(PlayState ps, boolean declarerWins) {
     if (declarerWins) {      
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (!ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
@@ -164,6 +170,7 @@ public class Play {
         }
       }
     }
+    return ps;
   }
 
   /**
@@ -171,7 +178,7 @@ public class Play {
    * 
    * @author sandfisc
    */
-  public static void calculatePointsSeegerfabian(PlayState ps, boolean declarerWins) {
+  public static PlayState calculatePointsSeegerfabian(PlayState ps, boolean declarerWins) {
     if (declarerWins) {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
@@ -185,8 +192,8 @@ public class Play {
         }
       }    
     }
+    return ps;
   }
-  
   
 
 }
