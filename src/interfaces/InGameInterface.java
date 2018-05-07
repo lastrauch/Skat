@@ -116,13 +116,6 @@ public interface InGameInterface {
 
   /**
    * only relevant for the ui.
-   * 
-   * @param bet
-   */
-  public void updateBet(int bet);
-
-  /**
-   * only relevant for the ui.
    */
   public void openTakeUpSkat();
 
