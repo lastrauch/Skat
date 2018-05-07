@@ -488,18 +488,7 @@ public class InGameController implements Initializable, InGameInterface {
     return this.pl2;
   }
 
-  /**
-   * @author lstrauch /* (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#showWinnerGame(logic.Player)
-   * 
-   * @author lstrauch
-   */
-  @Override
-  public void showWinnerGame(Player player) {
-    // TODO Auto-generated method stub
-
-  }
+  
 
 
 
@@ -2517,6 +2506,24 @@ public class InGameController implements Initializable, InGameInterface {
   public void setGameSettings(GameSettings gs) {
     // TODO Auto-generated method stub
 
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#showPoints(java.util.List)
+   */
+  @Override
+  public void showPoints(List<Player> player) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#showOpen(logic.Player)
+   */
+  @Override
+  public void showOpen(Player player) {
+    // TODO Auto-generated method stub
+    
   }
 
 
