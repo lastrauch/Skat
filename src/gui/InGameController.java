@@ -105,6 +105,12 @@ public class InGameController implements Initializable, InGameInterface {
   private List<Card> cardlist = new ArrayList<Card>();
   private Image noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
   private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
+  private Image bubbleL =
+      new Image(getClass().getResource("/Sprechblase_rechts.png").toExternalForm());
+  private Image bubbleR =
+      new Image(getClass().getResource("/Sprechblase_rechts.png").toExternalForm());
+  private Image bubbleU =
+      new Image(getClass().getResource("/Sprechblase_rechts.png").toExternalForm());
   private List<Card> skat = new ArrayList<Card>();
   Card p1 = new Card(Colour.CLUBS, Number.SEVEN);
   Card p2 = new Card(Colour.CLUBS, Number.EIGHT);
@@ -130,13 +136,16 @@ public class InGameController implements Initializable, InGameInterface {
    */
   @FXML
   private ImageView c1, c2, c3, c4, c5, c6, c7, c8, c9, c10;
-  
   private ImageView[] cArray = new ImageView[10];
-  
   @FXML
   private ImageView r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, stichRechts;
+  private ImageView[] rArray = new ImageView[10];
   @FXML
   private ImageView l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, stichLinks;
+  private ImageView[] lArray = new ImageView[10];
+  @FXML
+  private ImageView o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, stichOben;
+  private ImageView[] oArray = new ImageView[10];
   @FXML
   private ImageView s1, s2, s3;
   @FXML
@@ -154,9 +163,13 @@ public class InGameController implements Initializable, InGameInterface {
   @FXML
   private JFXTextField textM;
   @FXML
-  private Label labelLeft, labelRight, labelMe;
+  private Label labelLeft, labelRight, labelMiddle, labelMe;
   @FXML
   private ImageView profilepictureLeft, profilepictureRight;
+  @FXML
+  private ImageView bubbleLeft, bubbleRight, bubbleUp;
+  @FXML
+  private Label betLeft, betUp, betRight;
 
 
 
@@ -204,7 +217,53 @@ public class InGameController implements Initializable, InGameInterface {
     cArray[7] = c8;
     cArray[8] = c9;
     cArray[9] = c10;
+
+    lArray[0] = l1;
+    lArray[1] = l2;
+    lArray[2] = l3;
+    lArray[3] = l4;
+    lArray[4] = l5;
+    lArray[5] = l6;
+    lArray[6] = l7;
+    lArray[7] = l8;
+    lArray[8] = l9;
+    lArray[9] = l10;
+
+    lArray[0] = l1;
+    lArray[1] = l2;
+    lArray[2] = l3;
+    lArray[3] = l4;
+    lArray[4] = l5;
+    lArray[5] = l6;
+    lArray[6] = l7;
+    lArray[7] = l8;
+    lArray[8] = l9;
+    lArray[9] = l10;
+
+    oArray[0] = o1;
+    oArray[1] = o2;
+    oArray[2] = o3;
+    oArray[3] = o4;
+    oArray[4] = o5;
+    oArray[5] = o6;
+    oArray[6] = o7;
+    oArray[7] = o8;
+    oArray[8] = o9;
+    oArray[9] = o10;
+
+    if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
+      if (LoginController.interfGL.getPlayer().getPosition() == Position.DEALER
+          || LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+        for (int i = 0; i < 10; i++) {
+          oArray[i].setImage(null);
+        }
+      }
+    }
+
+
+
     chatButtonListener();
+
   }
 
 
@@ -271,36 +330,28 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        pos.setText(position.toString());
-        displayChatClosed();
-        rearrangeCardsLight(hand);
+        System.out.println("Start Play");
         cardlist = hand;
+        rearrangeCardsLight(hand);
+        pos.setText(position.toString());
+        if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            for (int i = 0; i < rArray.length; i++) {
+              rArray[i].setImage(null);
+            }
+            rArray[9].setImage(null);
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            for (int i = 0; i < rArray.length; i++) {
+              lArray[i].setImage(null);
+            }
+            lArray[9].setImage(null);
+          }
+        }
       }
-
     });
 
   }
 
-
-  /**
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#askToPlayCard()
-   * 
-   * @author lstrauch
-   */
-  @Override
-  public int askToPlayCard() {
-    // TODO Auto-generated method stub
-    while (clicked == false) {
-      MouseHandler();
-    }
-    clicked = false;
-    return ret[0];
-  }
 
   /**
    * @author lstrauch
@@ -364,7 +415,7 @@ public class InGameController implements Initializable, InGameInterface {
       } else if (player.getPosition() == Position.REARHAND) {
         stichRechts.setImage(rueckseite);
       } else {
-        
+
       }
     } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
       if (player.getPosition() == Position.MIDDLEHAND) {
@@ -372,7 +423,7 @@ public class InGameController implements Initializable, InGameInterface {
       } else if (player.getPosition() == Position.FOREHAND) {
         stichLinks.setImage(rueckseite);
       } else {
-        
+
       }
     } else {
       if (player.getPosition() == Position.REARHAND) {
@@ -380,54 +431,20 @@ public class InGameController implements Initializable, InGameInterface {
       } else if (player.getPosition() == Position.FOREHAND) {
         stichRechts.setImage(rueckseite);
       } else {
-       
+
       }
     }
 
 
   }
 
-  /**
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#showWinnerPlay(logic.Player, logic.Player)
-   * 
-   * @author lstrauch
-   */
-  @Override
-  public void showWinnerPlay(Player player1, Player player2) {
-    // TODO Auto-generated method stub
-    this.pl1 = player1;
-    this.pl2 = player2;
-    
-    main.displayLeaderboard3();
-    
-  }
-  
+
   public Player getPlayer1() {
     return this.pl1;
   }
-  
+
   public Player getPlayer2() {
     return this.pl2;
-  }
-
-  /**
-   * @author lstrauch
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#showWinnerGame(logic.Player)
-   * 
-   * @author lstrauch
-   */
-  @Override
-  public void showWinnerGame(Player player) {
-    // TODO Auto-generated method stub
-
   }
 
 
@@ -637,63 +654,140 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        deletePane(paneBet);
-        deletePane(skatPane);
-        deletePane(handPane);
-        deletePane(paneAuc);
-        
         rearrangeCardsDark(cardlist);
+        if (main.getLobbyCon().getGS().getNrOfPlayers() == 3) {
+          deletePane(paneBet);
+          deletePane(skatPane);
+          deletePane(handPane);
+          deletePane(paneAuc);
 
-        if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
-          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelLeft.setText(ps.getPlayMode().toString());
-            } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
-              labelRight.setText(ps.getPlayMode().toString());
+
+          if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
+            if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+              if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+                labelLeft.setText(ps.getPlayMode().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+                labelRight.setText(ps.getPlayMode().toString());
+              } else {
+                labelMe.setText(ps.getPlayMode().toString());
+              }
+            } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+              if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+                labelRight.setText(ps.getPlayMode().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+                labelLeft.setText(ps.getPlayMode().toString());
+              } else {
+                labelMe.setText(ps.getPlayMode().toString());
+              }
             } else {
-              labelMe.setText(ps.getPlayMode().toString());
-            }
-          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelRight.setText(ps.getPlayMode().toString());
-            } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
-              labelLeft.setText(ps.getPlayMode().toString());
-            } else {
-              labelMe.setText(ps.getPlayMode().toString());
+              if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+                labelRight.setText(ps.getPlayMode().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+                labelLeft.setText(ps.getPlayMode().toString());
+              } else {
+                labelMe.setText(ps.getPlayMode().toString());
+              }
             }
           } else {
-            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
-              labelRight.setText(ps.getPlayMode().toString());
-            } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
-              labelLeft.setText(ps.getPlayMode().toString());
+            if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+              if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+                labelLeft.setText(ps.getTrump().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+                labelRight.setText(ps.getTrump().toString());
+              } else {
+                labelMe.setText(ps.getTrump().toString());
+              }
+            } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+              if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+                labelRight.setText(ps.getTrump().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+                labelLeft.setText(ps.getTrump().toString());
+              } else {
+                labelMe.setText(ps.getTrump().toString());
+              }
             } else {
-              labelMe.setText(ps.getPlayMode().toString());
+              if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+                labelRight.setText(ps.getTrump().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+                labelLeft.setText(ps.getTrump().toString());
+              } else {
+                labelMe.setText(ps.getTrump().toString());
+              }
             }
           }
+
+
+
+          // 4 Players
         } else {
-          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelLeft.setText(ps.getTrump().toString());
-            } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
-              labelRight.setText(ps.getTrump().toString());
+          System.out.println("playmode");
+          if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
+            if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+              if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+                labelLeft.setText(ps.getPlayMode().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+                labelMiddle.setText(ps.getPlayMode().toString());
+              } else {
+                labelMe.setText(ps.getPlayMode().toString());
+              }
+            } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+              if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+                labelRight.setText(ps.getPlayMode().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+                labelMiddle.setText(ps.getPlayMode().toString());
+              } else {
+                labelMe.setText(ps.getPlayMode().toString());
+              }
+            } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+              if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+                labelLeft.setText(ps.getPlayMode().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+                labelRight.setText(ps.getPlayMode().toString());
+              } else {
+                labelMe.setText(ps.getPlayMode().toString());
+              }
             } else {
-              labelMe.setText(ps.getTrump().toString());
-            }
-          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-            if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
-              labelRight.setText(ps.getTrump().toString());
-            } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
-              labelLeft.setText(ps.getTrump().toString());
-            } else {
-              labelMe.setText(ps.getTrump().toString());
+              if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+                labelRight.setText(ps.getPlayMode().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+                labelLeft.setText(ps.getPlayMode().toString());
+              } else {
+                labelMiddle.setText(ps.getPlayMode().toString());
+              }
             }
           } else {
-            if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
-              labelRight.setText(ps.getTrump().toString());
-            } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
-              labelLeft.setText(ps.getTrump().toString());
+            if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+              if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+                labelLeft.setText(ps.getTrump().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+                labelMiddle.setText(ps.getTrump().toString());
+              } else {
+                labelMe.setText(ps.getTrump().toString());
+              }
+            } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+              if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
+                labelRight.setText(ps.getTrump().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+                labelMiddle.setText(ps.getTrump().toString());
+              } else {
+                labelMe.setText(ps.getTrump().toString());
+              }
+            } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+              if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+                labelLeft.setText(ps.getTrump().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+                labelRight.setText(ps.getTrump().toString());
+              } else {
+                labelMe.setText(ps.getTrump().toString());
+              }
             } else {
-              labelMe.setText(ps.getTrump().toString());
+              if (ps.getAuction().getWinner().getPosition() == Position.REARHAND) {
+                labelRight.setText(ps.getTrump().toString());
+              } else if (ps.getAuction().getWinner().getPosition() == Position.FOREHAND) {
+                labelLeft.setText(ps.getTrump().toString());
+              } else {
+                labelMiddle.setText(ps.getTrump().toString());
+              }
             }
           }
         }
@@ -730,6 +824,7 @@ public class InGameController implements Initializable, InGameInterface {
   /**
    * lstrauch
    */
+
   /*
    * (non-Javadoc)
    * 
@@ -752,16 +847,160 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void receivedNewBet(int bet, Player player) {
     // TODO Auto-generated method stub
+    Platform.runLater(new Runnable() {
+
+      @Override
+      public void run() {
+        // TODO Auto-generated method stub
+        bubbleLeft.setImage(null);
+        bubbleRight.setImage(null);
+        betRight.setText(null);
+        betLeft.setText(null);
+        // TODO Auto-generated method stub
+        if (main.getGameSetCon().getGS().getNrOfPlayers() == 3) {
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            if (player.getPosition() == Position.MIDDLEHAND) {
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
+              } else {
+                betLeft.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.REARHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
+              } else {
+                betRight.setText("Pass");
+              }
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (player.getPosition() == Position.MIDDLEHAND) {
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
+              } else {
+                betLeft.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.FOREHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
+              } else {
+                betRight.setText("Pass");
+              }
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+            if (player.getPosition() == Position.REARHAND) {
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
+              } else {
+                betLeft.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.FOREHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
+              } else {
+                betRight.setText("Pass");
+              }
+            }
+          }
+
+
+          // 4 Players:
+
+        } else {
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            if (player.getPosition() == Position.MIDDLEHAND) {
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
+              } else {
+                betLeft.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.REARHAND) {
+              bubbleUp.setImage(bubbleU);
+              if (bet != -1) {
+                betUp.setText(String.valueOf(bet));
+              } else {
+                betUp.setText("Pass");
+              }
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (player.getPosition() == Position.MIDDLEHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
+              } else {
+                betRight.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.FOREHAND) {
+              bubbleUp.setImage(bubbleU);
+              if (bet != -1) {
+                betUp.setText(String.valueOf(bet));
+              } else {
+                betUp.setText("Pass");
+              }
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+            if (player.getPosition() == Position.FOREHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
+              } else {
+                betRight.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.REARHAND) {
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
+              } else {
+                betLeft.setText("Pass");
+              }
+            }
+          } else {
+            if (player.getPosition() == Position.REARHAND) {
+              bubbleRight.setImage(bubbleR);
+              if (bet != -1) {
+                betRight.setText(String.valueOf(bet));
+              } else {
+                betRight.setText("Pass");
+              }
+            } else if (player.getPosition() == Position.FOREHAND) {
+              bubbleLeft.setImage(bubbleL);
+              if (bet != -1) {
+                betLeft.setText(String.valueOf(bet));
+              } else {
+                bubbleUp.setImage(bubbleU);
+                if (bet != -1) {
+                  betUp.setText(String.valueOf(bet));
+                } else {
+                  betUp.setText("Pass");
+                }
+              }
+            }
+          }
+        }
+        
+        
+      }
+
+    });
+  
 
   }
-  
-  /* (non-Javadoc)
+
+  /*
+   * (non-Javadoc)
+   * 
    * @see interfaces.InGameInterface#showPossibleCards(java.util.List)
    */
   @Override
   public void showPossibleCards(List<Card> cards) {
     // TODO Auto-generated method stub
-        rearrangeCardsNotPossible(cards);
+    rearrangeCardsNotPossible(cards);
   }
 
   /**
@@ -778,60 +1017,142 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        rearrangeCardsDark(cardlist);
-        if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-          if (player.getPosition() == Position.MIDDLEHAND) {
-            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsLeft(countl);
-            countl--;
-            s1.toFront();
-          } else if (player.getPosition() == Position.REARHAND) {
-            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsRight(countr);
-            countr--;
-            s3.toFront();
+        if (main.getGameSetCon().getGS().getNrOfPlayers() == 3) {
+          rearrangeCardsDark(cardlist);
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            if (player.getPosition() == Position.MIDDLEHAND) {
+              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsLeft(countl);
+              countl--;
+              s1.toFront();
+            } else if (player.getPosition() == Position.REARHAND) {
+              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsRight(countr);
+              countr--;
+              s3.toFront();
+            } else {
+              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              s2.toFront();
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (player.getPosition() == Position.MIDDLEHAND) {
+              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsRight(countr);
+              countr--;
+              s3.toFront();
+            } else if (player.getPosition() == Position.FOREHAND) {
+              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsLeft(countl);
+              countl--;
+              s1.toFront();
+            } else {
+              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              s2.toFront();
+            }
           } else {
-            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s2.toFront();
+            if (player.getPosition() == Position.REARHAND) {
+              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsLeft(countl);
+              countl--;
+              s1.toFront();
+            } else if (player.getPosition() == Position.FOREHAND) {
+              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsRight(countr);
+              countr--;
+              s3.toFront();
+            } else {
+              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              s2.toFront();
+            }
           }
-        } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-          if (player.getPosition() == Position.MIDDLEHAND) {
-            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsRight(countr);
-            countr--;
-            s3.toFront();
-          } else if (player.getPosition() == Position.FOREHAND) {
-            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsLeft(countl);
-            countl--;
-            s1.toFront();
-          } else {
-            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s2.toFront();
-          }
+
+
+          // 4 Players:
+
         } else {
-          if (player.getPosition() == Position.REARHAND) {
-            s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsLeft(countl);
-            countl--;
-            s1.toFront();
-          } else if (player.getPosition() == Position.FOREHAND) {
-            s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            removeOpponentCardsRight(countr);
-            countr--;
-            s3.toFront();
+          System.out.println("Recieved ne card");
+          rearrangeCardsDark(cardlist);
+          if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+            if (player.getPosition() == Position.MIDDLEHAND) {
+              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsLeft(countl);
+              countl--;
+              s1.toFront();
+            } else if (player.getPosition() == Position.REARHAND) {
+              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsRight(countr);
+              countr--;
+              s3.toFront();
+            } else {
+              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              s2.toFront();
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+            if (player.getPosition() == Position.MIDDLEHAND) {
+              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsRight(countr);
+              countr--;
+              s3.toFront();
+            } else if (player.getPosition() == Position.FOREHAND) {
+              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsLeft(countl);
+              countl--;
+              s1.toFront();
+            } else {
+              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              s2.toFront();
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+            if (player.getPosition() == Position.FOREHAND) {
+              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsLeft(countl);
+              countl--;
+              s1.toFront();
+            } else if (player.getPosition() == Position.MIDDLEHAND) {
+              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsRight(countr);
+              countr--;
+              s2.toFront();
+            } else {
+              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              s3.toFront();
+            }
           } else {
-            s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                card.getNumber().toString().toLowerCase()));
-            s2.toFront();
+            if (player.getPosition() == Position.REARHAND) {
+              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsLeft(countl);
+              countl--;
+              s3.toFront();
+            } else if (player.getPosition() == Position.FOREHAND) {
+              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              removeOpponentCardsRight(countr);
+              countr--;
+              s1.toFront();
+            } else {
+              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
+                  card.getNumber().toString().toLowerCase()));
+              s2.toFront();
+            }
           }
         }
       }
@@ -856,7 +1177,7 @@ public class InGameController implements Initializable, InGameInterface {
     }
     return ps;
   }
-  
+
   /**
    * 
    * 
@@ -884,49 +1205,58 @@ public class InGameController implements Initializable, InGameInterface {
 
 
 
-
-
   /**
    * @author lstrauch
    * @param size
    * @param list
    */
   public void rearrangeCardsLight(List<Card> list) {
-    for(int i = 0; i < list.size(); i++) {
+    for (int i = 0; i < list.size(); i++) {
       cArray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
-            (list.get(i).getNumber().toString().toLowerCase())));
+          (list.get(i).getNumber().toString().toLowerCase())));
     }
-    if(list.size() != 10) {
-      for(int i = list.size(); i < 10; i++) {
+    if (list.size() != 10) {
+      for (int i = list.size(); i < 10; i++) {
         cArray[i].setImage(null);
       }
     }
   }
 
 
-  
+
   public void rearrangeCardsDark(List<Card> list) {
-    for(int i = 0; i < list.size(); i++) {
+    for (int i = 0; i < list.size(); i++) {
       cArray[i].setImage(inte.getImageDarker(list.get(i).getColour().toString().toLowerCase(),
-            (list.get(i).getNumber().toString().toLowerCase())));
+          (list.get(i).getNumber().toString().toLowerCase())));
     }
-    if(list.size() != 10) {
-      for(int i = list.size(); i < 10; i++) {
+    if (list.size() != 10) {
+      for (int i = list.size(); i < 10; i++) {
         cArray[i].setImage(null);
       }
     }
   }
-  
+
   public void rearrangeCardsNotPossible(List<Card> list) {
-    for(int i = 0; i < list.size(); i++) {
-      if(list.get(i) != null) {
+    System.out.println("list.siz: " + list.size());
+    System.out.println("cArray: " + cArray.length);
+    for (int i = 0; i < list.size(); i++) {
+      if (list.get(i) != null) {
+        System.out.println("cArray[" + i + "] - Dark: " + cArray[i]);
         cArray[i].setImage(inte.getImageDarker(list.get(i).getColour().toString().toLowerCase(),
-            (list.get(i).getNumber().toString().toLowerCase())));      
-        
+            (list.get(i).getNumber().toString().toLowerCase())));
+
       } else {
+        System.out.println("cArray[" + i + "] - Light: " + cArray[i]);
         cArray[i].setImage(inte.getImage(cardlist.get(i).getColour().toString().toLowerCase(),
             (cardlist.get(i).getNumber().toString().toLowerCase())));
       }
+    }
+    if (list.get(9) != null) {
+      cArray[9].setImage(inte.getImageDarker(list.get(9).getColour().toString().toLowerCase(),
+          (list.get(9).getNumber().toString().toLowerCase())));
+    } else {
+      cArray[9].setImage(inte.getImage(list.get(9).getColour().toString().toLowerCase(),
+          (list.get(9).getNumber().toString().toLowerCase())));
     }
   }
 
@@ -1007,14 +1337,14 @@ public class InGameController implements Initializable, InGameInterface {
         break;
     }
   }
-  
+
   /**
    * @author lstrauch
    * @param size
    * @param list
    */
 
-  
+
   /**
    * 
    * 
@@ -2234,7 +2564,22 @@ public class InGameController implements Initializable, InGameInterface {
     s3.setLayoutX(619);
     s3.setLayoutY(140);
   }
-  
+
+  public void displayBubbleLeft(int bet) {
+    bubbleLeft.setImage(bubbleL);
+    betLeft.setText(String.valueOf(bet));
+  }
+
+  public void displayBubbleRight(int bet) {
+    bubbleRight.setImage(bubbleR);
+    betRight.setText(String.valueOf(bet));
+  }
+
+  public void displayBubbleUp(int bet) {
+    bubbleUp.setImage(bubbleU);
+    betUp.setText(String.valueOf(bet));
+  }
+
 
   /**
    * 
@@ -2260,6 +2605,54 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#showOpen(logic.Player)
+   */
+  @Override
+  public void showOpen(Player player) {
+    // TODO Auto-generated method stub
+
+
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#askToPlayCard(int)
+   */
+  @Override
+  public int askToPlayCard(int timeToPlay) {
+    // TODO Auto-generated method stub
+    while (clicked == false) {
+      MouseHandler();
+    }
+    mainPane.getChildren().remove(cArray[ret[0]]);
+    clicked = false;
+    return ret[0];
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see interfaces.InGameInterface#showScore(java.util.List)
+   */
+  @Override
+  public void showScore(List<Player> player) {
+    // TODO Auto-generated method stub
+    this.pl1 = player.get(0);
+    this.pl2 = player.get(1);
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+
+        main.displayLeaderboard3();
+      }
+    });
+
+  }
 
 
 

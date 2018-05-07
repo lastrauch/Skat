@@ -456,7 +456,7 @@ public class GuiController extends Application {
   public void displayLeaderboard3() {
     try {
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("Leaderboard.fxml"));
+      loader.setLocation(getClass().getResource("Leaderboard3.fxml"));
       this.leaderbord = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(leaderbord);
 

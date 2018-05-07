@@ -18,7 +18,7 @@ public interface InGameInterface {
   public void startPlay(List<Card> hand, Position position);
 
   /**
-   * should give the player the option to announce kontra and return if he wants to announce it
+   * should give the player the option to announce kontra and return if he wants to announce it.
    * (true) or not (false)
    * 
    * @return
@@ -27,39 +27,39 @@ public interface InGameInterface {
 
   /**
    * only relevant for the ui, tells the player he's supposed to play a card, used before
-   * askToPlayCard
+   * askToPlayCard.
    */
   public void itsYourTurn();
 
   /**
-   * asks the player to play a card
+   * asks the player to play a card.
    * 
    */
-  public int askToPlayCard();
+  public int askToPlayCard(int timeToPlay);
 
   /**
-   * should show the number "seconds" at the corner of the screen
+   * should show the number "seconds" at the corner of the screen.
    * 
    * @param seconds
    */
   public void showSecondsLeftToPlayCard(int seconds);
 
   /**
-   * asks the player if he wants to take up the skat
+   * asks the player if he wants to take up the skat.
    * 
    */
   public boolean askToTakeUpSkat();
 
   /**
    * supposed to ask the Player if he wants to go with the bet or if he wants to pass like "18 or
-   * pass?" (if bet=18)
+   * pass?" (if bet=18).
    * 
    * @param bet
    */
   public boolean askForBet(int bet, Player lastBet);
 
   /**
-   * updates the last bet (you don't need to be part of the conversation)
+   * updates the last bet (you don't need to be part of the conversation).
    * 
    * @param bet
    * @param player
@@ -67,79 +67,72 @@ public interface InGameInterface {
   public void receivedNewBet(int bet, Player player);
 
   /**
-   * should reload the hand cards in the given order
+   * should reload the hand cards in the given order.
    * 
    * @param list
    */
   public void updateHand(List<Card> list);
 
   /**
-   * updates the current trick with the last played card and the Player, who played it
+   * updates the current trick with the last played card and the Player, who played it.
    * 
    * @param currentTrick
    */
   public void receivedNewCard(Card card, Player player);
 
   /**
+   * sets the gameSettings, before game starts.
    * 
    * @param gs
    */
   public void setGameSettings(GameSettings gs);
 
   /**
-   * stops the game and tells why
+   * stops the game and tells why.
    * 
    * @param reason
    */
   public void stopGame(String reason);
 
   /**
+   * especially important for ai, shows trick winner.
    * 
    * @param player
    */
   public void showWinnerTrick(Player player);
 
   /**
-   * winner of play/round
-   * 
-   * @param player1
-   * @param player2 is null when declarer won
-   */
-  public void showWinnerPlay(Player player1, Player player2);
-
-  /**
-   * relevant for the ui
-   * 
+   * shows the points of all players.
    * @param player
    */
-  public void showWinnerGame(Player player);
+  public void showScore(List<Player> player);
 
   /**
-   * only relevant for the ui
+   * only relevant for the ui.
    * 
    * @param bet
    */
   public void openAskForBet(int bet);
 
   /**
-   * only relevant for the ui
+   * only relevant for the ui.
    * 
    * @param bet
    */
   public void updateBet(int bet);
 
   /**
-   * only relevant for the ui
+   * only relevant for the ui.
    */
   public void openTakeUpSkat();
 
   /**
-   * only relevant for the ui
+   * only relevant for the ui.
    */
   public void openAuctionWinnerScreen();
 
   /**
-   * only relevant for the ui
+   * only relevant for the ui.
    * 
    * @param ps
    */
@@ -147,39 +140,45 @@ public interface InGameInterface {
 
   /**
    * relevant for the ai and the ui, returns the two cards so lay on the declarers stack, only if
-   * askToTakeUpSkat returns true
+   * askToTakeUpSkat returns true.
    * 
    * @param ps
-   * @return
+   * @return layedDownCards
    */
   public List<Card> switchSkat(PlayState ps);
 
   /**
-   * relevant for the ai and the ui, returns the changed PlayState after the Player won the auction
+   * relevant for the ai and the ui, returns the changed PlayState after the Player won the auction.
    * 
    * @param ps
-   * @return
+   * @return newPlayState
    */
   public PlayState askToSetPlayState(PlayState ps);
 
   /**
-   * especially for the ai to know which PlayMode is played
+   * especially for the ai to know which PlayMode is played.
    * 
    * @param ps
    */
   public void setPlaySettingsAfterAuction(PlayState ps);
-  
-  
+
+
   /**
    * 
-   * Example: Clubs-Jack, Spades-Jack, Clubs-10, Clubs-8, Hearts-7, Diamonds-9
-   * Playable: Trump (Jack + Clubs)
-   * Return Array: (null, null, null, null, Hearts-7, Diamonds-9)
+   * Example: Clubs-Jack, Spades-Jack, Clubs-10, Clubs-8, Hearts-7, Diamonds-9 Playable: Trump (Jack
+   * + Clubs) Return Array: (null, null, null, null, Hearts-7, Diamonds-9).
    * 
    * 
    * @author lstrauch
-   * @return not playable cards
+   * @param cards
    */
   public void showPossibleCards(List<Card> cards);
+  
+  /**
+   * should show the cards of the given player, who plays open.
+   * 
+   * @param player
+   */
+  public void showOpen(Player player);
 
 }
