@@ -55,19 +55,34 @@ public class Play {
       // if he plays hand: poinsD >= pointsO (1.), if not: pointsD > pointsO(2.)
       // 1.
       if (pointsD >= pointsO && ps.getHandGame()) {
-        winner[0] = Tools.getDeclarer(ps.getGroup());
+        for (Player p : ps.getGroup()) {
+          if (p.isDeclarer()) {
+            winner[0] = p;
+          }
+        }
       }
       // 2.
       else if (pointsD > pointsO && (!ps.getHandGame())) {
-        winner[0] = Tools.getDeclarer(ps.getGroup());
+        for (Player p : ps.getGroup()) {
+          if (p.isDeclarer()) {
+            winner[0] = p;
+          }
+        }
       }
       // in every other case the team wins
       else {
-        winner = Tools.getOpponents(ps.getGroup());
+        for (Player p : ps.getGroup()) {
+          if (!p.isDeclarer()) {
+            if (winner[0] == null) {
+              winner[0] = p;
+            }else {
+              winner[1] = p;
+            }           
+          }
+        }
       }
     }
     return winner;
-
   }
 
 
