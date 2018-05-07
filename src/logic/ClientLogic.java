@@ -568,7 +568,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void playCard(Card firstCard) {
     this.inGameController.itsYourTurn();
     this.waitFor(1000);
-    int indexNewCard = this.inGameController.askToPlayCard();
+    int indexNewCard = this.inGameController.askToPlayCard(this.gameSettings.getTimeLimit());
     // because we had some to high results from askToPlayCard
     if (indexNewCard >= this.player.getHand().size()) {
       this.playCard(firstCard);
@@ -658,6 +658,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
     // show update on gui/ai
     this.inGameController.receivedNewCard(card, player);
+    
+    //check if open and player is declarer to showOpen
+    if(this.playState.isOpen() && player.isDeclarer()) {
+      this.inGameController.showOpen(player);
+    }
 
     try {
       this.checkWhatHappensNext(player, card);
@@ -741,7 +746,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
         // show winner of play
         // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
-        this.inGameController.showPoints(this.group);
+        this.inGameController.showScore(this.group);
         if (playWinner[0].getName().equals(this.player.getName())
             || playWinner[1].getName().equals(this.player.getName())) {
           System.out.println(this.player.getName() + ": I won the play!!");
@@ -760,7 +765,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
           this.waitFor(3000);
           // show winner of game
-          this.inGameController.showWinnerPlay(gameWinner[0], null);
+          this.inGameController.showScore(this.group);
           if (gameWinner[0].getName().equals(this.player.getName())) {
             System.out.println(this.player.getName() + ": I won the game!!");
           }
