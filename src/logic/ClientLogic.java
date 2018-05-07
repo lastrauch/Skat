@@ -844,7 +844,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
     if (this.group.size() == 4) {
       this.group.get((pointerForehand + 3) % this.group.size())
-          .setPosition(Position.REARHAND);
+          .setPosition(Position.DEALER);
     }
   }
 
