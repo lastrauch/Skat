@@ -1,5 +1,5 @@
 
-package jUnit.jLogic;
+package jUnitLogic;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
