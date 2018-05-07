@@ -1235,4 +1235,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void setNetworkController(LogicNetwork networkController) {
     this.netController = networkController;
   }
+  
+  public Player getPlayer() {
+    return this.player;
+  }
 }
