@@ -714,17 +714,31 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // calculate points
         if (playWinner[0].isDeclarer()) {
           // calculate points: declarer won
-          Play.calculatePoints(this.playState, this.gameSettings, true);
+          this.playState = Play.calculatePoints(this.playState, this.gameSettings, true);
           for (Player p : this.playState.getGroup()) {
             System.out.println(this.player.getName() + "'s points: " + this.player.getGamePoints());
           }
         } else {
           // calculate points: opponents won
-          Play.calculatePoints(this.playState, this.gameSettings, false);
+          this.playState = Play.calculatePoints(this.playState, this.gameSettings, false);
           for (Player p : this.playState.getGroup()) {
             System.out.println(this.player.getName() + "'s points: " + this.player.getGamePoints());
           }
         }
+        
+        //save playPionts from playState in this group
+        
+        for(Player pg: this.group) {
+          for(Player ps: this.playState.getGroup()) {
+            if(pg.getName().equals(ps.getName())) {
+              pg.setGamePoints(ps.getGamePoints());
+            }
+          }
+          if(pg.getName().equals(this.player.getName())) {
+            this.player.setGamePoints(pg.getGamePoints());
+          }
+        }
+        
         // show winner of play
         // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
         this.inGameController.showPoints(this.group);
