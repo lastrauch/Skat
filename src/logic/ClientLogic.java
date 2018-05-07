@@ -323,7 +323,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         if (this.player.getBet() == 0) {
           this.inGameController.openAskForBet(newBet);
         } else {
-          this.inGameController.updateBet(newBet);
+          this.inGameController.openAskForBet(newBet);
         }
         if (this.inGameController.askForBet(newBet, player)) {
           this.netController.bet(newBet, this.player);
