@@ -364,27 +364,6 @@ public class InGameController implements Initializable, InGameInterface {
   /*
    * (non-Javadoc)
    * 
-   * @see interfaces.InGameInterface#askToPlayCard()
-   * 
-   * @author lstrauch
-   */
-  @Override
-  public int askToPlayCard() {
-    // TODO Auto-generated method stub
-    while (clicked == false) {
-      MouseHandler();
-    }
-    mainPane.getChildren().remove(cArray[ret[0]]);
-    clicked = false;
-    return ret[0];
-  }
-
-  /**
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
    * @see interfaces.InGameInterface#updateHand(java.util.List)
    * 
    * @author lstrauch
@@ -464,30 +443,6 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /**
-   * @author lstrauch
-   */
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#showWinnerPlay(logic.Player, logic.Player)
-   * 
-   * @author lstrauch
-   */
-  @Override
-  public void showWinnerPlay(Player player1, Player player2) {
-    // TODO Auto-generated method stub
-    this.pl1 = player1;
-    this.pl2 = player2;
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-
-        main.displayLeaderboard3();
-      }
-    });
-
-  }
 
   public Player getPlayer1() {
     return this.pl1;
@@ -2671,16 +2626,6 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.InGameInterface#showPoints(java.util.List)
-   */
-  @Override
-  public void showPoints(List<Player> player) {
-    // TODO Auto-generated method stub
-
-  }
 
   /*
    * (non-Javadoc)
@@ -2690,7 +2635,40 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showOpen(Player player) {
     // TODO Auto-generated method stub
+    
 
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#askToPlayCard(int)
+   */
+  @Override
+  public int askToPlayCard(int timeToPlay) {
+    // TODO Auto-generated method stub
+    while (clicked == false) {
+      MouseHandler();
+    }
+    mainPane.getChildren().remove(cArray[ret[0]]);
+    clicked = false;
+    return ret[0];
+  }
+
+  /* (non-Javadoc)
+   * @see interfaces.InGameInterface#showScore(java.util.List)
+   */
+  @Override
+  public void showScore(List<Player> player) {
+    // TODO Auto-generated method stub
+    this.pl1 = player.get(0);
+    this.pl2 = player.get(1);
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+
+        main.displayLeaderboard3();
+      }
+    });
+    
   }
 
 
