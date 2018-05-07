@@ -6,6 +6,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Database {
+  
+  // This class connects the Database (SQLite) with Java.
+  // Available for the connection is the library called JDBC.
+  
   /**
    * @author dpervane
    */
@@ -18,7 +22,7 @@ public class Database {
   }
   
   /**
-   * Stellt die Verbindung mit der Datenbank her.
+   * Connects Database with Java
    * 
    * @param file
    *            Name und Pfad der Datenbank

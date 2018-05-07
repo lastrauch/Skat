@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DatabaseHandler extends Database{
+  
+  // This class has one method, which includes all SQL Statements.
+  
   /**
    * @author dpervane
    */
@@ -16,6 +19,7 @@ public class DatabaseHandler extends Database{
   protected static PreparedStatement changeImage;
 
   private Connection c = null;
+  
   /**
    * @author dpervane
    */
@@ -25,7 +29,9 @@ public class DatabaseHandler extends Database{
     this.c = super.connection;
     this.prepareStatements();
   }
-  /**
+  
+  /** SQL Statements, which stores or changes Data from Database
+   * 
    * @author dpervane
    */
   
