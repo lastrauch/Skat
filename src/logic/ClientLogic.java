@@ -10,6 +10,7 @@ import interfaces.InGameInterface;
 import interfaces.LogicGui;
 import interfaces.LogicNetwork;
 import interfaces.NetworkLogic;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import network.NetworkController;
 
@@ -227,8 +228,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // instead gui should open the ingameScreen in startPlay
       // // TODO Auto-generated method stub
       if (!this.player.isBot()) {
-        this.guiController.startInGameScreen();
-        this.inGameController = this.guiController.getInGameController();
+        Platform.runLater(new Runnable() {
+          @Override
+          public void run() {
+            guiController.startInGameScreen();
+            inGameController = guiController.getInGameController();
+          }
+        });
+
       }
 
       // set player position
