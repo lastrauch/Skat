@@ -91,6 +91,14 @@ public class Easy {
 
 		PlayState playState = controller.getPlayState();
 		List<Card> skatList = new ArrayList<Card>();
+		
+		//TODO remove this
+		if(controller.getPlayState() == null) {
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!! PlayState = null!!!!!!!!!");
+		}
+		if(controller.getPlayState().getSkat() == null) {
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!! Skat = null!!!!!!!!!");
+		}
 		for (int i = 0; i < controller.getPlayState().getSkat().length; i++) {
 			skatList.add(controller.getPlayState().getSkat()[i]);
 		}
