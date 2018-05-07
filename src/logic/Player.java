@@ -34,6 +34,7 @@ public class Player implements Serializable{
     this.bet = 0;
     this.bot = bot;
     this.hand  = new ArrayList<Card>();
+    this.setPlayPoints(new ArrayList<Integer>());
   }
 
   public Player(String name, Image img) {
@@ -42,10 +43,11 @@ public class Player implements Serializable{
     this.bet = 0;
     this.bot = false;
     this.hand  = new ArrayList<Card>();
+    this.setPlayPoints(new ArrayList<Integer>());
   }
 
   public Player(String name, int id, Image img, Position position, List<Card> hand, int bet,
-      int gamePoints, boolean declarer) {
+      int gamePoints, boolean declarer, boolean bot, List<Integer> playPoints) {
     this.name = name;
     this.id = id;
     this.img = img;
@@ -54,13 +56,13 @@ public class Player implements Serializable{
     this.bet = bet;
     this.gamePoints = gamePoints;
     this.declarer = declarer;
-    this.bot = false;
-    this.hand = new ArrayList<Card>();
+    this.bot = bot;
+    this.playPoints = playPoints;
   }
 
   public Player copyMe() {
     return new Player(this.name, this.id, this.img, this.position, this.hand, this.bet,
-        this.gamePoints, this.declarer);
+        this.gamePoints, this.declarer, this.bot, this.playPoints);
   }
 
   public Card chooseRandomCardFromHand() {
