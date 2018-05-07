@@ -305,6 +305,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @author awesch
    */
   public void receiveBet(Player player, int bet) {
+    this.inGameController.receivedNewBet(bet, player);
     System.out.println(this.player.getName() + " recieved new bet: " + bet + " from "
         + player.getName() + " with the Position " + player.getPosition());
 
