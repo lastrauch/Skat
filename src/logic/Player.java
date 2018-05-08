@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.image.Image;
 
-public class Player implements Serializable{
+public class Player implements Serializable {
   /**
    * 
    */
@@ -25,16 +25,18 @@ public class Player implements Serializable{
     this.name = name;
     this.bet = 0;
     this.bot = false;
-    this.hand  = new ArrayList<Card>();
+    this.hand = new ArrayList<Card>();
     this.setPlayScore(new ArrayList<Integer>());
+    this.declarer = false;
   }
-  
+
   public Player(String name, boolean bot) {
     this.name = name;
     this.bet = 0;
     this.bot = bot;
-    this.hand  = new ArrayList<Card>();
+    this.hand = new ArrayList<Card>();
     this.setPlayScore(new ArrayList<Integer>());
+    this.declarer = false;
   }
 
   public Player(String name, Image img) {
@@ -42,8 +44,9 @@ public class Player implements Serializable{
     this.img = img;
     this.bet = 0;
     this.bot = false;
-    this.hand  = new ArrayList<Card>();
+    this.hand = new ArrayList<Card>();
     this.setPlayScore(new ArrayList<Integer>());
+    this.declarer = false;
   }
 
   public Player(String name, int id, Image img, Position position, List<Card> hand, int bet,
@@ -305,7 +308,7 @@ public class Player implements Serializable{
       counter++;
     }
   }
-  
+
   public void addToHand(Card card) {
     this.hand.add(card);
   }
@@ -416,6 +419,7 @@ public class Player implements Serializable{
   public void addToGamePoints(int points) {
     this.gameScore += points;
   }
+
   public boolean isBot() {
     return this.bot;
   }
