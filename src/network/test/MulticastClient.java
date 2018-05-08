@@ -27,7 +27,7 @@ public class MulticastClient {
         try {
 			socket = new DatagramSocket();
 			System.out.println(getClass().getName() + " >>> Search for Servers"); 
-        group = InetAddress.getByName("230.0.0.0");
+        group = InetAddress.getByName("224.0.0.1");
         buf = "DISCOVER_SERVER_REQUEST".getBytes();
         
         List<String> ipRange = getIPRange();

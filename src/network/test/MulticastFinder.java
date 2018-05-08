@@ -31,7 +31,7 @@ public class MulticastFinder implements Runnable{
         try {
 			socket = new MulticastSocket(this.port);
 			System.out.println(getClass().getName() + " >>> Multicast Server start");
-        InetAddress group = InetAddress.getByName("230.0.0.0");
+        InetAddress group = InetAddress.getByName("224.0.0.1");
         socket.joinGroup(group);
         while (this.running) {
           System.out.println(getClass().getName() + " >>> Multicast Server listening");
