@@ -97,8 +97,8 @@ public class Leaderboard3Controller implements Initializable {
 
     }
     for (int i = 1; i < rounds1.size(); i++) {
-      int points = LoginController.interfGL.getPlayer().getGamePoints();
-      rounds1.get(i).setText(String.valueOf(LoginController.interfGL.getPlayer().getGamePoints()));
+      int points = LoginController.interfGL.getPlayer().getPlayScore().get(i);
+      rounds1.get(i).setText(String.valueOf(LoginController.interfGL.getPlayer().getPlayScore().get(i)));
       rounds1.get(i).setFont(Font.font("System", 33));
       if (points < 0) {
         rounds1.get(i).setTextFill(Color.RED);
@@ -116,8 +116,8 @@ public class Leaderboard3Controller implements Initializable {
     }
 
     for (int i = 1; i < rounds2.size(); i++) {
-      int points = main.getInGameCon().getPlayer2().getGamePoints();
-      rounds2.get(i).setText(String.valueOf(main.getInGameCon().getPlayer1().getGamePoints()));
+      int points = LoginController.interfGL.getPlayer().getPlayScore().get(i);
+      rounds2.get(i).setText(String.valueOf(LoginController.interfGL.getPlayer().getPlayScore().get(i)));
       rounds2.get(i).setFont(Font.font("System", 33));
       if (points < 0) {
         rounds2.get(i).setTextFill(Color.RED);
@@ -134,8 +134,8 @@ public class Leaderboard3Controller implements Initializable {
       vBox2.getChildren().add(rounds2.get(i));
     }
     for (int i = 1; i < rounds3.size(); i++) {
-      int points = main.getInGameCon().getPlayer2().getGamePoints();
-      rounds3.get(i).setText(String.valueOf(main.getInGameCon().getPlayer2().getGamePoints()));
+      int points = LoginController.interfGL.getPlayer().getPlayScore().get(i);
+      rounds3.get(i).setText(String.valueOf(LoginController.interfGL.getPlayer().getPlayScore().get(i)));
       rounds3.get(i).setFont(Font.font("System", 33));
       if (points < 0) {
         rounds3.get(i).setTextFill(Color.RED);

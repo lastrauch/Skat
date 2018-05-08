@@ -323,7 +323,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         if (this.player.getBet() == 0) {
           this.inGameController.openAskForBet(newBet);
         } else {
-          this.inGameController.updateBet(newBet);
+          this.inGameController.openAskForBet(newBet);
         }
         if (this.inGameController.askForBet(newBet, player)) {
           this.netController.bet(newBet, this.player);
@@ -501,6 +501,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receivePlayState(PlayState ps) {
     // TODO Auto-generated method stub
     this.playState = ps;
+    //!!!!!TEST
+    this.playState.setOpen(true);
+    
     this.player.sortHand(this.playState);
     this.inGameController.updateHand(this.player.getHand());
     this.inGameController.setPlaySettingsAfterAuction(this.playState);
@@ -659,9 +662,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // TODO Auto-generated method stub
     // show update on gui/ai
     this.inGameController.receivedNewCard(card, player);
-    
-    //check if open and player is declarer to showOpen
-    if(this.playState.isOpen() && player.isDeclarer()) {
+
+    // check if open and player is declarer to showOpen
+    if (this.playState.isOpen() && player.isDeclarer()) {
       this.inGameController.showOpen(player);
     }
 
@@ -833,24 +836,20 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @author sandfisc
    */
   public void updatePosition() {
-    int pointerForehand = this.searchForehand() + 1;
+    int pointerForehand = this.searchForehand();
 
-    this.group.get((pointerForehand) % this.playState.getGroup().length)
-        .setPosition(Position.FOREHAND);
-    this.group.get((pointerForehand + 1) % this.playState.getGroup().length)
-        .setPosition(Position.MIDDLEHAND);
-    this.group.get((pointerForehand + 2) % this.playState.getGroup().length)
-        .setPosition(Position.REARHAND);
+    this.group.get((pointerForehand + 1) % this.group.size()).setPosition(Position.FOREHAND);
+    this.group.get((pointerForehand + 2) % this.group.size()).setPosition(Position.MIDDLEHAND);
+    this.group.get((pointerForehand + 3) % this.group.size()).setPosition(Position.REARHAND);
 
     if (this.group.size() == 4) {
-      this.group.get((pointerForehand + 3) % this.playState.getGroup().length)
-          .setPosition(Position.REARHAND);
+      this.group.get((pointerForehand + 4) % this.group.size()).setPosition(Position.DEALER);
     }
   }
 
   public int searchForehand() {
-    for (int i = 0; i < this.playState.getGroup().length; i++) {
-      if (this.playState.getGroup()[i].getPosition() == Position.FOREHAND) {
+    for (int i = 0; i < this.group.size(); i++) {
+      if (this.group.get(i).getPosition() == Position.FOREHAND) {
         return i;
       }
     }
@@ -1235,5 +1234,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   public void setNetworkController(LogicNetwork networkController) {
     this.netController = networkController;
+  }
+  
+  public Player getPlayer() {
+    return this.player;
   }
 }

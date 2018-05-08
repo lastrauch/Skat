@@ -87,8 +87,11 @@ public class GuiController extends Application {
   private static HelpVariationsController helpVarCon;
   private AnchorPane helpVar;
 
-  private static Leaderboard3Controller leaderbordCon;
-  private AnchorPane leaderbord;
+  private static Leaderboard3Controller leaderboard3Con;
+  private AnchorPane leaderboard3;
+  
+  private static Leaderboard4Controller leaderboard4Con;
+  private AnchorPane leaderboard4;
   
   
   
@@ -113,6 +116,7 @@ public class GuiController extends Application {
       Scene loginScene = new Scene(login);
 
       loginCon = loader.getController();
+
 
       mprimaryStage.setScene(loginScene);
       mprimaryStage.show();
@@ -457,10 +461,27 @@ public class GuiController extends Application {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("Leaderboard3.fxml"));
-      this.leaderbord = (AnchorPane) loader.load();
-      mprimaryStage.getScene().setRoot(leaderbord);
+      this.leaderboard3 = (AnchorPane) loader.load();
+      mprimaryStage.getScene().setRoot(leaderboard3);
 
-      leaderbordCon = loader.getController();
+      leaderboard3Con = loader.getController();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+  
+  /**
+   * @author lstrauch
+   */
+  public void displayLeaderboard4() {
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("Leaderboard4.fxml"));
+      leaderboard4 = (AnchorPane) loader.load();
+      mprimaryStage.getScene().setRoot(leaderboard4);
+
+      leaderboard4Con = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -486,4 +507,11 @@ public class GuiController extends Application {
   public InGameController getInGameCon() {
     return inGameCon;
   }
+  
+
 }
+
+
+
+
+
