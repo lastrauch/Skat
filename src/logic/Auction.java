@@ -17,7 +17,7 @@ public class Auction implements Serializable {
   private int indexOfBetValue;
   private List<Integer> bets;
 
-  /* ------------------- CONSTRUCTOR ------------------------------------------------- */
+  /* ------------------------- CONSTRUCTOR ------------------------------------------- */
 
   public Auction() {
     this.bets = new ArrayList<Integer>();
@@ -35,11 +35,10 @@ public class Auction implements Serializable {
     this.bets = bets;
   }
 
-
-  /* ------------------- BET VALUE ------------------------------------------------- */
+  /* ------------------------- BET VALUE ---------------------------------------------- */
   
   /**
-   * initializes the array of possible bets
+   * initializes the array of possible bets.
    */
   public void initializePossibleBets() {
     possibleBets = new int[] {18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, 44, 45, 46, 48, 50, 54,
@@ -53,7 +52,6 @@ public class Auction implements Serializable {
    * @return
    */
   public int calculateNewBet() {
-    // !!!!!!! DENK DRAN IMMER NACH DIE NEUEN DINGE IN AUCTION UPZUDATEN auch current bet aus bets
     if (this.bets.size() == 1) {
       return this.betValue;
     }
@@ -66,6 +64,7 @@ public class Auction implements Serializable {
     return this.betValue;
   }
 
+  /* ------------------------- COPY ---------------------------------------------------- */
 
   public Auction copyMe() {
     
@@ -86,6 +85,7 @@ public class Auction implements Serializable {
     return newAuction;
   }
 
+  /* ---------------------- GETTER AND SETTER ------------------------------------------- */
 
   public void setWinner(Player winner) {
     this.winner = winner;
