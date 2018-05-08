@@ -45,6 +45,9 @@ public class Server extends Thread {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    // TODO
+    Thread serverFinderThread = new Thread(ServerFinderThread.getInstance(this));
+    serverFinderThread.start();
   }
 
   public void run() {

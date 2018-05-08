@@ -1,26 +1,25 @@
 package network.server;
 
 import java.util.List;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Iterator;
 
 public class ServerFinder {
   private List<Server> servers;
   private int port;
-  private Object lock;
-  private int numThreads;
+  private DatagramSocket c;
 
 
 
   public ServerFinder(int port) {
     this.port = port;
     this.servers = new ArrayList<Server>();
-    this.lock = new Object();
-    this.numThreads = 0;
     this.servers = findServers();
   }
 
@@ -30,62 +29,79 @@ public class ServerFinder {
   }
 
   private List<Server> findServers() {
-    System.out.println("Find Servers aufgerufen");
     this.servers.clear();
-    List<String> ipRange = this.getIPRange();
-    Iterator<String> it = ipRange.iterator();
-
-    while (it.hasNext()) {
-      String range = (String) it.next();
-      for (int i = 0; i < 255; i++) {
-    	  if(this.numThreads % 50 == 0) {
-    		  System.out.println();
-    	  }
-    	  System.out.print(this.numThreads + " ");
-        synchronized (this.lock) {
-          this.numThreads++;
-          (new ServerFinderThread(range + i, this.port)).start();
-        }
-      }
-    }
-
-    synchronized (this.lock) {
-      if (this.numThreads > 0) {
-        try {
-          this.lock.wait();
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
-    }
-    return this.servers;
-  }
-
-  private List<String> getIPRange() {
-    ArrayList<String> ipRange = new ArrayList<String>();
-
     try {
-      Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
+      c = new DatagramSocket();
+      c.setBroadcast(true);
 
-      while (netInterfaces.hasMoreElements()) {
-        NetworkInterface netInter = (NetworkInterface) netInterfaces.nextElement();
-        Enumeration<InetAddress> addresses = netInter.getInetAddresses();
+      byte[] sendData = "SKAT4_DISCOVER_REQUEST".getBytes();
 
-        while (addresses.hasMoreElements()) {
-          InetAddress inetAddress = (InetAddress) addresses.nextElement();
-          if (inetAddress.getHostAddress()
-              .matches("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}")
-              && !inetAddress.getHostAddress().matches("127.*")) {
-            String[] str = inetAddress.getHostAddress().split("\\.");
-            ipRange.add(str[0] + "." + str[1] + "." + str[2] + ".");
+      try {
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length,
+            InetAddress.getByName("255.255.255.255"), 8888);
+        c.send(sendPacket);
+        System.out.println(
+            getClass().getName() + " >>> Request packet sent to: 255.255.255.255 (DEFAULT)");
+      } catch (Exception e) {
+      }
+
+      Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+      while (interfaces.hasMoreElements()) {
+        NetworkInterface networkInterface = interfaces.nextElement();
+
+        if (networkInterface.isLoopback() || !networkInterface.isUp()) {
+          continue;
+        }
+
+        for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
+          InetAddress broadcast = interfaceAddress.getBroadcast();
+          if (broadcast == null) {
+            continue;
           }
+
+          try {
+            DatagramPacket sendPacket =
+                new DatagramPacket(sendData, sendData.length, broadcast, 8888);
+            c.send(sendPacket);
+          } catch (Exception e) {
+          }
+
+          System.out.println(getClass().getName() + " >>> Request packet sent to: "
+              + broadcast.getHostAddress() + "; Interface: " + networkInterface.getDisplayName());
         }
       }
-    } catch (SocketException e2) {
-      e2.printStackTrace();
+
+      System.out.println(getClass().getName()
+          + " >>> Done looping over all network interfaces. Now waiting for a reply!");
+
+      byte[] recvBuf = new byte[15000];
+      DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
+      c.receive(receivePacket);
+
+      System.out.println(getClass().getName() + " >>> Broadcast response from server: "
+          + receivePacket.getAddress().getHostAddress());
+
+      String msg = new String(receivePacket.getData()).trim();
+      String[] message = msg.split("|");
+      
+      if (message[0].equals("SKAT4")) {
+        //TODO
+        for(int i=0; i<message.length; i++) {
+          System.out.println(message[i]);
+        }
+      }
+
+      c.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    return ipRange;
+    
+    
+    
+    return null;
   }
+
+
 
   public List<Server> getServers() {
     return this.servers;

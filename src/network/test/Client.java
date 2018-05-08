@@ -7,6 +7,7 @@ import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
+import java.util.logging.*;
 
 public class Client {
   private DatagramSocket c;
@@ -68,7 +69,7 @@ public Client() {
       
       c.close();
   }catch (IOException e) {
-    //Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, e);
+    e.printStackTrace();
   }
 }
 }
