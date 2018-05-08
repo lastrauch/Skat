@@ -499,6 +499,17 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       this.calculatePlayValue();
       this.netController.sendPlayState(this.playState);
+    } else {
+
+      // set declarer
+      for (Player p : this.group) {
+        if (this.playState.getAuction().getWinner().getName().equals(p.getName())) {
+          p.setDeclarer(true);
+        } else {
+          p.setDeclarer(false);
+        }
+      }
+      this.player.setDeclarer(false);
     }
   }
 
@@ -672,12 +683,15 @@ public class ClientLogic implements NetworkLogic, AILogic {
         + player.getName() + " who is declarer-" + player.isDeclarer() + " and we play open- "
         + this.playState.isOpen());
 
+    // go through the group and look for
     // TODO Auto-generated method stub
     // show update on gui/ai
-    this.inGameController.receivedNewCard(card, player);;
+    this.inGameController.receivedNewCard(card, player);
     // check if open and player is declarer to showOpen
-    if (this.playState.isOpen() && player.isDeclarer()) {
+    if (this.playState.isOpen()
+        && player.getName().equals(this.playState.getAuction().getWinner().getName())) {
       this.inGameController.showOpen(player);
+      player.setDeclarer(true);
     }
 
     try {
