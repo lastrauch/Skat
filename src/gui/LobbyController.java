@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javax.swing.GroupLayout.Alignment;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
+import ai.BotDifficulty;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
@@ -91,7 +92,6 @@ public class LobbyController implements Initializable {
     // TODO Auto-generated method stub
     setGM();
     displaydiffentGameModes();
-    System.out.println("GM: "+gm);
     ButtonListener();
     
 
@@ -296,6 +296,8 @@ public class LobbyController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
 //        if(nrofplayers == 3 || nrofplayers == 4) {
+//        LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
+//        LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
           LoginController.interfGL.startGame(gs); 
 //        } else {
 //          System.out.println("Not enough players selected");
