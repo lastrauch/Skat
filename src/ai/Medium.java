@@ -153,7 +153,14 @@ public class Medium {
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// Internal Methods
 	//////////////////////////////////////////////////////////////////////////////////////////////////
-	// TODO Kommentar
+	/**
+	 * Determines which cards to put back into the Skat.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @param playMode
+	 * @return Skat
+	 */
 	public static List<Card> returnSkat(AiController controller, PlayMode playMode) {
 		List<Card> skat = Arrays.asList(controller.getPlayState().getSkat());
 
@@ -1155,7 +1162,6 @@ public class Medium {
 	 * @return card index
 	 */
 	public static int playCardSuit(AiController controller) {
-		// TODO Suit Method
 		int trumpColour = controller.getPlayState().getTrump().ordinal();
 		List<Card> cards = controller.getBot().getHand();
 		List<Card> trick = controller.getCurrentTrick();
@@ -1188,9 +1194,11 @@ public class Medium {
 		if (controller.getBot().isDeclarer()) {
 			if (trick.size() == 0) {
 				// -> Play highest Trump
-				if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour, -1, 0,
-						false)) != -1) {
-					return index;
+				if(ownTrumps > 0) {
+					if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour, -1, 0,
+							false)) != -1) {
+						return index;
+					}
 				}
 				// -> Play highest value of any colour
 				if ((index = General.playValue(cardProbabilities, cards, trumpColour, 7 - Number.JACK.ordinal(), 0,
