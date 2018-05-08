@@ -90,11 +90,6 @@ public class Easy {
 	public static PlayState askToSetPlayState(AiController controller) {
 
 		PlayState playState = controller.getPlayState();
-		List<Card> skatList = new ArrayList<Card>();
-		for (int i = 0; i < controller.getPlayState().getSkat().length; i++) {
-			skatList.add(controller.getPlayState().getSkat()[i]);
-		}
-		playState.getDeclarerStack().addCards(skatList);
 		playState.setPlayMode(PlayMode.SUIT);
 		if (controller.getSinglePlay() != null && controller.getSinglePlay().getColour() != null) {
 			playState.setTrump(controller.getSinglePlay().getColour());
@@ -127,7 +122,6 @@ public class Easy {
 			}
 			playState.setTrump(c);
 		}
-		playState.setSkat(null);
 		playState.setHandGame(false);
 		playState.setSchneiderAnnounced(false);
 		playState.setSchwarzAnnounced(false);
