@@ -1048,9 +1048,8 @@ public class InGameController implements Initializable, InGameInterface {
    * @see interfaces.InGameInterface#askToPlayCard(int)
    */
   @Override
-  public int askToPlayCard(int timeToPlay) {
+  public int askToPlayCard(int timeToPlay, PlayState ps) {
     // TODO Auto-generated method stub
-    int time = timeToPlay;
 
     while (clicked == false) {
       // TODO Auto-generated method stub
@@ -1060,11 +1059,11 @@ public class InGameController implements Initializable, InGameInterface {
           public void run() {
             System.out.println("In timer!!!");
             while(!playable) {
-              playable(Card firstCard, PlayState playState, LoginController.interfGL.getPlayer());
+              playable(ps.getCurrentTrick().getFirstCard(), ps, LoginController.interfGL.getPlayer());
             }
               clicked = true;
           }
-        }, time);
+        }, timeToPlay);
       } else {
         MouseHandler();
       }
