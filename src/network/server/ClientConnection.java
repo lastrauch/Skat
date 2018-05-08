@@ -78,12 +78,6 @@ public class ClientConnection extends Thread {
 
 	private synchronized void receiveMessage(Message message) {
 		switch (message.getType()) {
-		case PING:
-			messageHandler(message);
-			break;
-		case YOUR_TURN:
-			messageHandler(message);
-			break;
 		case CARD_PLAYED:
 			messageHandler(message);
 			break;

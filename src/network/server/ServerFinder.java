@@ -38,6 +38,10 @@ public class ServerFinder {
     while (it.hasNext()) {
       String range = (String) it.next();
       for (int i = 0; i < 255; i++) {
+    	  if(this.numThreads % 50 == 0) {
+    		  System.out.println();
+    	  }
+    	  System.out.print(this.numThreads + " ");
         synchronized (this.lock) {
           this.numThreads++;
           (new ServerFinderThread(range + i, this.port)).start();
