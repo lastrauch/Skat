@@ -508,6 +508,10 @@ public class GuiController extends Application {
     return inGameCon;
   }
   
+  public Leaderboard4Controller getLead4Con() {
+    return leaderboard4Con;
+  }
+  
 
 }
 
