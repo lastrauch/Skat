@@ -40,7 +40,7 @@ public class MulticastFinder implements Runnable{
             
             String msg = new String(packet.getData());
             System.out.println(getClass().getName() + " >>> Message received: " + msg.trim());
-            		if(msg.trim().equals("DISCOVER_SERVER_REQUEST")){
+            		if(msg.trim().equals("DISCOVER_SERVER_REQUEST") || msg.trim().equals("DISCOVER_SERVER_REQUESTE")){
             		  System.out.println(getClass().getName() + " >>> Server request from: " +  packet.getAddress());
             			InetAddress address = packet.getAddress();
             			//TODO apply infos
