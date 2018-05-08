@@ -85,6 +85,7 @@ public class ServerFinder {
           + receivePacket.getAddress().getHostAddress());
 
       String msg = new String(receivePacket.getData()).trim();
+      System.out.println("!!!!!!!!!!!!!!!!!!!<><><><><><><>!!!!!!!!!!!! " + msg);
       String[] message = msg.split("|");
       
       if (message[0].equals("SKAT4")) {
