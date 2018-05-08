@@ -153,7 +153,14 @@ public class Medium {
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// Internal Methods
 	//////////////////////////////////////////////////////////////////////////////////////////////////
-	//TODO Kommentar
+	/**
+	 * Determines which cards to put back into the Skat.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @param playMode
+	 * @return Skat
+	 */
 	public static List<Card> returnSkat(AiController controller, PlayMode playMode) {
 		List<Card> skat = Arrays.asList(controller.getPlayState().getSkat());
 
@@ -566,8 +573,14 @@ public class Medium {
 		}
 	}
 
+	/**
+	 * PlayMode is Grand. AI decides which card to play.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return card index
+	 */
 	public static int playCardGrand(AiController controller) {
-		// TODO Grand Method
 		List<Card> cards = controller.getBot().getHand();
 		List<Card> trick = controller.getCurrentTrick();
 
@@ -1103,10 +1116,34 @@ public class Medium {
 						// Unitl now, trick is lost with colour
 						// Try to win
 						if (trick.get(0).getValue() + trick.get(1).getValue() > 7) {
-
+							if (trick.get(1).getNumber() != Number.JACK) {
+								int value = -1;
+								if (trick.get(0).getColour() == trick.get(1).getColour()) {
+									if (trick.get(0).getNumber().ordinal() > trick.get(1).getNumber().ordinal()) {
+										value = 7 - trick.get(0).getNumber().ordinal();
+									} else {
+										value = 7 - trick.get(1).getNumber().ordinal();
+									}
+								} else {
+									value = 7 - trick.get(0).getNumber().ordinal();
+								}
+								int index = General.playColour(controller.getCardProbabilities(), cards,
+										3 - trick.get(0).getColour().ordinal(), value, 0, false);
+								if (index != -1) {
+									return index;
+								}
+							}
 						}
 						// Throw low value
-						// TODO
+						int index;
+						if ((index = General.playColour(controller.getCardProbabilities(), cards,
+								3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
+							return index;
+						}
+						if ((index = General.playValue(controller.getCardProbabilities(), cards, -1,
+								7 - Number.JACK.ordinal(), 0, true)) != -1) {
+							return index;
+						}
 					}
 				}
 				// Else play random
@@ -1117,28 +1154,164 @@ public class Medium {
 		return General.playRandomCard(controller);
 	}
 
+	/**
+	 * PlayMode is Suit. AI decides which card to play.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return card index
+	 */
 	public static int playCardSuit(AiController controller) {
-		// TODO Suit Method
-
+		int trumpColour = controller.getPlayState().getTrump().ordinal();
 		List<Card> cards = controller.getBot().getHand();
 		List<Card> trick = controller.getCurrentTrick();
-
+		double[][] cardProbabilities = controller.getCardProbabilities();
+		boolean[][] hasColour = controller.getHasColour();
+		boolean[] hasTrump = controller.getHasTrump();
+		int existingTrumps = controller.getExistingTrumps();
+		int ownTrumps = 0;
+		int number = 0;
+		int colour = 0;
+		int value = 0;
+		for (int i = 0; i < cards.size(); i++) {
+			if (cards.get(i).getNumber() == Number.JACK || (3 - cards.get(i).getColour().ordinal() == trumpColour)) {
+				ownTrumps++;
+			}
+		}
+		int declarer = 0;
+		for (int i = 0; i < controller.getPlayState().getGroup().length; i++) {
+			if (controller.getPlayState().getGroup()[i].isDeclarer()) {
+				for (int j = 0; j < controller.getPlayer().size(); j++) {
+					if (controller.getPlayer().get(j).getName()
+							.equals(Integer.toString(controller.getPlayState().getGroup()[i].getId()))) {
+						declarer = j;
+					}
+				}
+			}
+		}
+		int index = -1;
 		// Bot is declarer
-		// Play 2nd or 3rd card
-		// Bot has colour
-		// Colour is trump
-		// Play highest Jack
-		// Try to win with colour
-		// Try to win
-		// Else play lowest card of colour
-		// Bot does not have colour
-		// Check if he wants to and can play trump
-		// Else play low card
-		// Bot is not declarer
+		if (controller.getBot().isDeclarer()) {
+			if (trick.size() == 0) {
+				// -> Play highest Trump
+				if(ownTrumps > 0) {
+					if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour, -1, 0,
+							false)) != -1) {
+						return index;
+					}
+				}
+				// -> Play highest value of any colour
+				if ((index = General.playValue(cardProbabilities, cards, trumpColour, 7 - Number.JACK.ordinal(), 0,
+						false)) != -1) {
+					return index;
+				}
+			} else {
+				// Play 2nd or 3rd card
+				// Bot has colour or number is jack
+				if (hasColour[3 - trick.get(0).getColour().ordinal()][0] || trick.get(0).getNumber() == Number.JACK) {
+					// Colour is trump or number is jack
+					if (3 - trick.get(0).getColour().ordinal() == trumpColour
+							|| trick.get(0).getNumber() == Number.JACK) {
+
+						Card enemyCard;
+						if (trick.size() > 1 && (trick.get(1).getNumber() == Number.JACK
+								|| 3 - trick.get(1).getColour().ordinal() == trumpColour)) {
+							if ((trick.get(0).getNumber() == Number.JACK && (trick.get(1).getNumber() != Number.JACK
+									|| (trick.get(1).getNumber() == Number.JACK && trick.get(1).getColour()
+											.ordinal() < trick.get(0).getColour().ordinal())))
+									|| (trick.get(0).getNumber() != Number.JACK
+											&& trick.get(1).getNumber() != Number.JACK && trick.get(0).getNumber()
+													.ordinal() > trick.get(1).getNumber().ordinal())) {
+								enemyCard = trick.get(0);
+							} else {
+								enemyCard = trick.get(1);
+							}
+						} else {
+							enemyCard = trick.get(0);
+						}
+						int jackColour;
+						if (enemyCard.getNumber() == Number.JACK) {
+							jackColour = 3 - enemyCard.getColour().ordinal();
+						} else {
+							jackColour = -1;
+						}
+						// Try to win with trump
+						if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour, trumpColour,
+								7 - enemyCard.getNumber().ordinal(), 0, false)) != -1) {
+							return index;
+						}
+						// Else play low trump
+						if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour, trumpColour,
+								7 - enemyCard.getNumber().ordinal(), 0, true)) != -1) {
+							return index;
+						}
+
+					} else {
+						Card enemyCard;
+						if (trick.size() > 1) {
+							if (trick.get(0).getColour() == trick.get(1).getColour()
+									&& trick.get(1).getNumber() != Number.JACK && trick.get(0).getNumber().ordinal() > trick.get(1).getNumber().ordinal()) {
+								enemyCard = trick.get(0);
+							} else {
+								enemyCard = trick.get(1);
+							}
+						} else {
+							enemyCard = trick.get(0);
+						}
+						// Try to win with colour
+						if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), 7 - enemyCard.getNumber().ordinal(), 0, false)) != -1) {
+							return index;
+						}
+						// Else play lowest card of colour
+						if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), 7 - enemyCard.getNumber().ordinal(), 0, true)) != -1) {
+							return index;
+						}
+					}
+				} else {
+					// Bot does not have colour
+					// Check if he wants to and can play trump
+					int trickValue = 0;
+					for(int i=0; i<trick.size(); i++) {
+						trickValue += trick.get(i).getValue();
+					}
+					if(trickValue > 7 && ownTrumps > 0) {
+						if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour, -1, 0, true)) != -1) {
+							return index;
+						}
+					}
+					// Else play low card
+					if((index = General.playValue(cardProbabilities, cards, trumpColour, 7 - Number.JACK.ordinal(), 0, true)) != -1) {
+						return index;
+					}
+				}
+			}
+			
+			
+			// Bot is not declarer
+		}else {
+		// TODO
+		  if(trick.size() == 0) {
+		    
+		  }
+		  if(trick.size() == 1) {
+		    
+		  }
+		  if(trick.size() == 2) {
+		    
+		  }
+		  
+		}
 
 		return General.playRandomCard(controller);
 	}
 
+	/**
+	 * PlayMode is Null. AI decides which card to play.
+	 * 
+	 * @author fkleinoe
+	 * @param controller
+	 * @return Card index
+	 */
 	public static int playCardNull(AiController controller) {
 		List<Card> cards = controller.getBot().getHand();
 		List<Card> trick = controller.getCurrentTrick();
