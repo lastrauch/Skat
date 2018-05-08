@@ -4,8 +4,9 @@ import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
-import logic.Position;
 import java.util.List;
+import logic.Position;
+
 
 public interface InGameInterface {
 
@@ -18,12 +19,10 @@ public interface InGameInterface {
   public void startPlay(List<Card> hand, Position position);
 
   /**
-   * should give the player the option to announce kontra and return if he wants to announce it.
-   * (true) or not (false)
+   * should give the player the option to announce rekontra.
    * 
-   * @return
    */
-  public boolean askToRekontra();
+  public void askToRekontra();
 
   /**
    * only relevant for the ui, tells the player he's supposed to play a card, used before

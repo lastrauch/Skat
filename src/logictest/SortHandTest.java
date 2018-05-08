@@ -1,4 +1,5 @@
-package jUnitLogic;
+package logictest;
+
 
 import logic.Card;
 import logic.Colour;
@@ -6,12 +7,13 @@ import logic.Number;
 import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
-import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * this class tests the method sort hand in player.

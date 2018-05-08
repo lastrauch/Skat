@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * This class includes everything an auction can do.
+ * 
+ */
 public class Auction implements Serializable {
 
-  /**
-   * This class includes everything an auction can do.
-   * 
-   */
   private static final long serialVersionUID = 1L;
   private Player winner; // winner of the auction
   private int[] possibleBets; // list of the possible bets
@@ -36,7 +37,7 @@ public class Auction implements Serializable {
   }
 
   /* ------------------------- BET VALUE ---------------------------------------------- */
-  
+
   /**
    * initializes the array of possible bets.
    */
@@ -48,8 +49,9 @@ public class Auction implements Serializable {
   }
 
   /**
+   * returns the new bet
+   * 
    * @param currentBet
-   * @return
    */
   public int calculateNewBet() {
     if (this.bets.size() == 1) {
@@ -67,7 +69,7 @@ public class Auction implements Serializable {
   /* ------------------------- COPY ---------------------------------------------------- */
 
   public Auction copyMe() {
-    
+
     Player newWinner = this.winner.copyMe();
     int[] newPossibleBets = new int[this.possibleBets.length];
     for (int i = 0; i < this.possibleBets.length; i++) {
@@ -81,7 +83,7 @@ public class Auction implements Serializable {
     }
     Auction newAuction =
         new Auction(newWinner, newPossibleBets, newBetValue, newIndexOfBetValue, newBets);
-    
+
     return newAuction;
   }
 
@@ -90,7 +92,7 @@ public class Auction implements Serializable {
   public void setWinner(Player winner) {
     this.winner = winner;
   }
-  
+
   public void addToBets(int bet) {
     this.bets.add(bet);
   }
