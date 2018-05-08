@@ -463,16 +463,21 @@ public class InGameController implements Initializable, InGameInterface {
    * @see interfaces.InGameInterface#askToRekontra()
    */
   @Override
-  public boolean askToRekontra() {
+  public void askToRekontra() {
     // TODO Auto-generated method stub
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
         displayRekontra();
+        kontra.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent e) {
+            LoginController.interfGL.announceRekontra();
+          }
+        });
         
       }
     });
-    return false;
   }
 
   public void initialize4() {
@@ -670,6 +675,12 @@ public class InGameController implements Initializable, InGameInterface {
       public void run() {
         if(main.getLobbyCon().getGS().isEnableKontra() && !LoginController.interfGL.getPlayer().isDeclarer()) {
           displayKontra();
+          kontra.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+              LoginController.interfGL.announceContra();
+            }
+          });
         }
         disableTraining();
         bubbleLeft.setImage(null);
