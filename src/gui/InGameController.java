@@ -131,6 +131,7 @@ public class InGameController implements Initializable, InGameInterface {
   private int countl = 10;
   private int countr = 10;
   private boolean random = false;
+  private boolean trainingsmode;
 
 
   /**
@@ -183,6 +184,11 @@ public class InGameController implements Initializable, InGameInterface {
   private Label betLeft, betUp, betRight;
   @FXML
   private Label timeUp;
+  @FXML
+  private JFXTextArea training;
+  @FXML
+  private JFXButton kontra;
+  
 
 
 
@@ -661,6 +667,7 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
+        disableTraining();
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
         bubbleUp.setImage(null);
@@ -826,6 +833,24 @@ public class InGameController implements Initializable, InGameInterface {
       public void run() {
         // TODO Auto-generated method stub
         rearrangeCardsLight(cardlist);
+        if(main.getSettingsCon().getTrainingsmode()) {
+          training.setLayoutY(388);
+          if(LoginController.interfGL.getPlayer().isDeclarer() && LoginController.interfGL.getPlayer().getPosition() != Position.DEALER) {
+          displayTraining("1.   Play your trumps! When the opponents lost all their trumps, you are unstoppable like a train without brakes.\n" + 
+              "2.  Be brave! If a color was not played yet and you have an Ass, play it and save the points!\n" + 
+              "3.  Save your own ASS and TEN! And you will be the winner then!\n" + 
+              "4.  Have you seen ASS and TEN do not play this color again!\n" + 
+              "5.  Count the Trumps! This is important like a condom at a One-Night-Stand.");
+          training.toFront();
+          } else if(!LoginController.interfGL.getPlayer().isDeclarer() && LoginController.interfGL.getPlayer().getPosition() != Position.DEALER){
+            displayTraining("1. Be brave! If a Suit was not played yet and you have an Ass, play it and save the points!\n" + 
+                "2.  Save your own ASS and TEN! And you will be the winner then!\n" + 
+                "3.  Have you seen ASS and TEN do not play this color again!\n" + 
+                "4.  Count the Trumps! This is important like a condom at a One-Night-Stand.\n" + 
+                "5.  Keep the declarer in the middle!");
+            training.toFront();
+          }
+        }
       }
 
     });
@@ -863,6 +888,7 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void run() {
         // TODO Auto-generated method stub
+        disableTraining();
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
         bubbleUp.setImage(null);
@@ -1368,6 +1394,21 @@ public class InGameController implements Initializable, InGameInterface {
   @FXML
   public void help() {
     main.displayHelp();
+  }
+  
+  public void displayTraining(String s) {
+    training.setStyle(
+        "-fx-background-color: tan; -fx-background-radius: 10; -fx-border-color: peru; -fx-border-radius: 10");
+    training.setText(s);
+  }
+  
+  public void disableTraining() {
+    training.setStyle(null);
+    training.setText(null);
+  }
+  
+  public void displaykontra() {
+    kontra.setText("KONTRA");
   }
 
 
@@ -2455,6 +2496,13 @@ public class InGameController implements Initializable, InGameInterface {
     paneBet.getChildren().add(labelBet);
 
     mainPane.getChildren().add(paneBet);
+    if(main.getSettingsCon().getTrainingsmode()) {
+      displayTraining("1.   Be realistic! You won’t win the next round, if you don’t get at least six tricks and you won’t get the girl, when she didn’t drink at least six drinks.\n" + 
+          "2.  You have more than two Jacks?  You’re either a slut or a winner!\n" + 
+          "3.  You only have two Jacks? Hopefully they are the blacks.\n" + 
+          "4.  Know your highest possible bet! Only a noob’s bet and Snoop Dog are higher. ");
+      training.toFront();
+    }
   }
 
 

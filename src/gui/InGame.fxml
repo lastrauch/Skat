@@ -259,5 +259,15 @@
             <Font name="System Bold" size="32.0" />
          </font>
       </Label>
+      <JFXTextArea fx:id="training" editable="false" focusColor="#d1b38c00" layoutX="173.0" layoutY="78.0" opacity="0.92" prefHeight="42.0" prefWidth="966.0" unFocusColor="#ffffff00">
+         <font>
+            <Font name="System Italic" size="20.0" />
+         </font>
+      </JFXTextArea>
+      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="26.0" layoutY="451.0" prefHeight="75.0" prefWidth="160.0" style="-fx-background-color: peru; -fx-border-color: black; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 1;" text="REKONTRA">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
