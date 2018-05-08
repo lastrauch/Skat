@@ -254,5 +254,10 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
+      <Label fx:id="timer" layoutX="1023.0" layoutY="269.0" prefHeight="105.0" prefWidth="113.0" textFill="RED">
+         <font>
+            <Font size="81.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

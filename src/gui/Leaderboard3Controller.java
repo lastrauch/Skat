@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -50,7 +51,12 @@ public class Leaderboard3Controller implements Initializable {
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
-    showLeaderboard();
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        showLeaderboard();
+      }
+    });
 
   }
 
@@ -63,98 +69,108 @@ public class Leaderboard3Controller implements Initializable {
 
     for (int i = 0; i < main.getGameSetCon().getGS().getNrOfPlays() + 1; i++) {
       roundsNr.add(new Label());
-    }
-    for (int i = 0; i < main.getGameSetCon().getGS().getNrOfPlays() + 1; i++) {
       rounds1.add(new Label());
-    }
-    for (int i = 0; i < main.getGameSetCon().getGS().getNrOfPlays() + 1; i++) {
       rounds2.add(new Label());
-    }
-    for (int i = 0; i < main.getGameSetCon().getGS().getNrOfPlays() + 1; i++) {
       rounds3.add(new Label());
     }
 
-    System.out.println("Name layer1 Leaderboard: " + main.getInGameCon().getPlayer1().getName());
-    System.out.println("Name player2 Leaderboard: " + main.getInGameCon().getPlayer2().getName());
     roundsNr.get(0).setText("Nr.");
-    rounds1.get(0).setText("Me");
-    rounds2.get(0).setText(main.getInGameCon().getPlayer1().getName());
-    rounds3.get(0).setText(main.getInGameCon().getPlayer2().getName());
+    roundsNr.get(0).setFont(Font.font("System", 33));
+    roundsNr.get(0).setTextFill(Color.WHITE);
+    AnchorPane.setLeftAnchor(roundsNr.get(0), 0.0);
+    AnchorPane.setRightAnchor(roundsNr.get(0), 0.0);
+    roundsNr.get(0).setAlignment(Pos.CENTER);
     vBoxNr.getChildren().add(roundsNr.get(0));
+
+    rounds1.get(0).setText("Me");
+    rounds1.get(0).setFont(Font.font("System", 33));
+    rounds1.get(0).setTextFill(Color.WHITE);
+    AnchorPane.setLeftAnchor(rounds1.get(0), 0.0);
+    AnchorPane.setRightAnchor(rounds1.get(0), 0.0);
+    rounds1.get(0).setAlignment(Pos.CENTER);
     vBox1.getChildren().add(rounds1.get(0));
+
+    rounds2.get(0).setText(main.getInGameCon().getPlayer1().getName());
+    rounds2.get(0).setFont(Font.font("System", 33));
+    rounds2.get(0).setTextFill(Color.WHITE);
+    AnchorPane.setLeftAnchor(rounds2.get(0), 0.0);
+    AnchorPane.setRightAnchor(rounds2.get(0), 0.0);
+    rounds2.get(0).setAlignment(Pos.CENTER);
     vBox2.getChildren().add(rounds2.get(0));
+
+    rounds3.get(0).setText(main.getInGameCon().getPlayer2().getName());
+    rounds3.get(0).setFont(Font.font("System", 33));
+    rounds3.get(0).setTextFill(Color.WHITE);
+    AnchorPane.setLeftAnchor(rounds3.get(0), 0.0);
+    AnchorPane.setRightAnchor(rounds3.get(0), 0.0);
+    rounds3.get(0).setAlignment(Pos.CENTER);
     vBox3.getChildren().add(rounds3.get(0));
 
-    for (int i = 1; i < roundsNr.size(); i++) {
-      int count = i;
+ 
+    for (int i = 0; i < LoginController.interfGL.getPlayer().getPlayScore().size(); i++) {
+      System.out.println("in forschleife");
+      int count = i + 1;
       roundsNr.get(i).setText(String.valueOf(count));
-      roundsNr.get(i).setFont(Font.font("System", 33));
-      roundsNr.get(i).setTextFill(Color.WHITE);
-      AnchorPane.setLeftAnchor(roundsNr.get(i), 0.0);
-      AnchorPane.setRightAnchor(roundsNr.get(i), 0.0);
-      roundsNr.get(i).setAlignment(Pos.CENTER);
-      vBoxNr.getChildren().add(roundsNr.get(i));
+      roundsNr.get(i+1).setFont(Font.font("System", 33));
+      roundsNr.get(i+1).setTextFill(Color.WHITE);
+      AnchorPane.setLeftAnchor(roundsNr.get(i+1), 0.0);
+      AnchorPane.setRightAnchor(roundsNr.get(i+1), 0.0);
+      roundsNr.get(i+1).setAlignment(Pos.CENTER);
+      vBoxNr.getChildren().add(roundsNr.get(i+1));
 
+      int points11 = LoginController.interfGL.getPlayer().getPlayScore().get(i);
+      rounds1.get(i+1).setText(String.valueOf(points11));
+      rounds1.get(i+1).setFont(Font.font("System", 33));
+      if (points11 < 0) {
+        rounds1.get(i+1).setTextFill(Color.RED);
+      }
+      if (points11 > 0) {
+        rounds1.get(i+1).setTextFill(Color.GREEN);
+      }
+      if (points11 == 0) {
+        rounds1.get(i+1).setTextFill(Color.WHITE);
+      }
+      AnchorPane.setLeftAnchor(rounds1.get(i+1), 0.0);
+      AnchorPane.setRightAnchor(rounds1.get(i+1), 0.0);
+      rounds1.get(i+1).setAlignment(Pos.CENTER);
+      vBox1.getChildren().add(rounds1.get(i+1));
+
+      int points21 = main.getInGameCon().getPlayer1().getPlayScore().get(i);
+      rounds2.get(i+1).setText(String.valueOf(points21));
+      rounds2.get(i+1).setFont(Font.font("System", 33));
+      if (points21 < 0) {
+        rounds2.get(i+1).setTextFill(Color.RED);
+      }
+      if (points21 > 0) {
+        rounds2.get(i+1).setTextFill(Color.GREEN);
+      }
+      if (points21 == 0) {
+        rounds2.get(i+1).setTextFill(Color.WHITE);
+      }
+      AnchorPane.setLeftAnchor(rounds2.get(i+1), 0.0);
+      AnchorPane.setRightAnchor(rounds2.get(i+1), 0.0);
+      rounds2.get(i+1).setAlignment(Pos.CENTER);
+      vBox2.getChildren().add(rounds2.get(i+1));
+
+      int points31 = main.getInGameCon().getPlayer2().getPlayScore().get(i);
+      rounds3.get(i+1).setText(String.valueOf(points31));
+      rounds3.get(i+1).setFont(Font.font("System", 33));
+      if (points31 < 0) {
+        rounds3.get(i+1).setTextFill(Color.RED);
+      }
+      if (points31 > 0) {
+        rounds3.get(i+1).setTextFill(Color.GREEN);
+      }
+      if (points31 == 0) {
+        rounds3.get(i+1).setTextFill(Color.WHITE);
+      }
+      AnchorPane.setLeftAnchor(rounds3.get(i+1), 0.0);
+      AnchorPane.setRightAnchor(rounds3.get(i+1), 0.0);
+      rounds3.get(i+1).setAlignment(Pos.CENTER);
+      vBox3.getChildren().add(rounds3.get(i+1));
     }
-    for (int i = 1; i < rounds1.size(); i++) {
-      int points = LoginController.interfGL.getPlayer().getPlayScore().get(i);
-      rounds1.get(i).setText(String.valueOf(LoginController.interfGL.getPlayer().getPlayScore().get(i)));
-      rounds1.get(i).setFont(Font.font("System", 33));
-      if (points < 0) {
-        rounds1.get(i).setTextFill(Color.RED);
-      }
-      if (points > 0) {
-        rounds1.get(i).setTextFill(Color.GREEN);
-      }
-      if (points == 0) {
-        rounds1.get(i).setTextFill(Color.WHITE);
-      }
-      AnchorPane.setLeftAnchor(rounds1.get(i), 0.0);
-      AnchorPane.setRightAnchor(rounds1.get(i), 0.0);
-      rounds1.get(i).setAlignment(Pos.CENTER);
-      vBox1.getChildren().add(rounds1.get(i));
-    }
-
-    for (int i = 1; i < rounds2.size(); i++) {
-      int points = LoginController.interfGL.getPlayer().getPlayScore().get(i);
-      rounds2.get(i).setText(String.valueOf(LoginController.interfGL.getPlayer().getPlayScore().get(i)));
-      rounds2.get(i).setFont(Font.font("System", 33));
-      if (points < 0) {
-        rounds2.get(i).setTextFill(Color.RED);
-      }
-      if (points > 0) {
-        rounds2.get(i).setTextFill(Color.GREEN);
-      }
-      if (points == 0) {
-        rounds2.get(i).setTextFill(Color.WHITE);
-      }
-      AnchorPane.setLeftAnchor(rounds2.get(i), 0.0);
-      AnchorPane.setRightAnchor(rounds2.get(i), 0.0);
-      rounds2.get(i).setAlignment(Pos.CENTER);
-      vBox2.getChildren().add(rounds2.get(i));
-    }
-    for (int i = 1; i < rounds3.size(); i++) {
-      int points = LoginController.interfGL.getPlayer().getPlayScore().get(i);
-      rounds3.get(i).setText(String.valueOf(LoginController.interfGL.getPlayer().getPlayScore().get(i)));
-      rounds3.get(i).setFont(Font.font("System", 33));
-      if (points < 0) {
-        rounds3.get(i).setTextFill(Color.RED);
-      }
-      if (points > 0) {
-        rounds3.get(i).setTextFill(Color.GREEN);
-      }
-      if (points == 0) {
-        rounds3.get(i).setTextFill(Color.WHITE);
-      }
-
-      AnchorPane.setLeftAnchor(rounds3.get(i), 0.0);
-      AnchorPane.setRightAnchor(rounds3.get(i), 0.0);
-      rounds3.get(i).setAlignment(Pos.CENTER);
-      vBox3.getChildren().add(rounds3.get(i));
-    }
-
-
   }
+
 
 
 }
