@@ -11,12 +11,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Leaderboard3Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Leaderboard4Controller">
    <effect>
       <ColorAdjust />
    </effect>
    <children>
-      <ImageView fx:id="hintergrundRT" fitHeight="800.0" fitWidth="1280.0" layoutX="-10.0" nodeOrientation="INHERIT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="-10.0" nodeOrientation="INHERIT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../../resources/vonbaraus.png" />
          </image>
@@ -33,15 +33,11 @@
                   <VBox fx:id="vBoxNr" layoutX="70.0" layoutY="170.0" prefWidth="108.0" spacing="15.0" />
                   <VBox fx:id="vBox1" layoutX="120.0" layoutY="181.0" prefWidth="108.0" spacing="15.0" />
                   <VBox fx:id="vBox2" layoutX="220.0" layoutY="188.0" prefWidth="108.0" spacing="15.0" />
-                  <VBox fx:id="vBox3" layoutX="286.0" layoutY="10.0" prefWidth="108.0" spacing="15.0" />
+                  <VBox fx:id="vBox3" layoutX="30.0" layoutY="10.0" prefHeight="192.0" prefWidth="108.0" spacing="15.0" />
+                  <VBox fx:id="vBox4" layoutX="70.0" layoutY="10.0" prefWidth="108.0" spacing="15.0" />
                </children>
             </HBox>
             <Line endX="716.0" layoutY="447.0" startX="44.0" stroke="WHITE" AnchorPane.rightAnchor="43.5" />
-            <JFXButton fx:id="back" buttonType="RAISED" layoutX="553.0" layoutY="14.0" onAction="#back" prefHeight="41.0" prefWidth="193.0" style="-fx-background-color: tan; -fx-border-color: black;" text="Back to Menu">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </JFXButton>
          </children>
       </AnchorPane>
    </children>

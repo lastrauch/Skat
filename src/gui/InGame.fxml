@@ -42,7 +42,7 @@
       <ImageView fx:id="c2" fitHeight="227.0" fitWidth="182.0" layoutX="225.0" layoutY="504.0" pickOnBounds="true" preserveRatio="true" rotate="-11.3" />
       <ImageView fx:id="c3" fitHeight="227.0" fitWidth="182.0" layoutX="325.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true" rotate="-8.1" />
       <ImageView fx:id="c4" fitHeight="227.0" fitWidth="182.0" layoutX="425.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" rotate="-6.3" />
-      <ImageView fx:id="c5" fitHeight="227.0" fitWidth="182.0" layoutX="525.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" rotate="-3.2" />
+      <ImageView fx:id="c5" fitHeight="227.0" fitWidth="182.0" layoutX="519.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" rotate="-3.2" />
       <ImageView fx:id="c6" fitHeight="227.0" fitWidth="182.0" layoutX="625.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" rotate="3.2" />
       <ImageView fx:id="c7" fitHeight="227.0" fitWidth="182.0" layoutX="728.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" rotate="6.3" />
       <ImageView fx:id="c8" fitHeight="227.0" fitWidth="182.0" layoutX="825.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true" rotate="8.1" />
@@ -133,16 +133,14 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <ImageView fx:id="s3" fitHeight="205.0" fitWidth="132.0" layoutX="590.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" rotate="14.9" />
       <Label fx:id="pos" layoutX="1042.0" layoutY="455.0" textFill="WHITE">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
       </Label>
-      <JFXTextArea fx:id="chatM" focusColor="WHITE" layoutX="3.0" layoutY="5.0" opacity="0.33" prefHeight="35.0" prefWidth="1280.0" style="-fx-background-color: peru;" unFocusColor="PERU" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ImageView fx:id="s3" fitHeight="205.0" fitWidth="132.0" layoutX="590.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" rotate="14.9" />
       <ImageView fx:id="s1" fitHeight="205.0" fitWidth="132.0" layoutX="533.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" rotate="125.0" />
-      <JFXTextField fx:id="textM" layoutY="33.0" opacity="0.33" prefHeight="32.0" prefWidth="1280.0" style="-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <JFXButton fx:id="sendB" layoutX="1167.0" layoutY="33.0" onAction="#sendChat" opacity="0.89" prefHeight="32.0" prefWidth="113.0" style="-fx-background-color: peru; -fx-border-color: grey;" text="Send" textFill="WHITE" AnchorPane.rightAnchor="0.0">
+      <JFXButton fx:id="sendB" layoutX="1167.0" layoutY="33.0" onAction="#sendChat" opacity="0.89" prefHeight="24.0" prefWidth="113.0" style="-fx-background-color: peru; -fx-border-color: grey;" text="Send" textFill="WHITE" AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
@@ -180,23 +178,85 @@
       </Label>
       <ImageView fx:id="profilepictureLeft" fitHeight="97.0" fitWidth="84.0" layoutX="95.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="profilepictureRight" fitHeight="97.0" fitWidth="84.0" layoutX="1098.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="529.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="bubbleLeft" fitHeight="150.0" fitWidth="200.0" layoutX="77.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="betLeft" layoutX="125.0" layoutY="157.0" prefHeight="58.0" prefWidth="55.0">
+      <ImageView fitHeight="227.0" fitWidth="182.0" layoutX="529.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="labelMiddle" layoutX="819.0" layoutY="127.0">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <ImageView fx:id="bubbleRight" fitHeight="150.0" fitWidth="200.0" layoutX="1052.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="betRight" layoutX="1100.0" layoutY="158.0" prefHeight="58.0" prefWidth="55.0">
+      <ImageView fx:id="stichOben" fitHeight="150.0" fitWidth="200.0" layoutX="620.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="o10" fitHeight="150.0" fitWidth="200.0" layoutX="840.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image></ImageView>
+      <ImageView fx:id="o9" fitHeight="150.0" fitWidth="200.0" layoutX="790.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="o8" fitHeight="150.0" fitWidth="200.0" layoutX="740.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="o7" fitHeight="150.0" fitWidth="200.0" layoutX="690.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="o6" fitHeight="150.0" fitWidth="200.0" layoutX="640.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="o5" fitHeight="150.0" fitWidth="200.0" layoutX="590.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="o4" fitHeight="150.0" fitWidth="200.0" layoutX="540.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="o3" fitHeight="150.0" fitWidth="200.0" layoutX="490.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="o2" fitHeight="150.0" fitWidth="200.0" layoutX="440.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="o1" fitHeight="150.0" fitWidth="200.0" layoutX="390.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/rueckseite.jpg" />
+         </image>
+      </ImageView>
+      <JFXTextArea fx:id="chatM" focusColor="WHITE" layoutX="3.0" layoutY="5.0" opacity="0.33" prefHeight="35.0" prefWidth="1280.0" style="-fx-background-color: peru;" unFocusColor="PERU" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <JFXTextField fx:id="textM" layoutY="33.0" opacity="0.33" prefHeight="32.0" prefWidth="1280.0" style="-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <ImageView fx:id="bubbleLeft" fitHeight="150.0" fitWidth="200.0" layoutX="79.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="bubbleUp" fitHeight="150.0" fitWidth="200.0" layoutX="590.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="bubbleRight" fitHeight="150.0" fitWidth="200.0" layoutX="1037.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="betLeft" layoutX="131.0" layoutY="205.0">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <ImageView fx:id="bubbleUp" fitHeight="150.0" fitWidth="200.0" layoutX="540.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="betUp" layoutX="589.0" layoutY="137.0" prefHeight="58.0" prefWidth="55.0">
+      <Label fx:id="betUp" layoutX="637.0" layoutY="177.0">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="betRight" layoutX="1079.0" layoutY="207.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="timeUp" alignment="CENTER" layoutX="106.0" layoutY="396.0" prefHeight="50.0" prefWidth="1075.0">
+         <font>
+            <Font name="System Bold" size="32.0" />
          </font>
       </Label>
    </children>

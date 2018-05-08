@@ -35,7 +35,7 @@ public interface InGameInterface {
    * asks the player to play a card.
    * 
    */
-  public int askToPlayCard(int timeToPlay);
+  public int askToPlayCard(int timeToPlay, PlayState ps);
 
   /**
    * should show the number "seconds" at the corner of the screen.
@@ -113,13 +113,6 @@ public interface InGameInterface {
    * @param bet
    */
   public void openAskForBet(int bet);
-
-  /**
-   * only relevant for the ui.
-   * 
-   * @param bet
-   */
-  public void updateBet(int bet);
 
   /**
    * only relevant for the ui.

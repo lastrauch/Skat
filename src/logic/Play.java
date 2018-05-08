@@ -1,5 +1,8 @@
 package logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Play {
 
   /**
@@ -26,21 +29,19 @@ public class Play {
    * @author awesch
    * @author sandfisc
    */
-  public static Player[] calculateWinner(PlayState ps) {
+  public static List<Player> calculateWinner(PlayState ps) {
 
-    Player winner[] = new Player[2];
-    // "singleplayer bidded himself over"
-    if (checkOverBid(ps)) {
-      for (Player p : ps.getGroup()) {
-        if (!p.isDeclarer()) {
-          if (winner[0] == null) {
-            winner[0] = p;
-          }else {
-            winner[1] = p;
-          }           
-        }
+    List<Player> winner = new ArrayList<Player>();
+    
+    // initialize winner with opponents
+    for(Player p :  ps.getGroup()) {
+      if(!p.isDeclarer()) {
+        winner.add(p);
       }
-    } else {
+    }
+    
+    // "singleplayer bidded himself over"
+    if (!checkOverBid(ps)) {
 
       int pointsD = ps.getDeclarerStack().calculatePointsOfStack();
       int pointsO = ps.getOpponentsStack().calculatePointsOfStack();
@@ -49,30 +50,14 @@ public class Play {
       if (pointsD >= 90) {
         ps.setSchneider(true);
       } else if (ps.getSchneiderAnnounced()) {
-        for (Player p : ps.getGroup()) {
-          if (!p.isDeclarer()) {
-            if (winner[0] == null) {
-              winner[0] = p;
-            }else {
-              winner[1] = p;
-            }           
-          }
-        }
+        return winner;
       }
 
       // check "schwarz"
       if (pointsO == 0) {
         ps.setSchwarz(true);
       } else if (ps.getSchneiderAnnounced()) {
-        for (Player p : ps.getGroup()) {
-          if (!p.isDeclarer()) {
-            if (winner[0] == null) {
-              winner[0] = p;
-            }else {
-              winner[1] = p;
-            }           
-          }
-        }
+       return winner;
       }
 
       // there are two possible states where the declarer wins (depends if he plays hand or not)
@@ -81,7 +66,7 @@ public class Play {
       if (pointsD >= pointsO && ps.getHandGame()) {
         for (Player p : ps.getGroup()) {
           if (p.isDeclarer()) {
-            winner[0] = p;
+            winner.set(0, p);
           }
         }
       }
@@ -89,22 +74,11 @@ public class Play {
       else if (pointsD > pointsO && (!ps.getHandGame())) {
         for (Player p : ps.getGroup()) {
           if (p.isDeclarer()) {
-            winner[0] = p;
+            winner.set(0, p);
           }
         }
       }
-      // in every other case the team wins
-      else {
-        for (Player p : ps.getGroup()) {
-          if (!p.isDeclarer()) {
-            if (winner[0] == null) {
-              winner[0] = p;
-            }else {
-              winner[1] = p;
-            }           
-          }
-        }
-      }
+      
     }
     return winner;
   }
@@ -147,6 +121,8 @@ public class Play {
     for (Player p : ps.getGroup()) {
       if (p.isDeclarer()) {
        p.getPlayScore().add((points * (-2)));
+      }else {
+        p.getPlayScore().add(0);
       }
     }   
     return ps;
@@ -163,12 +139,16 @@ public class Play {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
           ps.getGroup()[i].getPlayScore().add(ps.getPlayValue());
+        }else {
+          ps.getGroup()[i].getPlayScore().add(0);
         }
       }   
     } else {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
           ps.getGroup()[i].getPlayScore().add((-2) * (ps.getPlayValue()));
+        }else {
+          ps.getGroup()[i].getPlayScore().add(0);
         }
       }   
     }
@@ -181,16 +161,19 @@ public class Play {
    * @author sandfisc
    */
   public static PlayState calculatePointsBierlachs(PlayState ps, boolean declarerWins) {
-    if (declarerWins) {      
-      for (int i = 0; i < ps.getGroup().length; i++) {
-        if (!ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
-          ps.getGroup()[i].getPlayScore().add((-1) * (ps.getPlayValue()));
+
+    for (Player p : ps.getGroup()) {
+      if (p.isDeclarer()) {
+        if (declarerWins) {
+          p.getPlayScore().add(0);
+        }else {
+          p.getPlayScore().add((-2) * (ps.getPlayValue()));
         }
-      }     
-    } else {
-      for (int i = 0; i < ps.getGroup().length; i++) {
-        if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
-          ps.getGroup()[i].getPlayScore().add((-2) * (ps.getPlayValue()));
+      }else {
+        if (declarerWins) {
+          p.getPlayScore().add((-1) * (ps.getPlayValue()));
+        }else {
+          p.getPlayScore().add(0);
         }
       }
     }
@@ -207,12 +190,16 @@ public class Play {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
           ps.getGroup()[i].getPlayScore().add(ps.getPlayValue() + 50);
+        }else {
+          ps.getGroup()[i].getPlayScore().add(0);
         }
       }     
     } else {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
           ps.getGroup()[i].getPlayScore().add((-1) * (ps.getPlayValue() + 50));
+        }else {
+          ps.getGroup()[i].getPlayScore().add(0);
         }
       }    
     }

@@ -52,7 +52,7 @@ public class AiController implements InGameInterface {
 	// updateHand(List<Card>) : void
 	// Updates the hand
 
-	// showWinnerPlay(Player, Player) : void
+	// showScore(List<Player> player) : void
 	// For the AI it resets the Play information
 
 	// setCardProbability(double, int, int, player) : void
@@ -356,7 +356,7 @@ public class AiController implements InGameInterface {
 	 * @author fkleinoe
 	 * @return int
 	 */
-	public int askToPlayCard(int timeToPlay) {
+	public int askToPlayCard(int timeToPlay, PlayState playState) {
 		try {
 			Thread.sleep(Settings.DELAY);
 		} catch (InterruptedException e) {
@@ -598,16 +598,6 @@ public class AiController implements InGameInterface {
 		// Do nothing
 	}
 
-	@Override
-	/**
-	 * Only important for the ui.
-	 * 
-	 * @author fkleinoe
-	 * @param bet
-	 */
-	public void updateBet(int bet) {
-		// Do nothing
-	}
 
 	@Override
 	/**
