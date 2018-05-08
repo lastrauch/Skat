@@ -118,7 +118,7 @@ public class PlayState implements Serializable {
     Stack declarerStackCopy = this.declarerStack;
     Stack opponentsStackCopy = this.opponentsStack;
 
-    Card[] skatCopy = new Card[2];
+    Card[] skatCopy = new Card[this.skat.length];
     for (int i = 0; i < this.skat.length; i++) {
       skatCopy[i] = this.skat[i];
     }
