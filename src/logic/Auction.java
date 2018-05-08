@@ -35,8 +35,9 @@ public class Auction implements Serializable {
     this.bets = bets;
   }
 
-  /* ------------------- BET VALUE ------------------------------------------------- */
 
+  /* ------------------- BET VALUE ------------------------------------------------- */
+  
   /**
    * initializes the array of possible bets
    */
