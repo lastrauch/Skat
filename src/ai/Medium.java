@@ -1280,6 +1280,7 @@ public class Medium {
 		}
 
 		// Bot is not declarer
+		// TODO
 
 		return General.playRandomCard(controller);
 	}
