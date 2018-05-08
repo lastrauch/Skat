@@ -64,8 +64,26 @@ public class Player implements Serializable {
   }
 
   public Player copyMe() {
-    return new Player(this.name, this.id, this.img, this.position, this.hand, this.bet,
-        this.gameScore, this.declarer, this.bot, this.playScore);
+    String newName = this.name;
+    int newId = this.id;
+    Image newImg = this.img;
+    Position newPosition = this.position;
+    List<Card> newHand = new ArrayList<Card>();
+    for (Card c : this.hand) {
+      newHand.add(c);
+    }
+    int newBet = this.bet;
+    int newGameScore = this.gameScore;
+    boolean newDeclarer = this.declarer;
+    boolean newBot = this.bot;
+    List<Integer> newPlayScore = new ArrayList<Integer>();
+    for (int i : this.playScore) {
+      newPlayScore.add(i);
+    }
+    Player newPlayer = new Player(newName, newId, newImg, newPosition, newHand, newBet,
+        newGameScore, newDeclarer, newBot, newPlayScore);
+
+    return newPlayer;
   }
 
   public Card chooseRandomCardFromHand() {

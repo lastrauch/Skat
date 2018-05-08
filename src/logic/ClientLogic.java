@@ -486,6 +486,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
           p.setDeclarer(false);
         }
       }
+      //also in playState
+      for (Player p : this.playState.getGroup()) {
+        // !!! change to id later
+        if (!p.getName().equals(this.player.getName())) {
+          p.setDeclarer(false);
+        }
+      }
       System.out.println("I won the auctiooooon !! (" + this.player.getName() + ")");
       this.inGameController.openTakeUpSkat();
       if (this.inGameController.askToTakeUpSkat()) {
@@ -503,6 +510,14 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // set declarer
       for (Player p : this.group) {
+        if (this.playState.getAuction().getWinner().getName().equals(p.getName())) {
+          p.setDeclarer(true);
+        } else {
+          p.setDeclarer(false);
+        }
+      }
+      //also in playState
+      for (Player p : this.playState.getGroup()) {
         if (this.playState.getAuction().getWinner().getName().equals(p.getName())) {
           p.setDeclarer(true);
         } else {
@@ -755,11 +770,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // calculate points
         if (playWinner.get(0).isDeclarer()) {
           // calculate points: declarer won
-          System.out.println("Punkte für den declarer werden berechnet");
+          System.out.println("Punkte fï¿½r den declarer werden berechnet");
           this.playState = Play.calculatePoints(this.playState, this.gameSettings, true);
         } else {
           // calculate points: opponents won
-          System.out.println("Punkte für die Opponents werden berechnet");
+          System.out.println("Punkte fï¿½r die Opponents werden berechnet");
           this.playState = Play.calculatePoints(this.playState, this.gameSettings, false);
         }
 
