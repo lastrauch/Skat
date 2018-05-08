@@ -24,9 +24,6 @@ public interface NetworkLogic {
 	//receive Cards
 	void receiveCards(List<Card> cards, PlayState ps);
 	
-	//everyone received cards
-	void allReceivedCards();
-	
 	//receive Bet
 	void receiveBet(Player player, int bet);
 	
@@ -41,9 +38,6 @@ public interface NetworkLogic {
 	
 	//receive CardPlayed
 	void receiveCardPlayed(Player player, Card card);
-	
-	//receive YourTurn
-	void receiveYourTurn();
 	
 	//receive Player disconnecet
 	void receivePlayerDisconnected(Player player);
