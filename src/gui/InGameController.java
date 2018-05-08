@@ -6,8 +6,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
+import ai.AiController;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -126,10 +130,6 @@ public class InGameController implements Initializable, InGameInterface {
   int[] ret = new int[1];
   private int countl = 10;
   private int countr = 10;
-  private Timeline timeline;
-  private int STARTTIME;
-  int timeSeconds;
-  private boolean playable;
 
 
   /**
@@ -180,8 +180,6 @@ public class InGameController implements Initializable, InGameInterface {
   private ImageView bubbleLeft, bubbleRight, bubbleUp;
   @FXML
   private Label betLeft, betUp, betRight;
-  @FXML
-  private Label timer;
 
 
 
@@ -394,6 +392,13 @@ public class InGameController implements Initializable, InGameInterface {
         s1.setImage(null);
         s2.setImage(null);
         s3.setImage(null);
+
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
     });
     if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
@@ -1050,43 +1055,55 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public int askToPlayCard(int timeToPlay, PlayState ps) {
     // TODO Auto-generated method stub
-    int time = timeToPlay * 1000;
-
+    int time = timeToPlay;
+    long t= System.currentTimeMillis();
+    long end = (t/1000)+time;
+    
     while (clicked == false) {
       // TODO Auto-generated method stub
       if (main.getLobbyCon().getGS().isLimitedTime()) {
-        new Timer().schedule(new TimerTask() {
-          @Override
-          public void run() {
-            MouseHandler();
-            ret[0] = (int) Math.random() * (LoginController.interfGL.getPlayer().getHand().size() - 0);
-            while (!playable) {
-              if (ps.getCurrentTrick().getTrickCards().size() >= 1) {
-                playable(cardlist.get(ret[0]), ps.getCurrentTrick().getFirstCard(), ps,LoginController.interfGL.getPlayer());
-              } else {
-                playable(cardlist.get(ret[0]), cardlist.get(ret[0]), ps,LoginController.interfGL.getPlayer());
-              }
-            }
-            clicked = true;
-          }
-        }, time);
+        while(System.currentTimeMillis()/1000 < end && clicked == false
+            ) {
+          MouseHandler();
+          System.out.println("Ret[0]: "+ret[0]);
+        }
+        ret[0] = playRandomCard(ps, LoginController.interfGL.getPlayer());
+        clicked = true;
       } else {
         MouseHandler();
+        
       }
     }
-    System.out.println("SEND CARD");
     clicked = false;
     return ret[0];
   }
 
-  public void playable(Card card, Card firstCard, PlayState ps, Player player) {
-    try {
-      playable = ClientLogic.checkIfCardPossible(cardlist.get(ret[0]),
-          ps.getCurrentTrick().getFirstCard(), ps, player);
-    } catch (LogicException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+
+  public static int playRandomCard(PlayState ps, Player player) {
+    List<Card> cards = LoginController.interfGL.getPlayer().getHand();
+    List<Card> possibleCards = new ArrayList<Card>();
+
+
+    if (ps.getCurrentTrick().getTrickCards().size() > 0) {
+      for (int i = 0; i < cards.size(); i++) {
+        try {
+          if (ClientLogic.checkIfCardPossible(cards.get(i), ps.getCurrentTrick().getFirstCard(), ps,
+              player)) {
+            possibleCards.add(cards.get(i));
+          }
+        } catch (LogicException e) {
+          e.printStackTrace();
+        }
+      }
+    } else {
+      possibleCards = cards;
     }
+
+    int rnd = (int) (Math.random() * possibleCards.size());
+    Card playCard = possibleCards.get(rnd);
+    int index = cards.indexOf(playCard);
+
+    return index;
   }
 
   /*
