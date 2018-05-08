@@ -727,6 +727,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // trick is over
       // calculate winner trick
       trickWinner = this.playState.getCurrentTrick().calculateWinner(playState);
+      System.out.println("TrickWinner: " + trickWinner.getName());
 
       // put cards on winners stack
       if (trickWinner.isDeclarer()) {
@@ -745,7 +746,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // check if play is over
       if (this.playState.getTrickNr() == 10
           || ((this.playState.getPlayMode() == PlayMode.NULL) && trickWinner.isDeclarer())) {
-        System.out.println(this.player.getName() + " I got that the play is over");
         // calculate winner play
         playWinner = Play.calculateWinner(playState);
 
@@ -753,10 +753,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
         System.out.println("playWinner:");
         for (Player p : playWinner) {
           System.out.print(p.getName() + " ");
-        }
-        System.out.println("group in this.playState:");
-        for (Player p : this.playState.getGroup()) {
-          System.out.println(p.getName() + " is declarer " + p.isDeclarer());
         }
         // calculate points
         if (playWinner.get(0).isDeclarer()) {
@@ -781,10 +777,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           }
         }
 
-        System.out.println(this.player.getName() + " got all these points:");
-        for (int points : this.player.getPlayScore()) {
-          System.out.print(points);
-        }
+        System.out.println(this.player.getName() + " got these points: "
+            + this.player.getPlayScore().get(this.playState.getPlayNr() - 1));
 
         // show winner of play
         // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
