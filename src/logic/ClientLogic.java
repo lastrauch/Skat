@@ -187,7 +187,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * sets the gameSettings
+   * sets the gameSettings.
    */
   @Override
   public void receiveGameSettings(GameSettings gs) {
@@ -195,8 +195,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * sets the seaing order, sets the positions, generates playState,
-   * starts play if rearhand and initializes inGameController, if !bot.
+   * sets the seaing order, sets the positions, generates playState, starts play if rearhand and
+   * initializes inGameController, if !bot.
    */
   @Override
   public void receiveStartGame() {
@@ -258,7 +258,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
     return this.player.copyMe();
   }
 
-
+  /**
+   * player receives cards after they were dealt out, the playState and the hand are initialized and
+   * the auction is started by the middlehand.
+   */
   @Override
   public void receiveCards(List<Card> cards, PlayState ps) {
     if (!this.player.isBot()) {
@@ -304,6 +307,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
   /*----------------- RUN AUCTION -------------------------------------------*/
 
   /**
+   * is called every time someone bets.
+   * 
    * @author awesch
    */
   public void receiveBet(Player player, int bet) {
@@ -574,8 +579,16 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   @Override
   public void announceKontra() {
-    if (this.playState.getTrickNr() == 0 && this.gameSettings.isEnableKontra()) {
+    if (this.playState.getTrickNr() == 1 && this.gameSettings.isEnableKontra()
+        && !this.player.isDeclarer()) {
       this.netController.sendKontra();
+    }
+  }
+
+  @Override
+  public void announceRekontra() {
+    if(this.player.isDeclarer() && this.gameSettings.isEnableKontra()) {
+      this.netController.sendRekontra();
     }
   }
 
@@ -1271,7 +1284,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public Player getPlayer() {
     return this.player;
   }
-  
+
   public List<Player> getLobby() {
     return this.group;
   }
