@@ -590,7 +590,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void playCard(Card firstCard) {
     this.inGameController.itsYourTurn();
     this.waitFor(1000);
-    int indexNewCard = this.inGameController.askToPlayCard(this.gameSettings.getTimeLimit());
+    int indexNewCard = this.inGameController.askToPlayCard(this.gameSettings.getTimeLimit(), this.playState);
     // because we had some to high results from askToPlayCard
     if (indexNewCard >= this.player.getHand().size()) {
       this.playCard(firstCard);
@@ -691,7 +691,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     if (this.playState.isOpen()
         && player.getName().equals(this.playState.getAuction().getWinner().getName())) {
       player.setDeclarer(true);
-      this.inGameController.showOpen(player);
+ //     this.inGameController.showOpen(player);
 //      // test print players hand:
 //      System.out.println("hand of declarer when announced open: ");
 //      for(Card c: player.getHand()) {
@@ -722,8 +722,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.playState.getCurrentTrick().addCard(card, playedLastCard);
 
     Player trickWinner;
-    Player[] playWinner;
-    Player[] gameWinner;
+    List<Player> playWinner;
+    List<Player> gameWinner;
 
     // check if trick is over
     if (this.playState.getCurrentTrick().isFull()) {
@@ -753,11 +753,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
         playWinner = Play.calculateWinner(playState);
 
         // calculate points
-        if (playWinner[0].isDeclarer()) {
+        if (playWinner.get(0).isDeclarer()) {
           // calculate points: declarer won
+          System.out.println("Punkte für den declarer werden berechnet");
           this.playState = Play.calculatePoints(this.playState, this.gameSettings, true);
         } else {
           // calculate points: opponents won
+          System.out.println("Punkte für die Opponents werden berechnet");
           this.playState = Play.calculatePoints(this.playState, this.gameSettings, false);
         }
 
@@ -782,8 +784,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // show winner of play
         // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
         this.inGameController.showScore(this.group);
-        if (playWinner[0].getName().equals(this.player.getName())
-            || playWinner[1].getName().equals(this.player.getName())) {
+        if (playWinner.get(0).getName().equals(this.player.getName())
+            || playWinner.get(0).getName().equals(this.player.getName())) {
           System.out.println(this.player.getName() + ": I won the play!!");
         }
         this.waitFor(3000);
@@ -795,13 +797,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // game is over
           System.out.println(this.player.getName() + ": The game is over");
           // calculate winner game
-          gameWinner = new Player[2];
-          gameWinner[0] = Game.calculateWinner(this.playState);
+          gameWinner = new ArrayList<Player>();
+          gameWinner.add(Game.calculateWinner(this.playState));
 
           this.waitFor(3000);
           // show winner of game
           this.inGameController.showScore(this.group);
-          if (gameWinner[0].getName().equals(this.player.getName())) {
+          if (gameWinner.get(0).getName().equals(this.player.getName())) {
             System.out.println(this.player.getName() + ": I won the game!!");
           }
           this.waitFor(3000);
