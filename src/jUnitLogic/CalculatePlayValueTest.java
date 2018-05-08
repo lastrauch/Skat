@@ -15,7 +15,7 @@ import java.util.List;
 
 
 /**
- * this class tests the method calculatePlayValue in ClientLogic .
+ * this class tests the method calculatePlayValue in ClientLogic.
  * 
  * @author awesch
  *
@@ -98,6 +98,9 @@ class CalculatePlayValueTest {
     this.testCalculateMatador();
   }
 
+  /**
+   * with clubs and spades jack --> with 2.
+   */
   @Test
   void testMatadorWith2() {
     hand.add(clubsJack);
@@ -196,8 +199,12 @@ class CalculatePlayValueTest {
   /**
    * tests fixed values for null.
    */
+  @Test
   void testPlayValueNullOuvertHand() {
     playState.setPlayMode(PlayMode.NULL);
+    playState.setOpen(true);
+    playState.setHandGame(true);
+
     assertEquals(59, clientLogic.calculatePlayValue());
   }
 
@@ -231,16 +238,18 @@ class CalculatePlayValueTest {
   @Test
   void testCalculatePlayValueSuit() {
     this.testCalculateMultiplier1();
+
     assertEquals(70, clientLogic.calculatePlayValue());
   }
 
   /**
-   * playmode grand --> 3*24
+   * playmode grand --> 3*24.
    */
   @Test
   void testCalculatePlayValueGrand() {
     this.testCalculateMultiplier2();
     playState.setPlayMode(PlayMode.GRAND);
+
     assertEquals(72, clientLogic.calculatePlayValue());
   }
 

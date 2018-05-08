@@ -157,20 +157,17 @@ public interface InGameInterface {
 
 
   /**
-   * 
    * Example: Clubs-Jack, Spades-Jack, Clubs-10, Clubs-8, Hearts-7, Diamonds-9 Playable: Trump (Jack
    * + Clubs) Return Array: (null, null, null, null, Hearts-7, Diamonds-9).
    * 
-   * 
-   * @author lstrauch
-   * @param cards
+   * @param cards.
    */
   public void showPossibleCards(List<Card> cards);
   
   /**
    * should show the cards of the given player, who plays open.
    * 
-   * @param player
+   * @param player: Player
    */
   public void showOpen(Player player);
 
