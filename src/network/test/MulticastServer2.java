@@ -44,9 +44,8 @@ public class MulticastServer2 extends Thread {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-//      System.out.println("run2");
+
       try {
-        //mSocket = new DatagramSocket();
         mSocket = new MulticastSocket(mServerPort);
         //mSocket.setBroadcast(true);
         byte[] buf;
@@ -74,10 +73,5 @@ public class MulticastServer2 extends Thread {
     mSocket.close();
   }
 
-
-//  public static void main(String [] args){
-//    MulticastServer ms = new MulticastServer(new Server("localhost", 1234, "test-server"));
-//    ms.run();
-//  }
 }
 

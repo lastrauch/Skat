@@ -10,11 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import network.server.Server;
 
-/**
- * @author gpahlitz
- */
-
-
 public class MulticastClient2 extends Thread {
 
   private static MulticastClient2 instance = new MulticastClient2();
@@ -38,37 +33,9 @@ public class MulticastClient2 extends Thread {
 
   }
 
-//  public void run() {
-//    while (mSearching) {
-//      DatagramSocket socket;
-//      try {
-//        DatagramPacket sendPacket =
-//            new DatagramPacket(sendData, sendData.length, broadcast, 1337);
-//        c.send(sendPacket);
-//      } catch (Exception e) {
-//      }
-//
-//      byte[] fromServer = new byte[1500];
-//      DatagramPacket mesFromServer = new DatagramPacket(fromServer, fromServer.length);
-//      try {
-//        /* waiting for server until timeout */
-//        c.receive(mesFromServer);
-//      } catch (SocketTimeoutException e) {
-//        mSearch = false;
-//        continue;
-//      }
-//    }catch(Exception e){
-//      System.out.println("EXCEPTION");
-//      e.printStackTrace();
-//    }
-//  }
-
 
   public void refreshServers(){
     System.out.println("////// refresh server ///////");
-//    mAvailableServers.removeAll(mAvailableServers);
-//    mServerIps.removeAll(mServerIps);
-//    mActiveServers.removeAll(mActiveServers);
 
 
     DatagramSocket socket;
@@ -85,8 +52,6 @@ public class MulticastClient2 extends Thread {
         socket.receive(packet);
       } catch (SocketTimeoutException e) {
         return;
-//        e.printStackTrace();
-//        System.out.println("continue");
       }
 
       System.out.println("within refreshServers3");
@@ -104,9 +69,7 @@ public class MulticastClient2 extends Thread {
       if (!mServerIps.contains(ip)) {
 
         mServerIps.add(ip);
-//        ActiveServer newServer = new ActiveServer(Integer.parseInt(messagesFromServer[2]),
-//            messagesFromServer[1]);
-//        mActiveServers.add(newServer);
+
       }
       }
 

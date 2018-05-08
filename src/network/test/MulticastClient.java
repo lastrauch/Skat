@@ -49,10 +49,7 @@ public class MulticastClient {
                 }catch(IOException e) {
                   
                 }
-                
 
-                
- 
         //DatagramPacket packet = new DatagramPacket(buf, buf.length, group, port);
         //socket.send(packet);
         

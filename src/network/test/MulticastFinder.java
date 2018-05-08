@@ -2,6 +2,7 @@ package network.test;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
@@ -9,7 +10,8 @@ public class MulticastFinder implements Runnable{
 	private static MulticastFinder me;
 	private String serverName;
 	private int port;
-	private MulticastSocket socket = null;
+	//private MulticastSocket socket = null;
+	private DatagramSocket socket;
 	private byte[] data = new byte[15000];
 	private boolean running;
 	
@@ -29,11 +31,12 @@ public class MulticastFinder implements Runnable{
     public void run() {
     	this.running = true;
         try {
-			socket = new MulticastSocket(this.port);
+            socket = new DatagramSocket(this.port);
+			//socket = new MulticastSocket(this.port);
 			socket.setBroadcast(true);
 			System.out.println(getClass().getName() + " >>> Multicast Server start");
         InetAddress group = InetAddress.getByName("224.0.0.1");
-        socket.joinGroup(group);
+        //socket.joinGroup(group);
         while (this.running) {
           System.out.println(getClass().getName() + " >>> Multicast Server listening");
             DatagramPacket packet = new DatagramPacket(data, data.length);
@@ -51,7 +54,7 @@ public class MulticastFinder implements Runnable{
             			this.socket.send(sendPacket);
             		}
         }
-        socket.leaveGroup(group);
+        //socket.leaveGroup(group);
         socket.close();
         } catch (IOException e) {
 			e.printStackTrace();
