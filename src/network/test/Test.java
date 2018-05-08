@@ -20,8 +20,8 @@ public class Test {
 		
 		
 		Server server = new Server("Felix Server", 4446, new GameSettings(), "Hallo");
-		//MulticastServer2 mcs2 = new MulticastServer2(server);
-		//mcs2.start();
+		MulticastServer2 mcs2 = new MulticastServer2(server);
+		mcs2.start();
 		MulticastClient2 mcc2 = new MulticastClient2();
 		mcc2.refreshServers();
 		

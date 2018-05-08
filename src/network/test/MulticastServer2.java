@@ -48,7 +48,7 @@ public class MulticastServer2 extends Thread {
       try {
         //mSocket = new DatagramSocket();
         mSocket = new MulticastSocket(mServerPort);
-        mSocket.setBroadcast(true);
+        //mSocket.setBroadcast(true);
         byte[] buf;
         if(true) {
           StringBuffer message = new StringBuffer("TEAM_WIESE;");
