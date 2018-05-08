@@ -690,8 +690,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
     // check if open and player is declarer to showOpen
     if (this.playState.isOpen()
         && player.getName().equals(this.playState.getAuction().getWinner().getName())) {
-      this.inGameController.showOpen(player);
       player.setDeclarer(true);
+      this.inGameController.showOpen(player);
+//      // test print players hand:
+//      System.out.println("hand of declarer when announced open: ");
+//      for(Card c: player.getHand()) {
+//        System.out.println(c.toString());
+//      }
     }
 
     try {
