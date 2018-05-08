@@ -460,6 +460,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
         this.playState.getAuction().setWinner(p);
       }
     }
+
+    // test reset the bets of every player to 0 for the next auction
+    for (Player p : this.group) {
+      p.setBet(0);
+    }
+    this.player.setBet(0);
   }
 
   /**
@@ -592,7 +598,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
         this.inGameController.updateHand(this.player.getHand());
         System.out
-        .println(this.player.getName() + " this.player.isDeclarer " + this.player.isDeclarer());
+            .println(this.player.getName() + " this.player.isDeclarer " + this.player.isDeclarer());
         this.netController.sendCardPlayed(playedCard, this.player);
 
       } else {
