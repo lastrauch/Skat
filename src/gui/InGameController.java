@@ -242,16 +242,16 @@ public class InGameController implements Initializable, InGameInterface {
     lArray[8] = l9;
     lArray[9] = l10;
 
-    lArray[0] = l1;
-    lArray[1] = l2;
-    lArray[2] = l3;
-    lArray[3] = l4;
-    lArray[4] = l5;
-    lArray[5] = l6;
-    lArray[6] = l7;
-    lArray[7] = l8;
-    lArray[8] = l9;
-    lArray[9] = l10;
+    rArray[0] = r1;
+    rArray[1] = r2;
+    rArray[2] = r3;
+    rArray[3] = r4;
+    rArray[4] = r5;
+    rArray[5] = r6;
+    rArray[6] = r7;
+    rArray[7] = r8;
+    rArray[8] = r9;
+    rArray[9] = r10;
 
     oArray[0] = o1;
     oArray[1] = o2;
@@ -988,13 +988,16 @@ public class InGameController implements Initializable, InGameInterface {
               if (bet != -1) {
                 betLeft.setText(String.valueOf(bet));
               } else {
-                bubbleUp.setImage(bubbleU);
-                bubbleUp.toFront();
-                if (bet != -1) {
-                  betUp.setText(String.valueOf(bet));
-                } else {
-                  betUp.setText("Pass");
-                }
+                betLeft.setText("Pass");
+              } 
+              
+            } else {
+              bubbleUp.setImage(bubbleU);
+              bubbleUp.toFront();
+              if (bet != -1) {
+                betUp.setText(String.valueOf(bet));
+              } else {
+                betUp.setText("Pass");
               }
             }
           }
@@ -1028,24 +1031,54 @@ public class InGameController implements Initializable, InGameInterface {
   public void showOpen(Player player) {
     // TODO Auto-generated method stub
     System.out.println("Open");
-    if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-      if (player.getPosition() == Position.MIDDLEHAND) {
-        rearrangeCardsLeft(player.getHand());
-      } else if (player.getPosition() == Position.REARHAND) {
-        rearrangeCardsUp(player.getHand());
+
+    if (main.getGameSetCon().getGS().getNrOfPlayers() == 4) {
+      if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+        if (player.getPosition() == Position.MIDDLEHAND) {
+          rearrangeCardsLeft(player.getHand());
+        } else if (player.getPosition() == Position.REARHAND) {
+          rearrangeCardsUp(player.getHand());
+        }
+      } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+        if (player.getPosition() == Position.MIDDLEHAND) {
+          rearrangeCardsRight(player.getHand());
+        } else if (player.getPosition() == Position.FOREHAND) {
+          rearrangeCardsUp(player.getHand());
+        }
+      } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+        if (player.getPosition() == Position.FOREHAND) {
+          rearrangeCardsRight(player.getHand());
+        } else if (player.getPosition() == Position.REARHAND) {
+          rearrangeCardsLeft(player.getHand());
+        }
+      } else {
+        if (player.getPosition() == Position.FOREHAND) {
+          rearrangeCardsLeft(player.getHand());
+        } else if (player.getPosition() == Position.REARHAND) {
+          rearrangeCardsRight(player.getHand());
+        } else {
+          rearrangeCardsUp(player.getHand());
+        }
       }
-    } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-      if (player.getPosition() == Position.MIDDLEHAND) {
-        rearrangeCardsRight(player.getHand());
-      } else if (player.getPosition() == Position.FOREHAND) {
-        rearrangeCardsUp(player.getHand());
-      }
-    } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND
-        || LoginController.interfGL.getPlayer().getPosition() == Position.DEALER) {
-      if (player.getPosition() == Position.FOREHAND) {
-        rearrangeCardsLeft(player.getHand());
-      } else if (player.getPosition() == Position.MIDDLEHAND) {
-        rearrangeCardsRight(player.getHand());
+    } else {
+      if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+        if (player.getPosition() == Position.MIDDLEHAND) {
+          rearrangeCardsLeft(player.getHand());
+        } else if (player.getPosition() == Position.REARHAND) {
+          rearrangeCardsRight(player.getHand());
+        }
+      } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+        if (player.getPosition() == Position.MIDDLEHAND) {
+          rearrangeCardsRight(player.getHand());
+        } else if (player.getPosition() == Position.FOREHAND) {
+          rearrangeCardsLeft(player.getHand());
+        }
+      } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+        if (player.getPosition() == Position.FOREHAND) {
+          rearrangeCardsLeft(player.getHand());
+        } else if (player.getPosition() == Position.MIDDLEHAND) {
+          rearrangeCardsRight(player.getHand());
+        }
       }
     }
   }
