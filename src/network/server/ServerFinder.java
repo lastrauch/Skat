@@ -7,6 +7,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -20,15 +21,15 @@ public class ServerFinder {
   public ServerFinder(int port) {
     this.port = port;
     this.servers = new ArrayList<Server>();
-    this.servers = findServers();
+    this.findServers();
   }
 
   public List<Server> refresh() {
-    this.servers = findServers();
+    this.findServers();
     return this.servers;
   }
 
-  private List<Server> findServers() {
+  private void findServers() {
     this.servers.clear();
     try {
       c = new DatagramSocket();
@@ -74,10 +75,12 @@ public class ServerFinder {
       System.out.println(getClass().getName()
           + " >>> Done looping over all network interfaces. Now waiting for a reply!");
 
+      try {
+      c.setSoTimeout(1000);
       byte[] recvBuf = new byte[15000];
       DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
       c.receive(receivePacket);
-
+      
       System.out.println(getClass().getName() + " >>> Broadcast response from server: "
           + receivePacket.getAddress().getHostAddress());
 
@@ -90,15 +93,15 @@ public class ServerFinder {
           System.out.println(message[i]);
         }
       }
+      
+      }catch (SocketTimeoutException e) {
+      }
 
       c.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    
-    
-    
-    return null;
+
   }
 
 
