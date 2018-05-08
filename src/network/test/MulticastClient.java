@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -32,16 +33,23 @@ public class MulticastClient {
         
         List<String> ipRange = getIPRange();
         System.out.println(getClass().getName() + " >>> IPRange size: " + ipRange.size());
-        for(int i=0; i<ipRange.size(); i++) {
-        	System.out.println(ipRange.get(i));
-        }
+//        for(int i=0; i<ipRange.size(); i++) {
+//        	System.out.println(ipRange.get(i));
+//        }
         Iterator it = ipRange.iterator();
         while(it.hasNext()) {
         	String address = (String) it.next();
         	//for(int i=0; i<255; i++) {
         		System.out.println(getClass().getName() + " >>> Check IP: " + address);
-                DatagramPacket packet = new DatagramPacket(buf, buf.length, InetAddress.getByName(address), port);
-                socket.send(packet);
+                //DatagramPacket packet = new DatagramPacket(buf, buf.length, InetAddress.getByName(address + i), port);
+                DatagramPacket packet = new DatagramPacket(buf, buf.length, group, port);
+                try {
+                  socket.setSoTimeout(1000);
+                  socket.send(packet);
+                }catch(IOException e) {
+                  
+                }
+                
 
                 
  
@@ -51,8 +59,14 @@ public class MulticastClient {
         //Wait for a response
         byte[] recvBuf = new byte[15000];
         DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
-        socket.receive(receivePacket);
-
+        try {
+          socket.setSoTimeout(1000);
+          socket.receive(receivePacket);
+          } catch (SocketTimeoutException e) {
+            return;
+         }
+          
+          
         //We have a response
         System.out.println(getClass().getName() + " >>> Multicast response from server: " + receivePacket.getAddress().getHostAddress());
 
@@ -65,7 +79,7 @@ public class MulticastClient {
         }
         	
         }
-
+        
         
         socket.close();
         
@@ -94,7 +108,7 @@ public class MulticastClient {
                   .matches("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}")
                   && !inetAddress.getHostAddress().matches("127.*")) {
                 String[] str = inetAddress.getHostAddress().split("\\.");
-                ipRange.add(str[0] + "." + str[1] + "." + str[2] + "." + str[3]);
+                ipRange.add(str[0] + "." + str[1] + "." + str[2] + ".");
               }
             }
           }
