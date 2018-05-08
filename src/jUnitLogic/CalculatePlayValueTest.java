@@ -97,7 +97,7 @@ class CalculatePlayValueTest {
 
     this.testCalculateMatador();
   }
-  
+
   @Test
   void testMatadorWith2() {
     hand.add(clubsJack);
@@ -110,10 +110,10 @@ class CalculatePlayValueTest {
     hand.add(whatEver1);
     hand.add(whatEver2);
     hand.add(whatEver3);
-    
+
     player.setHand(hand);
     matador = 2;
-    
+
     this.testCalculateMatador();
   }
 
@@ -213,22 +213,35 @@ class CalculatePlayValueTest {
 
     assertEquals(7, clientLogic.calculateMultiplier());
   }
-  
+
+  /**
+   * with 2, open gives you a piont, only if you play hand --> multiplier 3.
+   */
   @Test
   void testCalculateMultiplier2() {
     this.testMatadorWith2();
     playState.setOpen(true);
-    
-    assertEquals(4, clientLogic.calculateMultiplier());
+
+    assertEquals(3, clientLogic.calculateMultiplier());
   }
 
   /**
    * playmode hearts --> 7* 10.
    */
   @Test
-  void testCalculatePlayValue() {
+  void testCalculatePlayValueSuit() {
     this.testCalculateMultiplier1();
     assertEquals(70, clientLogic.calculatePlayValue());
+  }
+
+  /**
+   * playmode grand --> 3*24
+   */
+  @Test
+  void testCalculatePlayValueGrand() {
+    this.testCalculateMultiplier2();
+    playState.setPlayMode(PlayMode.GRAND);
+    assertEquals(72, clientLogic.calculatePlayValue());
   }
 
 }
