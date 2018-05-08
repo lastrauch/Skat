@@ -1285,10 +1285,22 @@ public class Medium {
 					}
 				}
 			}
-		}
-
-		// Bot is not declarer
+			
+			
+			// Bot is not declarer
+		}else {
 		// TODO
+		  if(trick.size() == 0) {
+		    
+		  }
+		  if(trick.size() == 1) {
+		    
+		  }
+		  if(trick.size() == 2) {
+		    
+		  }
+		  
+		}
 
 		return General.playRandomCard(controller);
 	}
