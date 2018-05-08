@@ -1050,6 +1050,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public int askToPlayCard(int timeToPlay, PlayState ps) {
     // TODO Auto-generated method stub
+    int time = timeToPlay * 1000;
 
     while (clicked == false) {
       // TODO Auto-generated method stub
@@ -1057,28 +1058,31 @@ public class InGameController implements Initializable, InGameInterface {
         new Timer().schedule(new TimerTask() {
           @Override
           public void run() {
-            System.out.println("In timer!!!");
-            while(!playable) {
-              playable(ps.getCurrentTrick().getFirstCard(), ps, LoginController.interfGL.getPlayer());
+            MouseHandler();
+            ret[0] = (int) Math.random() * (LoginController.interfGL.getPlayer().getHand().size() - 0);
+            while (!playable) {
+              if (ps.getCurrentTrick().getTrickCards().size() >= 1) {
+                playable(cardlist.get(ret[0]), ps.getCurrentTrick().getFirstCard(), ps,LoginController.interfGL.getPlayer());
+              } else {
+                playable(cardlist.get(ret[0]), cardlist.get(ret[0]), ps,LoginController.interfGL.getPlayer());
+              }
             }
-              clicked = true;
+            clicked = true;
           }
-        }, timeToPlay);
+        }, time);
       } else {
         MouseHandler();
       }
     }
-
     System.out.println("SEND CARD");
     clicked = false;
     return ret[0];
   }
 
-  public void playable(Card firstCard, PlayState playState, Player player) {
-    ret[0] = (int) Math.random() * (LoginController.interfGL.getPlayer().getHand().size() - 0);
+  public void playable(Card card, Card firstCard, PlayState ps, Player player) {
     try {
-      playable =
-          ClientLogic.checkIfCardPossible(cardlist.get(ret[0]), firstCard, playState, player);
+      playable = ClientLogic.checkIfCardPossible(cardlist.get(ret[0]),
+          ps.getCurrentTrick().getFirstCard(), ps, player);
     } catch (LogicException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
