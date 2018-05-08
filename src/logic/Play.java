@@ -161,20 +161,19 @@ public class Play {
    * @author sandfisc
    */
   public static PlayState calculatePointsBierlachs(PlayState ps, boolean declarerWins) {
-    if (declarerWins) {      
-      for (int i = 0; i < ps.getGroup().length; i++) {
-        if (!ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
-          ps.getGroup()[i].getPlayScore().add((-1) * (ps.getPlayValue()));
+
+    for (Player p : ps.getGroup()) {
+      if (p.isDeclarer()) {
+        if (declarerWins) {
+          p.getPlayScore().add(0);
         }else {
-          ps.getGroup()[i].getPlayScore().add(0);
+          p.getPlayScore().add((-2) * (ps.getPlayValue()));
         }
-      }     
-    } else {
-      for (int i = 0; i < ps.getGroup().length; i++) {
-        if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
-          ps.getGroup()[i].getPlayScore().add((-2) * (ps.getPlayValue()));
+      }else {
+        if (declarerWins) {
+          p.getPlayScore().add((-1) * (ps.getPlayValue()));
         }else {
-          ps.getGroup()[i].getPlayScore().add(0);
+          p.getPlayScore().add(0);
         }
       }
     }
