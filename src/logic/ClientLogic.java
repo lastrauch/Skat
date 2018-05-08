@@ -492,12 +492,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // !!! change to id later
         if (!p.getName().equals(this.player.getName())) {
           p.setDeclarer(false);
-        }
-        else {
+        } else {
           p.setDeclarer(true);
         }
       }
-      
+
       System.out.println("I won the auctiooooon !! (" + this.player.getName() + ")");
       this.inGameController.openTakeUpSkat();
       if (this.inGameController.askToTakeUpSkat()) {
@@ -508,7 +507,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.inGameController.openAuctionWinnerScreen();
       this.playState = this.inGameController.askToSetPlayState(this.playState);
 
-      this.calculatePlayValue();
+      this.playState.setPlayValue(this.calculatePlayValue());
+      System.out.println("playValue before sendPlayState: " + this.playState.getPlayValue());
       this.netController.sendPlayState(this.playState.copyMe());
     } else {
 
@@ -749,6 +749,15 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // calculate winner play
         playWinner = Play.calculateWinner(playState);
 
+        System.out.println("Before calculate Points:");
+        System.out.println("playWinner:");
+        for (Player p : playWinner) {
+          System.out.print(p.getName() + " ");
+        }
+        System.out.println("group in this.playState:");
+        for (Player p : this.playState.getGroup()) {
+          System.out.println(p.getName() + " is declarer " + p.isDeclarer());
+        }
         // calculate points
         if (playWinner.get(0).isDeclarer()) {
           // calculate points: declarer won
@@ -1159,7 +1168,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
         result += 1;
       }
     }
-
     return result;
   }
 
