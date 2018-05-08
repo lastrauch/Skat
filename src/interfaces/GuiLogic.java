@@ -16,12 +16,6 @@ public interface GuiLogic {
 
   /**
    * 
-   * @param m
-   */
-  public void decideGameMode(GameMode m);
-
-  /**
-   * 
    * @param username
    */
   public void login(String username, Image profilepicture);

@@ -6,7 +6,7 @@ import java.util.List;
 public class Play {
 
   /**
-   * true if declarer over bid false if not
+   * true if declarer over bid false if not.
    * 
    * @author sandfisc
    * @return
@@ -24,7 +24,7 @@ public class Play {
 
   /**
    * Calculates the winner of the play, and saves it in the boolean singlePlayerWins uses
-   * calculatePoinsOfStack
+   * calculatePoinsOfStack.
    * 
    * @author awesch
    * @author sandfisc
@@ -33,9 +33,9 @@ public class Play {
 
     List<Player> winnerD = new ArrayList<Player>();
     List<Player> winnerO = new ArrayList<Player>();
-    
-    for(Player p: ps.getGroup()) {
-      if(p.isDeclarer()) {
+
+    for (Player p : ps.getGroup()) {
+      if (p.isDeclarer()) {
         winnerD.add(p);
       } else {
         winnerO.add(p);
@@ -54,9 +54,9 @@ public class Play {
         // check "schwarz"
         if (pointsO == 0) {
           ps.setSchwarz(true);
-        } 
+        }
         return winnerD;
-      } 
+      }
 
       // there are two possible states where the declarer wins (depends if he plays hand or not)
       // if he plays hand: poinsD >= pointsO (1.), if not: pointsD > pointsO(2.)
@@ -120,7 +120,7 @@ public class Play {
 
   /**
    * if declarer won, the value of the game is added to his/her gamePoints else twice the value is
-   * subtracted from his/her score
+   * subtracted from his/her score.
    * 
    * @author sandfisc
    */
@@ -146,7 +146,7 @@ public class Play {
   }
 
   /**
-   * only minuspoints here for the player/s who won
+   * only minuspoints here for the player/s who won.
    * 
    * @author sandfisc
    */
@@ -171,7 +171,7 @@ public class Play {
   }
 
   /**
-   * declarer gets or looses (the playValue + 50)
+   * declarer gets or looses (the playValue + 50).
    * 
    * @author sandfisc
    */

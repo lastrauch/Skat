@@ -986,7 +986,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   /**
    * its is checked if the card can be played by the player depending on his hand, the first Colour
-   * of the trick and the PlayMode
+   * of the trick and the PlayMode.
    * 
    * @param card (the player wants to play)
    * @param firstCard (the first played card in the current trick)
@@ -1007,7 +1007,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * submethod of checkIfCardPossible
+   * submethod of checkIfCardPossible.
    * 
    * @author sandfisc
    * @param card (the player wants to play)
@@ -1033,13 +1033,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * checks if the serving card serves the served card --> checks is both are trump/jack or have the
-   * same color.
+   * checks if the serving card serves the served card --> checks if both are trump/jack or have the
+   * same color, returns true if served.
    * 
    * @author sandfisc
    * @param servingCard
    * @param servedCard
-   * @return
    */
   public static boolean checkIfServedColour(Card servingCard, Card servedCard,
       PlayState playState) {
@@ -1093,7 +1092,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * @author sandfisc
    * @param servingCard
    * @param servedCard
-   * @return
+   * @return if card serves grand
    */
   public static boolean checkIfServedGrand(Card servingCard, Card servedCard) {
 
@@ -1138,9 +1137,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
   /*-------------------------  CALCULATE PLAY VALUE -----------------------------------------------*/
 
   /**
-   * calculates the the Matadors the hand has to be sorted before! with the (chosen/possible) trump
+   * calculates the the Matadors the hand has to be sorted before! with the (chosen/possible) trump.
    * 
-   * @return
+   * @return matador
    * @author awesch
    */
   public int calculateMatador() {
@@ -1169,11 +1168,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * calculates the multiplier to calculate the value of a suit or grand game
+   * calculates the multiplier to calculate the value of a suit or grand game.
    * 
    * @author awesch
    * @param ps
-   * @return
+   * @return multiplier
    */
   public int calculateMultiplier() {
     int result = 1; // 1 for the game
@@ -1209,11 +1208,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * calculates the play value for suit or grand plays
+   * calculates the play value for suit or grand plays.
    * 
    * @author awesch
    * @param ps
-   * @return
+   * @return play value 
    */
   public int calculatePlayValueSuitorGrand() {
     int multiplier = this.calculateMultiplier();
@@ -1221,11 +1220,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * initializes the play value for a null play
+   * initializes the play value for a null play.
    * 
    * @author awesch
    * @param ps
-   * @return
+   * @return play value
    */
   public int calculatePlayValueNull() {
     int result = 23;
@@ -1242,11 +1241,11 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * calculates the play value with the other methods implemented for the special contracts
+   * calculates the play value with the other methods implemented for the special contracts.
    * 
    * @author awesch
    * @param ps
-   * @return
+   * @return play value
    */
   public int calculatePlayValue() {
     int result = 0;
