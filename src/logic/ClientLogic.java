@@ -705,7 +705,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     if (this.playState.isOpen()
         && player.getName().equals(this.playState.getAuction().getWinner().getName())) {
       player.setDeclarer(true);
-      // this.inGameController.showOpen(player);
+      this.inGameController.showOpen(player);
     }
     try {
       this.checkWhatHappensNext(player, card);
