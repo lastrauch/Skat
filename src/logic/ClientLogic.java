@@ -764,7 +764,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
         }
 
         // save playPionts from playState in this group
-
         for (Player pg : this.group) {
           for (Player ps : this.playState.getGroup()) {
             if (pg.getName().equals(ps.getName())) {
@@ -778,7 +777,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
         System.out.println(this.player.getName() + " got all these points:");
         for (int points : this.player.getPlayScore()) {
-          System.out.println(points);
+          System.out.print(points);
         }
 
         // show winner of play
