@@ -92,7 +92,7 @@ public class MulticastClient2 extends Thread {
       System.out.println("within refreshServers3");
       String serverMessage = new String(packet.getData());
       String[] messagesFromServer = serverMessage.split(";");
-      if(messagesFromServer[0].equals("TEAM_WIESE")) {
+      if(messagesFromServer[0].equals("SKAT4")) {
       String ip = messagesFromServer[1];
 
       System.out.println("array ausgabe");

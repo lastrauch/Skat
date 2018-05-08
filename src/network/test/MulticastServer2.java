@@ -51,7 +51,7 @@ public class MulticastServer2 extends Thread {
         //mSocket.setBroadcast(true);
         byte[] buf;
         if(true) {
-          StringBuffer message = new StringBuffer("TEAM_WIESE;");
+          StringBuffer message = new StringBuffer("SKAT4;");
           message.append(mServerIp + ";");
           message.append(mServer.getClientConnections().size() + ";");
           message.append(mServerName + ";");
