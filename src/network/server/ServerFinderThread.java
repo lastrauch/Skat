@@ -7,45 +7,45 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 public class ServerFinderThread extends Thread {
-  private DatagramSocket socket;
-  private String serverName;
-  private int port;
-  private boolean running;
+	private String serverName;
+	private DatagramSocket socket;
+	private int port;
+	private boolean running;
 
-  public ServerFinderThread(String serverName, int port) {
-    this.serverName = serverName;
-    this.port = port;
-  }
+	public ServerFinderThread(String serverName, int port) {
+		this.serverName = serverName;
+		this.port = port;
+	}
 
-  public void run() {
-    this.running = true;
+	public void run() {
+		this.running = true;
 
-    byte[] data = new byte[1024];
+		byte[] data = new byte[1024];
 
-    try {
-      this.socket = new DatagramSocket(this.port);
-      while (this.running) {
-        DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
-        this.socket.receive(packet);
-        String msg = new String(packet.getData());
-        if (msg.trim().equals("ping")) {
-          InetAddress address = packet.getAddress();
-          data = this.serverName.getBytes();
-          DatagramPacket sendPacket =
-              new DatagramPacket(data, data.length, address, packet.getPort());
-          this.socket.send(sendPacket);
-        }
-      }
-    } catch (SocketException e) {
-      if (e.getMessage().equals("socket closed")) {
-        return;
-      }
-    } catch (IOException e2) {
-      e2.printStackTrace();
-    }
-  }
+		try {
+			this.socket = new DatagramSocket(this.port);
+			while (this.running) {
+				DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
+				this.socket.receive(packet);
+				String msg = new String(packet.getData());
+				System.out.println("Das ist die Nachricht: " + msg);
+				if (msg.trim().equals("DISCOVER_SERVER_REQUEST")) {
+					InetAddress address = packet.getAddress();
+					data = this.serverName.getBytes();
+					DatagramPacket sendPacket = new DatagramPacket(data, data.length, address, packet.getPort());
+					this.socket.send(sendPacket);
+				}
+			}
+		} catch (SocketException e) {
+			if (e.getMessage().equals("socket closed")) {
+				return;
+			}
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+	}
 
-  public void close() {
-    this.socket.close();
-  }
+	public void close() {
+		this.socket.close();
+	}
 }

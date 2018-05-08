@@ -245,17 +245,19 @@ public class NetworkController implements LogicNetwork {
     this.client.sendMessage(msg);
   }
   
-  @Override
-  /**
-   * This method sends a message to the server, that it is the passed players turn.
-   * 
-   * @author fkleinoe
-   * @param player
-   */
-  public void yourTurn(Player player) {
-    YourTurn_Msg msg = new YourTurn_Msg(player);
-    this.client.sendMessage(msg);
-  }
+//  TODO
+//  @Override
+//  /**
+//   * This method sends a message to the server, that it is the passed players turn.
+//   * 
+//   * @author fkleinoe
+//   * @param player
+//   */
+//  public void yourTurn(Player player) {
+//    YourTurn_Msg msg = new YourTurn_Msg(player);
+//    this.client.sendMessage(msg);
+//  }
+  
 
   @Override
   /**

@@ -127,9 +127,6 @@ public class Client extends Thread {
 
   private synchronized void receiveMessage(Message message) {
     switch (message.getType()) {
-      case YOUR_TURN:
-        logic.receiveYourTurn();
-        break;
       case CARD_PLAYED:
         CardPlayed_Msg msg2 = (CardPlayed_Msg) message;
         logic.receiveCardPlayed(msg2.getPlayer(), msg2.getCard());
