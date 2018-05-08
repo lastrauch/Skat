@@ -38,11 +38,11 @@ public class MulticastClient {
         Iterator it = ipRange.iterator();
         while(it.hasNext()) {
         	String address = (String) it.next();
-        	for(int i=0; i<255; i++) {
-                DatagramPacket packet = new DatagramPacket(buf, buf.length, InetAddress.getByName(address + i), port);
+        	//for(int i=0; i<255; i++) {
+        		System.out.println(getClass().getName() + " >>> Check IP: " + address);
+                DatagramPacket packet = new DatagramPacket(buf, buf.length, InetAddress.getByName(address), port);
                 socket.send(packet);
-        	}
-        }
+
                 
  
         //DatagramPacket packet = new DatagramPacket(buf, buf.length, group, port);
@@ -62,6 +62,8 @@ public class MulticastClient {
           //DO SOMETHING WITH THE SERVER'S IP (for example, store it in your controller)
           //Controller_Base.setServerIp(receivePacket.getAddress());
           System.out.println(receivePacket.getAddress());
+        }
+        	
         }
 
         
@@ -92,7 +94,7 @@ public class MulticastClient {
                   .matches("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}")
                   && !inetAddress.getHostAddress().matches("127.*")) {
                 String[] str = inetAddress.getHostAddress().split("\\.");
-                ipRange.add(str[0] + "." + str[1] + "." + str[2] + ".");
+                ipRange.add(str[0] + "." + str[1] + "." + str[2] + "." + str[3]);
               }
             }
           }
