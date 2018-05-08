@@ -468,7 +468,8 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-
+        displayRekontra();
+        
       }
     });
     return false;
@@ -667,6 +668,9 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
+        if(main.getLobbyCon().getGS().isEnableKontra() && !LoginController.interfGL.getPlayer().isDeclarer()) {
+          displayKontra();
+        }
         disableTraining();
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
@@ -1348,6 +1352,9 @@ public class InGameController implements Initializable, InGameInterface {
           timeUp.setText(null);
         }
         random = false;
+        if(main.getLobbyCon().getGS().isEnableKontra()) {
+          mainPane.getChildren().remove(kontra);
+        }
       }
     });
 
@@ -1407,8 +1414,21 @@ public class InGameController implements Initializable, InGameInterface {
     training.setText(null);
   }
   
-  public void displaykontra() {
+  public void displayKontra() {
     kontra.setText("KONTRA");
+    kontra.setStyle(
+        "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: back; -fx-border-radius: 10");
+  }
+  
+  public void deleteKontra() {
+    kontra.setText(null);
+    kontra.setStyle(null);
+  }
+  
+  public void displayRekontra() {
+    kontra.setText("KONTRA");
+    kontra.setStyle(
+        "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: back; -fx-border-radius: 10");
   }
 
 

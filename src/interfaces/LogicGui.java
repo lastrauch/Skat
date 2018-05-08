@@ -2,8 +2,8 @@ package interfaces;
 
 import gui.InGameController;
 import logic.GameSettings;
-import logic.Player;
 import java.util.List;
+import logic.Player;
 
 // Logic to GUI, implemented by GUI
 public interface LogicGui {

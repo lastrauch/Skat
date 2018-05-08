@@ -321,6 +321,10 @@ public class PlayState implements Serializable {
     if (pm == PlayMode.GRAND || pm == PlayMode.NULL) {
       this.trump = null;
     }
+    
+    if(pm == PlayMode.GRAND) {
+      this.baseValue = 24;
+    }
 
   }
 

@@ -180,4 +180,10 @@ public class GameController implements GuiLogic {
 
   }
 
+  @Override
+  public void announceRekontra() {
+    // TODO Auto-generated method stub
+    
+  }
+
 }
