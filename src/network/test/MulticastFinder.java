@@ -41,12 +41,12 @@ public class MulticastFinder implements Runnable{
             
             String msg = new String(packet.getData());
             System.out.println(getClass().getName() + " >>> Message received: " + msg.trim());
-            		if(msg.trim().equals("DISCOVER_SERVER_REQUEST") || msg.trim().equals("DISCOVER_SERVER_REQUESTE")){
+            		if(msg.trim().equals("SKAT4") || msg.trim().equals("DISCOVER_SERVER_REQUESTE")){
             		  System.out.println(getClass().getName() + " >>> Server request from: " +  packet.getAddress());
             			InetAddress address = packet.getAddress();
             			//TODO apply infos
             			//data = this.serverName.getBytes();
-            			data = "DISCOVER_SERVER_RESPONSE".getBytes();
+            			data = "SKAT4".getBytes();
             			DatagramPacket sendPacket = new DatagramPacket(data, data.length, address, packet.getPort());
             			this.socket.send(sendPacket);
             		}

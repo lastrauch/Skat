@@ -29,7 +29,7 @@ public class MulticastClient {
 			socket = new DatagramSocket();
 			System.out.println(getClass().getName() + " >>> Search for Servers"); 
         group = InetAddress.getByName("224.0.0.1");
-        buf = "DISCOVER_SERVER_REQUEST".getBytes();
+        buf = "SKAT4".getBytes();
         
         List<String> ipRange = getIPRange();
         System.out.println(getClass().getName() + " >>> IPRange size: " + ipRange.size());
@@ -57,7 +57,7 @@ public class MulticastClient {
         //socket.send(packet);
         
         //Wait for a response
-        byte[] recvBuf = new byte[15000];
+        byte[] recvBuf = new byte[100];
         DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
         try {
           socket.setSoTimeout(1000);
