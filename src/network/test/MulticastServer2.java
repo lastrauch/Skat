@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import network.server.Server;
@@ -25,7 +26,7 @@ public class MulticastServer2 extends Thread {
     mServer = s;
     mWaitingForPlayers = true;
     mMulticastPort = 4446;
-    mBroadcast = 500;
+    mBroadcast = 20;
 
     mServerIp = mServer.getIP();
     mServerPort = mServer.getPort();
@@ -45,7 +46,8 @@ public class MulticastServer2 extends Thread {
       }
 //      System.out.println("run2");
       try {
-        mSocket = new DatagramSocket();
+        //mSocket = new DatagramSocket();
+        mSocket = new MulticastSocket(mServerPort);
         mSocket.setBroadcast(true);
         byte[] buf;
         if(true) {
