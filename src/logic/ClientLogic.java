@@ -471,9 +471,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // this player is declarer
       System.out.println(this.player.getName() + " won auction");
       this.player.setDeclarer(true);
+      System.out.println(this.player.isDeclarer());
       // the others not(update after the last auction) ... maybe not important later (if we reset
       // everything after one play)
-      for (Player p : this.playState.getGroup()) {
+      for (Player p : this.group) {
         // !!! change to id later
         if (!p.getName().equals(this.player.getName())) {
           p.setDeclarer(false);
@@ -501,9 +502,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void receivePlayState(PlayState ps) {
     // TODO Auto-generated method stub
     this.playState = ps;
-    //!!!!!TEST
+    // !!!!!TEST
     this.playState.setOpen(true);
-    
+
     this.player.sortHand(this.playState);
     this.inGameController.updateHand(this.player.getHand());
     this.inGameController.setPlaySettingsAfterAuction(this.playState);
@@ -590,6 +591,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           e.printStackTrace();
         }
         this.inGameController.updateHand(this.player.getHand());
+        System.out
+        .println(this.player.getName() + " this.player.isDeclarer " + this.player.isDeclarer());
         this.netController.sendCardPlayed(playedCard, this.player);
 
       } else {
@@ -611,6 +614,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
             }
             this.inGameController.updateHand(this.player.getHand());
             this.netController.sendCardPlayed(playedCard, this.player);
+            System.out.println(
+                this.player.getName() + " this.player.isDeclarer " + this.player.isDeclarer());
 
           } else {
             // !!!!!!!!!! funktioniert so leider (noch) nicht, da der gui controller bei
@@ -657,12 +662,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   @Override
   public void receiveCardPlayed(Player player, Card card) {
-    System.out.println(
-        this.player.getName() + " received " + card.toString() + " from " + player.getName());
+    System.out.println(this.player.getName() + " received " + card.toString() + " from "
+        + player.getName() + " who is declarer-" + player.isDeclarer() + " and we play open- "
+        + this.playState.isOpen());
+
     // TODO Auto-generated method stub
     // show update on gui/ai
-    this.inGameController.receivedNewCard(card, player);
-
+    this.inGameController.receivedNewCard(card, player);;
     // check if open and player is declarer to showOpen
     if (this.playState.isOpen() && player.isDeclarer()) {
       this.inGameController.showOpen(player);
@@ -1235,7 +1241,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public void setNetworkController(LogicNetwork networkController) {
     this.netController = networkController;
   }
-  
+
   public Player getPlayer() {
     return this.player;
   }
