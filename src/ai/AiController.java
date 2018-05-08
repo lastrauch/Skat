@@ -356,7 +356,7 @@ public class AiController implements InGameInterface {
 	 * @author fkleinoe
 	 * @return int
 	 */
-	public int askToPlayCard(int timeToPlay) {
+	public int askToPlayCard(int timeToPlay, PlayState playState) {
 		try {
 			Thread.sleep(Settings.DELAY);
 		} catch (InterruptedException e) {
