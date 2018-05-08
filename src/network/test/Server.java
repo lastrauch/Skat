@@ -1,37 +1,53 @@
 package network.test;
 
 import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Server extends Thread{
-  private String serverName;
-  private String ip;
-  private ServerSocket serverSocket;
-  private int port;
-  private boolean running = false;
+public class Server implements Runnable {
+
+  private DatagramSocket socket;
   
-  public Server(String servername, int port) {
-    this.serverName = serverName;
-    this.port = port;
+  public void run() {
     try {
-      InetAddress inetAddress = InetAddress.getLocalHost();
-      this.ip = inetAddress.getHostAddress();
-    }catch (UnknownHostException e) {
-      e.printStackTrace();
-    }
-    try {
-      this.serverSocket = new ServerSocket(port);
+      socket = new DatagramSocket(8888, InetAddress.getByName("0.0.0.0"));
+      socket.setBroadcast(true);
+      
+      while(true) {
+        System.out.println(getClass().getName() + " >>> Ready to receive broadcast packets!");
+        
+        byte[] recvBuf = new byte[15000];
+        DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+        socket.receive(packet);
+        
+        System.out.println(getClass().getName() + " >>> Discovery pcket received from: " + packet.getAddress().getHostAddress());
+        System.out.println(getClass().getName() + " >>> Packet received; data: " + new String(packet.getData()));
+        
+        String message = new String(packet.getData()).trim();
+        if(message.equals("DISCOVERY_FUIFSERVER_REQUEST")) {
+          byte[] sendData = "DISCOVERY_FUIFSERVER_RESPONSE".getBytes();
+          
+          DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
+          socket.send(sendPacket);
+          
+          System.out.println(getClass().getName() + " >>> Send packet to: " + sendPacket.getAddress().getHostAddress());
+        }
+      }
     }catch (IOException e) {
-      e.printStackTrace();
+      Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
     }
-    
-    Thread serverFinderThread = new Thread(ServerThread.getInstance(this));
-    serverFinderThread.start();
   }
   
-  public int getPort() {
-    return this.port;
+  public static Server getInstance() {
+    return ServerHolder.INSTANCE;
   }
+  
+  private static class ServerHolder{
+    private static final Server INSTANCE = new Server();
+  }
+  
+  
 }

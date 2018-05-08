@@ -1,50 +1,74 @@
 package network.test;
 
+import java.net.DatagramSocket;
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 
 public class Client {
-  private MulticastSocket socket;
-  private InetAddress group;
-  private int port;
+  private DatagramSocket c;
 
-  public Client(int port) {
-    this.port = port;
-  }
+public Client() {
+  findServer();
+}
 
   public void findServer() {
-    System.out.println(getClass().getName() + " >>> Search for Server");
     try {
-      socket = new MulticastSocket();
-      group = InetAddress.getByName("224.0.0.1");
-      socket.joinGroup(group);
-      while(true) {
-      byte[] data = new byte[250];
-      DatagramPacket receivePacket = new DatagramPacket(data, data.length);
-
-      //socket.setSoTimeout(1000);
-      socket.receive(receivePacket);
-
-      String message = new String(receivePacket.getData()).trim();
-      System.out.println(getClass().getName() + " >>> Multicast response from server: "
-          + receivePacket.getAddress().getHostAddress());
-      System.out.println(getClass().getName() + " >>> Message: " + message);
+      c = new DatagramSocket();
+      c.setBroadcast(true);
+      
+      byte[] sendData = "DISCOVER_FUIFSERVER_REQUEST".getBytes();
+      
+      try {
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), 8888);
+        c.send(sendPacket);
+        System.out.println(getClass().getName() + " >>> Request packet sent to: 255.255.255.255 (DEFAULT)");
+      }catch (Exception e) {
       }
-
-    } catch (SocketTimeoutException e) {
-      e.printStackTrace();
-    } catch (SocketException e) {
-      e.printStackTrace();
-    } catch (UnknownHostException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
+      
+      Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+      while(interfaces.hasMoreElements()) {
+        NetworkInterface networkInterface = interfaces.nextElement();
+        
+        if(networkInterface.isLoopback() || !networkInterface.isUp()) {
+          continue;
+        }
+        
+        for(InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
+          InetAddress broadcast = interfaceAddress.getBroadcast();
+          if(broadcast == null) {
+            continue;
+          }
+        
+        try {
+          DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, broadcast, 8888);
+          c.send(sendPacket);
+        } catch (Exception e) {
+        }
+        
+        System.out.println(getClass().getName() + " >>> Request packet sent to: " + broadcast.getHostAddress() + "; Interface: " + networkInterface.getDisplayName());
+      }
     }
+      
+      System.out.println(getClass().getName() + " >>> Done looping over all network interfaces. Now waiting for a reply!");
+      
+      byte[] recvBuf = new byte[15000];
+      DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
+      c.receive(receivePacket);
+      
+      System.out.println(getClass().getName() + " >>> Broadcast response from server: " + receivePacket.getAddress().getHostAddress());
+      
+      String message = new String(receivePacket.getData()).trim();
+      if(message.equals("DISCOVER_FUIFSERVER_RESPONSE")) {
+        // TODO do something with data
+      }
+      
+      c.close();
+  }catch (IOException e) {
+    //Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, e);
   }
+}
 }
