@@ -130,6 +130,7 @@ public class InGameController implements Initializable, InGameInterface {
   int[] ret = new int[1];
   private int countl = 10;
   private int countr = 10;
+  private boolean random = false;
 
 
   /**
@@ -180,6 +181,8 @@ public class InGameController implements Initializable, InGameInterface {
   private ImageView bubbleLeft, bubbleRight, bubbleUp;
   @FXML
   private Label betLeft, betUp, betRight;
+  @FXML
+  private Label timeUp;
 
 
 
@@ -1056,22 +1059,21 @@ public class InGameController implements Initializable, InGameInterface {
   public int askToPlayCard(int timeToPlay, PlayState ps) {
     // TODO Auto-generated method stub
     int time = timeToPlay;
-    long t= System.currentTimeMillis();
-    long end = (t/1000)+time;
-    
+    long t = System.currentTimeMillis();
+    long end = (t / 1000) + time;
+
     while (clicked == false) {
       // TODO Auto-generated method stub
       if (main.getLobbyCon().getGS().isLimitedTime()) {
-        while(System.currentTimeMillis()/1000 < end && clicked == false
-            ) {
+        while (System.currentTimeMillis() / 1000 < end && clicked == false) {
           MouseHandler();
-          System.out.println("Ret[0]: "+ret[0]);
         }
         ret[0] = playRandomCard(ps, LoginController.interfGL.getPlayer());
+        random = true;
         clicked = true;
       } else {
         MouseHandler();
-        
+
       }
     }
     clicked = false;
@@ -1282,6 +1284,12 @@ public class InGameController implements Initializable, InGameInterface {
             }
           }
         }
+        if (random) {
+          timeUp.setText("Time's up! Random card was played.");
+        } else {
+          timeUp.setText(null);
+        }
+        random = false;
       }
     });
 

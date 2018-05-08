@@ -254,9 +254,9 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="timer" layoutX="1023.0" layoutY="269.0" prefHeight="105.0" prefWidth="113.0" textFill="RED">
+      <Label fx:id="timeUp" alignment="CENTER" layoutX="106.0" layoutY="396.0" prefHeight="50.0" prefWidth="1075.0">
          <font>
-            <Font size="81.0" />
+            <Font name="System Bold" size="32.0" />
          </font>
       </Label>
    </children>
