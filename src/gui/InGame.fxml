@@ -259,15 +259,15 @@
             <Font name="System Bold" size="32.0" />
          </font>
       </Label>
-      <JFXTextArea fx:id="training" editable="false" focusColor="#d1b38c00" layoutX="173.0" layoutY="78.0" opacity="0.92" prefHeight="42.0" prefWidth="966.0" unFocusColor="#ffffff00">
+      <JFXButton fx:id="kontra" buttonType="RAISED" layoutX="47.0" layoutY="459.0" prefHeight="59.0" prefWidth="158.0" text=" ">
          <font>
-            <Font name="System Italic" size="20.0" />
-         </font>
-      </JFXTextArea>
-      <JFXButton fx:id="kontra" alignment="CENTER" buttonType="RAISED" layoutX="26.0" layoutY="451.0" prefHeight="75.0" prefWidth="160.0" text=" ">
-         <font>
-            <Font name="System Bold" size="21.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </JFXButton>
+      <JFXTextArea fx:id="training" editable="false" focusColor="#405aa800" layoutX="120.0" layoutY="77.0" prefHeight="35.0" prefWidth="1047.0" unFocusColor="#4d4d4d00">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXTextArea>
    </children>
 </AnchorPane>

@@ -12,7 +12,7 @@ public class SettingsController implements Initializable{
    * @author lstrauch
    */
   private GuiController main;
-  private boolean trainingmode;
+  private boolean trainingmode = false;
   
   @FXML
   private JFXButton on, off;

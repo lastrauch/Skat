@@ -903,7 +903,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void run() {
         // TODO Auto-generated method stub
-        disableTraining();
+        if(main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
+          disableTraining();
+        }
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
         bubbleUp.setImage(null);
@@ -1428,7 +1430,7 @@ public class InGameController implements Initializable, InGameInterface {
   public void displayKontra() {
     kontra.setText("KONTRA");
     kontra.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: back; -fx-border-radius: 10");
+        "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10");
   }
   
   public void deleteKontra() {
@@ -1439,7 +1441,7 @@ public class InGameController implements Initializable, InGameInterface {
   public void displayRekontra() {
     kontra.setText("KONTRA");
     kontra.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: back; -fx-border-radius: 10");
+        "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10");
   }
 
 
@@ -2527,7 +2529,7 @@ public class InGameController implements Initializable, InGameInterface {
     paneBet.getChildren().add(labelBet);
 
     mainPane.getChildren().add(paneBet);
-    if(main.getSettingsCon().getTrainingsmode()) {
+    if(main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
       displayTraining("1.   Be realistic! You won’t win the next round, if you don’t get at least six tricks and you won’t get the girl, when she didn’t drink at least six drinks.\n" + 
           "2.  You have more than two Jacks?  You’re either a slut or a winner!\n" + 
           "3.  You only have two Jacks? Hopefully they are the blacks.\n" + 
