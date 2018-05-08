@@ -848,7 +848,7 @@ public class InGameController implements Initializable, InGameInterface {
       public void run() {
         // TODO Auto-generated method stub
         rearrangeCardsLight(cardlist);
-        if(main.getSettingsCon().getTrainingsmode()) {
+        if(main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
           training.setLayoutY(388);
           if(LoginController.interfGL.getPlayer().isDeclarer() && LoginController.interfGL.getPlayer().getPosition() != Position.DEALER) {
           displayTraining("1.   Play your trumps! When the opponents lost all their trumps, you are unstoppable like a train without brakes.\n" + 
