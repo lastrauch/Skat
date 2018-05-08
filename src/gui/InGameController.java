@@ -1118,14 +1118,13 @@ public class InGameController implements Initializable, InGameInterface {
     // TODO Auto-generated method stub
     System.out.println("Player name: " + player.get(2).getName());
     if (player.size() == 3) {
-      this.pl1 = player.get(0);
-      this.pl2 = player.get(1);
+      this.pl1 = player.get(1);
+      this.pl2 = player.get(2);
       main.displayLeaderboard3();
     } else {
-      this.pl1 = player.get(0);
-      this.pl2 = player.get(1);
-      this.pl3 = player.get(2);
-      System.out.println("playersscor groeﬂe: " + pl1.getPlayScore().size());
+      this.pl1 = player.get(1);
+      this.pl2 = player.get(2);
+      this.pl3 = player.get(3);
       main.displayLeaderboard4();
       main.getLead4Con().start();
     }
