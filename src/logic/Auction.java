@@ -29,6 +29,34 @@ public class Auction implements Serializable {
     this.initializePossibleBets();
   }
 
+  public Auction(Player winner, int[] possibleBets, int betValue, int indexOfBetValue,
+      List<Integer> bets) {
+    this.winner = winner;
+    this.possibleBets = possibleBets;
+    this.betValue = betValue;
+    this.indexOfBetValue = indexOfBetValue;
+    this.bets = bets;
+  }
+
+  public Auction copyMe() {
+    
+    Player newWinner = this.winner.copyMe();
+    int[] newPossibleBets = new int[this.possibleBets.length];
+    for (int i = 0; i < this.possibleBets.length; i++) {
+      newPossibleBets[i] = this.possibleBets[i];
+    }
+    int newBetValue = this.betValue;
+    int newIndexOfBetValue = this.indexOfBetValue;
+    List<Integer> newBets = new ArrayList<Integer>();
+    for (int i : this.bets) {
+      newBets.add(i);
+    }
+    Auction newAuction =
+        new Auction(newWinner, newPossibleBets, newBetValue, newIndexOfBetValue, newBets);
+    
+    return newAuction;
+  }
+
   public void addToBets(int bet) {
     this.bets.add(bet);
   }
@@ -82,60 +110,6 @@ public class Auction implements Serializable {
   public void setWinner(Player winner) {
     this.winner = winner;
   }
-  //
-  // public void mangageSkat(PlayState ps) {
-  // // ask the declarer if he wants to take the skat or not and save the answer in the PlayState
-  // ps.setHandGame(this.winner.askForHandGame());
-  // // add the skat & lay it down if answer yes
-  // if (ps.getHandGame()) {
-  // this.takeUpStack(ps);
-  // this.putDownTwoCards(ps);
-  // }
-  // }
-  //
-  // /**
-  // * the two cards of the stack are added to the hand and the hand gets resorted, created for
-  // * manageSkat
-  // *
-  // * @author awesch
-  // */
-  // public void takeUpStack(PlayState ps) {
-  // this.winner.getHand().add(ps.getSkat()[0]);
-  // this.winner.getHand().add(ps.getSkat()[1]);
-  // this.winner.sortHand(ps);
-  // System.out.println("Your new hand:");
-  // this.printlistOfCards(this.winner.getHand());
-  // }
-  //
-  //
-  //
-  // /**
-  // * two cards are chosen by the declarer and added to his stack, created for manageSkat
-  // *
-  // * @author awesch
-  // */
-  // public void putDownTwoCards(PlayState ps) {
-  // Card card1;
-  // Card card2;
-  // try {
-  // card1 = this.winner.chooseCardFromHand();
-  // ps.addToStackDeclarer(card1);
-  // this.winner.removeCardFromHand(card1);
-  //
-  // card2 = this.winner.chooseCardFromHand();
-  // ps.addToStackDeclarer(card2);
-  // this.winner.removeCardFromHand(card2);
-  //
-  // System.out.println("Your new hand:");
-  // this.printlistOfCards(this.winner.getHand());
-  //
-  // } catch (LogicException e) {
-  // // TODO Auto-generated catch block
-  // e.printStackTrace();
-  // }
-  // }
-  //
-  //
 
   public int getBetValue() {
     return betValue;

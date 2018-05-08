@@ -331,8 +331,14 @@ public class Trick implements Serializable {
   /* ----------------------------- COPY --------------------------------------------------- */
 
   public Trick copyMe() {
-    List<Card> newTrickCards = this.trickCards;
-    List<Player> newCardPlayers = this.cardPlayers;
+    List<Card> newTrickCards = new ArrayList<Card>();
+    for (Card c : this.trickCards) {
+      newTrickCards.add(c);
+    }
+    List<Player> newCardPlayers = new ArrayList<Player>();
+    for (Player p : this.cardPlayers) {
+      newCardPlayers.add(p);
+    }
     Trick newTrick = new Trick(newTrickCards, newCardPlayers);
     return newTrick;
   }
