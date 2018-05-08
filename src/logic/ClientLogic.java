@@ -505,7 +505,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.playState = this.inGameController.askToSetPlayState(this.playState);
 
       this.calculatePlayValue();
-      this.netController.sendPlayState(this.playState);
+      this.netController.sendPlayState(this.playState.copyMe());
     } else {
 
       // set declarer
@@ -625,7 +625,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         this.inGameController.updateHand(this.player.getHand());
         System.out
             .println(this.player.getName() + " this.player.isDeclarer " + this.player.isDeclarer());
-        this.netController.sendCardPlayed(playedCard, this.player);
+        this.netController.sendCardPlayed(playedCard, this.player.copyMe());
 
       } else {
         // if it is not possible to play the card the gui/AI is asked to play another card
@@ -645,7 +645,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
               e.printStackTrace();
             }
             this.inGameController.updateHand(this.player.getHand());
-            this.netController.sendCardPlayed(playedCard, this.player);
+            this.netController.sendCardPlayed(playedCard, this.player.copyMe());
             System.out.println(
                 this.player.getName() + " this.player.isDeclarer " + this.player.isDeclarer());
 
