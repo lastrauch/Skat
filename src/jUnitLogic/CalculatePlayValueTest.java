@@ -97,6 +97,25 @@ class CalculatePlayValueTest {
 
     this.testCalculateMatador();
   }
+  
+  @Test
+  void testMatadorWith2() {
+    hand.add(clubsJack);
+    hand.add(spadesJack);
+    hand.add(diamondsJack);
+    hand.add(heartsAss);
+    hand.add(heartsTen);
+    hand.add(heartsKing);
+    hand.add(heartsNine);
+    hand.add(whatEver1);
+    hand.add(whatEver2);
+    hand.add(whatEver3);
+    
+    player.setHand(hand);
+    matador = 2;
+    
+    this.testCalculateMatador();
+  }
 
   /**
    * with clubs and all other jacks and 7 trumps in a row --> with 7.
@@ -186,7 +205,7 @@ class CalculatePlayValueTest {
    * against 3, play hand, schneiderAnnounced and schneider played --> multiplier 7.
    */
   @Test
-  void testCalculateMultiplier() {
+  void testCalculateMultiplier1() {
     this.testMatadorAgainst3();
     playState.setHandGame(true);
     playState.setSchneider(true);
@@ -194,13 +213,21 @@ class CalculatePlayValueTest {
 
     assertEquals(7, clientLogic.calculateMultiplier());
   }
+  
+  @Test
+  void testCalculateMultiplier2() {
+    this.testMatadorWith2();
+    playState.setOpen(true);
+    
+    assertEquals(4, clientLogic.calculateMultiplier());
+  }
 
   /**
    * playmode hearts --> 7* 10.
    */
   @Test
   void testCalculatePlayValue() {
-    this.testCalculateMultiplier();
+    this.testCalculateMultiplier1();
     assertEquals(70, clientLogic.calculatePlayValue());
   }
 
