@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * This class includes everything an auction can do.
+ * 
+ */
 public class Auction implements Serializable {
 
-  /**
-   * This class includes everything an auction can do.
-   * 
-   */
   private static final long serialVersionUID = 1L;
   private Player winner; // winner of the auction
   private int[] possibleBets; // list of the possible bets
@@ -17,7 +18,7 @@ public class Auction implements Serializable {
   private int indexOfBetValue;
   private List<Integer> bets;
 
-  /* ------------------- CONSTRUCTOR ------------------------------------------------- */
+  /* ------------------------- CONSTRUCTOR ------------------------------------------- */
 
   public Auction() {
     this.bets = new ArrayList<Integer>();
@@ -35,10 +36,10 @@ public class Auction implements Serializable {
     this.bets = bets;
   }
 
-  /* ------------------- BET VALUE ------------------------------------------------- */
-  
+  /* ------------------------- BET VALUE ---------------------------------------------- */
+
   /**
-   * initializes the array of possible bets
+   * initializes the array of possible bets.
    */
   public void initializePossibleBets() {
     possibleBets = new int[] {18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, 44, 45, 46, 48, 50, 54,
@@ -48,12 +49,11 @@ public class Auction implements Serializable {
   }
 
   /**
-   * @author awesch
+   * returns the new bet
+   * 
    * @param currentBet
-   * @return
    */
   public int calculateNewBet() {
-    // !!!!!!! DENK DRAN IMMER NACH DIE NEUEN DINGE IN AUCTION UPZUDATEN auch current bet aus bets
     if (this.bets.size() == 1) {
       return this.betValue;
     }
@@ -66,9 +66,10 @@ public class Auction implements Serializable {
     return this.betValue;
   }
 
+  /* ------------------------- COPY ---------------------------------------------------- */
 
   public Auction copyMe() {
-    
+
     Player newWinner = this.winner.copyMe();
     int[] newPossibleBets = new int[this.possibleBets.length];
     for (int i = 0; i < this.possibleBets.length; i++) {
@@ -82,15 +83,16 @@ public class Auction implements Serializable {
     }
     Auction newAuction =
         new Auction(newWinner, newPossibleBets, newBetValue, newIndexOfBetValue, newBets);
-    
+
     return newAuction;
   }
 
+  /* ---------------------- GETTER AND SETTER ------------------------------------------- */
 
   public void setWinner(Player winner) {
     this.winner = winner;
   }
-  
+
   public void addToBets(int bet) {
     this.bets.add(bet);
   }

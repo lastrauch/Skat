@@ -1,21 +1,19 @@
 package logic;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-import gui.ImplementsLogicGui;
-import gui.InGameController;
 import interfaces.AILogic;
-import interfaces.GuiLogic;
 import interfaces.InGameInterface;
 import interfaces.LogicGui;
 import interfaces.LogicNetwork;
 import interfaces.NetworkLogic;
-import javafx.application.Platform;
-import javafx.scene.image.Image;
-import network.NetworkController;
+import java.util.ArrayList;
+import java.util.List;
 
-
+/**
+ * this class is created for every Client, the whole play organization is happening in here.
+ * 
+ * @author awesch
+ * @author sandfisc
+ */
 public class ClientLogic implements NetworkLogic, AILogic {
 
   Player player;
@@ -41,7 +39,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
   /*---------------------  PREPARE PLAY/GAME --------------------------------*/
   /**
-   * initializes the cards
+   * initializes the cards.
    * 
    * @author awesch
    */
@@ -61,6 +59,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           break;
         case 4:
           col = Colour.CLUBS;
+          break;
+        default:
           break;
       }
       for (int j = 1; j <= 8; j++) {
@@ -90,6 +90,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           case 8:
             nr = Number.ASS;
             break;
+          default:
+            break;
         }
         // cards are generated in the order of their value
 
@@ -100,7 +102,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * updates the lobby
+   * updates the lobby.
    */
   @Override
   public void receiveLobby(List<Player> player, GameSettings gs) {
@@ -113,13 +115,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
-   * 
-   * @return
+   * deals out the cards to every player.
    */
-  public List<Player> getLobby() {
-    return this.group;
-  }
-
   public void dealOutCards() {
     // idea: deal out as in the original game, just because we want it intern
     // needed : position forehand, players of the game, how many players?,
@@ -197,6 +194,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.gameSettings = gs;
   }
 
+  /**
+   * sets the seaing order, sets the positions, generates playState,
+   * starts play if rearhand and initializes inGameController, if !bot.
+   */
   @Override
   public void receiveStartGame() {
     // check to have received the right nr of players
@@ -727,6 +728,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // trick is over
       // calculate winner trick
       trickWinner = this.playState.getCurrentTrick().calculateWinner(playState);
+      System.out.println("TrickWinner: " + trickWinner.getName());
 
       // put cards on winners stack
       if (trickWinner.isDeclarer()) {
@@ -745,7 +747,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // check if play is over
       if (this.playState.getTrickNr() == 10
           || ((this.playState.getPlayMode() == PlayMode.NULL) && trickWinner.isDeclarer())) {
-        System.out.println(this.player.getName() + " I got that the play is over");
         // calculate winner play
         playWinner = Play.calculateWinner(playState);
 
@@ -753,10 +754,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
         System.out.println("playWinner:");
         for (Player p : playWinner) {
           System.out.print(p.getName() + " ");
-        }
-        System.out.println("group in this.playState:");
-        for (Player p : this.playState.getGroup()) {
-          System.out.println(p.getName() + " is declarer " + p.isDeclarer());
         }
         // calculate points
         if (playWinner.get(0).isDeclarer()) {
@@ -781,10 +778,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           }
         }
 
-        System.out.println(this.player.getName() + " got all these points:");
-        for (int points : this.player.getPlayScore()) {
-          System.out.print(points);
-        }
+        System.out.println(this.player.getName() + " got these points: "
+            + this.player.getPlayScore().get(this.playState.getPlayNr() - 1));
 
         // show winner of play
         // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
@@ -1276,4 +1271,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
   public Player getPlayer() {
     return this.player;
   }
+  
+  public List<Player> getLobby() {
+    return this.group;
+  }
+
 }
