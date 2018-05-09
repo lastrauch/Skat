@@ -55,6 +55,7 @@ public class ServerFinder {
    */
   public List<Server> refresh() {
     this.findServers();
+    System.out.println("asdasdasdasdasdasdasdasdasd so viele sörver " + this.servers.size());
     return this.servers;
   }
 
