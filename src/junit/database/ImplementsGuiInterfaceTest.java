@@ -1,4 +1,4 @@
-package jUnit.Database;
+package junit.database;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterAll;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class DatabaseHandlerTest {
+class ImplementsGuiInterfaceTest {
 
   @BeforeAll
   static void setUpBeforeClass() throws Exception {}
@@ -22,12 +22,42 @@ class DatabaseHandlerTest {
   void tearDown() throws Exception {}
 
   @Test
-  void testDatabaseHandler() {
+  void testGetImage() {
     fail("Not yet implemented");
   }
 
   @Test
-  void testPrepareStatements() {
+  void testGetImageDarker() {
+    fail("Not yet implemented");
+  }
+
+  @Test
+  void testInsertPlayer() {
+    fail("Not yet implemented");
+  }
+
+  @Test
+  void testCheckIfPlayerNew() {
+    fail("Not yet implemented");
+  }
+
+  @Test
+  void testGetPlayerPlayer() {
+    fail("Not yet implemented");
+  }
+
+  @Test
+  void testChangeName() {
+    fail("Not yet implemented");
+  }
+
+  @Test
+  void testChangeImage() {
+    fail("Not yet implemented");
+  }
+
+  @Test
+  void testGetPlayerString() {
     fail("Not yet implemented");
   }
 

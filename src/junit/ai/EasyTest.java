@@ -1,4 +1,4 @@
-package jUnit.Database;
+package junit.ai;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterAll;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ImplementsGuiInterfaceTest {
+class EasyTest {
 
   @BeforeAll
   static void setUpBeforeClass() throws Exception {}
@@ -22,42 +22,32 @@ class ImplementsGuiInterfaceTest {
   void tearDown() throws Exception {}
 
   @Test
-  void testGetImage() {
+  void testAskForBet() {
     fail("Not yet implemented");
   }
 
   @Test
-  void testGetImageDarker() {
+  void testAskToTakeUpSkat() {
     fail("Not yet implemented");
   }
 
   @Test
-  void testInsertPlayer() {
+  void testSwitchSkat() {
     fail("Not yet implemented");
   }
 
   @Test
-  void testCheckIfPlayerNew() {
+  void testAskToSetPlayState() {
     fail("Not yet implemented");
   }
 
   @Test
-  void testGetPlayerPlayer() {
+  void testAskToRekontra() {
     fail("Not yet implemented");
   }
 
   @Test
-  void testChangeName() {
-    fail("Not yet implemented");
-  }
-
-  @Test
-  void testChangeImage() {
-    fail("Not yet implemented");
-  }
-
-  @Test
-  void testGetPlayerString() {
+  void testAskToPlayCard() {
     fail("Not yet implemented");
   }
 

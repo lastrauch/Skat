@@ -1,4 +1,4 @@
-package jUnit.AI;
+package junit.ai;
 
 import static org.junit.jupiter.api.Assertions.*;
 
