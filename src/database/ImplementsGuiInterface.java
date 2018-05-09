@@ -1,5 +1,6 @@
 package database;
 
+import interfaces.GuiData;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,10 +9,9 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.imageio.ImageIO;
-import interfaces.GuiData;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
 import logic.Player;
 
 public class ImplementsGuiInterface extends DatabaseHandler implements GuiData { 
@@ -43,16 +43,16 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   // getPlayer(String playername): Player
   // Finds the player with the given name and return him
   
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // Methods called by UI
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Methods called by GuiData                                                 
+  //////////////////////////////////////////////////////////////////////////////////////////////////
   
   /** 
-   * Gives back the image of the Card, which is called by UI
+   * Gives back the image of the card, which is called by UI.
    * 
    * @author dpervane
-   * @param colour
-   * @param number
+   * @param colour of the card
+   * @param number of the card
    * @return img
    */ 
   @Override
@@ -74,11 +74,11 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   }
   
   /**
-   * Gives back the darker version of the Card, which is called by UI
+   * Gives back the darker version of the card, which is called by UI.
    * 
    * @author dpervane
-   * @param colour
-   * @param number
+   * @param colour of the card
+   * @param number of the card
    * @return img
    */ 
   @Override
@@ -100,31 +100,27 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   }
   
   /**
-   * Stores a new player profile in the database, after creating a new player in UI
+   * Stores a new player profile in the database, after creating a new player in UI.
    * 
    * @author dpervane
-   * @param player
+   * @param  player is the new player
    */
   @Override
   public void insertPlayer(Player player) {
-    try{
+    try {
       insertPlayer.setString(1, player.getName());
       insertPlayer.executeUpdate();
       
-      if(player.getImage() != null){
-        changeImage(player, player.getImage());
-      }
-      
-    }catch (SQLException e) {
+    } catch (SQLException e) {
       e.printStackTrace();
     }
   }  
   
-  /**
-   * Returns true if the player is not found in database false if already in database
+  /** 
+   * Returns true if the player is not found in database false if already in database.
    * 
    * @author dpervane
-   * @param username
+   * @param  username of the player
    * @return boolean
    */  
   @Override
@@ -144,10 +140,10 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   } 
   
   /**
-   * Finds the player with the given name and return him
+   * Finds the player with the given name and return him.
    * 
    * @author dpervane
-   * @param player
+   * @param  player is the player
    * @retrun player
    */ 
   @Override
@@ -162,11 +158,35 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   }
   
   /**
-   * Changes the players name
+   * Finds the player with the given name and return him.
+   * 
+   * @author dpervane
+   * @param  playername is the player
+   * @return playername
+   */
+  @Override
+  public Player getPlayer(String playername) {
+    Player playerName = null;   
+    try {     
+      selectPlayerName.setString(1, playername);
+      selectPlayerName.execute();
+      ResultSet rs = selectPlayerName.executeQuery(); 
+      while (rs.next()) {
+        playerName = new Player(playername);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();  
+    }
+    System.out.println(playerName);
+    return playerName;
+  }
+ 
+  /**
+   * Changes the players name.
    *
    * @author dpervane
-   * @param neu
-   * @param original
+   * @param neu is the new name of player
+   * @param original is the old name of player
    */
   @Override
   public void changeName(String neu, Player original) {
@@ -178,57 +198,6 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
       e.printStackTrace();
     }
   }
-  
-  /**
-   * Changes the players profile picture
-   * 
-   * @author dpervane
-   * @param player
-   * @param img
-   */
-  @Override
-  public void changeImage(Player player, Image img) {    
-    BufferedImage bi = SwingFXUtils.fromFXImage(img, null);
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    
-    try {
-      Blob blFile = new javax.sql.rowset.serial.SerialBlob(baos.toByteArray()); 
-      ImageIO.write(bi, ".jpg", baos);
-      InputStream is = new ByteArrayInputStream(baos.toByteArray());
-    
-      changeImage.setString(2, player.getName());
-      changeImage.setBlob(1, blFile);
-      changeImage.execute();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    } catch (IOException e1) {
-      e1.printStackTrace();
-    }
-  }
-      
-  /**
-   * Finds the player with the given name and return him
-   * 
-   * @author dpervane
-   * @param playername
-   * @return playername
-   */
-  @Override
-  public Player getPlayer(String playername) {
-    Player playerName = null;
-    try {     
-      selectPlayerName.setString(1, playername);
-      selectPlayerName.execute();
-      ResultSet rs = selectPlayerName.executeQuery(); 
-      while(rs.next()) {
-      playerName = new Player(playername);
-      }
-    }
-    catch(SQLException e) {
-      e.printStackTrace();
-      
-    }System.out.println(playerName);
-   return playerName;
-  }
 }
+ 
 

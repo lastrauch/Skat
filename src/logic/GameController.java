@@ -62,19 +62,19 @@ public class GameController implements GuiLogic {
    * @author awesch
    */
   public void deleteBot(String botname) {
-    // for (int i = 0; i < this.clientLogic.size(); i++) {
-    // if (this.clientLogic.get(i).player.getName().equals(botname)) {
-    // this.clientLogic.get(i).netController.exitGame();
-    // this.clientLogic.remove(i);
-    // }
-    // }
-    //
-    for (ClientLogic cl : this.clientLogic) {
-      if (cl.getPlayer().getName().equals(botname)) {
-        cl.netController.exitGame();
-        this.clientLogic.remove(cl);
+    for (int i = 0; i < this.clientLogic.size(); i++) {
+      if (this.clientLogic.get(i).player.getName().equals(botname)) {
+        this.clientLogic.get(i).netController.exitGame();
+        this.clientLogic.remove(i);
       }
     }
+
+    // for (ClientLogic cl : this.clientLogic) {
+    // if (cl.getPlayer().getName().equals(botname)) {
+    // cl.netController.exitGame();
+    // this.clientLogic.remove(cl);
+    // }
+    // }
   }
 
   @Override
