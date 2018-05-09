@@ -906,7 +906,7 @@ public class InGameController implements Initializable, InGameInterface {
         betLeft.setText(null);
         betUp.setText(null);
         deletePane(paneBet);
-        if (main.getGameSetCon().getGs().getNrOfPlayers() == 3) {
+        if (main.getLobbyCon().getGS().getNrOfPlayers() == 3) {
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
             if (player.getPosition() == Position.MIDDLEHAND) {
               bubbleLeft.setImage(bubbleL);
@@ -1071,7 +1071,7 @@ public class InGameController implements Initializable, InGameInterface {
     }
     System.out.println("OPEN!!!!!!!!!!!!!!!!!!!!!!");
 
-    if (main.getGameSetCon().getGs().getNrOfPlayers() == 4) {
+    if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
       System.out.println("OPEN2!!!!!!");
       if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
         if (player.getPosition() == Position.MIDDLEHAND) {
