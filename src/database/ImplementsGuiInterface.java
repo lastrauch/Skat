@@ -48,7 +48,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   //////////////////////////////////////////////////////////////////////////////////////////////////
   
   /** 
-   * Gives back the image of the Card, which is called by UI.
+   * Gives back the image of the card, which is called by UI.
    * 
    * @author dpervane
    * @param colour of the card
@@ -74,7 +74,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   }
   
   /**
-   * Gives back the darker version of the Card, which is called by UI.
+   * Gives back the darker version of the card, which is called by UI.
    * 
    * @author dpervane
    * @param colour of the card
@@ -110,10 +110,6 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     try {
       insertPlayer.setString(1, player.getName());
       insertPlayer.executeUpdate();
-      
-      if (player.getImage() != null) {
-        changeImage(player, player.getImage());
-      }
       
     } catch (SQLException e) {
       e.printStackTrace();
@@ -162,54 +158,10 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   }
   
   /**
-   * Changes the players name.
-   *
-   * @author dpervane
-   * @param neu is the new name of player
-   * @param original is the old name of player
-   */
-  @Override
-  public void changeName(String neu, Player original) {
-    try {
-      changeName.setString(1, neu);
-      changeName.setString(2, original.getName());
-      changeName.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-  
-  /**
-   * Changes the players profile picture.
-   * 
-   * @author dpervane
-   * @param player is the Player
-   * @param img is the image of the Player
-   */
-  @Override
-  public void changeImage(Player player, Image img) {    
-    BufferedImage bi = SwingFXUtils.fromFXImage(img, null);
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    try {
-      Blob blFile = new javax.sql.rowset.serial.SerialBlob(baos.toByteArray()); 
-      ImageIO.write(bi, ".jpg", baos);
-      InputStream is = new ByteArrayInputStream(baos.toByteArray());
-    
-      changeImage.setString(2, player.getName());
-      changeImage.setBlob(1, blFile);
-      changeImage.execute();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    } catch (IOException e1) {
-      e1.printStackTrace();
-    }
-  }
-      
-  /**
    * Finds the player with the given name and return him.
    * 
    * @author dpervane
-   * @param  playername is the given name of player
+   * @param  playername is the player
    * @return playername
    */
   @Override
@@ -228,5 +180,24 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     System.out.println(playerName);
     return playerName;
   }
+ 
+  /**
+   * Changes the players name.
+   *
+   * @author dpervane
+   * @param neu is the new name of player
+   * @param original is the old name of player
+   */
+  @Override
+  public void changeName(String neu, Player original) {
+    try {
+      changeName.setString(1, neu);
+      changeName.setString(2, original.getName());
+      changeName.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }
+ 
 

@@ -10,19 +10,10 @@ import org.junit.jupiter.api.Test;
 class ImplementsGuiInterfaceTest {
   Player player;
 
-  @BeforeAll
-  static void setUpBeforeClass() throws Exception {}
-
-  @AfterAll
-  static void tearDownAfterClass() throws Exception {}
-
   @BeforeEach
   void setUp() throws Exception {
     player = new Player("test");
   }
-
-  @AfterEach
-  void tearDown() throws Exception {}
 
   @Test
   void testGetImage() {
@@ -53,11 +44,7 @@ class ImplementsGuiInterfaceTest {
   @Test
   void testChangeName() {
     player.getName();
-  }
-
-  @Test
-   void testChangeImage() {
-    player.getImage();
+  
   }
 
   @Test
