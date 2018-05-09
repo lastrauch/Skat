@@ -92,7 +92,7 @@ public class LobbyController implements Initializable {
     // TODO Auto-generated method stub
     if(guiCon.getGameSetCon() != null) {
       setGM();
-      displaydiffentGameModes();
+//      displaydiffentGameModes();
     }
     ButtonListener();
     
@@ -175,6 +175,17 @@ public class LobbyController implements Initializable {
     mainPane.getChildren().add(change);
   }
 
+  public void showChatMessage(String text, String playername) {
+    chatM.appendText(playername +": "+text + "\n");
+    chatM.setFont(Font.font("System", FontWeight.BOLD, 19.0));
+  }
+  
+  @FXML
+  public void sendChatMessage() {
+    String message;
+    message = textM.getText();
+    LoginController.interfGL.sendChatText(message);
+  }
 
   public void displayPlayers(int size, List<Player> name) {
     Platform.runLater(new Runnable() {
@@ -356,26 +367,26 @@ public class LobbyController implements Initializable {
     this.gm = guiCon.getGameSetCon().getGm();
   }
   
-  public void displaydiffentGameModes() {
-    if(gm == GameMode.SINGLEPLAYER) {
-      displayChangeGamesettingsButton();
-      displayAddBotButton();
-      displayDeleteBotButton();
-      displayStartButton();
-      mainPane.getChildren().remove(allChat);
-      mainPane.getChildren().remove(chatM);
-      mainPane.getChildren().remove(textM);
-      mainPane.getChildren().remove(sendB);
-      rec.setHeight(684);
-      start.setLayoutY(262);
-      change.setLayoutY(491);
-      addBot.setLayoutY(591);
-      deleteBot.setLayoutY(591);
-      vbox1.setLayoutY(211);
-      vbox2.setLayoutY(211);
-    }
+//  public void displaydiffentGameModes() {
+//    if(gm == GameMode.SINGLEPLAYER) {
+//      displayChangeGamesettingsButton();
+//      displayAddBotButton();
+//      displayDeleteBotButton();
+//      displayStartButton();
+//      mainPane.getChildren().remove(allChat);
+//      mainPane.getChildren().remove(chatM);
+//      mainPane.getChildren().remove(textM);
+//      mainPane.getChildren().remove(sendB);
+//      rec.setHeight(684);
+//      start.setLayoutY(262);
+//      change.setLayoutY(491);
+//      addBot.setLayoutY(591);
+//      deleteBot.setLayoutY(591);
+//      vbox1.setLayoutY(211);
+//      vbox2.setLayoutY(211);
+//    }
     
-  }
+//  }
   
   public void displayNoUser() {
     notenoughpl.setLayoutX(14);
