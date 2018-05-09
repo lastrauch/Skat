@@ -17,7 +17,7 @@ public class Stack implements Serializable {
 
   /*-------------------------  CONSTRUCTOR  -------------------------------------*/
   public Stack() {
-    stack = new ArrayList();
+    stack = new ArrayList<Card>();
   }
 
   /*-------------------------  HANDLING OF A STACK -----------------------------*/
@@ -25,7 +25,7 @@ public class Stack implements Serializable {
    * Adds a card to the list "stack".
    * 
    * @author sandfisc
-   * @param card
+   * @param card to add
    */
   public void addCard(Card card) {
     this.stack.add(card);
@@ -34,7 +34,7 @@ public class Stack implements Serializable {
   /**
    * Adds a list of cards to the list "stack".
    * 
-   * @param cards
+   * @param cards to add
    */
   public void addCards(List<Card> cards) {
     this.stack.addAll(cards);
@@ -43,7 +43,6 @@ public class Stack implements Serializable {
   /**
    * returns the points of a variable stack of cards, created for calculateWinner.
    * 
-   * @param stack
    * @author awesch
    */
   public int calculatePointsOfStack() {

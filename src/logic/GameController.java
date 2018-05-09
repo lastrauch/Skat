@@ -26,7 +26,7 @@ public class GameController implements GuiLogic {
   /**
    * constructor.
    * 
-   * @param logicGui
+   * @param logicGui interface
    */
   public GameController(LogicGui logicGui) {
     this.logicGui = logicGui;
@@ -44,7 +44,7 @@ public class GameController implements GuiLogic {
    * @see interfaces.GuiLogic#login(java.lang.String)
    */
   public void login(String username, Image profilepicture) {
-    Player p = new Player(username, profilepicture);
+    Player p = new Player(username);
     this.group.add(p);
     System.out.println("yoo I just created a Player " + p.getName() + " (login)");
     ClientLogic clientLogic = new ClientLogic(p);
@@ -68,13 +68,6 @@ public class GameController implements GuiLogic {
         this.clientLogic.remove(i);
       }
     }
-
-    // for (ClientLogic cl : this.clientLogic) {
-    // if (cl.getPlayer().getName().equals(botname)) {
-    // cl.netController.exitGame();
-    // this.clientLogic.remove(cl);
-    // }
-    // }
   }
 
   @Override
