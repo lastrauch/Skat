@@ -17,14 +17,14 @@
       </ImageView>
       <AnchorPane layoutX="292.0" layoutY="112.0" opacity="0.9" prefHeight="550.0" prefWidth="737.0" style="-fx-background-color: #8B4513; -fx-border-color: peru; -fx-background-radius: 30; -fx-border-radius: 30;">
          <children>
-            <Label alignment="CENTER" layoutX="79.0" layoutY="80.0" prefHeight="45.0" prefWidth="131.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Kontra:" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="79.0" layoutY="80.0" prefHeight="45.0" prefWidth="131.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Trainingmode:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
             <HBox layoutX="271.0" layoutY="86.0" spacing="15.0">
                <children>
-                  <JFXButton layoutX="252.0" layoutY="87.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="On" textFill="WHITE">
+                  <JFXButton fx:id="on" layoutX="252.0" layoutY="87.0" onAction="#on" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="On" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="15.0" />
                      </font>
@@ -34,7 +34,7 @@
                         <Image url="@../../resources/horizontal-resize-option.png" />
                      </image>
                   </ImageView>
-                  <JFXButton layoutX="369.0" layoutY="87.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Off" textFill="WHITE">
+                  <JFXButton fx:id="off" layoutX="369.0" layoutY="87.0" onAction="#off" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Off" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="15.0" />
                      </font>

@@ -45,7 +45,7 @@
                               <Image url="@../../resources/console.png" />
                            </image>
                         </ImageView>
-                        <JFXButton layoutX="123.0" layoutY="25.0" onAction="#SinglePlayer" text="Single Player Game" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="30.0">
+                        <JFXButton layoutX="123.0" layoutY="25.0" onAction="#singlePlayer" text="Single Player Game" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="30.0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -57,7 +57,7 @@
                   </AnchorPane>
                   <AnchorPane layoutX="65.0" layoutY="342.0" prefHeight="148.0" prefWidth="425.0" style="-fx-background-color: Peru; -fx-background-radius: 30;">
                      <children>
-                        <JFXButton alignment="CENTER" layoutX="128.0" layoutY="20.0" onAction="#MultiPlayer" text="Online Multiplayer Game" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="30.0">
+                        <JFXButton alignment="CENTER" layoutX="128.0" layoutY="20.0" onAction="#multiPlayer" text="Online Multiplayer Game" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="30.0">
                            <font>
                               <Font size="24.0" />
                            </font>

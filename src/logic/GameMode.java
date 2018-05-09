@@ -1,10 +1,7 @@
-/**
- * 
- */
 package logic;
 
 /**
- * the player has to choose if he wants to play off- or online
+ * the player has to choose if he wants to play off- or online.
  * @author sandfisc
  *
  */

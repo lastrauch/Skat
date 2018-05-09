@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javax.swing.GroupLayout.Alignment;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
+import ai.BotDifficulty;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
@@ -89,9 +90,10 @@ public class LobbyController implements Initializable {
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
-    setGM();
-    displaydiffentGameModes();
-    System.out.println("GM: "+gm);
+    if(guiCon.getGameSetCon() != null) {
+      setGM();
+      displaydiffentGameModes();
+    }
     ButtonListener();
     
 
@@ -296,6 +298,8 @@ public class LobbyController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
 //        if(nrofplayers == 3 || nrofplayers == 4) {
+//        LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
+//        LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
           LoginController.interfGL.startGame(gs); 
 //        } else {
 //          System.out.println("Not enough players selected");
@@ -314,7 +318,7 @@ public class LobbyController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         if (nrofplayers < 4) {
-          guiCon.displayAI();
+          guiCon.displayAi();
         }
       }
     });
@@ -340,7 +344,7 @@ public class LobbyController implements Initializable {
    */
 
   public void setGM() {
-    this.gm = guiCon.getGameSetCon().getGM();
+    this.gm = guiCon.getGameSetCon().getGm();
   }
   
   public void displaydiffentGameModes() {

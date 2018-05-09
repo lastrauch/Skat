@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * This class includes everything an auction can do.
+ * 
+ */
 public class Auction implements Serializable {
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = 1L;
   private Player winner; // winner of the auction
   private int[] possibleBets; // list of the possible bets
@@ -16,12 +18,8 @@ public class Auction implements Serializable {
   private int indexOfBetValue;
   private List<Integer> bets;
 
-  /**
-   * constructor
-   * 
-   * @param auctionMembers
-   * 
-   */
+  /* ------------------------- CONSTRUCTOR ------------------------------------------- */
+
   public Auction() {
     this.bets = new ArrayList<Integer>();
     this.betValue = 18;
@@ -38,8 +36,40 @@ public class Auction implements Serializable {
     this.bets = bets;
   }
 
+  /* ------------------------- BET VALUE ---------------------------------------------- */
+
+  /**
+   * initializes the array of possible bets.
+   */
+  public void initializePossibleBets() {
+    possibleBets = new int[] {18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, 44, 45, 46, 48, 50, 54,
+        55, 59, 60, 63, 66, 70, 72, 77, 80, 81, 84, 88, 90, 96, 99, 100, 108, 110, 117, 120, 121,
+        126, 130, 132, 135, 141, 143, 144, 150, 153, 154, 156, 160, 162, 165, 168, 170, 176, 180,
+        187, 192, 198, 204, 216, 240, 264};
+  }
+
+  /**
+   * returns the new bet
+   * 
+   * @param currentBet
+   */
+  public int calculateNewBet() {
+    if (this.bets.size() == 1) {
+      return this.betValue;
+    }
+    if (this.bets.get(this.bets.size() - 1) == this.bets.get(this.bets.size() - 2)) {
+      return this.possibleBets[this.indexOfBetValue + 1];
+    }
+    if (this.bets.get(this.bets.size() - 1) == -1 && this.bets.size() != 1) {
+      return this.possibleBets[this.indexOfBetValue + 1];
+    }
+    return this.betValue;
+  }
+
+  /* ------------------------- COPY ---------------------------------------------------- */
+
   public Auction copyMe() {
-    
+
     Player newWinner = this.winner.copyMe();
     int[] newPossibleBets = new int[this.possibleBets.length];
     for (int i = 0; i < this.possibleBets.length; i++) {
@@ -53,8 +83,14 @@ public class Auction implements Serializable {
     }
     Auction newAuction =
         new Auction(newWinner, newPossibleBets, newBetValue, newIndexOfBetValue, newBets);
-    
+
     return newAuction;
+  }
+
+  /* ---------------------- GETTER AND SETTER ------------------------------------------- */
+
+  public void setWinner(Player winner) {
+    this.winner = winner;
   }
 
   public void addToBets(int bet) {
@@ -63,56 +99,6 @@ public class Auction implements Serializable {
 
   public List<Integer> getBets() {
     return this.bets;
-  }
-
-  /**
-   * initializes the array of possible bets
-   */
-  public void initializePossibleBets() {
-    possibleBets = new int[] {18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, 44, 45, 46, 48, 50, 54,
-        55, 59, 60, 63, 66, 70, 72, 77, 80, 81, 84, 88, 90, 96, 99, 100, 108, 110, 117, 120, 121,
-        126, 130, 132, 135, 141, 143, 144, 150, 153, 154, 156, 160, 162, 165, 168, 170, 176, 180,
-        187, 192, 198, 204, 216, 240, 264};
-  }
-
-  /**
-   * @author awesch
-   * @param currentBet
-   * @return
-   */
-  public int calculateNewBet() {
-    // !!!!!!! DENK DRAN IMMER NACH DIE NEUEN DINGE IN AUCTION UPZUDATEN auch current bet aus bets
-    if (this.bets.size() == 1) {
-      return this.betValue;
-    }
-    if (this.bets.get(this.bets.size() - 1) == this.bets.get(this.bets.size() - 2)) {
-      return this.possibleBets[this.indexOfBetValue + 1];
-    }
-    if (this.bets.get(this.bets.size() - 1) == -1 && this.bets.size() != 1) {
-      return this.possibleBets[this.indexOfBetValue + 1];
-    }
-    return this.betValue;
-  }
-
-
-  public int[] getPossibleBets() {
-    return this.possibleBets;
-  }
-
-  public Player getWinner() {
-    return winner;
-  }
-
-  /**
-   * 
-   * @param winner
-   */
-  public void setWinner(Player winner) {
-    this.winner = winner;
-  }
-
-  public int getBetValue() {
-    return betValue;
   }
 
   public void setBetValue(int betValue) {
@@ -129,17 +115,22 @@ public class Auction implements Serializable {
     }
   }
 
+  public int[] getPossibleBets() {
+    return this.possibleBets;
+  }
+
+  public Player getWinner() {
+    return winner;
+  }
+
+  public int getBetValue() {
+    return betValue;
+  }
+
   public int getIndexOfBetValue() {
     return indexOfBetValue;
   }
-  //
-  // public int getLastBet() {
-  // return lastBet;
-  // }
-  //
-  // public void setLastBet(int lastBet) {
-  // this.lastBet = lastBet;
-  // }
+
 
 }
 

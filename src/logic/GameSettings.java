@@ -2,10 +2,13 @@ package logic;
 
 import java.io.Serializable;
 
-public class GameSettings implements Serializable{
-  /**
-   * 
-   */
+/**
+ * in the GameSettings we can save all the settings, the controler sets, which are send to every
+ * client in the same lobby.
+ *
+ */
+public class GameSettings implements Serializable {
+
   private static final long serialVersionUID = 1L;
   private CountRule countRule;
   private int nrOfPlayers;
@@ -18,7 +21,9 @@ public class GameSettings implements Serializable{
   private int randomSeatingIndex;
   // ... add all other possible settings
 
-
+  /**
+   * constructor.
+   */
   public GameSettings() {
     this.countRule = CountRule.NORMAL;
     this.nrOfPlayers = 3;
@@ -31,14 +36,11 @@ public class GameSettings implements Serializable{
   }
 
   /**
-   * creates random nr between 0-2 or 0-3
+   * creates random nr between 0-2 or 0-3.
    * 
    * @author awesch
    */
-
-
-  public GameSettings(CountRule countRule, int NrOfPlayers, int NrOfPlays) throws LogicException {
-
+  public GameSettings(CountRule countRule, int nrOfPlayers, int nrOfPlays) throws LogicException {
     // if the count rule is bierlachs we need an end score where the game determines
     this.countRule = countRule;
     if (countRule == CountRule.BIERLACHS) {
@@ -46,15 +48,31 @@ public class GameSettings implements Serializable{
       this.nrOfPlays = 50; // we want the game to stop even there is no winner after 50 plays
 
     } else {
-      if (this.checkNrOfPlays(NrOfPlays)) {
-        this.nrOfPlays = NrOfPlays;
+      if (this.checkNrOfPlays(nrOfPlays)) {
+        this.nrOfPlays = nrOfPlays;
       } else {
         throw new LogicException("The number of plays is not possible!");
       }
     }
-    this.nrOfPlayers = NrOfPlayers;
+    this.nrOfPlayers = nrOfPlayers;
     this.enableKontra = false;
     this.randomSeatingIndex = (int) (Math.random() * this.nrOfPlayers + 1);
+  }
+
+  /**
+   * returns true, if the settet number of plays is played.
+   * 
+   * @param nrOfPlays
+   */
+  public boolean checkNrOfPlays(int nrOfPlays) {
+    int[] possibleNr = {1, 3, 18, 36};
+
+    for (int i = 0; i < possibleNr.length; i++) {
+      if (possibleNr[i] == nrOfPlays) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public CountRule getCountRule() {
@@ -71,17 +89,6 @@ public class GameSettings implements Serializable{
 
   public int getNrOfPlays() {
     return this.nrOfPlays;
-  }
-
-  public boolean checkNrOfPlays(int NrOfPlays) {
-    int[] possibleNr = {1, 3, 18, 36};
-
-    for (int i = 0; i < possibleNr.length; i++) {
-      if (possibleNr[i] == NrOfPlays) {
-        return true;
-      }
-    }
-    return false;
   }
 
   public int getEndPointsBierlachs() {
@@ -139,10 +146,4 @@ public class GameSettings implements Serializable{
   public void setNumberOfPlays(int numberOfPlays) {
     this.nrOfPlays = numberOfPlays;
   }
-
-  // i think we don't need setters here
-  // public void setCountRule(CountRule countRule) {
-  // this.countRule = countRule;
-  // }
-  //
 }

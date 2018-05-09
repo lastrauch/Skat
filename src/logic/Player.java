@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.image.Image;
 
+/**
+ * this class represents a player.
+ *
+ */
 public class Player implements Serializable {
-  /**
-   * 
-   */
+
   private static final long serialVersionUID = 1L;
   private int id;
   private String name;
@@ -21,6 +23,13 @@ public class Player implements Serializable {
   private boolean declarer; // true if the player is declarer and false when he/she is opponents
   private boolean bot;
 
+  /* ------------------------- CONSTRUCTOR ------------------------------------------- */
+
+  /**
+   * constructor.
+   * 
+   * @param name
+   */
   public Player(String name) {
     this.name = name;
     this.bet = 0;
@@ -30,6 +39,12 @@ public class Player implements Serializable {
     this.declarer = false;
   }
 
+  /**
+   * constructor.
+   * 
+   * @param name
+   * @param bot
+   */
   public Player(String name, boolean bot) {
     this.name = name;
     this.bet = 0;
@@ -39,6 +54,12 @@ public class Player implements Serializable {
     this.declarer = false;
   }
 
+  /**
+   * constructor.
+   * 
+   * @param name
+   * @param img
+   */
   public Player(String name, Image img) {
     this.name = name;
     this.img = img;
@@ -49,6 +70,20 @@ public class Player implements Serializable {
     this.declarer = false;
   }
 
+  /**
+   * constructor.
+   * 
+   * @param name
+   * @param id
+   * @param img
+   * @param position
+   * @param hand
+   * @param bet
+   * @param gamePoints
+   * @param declarer
+   * @param bot
+   * @param playPoints
+   */
   public Player(String name, int id, Image img, Position position, List<Card> hand, int bet,
       int gamePoints, boolean declarer, boolean bot, List<Integer> playPoints) {
     this.name = name;
@@ -63,6 +98,9 @@ public class Player implements Serializable {
     this.playScore = playPoints;
   }
 
+  /**
+   * returns a deep copy of the player.
+   */
   public Player copyMe() {
     String newName = this.name;
     int newId = this.id;
@@ -86,13 +124,20 @@ public class Player implements Serializable {
     return newPlayer;
   }
 
+
+  /* ------------------------- DO SOMETHING WITH THE HAND ----------------------------- */
+
+
+  /**
+   * returns a random index of the hand.
+   */
   public Card chooseRandomCardFromHand() {
     int index = (int) (Math.random() * this.hand.size());
     return this.hand.get(index);
   }
 
   /**
-   * removes a given card from the hand
+   * removes a given card from the hand.
    * 
    * @author sandfisc
    * @param card
@@ -114,88 +159,13 @@ public class Player implements Serializable {
     if (!found) {
       throw new LogicException("Removing the played card from the hand was not possible!");
     }
-    // this.inGameController.updateHand(this.hand);
   }
 
-
-
-  // We assume the hand to be sorted the first time (before the PlayMode was set)
-  public void calculateHighestPossibleBet(ArrayList<Card> hand) {
-    // ArrayList<Card> jacks = new ArrayList<Card>();
-    // int index = 0;
-    // while (hand.get(index).getNumber() == Number.JACK) {
-    // jacks.add(hand.get(index));
-    // index ++;
-    // }
-  }
-
-  public boolean askForHandGame() {
-    String handGame = IOTools.readLine("Do you want to take the skat?(yes/no)");
-    if (handGame.equals("yes")) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-
-  public int getGameScore() {
-    return this.gameScore;
-  }
-
-  public void setGameScore(int gamePoints) {
-    this.gameScore = gamePoints;
-  }
-
-  public int getBet() {
-    return this.bet;
-  }
-
-  public void setBet(int bet) {
-    this.bet = bet;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setPosition(Position position) {
-    this.position = position;
-  }
-
-  public void setHand(List<Card> hand) {
-    this.hand = hand;
-  }
-
-
-  public String getName() {
-    return this.name;
-  }
-
-  public Position getPosition() {
-    return this.position;
-  }
-
-  public List<Card> getHand() {
-    return this.hand;
-  }
-
-  public List<Card> getDeepCopyHand() {
-    List<Card> copyHand = new ArrayList<Card>();
-    for (Card c : this.hand) {
-      copyHand.add(c);
-    }
-    return copyHand;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public int getId() {
-    return this.id;
-  }
-
+  /**
+   * sorts the players hand.
+   * 
+   * @param ps
+   */
   public void sortHand(PlayState ps) {
     // possible different orders : colour, grand, null(nullouvert)
 
@@ -242,6 +212,8 @@ public class Player implements Serializable {
         case DIAMONDS:
           diamonds.add(this.hand.get(i));
           break;
+        default:
+          break;
       }
     }
 
@@ -283,6 +255,8 @@ public class Player implements Serializable {
           this.addToHand(diamonds, this.hand, counter, diamonds.size());
           counter += diamonds.size();
           break;
+        default:
+          break;
       }
     }
 
@@ -311,7 +285,7 @@ public class Player implements Serializable {
   }
 
   /**
-   * Adds arrayList to ArrayList, created for sortHand(s)
+   * Adds arrayList to ArrayList, created for sortHand(s).
    * 
    * @author awesch
    * @param cardsToAdd
@@ -331,88 +305,69 @@ public class Player implements Serializable {
     this.hand.add(card);
   }
 
+  /* ------------------------- GETTER AND SETTER ------------------------------------- */
 
-  // test method create random hand
-  public ArrayList<Card> createRandomHand() {
-    ArrayList<Card> randomHand = new ArrayList<Card>();
-    // initialize Cards
-    Card cards[] = new Card[32];
-    int counter = 0;
-    for (int i = 1; i <= 4; i++) {
-      Colour col = null;
-      switch (i) {
-        case 1:
-          col = Colour.DIAMONDS;
-          break;
-        case 2:
-          col = Colour.HEARTS;
-          break;
-        case 3:
-          col = Colour.SPADES;
-          break;
-        case 4:
-          col = Colour.CLUBS;
-          break;
-      }
-      for (int j = 1; j <= 8; j++) {
-        Number nr = null;
-        switch (j) {
-          case 1:
-            nr = Number.SEVEN;
-            break;
-          case 2:
-            nr = Number.EIGHT;
-            break;
-          case 3:
-            nr = Number.NINE;
-            break;
-          case 4:
-            nr = Number.JACK;
-            break;
-          case 5:
-            nr = Number.QUEEN;
-            break;
-          case 6:
-            nr = Number.KING;
-            break;
-          case 7:
-            nr = Number.TEN;
-            break;
-          case 8:
-            nr = Number.ASS;
-            break;
-        }
-        // cards are generated in the order of their value
-
-        Card c = new Card(col, nr);
-        cards[counter] = c;
-        counter++;
-
-        // System.out.println(counter + " " + col.toString() + " " + nr.toString());
-      }
-    }
-    // shuffle Cards
-    int index;
-    Card temp = null;
-    for (int i = 0; i < 32; i++) {
-      index = (int) (Math.random() * 32);
-      temp = cards[i];
-      cards[i] = cards[index];
-      cards[index] = temp;
-    }
-
-    for (int i = 0; i < 10; i++) {
-      randomHand.add(cards[i]);
-    }
-    return randomHand;
+  public void addToPlayScore(int score) {
+    this.playScore.add(score);
   }
 
-  // test print method
-  public void printList(ArrayList<Card> list) {
-    for (int i = 0; i < list.size(); i++) {
-      System.out
-          .println(list.get(i).getColour().toString() + " " + list.get(i).getNumber().toString());
+  public int getGameScore() {
+    return this.gameScore;
+  }
+
+  public void setGameScore(int gamePoints) {
+    this.gameScore = gamePoints;
+  }
+
+  public int getBet() {
+    return this.bet;
+  }
+
+  public void setBet(int bet) {
+    this.bet = bet;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setPosition(Position position) {
+    this.position = position;
+  }
+
+  public void setHand(List<Card> hand) {
+    this.hand = hand;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public Position getPosition() {
+    return this.position;
+  }
+
+  public List<Card> getHand() {
+    return this.hand;
+  }
+
+  /**
+   * returns a deep copy of the players hand.
+   */
+  public List<Card> getDeepCopyHand() {
+    List<Card> copyHand = new ArrayList<Card>();
+    for (Card c : this.hand) {
+      copyHand.add(c);
     }
+    return copyHand;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public int getId() {
+    return this.id;
   }
 
   public Image getImage() {
@@ -431,9 +386,6 @@ public class Player implements Serializable {
     return this.declarer;
   }
 
-  /**
-   * @param points
-   */
   public void addToGamePoints(int points) {
     this.gameScore += points;
   }

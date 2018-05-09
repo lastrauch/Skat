@@ -67,7 +67,7 @@ public class Leaderboard3Controller implements Initializable {
     List<Label> rounds3 = new ArrayList<Label>();
 
 
-    for (int i = 0; i < main.getGameSetCon().getGS().getNrOfPlays() + 1; i++) {
+    for (int i = 0; i < main.getGameSetCon().getGs().getNrOfPlays() + 1; i++) {
       roundsNr.add(new Label());
       rounds1.add(new Label());
       rounds2.add(new Label());

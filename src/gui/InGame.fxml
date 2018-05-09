@@ -259,5 +259,15 @@
             <Font name="System Bold" size="32.0" />
          </font>
       </Label>
+      <JFXButton fx:id="kontra" buttonType="RAISED" layoutX="47.0" layoutY="459.0" prefHeight="59.0" prefWidth="158.0" text=" ">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXTextArea fx:id="training" editable="false" focusColor="#405aa800" layoutX="120.0" layoutY="77.0" prefHeight="35.0" prefWidth="1047.0" unFocusColor="#4d4d4d00">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXTextArea>
    </children>
 </AnchorPane>
