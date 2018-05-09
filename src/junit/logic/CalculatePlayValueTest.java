@@ -116,7 +116,6 @@ class CalculatePlayValueTest {
     hand.add(whatEver3);
 
     player.setHand(hand);
-    
     matador = 2;
 
     this.testCalculateMatador();

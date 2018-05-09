@@ -1,10 +1,8 @@
 package junit.logic;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
 import logic.Card;
 import logic.ClientLogic;
 import logic.Colour;
@@ -14,14 +12,18 @@ import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
 import logic.Trick;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * This class tests the method of ClientLogic in which it is tested if a card is possible to play.
- * "ClientLogic.checkIfCardPossible" adapts itself to the current playMode and to the first card on the trick
+ * "ClientLogic.checkIfCardPossible" adapts itself to the current playMode and to the first card on
+ * the trick.
  * 
  * @author sandfisc
  *
- */ 
+ */
 class CheckIfCardPossibleTest {
 
   static Player p1; // player of first card
@@ -44,7 +46,7 @@ class CheckIfCardPossibleTest {
     p1 = new Player("P1");
     p2 = new Player("P2");
     p3 = new Player("P3");
-    
+
     ps = new PlayState(new Player[] {p1, p2, p3});
   }
 
@@ -80,10 +82,10 @@ class CheckIfCardPossibleTest {
     ps.setPlayMode(PlayMode.SUIT);
     ps.setTrump(Colour.HEARTS);
     goodCard2 = new Card(Colour.CLUBS, Number.JACK); // JACK = Trump
-    
+
     this.test();
   }
- 
+
   /* PlayMode : GRAND */
   @Test
   void testGrand() throws LogicException {
