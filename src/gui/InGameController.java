@@ -509,6 +509,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void openAskForBet(int bet) {
     // TODO Auto-generated method stub
+    System.out.println("OPENASKFORBET");
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -529,6 +530,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public boolean askForBet(int bet, Player lastBet) {
     // deletePane(paneBet);
+    System.out.println("ASK FOR BET");
     while (notpressed) {
       buttonListener();
     }
@@ -634,6 +636,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void openAuctionWinnerScreen() {
     // TODO Auto-generated method stub
+    System.out.println(""AUCTIONWINNERSCREEN");
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -671,6 +674,7 @@ public class InGameController implements Initializable, InGameInterface {
             }
           });
         }
+        System.out.println("SETPLAYSETTINGSAFTERAUCTION");
         disableTraining();
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
@@ -899,6 +903,7 @@ public class InGameController implements Initializable, InGameInterface {
         if (main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
           disableTraining();
         }
+        System.out.println("RECEIVED NEW BET");
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
         bubbleUp.setImage(null);
@@ -2525,11 +2530,12 @@ public class InGameController implements Initializable, InGameInterface {
     AnchorPane.setRightAnchor(labelBet, 0.0);
     labelBet.setAlignment(Pos.CENTER);
 
-    box.getChildren().add(qu);
-    box.getChildren().add(pass);
-    box.getChildren().add(betB);
-    box.setSpacing(50);
-    box.setPrefWidth(307);
+    if (!box.getChildren().contains(qu) && !box.getChildren().contains(betB)
+        && !box.getChildren().contains(pass)) {
+      box.getChildren().add(pass);
+      box.getChildren().add(pass);
+      box.getChildren().add(betB);
+    }
     box.setPrefHeight(44);
     box.setLayoutX(37);
     box.setLayoutY(158);
