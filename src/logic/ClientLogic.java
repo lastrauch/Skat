@@ -290,10 +290,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.inGameController.openAskForBet(this.playState.getAuction().getPossibleBets()[0]);
       if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0], null)) {
         this.player.setBet(this.playState.getAuction().getPossibleBets()[0]);
-        this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player);
+        this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player.copyMe());
       } else {
         // pass
-        this.netController.bet(-1, this.player);
+        this.netController.bet(-1, this.player.copyMe());
       }
 
     }
@@ -326,10 +326,10 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.inGameController.openAskForBet(newBet);
         }
         if (this.inGameController.askForBet(newBet, player)) {
-          this.netController.bet(newBet, this.player);
+          this.netController.bet(newBet, this.player.copyMe());
           System.out.println(this.player.getName() + "bet " + newBet);
         } else {
-          this.netController.bet(-1, this.player);
+          this.netController.bet(-1, this.player.copyMe());
           System.out.println(this.player.getName() + "bet " + -1);
         }
       }
