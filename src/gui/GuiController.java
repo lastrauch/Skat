@@ -446,6 +446,7 @@ public class GuiController extends Application {
       Thread.sleep(1000);
       mprimaryStage.getScene().setRoot(inGame);
       inGameCon = loader.getController();
+      Thread.sleep(1000);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
