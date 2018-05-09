@@ -236,7 +236,9 @@ public class LobbyController implements Initializable {
 
     System.out.println("ADDED ONE: " + p1.getText());
 
-    vbox1.getChildren().add(p1);
+    if(!vbox1.getChildren().contains(p1)) {
+      vbox1.getChildren().add(p1);
+    }
   }
 
   public void displayTwo(String name1, String name2) {

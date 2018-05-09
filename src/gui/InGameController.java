@@ -1678,87 +1678,6 @@ public class InGameController implements Initializable, InGameInterface {
         }
       });
     }
-//    c1.setOnMousePressed(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        ret[0] = 0;
-//        clicked = true;
-//      }
-//    });
-//    c2.setOnMousePressed(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        ret[0] = 1;
-//        clicked = true;
-//      }
-//    });
-//    c3.setOnMousePressed(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        ret[0] = 2;
-//        clicked = true;
-//      }
-//    });
-//    c4.setOnMousePressed(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        ret[0] = 3;
-//        clicked = true;
-//      }
-//    });
-//    c5.setOnMousePressed(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        ret[0] = 4;
-//        clicked = true;
-//      }
-//    });
-//    c6.setOnMousePressed(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        ret[0] = 5;
-//        clicked = true;
-//      }
-//    });
-//    c7.setOnMousePressed(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        ret[0] = 6;
-//        clicked = true;
-//
-//      }
-//    });
-//    c8.setOnMousePressed(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        ret[0] = 7;
-//        clicked = true;
-//      }
-//    });
-//    c9.setOnMousePressed(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        ret[0] = 8;
-//        clicked = true;
-//      }
-//    });
-//    c10.setOnMousePressed(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        ret[0] = 9;
-//        clicked = true;
-//      }
-//    });
   }
 
 
@@ -1768,12 +1687,6 @@ public class InGameController implements Initializable, InGameInterface {
    * @return
    */
   public void buttonListener() {
-    qu.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        System.out.println("qu");
-      }
-    });
     pass.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -2510,13 +2423,6 @@ public class InGameController implements Initializable, InGameInterface {
     paneBet.setStyle(
         "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
 
-    qu.setId("?");
-    qu.setPrefHeight(44);
-    qu.setPrefWidth(69);
-    qu.setText("?");
-    qu.setFont(Font.font("System", FontWeight.BOLD, 20));
-    qu.setTextFill(Color.WHITE);
-    qu.setStyle("-fx-background-color: tan;");
     pass.setId("pass");
     pass.setPrefHeight(44);
     pass.setPrefWidth(69);
@@ -2543,8 +2449,6 @@ public class InGameController implements Initializable, InGameInterface {
 
     if (!box.getChildren().contains(qu) && !box.getChildren().contains(betB)
         && !box.getChildren().contains(pass)) {
-      System.out.println("Drin");
-      box.getChildren().add(qu);
       box.getChildren().add(pass);
       box.getChildren().add(betB);
     }
