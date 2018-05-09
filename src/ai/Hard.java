@@ -90,7 +90,7 @@ public class Hard {
 	 * @param controller
 	 */
 	public static boolean decideToPlayKontra(AiController controller) {
-		// TODO
+		// TODO 
 	  return false;
 	}
 
