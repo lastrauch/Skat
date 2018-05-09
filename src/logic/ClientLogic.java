@@ -27,6 +27,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
   boolean inGame;
 
   /*------------------------  CONSTRUCTOR  ----------------------------------*/
+
+  /**
+   * constructor.
+   * 
+   * @param player of this clientLogic
+   */
   public ClientLogic(Player player) {
     // System.out.println("created ClientLogic for Player " + player.getName());
     this.player = player;
@@ -38,6 +44,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /*---------------------  PREPARE PLAY/GAME --------------------------------*/
+
   /**
    * initializes the cards.
    * 
@@ -230,8 +237,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.group.addAll(temp);
 
       // set position
-      System.out.println(
-          "Bei " + this.player.getName() + " groesse group: " + this.group.size());
+      System.out.println("Bei " + this.player.getName() + " groesse group: " + this.group.size());
       this.group.get(0).setPosition(Position.FOREHAND);
       this.group.get(1).setPosition(Position.MIDDLEHAND);
       this.group.get(2).setPosition(Position.REARHAND);
@@ -290,7 +296,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.inGameController.openAskForBet(this.playState.getAuction().getPossibleBets()[0]);
       if (this.inGameController.askForBet(this.playState.getAuction().getPossibleBets()[0], null)) {
         this.player.setBet(this.playState.getAuction().getPossibleBets()[0]);
-        this.netController.bet(this.playState.getAuction().getPossibleBets()[0], this.player.copyMe());
+        this.netController.bet(this.playState.getAuction().getPossibleBets()[0],
+            this.player.copyMe());
       } else {
         // pass
         this.netController.bet(-1, this.player.copyMe());
@@ -345,8 +352,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * updates the bet everywhere.
    * 
    * @author awesch
-   * @param player
-   * @param bet
+   * @param player who bet
+   * @param bet which was the last one
    */
   public void updateBet(Player player, int bet) {
 
@@ -365,7 +372,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * checks if the player is supposed to bet next if he sits forehand.
    * 
    * @author awesch
-   * @param player
+   * @param player who bet last
    * @return
    */
   public boolean checkIfItsMyTurnAuctionForehand(Player player, int bet) {
@@ -739,7 +746,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.inGameController.receivedNewCard(card, player);
     // check if open and player is declarer to showOpen
     if (this.playState.isOpen()
-        && player.getName().equals(this.playState.getAuction().getWinner().getName())) {
+        && player.getName().equals(this.playState.getAuction().getWinner().getName())
+        && !this.player.isDeclarer()) {
       player.setDeclarer(true);
       if (!this.player.isBot()) {
         System.out.println("hand of player who plays open (right before showOpen):");
@@ -848,6 +856,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // show winner of play
         // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
         this.inGameController.showScore(this.group);
+        this.waitFor(1000);
         if (playWinner.get(0).getName().equals(this.player.getName())
             || playWinner.get(0).getName().equals(this.player.getName())) {
           System.out.println(this.player.getName() + ": I won the play!!");
@@ -1304,7 +1313,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.netController.sendChatMessage(msg);
   }
 
-  /*------------------------------ BREAK ----------------------------------------------------------*/
+  /*------------------------------ BREAK ---------------------------------------------------------*/
   @Override
   public void receivePlayerDisconnected(Player player) {
     // TODO Auto-generated method stub
