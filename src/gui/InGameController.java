@@ -636,7 +636,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void openAuctionWinnerScreen() {
     // TODO Auto-generated method stub
-    System.out.println(""AUCTIONWINNERSCREEN");
+    System.out.println("AUCTIONWINNERSCREEN");
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
