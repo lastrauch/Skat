@@ -1,4 +1,4 @@
-package jUnit.Network;
+package junit.network;
 
 import static org.junit.Assert.*;
 

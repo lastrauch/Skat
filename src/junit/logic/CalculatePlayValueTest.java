@@ -1,4 +1,4 @@
-package logictest;
+package junit.logic;
 
 import logic.Card;
 import logic.ClientLogic;

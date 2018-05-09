@@ -1,4 +1,4 @@
-package jUnit.Database;
+package junit.database;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterAll;
