@@ -746,7 +746,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.inGameController.receivedNewCard(card, player);
     // check if open and player is declarer to showOpen
     if (this.playState.isOpen()
-        && player.getName().equals(this.playState.getAuction().getWinner().getName())) {
+        && player.getName().equals(this.playState.getAuction().getWinner().getName())
+        && !this.player.isDeclarer()) {
       player.setDeclarer(true);
       if (!this.player.isBot()) {
         System.out.println("hand of player who plays open (right before showOpen):");
@@ -855,6 +856,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
         // show winner of play
         // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
         this.inGameController.showScore(this.group);
+        this.waitFor(1000);
         if (playWinner.get(0).getName().equals(this.player.getName())
             || playWinner.get(0).getName().equals(this.player.getName())) {
           System.out.println(this.player.getName() + ": I won the play!!");
