@@ -230,14 +230,14 @@ public class General {
   }
 
   /**
-   * Tries to play card of said colour.
+   * Tries to play a trump card.
    * 
    * @author fkleinoe
    * @param playMode current PlayMode
    * @param cardProbabilities of all players
    * @param cards of the AI
-   * @param jackColour
-   * @param trumpColour
+   * @param jackColour of a possibly played jack
+   * @param trumpColour trump colour if PlayMode is SUIT
    * @param value number the played card should exceed
    * @param playerIndex of the player that should play a card
    * @param low whether the card should be low or high in value
@@ -308,7 +308,18 @@ public class General {
     return -1;
   }
 
-  // TODO
+  /**
+   * Tries to play a card with no specific colour. 
+   * 
+   * @author fkleinoe
+   * @param cardProbabilities of all players
+   * @param cards of the AI
+   * @param excludeColour colour that should not be played
+   * @param excludeValue number thath should not be played
+   * @param playerIndex of the player that should play a card
+   * @param low whether the card should be low or high in value
+   * @return the index of a choosen card within the hand
+   */
   public static int playValue(double[][] cardProbabilities, List<Card> cards, int excludeColour,
       int excludeValue, int playerIndex, boolean low) {
     if (low) {
