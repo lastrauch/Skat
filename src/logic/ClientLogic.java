@@ -217,6 +217,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   @Override
   public void receiveStartGame() {
+    System.out.println("this.gameSettings.getNrOfPlayers(): " + this.gameSettings.getNrOfPlayers());
     // check to have received the right nr of players
     if (this.group.size() == this.gameSettings.getNrOfPlayers()) {
       // Sort group
@@ -230,7 +231,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
 
       // set position
       System.out.println(
-          "Bei " + this.player.getName() + " groesse group: " + this.playState.getGroup().length);
+          "Bei " + this.player.getName() + " groesse group: " + this.group.size());
       this.group.get(0).setPosition(Position.FOREHAND);
       this.group.get(1).setPosition(Position.MIDDLEHAND);
       this.group.get(2).setPosition(Position.REARHAND);
@@ -797,7 +798,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       // check if play is over
       nullBreak = (this.playState.getPlayMode() == PlayMode.NULL) && trickWinner.isDeclarer();
       if (this.playState.getTrickNr() == 10 || nullBreak) {
-        
+
         // calculate winner play
         if (nullBreak) {
           for (Player p : this.group) {
@@ -805,7 +806,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
               playWinner.add(p);
             }
           }
-        }else {
+        } else {
           playWinner = Play.calculateWinner(playState);
         }
 
