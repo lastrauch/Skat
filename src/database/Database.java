@@ -1,5 +1,7 @@
 package database;
 
+import java.io.File;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,8 +21,15 @@ public class Database {
   Properties properties;
   
   public Database() {
-    this.connect(System.getProperty("user.dir") + System.getProperty("file.separator") + "resources"
-            + System.getProperty("file.separator") + "SkatData.db");
+//    this.connect(System.getProperty("user.dir") + System.getProperty("file.separator") + "resources"
+//            + System.getProperty("file.separator") + "SkatData.db");
+//    this.connect(System.getProperty("user.dir") 
+//        + System.getProperty("file.separator") + "SkatData.db");
+    
+    
+//    this.getClass().getResourceAsStream(File.separator + "card.jakasd");
+    
+    this.connect(getClass().getResource(System.getProperty("file.separator") + "SkatData.db"));
   }
   
   /**
@@ -29,7 +38,7 @@ public class Database {
    * @param file name and path of database         
    * @author dpervane
    */
-  private void connect(String file) {
+  private void connect(URL file) {
     try {
       Class.forName("org.sqlite.JDBC");
       this.connection = DriverManager.getConnection("jdbc:sqlite:" + file);     
