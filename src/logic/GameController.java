@@ -78,8 +78,9 @@ public class GameController implements GuiLogic {
     String name = "bot" + this.group.size();
     Player p = new Bot(name, difficulty);
     this.group.add(p);
-    InGameInterface inGameController = new AiController(name, difficulty, this.gameSettings);
     ClientLogic clientLogic = new ClientLogic(p);
+    InGameInterface inGameController =
+        new AiController(clientLogic, name, difficulty, this.gameSettings);
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setInGameController(inGameController);
     clientLogic.setNetworkController(networkController);
