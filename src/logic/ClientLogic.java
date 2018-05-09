@@ -316,7 +316,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   public void receiveBet(Player player, int bet) {
     if (!(this.playState.getAuction().getLastOneWhoBet().getName().equals(player.getName())
         && (this.playState.getAuction().getBetValue() == bet))) {
-      
+
       this.inGameController.receivedNewBet(bet, player);
       this.playState.getAuction().setLastOneWhoBet(player);
       // if auction is still running
@@ -1323,8 +1323,9 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   /*------------------------------ BREAK ---------------------------------------------------------*/
   @Override
   public void receivePlayerDisconnected(Player player) {
-    // TODO Auto-generated method stub
-    this.inGameController.stopGame("player disconnected");
+    if(this.inGame) {
+      this.inGameController.stopGame("player disconnected");
+    }
   }
 
   /*---------------------  SETTER AND GETTER  -------------------------------*/
