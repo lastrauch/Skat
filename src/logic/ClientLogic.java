@@ -1,6 +1,6 @@
 package logic;
 
-import interfaces.AILogic;
+import interfaces.AiLogic;
 import interfaces.InGameInterface;
 import interfaces.LogicGui;
 import interfaces.LogicNetwork;
@@ -14,7 +14,7 @@ import java.util.List;
  * @author awesch
  * @author sandfisc
  */
-public class ClientLogic implements NetworkLogic, AILogic {
+public class ClientLogic implements NetworkLogic, AiLogic {
 
   Player player;
   InGameInterface inGameController; // implemented by Gui or Ai
