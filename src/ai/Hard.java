@@ -89,10 +89,9 @@ public class Hard {
 	 * @author fkleinoe
 	 * @param controller
 	 */
-	public static void decideToPlayKontra(AiController controller) {
+	public static boolean decideToPlayKontra(AiController controller) {
 		// TODO
-		// Needs to call the interface method announceKontra() of AILogic.
-		// TODO AI doesn't have an instance to call this method on.
+	  return false;
 	}
 
 	/**
