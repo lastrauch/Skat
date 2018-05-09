@@ -1,18 +1,10 @@
 package gui;
 
-import java.awt.Desktop;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import database.ImplementsGuiInterface;
 import interfaces.GuiData;
-import interfaces.GuiLogic;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -22,23 +14,31 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.stage.FileChooser;
-import logic.GameController;
+import javax.imageio.ImageIO;
 import logic.Player;
 
 public class CreateNewAccountController {
 
   /**
+   * initialize non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private String username;
-  protected ImplementsLogicGui implLG;
-  private GuiData interfGD = new ImplementsGuiInterface();
+  protected ImplementsLogicGui implLg;
+  private GuiData interfGd = new ImplementsGuiInterface();
   private GuiController main;
   private Label userExists = new Label();
   private Image ppicture = null;
-  
+
   /**
+   * initialize FXML-attributes.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -52,45 +52,35 @@ public class CreateNewAccountController {
 
 
   /**
-   *@author lstrauch
+   * Constructor.
+   * 
+   * @author lstrauch
    */
   public CreateNewAccountController() {
     this.main = new GuiController();
-    this.implLG = new ImplementsLogicGui();
+    this.implLg = new ImplementsLogicGui();
   }
 
   /**
+   * creates a new user with a username and profilepicture in database.
+   * 
    * @author lstrauch
    */
   @FXML
   public void submit() {
     this.username = newUsername.getText();
-
-    // Auf Duygus Änderungen warten
-    // try {
-    // if(!interfGD.checkIfPlayerNew(username)) {
-    // displayUserExists();
-    // } else {
-    // main.displayChooseGame();
-    // GameController gameCon = new GameController(implLG);
-    // GuiLogic interfaceL = gameCon;
-    // interfaceL.login(username, null);
-    // }
-    // } catch (SQLException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // }
-
-    if(ppicture != null) {
-      interfGD.insertPlayer(new Player(username, ppicture));
-    }else {
-      interfGD.insertPlayer(new Player(username, null));
+    if (ppicture != null) {
+      interfGd.insertPlayer(new Player(username, ppicture));
+    } else {
+      interfGd.insertPlayer(new Player(username, null));
     }
     main.displayChooseGame();
     LoginController.interfGL.login(username, ppicture);
   }
 
   /**
+   * displays a label if username already exists.
+   * 
    * @author lstrauch
    */
   public void displayUserExists() {
@@ -107,6 +97,8 @@ public class CreateNewAccountController {
   }
 
   /**
+   * method to make it possible to upload a picture.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -114,11 +106,11 @@ public class CreateNewAccountController {
     FileChooser fileChooser = new FileChooser();
 
     // Set extension filter
-    FileChooser.ExtensionFilter extFilterJPG =
+    FileChooser.ExtensionFilter extFilterJpg =
         new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-    FileChooser.ExtensionFilter extFilterPNG =
+    FileChooser.ExtensionFilter extFilterPng =
         new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-    fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+    fileChooser.getExtensionFilters().addAll(extFilterJpg, extFilterPng);
 
     // Show open file dialog
     File file = fileChooser.showOpenDialog(null);

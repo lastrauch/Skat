@@ -16,12 +16,6 @@ public interface GuiLogic {
 
   /**
    * 
-   * @param m
-   */
-  public void decideGameMode(GameMode m);
-
-  /**
-   * 
    * @param username
    */
   public void login(String username, Image profilepicture);
@@ -57,7 +51,7 @@ public interface GuiLogic {
   /**
    * @param hostName
    */
-  public void joinGame(String serverName); 
+  public void joinGame(String ip); 
   
   /**
    * @param comment

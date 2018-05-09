@@ -78,7 +78,7 @@ public class Trick implements Serializable {
   /* ------------------- HANDLING OF A TRICK ----------------------------------------- */
 
   /**
-   * adds the given card to the trickCards
+   * adds the given card to the trickCards.
    * 
    * @author sandfisc
    * @param card
@@ -89,7 +89,7 @@ public class Trick implements Serializable {
   }
 
   /**
-   * checks if 3 cards are saved in the trickCards
+   * checks if 3 cards are saved in the trickCards.
    * 
    * @author sandfisc
    * @return if trick is full / over
@@ -107,7 +107,7 @@ public class Trick implements Serializable {
 
   /**
    * the winning card is calculated and the winner is returned submethods (depending on PlayMode):
-   * calculateWinnerColour(), calculateWinnerGrand(), calculateWinnerNull())
+   * calculateWinnerColour(), calculateWinnerGrand(), calculateWinnerNull()).
    * 
    * @author sandfisc
    * @throws LogicException
@@ -127,7 +127,7 @@ public class Trick implements Serializable {
   }
 
   /**
-   * calulates the winning card in the playmode Suit
+   * calulates the winning card in the playmode Suit.
    * 
    * @author sandfisc
    * @return index of the winning card
@@ -149,7 +149,7 @@ public class Trick implements Serializable {
   }
 
   /**
-   * calculates the winner when the PlayMode is Grand
+   * calculates the winner when the PlayMode is Grand.
    * 
    * @author sandfisc
    * @return index of the winning card
@@ -172,7 +172,7 @@ public class Trick implements Serializable {
   }
 
   /**
-   * calculates the winner when the PlayMode is Null/NullOuvert
+   * calculates the winner when the PlayMode is Null/NullOuvert.
    * 
    * @author sandfisc
    * @return index of the winning card
@@ -195,7 +195,7 @@ public class Trick implements Serializable {
   }
 
   /**
-   * compares two cards with the current trump
+   * compares two cards with the current trump.
    * 
    * @author sandfisc
    * @param card1
@@ -235,7 +235,7 @@ public class Trick implements Serializable {
   }
 
   /**
-   * compares two cards when the only trump cards are jacks
+   * compares two cards when the only trump cards are jacks.
    * 
    * @author sandfisc
    * @param card1
@@ -262,7 +262,7 @@ public class Trick implements Serializable {
 
   /**
    * checks if the player watched out for the first played cards colour and which cards number is
-   * higher
+   * higher.
    * 
    * @author sandfisc
    * @param card1
@@ -288,7 +288,7 @@ public class Trick implements Serializable {
 
   /**
    * checks if the player watched out for the first played cards colour and which cards number is
-   * higher (with low ten)
+   * higher (with low ten).
    * 
    * @author sandfisc
    * @param card1
@@ -313,7 +313,7 @@ public class Trick implements Serializable {
   }
 
   /**
-   * only used to compare jacks, the one with the higher Colour wins
+   * only used to compare jacks, the one with the higher Colour wins.
    * 
    * @author sandfisc
    * @param card1

@@ -1,14 +1,14 @@
 package gui;
 
-import java.util.List;
 import interfaces.LogicGui;
-import javafx.application.Platform;
+import java.util.List;
 import logic.GameSettings;
 import logic.Player;
 
 public class ImplementsLogicGui implements LogicGui {
 
   /**
+   * initializes non-FXML attributes.
    * @author lstrauch
    */
   private GuiController guiCon = new GuiController();
@@ -19,11 +19,15 @@ public class ImplementsLogicGui implements LogicGui {
    * (non-Javadoc)
    * 
    * @see interfaces.LogicGui#updateLobby(logic.GameSettings, java.util.List)
+   * 
    */
   @Override
   public void updateLobby(GameSettings gs, List<Player> group) {
+    System.out.println("group.size: " + group.size());
+    for(int i = 0; i < group.size(); i++) {
+      System.out.println("group(" + i + "): " + group.get(i));
+    }
     guiCon.getLobbyCon().displayPlayers(group.size(), group);
-
     guiCon.getLobbyCon().setGameSettingsLabel(gs);
 
   }

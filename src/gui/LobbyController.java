@@ -90,8 +90,10 @@ public class LobbyController implements Initializable {
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
-    setGM();
-    displaydiffentGameModes();
+    if(guiCon.getGameSetCon() != null) {
+      setGM();
+      displaydiffentGameModes();
+    }
     ButtonListener();
     
 
@@ -316,7 +318,7 @@ public class LobbyController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         if (nrofplayers < 4) {
-          guiCon.displayAI();
+          guiCon.displayAi();
         }
       }
     });
@@ -342,7 +344,7 @@ public class LobbyController implements Initializable {
    */
 
   public void setGM() {
-    this.gm = guiCon.getGameSetCon().getGM();
+    this.gm = guiCon.getGameSetCon().getGm();
   }
   
   public void displaydiffentGameModes() {
