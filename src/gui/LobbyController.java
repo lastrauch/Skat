@@ -222,7 +222,9 @@ public class LobbyController implements Initializable {
   }
 
   public void displayTwo(String name1, String name2) {
-    displayOne(name1);
+    if(!vbox1.getChildren().contains(p1)) {
+      displayOne(name1);
+    }
 
     p2.setPrefWidth(213);
     p2.setPrefHeight(51);
@@ -237,7 +239,10 @@ public class LobbyController implements Initializable {
   }
 
   public void displayThree(String name1, String name2, String name3) {
-    displayTwo(name1, name2);
+    if(!vbox1.getChildren().contains(p1)
+        && !vbox2.getChildren().contains(p2)) {
+      displayTwo(name1, name2);
+    }
     p3.setPrefWidth(213);
     p3.setPrefHeight(51);
     p3.setLayoutX(88);
@@ -251,7 +256,11 @@ public class LobbyController implements Initializable {
   }
 
   public void displayFour(String name1, String name2, String name3, String name4) {
-    displayThree(name1, name2, name3);
+    if(!vbox1.getChildren().contains(p1)
+        && !vbox1.getChildren().contains(p2)
+        && !vbox1.getChildren().contains(p3)) {
+      displayThree(name1, name2, name3);
+    }
     p4.setPrefWidth(213);
     p4.setPrefHeight(51);
     p4.setLayoutX(88);

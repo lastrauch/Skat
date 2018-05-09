@@ -125,10 +125,10 @@ public class LobbyOnlineController implements Initializable {
 
         @Override
         public void handle(MouseEvent event) {
+          main.displayLobby();
           LoginController.interfGL
               .joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getIP());
           System.out.println("Listener");
-          main.displayLobby();
         }
       });
 
