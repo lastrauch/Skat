@@ -44,7 +44,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   // Finds the player with the given name and return him
   
   //////////////////////////////////////////////////////////////////////////////////////////////////
-  // Methods called by UI                                                                           
+  // Methods called by GuiData                                                 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   
   /** 
