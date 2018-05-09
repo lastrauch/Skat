@@ -115,6 +115,23 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   /**
+   * shuffles the cards after they have been initialized.
+   * 
+   * @author awesch
+   */
+  public void shuffleCards() {
+    int index;
+    Card temp = null;
+    for (int i = 0; i < 32; i++) {
+      index = (int) (Math.random() * 32);
+      temp = this.cards.get(i);
+      this.cards.set(i, this.cards.get(index));
+      this.cards.set(index, temp);
+    }
+  }
+
+
+  /**
    * deals out the cards to every player.
    */
   public void dealOutCards() {
@@ -561,7 +578,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    */
   public void startPlay() {
     // First shuffle cards
-    Tools.shuffleCards(this.cards);
+    this.shuffleCards();
     // secound deal out cards
     this.dealOutCards();
   }
@@ -1212,7 +1229,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * 
    * @author awesch
    * @param ps
-   * @return play value 
+   * @return play value
    */
   public int calculatePlayValueSuitorGrand() {
     int multiplier = this.calculateMultiplier();
