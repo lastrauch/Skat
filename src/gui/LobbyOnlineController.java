@@ -4,8 +4,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
-import interfaces.GuiLogic;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,10 +13,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
-import logic.GameController;
-import logic.GameMode;
-import logic.GameSettings;
 
 public class LobbyOnlineController implements Initializable {
 
@@ -30,7 +24,7 @@ public class LobbyOnlineController implements Initializable {
   ArrayList<Label> user = new ArrayList<Label>();
   ArrayList<Label> message = new ArrayList<Label>();
   ArrayList<JFXButton> join = new ArrayList<JFXButton>();
-  private boolean abletojoin = true;
+  private boolean hostgame = false;
 
 
   public LobbyOnlineController() {
@@ -70,6 +64,7 @@ public class LobbyOnlineController implements Initializable {
   public void startNewGame() {
     // LoginController.interfGL.hostGame("Hi", new GameSettings());
     // main.getGameSetCon().setGameMode(GameMode.MULTIPLAYER);
+    this.hostgame = true;
     main.displayGameSettings();
   }
 
@@ -145,6 +140,10 @@ public class LobbyOnlineController implements Initializable {
     // TODO Auto-generated method stub
     // displayServer();
 
+  }
+  
+  public boolean getHostegame() {
+    return hostgame;
   }
 
 
