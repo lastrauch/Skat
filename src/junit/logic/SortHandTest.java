@@ -1,4 +1,4 @@
-package logictest;
+package junit.logic;
 
 
 import logic.Card;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -176,6 +175,7 @@ class SortHandTest {
 
   /**
    * to help with the other methods.
+   * 
    * @param goodHand
    */
   void test(List<Card> goodHand) {

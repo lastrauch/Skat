@@ -1,5 +1,5 @@
 
-package logictest;
+package junit.logic;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
