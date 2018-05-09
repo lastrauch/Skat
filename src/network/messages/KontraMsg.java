@@ -1,9 +1,9 @@
 package network.messages;
 
-public class Kontra_Msg extends Message {
+public class KontraMsg extends Message {
 	  private static final long serialVersionUID = 1L;
 	  
-	  public Kontra_Msg(){
+	  public KontraMsg(){
 		  super(MessageType.KONTRA);
 	  }
 

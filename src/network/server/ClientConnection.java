@@ -95,21 +95,21 @@ public class ClientConnection extends Thread {
 		case REKONTRA:
 			messageHandler(message);
 		case DEALT_CARDS:
-			dealtCardsHandler((DealtCards_Msg) message);
+			dealtCardsHandler((DealtCardsMsg) message);
 			break;
 		case CONNECTION_REQUEST:
-			connectionRequestHandler((ConnectionRequest_Msg) message);
+			connectionRequestHandler((ConnectionRequestMsg) message);
 			break;
 		case GAME_SETTINGS:
-			this.server.setGameSettings(((GameSettings_Msg) message).getGameSettings());
+			this.server.setGameSettings(((GameSettingsMsg) message).getGameSettings());
 			messageHandler(message);
 			break;
 		case PLAY_STATE:
-			this.server.setPlayState(((PlayState_Msg) message).getPlayState());
+			this.server.setPlayState(((PlayStateMsg) message).getPlayState());
 			messageHandler(message);
 			break;
 		case CLIENT_DISCONNECT:
-			clientDisconnectHandler((ClientDisconnect_Msg) message);
+			clientDisconnectHandler((ClientDisconnectMsg) message);
 			break;
 		default:
 		}
@@ -123,7 +123,7 @@ public class ClientConnection extends Thread {
 		}
 	}
 
-	private synchronized void connectionRequestHandler(ConnectionRequest_Msg message) {
+	private synchronized void connectionRequestHandler(ConnectionRequestMsg message) {
 		// �berpr�fe und sende Antwort
 		if (this.server.getPlayer().size() < this.server.getGameSettings().getNrOfPlayers()) {
 			// Falls ja, f�ge Spieler dem Server hinzu
@@ -131,28 +131,28 @@ public class ClientConnection extends Thread {
 			this.player = message.getPlayer();
 			System.out.println("Message send to " + message.getPlayer().getName() + ": CONNECTION_ANSWER(true)");
 			this.player.setId(this.server.getNewPlayerID());
-			this.sendMessage(new ConnectionAnswer_Msg(true, this.player.getId()));
+			this.sendMessage(new ConnectionAnswerMsg(true, this.player.getId()));
 			this.player = message.getPlayer();
 			this.server.addPlayer(message.getPlayer());
 			System.out.println("Message send because of " + message.getPlayer().getName() + ": LOBBY");
-			this.messageHandler(new Lobby_Msg(this.server.getPlayer(), this.server.getGameSettings()));
+			this.messageHandler(new LobbyMsg(this.server.getPlayer(), this.server.getGameSettings()));
 		} else {
 			System.out.println("Message send to " + message.getPlayer().getName() + ": CONNECTION_ANSWER(false)");
-			this.sendMessage(new ConnectionAnswer_Msg(false, 0));
+			this.sendMessage(new ConnectionAnswerMsg(false, 0));
 			this.disconnect();
 		}
 
 	}
 
-	private void clientDisconnectHandler(ClientDisconnect_Msg message) {
+	private void clientDisconnectHandler(ClientDisconnectMsg message) {
 		this.server.removePlayer(message.getPlayer());
 		this.server.removeClientConnection(this);
-		this.messageHandler(new ClientDisconnect_Msg(message.getPlayer()));
-		this.messageHandler(new Lobby_Msg(this.server.getPlayer(), this.server.getGameSettings()));
+		this.messageHandler(new ClientDisconnectMsg(message.getPlayer()));
+		this.messageHandler(new LobbyMsg(this.server.getPlayer(), this.server.getGameSettings()));
 		this.disconnect();
 	}
 
-	private void dealtCardsHandler(DealtCards_Msg message) {
+	private void dealtCardsHandler(DealtCardsMsg message) {
 		System.out.println("Server received cards for: " + message.getPlayer().getName());
 		for (int i = 0; i < this.server.getClientConnections().size(); i++) {
 			if (this.server.getClientConnections().get(i).getPlayer().getId() == message.getPlayer().getId()) {

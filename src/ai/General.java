@@ -8,12 +8,12 @@ import logic.LogicException;
 import logic.Number;
 import logic.PlayMode;
 
+/**
+ * This is a static class to implement methods which are used through different Bot-difficulties.
+ * 
+ * @author fkleinoe
+ */
 public class General {
-
-  /*
-   * This is a static class to implement methods which are used through different Bot-difficulties.
-   * Available Methods are:
-   */
 
   // playRandomCard(AIController) : int
   // Returns the index of a playable card on the hand of the bot.

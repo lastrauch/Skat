@@ -2,11 +2,11 @@ package network.messages;
 
 import logic.GameSettings;
 
-public class GameSettings_Msg extends Message {
+public class GameSettingsMsg extends Message {
   private static final long serialVersionUID = 1L;
   private GameSettings gs;
 
-  public GameSettings_Msg(GameSettings gs) {
+  public GameSettingsMsg(GameSettings gs) {
     super(MessageType.GAME_SETTINGS);
     this.gs = gs;
   }

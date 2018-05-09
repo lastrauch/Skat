@@ -4,12 +4,12 @@ import java.util.List;
 import logic.GameSettings;
 import logic.Player;
 
-public class Lobby_Msg extends Message {
+public class LobbyMsg extends Message {
   private static final long serialVersionUID = 1L;
   private Player[] player;
   private GameSettings gs;
 
-  public Lobby_Msg(List<Player> player, GameSettings gs) {
+  public LobbyMsg(List<Player> player, GameSettings gs) {
     super(MessageType.LOBBY);
     this.player = player.toArray(new Player[player.size()]);
     this.gs = gs;

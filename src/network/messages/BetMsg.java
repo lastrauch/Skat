@@ -2,12 +2,12 @@ package network.messages;
 
 import logic.Player;
 
-public class Bet_Msg extends Message {
+public class BetMsg extends Message {
   private static final long serialVersionUID = 1L;
   private Player player;
   private int bet;
 
-  public Bet_Msg(Player player, int bet) {
+  public BetMsg(Player player, int bet) {
     super(MessageType.BET);
     this.player = player;
     this.bet = bet;

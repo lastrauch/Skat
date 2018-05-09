@@ -3,12 +3,12 @@ package network.messages;
 import logic.Card;
 import logic.Player;
 
-public class CardPlayed_Msg extends Message {
+public class CardPlayedMsg extends Message {
   private static final long serialVersionUID = 1L;
   private Player player;
   private Card card;
 
-  public CardPlayed_Msg(Player player, Card card) {
+  public CardPlayedMsg(Player player, Card card) {
     super(MessageType.CARD_PLAYED);
     this.player = player;
     this.card = card;

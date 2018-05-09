@@ -4,11 +4,12 @@ import java.util.List;
 import logic.Card;
 import logic.PlayState;
 
+/**
+ * This is a static class to implement methods to play with a difficult AI. Available methods are:
+ * 
+ * @author fkleinoe
+ */
 public class Hard {
-
-  /*
-   * This is a static class to implement methods to play with a difficult AI. Available methods are:
-   */
 
   // askForBet(AIController, int) : boolean
   // Checks if the easy AI wants to place a bet of passed value.

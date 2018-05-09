@@ -2,11 +2,11 @@ package network.messages;
 
 import logic.Player;
 
-public class ClientDisconnect_Msg extends Message {
+public class ClientDisconnectMsg extends Message {
   private static final long serialVersionUID = 1L;
   private Player player;
 
-  public ClientDisconnect_Msg(Player player) {
+  public ClientDisconnectMsg(Player player) {
     super(MessageType.CLIENT_DISCONNECT);
     this.player = player;
   }

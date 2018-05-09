@@ -14,12 +14,13 @@ import logic.Player;
 import logic.Position;
 import network.Settings;
 
+/**
+ * This class is the main class of the AI. It inherits the InGameInterface methods to call different
+ * actions on the AI.
+ * 
+ * @author fkleinoe
+ */
 public class AiController implements InGameInterface {
-
-  /*
-   * This class is the main class of the AI. It inherits the InGameInterface methods to call
-   * different actions on the AI. Available methods are:
-   */
 
   // startPlay(List<Card>, Position) : void
   // Sets the hand and the position

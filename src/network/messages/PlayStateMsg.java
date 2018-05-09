@@ -2,11 +2,11 @@ package network.messages;
 
 import logic.PlayState;
 
-public class PlayState_Msg extends Message {
+public class PlayStateMsg extends Message {
   private static final long serialVersionUID = 1L;
   private PlayState ps;
 
-  public PlayState_Msg(PlayState ps) {
+  public PlayStateMsg(PlayState ps) {
     super(MessageType.PLAY_STATE);
     this.ps = ps;
   }

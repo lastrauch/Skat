@@ -5,13 +5,13 @@ import logic.Card;
 import logic.PlayState;
 import logic.Player;
 
-public class DealtCards_Msg extends Message {
+public class DealtCardsMsg extends Message {
   private static final long serialVersionUID = 1L;
   private Player player;
   private Card[] cards;
   private PlayState ps;
 
-  public DealtCards_Msg(Player player, List<Card> cards, PlayState ps) {
+  public DealtCardsMsg(Player player, List<Card> cards, PlayState ps) {
     super(MessageType.DEALT_CARDS);
     this.player = player;
     this.cards = cards.toArray(new Card[cards.size()]);

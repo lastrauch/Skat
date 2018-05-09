@@ -8,15 +8,15 @@ import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
 import network.client.Client;
-import network.messages.Bet_Msg;
-import network.messages.CardPlayed_Msg;
-import network.messages.ChatMessage_Msg;
-import network.messages.DealtCards_Msg;
-import network.messages.GameSettings_Msg;
-import network.messages.Kontra_Msg;
-import network.messages.PlayState_Msg;
-import network.messages.Rekontra_Msg;
-import network.messages.StartGame_Msg;
+import network.messages.BetMsg;
+import network.messages.CardPlayedMsg;
+import network.messages.ChatMessageMsg;
+import network.messages.DealtCardsMsg;
+import network.messages.GameSettingsMsg;
+import network.messages.KontraMsg;
+import network.messages.PlayStateMsg;
+import network.messages.RekontraMsg;
+import network.messages.StartGameMsg;
 import network.server.Server;
 import network.server.ServerFinder;
 
@@ -163,7 +163,7 @@ public class NetworkController implements LogicNetwork {
    * @param message to send
    */
   public void sendChatMessage(String message) {
-    ChatMessage_Msg msg = new ChatMessage_Msg(this.player, message);
+    ChatMessageMsg msg = new ChatMessageMsg(this.player, message);
     this.client.sendMessage(msg);
   }
 
@@ -176,7 +176,7 @@ public class NetworkController implements LogicNetwork {
    */
   public void sendGameSettings(GameSettings gameSettings) {
     if (isHost) {
-      GameSettings_Msg msg = new GameSettings_Msg(gameSettings);
+      GameSettingsMsg msg = new GameSettingsMsg(gameSettings);
       this.client.sendMessage(msg);
     }
   }
@@ -188,7 +188,7 @@ public class NetworkController implements LogicNetwork {
    * @author fkleinoe
    */
   public void startGame() {
-    StartGame_Msg msg = new StartGame_Msg();
+    StartGameMsg msg = new StartGameMsg();
     this.client.sendMessage(msg);
   }
 
@@ -203,7 +203,7 @@ public class NetworkController implements LogicNetwork {
    * @param playState of the play
    */
   public void dealCards(Player player, List<Card> cards, PlayState playState) {
-    DealtCards_Msg msg = new DealtCards_Msg(player, cards, playState);
+    DealtCardsMsg msg = new DealtCardsMsg(player, cards, playState);
     this.client.sendMessage(msg);
   }
 
@@ -216,7 +216,7 @@ public class NetworkController implements LogicNetwork {
    * @param player who placed the bet
    */
   public void bet(int bet, Player player) {
-    Bet_Msg msg = new Bet_Msg(player, bet);
+    BetMsg msg = new BetMsg(player, bet);
     this.client.sendMessage(msg);
   }
 
@@ -228,7 +228,7 @@ public class NetworkController implements LogicNetwork {
    * @param playState that will be set
    */
   public void sendPlayState(PlayState playState) {
-    PlayState_Msg msg = new PlayState_Msg(playState);
+    PlayStateMsg msg = new PlayStateMsg(playState);
     this.client.sendMessage(msg);
   }
 
@@ -239,7 +239,7 @@ public class NetworkController implements LogicNetwork {
    * @author fkleinoe
    */
   public void sendKontra() {
-    Kontra_Msg msg = new Kontra_Msg();
+    KontraMsg msg = new KontraMsg();
     this.client.sendMessage(msg);
   }
 
@@ -250,7 +250,7 @@ public class NetworkController implements LogicNetwork {
    * @author fkleinoe
    */
   public void sendRekontra() {
-    Rekontra_Msg msg = new Rekontra_Msg();
+    RekontraMsg msg = new RekontraMsg();
     this.client.sendMessage(msg);
   }
 
@@ -263,7 +263,7 @@ public class NetworkController implements LogicNetwork {
    * @param player that played the card
    */
   public void sendCardPlayed(Card card, Player player) {
-    CardPlayed_Msg msg = new CardPlayed_Msg(player, card);
+    CardPlayedMsg msg = new CardPlayedMsg(player, card);
     this.client.sendMessage(msg);
   }
 
