@@ -1,4 +1,4 @@
-package jUnit.Database;
+package junit.database;
 
 import logic.Player;
 import org.junit.jupiter.api.AfterAll;
