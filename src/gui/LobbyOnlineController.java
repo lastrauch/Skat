@@ -92,11 +92,6 @@ public class LobbyOnlineController implements Initializable {
       join.add(new JFXButton());
     }
     for (int i = 0; i < nr.size(); i++) {
-      System.out.println("a.size2: " + nr.size());
-      System.out.println(
-          String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer()) + "/");
-      System.out.println(String.valueOf(
-          "/" + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer())));
       nr.get(i)
           .setText(String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer())
               + "/"
@@ -108,7 +103,7 @@ public class LobbyOnlineController implements Initializable {
 
     for (int i = 0; i < user.size(); i++) {
       user.get(i).setText(LoginController.interfGL.lobbyInformation().get(i).getServerName());
-      user.get(i).setFont(Font.font("System", 23));
+      user.get(i).setFont(Font.font("System", 15));
 
       vboxUser.getChildren().add(user.get(i));
     }
@@ -131,7 +126,7 @@ public class LobbyOnlineController implements Initializable {
         @Override
         public void handle(MouseEvent event) {
           LoginController.interfGL
-              .joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getName());
+              .joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getIP());
           System.out.println("Listener");
           main.displayLobby();
         }
@@ -161,7 +156,7 @@ public class LobbyOnlineController implements Initializable {
         @Override
         public void handle(MouseEvent event) {
           LoginController.interfGL
-              .joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getName());
+              .joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getIP());
           main.displayLobby();
         }
       });
