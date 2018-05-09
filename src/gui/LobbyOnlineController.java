@@ -157,6 +157,12 @@ public class LobbyOnlineController implements Initializable {
         public void handle(MouseEvent event) {
           LoginController.interfGL
               .joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getIP());
+          try {
+            Thread.sleep(1000);
+          } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
           main.displayLobby();
         }
       });
