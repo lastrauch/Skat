@@ -36,44 +36,26 @@
                </textFill>
             </Label>
             <Separator layoutX="2.0" layoutY="77.0" prefHeight="0.0" prefWidth="706.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-            <VBox layoutX="65.0" layoutY="132.0" prefHeight="241.0" prefWidth="425.0" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="132.0">
-               <children>
-                  <AnchorPane layoutX="65.0" layoutY="132.0" prefHeight="145.0" prefWidth="425.0" style="-fx-background-color: Peru; -fx-background-radius: 30;">
-                     <children>
-                        <ImageView fitHeight="76.0" fitWidth="80.0" layoutX="14.0" layoutY="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="20.0">
-                           <image>
-                              <Image url="@../../resources/console.png" />
-                           </image>
-                        </ImageView>
-                        <JFXButton layoutX="123.0" layoutY="25.0" onAction="#singlePlayer" text="Single Player Game" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="30.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                     <effect>
-                        <InnerShadow color="#611212" />
-                     </effect>
-                  </AnchorPane>
-                  <AnchorPane layoutX="65.0" layoutY="342.0" prefHeight="148.0" prefWidth="425.0" style="-fx-background-color: Peru; -fx-background-radius: 30;">
-                     <children>
-                        <JFXButton alignment="CENTER" layoutX="128.0" layoutY="20.0" onAction="#multiPlayer" text="Online Multiplayer Game" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="30.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </JFXButton>
-                        <ImageView fitHeight="76.0" fitWidth="80.0" layoutX="18.0" layoutY="12.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="20.0">
-                           <image>
-                              <Image url="@../../resources/online-game.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <effect>
-                        <InnerShadow color="#611212" />
-                     </effect>
-                  </AnchorPane>
-               </children>
-            </VBox>
+            <JFXButton alignment="CENTER" layoutX="54.0" layoutY="110.0" onAction="#singlePlayer" prefHeight="115.0" prefWidth="599.0" style="-fx-background-color: peru; -fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: brown;" text="Singleplayer" textFill="WHITE">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </JFXButton>
+            <JFXButton alignment="CENTER" layoutX="54.0" layoutY="266.0" onAction="#multiPlayer" prefHeight="115.0" prefWidth="599.0" style="-fx-background-color: peru; -fx-border-color: brown; -fx-background-radius: 30; -fx-border-radius: 30;" text="Multiplayer" textFill="WHITE">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="76.0" fitWidth="80.0" layoutX="82.0" layoutY="123.0" AnchorPane.bottomAnchor="225.0" AnchorPane.topAnchor="123.0">
+               <image>
+                  <Image url="@../../resources/console.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="76.0" fitWidth="80.0" layoutX="73.0" layoutY="286.0" AnchorPane.bottomAnchor="62.0" AnchorPane.topAnchor="286.0">
+               <image>
+                  <Image url="@../../resources/online-game.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <ImageView fitHeight="201.0" fitWidth="142.0" layoutX="61.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true" rotate="40.2" />
