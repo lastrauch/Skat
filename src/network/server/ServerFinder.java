@@ -41,7 +41,6 @@ public class ServerFinder {
   public ServerFinder(int port) {
     this.port = port;
     this.servers = new ArrayList<Server>();
-    this.findServers();
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,7 +53,9 @@ public class ServerFinder {
    * @return List(Server) to get
    */
   public List<Server> refresh() {
+    this.servers.clear();
     this.findServers();
+    System.out.println("asdasdasdasdasdasdasdasdasd so viele sörver " + this.servers.size());
     return this.servers;
   }
 
@@ -64,7 +65,7 @@ public class ServerFinder {
    * @author fkleinoe
    */
   private void findServers() {
-    this.servers.clear();
+    
     try {
       socket = new DatagramSocket();
       socket.setBroadcast(true);
