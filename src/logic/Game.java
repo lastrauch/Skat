@@ -11,7 +11,7 @@ public class Game {
    * @author sandfisc
    * @author awesch
    */
-  public static List<Player> calculateWinner(PlayState ps, List<Player> group) {
+  public static List<Player> calculateWinner(List<Player> group) {
     List<Player> winner = new ArrayList<Player>();
     int highestScore = 0;
 
