@@ -3,10 +3,12 @@ package ai;
 import logic.Colour;
 import logic.PlayMode;
 
+/**
+ * This class represents the PlayMode that the AI wants to play, if it wins the auction.
+ * 
+ * @author fkleinoe
+ */
 public class SinglePlay {
-
-  // This class represents the PlayMode that the AI wants to play, if it wins the
-  // auction.
 
   private PlayMode playMode;
   private Colour colour;

@@ -8,11 +8,12 @@ import logic.LogicException;
 import logic.Number;
 import logic.PlayMode;
 
+/**
+ * This is a static class to implement methods which are used through different Bot-difficulties.
+ * 
+ * @author fkleinoe
+ */
 public class General {
-
-  // This is a static class to implement methods which are used through different
-  // Bot-difficulties.
-  // Available Methods are:
 
   // playRandomCard(AIController) : int
   // Returns the index of a playable card on the hand of the bot.
@@ -28,16 +29,16 @@ public class General {
 
   // initializeProbabilities(List<Card>) : double[][]
   // Returns the initialization of card probabilities, first column is bot
-  
+
   // checkIfPossibleAndGetIndex(double[][], List<Card>, int, int, int) : int
   // Checks whether the AI has said card in its hand and return the index, if so.
-  
+
   // playColour(doulbe[][], List<Card>, int, int, int, boolean) : int
   // Tries to play card of given colour.
-  
+
   // playTrump(PlayMode, double[][], List<Card>, int, int, int, int, boolean) : int
   // Tries to play a trump card.
-  
+
   // playValue(double[][], List<Card>, int, int, int, boolean) : int
   // Tries to play a card with no specific colour.
 
@@ -322,7 +323,7 @@ public class General {
   }
 
   /**
-   * Tries to play a card with no specific colour. 
+   * Tries to play a card with no specific colour.
    * 
    * @author fkleinoe
    * @param cardProbabilities of all players
