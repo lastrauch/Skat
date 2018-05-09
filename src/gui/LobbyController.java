@@ -447,4 +447,31 @@ public class LobbyController implements Initializable {
   public int countBot() {
     return vbox1.getChildren().size();
   }
+  
+  /**
+   * opens Settings-screen.
+   * @author lstrauch
+   */
+  @FXML
+  public void settings() {
+    guiCon.displaySettings();
+  }
+
+  /**
+   * opens Help-screen.
+   * @author lstrauch
+   */
+  @FXML
+  public void help() {
+    guiCon.displayHelp();
+  }
+
+  /**
+   * opens AccountSettings-screen.
+   * @author lstrauch
+   */
+  @FXML
+  public void accountSettings() {
+    guiCon.displayAccountSettings();
+  }
 }
