@@ -858,8 +858,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.waitFor(3000);
 
         } else {
+          
           // game is not over
-          // update position !!!!!!! UPDATE POSITION IN CLIENTLOGIC
           this.updatePosition();
 
           // createNewPlay!
@@ -867,7 +867,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.playState.setGroup(this.getPlayingGroup());
           this.playState.setPlayNr(this.playState.getPlayNr() + 1);
 
-          // change to id later
           for (Player p : this.group) {
             if (p.getName().equals(this.player.getName())) {
               this.player.setPosition(p.getPosition());
