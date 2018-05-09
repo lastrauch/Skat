@@ -1,18 +1,14 @@
 package logic;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import ai.AiController;
 import ai.Bot;
 import ai.BotDifficulty;
-import gui.ImplementsLogicGui;
-import gui.InGameController;
 import interfaces.GuiLogic;
 import interfaces.InGameInterface;
 import interfaces.LogicGui;
 import interfaces.LogicNetwork;
-import interfaces.NetworkLogic;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.image.Image;
 import network.NetworkController;
 import network.server.Server;
@@ -22,14 +18,16 @@ public class GameController implements GuiLogic {
   private List<Player> group;
   private LogicGui logicGui; // interface from logic to gui
   private LogicNetwork networkController; // interface from logic to network
-  private GuiLogic guiLogic; // interface from gui to logic
   private List<ClientLogic> clientLogic;
-  private Game game;
   private GameSettings gameSettings;
   private List<Server> server;
   private Server myServer;
 
-
+  /**
+   * constructor.
+   * 
+   * @param logicGui
+   */
   public GameController(LogicGui logicGui) {
     this.logicGui = logicGui;
     this.gameSettings = new GameSettings();
@@ -38,20 +36,9 @@ public class GameController implements GuiLogic {
     server = new ArrayList<Server>();
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see interfaces.GuiLogic#decideGameMode(logic.GameMode)
-   */
-  @Override
-  public void decideGameMode(GameMode m) {
-
-  }
-
-
   @Override
   /**
-   * (non-Javadoc)
+   * is called, when the controller logs in.
    * 
    * @author awesch
    * @see interfaces.GuiLogic#login(java.lang.String)
@@ -135,7 +122,7 @@ public class GameController implements GuiLogic {
     System.out.println("start game method");
     this.gameSettings = gs;
     this.group = this.clientLogic.get(0).getLobby();
-    for(ClientLogic cl: this.clientLogic) {
+    for (ClientLogic cl : this.clientLogic) {
       cl.setInGame(true);
     }
 
@@ -152,7 +139,7 @@ public class GameController implements GuiLogic {
   @Override
   public ArrayList<Server> lobbyInformation() {
     ArrayList<Server> lobbyInfo = new ArrayList<Server>();
-    lobbyInfo = (ArrayList<Server>) this.networkController.getServer(); 
+    lobbyInfo = (ArrayList<Server>) this.networkController.getServer();
     return lobbyInfo;
   }
 
@@ -183,7 +170,7 @@ public class GameController implements GuiLogic {
   @Override
   public void announceRekontra() {
     // TODO Auto-generated method stub
-    
+
   }
 
 }

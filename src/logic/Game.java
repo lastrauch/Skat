@@ -3,7 +3,7 @@ package logic;
 public class Game {
 
   /**
-   * calculates the winner of the whole game
+   * calculates the winner of the whole game.
    * 
    * @author sandfisc
    */

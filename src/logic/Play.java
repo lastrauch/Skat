@@ -31,17 +31,15 @@ public class Play {
    */
   public static List<Player> calculateWinner(PlayState ps) {
 
-    List<Player> winnerD = new ArrayList<Player>();
-    List<Player> winnerO = new ArrayList<Player>();
+    List<Player> winner = new ArrayList<Player>();
     
-    for(Player p: ps.getGroup()) {
-      if(p.isDeclarer()) {
-        winnerD.add(p);
-      } else {
-        winnerO.add(p);
+    // initialize winner with opponents
+    for(Player p :  ps.getGroup()) {
+      if(!p.isDeclarer()) {
+        winner.add(p);
       }
     }
-
+    
     // "singleplayer bidded himself over"
     if (!checkOverBid(ps)) {
 
@@ -51,26 +49,38 @@ public class Play {
       // check "schneider"
       if (pointsD >= 90) {
         ps.setSchneider(true);
-        // check "schwarz"
-        if (pointsO == 0) {
-          ps.setSchwarz(true);
-        } 
-        return winnerD;
-      } 
+      } else if (ps.getSchneiderAnnounced()) {
+        return winner;
+      }
+
+      // check "schwarz"
+      if (pointsO == 0) {
+        ps.setSchwarz(true);
+      } else if (ps.getSchneiderAnnounced()) {
+       return winner;
+      }
 
       // there are two possible states where the declarer wins (depends if he plays hand or not)
       // if he plays hand: poinsD >= pointsO (1.), if not: pointsD > pointsO(2.)
       // 1.
       if (pointsD >= pointsO && ps.getHandGame()) {
-        return winnerD;
+        for (Player p : ps.getGroup()) {
+          if (p.isDeclarer()) {
+            winner.set(0, p);
+          }
+        }
       }
       // 2.
       else if (pointsD > pointsO && (!ps.getHandGame())) {
-        return winnerD;
+        for (Player p : ps.getGroup()) {
+          if (p.isDeclarer()) {
+            winner.set(0, p);
+          }
+        }
       }
-
+      
     }
-    return winnerO;
+    return winner;
   }
 
 
@@ -80,8 +90,8 @@ public class Play {
    * @author sandfisc
    * @throws LogicException
    */
-  public static PlayState calculatePoints(PlayState ps, GameSettings gameSettings,
-      boolean declarerWins) throws LogicException {
+  public static PlayState calculatePoints(PlayState ps, GameSettings gameSettings, boolean declarerWins)
+      throws LogicException {
 
     // check if the declarer over bid
     if (checkOverBid(ps)) {
@@ -110,17 +120,17 @@ public class Play {
     }
     for (Player p : ps.getGroup()) {
       if (p.isDeclarer()) {
-        p.getPlayScore().add((points * (-2)));
-      } else {
+       p.getPlayScore().add((points * (-2)));
+      }else {
         p.getPlayScore().add(0);
       }
-    }
+    }   
     return ps;
   }
 
   /**
-   * if declarer won, the value of the game is added to his/her gamePoints else twice the value is
-   * subtracted from his/her score
+   * if declarer won, the value of the game is added to his/her gamePoints else twice the
+   * value is subtracted from his/her score
    * 
    * @author sandfisc
    */
@@ -129,18 +139,18 @@ public class Play {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
           ps.getGroup()[i].getPlayScore().add(ps.getPlayValue());
-        } else {
+        }else {
           ps.getGroup()[i].getPlayScore().add(0);
         }
-      }
+      }   
     } else {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
           ps.getGroup()[i].getPlayScore().add((-2) * (ps.getPlayValue()));
-        } else {
+        }else {
           ps.getGroup()[i].getPlayScore().add(0);
         }
-      }
+      }   
     }
     return ps;
   }
@@ -156,13 +166,13 @@ public class Play {
       if (p.isDeclarer()) {
         if (declarerWins) {
           p.getPlayScore().add(0);
-        } else {
+        }else {
           p.getPlayScore().add((-2) * (ps.getPlayValue()));
         }
-      } else {
+      }else {
         if (declarerWins) {
           p.getPlayScore().add((-1) * (ps.getPlayValue()));
-        } else {
+        }else {
           p.getPlayScore().add(0);
         }
       }
@@ -180,21 +190,21 @@ public class Play {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
           ps.getGroup()[i].getPlayScore().add(ps.getPlayValue() + 50);
-        } else {
+        }else {
           ps.getGroup()[i].getPlayScore().add(0);
         }
-      }
+      }     
     } else {
       for (int i = 0; i < ps.getGroup().length; i++) {
         if (ps.getGroup()[i].isDeclarer() && ps.getGroup()[i].getPosition() != Position.DEALER) {
           ps.getGroup()[i].getPlayScore().add((-1) * (ps.getPlayValue() + 50));
-        } else {
+        }else {
           ps.getGroup()[i].getPlayScore().add(0);
         }
-      }
+      }    
     }
     return ps;
   }
-
+  
 }
 
