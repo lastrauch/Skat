@@ -1,4 +1,4 @@
-package jUnit.Network;
+package junit.network;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ServerTest {
+public class ClientConnectionTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -32,27 +32,22 @@ public class ServerTest {
 	}
 
 	@Test
-	public void testServer() {
+	public void testClientConnectionServerSocket() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testListen() {
+	public void testClientConnectionServerSocketPlayer() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testStopServer() {
+	public void testSendMessage() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testRemovePlayer() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testRemoveClientConnection() {
+	public void testGetPlayer() {
 		fail("Not yet implemented");
 	}
 

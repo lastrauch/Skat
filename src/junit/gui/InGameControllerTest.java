@@ -1,7 +1,7 @@
 /**
  * @author lstrauch
  */
-package jUnit.Gui;
+package junit.gui;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;

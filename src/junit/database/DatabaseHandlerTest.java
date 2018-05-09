@@ -1,4 +1,4 @@
-package jUnit.AI;
+package junit.database;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterAll;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class EasyTest {
+class DatabaseHandlerTest {
 
   @BeforeAll
   static void setUpBeforeClass() throws Exception {}
@@ -22,32 +22,12 @@ class EasyTest {
   void tearDown() throws Exception {}
 
   @Test
-  void testAskForBet() {
+  void testDatabaseHandler() {
     fail("Not yet implemented");
   }
 
   @Test
-  void testAskToTakeUpSkat() {
-    fail("Not yet implemented");
-  }
-
-  @Test
-  void testSwitchSkat() {
-    fail("Not yet implemented");
-  }
-
-  @Test
-  void testAskToSetPlayState() {
-    fail("Not yet implemented");
-  }
-
-  @Test
-  void testAskToRekontra() {
-    fail("Not yet implemented");
-  }
-
-  @Test
-  void testAskToPlayCard() {
+  void testPrepareStatements() {
     fail("Not yet implemented");
   }
 
