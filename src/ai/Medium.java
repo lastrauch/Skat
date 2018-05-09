@@ -1705,12 +1705,12 @@ public class Medium {
       // Bot does not play the first card, so he needs to react to the first card
     } else {
       // Bot does not have colour
-      if (controller.getHasColour()[4 - trick.get(0).getColour().ordinal()][0]) {
+      if (controller.getHasColour()[3 - trick.get(0).getColour().ordinal()][0]) {
 
         // Play highest Card of colour, where amount is < 3
         int[] hasColour = new int[4];
         for (int i = 0; i < cards.size(); i++) {
-          hasColour[4 - trick.get(0).getColour().ordinal()]++;
+          hasColour[3 - trick.get(0).getColour().ordinal()]++;
         }
         for (int colour = 0; colour < hasColour.length; colour++) {
           if (hasColour[colour] < 3 && hasColour[colour] > 0) {
@@ -1719,8 +1719,8 @@ public class Medium {
               number++;
             }
             for (int h = 0; h < cards.size(); h++) {
-              if ((8 - cards.get(h).getNumber().ordinal()) == number
-                  && (4 - cards.get(h).getColour().ordinal()) == colour) {
+              if ((7 - cards.get(h).getNumber().ordinal()) == number
+                  && (3 - cards.get(h).getColour().ordinal()) == colour) {
                 return h;
               }
             }
