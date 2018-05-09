@@ -2485,24 +2485,22 @@ public class InGameController implements Initializable, InGameInterface {
   public void displayAuctionScreen() {
     paneBet.setLayoutX(475);
     paneBet.setLayoutY(188);
-    paneBet.setPrefHeight(60);
+    paneBet.setPrefHeight(120);
     paneBet.setPrefWidth(395);
     paneBet.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+        "-fx-background-color: tan; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20");
 
-    pass.setId("pass");
     pass.setPrefHeight(44);
-    pass.setPrefWidth(69);
+    pass.setPrefWidth(75);
     pass.setText("Pass");
     pass.setFont(Font.font("System", FontWeight.BOLD, 20));
     pass.setTextFill(Color.WHITE);
-    pass.setStyle("-fx-background-color: tan;");
-    betB.setId("value");
+    pass.setStyle("-fx-background-color: peru;");
     betB.setPrefHeight(44);
-    betB.setPrefWidth(69);
+    betB.setPrefWidth(75);
     betB.setFont(Font.font("System", FontWeight.BOLD, 20));
     betB.setTextFill(Color.WHITE);
-    betB.setStyle("-fx-background-color: tan;");
+    betB.setStyle("-fx-background-color: peru;");
 
     labelBet.setPrefHeight(53);
     labelBet.setLayoutX(88);
@@ -2522,10 +2520,15 @@ public class InGameController implements Initializable, InGameInterface {
     box.setLayoutX(60);
     box.setLayoutY(58);
     box.setSpacing(100);
+    box.setAlignment(Pos.CENTER);
 
     if (!paneBet.getChildren().contains(box) && !paneBet.getChildren().contains(labelBet)) {
       paneBet.getChildren().add(box);
-      paneBet.getChildren().add(labelBet);
+      AnchorPane.setLeftAnchor(box, 0.0);
+      AnchorPane.setRightAnchor(box, 0.0);
+      AnchorPane.setTopAnchor(box, 0.0);
+      AnchorPane.setBottomAnchor(box, 0.0);
+//      paneBet.getChildren().add(labelBet);
     }
 
     if (!mainPane.getChildren().contains(paneBet)) {
@@ -2547,33 +2550,33 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    */
   public void displayAuctionWinnerScreen() {
-    paneAuc.setPrefHeight(315);
-    paneAuc.setPrefWidth(582);
+    paneAuc.setPrefHeight(330);
+    paneAuc.setPrefWidth(700);
     paneAuc.setLayoutX(334);
     paneAuc.setLayoutY(128);
     paneAuc.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+        "-fx-background-color: tan; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20");
 
     diamonds.setPrefHeight(42);
-    diamonds.setPrefWidth(117);
+    diamonds.setPrefWidth(125);
     diamonds.setText("Diamonds");
-    diamonds.setFont(Font.font("System", FontWeight.BOLD, 20));
-    diamonds.setStyle("-fx-background-color: tan;");
+    diamonds.setFont(Font.font("System", FontWeight.BOLD, 16));
+    diamonds.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     hearts.setPrefHeight(42);
-    hearts.setPrefWidth(117);
+    hearts.setPrefWidth(125);
     hearts.setText("Hearts");
-    hearts.setFont(Font.font("System", FontWeight.BOLD, 20));
-    hearts.setStyle("-fx-background-color: tan;");
+    hearts.setFont(Font.font("System", FontWeight.BOLD, 16));
+    hearts.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     spades.setPrefHeight(42);
-    spades.setPrefWidth(117);
+    spades.setPrefWidth(125);
     spades.setText("Spades");
-    spades.setFont(Font.font("System", FontWeight.BOLD, 20));
-    spades.setStyle("-fx-background-color: tan;");
+    spades.setFont(Font.font("System", FontWeight.BOLD, 16));
+    spades.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     clubs.setPrefHeight(42);
-    clubs.setPrefWidth(117);
+    clubs.setPrefWidth(125);
     clubs.setText("Clubs");
-    clubs.setFont(Font.font("System", FontWeight.BOLD, 20));
-    clubs.setStyle("-fx-background-color: tan;");
+    clubs.setFont(Font.font("System", FontWeight.BOLD, 16));
+    clubs.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     ToggleGroup g1 = new ToggleGroup();
     diamonds.setToggleGroup(g1);
     hearts.setToggleGroup(g1);
@@ -2590,47 +2593,47 @@ public class InGameController implements Initializable, InGameInterface {
       boxWin1.getChildren().add(clubs);
     }
     boxWin1.setSpacing(20);
-    boxWin1.setPrefWidth(528);
+    boxWin1.setPrefWidth(650);
     boxWin1.setPrefHeight(42);
     boxWin1.setLayoutX(28);
     boxWin1.setLayoutY(60);
 
     grand.setPrefHeight(42);
-    grand.setPrefWidth(117);
+    grand.setPrefWidth(125);
     grand.setText("Grand");
-    grand.setFont(Font.font("System", FontWeight.BOLD, 20));
-    grand.setStyle("-fx-background-color: tan;");
+    grand.setFont(Font.font("System", FontWeight.BOLD, 16));
+    grand.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     nullG.setPrefHeight(42);
-    nullG.setPrefWidth(117);
+    nullG.setPrefWidth(125);
     nullG.setText("Null");
-    nullG.setFont(Font.font("System", FontWeight.BOLD, 20));
-    nullG.setStyle("-fx-background-color: tan;");
+    nullG.setFont(Font.font("System", FontWeight.BOLD, 16));
+    nullG.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
 
     if (!boxWin2.getChildren().contains(grand) && !boxWin2.getChildren().contains(nullG)) {
       boxWin2.getChildren().add(grand);
       boxWin2.getChildren().add(nullG);
     }
     boxWin2.setSpacing(158);
-    boxWin2.setPrefWidth(528);
+    boxWin2.setPrefWidth(650);
     boxWin2.setPrefHeight(42);
     boxWin2.setLayoutX(28);
     boxWin2.setLayoutY(158);
 
     ouvert.setPrefHeight(21);
-    ouvert.setPrefWidth(102);
+    ouvert.setPrefWidth(112);
     ouvert.setText("Ouvert");
     ouvert.setFont(Font.font("System", 15));
-    ouvert.setStyle("-fx-background-color: tan;");
+    ouvert.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     schneider.setPrefHeight(21);
-    schneider.setPrefWidth(102);
+    schneider.setPrefWidth(112);
     schneider.setText("Schneider");
     schneider.setFont(Font.font("System", 15));
-    schneider.setStyle("-fx-background-color: tan;");
+    schneider.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     schwarz.setPrefHeight(21);
-    schwarz.setPrefWidth(102);
+    schwarz.setPrefWidth(112);
     schwarz.setText("Schwarz");
     schwarz.setFont(Font.font("System", 15));
-    schwarz.setStyle("-fx-background-color: tan;");
+    schwarz.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
 
     if (!boxWin3.getChildren().contains(ouvert) && !boxWin3.getChildren().contains(schneider)
         && !boxWin3.getChildren().contains(schwarz)) {
@@ -2639,7 +2642,7 @@ public class InGameController implements Initializable, InGameInterface {
       boxWin3.getChildren().add(schwarz);
     }
     boxWin3.setSpacing(35);
-    boxWin3.setPrefWidth(528);
+    boxWin3.setPrefWidth(650);
     boxWin3.setPrefHeight(21);
     boxWin3.setLayoutX(28);
     boxWin3.setLayoutY(266);
@@ -2651,7 +2654,7 @@ public class InGameController implements Initializable, InGameInterface {
       vboxWin.getChildren().add(boxWin3);
     }
     vboxWin.setPrefHeight(185);
-    vboxWin.setPrefWidth(528);
+    vboxWin.setPrefWidth(650);
     vboxWin.setLayoutX(14);
     vboxWin.setLayoutY(97);
     vboxWin.setSpacing(40);
@@ -2660,7 +2663,7 @@ public class InGameController implements Initializable, InGameInterface {
     submit.setPrefWidth(69);
     submit.setText("Submit");
     submit.setFont(Font.font("System", 15));
-    submit.setStyle("-fx-background-color: tan; -fx-border-color: black;");
+    submit.setStyle("-fx-background-color: peru; -fx-border-color: black;");
     submit.setButtonType(ButtonType.RAISED);
     submit.setLayoutX(499);
     submit.setLayoutY(268);
