@@ -120,7 +120,7 @@ public class LobbyController implements Initializable {
     back.setPrefWidth(214.0);
     back.setPrefHeight(41.0);
     back.setLayoutX(550.0);
-    back.setLayoutY(640.0);
+    back.setLayoutY(375.0);
     back.setText("Back");
     back.setTextFill(Color.WHITE);
     back.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
