@@ -93,14 +93,18 @@ public class LobbyOnlineController implements Initializable {
               + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer()));
       nr.get(i).setFont(Font.font("System", 23));
 
-      vboxNr.getChildren().add(nr.get(i));
+      if(!vboxNr.getChildren().contains(vboxNr.getChildren().get(i))) {
+        vboxNr.getChildren().add(nr.get(i));
+      }
     }
 
     for (int i = 0; i < user.size(); i++) {
       user.get(i).setText(LoginController.interfGL.lobbyInformation().get(i).getServerName());
       user.get(i).setFont(Font.font("System", 15));
 
-      vboxUser.getChildren().add(user.get(i));
+      if(!vboxUser.getChildren().contains(vboxUser.getChildren().get(i))) {
+        vboxNr.getChildren().add(user.get(i));
+      }
     }
 
     for (int i = 0; i < join.size(); i++) {
@@ -112,7 +116,9 @@ public class LobbyOnlineController implements Initializable {
           .setStyle("-fx-background-color: peru; -fx-text-fill: white; -fx-background-radius: 20");
       join.get(i).setAlignment(Pos.CENTER);
 
-      vboxJoin.getChildren().add(join.get(i));
+      if(!vboxJoin.getChildren().contains(vboxJoin.getChildren().get(i))) {
+        vboxJoin.getChildren().add(join.get(i));
+      }
 
       int[] p = new int[1];
       p[0] = i;
