@@ -92,12 +92,8 @@ public class LobbyController implements Initializable {
     // TODO Auto-generated method stub
     if (guiCon.getGameSetCon() != null) {
       setGM();
-      // displaydiffentGameModes();
+      displaydiffentGameModes();
     }
-    displayStartButton();
-    ButtonListener();
-    displayAddBotButton();
-    displayDeleteBotButton();
 
 
 
@@ -355,27 +351,27 @@ public class LobbyController implements Initializable {
 
       @Override
       public void handle(MouseEvent event) {
-        if(vbox1.getChildren().size()-1 == 2) {
-          if(checkIfBot(p2.getText())) {
+        if (vbox1.getChildren().size() - 1 == 2) {
+          if (checkIfBot(p2.getText())) {
             LoginController.interfGL.deleteBot(p2.getText());
             vbox1.getChildren().remove(p2);
           }
-        } else if(vbox1.getChildren().size()-1 == 3) { 
-          if(checkIfBot(p3.getText())) {
+        } else if (vbox1.getChildren().size() - 1 == 3) {
+          if (checkIfBot(p3.getText())) {
             LoginController.interfGL.deleteBot(p3.getText());
             vbox1.getChildren().remove(p3);
-          } else if(checkIfBot(p2.getText())) {
+          } else if (checkIfBot(p2.getText())) {
             LoginController.interfGL.deleteBot(p2.getText());
             vbox1.getChildren().remove(p2);
-          } 
-        } else if(vbox1.getChildren().size()-1 == 4) {
-          if(!checkIfBot(p4.getText())) {
+          }
+        } else if (vbox1.getChildren().size() - 1 == 4) {
+          if (!checkIfBot(p4.getText())) {
             LoginController.interfGL.deleteBot(p4.getText());
             vbox1.getChildren().remove(p4);
-          } else if(!checkIfBot(p3.getText())) {
+          } else if (!checkIfBot(p3.getText())) {
             LoginController.interfGL.deleteBot(p3.getText());
             vbox1.getChildren().remove(p3);
-          } else if(!checkIfBot(p2.getText())) {
+          } else if (!checkIfBot(p2.getText())) {
             LoginController.interfGL.deleteBot(p2.getText());
             vbox1.getChildren().remove(p2);
           } else {
@@ -393,15 +389,16 @@ public class LobbyController implements Initializable {
   }
 
   public boolean checkIfBot(String s) {
-//    if (s.equals("Bot 1") || s.equals("Bot 2") || s.equals("Bot 3)")) {
+     if (s.equals("Bot 1") || s.equals("Bot 2") || s.equals("Bot 3)")) {
+     return true;
+     } else {
+       return false;
+     }
+//    if (s.equals("bot1") || s.equals("bot2") || s.equals("bot3")) {
 //      return true;
+//    } else {
+//      return false;
 //    }
-    System.out.println("S: " + s);
-    if (s.equals("bot1") || s.equals("bot2") || s.equals("bot3")) {
-      return true;
-    }else {
-      return false; 
-    }
   }
 
   /**
@@ -412,22 +409,35 @@ public class LobbyController implements Initializable {
     this.gm = guiCon.getGameSetCon().getGm();
   }
 
-  // public void displaydiffentGameModes() {
-  // if(gm == GameMode.SINGLEPLAYER) {
-  // displayChangeGamesettingsButton();
+  public void displaydiffentGameModes() {
+    if(guiCon.getLobbyOnlineCon() != null) {
+      if(guiCon.getLobbyOnlineCon().getHostegame()) {
+        displayStartButton();
+        displayAddBotButton();
+        displayDeleteBotButton();
+        displayChangeGamesettingsButton();
+        displayBackButton();
+      } else {
+        displayBackButton();
+      }
+    } else {
+      displayChangeGamesettingsButton();
 
-  // mainPane.getChildren().remove(allChat);
-  // mainPane.getChildren().remove(chatM);
-  // mainPane.getChildren().remove(textM);
-  // mainPane.getChildren().remove(sendB);
-  // rec.setHeight(684);
-  // start.setLayoutY(262);
-  // change.setLayoutY(491);
-  // addBot.setLayoutY(591);
-  // deleteBot.setLayoutY(591);
-  // vbox1.setLayoutY(211);
-  // vbox2.setLayoutY(211);
-  // }
+      mainPane.getChildren().remove(allChat);
+      mainPane.getChildren().remove(chatM);
+      mainPane.getChildren().remove(textM);
+      mainPane.getChildren().remove(sendB);
+      rec.setHeight(684);
+      start.setLayoutY(262);
+      change.setLayoutY(491);
+      addBot.setLayoutY(591);
+      deleteBot.setLayoutY(591);
+      vbox1.setLayoutY(211);
+      vbox2.setLayoutY(211);
+    }
+  }
+
+
 
   // }
 
@@ -447,9 +457,10 @@ public class LobbyController implements Initializable {
   public int countBot() {
     return vbox1.getChildren().size();
   }
-  
+
   /**
    * opens Settings-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -459,6 +470,7 @@ public class LobbyController implements Initializable {
 
   /**
    * opens Help-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -468,6 +480,7 @@ public class LobbyController implements Initializable {
 
   /**
    * opens AccountSettings-screen.
+   * 
    * @author lstrauch
    */
   @FXML
