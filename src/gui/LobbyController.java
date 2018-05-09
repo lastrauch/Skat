@@ -177,6 +177,7 @@ public class LobbyController implements Initializable {
 
   public void showChatMessage(String text, String playername) {
     chatM.appendText(playername +": "+text + "\n");
+    chatM.setFont(Font.font("System", FontWeight.BOLD, 19.0));
   }
   
   @FXML
