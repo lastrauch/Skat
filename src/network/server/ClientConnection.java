@@ -145,6 +145,7 @@ public class ClientConnection extends Thread {
       System.out.println(this.player.getName() + " CC disconnect.");
     }
     this.running = false;
+    this.interrupt();
     try {
       output.close();
       input.close();
@@ -208,9 +209,9 @@ public class ClientConnection extends Thread {
    * @param message to send
    */
   private void messageHandler(Message message) {
-    System.out.println("Send Message: " + message.getType() + " to "
-        + this.server.getClientConnections().size() + " players.");
     for (int i = 0; i < this.server.getClientConnections().size(); i++) {
+      System.out.println("Send Message: " + message.getType() + " to "
+          + this.server.getClientConnections().get(i).getName());
       this.server.getClientConnections().get(i).sendMessage(message);
     }
   }
@@ -227,6 +228,7 @@ public class ClientConnection extends Thread {
       // Falls ja, f�ge Spieler dem Server hinzu
       // Falls ja, sende GameSettings und andere Spieler an alle
       this.player = message.getPlayer();
+      this.setName("CC of " + this.player.getName());
       System.out.println(
           "Message send to " + message.getPlayer().getName() + ": CONNECTION_ANSWER(true)");
       this.player.setId(this.server.getNewPlayerId());

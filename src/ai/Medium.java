@@ -1705,7 +1705,7 @@ public class Medium {
       // Bot does not play the first card, so he needs to react to the first card
     } else {
       // Bot does not have colour
-      if (controller.getHasColour()[4 - trick.get(0).getColour().ordinal()][0]) {
+      if (controller.getHasColour()[3 - trick.get(0).getColour().ordinal()][0]) {
 
         // Play highest Card of colour, where amount is < 3
         int[] hasColour = new int[4];

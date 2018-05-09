@@ -56,6 +56,7 @@ public class Client extends Thread {
   private ObjectOutputStream output; // Output to Server
   private ObjectInputStream input; // Input from Server
   private ClientLogic logic; // Interface to logic
+  private boolean connected;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Constructor
@@ -94,17 +95,18 @@ public class Client extends Thread {
   public void run() {
     try {
       Message message;
-      boolean connected = true;
-      while (connected && (message = (Message) input.readObject()) != null) {
-        if (message.getType() == MessageType.LOBBY) {
-          LobbyMsg msg = (LobbyMsg) message;
-          System.out.println("Message recieved run " + this.owner.getName() + ": "
-              + message.getType() + " (Group size: " + msg.getPlayer().length + ")");
-        } else {
-          System.out
-              .println("Message recieved run " + this.owner.getName() + ": " + message.getType());
+      while (this.connected) {
+        if ((message = (Message) input.readObject()) != null) {
+          if (message.getType() == MessageType.LOBBY) {
+            LobbyMsg msg = (LobbyMsg) message;
+            System.out.println("Message recieved run " + this.owner.getName() + ": "
+                + message.getType() + " (Group size: " + msg.getPlayer().length + ")");
+          } else {
+            System.out
+                .println("Message recieved run " + this.owner.getName() + ": " + message.getType());
+          }
+          receiveMessage(message);
         }
-        receiveMessage(message);
       }
     } catch (ClassCastException e) {
       System.out.println("Client run(); ClassCastException");
@@ -112,8 +114,8 @@ public class Client extends Thread {
       System.out.println("Client run(): ClassNotFoundException");
       e.printStackTrace();
     } catch (IOException e) {
-      System.out.println("Client run(): IOException");
-      e.printStackTrace();
+      System.out.println(this.owner.getName() + " Client run(): IOException " + connected);
+      // e.printStackTrace();
     }
   }
 
@@ -136,6 +138,7 @@ public class Client extends Thread {
       e.printStackTrace();
       return false;
     }
+    this.connected = true;
     return true;
   }
 
@@ -145,6 +148,8 @@ public class Client extends Thread {
    * @author fkleinoe
    */
   public void disconnect() {
+    this.connected = false;
+    this.interrupt();
     System.out.println(this.owner.getName() + " client disconnect.");
     try {
       this.output.writeObject(new ClientDisconnectMsg(this.owner));
