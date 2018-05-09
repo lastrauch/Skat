@@ -314,37 +314,44 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * @author awesch
    */
   public void receiveBet(Player player, int bet) {
-    this.inGameController.receivedNewBet(bet, player);
-
-    // if auction is still running
-    if (!this.checkIfAuctionIsOver(bet)) {
-      // Update in auction
-      this.playState.getAuction().addToBets(bet);
-      if (bet != -1) {
-        this.playState.setBetValue(bet);
-      }
-      int newBet = this.playState.getAuction().calculateNewBet();
-      // if it is my turn
-      if (this.checkIfItsMyTurnAuction(player, bet)) {
-        // if the player goes with the bet
-        if (this.player.getBet() == 0) {
-          this.inGameController.openAskForBet(newBet);
-        } else {
-          this.inGameController.openAskForBet(newBet);
+    if (!(this.playState.getAuction().getLastOneWhoBet().getName().equals(player.getName())
+        && (this.playState.getAuction().getBetValue() == bet))) {
+      
+      this.inGameController.receivedNewBet(bet, player);
+      this.playState.getAuction().setLastOneWhoBet(player);
+      // if auction is still running
+      if (!this.checkIfAuctionIsOver(bet)) {
+        // Update in auction
+        this.playState.getAuction().addToBets(bet);
+        if (bet != -1) {
+          this.playState.setBetValue(bet);
+          this.playState.getAuction().setBetValue(bet);
         }
-        if (this.inGameController.askForBet(newBet, player)) {
-          this.netController.bet(newBet, this.player.copyMe());
-          System.out.println(this.player.getName() + "bet " + newBet);
-        } else {
-          this.netController.bet(-1, this.player.copyMe());
-          System.out.println(this.player.getName() + "bet " + -1);
+        int newBet = this.playState.getAuction().calculateNewBet();
+        // if it is my turn
+        if (this.checkIfItsMyTurnAuction(player, bet)) {
+          // if the player goes with the bet
+          if (this.player.getBet() == 0) {
+            this.inGameController.openAskForBet(newBet);
+          } else {
+            this.inGameController.openAskForBet(newBet);
+          }
+          if (this.inGameController.askForBet(newBet, player)) {
+            this.netController.bet(newBet, this.player.copyMe());
+            System.out.println(this.player.getName() + "bet " + newBet);
+          } else {
+            this.netController.bet(-1, this.player.copyMe());
+            System.out.println(this.player.getName() + "bet " + -1);
+          }
         }
+        this.updateBet(player, bet);
+      } else {
+        this.updateBet(player, bet);
+        this.setAuctionWinner();
+        this.checkIfAuctionWinner();
       }
-      this.updateBet(player, bet);
     } else {
-      this.updateBet(player, bet);
-      this.setAuctionWinner();
-      this.checkIfAuctionWinner();
+      System.out.println("yoooo you changed something with your if-bedingung!");
     }
   }
 
