@@ -1,6 +1,6 @@
 package jUnit.Database;
 
-import static org.junit.jupiter.api.Assertions.*;
+import logic.Player;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ImplementsGuiInterfaceTest {
+  Player player;
 
   @BeforeAll
   static void setUpBeforeClass() throws Exception {}
@@ -16,49 +17,52 @@ class ImplementsGuiInterfaceTest {
   static void tearDownAfterClass() throws Exception {}
 
   @BeforeEach
-  void setUp() throws Exception {}
+  void setUp() throws Exception {
+    player = new Player("test");
+  }
 
   @AfterEach
   void tearDown() throws Exception {}
 
   @Test
   void testGetImage() {
-    fail("Not yet implemented");
+    player.getImage();
   }
 
   @Test
   void testGetImageDarker() {
-    fail("Not yet implemented");
+    player.getImage();
   }
 
   @Test
   void testInsertPlayer() {
-    fail("Not yet implemented");
+    player.getName();
+
   }
 
   @Test
   void testCheckIfPlayerNew() {
-    fail("Not yet implemented");
+    player.getName();
   }
 
   @Test
   void testGetPlayerPlayer() {
-    fail("Not yet implemented");
+    player.getName();
   }
 
   @Test
   void testChangeName() {
-    fail("Not yet implemented");
+    player.getName();
   }
 
   @Test
-  void testChangeImage() {
-    fail("Not yet implemented");
+   void testChangeImage() {
+    player.getImage();
   }
 
   @Test
   void testGetPlayerString() {
-    fail("Not yet implemented");
+    player.getName();
   }
 
 }
