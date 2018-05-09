@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * This class includes everything an auction can do.
+ * 
+ */
 public class Auction implements Serializable {
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = 1L;
   private Player winner; // winner of the auction
   private int[] possibleBets; // list of the possible bets
@@ -16,12 +18,8 @@ public class Auction implements Serializable {
   private int indexOfBetValue;
   private List<Integer> bets;
 
-  /**
-   * constructor
-   * 
-   * @param auctionMembers
-   * 
-   */
+  /* ------------------------- CONSTRUCTOR ------------------------------------------- */
+
   public Auction() {
     this.bets = new ArrayList<Integer>();
     this.betValue = 18;
@@ -29,16 +27,19 @@ public class Auction implements Serializable {
     this.initializePossibleBets();
   }
 
-  public void addToBets(int bet) {
-    this.bets.add(bet);
+  public Auction(Player winner, int[] possibleBets, int betValue, int indexOfBetValue,
+      List<Integer> bets) {
+    this.winner = winner;
+    this.possibleBets = possibleBets;
+    this.betValue = betValue;
+    this.indexOfBetValue = indexOfBetValue;
+    this.bets = bets;
   }
 
-  public List<Integer> getBets() {
-    return this.bets;
-  }
+  /* ------------------------- BET VALUE ---------------------------------------------- */
 
   /**
-   * initializes the array of possible bets
+   * initializes the array of possible bets.
    */
   public void initializePossibleBets() {
     possibleBets = new int[] {18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, 44, 45, 46, 48, 50, 54,
@@ -48,12 +49,11 @@ public class Auction implements Serializable {
   }
 
   /**
-   * @author awesch
+   * returns the new bet
+   * 
    * @param currentBet
-   * @return
    */
   public int calculateNewBet() {
-    // !!!!!!! DENK DRAN IMMER NACH DIE NEUEN DINGE IN AUCTION UPZUDATEN auch current bet aus bets
     if (this.bets.size() == 1) {
       return this.betValue;
     }
@@ -66,79 +66,39 @@ public class Auction implements Serializable {
     return this.betValue;
   }
 
+  /* ------------------------- COPY ---------------------------------------------------- */
 
-  public int[] getPossibleBets() {
-    return this.possibleBets;
+  public Auction copyMe() {
+
+    Player newWinner = this.winner.copyMe();
+    int[] newPossibleBets = new int[this.possibleBets.length];
+    for (int i = 0; i < this.possibleBets.length; i++) {
+      newPossibleBets[i] = this.possibleBets[i];
+    }
+    int newBetValue = this.betValue;
+    int newIndexOfBetValue = this.indexOfBetValue;
+    List<Integer> newBets = new ArrayList<Integer>();
+    for (int i : this.bets) {
+      newBets.add(i);
+    }
+    Auction newAuction =
+        new Auction(newWinner, newPossibleBets, newBetValue, newIndexOfBetValue, newBets);
+
+    return newAuction;
   }
 
-  public Player getWinner() {
-    return winner;
-  }
+  /* ---------------------- GETTER AND SETTER ------------------------------------------- */
 
-  /**
-   * 
-   * @param winner
-   */
   public void setWinner(Player winner) {
     this.winner = winner;
   }
-  //
-  // public void mangageSkat(PlayState ps) {
-  // // ask the declarer if he wants to take the skat or not and save the answer in the PlayState
-  // ps.setHandGame(this.winner.askForHandGame());
-  // // add the skat & lay it down if answer yes
-  // if (ps.getHandGame()) {
-  // this.takeUpStack(ps);
-  // this.putDownTwoCards(ps);
-  // }
-  // }
-  //
-  // /**
-  // * the two cards of the stack are added to the hand and the hand gets resorted, created for
-  // * manageSkat
-  // *
-  // * @author awesch
-  // */
-  // public void takeUpStack(PlayState ps) {
-  // this.winner.getHand().add(ps.getSkat()[0]);
-  // this.winner.getHand().add(ps.getSkat()[1]);
-  // this.winner.sortHand(ps);
-  // System.out.println("Your new hand:");
-  // this.printlistOfCards(this.winner.getHand());
-  // }
-  //
-  //
-  //
-  // /**
-  // * two cards are chosen by the declarer and added to his stack, created for manageSkat
-  // *
-  // * @author awesch
-  // */
-  // public void putDownTwoCards(PlayState ps) {
-  // Card card1;
-  // Card card2;
-  // try {
-  // card1 = this.winner.chooseCardFromHand();
-  // ps.addToStackDeclarer(card1);
-  // this.winner.removeCardFromHand(card1);
-  //
-  // card2 = this.winner.chooseCardFromHand();
-  // ps.addToStackDeclarer(card2);
-  // this.winner.removeCardFromHand(card2);
-  //
-  // System.out.println("Your new hand:");
-  // this.printlistOfCards(this.winner.getHand());
-  //
-  // } catch (LogicException e) {
-  // // TODO Auto-generated catch block
-  // e.printStackTrace();
-  // }
-  // }
-  //
-  //
 
-  public int getBetValue() {
-    return betValue;
+  public void addToBets(int bet) {
+    this.bets.add(bet);
+  }
+
+  public List<Integer> getBets() {
+    return this.bets;
   }
 
   public void setBetValue(int betValue) {
@@ -155,17 +115,22 @@ public class Auction implements Serializable {
     }
   }
 
+  public int[] getPossibleBets() {
+    return this.possibleBets;
+  }
+
+  public Player getWinner() {
+    return winner;
+  }
+
+  public int getBetValue() {
+    return betValue;
+  }
+
   public int getIndexOfBetValue() {
     return indexOfBetValue;
   }
-  //
-  // public int getLastBet() {
-  // return lastBet;
-  // }
-  //
-  // public void setLastBet(int lastBet) {
-  // this.lastBet = lastBet;
-  // }
+
 
 }
 

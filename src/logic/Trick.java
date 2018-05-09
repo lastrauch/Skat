@@ -70,6 +70,11 @@ public class Trick implements Serializable {
     cardPlayers = new ArrayList<Player>();
   }
 
+  public Trick(List<Card> trickCards, List<Player> cardPlayers) {
+    this.trickCards = trickCards;
+    this.cardPlayers = cardPlayers;
+  }
+
   /* ------------------- HANDLING OF A TRICK ----------------------------------------- */
 
   /**
@@ -321,6 +326,21 @@ public class Trick implements Serializable {
     } else {
       return 1;
     }
+  }
+
+  /* ----------------------------- COPY --------------------------------------------------- */
+
+  public Trick copyMe() {
+    List<Card> newTrickCards = new ArrayList<Card>();
+    for (Card c : this.trickCards) {
+      newTrickCards.add(c);
+    }
+    List<Player> newCardPlayers = new ArrayList<Player>();
+    for (Player p : this.cardPlayers) {
+      newCardPlayers.add(p);
+    }
+    Trick newTrick = new Trick(newTrickCards, newCardPlayers);
+    return newTrick;
   }
 
   /* ------------------------ SETTER AND GETTER ------------------------------------------- */

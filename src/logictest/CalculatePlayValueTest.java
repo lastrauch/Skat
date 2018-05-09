@@ -1,4 +1,4 @@
-package jUnitLogic;
+package logictest;
 
 import logic.Card;
 import logic.ClientLogic;
@@ -7,15 +7,16 @@ import logic.Number;
 import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
-import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertEquals;
 
 
 /**
- * this class tests the method calculatePlayValue in ClientLogic .
+ * this class tests the method calculatePlayValue in ClientLogic.
  * 
  * @author awesch
  *
@@ -99,6 +100,28 @@ class CalculatePlayValueTest {
   }
 
   /**
+   * with clubs and spades jack --> with 2.
+   */
+  @Test
+  void testMatadorWith2() {
+    hand.add(clubsJack);
+    hand.add(spadesJack);
+    hand.add(diamondsJack);
+    hand.add(heartsAss);
+    hand.add(heartsTen);
+    hand.add(heartsKing);
+    hand.add(heartsNine);
+    hand.add(whatEver1);
+    hand.add(whatEver2);
+    hand.add(whatEver3);
+
+    player.setHand(hand);
+    matador = 2;
+
+    this.testCalculateMatador();
+  }
+
+  /**
    * with clubs and all other jacks and 7 trumps in a row --> with 7.
    */
   @Test
@@ -177,8 +200,12 @@ class CalculatePlayValueTest {
   /**
    * tests fixed values for null.
    */
+  @Test
   void testPlayValueNullOuvertHand() {
     playState.setPlayMode(PlayMode.NULL);
+    playState.setOpen(true);
+    playState.setHandGame(true);
+
     assertEquals(59, clientLogic.calculatePlayValue());
   }
 
@@ -186,7 +213,7 @@ class CalculatePlayValueTest {
    * against 3, play hand, schneiderAnnounced and schneider played --> multiplier 7.
    */
   @Test
-  void testCalculateMultiplier() {
+  void testCalculateMultiplier1() {
     this.testMatadorAgainst3();
     playState.setHandGame(true);
     playState.setSchneider(true);
@@ -196,12 +223,35 @@ class CalculatePlayValueTest {
   }
 
   /**
+   * with 2, open gives you a piont, only if you play hand --> multiplier 3.
+   */
+  @Test
+  void testCalculateMultiplier2() {
+    this.testMatadorWith2();
+    playState.setOpen(true);
+
+    assertEquals(3, clientLogic.calculateMultiplier());
+  }
+
+  /**
    * playmode hearts --> 7* 10.
    */
   @Test
-  void testCalculatePlayValue() {
-    this.testCalculateMultiplier();
+  void testCalculatePlayValueSuit() {
+    this.testCalculateMultiplier1();
+
     assertEquals(70, clientLogic.calculatePlayValue());
+  }
+
+  /**
+   * playmode grand --> 3*24.
+   */
+  @Test
+  void testCalculatePlayValueGrand() {
+    this.testCalculateMultiplier2();
+    playState.setPlayMode(PlayMode.GRAND);
+
+    assertEquals(72, clientLogic.calculatePlayValue());
   }
 
 }

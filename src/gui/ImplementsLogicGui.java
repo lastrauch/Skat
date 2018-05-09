@@ -49,6 +49,7 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public void startInGameScreen() {
     // TODO Auto-generated method stub
+    
     guiCon.displayInGame();
   }
 

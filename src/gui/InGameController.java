@@ -4,15 +4,25 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
+import ai.AiController;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import database.ImplementsGuiInterface;
 import interfaces.GuiData;
 import interfaces.InGameInterface;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,9 +38,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 import logic.Card;
+import logic.ClientLogic;
 import logic.Colour;
 import logic.GameSettings;
+import logic.LogicException;
 import logic.Number;
 import logic.PlayMode;
 import logic.PlayState;
@@ -117,7 +130,8 @@ public class InGameController implements Initializable, InGameInterface {
   int[] ret = new int[1];
   private int countl = 10;
   private int countr = 10;
-
+  private boolean random = false;
+  private boolean trainingsmode;
 
 
   /**
@@ -168,6 +182,13 @@ public class InGameController implements Initializable, InGameInterface {
   private ImageView bubbleLeft, bubbleRight, bubbleUp;
   @FXML
   private Label betLeft, betUp, betRight;
+  @FXML
+  private Label timeUp;
+  @FXML
+  private JFXTextArea training;
+  @FXML
+  private JFXButton kontra;
+  
 
 
 
@@ -227,16 +248,16 @@ public class InGameController implements Initializable, InGameInterface {
     lArray[8] = l9;
     lArray[9] = l10;
 
-    lArray[0] = l1;
-    lArray[1] = l2;
-    lArray[2] = l3;
-    lArray[3] = l4;
-    lArray[4] = l5;
-    lArray[5] = l6;
-    lArray[6] = l7;
-    lArray[7] = l8;
-    lArray[8] = l9;
-    lArray[9] = l10;
+    rArray[0] = r1;
+    rArray[1] = r2;
+    rArray[2] = r3;
+    rArray[3] = r4;
+    rArray[4] = r5;
+    rArray[5] = r6;
+    rArray[6] = r7;
+    rArray[7] = r8;
+    rArray[8] = r9;
+    rArray[9] = r10;
 
     oArray[0] = o1;
     oArray[1] = o2;
@@ -380,6 +401,13 @@ public class InGameController implements Initializable, InGameInterface {
         s1.setImage(null);
         s2.setImage(null);
         s3.setImage(null);
+
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
     });
     if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
@@ -435,15 +463,21 @@ public class InGameController implements Initializable, InGameInterface {
    * @see interfaces.InGameInterface#askToRekontra()
    */
   @Override
-  public boolean askToRekontra() {
+  public void askToRekontra() {
     // TODO Auto-generated method stub
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-
+        displayRekontra();
+        kontra.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent e) {
+            LoginController.interfGL.announceRekontra();
+          }
+        });
+        
       }
     });
-    return false;
   }
 
   public void initialize4() {
@@ -453,12 +487,12 @@ public class InGameController implements Initializable, InGameInterface {
         oArray[i].setImage(null);
       }
     } else if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-      rArray[0].setImage(null);
+      rArray[1].setImage(null);
       for (int i = 0; i < rArray.length; i++) {
         rArray[i].setImage(null);
       }
     } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-      lArray[0].setImage(null);
+      lArray[1].setImage(null);
       for (int i = 0; i < rArray.length; i++) {
         lArray[i].setImage(null);
       }
@@ -485,6 +519,10 @@ public class InGameController implements Initializable, InGameInterface {
         System.out.println("Position: " + LoginController.interfGL.getPlayer().getPosition());
         if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
           initialize4();
+        } else {
+          for (int i = 0; i < 10; i++) {
+            oArray[i].setImage(null);
+          }
         }
         displayAuctionScreen();
         betB.setText(String.valueOf(bet));
@@ -635,6 +673,16 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
+        if(main.getLobbyCon().getGS().isEnableKontra() && !LoginController.interfGL.getPlayer().isDeclarer()) {
+          displayKontra();
+          kontra.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+              LoginController.interfGL.announceContra();
+            }
+          });
+        }
+        disableTraining();
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
         bubbleUp.setImage(null);
@@ -800,6 +848,24 @@ public class InGameController implements Initializable, InGameInterface {
       public void run() {
         // TODO Auto-generated method stub
         rearrangeCardsLight(cardlist);
+        if(main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
+          training.setLayoutY(388);
+          if(LoginController.interfGL.getPlayer().isDeclarer() && LoginController.interfGL.getPlayer().getPosition() != Position.DEALER) {
+          displayTraining("1.   Play your trumps! When the opponents lost all their trumps, you are unstoppable like a train without brakes.\n" + 
+              "2.  Be brave! If a color was not played yet and you have an Ass, play it and save the points!\n" + 
+              "3.  Save your own ASS and TEN! And you will be the winner then!\n" + 
+              "4.  Have you seen ASS and TEN do not play this color again!\n" + 
+              "5.  Count the Trumps! This is important like a condom at a One-Night-Stand.");
+          training.toFront();
+          } else if(!LoginController.interfGL.getPlayer().isDeclarer() && LoginController.interfGL.getPlayer().getPosition() != Position.DEALER){
+            displayTraining("1. Be brave! If a Suit was not played yet and you have an Ass, play it and save the points!\n" + 
+                "2.  Save your own ASS and TEN! And you will be the winner then!\n" + 
+                "3.  Have you seen ASS and TEN do not play this color again!\n" + 
+                "4.  Count the Trumps! This is important like a condom at a One-Night-Stand.\n" + 
+                "5.  Keep the declarer in the middle!");
+            training.toFront();
+          }
+        }
       }
 
     });
@@ -837,6 +903,9 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void run() {
         // TODO Auto-generated method stub
+        if(main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
+          disableTraining();
+        }
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
         bubbleUp.setImage(null);
@@ -962,13 +1031,16 @@ public class InGameController implements Initializable, InGameInterface {
               if (bet != -1) {
                 betLeft.setText(String.valueOf(bet));
               } else {
-                bubbleUp.setImage(bubbleU);
-                bubbleUp.toFront();
-                if (bet != -1) {
-                  betUp.setText(String.valueOf(bet));
-                } else {
-                  betUp.setText("Pass");
-                }
+                betLeft.setText("Pass");
+              } 
+              
+            } else {
+              bubbleUp.setImage(bubbleU);
+              bubbleUp.toFront();
+              if (bet != -1) {
+                betUp.setText(String.valueOf(bet));
+              } else {
+                betUp.setText("Pass");
               }
             }
           }
@@ -1001,26 +1073,57 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showOpen(Player player) {
     // TODO Auto-generated method stub
-    if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
-      if (player.getPosition() == Position.MIDDLEHAND) {
-        rearrangeCardsLeft(player.getHand());
-      } else if (player.getPosition() == Position.REARHAND) {
-        rearrangeCardsUp(player.getHand());
+    System.out.println("Open");
+
+    if (main.getGameSetCon().getGS().getNrOfPlayers() == 4) {
+      if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+        if (player.getPosition() == Position.MIDDLEHAND) {
+          rearrangeCardsLeft(player.getHand());
+        } else if (player.getPosition() == Position.REARHAND) {
+          rearrangeCardsUp(player.getHand());
+        }
+      } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+        if (player.getPosition() == Position.MIDDLEHAND) {
+          rearrangeCardsRight(player.getHand());
+        } else if (player.getPosition() == Position.FOREHAND) {
+          rearrangeCardsUp(player.getHand());
+        }
+      } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+        if (player.getPosition() == Position.FOREHAND) {
+          rearrangeCardsRight(player.getHand());
+        } else if (player.getPosition() == Position.REARHAND) {
+          rearrangeCardsLeft(player.getHand());
+        }
+      } else {
+        if (player.getPosition() == Position.FOREHAND) {
+          rearrangeCardsLeft(player.getHand());
+        } else if (player.getPosition() == Position.REARHAND) {
+          rearrangeCardsRight(player.getHand());
+        } else {
+          rearrangeCardsUp(player.getHand());
+        }
       }
-    } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
-      if (player.getPosition() == Position.MIDDLEHAND) {
-        rearrangeCardsRight(player.getHand());
-      } else if (player.getPosition() == Position.FOREHAND) {
-        rearrangeCardsUp(player.getHand());
-      } 
-    } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND ||
-        LoginController.interfGL.getPlayer().getPosition() == Position.DEALER) {
-      if (player.getPosition() == Position.FOREHAND) {
-        rearrangeCardsLeft(player.getHand());
-      } else if (player.getPosition() == Position.MIDDLEHAND) {
-        rearrangeCardsRight(player.getHand());
-      } 
-    } 
+    } else {
+      if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
+        if (player.getPosition() == Position.MIDDLEHAND) {
+          rearrangeCardsLeft(player.getHand());
+        } else if (player.getPosition() == Position.REARHAND) {
+          rearrangeCardsRight(player.getHand());
+        }
+      } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
+        if (player.getPosition() == Position.MIDDLEHAND) {
+          rearrangeCardsRight(player.getHand());
+        } else if (player.getPosition() == Position.FOREHAND) {
+          rearrangeCardsLeft(player.getHand());
+        }
+      } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+        if (player.getPosition() == Position.FOREHAND) {
+          rearrangeCardsLeft(player.getHand());
+        } else if (player.getPosition() == Position.MIDDLEHAND) {
+          rearrangeCardsRight(player.getHand());
+        }
+      }
+    }
   }
 
   /*
@@ -1029,13 +1132,56 @@ public class InGameController implements Initializable, InGameInterface {
    * @see interfaces.InGameInterface#askToPlayCard(int)
    */
   @Override
-  public int askToPlayCard(int timeToPlay) {
+  public int askToPlayCard(int timeToPlay, PlayState ps) {
     // TODO Auto-generated method stub
+    int time = timeToPlay;
+    long t = System.currentTimeMillis();
+    long end = (t / 1000) + time;
+
     while (clicked == false) {
-      MouseHandler();
+      // TODO Auto-generated method stub
+      if (main.getLobbyCon().getGS().isLimitedTime()) {
+        while (System.currentTimeMillis() / 1000 < end && clicked == false) {
+          MouseHandler();
+        }
+        ret[0] = playRandomCard(ps, LoginController.interfGL.getPlayer());
+        random = true;
+        clicked = true;
+      } else {
+        MouseHandler();
+
+      }
     }
     clicked = false;
     return ret[0];
+  }
+
+
+  public static int playRandomCard(PlayState ps, Player player) {
+    List<Card> cards = LoginController.interfGL.getPlayer().getHand();
+    List<Card> possibleCards = new ArrayList<Card>();
+
+
+    if (ps.getCurrentTrick().getTrickCards().size() > 0) {
+      for (int i = 0; i < cards.size(); i++) {
+        try {
+          if (ClientLogic.checkIfCardPossible(cards.get(i), ps.getCurrentTrick().getFirstCard(), ps,
+              player)) {
+            possibleCards.add(cards.get(i));
+          }
+        } catch (LogicException e) {
+          e.printStackTrace();
+        }
+      }
+    } else {
+      possibleCards = cards;
+    }
+
+    int rnd = (int) (Math.random() * possibleCards.size());
+    Card playCard = possibleCards.get(rnd);
+    int index = cards.indexOf(playCard);
+
+    return index;
   }
 
   /*
@@ -1046,15 +1192,17 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showScore(List<Player> player) {
     // TODO Auto-generated method stub
-    if (main.getLobbyCon().getGS().getNrOfPlayers() == 3) {
-      this.pl1 = player.get(0);
-      this.pl2 = player.get(1);
+    System.out.println("Player name: " + player.get(2).getName());
+    if (player.size() == 3) {
+      this.pl1 = player.get(1);
+      this.pl2 = player.get(2);
       main.displayLeaderboard3();
     } else {
-      this.pl1 = player.get(0);
-      this.pl2 = player.get(1);
-      this.pl3 = player.get(2);
+      this.pl1 = player.get(1);
+      this.pl2 = player.get(2);
+      this.pl3 = player.get(3);
       main.displayLeaderboard4();
+      main.getLead4Con().start();
     }
 
   }
@@ -1211,6 +1359,15 @@ public class InGameController implements Initializable, InGameInterface {
             }
           }
         }
+        if (random) {
+          timeUp.setText("Time's up! Random card was played.");
+        } else {
+          timeUp.setText(null);
+        }
+        random = false;
+        if(main.getLobbyCon().getGS().isEnableKontra()) {
+          mainPane.getChildren().remove(kontra);
+        }
       }
     });
 
@@ -1258,6 +1415,34 @@ public class InGameController implements Initializable, InGameInterface {
   public void help() {
     main.displayHelp();
   }
+  
+  public void displayTraining(String s) {
+    training.setStyle(
+        "-fx-background-color: tan; -fx-background-radius: 10; -fx-border-color: peru; -fx-border-radius: 10");
+    training.setText(s);
+  }
+  
+  public void disableTraining() {
+    training.setStyle(null);
+    training.setText(null);
+  }
+  
+  public void displayKontra() {
+    kontra.setText("KONTRA");
+    kontra.setStyle(
+        "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10");
+  }
+  
+  public void deleteKontra() {
+    kontra.setText(null);
+    kontra.setStyle(null);
+  }
+  
+  public void displayRekontra() {
+    kontra.setText("KONTRA");
+    kontra.setStyle(
+        "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10");
+  }
 
 
 
@@ -1291,7 +1476,7 @@ public class InGameController implements Initializable, InGameInterface {
       }
     }
   }
-  
+
   public void rearrangeCardsLeft(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       lArray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
@@ -1303,7 +1488,7 @@ public class InGameController implements Initializable, InGameInterface {
       }
     }
   }
-  
+
   public void rearrangeCardsRight(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       rArray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
@@ -1315,7 +1500,7 @@ public class InGameController implements Initializable, InGameInterface {
       }
     }
   }
-  
+
   public void rearrangeCardsUp(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       oArray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
@@ -1342,10 +1527,12 @@ public class InGameController implements Initializable, InGameInterface {
       }
     }
     if (list.get(list.size() - 1) != null) {
-      cArray[list.size() - 1].setImage(inte.getImageDarker(list.get(list.size() - 1).getColour().toString().toLowerCase(),
+      cArray[list.size() - 1].setImage(
+          inte.getImageDarker(list.get(list.size() - 1).getColour().toString().toLowerCase(),
               (list.get(list.size() - 1).getNumber().toString().toLowerCase())));
     } else {
-      cArray[list.size() - 1].setImage(inte.getImage(list.get(list.size() - 1).getColour().toString().toLowerCase(),
+      cArray[list.size() - 1]
+          .setImage(inte.getImage(list.get(list.size() - 1).getColour().toString().toLowerCase(),
               (list.get(list.size() - 1).getNumber().toString().toLowerCase())));
     }
   }
@@ -2342,6 +2529,13 @@ public class InGameController implements Initializable, InGameInterface {
     paneBet.getChildren().add(labelBet);
 
     mainPane.getChildren().add(paneBet);
+    if(main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
+      displayTraining("1.   Be realistic! You won’t win the next round, if you don’t get at least six tricks and you won’t get the girl, when she didn’t drink at least six drinks.\n" + 
+          "2.  You have more than two Jacks?  You’re either a slut or a winner!\n" + 
+          "3.  You only have two Jacks? Hopefully they are the blacks.\n" + 
+          "4.  Know your highest possible bet! Only a noob’s bet and Snoop Dog are higher. ");
+      training.toFront();
+    }
   }
 
 
@@ -2698,9 +2892,5 @@ public class InGameController implements Initializable, InGameInterface {
 
 
 }
-
-
-
-
 
 

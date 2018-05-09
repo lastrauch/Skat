@@ -4,48 +4,60 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 
-public class ServerFinderThread extends Thread {
-  private DatagramSocket socket;
-  private String serverName;
-  private int port;
-  private boolean running;
-
-  public ServerFinderThread(String serverName, int port) {
-    this.serverName = serverName;
-    this.port = port;
-  }
-
+public class ServerFinderThread implements Runnable {
+private DatagramSocket socket;
+private boolean running;
+private static Server server;
+  
   public void run() {
     this.running = true;
-
-    byte[] data = new byte[1024];
-
     try {
-      this.socket = new DatagramSocket(this.port);
-      while (this.running) {
-        DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
-        this.socket.receive(packet);
-        String msg = new String(packet.getData());
-        if (msg.trim().equals("ping")) {
-          InetAddress address = packet.getAddress();
-          data = this.serverName.getBytes();
-          DatagramPacket sendPacket =
-              new DatagramPacket(data, data.length, address, packet.getPort());
-          this.socket.send(sendPacket);
+      socket = new DatagramSocket(8888, InetAddress.getByName("0.0.0.0"));
+      socket.setBroadcast(true);
+      
+      while(this.running) {
+        System.out.println(getClass().getName() + " >>> Ready to receive broadcast packets!");
+        
+        byte[] recvBuf = new byte[15000];
+        DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+        socket.receive(packet);
+        
+        System.out.println(getClass().getName() + " >>> Discovery pcket received from: " + packet.getAddress().getHostAddress());
+        System.out.println(getClass().getName() + " >>> Packet received; data: " + new String(packet.getData()));
+        
+        String message = new String(packet.getData()).trim();
+        if(message.equals("SKAT4_DISCOVER_REQUEST")) {
+          // Servername, ip, playerAnz, maxPlayer, comment
+          String answer = "SKAT4;";
+          answer += server.getServerName() + ";";
+          answer += server.getIP() + ";";
+          answer += server.getClientConnections().size() + ";";
+          answer += server.getGameSettings().getNrOfPlayers() + ";";
+          answer += server.getComment() + ";";
+          byte[] sendData = answer.getBytes();
+          
+          DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
+          socket.send(sendPacket);
+          
+          System.out.println(getClass().getName() + " >>> Send packet to: " + sendPacket.getAddress().getHostAddress());
         }
       }
-    } catch (SocketException e) {
-      if (e.getMessage().equals("socket closed")) {
-        return;
-      }
-    } catch (IOException e2) {
-      e2.printStackTrace();
+    }catch (IOException e) {
+      e.printStackTrace();
     }
   }
-
-  public void close() {
-    this.socket.close();
+  
+  public static ServerFinderThread getInstance(Server s) {
+    server = s;
+    return ServerFinderThreadHolder.INSTANCE;
+  }
+  
+  private static class ServerFinderThreadHolder{
+    private static final ServerFinderThread INSTANCE = new ServerFinderThread();
+  }
+  
+  public void setRunning(boolean running) {
+    this.running = running;
   }
 }

@@ -93,4 +93,9 @@ public interface GuiLogic {
    * @author lstrauch
    */
   public void announceContra();
+  
+  /**
+   * announces rekontra after being clicked.
+   */
+  public void announceRekontra();
 }

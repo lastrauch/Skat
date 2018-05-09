@@ -82,6 +82,77 @@ public class PlayState implements Serializable {
     this.setAnnouncedRekontra(false);
   }
 
+  public PlayState(Player[] playingGroup, Stack declarerStack, Stack opponentsStack, Card[] skat,
+      Colour trump, int playValue, PlayMode pm, int playNr, int trickNr, boolean auctionPossible,
+      boolean handGame, boolean schneider, boolean schneiderAnnounced, boolean schwarz,
+      boolean schwarzAnnounced, boolean open, int baseValue, Trick currentTrick, Auction auction,
+      boolean announcedKontra, boolean announcedRekontra) {
+    
+    this.playingGroup = playingGroup;
+    this.declarerStack = declarerStack;
+    this.opponentsStack = opponentsStack;
+    this.skat = skat;
+    this.trump = trump;
+    this.playValue = playValue;
+    this.pm = pm;
+    this.playNr = playNr;
+    this.trickNr = trickNr;
+    this.auctionPossible = auctionPossible;
+    this.handGame = handGame;
+    this.schneider = schneider;
+    this.schneiderAnnounced = schwarzAnnounced;
+    this.open = open;
+    this.baseValue = baseValue;
+    this.currentTrick = currentTrick;
+    this.auction = auction;
+    this.announcedKontra = announcedKontra;
+    this.announcedRekontra = announcedRekontra;
+  }
+
+  public PlayState copyMe() {
+    Player[] playerCopy = new Player[this.playingGroup.length];
+    for (int i = 0; i < this.playingGroup.length; i++) {
+      playerCopy[i] = this.playingGroup[i];
+    }
+
+    Stack declarerStackCopy = this.declarerStack;
+    Stack opponentsStackCopy = this.opponentsStack;
+
+    Card[] skatCopy = new Card[this.skat.length];
+    for (int i = 0; i < this.skat.length; i++) {
+      skatCopy[i] = this.skat[i];
+    }
+
+    Colour trumpCopy = trump;
+    int playValueCopy = this.playValue;
+    PlayMode playModeCopy = this.getPlayMode();
+    
+    int playNrCopy = this.playNr;
+    int trickNrCopy = this.trickNr;
+    boolean auctionPossibleCopy = this.auctionPossible;
+    
+    boolean handGameCopy = this.handGame;
+    boolean schneiderCopy = this.schneider;
+    boolean schneiderAnnouncedCopy = this.schneiderAnnounced;
+    
+    boolean schwarzCopy = this.schwarz;
+    boolean schwarzAnnouncedCopy = this.schwarzAnnounced;
+    boolean openCopy = this.open;
+    
+    int baseValueCopy = this.baseValue;
+    Trick currentTrickCopy = this.currentTrick.copyMe();
+    Auction auctionCopy = this.auction.copyMe(); 
+    
+    boolean announcedKontraCopy = this.announcedKontra;
+    boolean announcedRekontraCopy = this.announcedRekontra;
+
+    return new PlayState(playerCopy, declarerStackCopy, opponentsStackCopy, skatCopy,
+      trumpCopy, playValueCopy, playModeCopy, playNrCopy, trickNrCopy, auctionPossibleCopy,
+      handGameCopy, schneiderCopy, schneiderAnnouncedCopy, schwarzCopy,
+      schwarzAnnouncedCopy, openCopy, baseValueCopy, currentTrickCopy, auctionCopy,
+      announcedKontraCopy, announcedRekontraCopy);
+  }
+
 
   /**
    * sorts cards by its value for normal values (high ten), created for sortHand(s)
@@ -249,6 +320,10 @@ public class PlayState implements Serializable {
 
     if (pm == PlayMode.GRAND || pm == PlayMode.NULL) {
       this.trump = null;
+    }
+    
+    if(pm == PlayMode.GRAND) {
+      this.baseValue = 24;
     }
 
   }

@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ public class GuiController extends Application {
    * 
    * 
    */
-  
+
   static Stage mprimaryStage;
   private AnchorPane root;
 
@@ -37,7 +38,7 @@ public class GuiController extends Application {
 
   private static ChooseGameController gameModeCon;
   private AnchorPane gameMode = null;
-  
+
   private static LobbyController lobbyCon;
   private AnchorPane lobby = null;
 
@@ -89,18 +90,19 @@ public class GuiController extends Application {
 
   private static Leaderboard3Controller leaderboard3Con;
   private AnchorPane leaderboard3;
-  
+
   private static Leaderboard4Controller leaderboard4Con;
   private AnchorPane leaderboard4;
-  
-  
-  
-  
+
+
+
   protected static int prevScreen = 0;
 
 
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc)
+   * 
    * @see javafx.application.Application#start(javafx.stage.Stage)
    * 
    * @author lstrauch
@@ -152,7 +154,7 @@ public class GuiController extends Application {
       loader.setLocation(getClass().getResource("GameMode.fxml"));
       this.gameMode = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(gameMode);
-      
+
       gameModeCon = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
@@ -193,15 +195,15 @@ public class GuiController extends Application {
       e.printStackTrace();
     }
   }
-  
-  
+
+
   public void displayLobby() {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("Lobby.fxml"));
       this.lobby = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(lobby);
-      
+
       lobbyCon = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
@@ -420,20 +422,21 @@ public class GuiController extends Application {
    * @author lstrauch
    */
   public void displayInGame() {
-
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("InGame.fxml"));
-
-      this.inGame = (AnchorPane) loader.load();
+      inGame = (AnchorPane) loader.load();
+      Thread.sleep(1000);
       mprimaryStage.getScene().setRoot(inGame);
-
       inGameCon = loader.getController();
-
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
+
 
   }
 
@@ -470,7 +473,7 @@ public class GuiController extends Application {
       e.printStackTrace();
     }
   }
-  
+
   /**
    * @author lstrauch
    */
@@ -487,15 +490,15 @@ public class GuiController extends Application {
       e.printStackTrace();
     }
   }
-  
+
   public InGameController getCon() {
     return inGameCon;
   }
-  
+
   public GameSettingsController getGameSetCon() {
     return gameSettingsCon;
   }
-  
+
   public LobbyController getLobbyCon() {
     return lobbyCon;
   }
@@ -503,15 +506,20 @@ public class GuiController extends Application {
   public ChooseGameController getChooseGameCon() {
     return gameModeCon;
   }
-  
+
   public InGameController getInGameCon() {
     return inGameCon;
   }
+
+  public Leaderboard4Controller getLead4Con() {
+    return leaderboard4Con;
+  }
   
+  public SettingsController getSettingsCon() {
+    return settingsCon;
+  }
+
 
 }
-
-
-
 
 
