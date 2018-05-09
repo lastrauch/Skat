@@ -1,7 +1,9 @@
 package network;
 
-/*
- * This class defines some network settings
+/**
+ * This class defines some network settings.
+ * 
+ * @author fkleinoe
  */
 public class Settings {
   public static final int PORT = 3000;

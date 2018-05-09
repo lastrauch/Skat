@@ -23,12 +23,13 @@ import network.messages.MessageType;
 import network.messages.PlayStateMsg;
 import network.server.Server;
 
+/**
+ * This class represents a client. Each player is assigned to a client. Incoming messages are
+ * handled here.
+ * 
+ * @author fkleinoe
+ */
 public class Client extends Thread {
-
-  /*
-   * This class represents a client. Each player is assigned to a client. Incoming messages are
-   * handled here. Available methods are:
-   */
 
   // run() : void
   // Client Thread that reads incoming messages.
@@ -187,7 +188,7 @@ public class Client extends Thread {
         if (serverOutput.getType() == MessageType.CONNECTION_ANSWER) {
           receivedAnswer = true;
           ConnectionAnswerMsg m = (ConnectionAnswerMsg) serverOutput;
-          this.owner.setId(m.getID());
+          this.owner.setId(m.getId());
           this.start();
           return m.getAccepted();
         } else {
