@@ -92,10 +92,10 @@ public class GameController implements GuiLogic {
   /**
    * @author awesch
    */
-  public void joinGame(String hostName) {
+  public void joinGame(String ip) {
     // its serverName not hostName
     for (Server s : this.server) {
-      if (s.getServerName().equals(hostName)) {
+      if (s.getIP().equals(ip)) {
         this.networkController.joinLobby(s, this.clientLogic.get(0).player);
       }
     }

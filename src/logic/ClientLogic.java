@@ -769,7 +769,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.playState.getCurrentTrick().addCard(card, playedLastCard);
 
     Player trickWinner;
-    List<Player> playWinner;
+    List<Player> playWinner = new ArrayList<Player>();
     List<Player> gameWinner;
     boolean nullBreak;
 
@@ -860,8 +860,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // game is over
           System.out.println(this.player.getName() + ": The game is over");
           // calculate winner game
-          gameWinner = new ArrayList<Player>();
-          gameWinner.add(Game.calculateWinner(this.group));
+          gameWinner = Game.calculateWinner(this.group);
 
           this.waitFor(3000);
           // show winner of game
