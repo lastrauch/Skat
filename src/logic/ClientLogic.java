@@ -742,7 +742,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       player.setDeclarer(true);
       if (!this.player.isBot()) {
         System.out.println("hand of player who plays open (right before showOpen):");
-        for(Card c: player.getHand()) {
+        for (Card c : player.getHand()) {
           System.out.println(c.toString());
         }
       }
@@ -769,8 +769,9 @@ public class ClientLogic implements NetworkLogic, AILogic {
     this.playState.getCurrentTrick().addCard(card, playedLastCard);
 
     Player trickWinner;
-    List<Player> playWinner;
+    List<Player> playWinner = new ArrayList<Player>();
     List<Player> gameWinner;
+    boolean nullBreak;
 
     // check if trick is over
     if (this.playState.getCurrentTrick().isFull()) {
@@ -794,10 +795,19 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.waitFor(2000);
 
       // check if play is over
-      if (this.playState.getTrickNr() == 10
-          || ((this.playState.getPlayMode() == PlayMode.NULL) && trickWinner.isDeclarer())) {
+      nullBreak = (this.playState.getPlayMode() == PlayMode.NULL) && trickWinner.isDeclarer();
+      if (this.playState.getTrickNr() == 10 || nullBreak) {
+        
         // calculate winner play
-        playWinner = Play.calculateWinner(playState);
+        if (nullBreak) {
+          for (Player p : this.group) {
+            if (!p.isDeclarer()) {
+              playWinner.add(p);
+            }
+          }
+        }else {
+          playWinner = Play.calculateWinner(playState);
+        }
 
         System.out.println("Before calculate Points:");
         System.out.println("playWinner:");
@@ -822,9 +832,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
               pg.setPlayScore(ps.getPlayScore());
             }
           }
+          if (pg.getPosition().equals(Position.DEALER)) {
+            pg.addToPlayScore(-1);
+          }
           if (pg.getName().equals(this.player.getName())) {
             this.player.setPlayScore(pg.getPlayScore());
           }
+
         }
 
         System.out.println(this.player.getName() + " got these points: "
@@ -846,8 +860,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           // game is over
           System.out.println(this.player.getName() + ": The game is over");
           // calculate winner game
-          gameWinner = new ArrayList<Player>();
-          gameWinner.add(Game.calculateWinner(this.playState));
+          gameWinner = Game.calculateWinner(this.group);
 
           this.waitFor(3000);
           // show winner of game
@@ -858,8 +871,8 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.waitFor(3000);
 
         } else {
+
           // game is not over
-          // update position !!!!!!! UPDATE POSITION IN CLIENTLOGIC
           this.updatePosition();
 
           // createNewPlay!
@@ -867,7 +880,6 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.playState.setGroup(this.getPlayingGroup());
           this.playState.setPlayNr(this.playState.getPlayNr() + 1);
 
-          // change to id later
           for (Player p : this.group) {
             if (p.getName().equals(this.player.getName())) {
               this.player.setPosition(p.getPosition());

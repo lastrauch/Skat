@@ -307,6 +307,10 @@ public class Player implements Serializable {
 
   /* ------------------------- GETTER AND SETTER ------------------------------------- */
 
+  public void addToPlayScore(int score) {
+    this.playScore.add(score);
+  }
+
   public int getGameScore() {
     return this.gameScore;
   }
