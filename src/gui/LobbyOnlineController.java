@@ -17,6 +17,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import logic.GameController;
 import logic.GameMode;
+import logic.GameSettings;
 
 public class LobbyOnlineController implements Initializable{
 
@@ -72,8 +73,9 @@ public class LobbyOnlineController implements Initializable{
    */
   @FXML
   public void startNewGame() {
+//    LoginController.interfGL.hostGame("Hi", new GameSettings());
+//    main.getGameSetCon().setGameMode(GameMode.MULTIPLAYER);
     main.displayGameSettings();
-    main.getGameSetCon().setGameMode(GameMode.MULTIPLAYER);
   }
   
   
@@ -87,7 +89,7 @@ public class LobbyOnlineController implements Initializable{
       b.add(new JFXButton());
     }
     for(int i = 0; i < a.size(); i++) {
-      a.get(i).setText(String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getPlayer().size()) + "/" + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getGameSettings().getNrOfPlayers()));
+      a.get(i).setText(String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer()) + "/" + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer()));
       a.get(i).setFont(Font.font("System", 23));
 
       vboxNr.getChildren().add(a.get(i));

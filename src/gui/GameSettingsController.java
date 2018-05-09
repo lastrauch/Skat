@@ -1,10 +1,11 @@
 package gui;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,6 +25,7 @@ import logic.GameSettings;
 public class GameSettingsController implements Initializable {
 
   /**
+   * initilizes all non-FXML attributes.
    * @author lstrauch
    */
   private int[] rounds = new int[1];
@@ -41,28 +43,47 @@ public class GameSettingsController implements Initializable {
   private ToggleGroup g2 = new ToggleGroup();
   private ToggleGroup g3 = new ToggleGroup();
   private boolean[] selected = new boolean[3];
-  private Label r = new Label();
-  private Label s = new Label();
-  private Label p = new Label();
+  private Label round = new Label();
+  private Label syst = new Label();
+  private Label pl = new Label();
 
   /**
+   * initializes all FXML attributes.
    * @author lstrauch
    */
   @FXML
-  private JFXRadioButton r1, r3, r18, r36;
+  private JFXRadioButton r1;
   @FXML
-  private JFXRadioButton sSys, bSys, nSys;
+  private JFXRadioButton r3;
   @FXML
-  private JFXToggleButton enKon, enTL;
+  private JFXRadioButton r18;
   @FXML
-  private JFXRadioButton n3, n4;
+  private JFXRadioButton r36;
+  @FXML
+  private JFXRadioButton ssys;
+  @FXML
+  private JFXRadioButton bsys;
+  @FXML
+  private JFXRadioButton nsys;
+  @FXML
+  private JFXToggleButton enKon;
+  @FXML
+  private JFXToggleButton enTl;
+  @FXML
+  private JFXRadioButton n3;
+  @FXML
+  private JFXRadioButton n4;
+  @FXML
+  private JFXButton subm;
   @FXML
   private AnchorPane pane;
   @FXML
   private JFXTextField message;
-  @FXML 
+  @FXML
   private Label messageLabel;
+
   /**
+   * constructor.
    * @author lstrauch
    */
   public GameSettingsController() {
@@ -71,6 +92,7 @@ public class GameSettingsController implements Initializable {
   }
 
   /**
+   * sums up all buttonListeners.
    * @author lstrauch
    */
   public void listener() {
@@ -82,6 +104,7 @@ public class GameSettingsController implements Initializable {
   }
 
   /**
+   * adds buttonListener to rounds.
    * @author lstrauch
    */
   public void numberOfRounds() {
@@ -112,24 +135,25 @@ public class GameSettingsController implements Initializable {
   }
 
   /**
+   * adds buttonListener to count rule.
    * @author lstrauch
    */
   public void countRule() {
-    
-    
-    sSys.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+
+    ssys.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         cr[0] = CountRule.SEEGERFABIAN;
       }
     });
-    bSys.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    bsys.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         cr[0] = CountRule.BIERLACHS;
       }
     });
-    nSys.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    nsys.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         cr[0] = CountRule.NORMAL;
@@ -138,6 +162,7 @@ public class GameSettingsController implements Initializable {
   }
 
   /**
+   * adds buttonListener to number of players.
    * @author lstrauch
    */
   public void numberOfPlayers() {
@@ -156,6 +181,7 @@ public class GameSettingsController implements Initializable {
   }
 
   /**
+   * adds buttonListener to kontra.
    * @author lstrauch
    */
   public void enableKontra() {
@@ -168,10 +194,11 @@ public class GameSettingsController implements Initializable {
   }
 
   /**
+   * adds buttonListener to limitedTime.
    * @author lstrauch
    */
   public void enableLimitedTime() {
-    enTL.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+    enTl.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         System.out.println("hhh");
@@ -179,16 +206,15 @@ public class GameSettingsController implements Initializable {
         showSetTime();
         if (setLimitedTime != 0) {
           setLimitedTime = setLimitedTime();
-        } else {
-        }
-
+        } 
       }
     });
   }
 
   /**
+   * sets the limitedTime to the time from textField.
    * @author lstrauch
-   * @return
+   * @return limitedTime
    */
   public int setLimitedTime() {
     String s = sec.getText();
@@ -196,12 +222,11 @@ public class GameSettingsController implements Initializable {
   }
 
   /**
+   * shows a TextField to put in a time.
    * @author lstrauch
    */
   public void showSetTime() {
     Label set = new Label();
-    HBox box = new HBox();
-
     set.setText("Set limited time:");
     set.setPrefHeight(40);
     set.setPrefWidth(170);
@@ -209,7 +234,6 @@ public class GameSettingsController implements Initializable {
     set.setLayoutY(503);
     set.setFont(Font.font("System", 23));
     set.setTextFill(Color.WHITE);
-    // set.setStyle("-fx-background-color: tan;");
 
     sec.setPromptText("Number of seconds");
     sec.setPrefHeight(48);
@@ -220,6 +244,7 @@ public class GameSettingsController implements Initializable {
     sec.setUnFocusColor(Color.WHITE);
     set.setStyle("-fx-prompt-text-fill: white;");
 
+    HBox box = new HBox();
     box.getChildren().add(set);
     box.getChildren().add(sec);
     box.setSpacing(25);
@@ -233,16 +258,18 @@ public class GameSettingsController implements Initializable {
 
 
   /**
+   * sets the gameMode.
    * @author lstrauch
    * @param gm
    */
   public void setGameMode(GameMode gm) {
     this.gm = gm;
   }
-  
+
 
 
   /**
+   * sets the Gamesettings if one button of each topic is selected.
    * @author lstrauch
    */
   public void submit() {
@@ -251,27 +278,27 @@ public class GameSettingsController implements Initializable {
      */
     if (r1.isSelected() || r3.isSelected() || r18.isSelected() || r36.isSelected()) {
       selected[0] = true;
-      pane.getChildren().remove(r);
+      pane.getChildren().remove(round);
     } else {
       System.out.println("Please Select the number orf rounds you wanna play");
-      if (!pane.getChildren().contains(r)) {
+      if (!pane.getChildren().contains(round)) {
         displayLabelRounds();
       }
     }
-    if (sSys.isSelected() || bSys.isSelected() || nSys.isSelected()) {
+    if (ssys.isSelected() || bsys.isSelected() || nsys.isSelected()) {
       selected[1] = true;
-      pane.getChildren().remove(s);
+      pane.getChildren().remove(syst);
     } else {
       System.out.println("Please Select the System you wanna play");
-      if (!pane.getChildren().contains(s)) {
+      if (!pane.getChildren().contains(syst)) {
         displayLabelSystem();
       }
     }
     if (n3.isSelected() || n4.isSelected()) {
       selected[2] = true;
-      pane.getChildren().remove(p);
+      pane.getChildren().remove(pl);
     } else {
-      if (!pane.getChildren().contains(p)) {
+      if (!pane.getChildren().contains(pl)) {
         displayLabelPlayers();
       }
     }
@@ -293,19 +320,29 @@ public class GameSettingsController implements Initializable {
         setGameMode(GameMode.MULTIPLAYER);
       }
       guiCon.displayLobby();
-      if(guiCon.getLobbyCon() != null) {
-        System.out.println("gs screen Gamesettings: " + gs.getNrOfPlays() + "  " + gs.getCountRule());
+      if (guiCon.getLobbyCon() != null) {
+        System.out
+            .println("gs screen Gamesettings: " + gs.getNrOfPlays() + "  " + gs.getCountRule());
         LoginController.interfGL.hostGame(ms, gs);
       }
     }
 
   }
 
-  public GameSettings getGS() {
+  /** return the gamesettings.
+   * @author lstrauch
+   * @return GameSettings
+   */
+  public GameSettings getGs() {
     return gs;
   }
 
-  public GameMode getGM() {
+  /**
+   * return the gameMode.
+   * @author lstrauch
+   * @return GameMode
+   */
+  public GameMode getGm() {
     return gm;
   }
 
@@ -325,11 +362,11 @@ public class GameSettingsController implements Initializable {
     r18.setToggleGroup(g1);
     r36.setToggleGroup(g1);
     g1.selectToggle(r3);
-  
-    sSys.setToggleGroup(g2);
-    bSys.setToggleGroup(g2);
-    nSys.setToggleGroup(g2);
-    g2.selectToggle(bSys);
+
+    ssys.setToggleGroup(g2);
+    bsys.setToggleGroup(g2);
+    nsys.setToggleGroup(g2);
+    g2.selectToggle(bsys);
 
     n3.setToggleGroup(g3);
     n4.setToggleGroup(g3);
@@ -340,88 +377,78 @@ public class GameSettingsController implements Initializable {
     rounds[0] = 3;
     numbOfPl = 3;
     cr[0] = CountRule.BIERLACHS;
-    
-    setGM();
-    if(gm == GameMode.SINGLEPLAYER) {
+
+    setGm();
+    if (gm == GameMode.SINGLEPLAYER) {
       pane.getChildren().remove(message);
       pane.getChildren().remove(messageLabel);
 
     }
 
-    
+
 
     listener();
   }
 
-  /**
-   * @author lstrauch
-   */
-  public void allButtonsSet() {
-    if (r1.isSelected() || r3.isSelected() || r18.isSelected() || r36.isSelected()) {
-      selected[0] = true;
-    } else {
-      System.out.println("Please Select the number orf rounds you wanna play");
-      pane.getChildren().remove(r);
-    }
-    if (sSys.isSelected() || bSys.isSelected() || nSys.isSelected()) {
-      selected[1] = true;
-    }
-    if (n3.isSelected() || n4.isSelected()) {
-      selected[2] = true;
-    }
-  }
 
   /**
+   * displays a Label if no rounds-button was selected.
    * @author lstrauch
    */
   public void displayLabelRounds() {
-    r.setLayoutX(10);
-    r.setLayoutY(70);
-    r.setPrefHeight(33);
-    r.setPrefWidth(881);
-    r.setText("Please select the number of rounds you want to play!");
-    r.setFont(Font.font("System", FontWeight.BOLD, 15));
-    r.setStyle("-fx-background-color: white; -fx-text-fill: red");
-    r.setAlignment(Pos.CENTER);
+    round.setLayoutX(10);
+    round.setLayoutY(70);
+    round.setPrefHeight(33);
+    round.setPrefWidth(881);
+    round.setText("Please select the number of rounds you want to play!");
+    round.setFont(Font.font("System", FontWeight.BOLD, 15));
+    round.setStyle("-fx-background-color: white; -fx-text-fill: red");
+    round.setAlignment(Pos.CENTER);
 
-    pane.getChildren().add(r);
+    pane.getChildren().add(round);
   }
 
   /**
+   * displays a Label if no system-button was selected.
    * @author lstrauch
    */
   public void displayLabelSystem() {
-    s.setLayoutX(10);
-    s.setLayoutY(140);
-    s.setPrefHeight(33);
-    s.setPrefWidth(881);
-    s.setText("Please select the system you want to play!");
-    s.setFont(Font.font("System", FontWeight.BOLD, 15));
-    s.setStyle("-fx-background-color: white; -fx-text-fill: red");
-    s.setAlignment(Pos.CENTER);
+    syst.setLayoutX(10);
+    syst.setLayoutY(140);
+    syst.setPrefHeight(33);
+    syst.setPrefWidth(881);
+    syst.setText("Please select the system you want to play!");
+    syst.setFont(Font.font("System", FontWeight.BOLD, 15));
+    syst.setStyle("-fx-background-color: white; -fx-text-fill: red");
+    syst.setAlignment(Pos.CENTER);
 
-    pane.getChildren().add(s);
+    pane.getChildren().add(syst);
 
   }
 
   /**
+   * displays a Label if no numberOfPlayers-button was selected.
    * @author lstrauch
    */
   public void displayLabelPlayers() {
-    p.setLayoutX(10);
-    p.setLayoutY(217);
-    p.setPrefHeight(33);
-    p.setPrefWidth(881);
-    p.setText("Please select the number of players you want to play with!");
-    p.setFont(Font.font("System", FontWeight.BOLD, 15));
-    p.setStyle("-fx-background-color: white; -fx-text-fill: red");
-    p.setAlignment(Pos.CENTER);
+    pl.setLayoutX(10);
+    pl.setLayoutY(217);
+    pl.setPrefHeight(33);
+    pl.setPrefWidth(881);
+    pl.setText("Please select the number of players you want to play with!");
+    pl.setFont(Font.font("System", FontWeight.BOLD, 15));
+    pl.setStyle("-fx-background-color: white; -fx-text-fill: red");
+    pl.setAlignment(Pos.CENTER);
 
-    pane.getChildren().add(p);
+    pane.getChildren().add(pl);
   }
-  
-  public void setGM() {
+
+  /**
+   * sets the gameMode.
+   * @author lstrauch
+   */
+  public void setGm() {
     this.gm = guiCon.getChooseGameCon().getGameMode();
   }
-  
+
 }
