@@ -142,10 +142,10 @@ public class General {
     }
 
     // Determine the gameLevel
-    int gameLevel = 1;
+    int gameLevel = 2;
     boolean with = jacks[0];
     for (int i = 1; i < 4; i++) {
-      if (jacks[0] == with) {
+      if (jacks[i] == with) {
         gameLevel++;
       }
     }
