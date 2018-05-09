@@ -29,11 +29,11 @@ private static Server server;
         String message = new String(packet.getData()).trim();
         if(message.equals("SKAT4_DISCOVER_REQUEST")) {
           // Servername, ip, playerAnz, maxPlayer, comment
-          String answer = "SKAT4|";
-          answer += server.getServerName() + "|";
-          answer += server.getIP() + "|";
-          answer += server.getClientConnections().size() + "|";
-          answer += server.getGameSettings().getNrOfPlayers() + "|";
+          String answer = "SKAT4;";
+          answer += server.getServerName() + ";";
+          answer += server.getIP() + ";";
+          answer += server.getClientConnections().size() + ";";
+          answer += server.getGameSettings().getNrOfPlayers() + ";";
           answer += server.getComment();
           byte[] sendData = answer.getBytes();
           
