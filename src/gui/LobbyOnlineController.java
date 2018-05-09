@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import interfaces.GuiLogic;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,19 +20,19 @@ import logic.GameController;
 import logic.GameMode;
 import logic.GameSettings;
 
-public class LobbyOnlineController implements Initializable{
+public class LobbyOnlineController implements Initializable {
 
   @FXML
-  private JFXButton join;
-  @FXML 
-  private VBox vboxNr, vboxUser, vboxMessage;
-  
-  private GuiController main;
-  private JFXButton bt;
-  ArrayList<Label> a= new ArrayList<Label>();
-  ArrayList<JFXButton> b = new ArrayList<JFXButton>();
+  private VBox vboxNr, vboxUser, vboxMessage, vboxJoin;
 
-  
+  private GuiController main;
+  ArrayList<Label> nr = new ArrayList<Label>();
+  ArrayList<Label> user = new ArrayList<Label>();
+  ArrayList<Label> message = new ArrayList<Label>();
+  ArrayList<JFXButton> join = new ArrayList<JFXButton>();
+  private boolean abletojoin = true;
+
+
   public LobbyOnlineController() {
     this.main = new GuiController();
     GuiController.prevScreen = 2;
@@ -67,87 +68,107 @@ public class LobbyOnlineController implements Initializable{
    */
   @FXML
   public void startNewGame() {
-//    LoginController.interfGL.hostGame("Hi", new GameSettings());
-//    main.getGameSetCon().setGameMode(GameMode.MULTIPLAYER);
+    // LoginController.interfGL.hostGame("Hi", new GameSettings());
+    // main.getGameSetCon().setGameMode(GameMode.MULTIPLAYER);
     main.displayGameSettings();
   }
-  
+
   @FXML
   public void refresh() {
-    if(LoginController.interfGL.lobbyInformation().size() > 0) {
+    if (LoginController.interfGL.lobbyInformation().size() > 0) {
       displayServer();
-    }
-    else { 
+    } else {
       System.out.println("No new server");
     }
   }
-  
-  
+
+
   public void displayServer() {
-    System.out.println("Size: " +LoginController.interfGL.lobbyInformation().size());
-    for(int i = 0; i < LoginController.interfGL.lobbyInformation().size(); i++) {
-      a.add(new Label());
-      b.add(new JFXButton());
+    System.out.println("Size: " + LoginController.interfGL.lobbyInformation().size());
+    for (int i = 0; i < LoginController.interfGL.lobbyInformation().size(); i++) {
+      nr.add(new Label());
+      user.add(new Label());
+      message.add(new Label());
+      join.add(new JFXButton());
     }
-    System.out.println("a.size: " + a.size());
-    for(int i = 0; i < a.size(); i++) {
-      System.out.println("a.size2: " + a.size());
-      System.out.println(String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer()) + "/" + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer()));
-      a.get(i).setText(String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer()) + "/" + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer()));
-      a.get(i).setFont(Font.font("System", 23));
+    for (int i = 0; i < nr.size(); i++) {
+      System.out.println("a.size2: " + nr.size());
+      System.out.println(
+          String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer()) + "/");
+      System.out.println(String.valueOf(
+          "/" + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer())));
+      nr.get(i)
+          .setText(String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer())
+              + "/"
+              + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer()));
+      nr.get(i).setFont(Font.font("System", 23));
 
-      vboxNr.getChildren().add(a.get(i));
+      vboxNr.getChildren().add(nr.get(i));
     }
-    
-    for(int i = 0; i < a.size(); i++) {
-      a.get(i).setText(LoginController.interfGL.lobbyInformation().get(i).getName());
-      a.get(i).setFont(Font.font("System", 23));
 
-      vboxUser.getChildren().add(a.get(i));
+    for (int i = 0; i < user.size(); i++) {
+      user.get(i).setText(LoginController.interfGL.lobbyInformation().get(i).getServerName());
+      user.get(i).setFont(Font.font("System", 23));
+
+      vboxUser.getChildren().add(user.get(i));
     }
-    
-    for(int i = 0; i < b.size(); i++) {
-      b.get(i).setPrefWidth(97);
-      b.get(i).setPrefHeight(31);
-      b.get(i).setText("Join");
-      b.get(i).setFont(Font.font("System", FontWeight.BOLD, 15));
-      b.get(i).setStyle("-fx-background-color: peru; -fx-text-fill: white; -fx-background-radius: 20");
-      b.get(i).setAlignment(Pos.CENTER);
+
+    for (int i = 0; i < join.size(); i++) {
+      join.get(i).setPrefWidth(97);
+      join.get(i).setPrefHeight(31);
+      join.get(i).setText("Join");
+      join.get(i).setFont(Font.font("System", FontWeight.BOLD, 15));
+      join.get(i)
+          .setStyle("-fx-background-color: peru; -fx-text-fill: white; -fx-background-radius: 20");
+      join.get(i).setAlignment(Pos.CENTER);
+
+      vboxJoin.getChildren().add(join.get(i));
+
+      int[] p = new int[1];
+      p[0] = i;
+      join.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          LoginController.interfGL
+              .joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getName());
+          System.out.println("Listener");
+          main.displayLobby();
+        }
+      });
+
     }
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
    */
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
-    displayServer();
-    joinListener();
+    // displayServer();
+
   }
-  
+
   public void joinListener() {
-    for(int i = 0; i < b.size(); i++) {    
+    for (int i = 0; i < join.size(); i++) {
       int[] p = new int[1];
       p[0] = i;
-      b.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
+      join.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
 
         @Override
         public void handle(MouseEvent event) {
-         LoginController.interfGL.joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getName());
-        main.displayLobby();
+          LoginController.interfGL
+              .joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getName());
+          main.displayLobby();
         }
       });
+
     }
   }
-  
-  public void displayJoinButton() {
-    bt.setPrefWidth(97);
-    bt.setPrefHeight(31);
-    bt.setText("Join");
-    bt.setFont(Font.font("System", FontWeight.BOLD, 15));
-    bt.setStyle("-fx-background-color: peru; -fx-text-fill: white; -fx-background-radius: 20");
-    bt.setAlignment(Pos.CENTER);
-  }
+
+
 
 }
