@@ -43,7 +43,7 @@
       </HBox>
       <Line endX="692.0" layoutX="580.0" layoutY="237.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" AnchorPane.leftAnchor="477.0" AnchorPane.rightAnchor="8.0" />
       <Line endX="692.0" layoutX="572.0" layoutY="166.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
-      <JFXButton layoutX="514.0" layoutY="669.0" prefHeight="31.0" prefWidth="97.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Refresh" textFill="WHITE">
+      <JFXButton layoutX="514.0" layoutY="669.0" onAction="#refresh" prefHeight="31.0" prefWidth="97.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Refresh" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></JFXButton>

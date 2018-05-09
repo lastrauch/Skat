@@ -78,6 +78,16 @@ public class LobbyOnlineController implements Initializable{
     main.displayGameSettings();
   }
   
+  @FXML
+  public void refresh() {
+    if(LoginController.interfGL.lobbyInformation().size() > 0) {
+      displayServer();
+    }
+    else { 
+      System.out.println("No new server");
+    }
+  }
+  
   
   public void displayServer() {
     ArrayList<Label> a= new ArrayList<Label>();
@@ -88,7 +98,9 @@ public class LobbyOnlineController implements Initializable{
       a.add(new Label());
       b.add(new JFXButton());
     }
+    System.out.println("a.size: " + a.size());
     for(int i = 0; i < a.size(); i++) {
+      System.out.println("a.size2: " + a.size());
       a.get(i).setText(String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer()) + "/" + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer()));
       a.get(i).setFont(Font.font("System", 23));
 
