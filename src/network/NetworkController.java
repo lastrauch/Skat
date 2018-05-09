@@ -1,23 +1,33 @@
 package network;
 
-import java.util.List;
 import interfaces.LogicNetwork;
+import java.util.List;
 import logic.Card;
-import logic.GameSettings;
 import logic.ClientLogic;
+import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
 import network.client.Client;
-import network.messages.*;
+import network.messages.BetMsg;
+import network.messages.CardPlayedMsg;
+import network.messages.ChatMessageMsg;
+import network.messages.DealtCardsMsg;
+import network.messages.GameSettingsMsg;
+import network.messages.KontraMsg;
+import network.messages.PlayStateMsg;
+import network.messages.RekontraMsg;
+import network.messages.StartGameMsg;
 import network.server.Server;
 import network.server.ServerFinder;
 
+/**
+ * This class is the connection between the logic interface and the network. It implements the
+ * interface methods as well as some other methods to reach out to the client, which communicates
+ * with its ClientConnection on the server.
+ * 
+ * @author fkleinoe
+ */
 public class NetworkController implements LogicNetwork {
-
-  // This class is the connection between the logic interface and the network.
-  // It implements the interface methods as well as some other methods to reach out to the client,
-  // which communicates with its ClientConnection on the server.
-  // Available methods are:
 
   // hostGame(Player, GameSettings, String) : Server
   // With this method the player can host a game.
@@ -45,13 +55,13 @@ public class NetworkController implements LogicNetwork {
 
   // sendPlayState(PlayState) : void
   // Sends the PlayState.
-  
+
   // sendKontra()
   // Sends a message, that the player wants to declare kontra.
 
   // sendRekontra()
   // Sends a message, that the player wants to declare rekontra.
-  
+
   // yourTurn(Player) : void
   // Sends a message, that it is players turn.
 
@@ -78,7 +88,7 @@ public class NetworkController implements LogicNetwork {
    * should speak to
    * 
    * @author fkleinoe
-   * @param logic
+   * @param logic communication interface to logic
    */
   public NetworkController(ClientLogic logic) {
     this.logic = logic;
@@ -93,10 +103,10 @@ public class NetworkController implements LogicNetwork {
    * server.
    * 
    * @author fkleinoe
-   * @param player
-   * @param gameSettings
-   * @param comment
-   * @return Server
+   * @param player that hosts the game
+   * @param gameSettings of the game
+   * @param comment of the server
+   * @return Server a hosted server
    */
   public Server hostGame(Player player, GameSettings gameSettings, String comment) {
     this.player = player;
@@ -115,9 +125,9 @@ public class NetworkController implements LogicNetwork {
    * Returns if the connections was accepted.
    * 
    * @author fkleinoe
-   * @param server
-   * @param player
-   * @return boolean
+   * @param server that should be joined
+   * @param player that wants to join
+   * @return boolean if joining worked
    */
   public boolean joinLobby(Server server, Player player) {
     this.client = new Client(server, player, server.getPort(), this.logic);
@@ -135,7 +145,7 @@ public class NetworkController implements LogicNetwork {
    * The methods returns a list of skat servers available in the network.
    * 
    * @author fkleinoe
-   * @return List(Server)
+   * @return List(Server) get all skat server in local network
    */
   public List<Server> getServer() {
     if (this.finder != null) {
@@ -151,10 +161,10 @@ public class NetworkController implements LogicNetwork {
    * This method sends a chat message to the server.
    * 
    * @author fkleinoe
-   * @param message
+   * @param message to send
    */
   public void sendChatMessage(String message) {
-    ChatMessage_Msg msg = new ChatMessage_Msg(this.player, message);
+    ChatMessageMsg msg = new ChatMessageMsg(this.player, message);
     this.client.sendMessage(msg);
   }
 
@@ -163,11 +173,11 @@ public class NetworkController implements LogicNetwork {
    * This method sends the GameSettings to the server.
    * 
    * @author fkleinoe
-   * @param gameSettings
+   * @param gameSettings to send
    */
   public void sendGameSettings(GameSettings gameSettings) {
     if (isHost) {
-      GameSettings_Msg msg = new GameSettings_Msg(gameSettings);
+      GameSettingsMsg msg = new GameSettingsMsg(gameSettings);
       this.client.sendMessage(msg);
     }
   }
@@ -179,7 +189,7 @@ public class NetworkController implements LogicNetwork {
    * @author fkleinoe
    */
   public void startGame() {
-    StartGame_Msg msg = new StartGame_Msg();
+    StartGameMsg msg = new StartGameMsg();
     this.client.sendMessage(msg);
   }
 
@@ -189,12 +199,12 @@ public class NetworkController implements LogicNetwork {
    * player.
    * 
    * @author fkleinoe
-   * @param player
-   * @param cards
-   * @param playState
+   * @param player to deal the cards to
+   * @param cards that are dealed
+   * @param playState of the play
    */
   public void dealCards(Player player, List<Card> cards, PlayState playState) {
-    DealtCards_Msg msg = new DealtCards_Msg(player, cards, playState);
+    DealtCardsMsg msg = new DealtCardsMsg(player, cards, playState);
     this.client.sendMessage(msg);
   }
 
@@ -203,11 +213,11 @@ public class NetworkController implements LogicNetwork {
    * This method sends the message, that the passed player placed the passed bet.
    * 
    * @author fkleinoe
-   * @param bet
-   * @param player
+   * @param bet that was placed
+   * @param player who placed the bet
    */
   public void bet(int bet, Player player) {
-    Bet_Msg msg = new Bet_Msg(player, bet);
+    BetMsg msg = new BetMsg(player, bet);
     this.client.sendMessage(msg);
   }
 
@@ -216,13 +226,13 @@ public class NetworkController implements LogicNetwork {
    * This method sends the PlayState to the server.
    * 
    * @author fkleinoe
-   * @param playState
+   * @param playState that will be set
    */
   public void sendPlayState(PlayState playState) {
-    PlayState_Msg msg = new PlayState_Msg(playState);
+    PlayStateMsg msg = new PlayStateMsg(playState);
     this.client.sendMessage(msg);
   }
-  
+
   @Override
   /**
    * This method sends a message, that the player announced kontra.
@@ -230,7 +240,7 @@ public class NetworkController implements LogicNetwork {
    * @author fkleinoe
    */
   public void sendKontra() {
-    Kontra_Msg msg = new Kontra_Msg();
+    KontraMsg msg = new KontraMsg();
     this.client.sendMessage(msg);
   }
 
@@ -241,34 +251,20 @@ public class NetworkController implements LogicNetwork {
    * @author fkleinoe
    */
   public void sendRekontra() {
-    Rekontra_Msg msg = new Rekontra_Msg();
+    RekontraMsg msg = new RekontraMsg();
     this.client.sendMessage(msg);
   }
-  
-//  TODO
-//  @Override
-//  /**
-//   * This method sends a message to the server, that it is the passed players turn.
-//   * 
-//   * @author fkleinoe
-//   * @param player
-//   */
-//  public void yourTurn(Player player) {
-//    YourTurn_Msg msg = new YourTurn_Msg(player);
-//    this.client.sendMessage(msg);
-//  }
-  
 
   @Override
   /**
    * This method sends a card that was played by the passed player.
    * 
    * @author fkleinoe
-   * @param card
-   * @param player
+   * @param card that was played
+   * @param player that played the card
    */
   public void sendCardPlayed(Card card, Player player) {
-    CardPlayed_Msg msg = new CardPlayed_Msg(player, card);
+    CardPlayedMsg msg = new CardPlayedMsg(player, card);
     this.client.sendMessage(msg);
   }
 
