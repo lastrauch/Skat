@@ -740,6 +740,12 @@ public class ClientLogic implements NetworkLogic, AILogic {
     if (this.playState.isOpen()
         && player.getName().equals(this.playState.getAuction().getWinner().getName())) {
       player.setDeclarer(true);
+      if (!this.player.isBot()) {
+        System.out.println("hand of player who plays open (right before showOpen):");
+        for(Card c: player.getHand()) {
+          System.out.println(c.toString());
+        }
+      }
       this.inGameController.showOpen(player);
     }
     try {
