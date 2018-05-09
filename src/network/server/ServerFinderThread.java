@@ -34,7 +34,7 @@ private static Server server;
           answer += server.getIP() + ";";
           answer += server.getClientConnections().size() + ";";
           answer += server.getGameSettings().getNrOfPlayers() + ";";
-          answer += server.getComment();
+          answer += server.getComment() + ";";
           byte[] sendData = answer.getBytes();
           
           DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());

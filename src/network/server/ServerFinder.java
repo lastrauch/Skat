@@ -1,6 +1,8 @@
 package network.server;
 
 import java.util.List;
+import logic.GameSettings;
+import network.Settings;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -89,10 +91,15 @@ public class ServerFinder {
       String[] message = msg.split(";");
       System.out.println(message[0]);
       if (message[0].equals("SKAT4")) {
-        //TODO
-        for(int i=0; i<message.length; i++) {
-          System.out.println(message[i]);
-        }
+        // Servername, ip, playerAnz, maxPlayer, comment
+        String serverName = message[1];
+        String ip = message[2];
+        int numPlayer = Integer.parseInt(message[3]);
+        int maxPlayer = Integer.parseInt(message[4]);
+        String comment = message[5];
+        Server server = new Server(serverName, Settings.PORT, numPlayer, maxPlayer, comment);
+        server.setIP(ip);
+        this.servers.add(server);
       }
       
       }catch (SocketTimeoutException e) {
@@ -105,9 +112,8 @@ public class ServerFinder {
 
   }
 
-
-
   public List<Server> getServers() {
+    this.refresh();
     return this.servers;
   }
 

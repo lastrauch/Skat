@@ -25,6 +25,8 @@ public class Server extends Thread {
   private String comment;
   private PlayState ps;
   private List<Player> player;
+  private int numPlayer;
+  private int maxPlayer;
 
   public Server(String serverName, int port, GameSettings gs, String comment) {
     this.serverName = serverName;
@@ -45,9 +47,16 @@ public class Server extends Thread {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    // TODO
     Thread serverFinderThread = new Thread(ServerFinderThread.getInstance(this));
     serverFinderThread.start();
+  }
+  
+  public Server(String serverName, int port, int numPlayer, int maxPlayer, String comment) {
+    this.serverName = serverName;
+    this.port = port;
+    this.numPlayer = numPlayer;
+    this.maxPlayer = maxPlayer;
+    this.comment = comment;
   }
 
   public void run() {
@@ -135,6 +144,10 @@ public class Server extends Thread {
   public String getComment() {
     return this.comment;
   }
+  
+  public void setIP(String ip) {
+    this.ip = ip;
+  }
 
   public String getIP() {
     return this.ip;
@@ -142,5 +155,13 @@ public class Server extends Thread {
   
   public int getNewPlayerID(){
 	  return playerID++;
+  }
+  
+  public int getNumPlayer() {
+    return this.numPlayer;
+  }
+  
+  public int getMaxPlayer() {
+    return this.maxPlayer;
   }
 }
