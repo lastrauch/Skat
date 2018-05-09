@@ -93,7 +93,11 @@ public class LobbyOnlineController implements Initializable {
               + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer()));
       nr.get(i).setFont(Font.font("System", 23));
 
-      if(!vboxNr.getChildren().contains(vboxNr.getChildren().get(i))) {
+      if(vboxNr.getChildren().size() > 0) {
+        if(!vboxNr.getChildren().contains(vboxNr.getChildren().get(i))) {
+          vboxNr.getChildren().add(nr.get(i));
+        }
+      } else {
         vboxNr.getChildren().add(nr.get(i));
       }
     }
@@ -102,8 +106,12 @@ public class LobbyOnlineController implements Initializable {
       user.get(i).setText(LoginController.interfGL.lobbyInformation().get(i).getServerName());
       user.get(i).setFont(Font.font("System", 15));
 
-      if(!vboxUser.getChildren().contains(vboxUser.getChildren().get(i))) {
-        vboxNr.getChildren().add(user.get(i));
+      if(vboxUser.getChildren().size() > 0) {
+        if(!vboxUser.getChildren().contains(vboxUser.getChildren().get(i))) {
+          vboxUser.getChildren().add(user.get(i));
+        }
+      } else {
+        vboxUser.getChildren().add(user.get(i));
       }
     }
 
@@ -116,7 +124,11 @@ public class LobbyOnlineController implements Initializable {
           .setStyle("-fx-background-color: peru; -fx-text-fill: white; -fx-background-radius: 20");
       join.get(i).setAlignment(Pos.CENTER);
 
-      if(!vboxJoin.getChildren().contains(vboxJoin.getChildren().get(i))) {
+      if(vboxJoin.getChildren().size() > 0) {
+        if(!vboxJoin.getChildren().contains(vboxJoin.getChildren().get(i))) {
+          vboxNr.getChildren().add(join.get(i));
+        }
+      } else {
         vboxJoin.getChildren().add(join.get(i));
       }
 
