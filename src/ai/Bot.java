@@ -2,10 +2,13 @@ package ai;
 
 import logic.Player;
 
+/**
+ * This is a class that represents a bot. It has the same and more attributes and functions like
+ * Player, which it extends.
+ * 
+ * @author fkleinoe
+ */
 public class Bot extends Player {
-
-  // This is a class that represents a bot. It has the same and more attributes
-  // and functions like Player, which it extends.
 
   private static final long serialVersionUID = 1L;
   private BotDifficulty difficulty;

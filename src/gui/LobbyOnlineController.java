@@ -125,10 +125,10 @@ public class LobbyOnlineController implements Initializable {
 
         @Override
         public void handle(MouseEvent event) {
-          LoginController.interfGL
-              .joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getIP());
-          System.out.println("Listener");
           main.displayLobby();
+          LoginController.interfGL
+              .joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getIp());
+          System.out.println("Listener");
         }
       });
 
@@ -145,23 +145,6 @@ public class LobbyOnlineController implements Initializable {
     // TODO Auto-generated method stub
     // displayServer();
 
-  }
-
-  public void joinListener() {
-    for (int i = 0; i < join.size(); i++) {
-      int[] p = new int[1];
-      p[0] = i;
-      join.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent event) {
-          LoginController.interfGL
-              .joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getIP());
-          main.displayLobby();
-        }
-      });
-
-    }
   }
 
 

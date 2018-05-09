@@ -78,9 +78,9 @@ public class InGameController implements Initializable, InGameInterface {
 
 
 
-
   /**
    * Initialize takeSkat and siwtchSkat
+   * 
    * @author lstrauch
    */
   private AnchorPane skatPane = new AnchorPane();
@@ -101,6 +101,7 @@ public class InGameController implements Initializable, InGameInterface {
 
   /**
    * Initialize all non-FXML attributes
+   * 
    * @author lstrauch
    */
   private GuiController main;
@@ -509,6 +510,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void openAskForBet(int bet) {
     // TODO Auto-generated method stub
+    System.out.println("OPENASKFORBET");
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -529,6 +531,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public boolean askForBet(int bet, Player lastBet) {
     // deletePane(paneBet);
+    System.out.println("ASK FOR BET");
     while (notpressed) {
       buttonListener();
     }
@@ -634,6 +637,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void openAuctionWinnerScreen() {
     // TODO Auto-generated method stub
+    System.out.println("AUCTIONWINNERSCREEN");
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -671,6 +675,7 @@ public class InGameController implements Initializable, InGameInterface {
             }
           });
         }
+        System.out.println("SETPLAYSETTINGSAFTERAUCTION");
         disableTraining();
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
@@ -899,6 +904,7 @@ public class InGameController implements Initializable, InGameInterface {
         if (main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
           disableTraining();
         }
+        System.out.println("RECEIVED NEW BET");
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
         bubbleUp.setImage(null);
@@ -906,7 +912,7 @@ public class InGameController implements Initializable, InGameInterface {
         betLeft.setText(null);
         betUp.setText(null);
         deletePane(paneBet);
-        if (main.getGameSetCon().getGs().getNrOfPlayers() == 3) {
+        if (main.getLobbyCon().getGS().getNrOfPlayers() == 3) {
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
             if (player.getPosition() == Position.MIDDLEHAND) {
               bubbleLeft.setImage(bubbleL);
@@ -1066,12 +1072,12 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showOpen(Player player) {
     // TODO Auto-generated method stub
-    for(int i = 0; i < player.getHand().size(); i++) {
+    for (int i = 0; i < player.getHand().size(); i++) {
       System.out.println("OUVERT HAND: " + player.getHand().get(i));
     }
     System.out.println("OPEN!!!!!!!!!!!!!!!!!!!!!!");
 
-    if (main.getGameSetCon().getGs().getNrOfPlayers() == 4) {
+    if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
       System.out.println("OPEN2!!!!!!");
       if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
         if (player.getPosition() == Position.MIDDLEHAND) {
@@ -1201,7 +1207,7 @@ public class InGameController implements Initializable, InGameInterface {
       this.pl2 = player.get(2);
       this.pl3 = player.get(3);
       main.displayLeaderboard4();
-//      main.getLead4Con().start();
+      // main.getLead4Con().start();
     }
 
   }
@@ -2525,19 +2531,26 @@ public class InGameController implements Initializable, InGameInterface {
     AnchorPane.setRightAnchor(labelBet, 0.0);
     labelBet.setAlignment(Pos.CENTER);
 
-    box.getChildren().add(qu);
-    box.getChildren().add(pass);
-    box.getChildren().add(betB);
-    box.setSpacing(50);
-    box.setPrefWidth(307);
+    if (!box.getChildren().contains(qu) && !box.getChildren().contains(betB)
+        && !box.getChildren().contains(pass)) {
+      System.out.println("Drin");
+      box.getChildren().add(qu);
+      box.getChildren().add(pass);
+      box.getChildren().add(betB);
+    }
     box.setPrefHeight(44);
     box.setLayoutX(37);
     box.setLayoutY(158);
+    box.setSpacing(50);
 
-    paneBet.getChildren().add(box);
-    paneBet.getChildren().add(labelBet);
+    if (!paneBet.getChildren().contains(box) && !paneBet.getChildren().contains(labelBet)) {
+      paneBet.getChildren().add(box);
+      paneBet.getChildren().add(labelBet);
+    }
 
-    mainPane.getChildren().add(paneBet);
+    if(!mainPane.getChildren().contains(paneBet)) {
+      mainPane.getChildren().add(paneBet);
+    }
     if (main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
       displayTraining(
           "1.   Be realistic! You won’t win the next round, if you don’t get at least six tricks and you won’t get the girl, when she didn’t drink at least six drinks.\n"
@@ -2589,10 +2602,15 @@ public class InGameController implements Initializable, InGameInterface {
     grand.setToggleGroup(g1);
     nullG.setToggleGroup(g1);
 
-    boxWin1.getChildren().add(diamonds);
-    boxWin1.getChildren().add(hearts);
-    boxWin1.getChildren().add(spades);
-    boxWin1.getChildren().add(clubs);
+    if(!boxWin1.getChildren().contains(diamonds)
+        && !boxWin1.getChildren().contains(hearts)
+        && !boxWin1.getChildren().contains(spades)
+        && !boxWin1.getChildren().contains(clubs)) {
+      boxWin1.getChildren().add(diamonds);
+      boxWin1.getChildren().add(hearts);
+      boxWin1.getChildren().add(spades);
+      boxWin1.getChildren().add(clubs);
+    }
     boxWin1.setSpacing(20);
     boxWin1.setPrefWidth(528);
     boxWin1.setPrefHeight(42);
@@ -2610,8 +2628,11 @@ public class InGameController implements Initializable, InGameInterface {
     nullG.setFont(Font.font("System", FontWeight.BOLD, 20));
     nullG.setStyle("-fx-background-color: tan;");
 
-    boxWin2.getChildren().add(grand);
-    boxWin2.getChildren().add(nullG);
+    if(!boxWin2.getChildren().contains(grand)
+        && !boxWin2.getChildren().contains(nullG)) {
+      boxWin2.getChildren().add(grand);
+      boxWin2.getChildren().add(nullG);
+    }
     boxWin2.setSpacing(158);
     boxWin2.setPrefWidth(528);
     boxWin2.setPrefHeight(42);
@@ -2634,18 +2655,26 @@ public class InGameController implements Initializable, InGameInterface {
     schwarz.setFont(Font.font("System", 15));
     schwarz.setStyle("-fx-background-color: tan;");
 
-    boxWin3.getChildren().add(ouvert);
-    boxWin3.getChildren().add(schneider);
-    boxWin3.getChildren().add(schwarz);
+    if(!boxWin3.getChildren().contains(ouvert)
+        && !boxWin3.getChildren().contains(schneider)
+        && !boxWin3.getChildren().contains(schwarz)) {
+      boxWin3.getChildren().add(ouvert);
+      boxWin3.getChildren().add(schneider);
+      boxWin3.getChildren().add(schwarz);
+    }
     boxWin3.setSpacing(35);
     boxWin3.setPrefWidth(528);
     boxWin3.setPrefHeight(21);
     boxWin3.setLayoutX(28);
     boxWin3.setLayoutY(266);
 
-    vboxWin.getChildren().add(boxWin1);
-    vboxWin.getChildren().add(boxWin2);
-    vboxWin.getChildren().add(boxWin3);
+    if(!vboxWin.getChildren().contains(boxWin1)
+        && !vboxWin.getChildren().contains(boxWin2)
+        && !vboxWin.getChildren().contains(boxWin3)) {
+      vboxWin.getChildren().add(boxWin1);
+      vboxWin.getChildren().add(boxWin2);
+      vboxWin.getChildren().add(boxWin3);
+    }
     vboxWin.setPrefHeight(185);
     vboxWin.setPrefWidth(528);
     vboxWin.setLayoutX(14);
@@ -2669,11 +2698,17 @@ public class InGameController implements Initializable, InGameInterface {
     labelWin.setFont(Font.font("System", FontWeight.BOLD, 33));
     labelWin.setTextFill(Color.WHITE);
 
-    paneAuc.getChildren().add(vboxWin);
-    paneAuc.getChildren().add(labelWin);
-    paneAuc.getChildren().add(submit);
+    if(!paneAuc.getChildren().contains(vboxWin)
+        && !paneAuc.getChildren().contains(labelWin)
+        && !paneAuc.getChildren().contains(submit)) {
+      paneAuc.getChildren().add(vboxWin);
+      paneAuc.getChildren().add(labelWin);
+      paneAuc.getChildren().add(submit);
+    }
 
-    mainPane.getChildren().add(paneAuc);
+    if(!mainPane.getChildren().contains(paneAuc)) {
+      mainPane.getChildren().add(paneAuc);
+    }
   }
 
 
@@ -2713,8 +2748,11 @@ public class InGameController implements Initializable, InGameInterface {
     no.setStyle("-fx-background-color: tan;");
     no.setButtonType(ButtonType.RAISED);
 
-    skatHbox.getChildren().add(yes);
-    skatHbox.getChildren().add(no);
+    if(!skatHbox.getChildren().contains(yes)
+        && !skatHbox.getChildren().contains(no)) {
+      skatHbox.getChildren().add(yes);
+      skatHbox.getChildren().add(no);
+    }
     skatHbox.setSpacing(100);
     skatHbox.setPrefWidth(346);
     skatHbox.setPrefHeight(54);
@@ -2722,9 +2760,13 @@ public class InGameController implements Initializable, InGameInterface {
     skatHbox.setLayoutY(158);
 
 
-    skatPane.getChildren().add(skatLabel);
-    skatPane.getChildren().add(skatHbox);
-    mainPane.getChildren().add(skatPane);
+    if(!skatPane.getChildren().contains(skatLabel)
+        && !skatPane.getChildren().contains(skatPane)
+        && !mainPane.getChildren().contains(skatHbox)) {
+      skatPane.getChildren().add(skatLabel);
+      skatPane.getChildren().add(skatHbox);
+      mainPane.getChildren().add(skatPane);
+    }
   }
 
   /**
@@ -2767,11 +2809,17 @@ public class InGameController implements Initializable, InGameInterface {
     ok.setButtonType(ButtonType.RAISED);
 
 
-    handPane.getChildren().add(sk1);
-    handPane.getChildren().add(sk2);
-    handPane.getChildren().add(ok);
-
-    mainPane.getChildren().add(handPane);
+    if(!handPane.getChildren().contains(sk1)
+        && !handPane.getChildren().contains(sk2)
+        && !handPane.getChildren().contains(ok)) {
+      handPane.getChildren().add(sk1);
+      handPane.getChildren().add(sk2);
+      handPane.getChildren().add(ok);
+    }
+    
+    if(!mainPane.getChildren().contains(handPane)) {
+      mainPane.getChildren().add(handPane);
+    }
   }
 
   /**
