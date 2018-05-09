@@ -1,20 +1,25 @@
 package gui;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 
 public class HelpPlayController {
 
   /**
+   * initializes non-FXML attributes.
    * @author lstrauch
    */
   private GuiController main;
 
+  /**
+   * Constructor.
+   *@author lstrauch
+   */
   public HelpPlayController() {
     this.main = new GuiController();
   }
 
-  /**
+  /** 
+   * main.display Help-screen.
    * @author lstrauch
    */
   @FXML

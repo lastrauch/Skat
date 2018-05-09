@@ -2,25 +2,20 @@ package gui;
 
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXML;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import logic.GameMode;
-import logic.GameSettings;
-import logic.Player;
+
 
 public class GuiController extends Application {
 
   /**
+   * 
+   * Initializes all Controllers and their panes.
+   * 
    * @author lstrauch
-   * 
-   * 
-   * 
    * 
    */
 
@@ -101,6 +96,7 @@ public class GuiController extends Application {
 
 
   /**
+   * starts the first screen (Login).
    * (non-Javadoc)
    * 
    * @see javafx.application.Application#start(javafx.stage.Stage)
@@ -129,6 +125,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens CreateNewAccount-screen.
    * @author lstrauch
    */
   public void displayCreateNewAccount() {
@@ -146,6 +143,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens ChooseGame-screen.
    * @author lstrauch
    */
   public void displayChooseGame() {
@@ -163,9 +161,10 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens SetAi-screen.
    * @author lstrauch
    */
-  public void displayAI() {
+  public void displayAi() {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("SetAI.fxml"));
@@ -180,6 +179,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens LobbyOnline-screen.
    * @author lstrauch
    */
   public void displayLobbyOnline() {
@@ -197,6 +197,10 @@ public class GuiController extends Application {
   }
 
 
+  /**
+   * opens Lobby-screen.
+   * @author lstrauch
+   */
   public void displayLobby() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -212,6 +216,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens AccountSettings-screen.
    * @author lstrauch
    */
   public void displayAccountSettings() {
@@ -230,6 +235,7 @@ public class GuiController extends Application {
 
 
   /**
+   * opens Help-screen.
    * @author lstrauch
    */
   public void displayHelp() {
@@ -247,6 +253,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens Overiew-screen.
    * @author lstrauch
    */
   public void displayHelp_Overview() {
@@ -264,6 +271,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens TheCards-screen.
    * @author lstrauch
    */
   public void displayHelp_Cards() {
@@ -281,6 +289,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens TheDeal-screen.
    * @author lstrauch
    */
   public void displayHelp_Deal() {
@@ -298,6 +307,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens TheAuction-screen.
    * @author lstrauch
    */
   public void displayHelp_Auction() {
@@ -315,6 +325,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens ThePossibleContracts-screen.
    * @author lstrauch
    */
   public void displayHelp_PossibleContracts() {
@@ -332,6 +343,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens ThePlay-screen.
    * @author lstrauch
    */
   public void displayHelp_Play() {
@@ -349,6 +361,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens CalValue-screen.
    * @author lstrauch
    */
   public void displayHelp_CalculateValue() {
@@ -366,6 +379,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens TheScoring-screen.
    * @author lstrauch
    */
   public void displayHelp_Scoring() {
@@ -383,6 +397,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens Varations-screen.
    * @author lstrauch
    */
   public void displayHelp_Variations() {
@@ -400,6 +415,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens GameSettings-screen.
    * @author lstrauch
    * @param gm
    */
@@ -419,6 +435,7 @@ public class GuiController extends Application {
 
 
   /**
+   * opens InGame-screen.
    * @author lstrauch
    */
   public void displayInGame() {
@@ -441,6 +458,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens Settings-screen.
    * @author lstrauch
    */
   public void displaySettings() {
@@ -458,6 +476,7 @@ public class GuiController extends Application {
   }
 
   /**
+   * opens Leaderboard3-screen.
    * @author lstrauch
    */
   public void displayLeaderboard3() {
@@ -465,16 +484,21 @@ public class GuiController extends Application {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("Leaderboard3.fxml"));
       this.leaderboard3 = (AnchorPane) loader.load();
+      Thread.sleep(1000);
       mprimaryStage.getScene().setRoot(leaderboard3);
 
       leaderboard3Con = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
   }
 
   /**
+   * opens Leaderboard4-screen.
    * @author lstrauch
    */
   public void displayLeaderboard4() {
@@ -482,39 +506,78 @@ public class GuiController extends Application {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("Leaderboard4.fxml"));
       leaderboard4 = (AnchorPane) loader.load();
+      Thread.sleep(1000);
       mprimaryStage.getScene().setRoot(leaderboard4);
 
       leaderboard4Con = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
   }
 
+  /**
+   * returns InGameController.
+   * @author lstrauch
+   * @return inGameCon
+   */
   public InGameController getCon() {
     return inGameCon;
   }
 
+  /**
+   * returns GameSettingsController.
+   * @author lstrauch
+   * @return gameSettingsCon;
+   */
   public GameSettingsController getGameSetCon() {
     return gameSettingsCon;
   }
 
+  /**
+   * returns LobbyController.
+   * @author lstrauch
+   * @return lobbyCon
+   */
   public LobbyController getLobbyCon() {
     return lobbyCon;
   }
 
+  /**
+   * returns ChooseGameController.
+   * @author lstrauch
+   * @return gameModeCon
+   */
   public ChooseGameController getChooseGameCon() {
     return gameModeCon;
   }
 
+  /**
+   * returns InGameController.
+   * @author lstrauch
+   * @return inGameCon
+   */
   public InGameController getInGameCon() {
     return inGameCon;
   }
 
+  /**
+   * returns Leaderboard4Controller
+   * @author lstrauch
+   * @return leaderboard4Con
+   */
   public Leaderboard4Controller getLead4Con() {
     return leaderboard4Con;
   }
   
+  /**
+   * returns SettingsCon.
+   * @author lstrauch
+   * @return settingsCon
+   */
   public SettingsController getSettingsCon() {
     return settingsCon;
   }
