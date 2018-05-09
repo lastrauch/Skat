@@ -27,7 +27,9 @@ public class LobbyOnlineController implements Initializable{
   private VBox vboxNr, vboxUser, vboxMessage;
   
   private GuiController main;
-  private JFXButton b;
+  private JFXButton bt;
+  ArrayList<Label> a= new ArrayList<Label>();
+  ArrayList<JFXButton> b = new ArrayList<JFXButton>();
 
   
   public LobbyOnlineController() {
@@ -35,14 +37,6 @@ public class LobbyOnlineController implements Initializable{
     GuiController.prevScreen = 2;
   }
 
-  /**
-   * @author lstrauch
-   */
-  @FXML
-  public void join() {
-//    LoginController.interfGL.joinGame(LoginController.username);
-    
-  }
 
   /**
    * @author lstrauch
@@ -90,9 +84,6 @@ public class LobbyOnlineController implements Initializable{
   
   
   public void displayServer() {
-    ArrayList<Label> a= new ArrayList<Label>();
-    ArrayList<JFXButton> b = new ArrayList<JFXButton>();
-
     System.out.println("Size: " +LoginController.interfGL.lobbyInformation().size());
     for(int i = 0; i < LoginController.interfGL.lobbyInformation().size(); i++) {
       a.add(new Label());
@@ -101,6 +92,7 @@ public class LobbyOnlineController implements Initializable{
     System.out.println("a.size: " + a.size());
     for(int i = 0; i < a.size(); i++) {
       System.out.println("a.size2: " + a.size());
+      System.out.println(String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer()) + "/" + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer()));
       a.get(i).setText(String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer()) + "/" + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer()));
       a.get(i).setFont(Font.font("System", 23));
 
@@ -121,17 +113,6 @@ public class LobbyOnlineController implements Initializable{
       b.get(i).setFont(Font.font("System", FontWeight.BOLD, 15));
       b.get(i).setStyle("-fx-background-color: peru; -fx-text-fill: white; -fx-background-radius: 20");
       b.get(i).setAlignment(Pos.CENTER);
-      
-      int[] p = new int[1];
-      p[0] = i;
-      b.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent event) {
-//          main.displayLobby(GameMode.MULTIPLAYER);
-          LoginController.interfGL.joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getName());
-        }
-      });
     }
   }
 
@@ -142,15 +123,31 @@ public class LobbyOnlineController implements Initializable{
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
     displayServer();
+    joinListener();
+  }
+  
+  public void joinListener() {
+    for(int i = 0; i < b.size(); i++) {    
+      int[] p = new int[1];
+      p[0] = i;
+      b.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+         LoginController.interfGL.joinGame(LoginController.interfGL.lobbyInformation().get(p[0]).getName());
+        main.displayLobby();
+        }
+      });
+    }
   }
   
   public void displayJoinButton() {
-    b.setPrefWidth(97);
-    b.setPrefHeight(31);
-    b.setText("Join");
-    b.setFont(Font.font("System", FontWeight.BOLD, 15));
-    b.setStyle("-fx-background-color: peru; -fx-text-fill: white; -fx-background-radius: 20");
-    b.setAlignment(Pos.CENTER);
+    bt.setPrefWidth(97);
+    bt.setPrefHeight(31);
+    bt.setText("Join");
+    bt.setFont(Font.font("System", FontWeight.BOLD, 15));
+    bt.setStyle("-fx-background-color: peru; -fx-text-fill: white; -fx-background-radius: 20");
+    bt.setAlignment(Pos.CENTER);
   }
 
 }

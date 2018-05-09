@@ -85,15 +85,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <VBox fx:id="vboxJoin" layoutX="1115.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0">
-         <children>
-            <JFXButton layoutX="1115.0" layoutY="283.0" onAction="#join" prefHeight="31.0" prefWidth="97.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Join" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </VBox>
+      <VBox fx:id="vboxJoin" layoutX="1115.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0" />
       <VBox fx:id="vboxNr" layoutX="545.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0" spacing="40.0" />
       <VBox fx:id="vboxUser" layoutX="721.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0" />
       <VBox fx:id="vboxMessage" layoutX="874.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0" />
