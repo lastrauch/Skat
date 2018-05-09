@@ -26,8 +26,21 @@ public class General {
   // getGameLevel(AIController) : int
   // Returns the game level, the bot is playing
 
-  // with initializeProbabilities(List<Card>) : double[][]
+  // initializeProbabilities(List<Card>) : double[][]
   // Returns the initialization of card probabilities, first column is bot
+  
+  // checkIfPossibleAndGetIndex(double[][], List<Card>, int, int, int) : int
+  // Checks whether the AI has said card in its hand and return the index, if so.
+  
+  // playColour(doulbe[][], List<Card>, int, int, int, boolean) : int
+  // Tries to play card of given colour.
+  
+  // playTrump(PlayMode, double[][], List<Card>, int, int, int, int, boolean) : int
+  // Tries to play a trump card.
+  
+  // playValue(double[][], List<Card>, int, int, int, boolean) : int
+  // Tries to play a card with no specific colour.
+
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Internal methods

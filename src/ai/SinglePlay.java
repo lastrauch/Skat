@@ -10,7 +10,7 @@ public class SinglePlay {
 
   private PlayMode playMode;
   private Colour colour;
-  private double certainty; // The certainty to play the specified playmode is in [0;10]
+  private double certainty; // The certainty to play the specified play mode is in [0;10]
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Constructor
@@ -76,10 +76,10 @@ public class SinglePlay {
   }
 
   /**
-   * Returns the certainty of the model
+   * Returns the certainty of the model.
    * 
    * @author fkleinoe
-   * @return double
+   * @return double to get
    */
   public double getCertainty() {
     return this.certainty;
