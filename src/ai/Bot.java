@@ -17,8 +17,8 @@ public class Bot extends Player {
    * Constucts a bot with given difficulty.
    * 
    * @author fkleinoe
-   * @param name
-   * @param difficulty
+   * @param name of the AI
+   * @param difficulty of the AI
    */
   public Bot(String name, BotDifficulty difficulty) {
     super(name, true);
@@ -32,7 +32,7 @@ public class Bot extends Player {
    * Set difficulty.
    * 
    * @author fkleinoe
-   * @param difficulty
+   * @param difficulty to set
    */
   public void setDifficulty(BotDifficulty difficulty) {
     this.difficulty = difficulty;
@@ -42,7 +42,7 @@ public class Bot extends Player {
    * Get difficutly.
    * 
    * @author fkleinoe
-   * @return BotDifficulty
+   * @return BotDifficulty to get
    */
   public BotDifficulty getDifficulty() {
     return this.difficulty;
