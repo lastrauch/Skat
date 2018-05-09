@@ -41,7 +41,7 @@ public interface LogicNetwork {
    * 
    * @param message
    */
-  public void sendChatMessage(String message);
+  public void sendChatMessage(Player player, String message);
   
   /**
    * sends out, if a player announced kontra.

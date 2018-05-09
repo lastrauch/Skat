@@ -42,7 +42,9 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public void showReceivedChatMessage(String mgs, Player player) {
     // TODO Auto-generated method stub
-
+    System.out.println("Playername: " + player.getName());
+    System.out.println("text: " + mgs);
+    guiCon.getLobbyCon().showChatMessage(mgs, player.getName());
   }
 
   /*

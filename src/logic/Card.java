@@ -1,7 +1,6 @@
 package logic;
 
 import java.io.Serializable;
-import javafx.scene.image.Image;
 
 /**
  * this class represents a card.
@@ -11,32 +10,30 @@ public class Card implements Serializable {
   private static final long serialVersionUID = 1L;
   private Colour colour;
   private Number number;
-  private Image img;
-  private Image imgDarker;
 
   /* ------------------------- CONSTRUCTOR ------------------------------------------- */
 
+  /**
+   * constructor.
+   * 
+   * @param colour of the card
+   * @param number of the card
+   */
   public Card(Colour colour, Number number) {
     this.colour = colour;
     this.number = number;
   }
 
-  public Card(Colour colour, Number number, Image img) {
-    this.colour = colour;
-    this.number = number;
-    this.img = img;
-  }
-
   public String toString() {
     return this.colour + " " + this.number;
   }
-  
+
   /* ------------------------- COMPARISMS -------------------------------------------- */
-  
+
   /**
    * returns true, if card is higher as comp with a high ten.
    * 
-   * @param comp
+   * @param comp card to compare with
    */
   public boolean isHigherAsNorm(Card comp) {
     if (this.number.getRankingNorm() > comp.getNumber().getRankingNorm()) {
@@ -49,7 +46,7 @@ public class Card implements Serializable {
   /**
    * returns true, if card is lower as copm with a high ten.
    * 
-   * @param comp
+   * @param comp card to compare with
    */
   public boolean isLowerAsNorm(Card comp) {
     if (this.number.getRankingNorm() < comp.getNumber().getRankingNorm()) {
@@ -62,7 +59,7 @@ public class Card implements Serializable {
   /**
    * returns true, if card is higher than comp with a low ten.
    * 
-   * @param comp
+   * @param comp card to compare with
    */
   public boolean isHigherAsLowTen(Card comp) {
     if (this.number.getRankingLowTen() > comp.getNumber().getRankingLowTen()) {
@@ -75,7 +72,7 @@ public class Card implements Serializable {
   /**
    * returns true, if card is lower than comp with a low ten.
    * 
-   * @param comp
+   * @param comp card to compare with
    */
   public boolean isLowerAsLowTen(Card comp) {
     if (this.number.getRankingLowTen() < comp.getNumber().getRankingLowTen()) {
@@ -84,10 +81,11 @@ public class Card implements Serializable {
       return false;
     }
   }
-  
+
   /**
-   * returns 0 for same colour -1
-   * @param comp
+   * returns 0 for same colour -1.
+   * 
+   * @param comp card to compare with
    */
   public int compareColour(Card comp) {
     return this.colour.compareColourIntern(comp.getColour());
@@ -131,25 +129,8 @@ public class Card implements Serializable {
     return this.number;
   }
 
-  public Image getImage() {
-    return this.img;
-  }
-
   public int getValue() {
     return this.number.getValue();
   }
-
-  public void setImage(Image img) {
-    this.img = img;
-  }
-
-  public Image getImgDarker() {
-    return imgDarker;
-  }
-
-  public void setImgDarker(Image imgDarker) {
-    this.imgDarker = imgDarker;
-  }
-
 }
 

@@ -92,7 +92,7 @@ public class LobbyController implements Initializable {
     // TODO Auto-generated method stub
     if(guiCon.getGameSetCon() != null) {
       setGM();
-      displaydiffentGameModes();
+//      displaydiffentGameModes();
     }
     ButtonListener();
     
@@ -175,6 +175,17 @@ public class LobbyController implements Initializable {
     mainPane.getChildren().add(change);
   }
 
+  public void showChatMessage(String text, String playername) {
+    chatM.appendText(playername +": "+text + "\n");
+    chatM.setFont(Font.font("System", FontWeight.BOLD, 19.0));
+  }
+  
+  @FXML
+  public void sendChatMessage() {
+    String message;
+    message = textM.getText();
+    LoginController.interfGL.sendChatText(message);
+  }
 
   public void displayPlayers(int size, List<Player> name) {
     Platform.runLater(new Runnable() {
@@ -222,7 +233,9 @@ public class LobbyController implements Initializable {
   }
 
   public void displayTwo(String name1, String name2) {
-    displayOne(name1);
+    if(!vbox1.getChildren().contains(p1)) {
+      displayOne(name1);
+    }
 
     p2.setPrefWidth(213);
     p2.setPrefHeight(51);
@@ -237,7 +250,10 @@ public class LobbyController implements Initializable {
   }
 
   public void displayThree(String name1, String name2, String name3) {
-    displayTwo(name1, name2);
+    if(!vbox1.getChildren().contains(p1)
+        && !vbox2.getChildren().contains(p2)) {
+      displayTwo(name1, name2);
+    }
     p3.setPrefWidth(213);
     p3.setPrefHeight(51);
     p3.setLayoutX(88);
@@ -251,7 +267,11 @@ public class LobbyController implements Initializable {
   }
 
   public void displayFour(String name1, String name2, String name3, String name4) {
-    displayThree(name1, name2, name3);
+    if(!vbox1.getChildren().contains(p1)
+        && !vbox1.getChildren().contains(p2)
+        && !vbox1.getChildren().contains(p3)) {
+      displayThree(name1, name2, name3);
+    }
     p4.setPrefWidth(213);
     p4.setPrefHeight(51);
     p4.setLayoutX(88);
@@ -347,26 +367,26 @@ public class LobbyController implements Initializable {
     this.gm = guiCon.getGameSetCon().getGm();
   }
   
-  public void displaydiffentGameModes() {
-    if(gm == GameMode.SINGLEPLAYER) {
-      displayChangeGamesettingsButton();
-      displayAddBotButton();
-      displayDeleteBotButton();
-      displayStartButton();
-      mainPane.getChildren().remove(allChat);
-      mainPane.getChildren().remove(chatM);
-      mainPane.getChildren().remove(textM);
-      mainPane.getChildren().remove(sendB);
-      rec.setHeight(684);
-      start.setLayoutY(262);
-      change.setLayoutY(491);
-      addBot.setLayoutY(591);
-      deleteBot.setLayoutY(591);
-      vbox1.setLayoutY(211);
-      vbox2.setLayoutY(211);
-    }
+//  public void displaydiffentGameModes() {
+//    if(gm == GameMode.SINGLEPLAYER) {
+//      displayChangeGamesettingsButton();
+//      displayAddBotButton();
+//      displayDeleteBotButton();
+//      displayStartButton();
+//      mainPane.getChildren().remove(allChat);
+//      mainPane.getChildren().remove(chatM);
+//      mainPane.getChildren().remove(textM);
+//      mainPane.getChildren().remove(sendB);
+//      rec.setHeight(684);
+//      start.setLayoutY(262);
+//      change.setLayoutY(491);
+//      addBot.setLayoutY(591);
+//      deleteBot.setLayoutY(591);
+//      vbox1.setLayoutY(211);
+//      vbox2.setLayoutY(211);
+//    }
     
-  }
+//  }
   
   public void displayNoUser() {
     notenoughpl.setLayoutX(14);

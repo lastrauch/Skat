@@ -53,7 +53,7 @@
       </AnchorPane>
       <JFXTextArea fx:id="chatM" editable="false" focusColor="WHITE" layoutY="556.0" opacity="0.95" prefHeight="194.0" prefWidth="1280.0" style="-fx-background-color: peru; -fx-border-color: black; -fx-text-fill: white; -fx-prompt-text: white;" unFocusColor="PERU" />
       <JFXTextField fx:id="textM" layoutY="750.0" opacity="0.95" prefHeight="50.0" prefWidth="1280.0" style="-fx-background-color: peru; -fx-border-color: black; -fx-text-fill: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <JFXButton fx:id="sendB" buttonType="RAISED" layoutX="1167.0" layoutY="750.0" opacity="0.89" prefHeight="50.0" prefWidth="113.0" style="-fx-border-radius: 0; -fx-background-color: tan; -fx-border-color: black; -fx-border-radius: 2;" styleClass="buttonstyle" text="Send" textFill="WHITE">
+      <JFXButton fx:id="sendB" buttonType="RAISED" layoutX="1167.0" layoutY="750.0" onAction="#sendChatMessage" opacity="0.89" prefHeight="50.0" prefWidth="113.0" style="-fx-border-radius: 0; -fx-background-color: tan; -fx-border-color: black; -fx-border-radius: 2;" styleClass="buttonstyle" text="Send" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
