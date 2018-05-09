@@ -94,7 +94,11 @@ public class LobbyController implements Initializable {
       setGM();
 //      displaydiffentGameModes();
     }
+    displayStartButton();
     ButtonListener();
+  displayAddBotButton();
+  displayDeleteBotButton();
+    
     
 
   }
@@ -177,13 +181,14 @@ public class LobbyController implements Initializable {
 
   public void showChatMessage(String text, String playername) {
     chatM.appendText(playername +": "+text + "\n");
-    chatM.setFont(Font.font("System", FontWeight.BOLD, 19.0));
+    chatM.setFont(Font.font("System", FontWeight.BOLD, 18.0));
   }
   
   @FXML
   public void sendChatMessage() {
     String message;
     message = textM.getText();
+    textM.setFont(Font.font("System", FontWeight.BOLD, 18.0));
     LoginController.interfGL.sendChatText(message);
   }
 
@@ -342,13 +347,20 @@ public class LobbyController implements Initializable {
         }
       }
     });
-//    deleteBot.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        LoginController.interfGL.deleteBot("Bot");
-//      }
-//    });
+    deleteBot.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        
+        if(vbox1.getChildren().size() == 3) {
+          LoginController.interfGL.deleteBot("Bot 2");
+        } else if(vbox1.getChildren().size() == 4) {
+          LoginController.interfGL.deleteBot("Bot 3");
+        } else if(vbox1.getChildren().size() == 2) {
+          LoginController.interfGL.deleteBot("Bot 1");
+        }
+      }
+    });
     change.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
@@ -370,9 +382,7 @@ public class LobbyController implements Initializable {
 //  public void displaydiffentGameModes() {
 //    if(gm == GameMode.SINGLEPLAYER) {
 //      displayChangeGamesettingsButton();
-//      displayAddBotButton();
-//      displayDeleteBotButton();
-//      displayStartButton();
+
 //      mainPane.getChildren().remove(allChat);
 //      mainPane.getChildren().remove(chatM);
 //      mainPane.getChildren().remove(textM);
@@ -399,5 +409,9 @@ public class LobbyController implements Initializable {
     notenoughpl.setAlignment(Pos.CENTER);
     
     mainPane.getChildren().add(notenoughpl);
+  }
+  
+  public int countBot() {
+    return vbox1.getChildren().size();  
   }
 }
