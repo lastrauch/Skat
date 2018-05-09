@@ -422,7 +422,10 @@ public class LobbyController implements Initializable {
       }
     } else {
       displayChangeGamesettingsButton();
-
+      displayStartButton();
+      displayAddBotButton();
+      displayDeleteBotButton();
+      displayBackButton();
       mainPane.getChildren().remove(allChat);
       mainPane.getChildren().remove(chatM);
       mainPane.getChildren().remove(textM);
