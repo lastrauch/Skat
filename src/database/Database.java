@@ -11,6 +11,8 @@ public class Database {
   // Available for the connection is the library called JDBC.
   
   /**
+   * Build the Connection between database and Java.
+   * 
    * @author dpervane
    */
   protected Connection connection;
@@ -22,21 +24,22 @@ public class Database {
   }
   
   /**
-   * Connects Database with Java
+   * Connects Database with Java.
    * 
-   * @param file
-   *            Name und Pfad der Datenbank
+   * @param file name and path of database         
    * @author dpervane
    */
   
   private void connect(String file) {
     try {
-        Class.forName("org.sqlite.JDBC");
-        this.connection = DriverManager.getConnection("jdbc:sqlite:" + file);
+      Class.forName("org.sqlite.JDBC");
+      this.connection = DriverManager.getConnection("jdbc:sqlite:" + file);     
     } catch (ClassNotFoundException e) {
-        e.printStackTrace();
+      e.printStackTrace();     
     } catch (SQLException e) {
-        e.printStackTrace();
+      e.printStackTrace();
     }
   }
-}
+} 
+    
+  

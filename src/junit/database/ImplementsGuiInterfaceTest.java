@@ -59,6 +59,7 @@ class ImplementsGuiInterfaceTest {
   @Test
   void testGetPlayerString() {
     fail("Not yet implemented");
+
   }
 
 }

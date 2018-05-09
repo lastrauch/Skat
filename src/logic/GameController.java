@@ -68,6 +68,13 @@ public class GameController implements GuiLogic {
         this.clientLogic.remove(i);
       }
     }
+
+    // for (ClientLogic cl : this.clientLogic) {
+    // if (cl.getPlayer().getName().equals(botname)) {
+    // cl.netController.exitGame();
+    // this.clientLogic.remove(cl);
+    // }
+    // }
   }
 
   @Override
@@ -75,12 +82,11 @@ public class GameController implements GuiLogic {
    * @author awesch
    */
   public void setBot(String botname, BotDifficulty difficulty) {
-    String name = "bot" + this.group.size();
-    Player p = new Bot(name, difficulty);
+    Player p = new Bot(botname, difficulty);
     this.group.add(p);
     ClientLogic clientLogic = new ClientLogic(p);
     InGameInterface inGameController =
-        new AiController(clientLogic, name, difficulty, this.gameSettings);
+        new AiController(clientLogic, botname, difficulty, this.gameSettings);
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setInGameController(inGameController);
     clientLogic.setNetworkController(networkController);
