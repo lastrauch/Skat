@@ -2,7 +2,6 @@ package interfaces;
 
 import logic.Player;
 
-// AI to Logic, implemented by Logic
 /**
  * This is an interface between the AI and the logic. Methods are called by the AI on the logic.
  * 
