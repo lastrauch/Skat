@@ -1,17 +1,18 @@
 package gui;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 
 public class HelpDealController {
 
 
   /**
+   * initializes non-FXML attributes.
    * @author lstrauch
    */
   private GuiController main;
 
   /**
+   * Constructor.
    *@author lstrauch
    */
   public HelpDealController() {
@@ -19,6 +20,7 @@ public class HelpDealController {
   }
 
   /**
+   * main.display HelpScreen.
    * @author lstrauch
    */
   @FXML

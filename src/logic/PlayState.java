@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * in the PlayState everything is saved, that happend in the play already, it is send inbetween the
+ * different clientLogic instances.
+ */
+
 public class PlayState implements Serializable {
-  /**
-   * 
-   */
+
   private static final long serialVersionUID = 1L;
-  private Player[] group;
+  private Player[] playingGroup;
   private Stack declarerStack;
   private Stack opponentsStack;
   private Card[] skat;
@@ -31,16 +34,14 @@ public class PlayState implements Serializable {
   private boolean announcedKontra;
   private boolean announcedRekontra;
 
+  /* ------------------------- CONSTRUCTOR ------------------------------------------- */
 
   /**
    * constructor (default) the attributes are initialized but we want the player(s) to change them
-   * during the game
-   * 
-   * @author sandfisc
-   * @author awesch
+   * during the game.
    */
   public PlayState(Player[] group) {
-    this.group = group;
+    this.playingGroup = group;
     this.declarerStack = new Stack();
     this.opponentsStack = new Stack();
     this.skat = new Card[2];
@@ -60,6 +61,107 @@ public class PlayState implements Serializable {
     this.initializeBaseValue();
   }
 
+  /**
+   * constructor.
+   * 
+   * @param playingGroup
+   * @param declarerStack
+   * @param opponentsStack
+   * @param skat
+   * @param trump
+   * @param playValue
+   * @param pm
+   * @param playNr
+   * @param trickNr
+   * @param auctionPossible
+   * @param handGame
+   * @param schneider
+   * @param schneiderAnnounced
+   * @param schwarz
+   * @param schwarzAnnounced
+   * @param open
+   * @param baseValue
+   * @param currentTrick
+   * @param auction
+   * @param announcedKontra
+   * @param announcedRekontra
+   */
+  public PlayState(Player[] playingGroup, Stack declarerStack, Stack opponentsStack, Card[] skat,
+      Colour trump, int playValue, PlayMode pm, int playNr, int trickNr, boolean auctionPossible,
+      boolean handGame, boolean schneider, boolean schneiderAnnounced, boolean schwarz,
+      boolean schwarzAnnounced, boolean open, int baseValue, Trick currentTrick, Auction auction,
+      boolean announcedKontra, boolean announcedRekontra) {
+
+    this.playingGroup = playingGroup;
+    this.declarerStack = declarerStack;
+    this.opponentsStack = opponentsStack;
+    this.skat = skat;
+    this.trump = trump;
+    this.playValue = playValue;
+    this.pm = pm;
+    this.playNr = playNr;
+    this.trickNr = trickNr;
+    this.auctionPossible = auctionPossible;
+    this.handGame = handGame;
+    this.schneider = schneider;
+    this.schneiderAnnounced = schwarzAnnounced;
+    this.open = open;
+    this.baseValue = baseValue;
+    this.currentTrick = currentTrick;
+    this.auction = auction;
+    this.announcedKontra = announcedKontra;
+    this.announcedRekontra = announcedRekontra;
+  }
+
+  /* ------------------------- HANDLE THIS PLAYSTATE ------------------------------------------- */
+
+  public PlayState copyMe() {
+    Player[] playerCopy = new Player[this.playingGroup.length];
+    for (int i = 0; i < this.playingGroup.length; i++) {
+      playerCopy[i] = this.playingGroup[i];
+    }
+
+    Stack declarerStackCopy = this.declarerStack;
+    Stack opponentsStackCopy = this.opponentsStack;
+
+    Card[] skatCopy = new Card[this.skat.length];
+    for (int i = 0; i < this.skat.length; i++) {
+      skatCopy[i] = this.skat[i];
+    }
+
+    Colour trumpCopy = trump;
+    int playValueCopy = this.playValue;
+    PlayMode playModeCopy = this.getPlayMode();
+
+    int playNrCopy = this.playNr;
+    int trickNrCopy = this.trickNr;
+    boolean auctionPossibleCopy = this.auctionPossible;
+
+    boolean handGameCopy = this.handGame;
+    boolean schneiderCopy = this.schneider;
+    boolean schneiderAnnouncedCopy = this.schneiderAnnounced;
+
+    boolean schwarzCopy = this.schwarz;
+    boolean schwarzAnnouncedCopy = this.schwarzAnnounced;
+    boolean openCopy = this.open;
+
+    int baseValueCopy = this.baseValue;
+    Trick currentTrickCopy = this.currentTrick.copyMe();
+    Auction auctionCopy = this.auction.copyMe();
+
+    boolean announcedKontraCopy = this.announcedKontra;
+    boolean announcedRekontraCopy = this.announcedRekontra;
+
+    return new PlayState(playerCopy, declarerStackCopy, opponentsStackCopy, skatCopy, trumpCopy,
+        playValueCopy, playModeCopy, playNrCopy, trickNrCopy, auctionPossibleCopy, handGameCopy,
+        schneiderCopy, schneiderAnnouncedCopy, schwarzCopy, schwarzAnnouncedCopy, openCopy,
+        baseValueCopy, currentTrickCopy, auctionCopy, announcedKontraCopy, announcedRekontraCopy);
+  }
+
+
+  /**
+   * resets PlayState, after a play.
+   */
   public void resetPlayState() {
     this.declarerStack = new Stack();
     this.opponentsStack = new Stack();
@@ -69,7 +171,7 @@ public class PlayState implements Serializable {
     this.playValue = 0;
     this.pm = PlayMode.SUIT;
 
-    this.trickNr = 0;
+    this.trickNr = 1;
     this.currentTrick = new Trick();
     this.auctionPossible = true;
     this.auction = new Auction();
@@ -82,9 +184,10 @@ public class PlayState implements Serializable {
     this.setAnnouncedRekontra(false);
   }
 
+  /* ------------------------- SORT CARDS ------------------------------------------- */
 
   /**
-   * sorts cards by its value for normal values (high ten), created for sortHand(s)
+   * sorts cards by its value for normal values (high ten), created for sortHand(s).
    * 
    * @author awesch
    * @param cards
@@ -103,7 +206,7 @@ public class PlayState implements Serializable {
   }
 
   /**
-   * sorts cards by its value for a low ten playMode, created for sortHand(s)
+   * sorts cards by its value for a low ten playMode, created for sortHand(s).
    * 
    * @author awesch
    * @param cards
@@ -122,7 +225,7 @@ public class PlayState implements Serializable {
   }
 
   /**
-   * sorts cards bei their colour, order: clubs, spades, hearts, diamonds. created for sortHand(s)
+   * sorts cards bei their colour, order: clubs, spades, hearts, diamonds. created for sortHand(s).
    * 
    * @author awesch
    * @param cards
@@ -140,9 +243,10 @@ public class PlayState implements Serializable {
     }
   }
 
+  /* ------------------------- BASE VALUE ------------------------------------------- */
 
   /**
-   * initializes the base value depending on the playMode
+   * initializes the base value depending on the playMode.
    * 
    * @author awesch
    */
@@ -161,6 +265,8 @@ public class PlayState implements Serializable {
         case CLUBS:
           this.baseValue = 12;
           break;
+        default:
+          break;
       }
     }
     if (this.pm == PlayMode.GRAND) {
@@ -168,80 +274,51 @@ public class PlayState implements Serializable {
     }
   }
 
-  /**
-   * @author awesch
-   * @return
-   */
+  /* ------------------------- GETTER AND SETTER ------------------------------------------- */
+
   public int getPlayValue() {
     return this.playValue;
   }
 
-  /**
-   * @author awesch
-   * @param playValue
-   */
   public void setPlayValue(int playValue) {
     this.playValue = playValue;
   }
 
-  /**
-   * @author awesch
-   * @return
-   */
   public boolean getHandGame() {
     return this.handGame;
   }
 
-  /**
-   * @param handGame
-   */
   public void setHandGame(boolean handGame) {
     this.handGame = handGame;
   }
 
-  /**
-   * @param auctionNotPossible
-   */
   public void setAuctionPossible(boolean auctionNotPossible) {
     this.auctionPossible = auctionNotPossible;
   }
 
-  /**
-   * @return
-   */
   public boolean getAuctionPossible() {
     return this.auctionPossible;
   }
 
-  /**
-   * @return
-   */
   public int getBetValue() {
     return this.auction.getBetValue();
   }
 
-  /**
-   * @param skat
-   */
   public void setSkat(Card[] skat) {
     this.skat = skat;
   }
 
-  /**
-   * @return
-   */
   public Card[] getSkat() {
     return this.skat;
   }
 
-  /**
-   * @return
-   */
   public PlayMode getPlayMode() {
     return this.pm;
   }
 
   /**
+   * sets the PlayMode and initializes the baseValue, if not suit.
+   * 
    * @param pm
    */
   public void setPlayMode(PlayMode pm) {
@@ -251,104 +328,67 @@ public class PlayState implements Serializable {
       this.trump = null;
     }
 
-    this.initializeBaseValue();
+    if (pm == PlayMode.GRAND) {
+      this.baseValue = 24;
+    }
   }
 
   /**
-   * @param trump
+   * sets trump and initializes the base value.
    */
   public void setTrump(Colour trump) {
     this.trump = trump;
     this.initializeBaseValue();
   }
 
-  /**
-   * @return
-   */
   public Colour getTrump() {
     return this.trump;
   }
 
-  /**
-   * @param betValue
-   */
   public void setBetValue(int betValue) {
     this.auction.setBetValue(betValue);
   }
 
-  /**
-   * @return
-   */
   public boolean isSchneider() {
     return schneider;
   }
 
-  /**
-   * @param schneider
-   */
   public void setSchneider(boolean schneider) {
     this.schneider = schneider;
   }
 
-  /**
-   * @return
-   */
   public boolean getSchneiderAnnounced() {
     return schneiderAnnounced;
   }
 
-  /**
-   * @param schneiderAnnounced
-   */
   public void setSchneiderAnnounced(boolean schneiderAnnounced) {
     this.schneiderAnnounced = schneiderAnnounced;
   }
 
-  /**
-   * @return
-   */
   public boolean isSchwarz() {
     return schwarz;
   }
 
-  /**
-   * @param schwarz
-   */
   public void setSchwarz(boolean schwarz) {
     this.schwarz = schwarz;
   }
 
-  /**
-   * @return
-   */
   public boolean getSchwarzAnnounced() {
     return schwarzAnnounced;
   }
 
-  /**
-   * @param schwarzAnnounced
-   */
   public void setSchwarzAnnounced(boolean schwarzAnnounced) {
     this.schwarzAnnounced = schwarzAnnounced;
   }
 
-  /**
-   * @return
-   */
   public boolean isOpen() {
     return open;
   }
 
-  /**
-   * @param open
-   */
   public void setOpen(boolean open) {
     this.open = open;
   }
 
-  /**
-   * @return
-   */
   public int getBaseValue() {
     return this.baseValue;
   }
@@ -362,11 +402,11 @@ public class PlayState implements Serializable {
   }
 
   public Player[] getGroup() {
-    return group;
+    return playingGroup;
   }
 
   public void setGroup(Player[] group) {
-    this.group = group;
+    this.playingGroup = group;
   }
 
   public void setPlayNr(int nr) {

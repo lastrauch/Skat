@@ -2,12 +2,11 @@ package ai;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import logic.Card;
 import logic.ClientLogic;
+import logic.LogicException;
 import logic.Number;
 import logic.PlayMode;
-import logic.LogicException;
 
 public class General {
 
@@ -161,20 +160,139 @@ public class General {
 			prob[colour * 8 + number][1] = 0;
 			prob[colour * 8 + number][2] = 0;
 		}
-
 		return prob;
 	}
-	
-	//TODO
-	public static int checkIfPossibleAndGetIndex(double[][] cardProbabilities, List<Card> cards, int colour, int number, int playerIndex) {
-	  if(cardProbabilities[colour*8 + number][playerIndex] > 0) {
-	    for(int i=0; i<cards.size(); i++) {
-	      if((3 - cards.get(i).getColour().ordinal()) == colour && (7 - cards.get(i).getNumber().ordinal()) == number) {
-	        return i;
-	      }
-	    }
-	  }
-	  return -1;
+
+	// TODO
+	public static int checkIfPossibleAndGetIndex(double[][] cardProbabilities, List<Card> cards, int colour, int number,
+			int playerIndex) {
+		if (cardProbabilities[colour * 8 + number][playerIndex] > 0) {
+			for (int i = 0; i < cards.size(); i++) {
+				if ((3 - cards.get(i).getColour().ordinal()) == colour
+						&& (7 - cards.get(i).getNumber().ordinal()) == number) {
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+
+	// TODO
+	public static int playColour(double[][] cardProbabilities, List<Card> cards, int colour, int value, int playerIndex,
+			boolean low) {
+		if (low) {
+			for (int number = 7; number > value; number--) {
+				if (7 - Number.JACK.ordinal() != number) {
+					int index = checkIfPossibleAndGetIndex(cardProbabilities, cards, colour, number, playerIndex);
+					if (index != -1) {
+						return index;
+					}
+				}
+			}
+		} else {
+			if (value == -1) {
+				value = 8;
+			}
+			for (int number = 0; number < value; number++) {
+				if (7 - Number.JACK.ordinal() != number) {
+					int index = checkIfPossibleAndGetIndex(cardProbabilities, cards, colour, number, playerIndex);
+					if (index != -1) {
+						return index;
+					}
+				}
+			}
+		}
+		return -1;
+	}
+
+	// TODO
+	public static int playTrump(PlayMode playMode, double[][] cardProbabilities, List<Card> cards, int jackColour,
+			int trumpColour, int value, int playerIndex, boolean low) {
+		if (playMode == PlayMode.GRAND) {
+			if (low) {
+				int number = 7 - Number.JACK.ordinal();
+				for (int colour = 3; colour > jackColour; colour--) {
+					int index = checkIfPossibleAndGetIndex(cardProbabilities, cards, colour, number, playerIndex);
+					if (index != -1) {
+						return index;
+					}
+				}
+			} else {
+				if (jackColour == -1) {
+					jackColour = 4;
+				}
+				int number = 7 - Number.JACK.ordinal();
+				for (int colour = 0; colour < jackColour; colour++) {
+					int index = checkIfPossibleAndGetIndex(cardProbabilities, cards, colour, number, playerIndex);
+					if (index != -1) {
+						return index;
+					}
+				}
+			}
+		}
+		if (playMode == PlayMode.SUIT) {
+			if (low) {
+				int colour = trumpColour;
+				for (int number = 7; number < value; number--) {
+					if (7 - Number.JACK.ordinal() != number) {
+						int index = checkIfPossibleAndGetIndex(cardProbabilities, cards, colour, number, playerIndex);
+						if (index != -1) {
+							return index;
+						}
+					}
+				}
+			} else {
+				if (value == -1) {
+					value = 8;
+				}
+				int number = 7 - Number.JACK.ordinal();
+				for (int colour = 0; colour < 4; colour++) {
+					int index = checkIfPossibleAndGetIndex(cardProbabilities, cards, colour, number, playerIndex);
+					if (index != -1) {
+						return index;
+					}
+				}
+				if (jackColour == -1) {
+					int colour = trumpColour;
+					for (number = 0; number < 8; number++) {
+						int index = checkIfPossibleAndGetIndex(cardProbabilities, cards, colour, number, playerIndex);
+						if (index != -1) {
+							return index;
+						}
+					}
+				}
+			}
+		}
+		return -1;
+	}
+
+	// TODO
+	public static int playValue(double[][] cardProbabilities, List<Card> cards, int excludeColour, int excludeValue,
+			int playerIndex, boolean low) {
+		if (low) {
+			for (int number = 7; number > -1; number--) {
+				for (int colour = 3; colour > -1; colour--) {
+					if (colour != excludeColour && number != excludeValue) {
+						int index = checkIfPossibleAndGetIndex(cardProbabilities, cards, colour, number, playerIndex);
+						if (index != -1) {
+							return index;
+						}
+					}
+				}
+			}
+		} else {
+			for (int number = 0; number < 8; number++) {
+				for (int colour = 0; colour < 8; colour++) {
+					if (colour != excludeColour && number != excludeValue) {
+						int index = checkIfPossibleAndGetIndex(cardProbabilities, cards, colour, number, playerIndex);
+						if (index != -1) {
+							return index;
+						}
+					}
+				}
+			}
+		}
+		return -1;
 	}
 
 }

@@ -2,7 +2,7 @@ package logic;
 
 import java.io.Serializable;
 
-public enum Number implements Serializable{
+public enum Number implements Serializable {
   SEVEN(1), EIGHT(2), NINE(3), JACK(4), QUEEN(5), KING(6), TEN(7), ASS(8);
   private int value;
   private int rankingNorm;
@@ -59,6 +59,8 @@ public enum Number implements Serializable{
         this.rankingLowTen = 7;
         this.matadorValue = 4;
         break;
+      default:
+        break;
     }
   }
 
@@ -73,7 +75,7 @@ public enum Number implements Serializable{
   public int getRankingLowTen() {
     return this.rankingLowTen;
   }
-  
+
   public int getMatadorValue() {
     return this.matadorValue;
   }

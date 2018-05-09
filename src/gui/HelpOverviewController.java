@@ -9,11 +9,13 @@ public class HelpOverviewController {
   private JFXButton back;
 
   /**
+   * initializes non-FXML attributes.
    * @author lstrauch
    */
   private GuiController main;
 
   /**
+   * Constructor.
    *@author lstrauch
    */
   public HelpOverviewController() {
@@ -21,6 +23,7 @@ public class HelpOverviewController {
   }
 
   /**
+   * main.display Help-screen.
    * @author lstrauch
    */
   @FXML

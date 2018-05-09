@@ -1,65 +1,18 @@
-/**
- * 
- */
+
 package logic;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author sandr
- *
- */
 public class Tools {
 
-  public static Player getDeclarer(Player[] group) {
-    for (int i = 0; i < group.length; i++) {
-      if (group[i].isDeclarer()) {
-        return group[i];
-      }
-    }
-    return null;
-  }
-
-  public static Player[] getOpponents(Player[] group) {
-    Player[] opponents = new Player[2];
-    Player opp1 = null;
-    Player opp2 = null;
-
-    for (int i = 0; i < group.length; i++) {
-      if (!group[i].isDeclarer() && group[i].getPosition() != Position.DEALER) {
-        if (opp1 == null) {
-          opp1 = group[i];
-          opponents[0] = opp1;
-        } else {
-          opp2 = group[i];
-          opponents[1] = opp2;
-        }
-      }
-    }
-    return opponents;
-  }
-
-  public static Player searchPlayer(Player player, List<Player> group) {
-    for (Player p : group) {
-      if (p.equals(player)) {
-        return p;
-      }
-    }
-    return null;
-  }
-
-  public static Player searchPlayer(Player player, Player[] group) {
-    if (group.length > 0) {
-      for (int i = 0; i < group.length; i++) {
-        if (player.equals(group[i])) {
-          return player;
-        }
-      }
-    }
-    return null;
-  }
-
+  /**
+   * returns a resorted hand.
+   * 
+   * @author awesch
+   * @param hand
+   * @param ps
+   */
   public static ArrayList<Card> sortHand(ArrayList<Card> hand, PlayState ps) {
     // possible different orders : colour, grand, null(nullouvert)
 
@@ -106,6 +59,8 @@ public class Tools {
         case DIAMONDS:
           diamonds.add(hand.get(i));
           break;
+        default:
+          break;
       }
     }
 
@@ -147,6 +102,8 @@ public class Tools {
           Tools.addToHand(diamonds, hand, counter, diamonds.size());
           counter += diamonds.size();
           break;
+        default:
+          break;
       }
     }
 
@@ -176,7 +133,7 @@ public class Tools {
   }
 
   /**
-   * Adds arrayList to ArrayList, created for sortHand(s)
+   * Adds arrayList to ArrayList, created for sortHand(s).
    * 
    * @author awesch
    * @param cardsToAdd
@@ -191,85 +148,6 @@ public class Tools {
       hand2.set(i, cardsToAdd.get(counter));
       counter++;
     }
-  }
-
-  /**
-   * position (forehand, middlehand, rearhand) changes ater every play
-   * 
-   * @author sandfisc
-   */
-  public static void updatePosition(Player[] group) {
-    int pointerForehand = searchForehand(group);
-
-    group[pointerForehand].setPosition(Position.FOREHAND);
-    group[((pointerForehand + 1) % group.length)].setPosition(Position.MIDDLEHAND);
-    group[((pointerForehand + 2) % group.length)].setPosition(Position.REARHAND);
-
-
-    if (group.length == 4) {
-      group[((pointerForehand + 3) % group.length)].setPosition(Position.DEALER);
-    }
-  }
-
-  public static void updatePosition(List<Player> group) {
-    Player[] groupArray = new Player[group.size()];
-
-    for (int i = 0; i < group.size(); i++) {
-      groupArray[i] = group.get(i);
-    }
-
-    updatePosition(groupArray);
-
-    for (int i = 0; i < group.size(); i++) {
-      group.set(i, groupArray[i]);
-    }
-  }
-
-  public static int searchForehand(Player[] group) {
-    for (int i = 0; i < group.length; i++) {
-      if (group[i].getPosition() == Position.FOREHAND) {
-        return i;
-      }
-    }
-    return 0;
-  }
-
-  /**
-   * shuffles the cards after they have been initialized
-   * 
-   * @author awesch
-   */
-  public static void shuffleCards(List<Card> cards) {
-    int index;
-    Card temp = null;
-    for (int i = 0; i < 32; i++) {
-      index = (int) (Math.random() * 32);
-      temp = cards.get(i);
-      cards.set(i, cards.get(index));
-      cards.set(index, temp);
-    }
-  }
-
-  /**
-   * @author sandfisc
-   * 
-   * @param group
-   * @return
-   */
-  public static Player[] getPlayingGroup(Player[] group) {
-    // the playing group consists of forehand, middlehand, rarehand, NOT dealer
-    Player[] playingGroup = new Player[4];
-
-    if (group.length == 4) {
-      int index = 0;
-      for (int j = 0; j < group.length; j++) {
-        if (group[j].getPosition() != Position.DEALER) {
-          playingGroup[index] = group[j];
-          index++;
-        }
-      }
-    }
-    return playingGroup;
   }
 
 }

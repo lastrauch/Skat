@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import logic.Card;
 import logic.Colour;
+import logic.Number;
 import logic.PlayMode;
 import logic.PlayState;
-import logic.Number;
 
 public class Medium {
 
@@ -32,15 +32,13 @@ public class Medium {
   // askToPlayCard(AIController) : int
   // Gives back the index of a Card on the hand, that the AI wants to play.
 
-
-
   // TODO Description for internal methods
 
   private static final int minTrickValue = 7; // The value the trick needs to have, so that the AI
                                               // wants to win it
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
   // Methods called by AIController
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Checks if the easy AI wants to place a bet of passed value.
@@ -152,12 +150,19 @@ public class Medium {
     return General.playRandomCard(controller);
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
   // Internal Methods
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * Determines which cards to put back into the Skat.
+   * 
+   * @author fkleinoe
+   * @param controller
+   * @param playMode
+   * @return Skat
+   */
   public static List<Card> returnSkat(AiController controller, PlayMode playMode) {
     List<Card> skat = Arrays.asList(controller.getPlayState().getSkat());
-    List<Card> skatReturn = new ArrayList<Card>();
 
     List<Card> cards = new ArrayList<Card>(); // Intermediate hand with twelve cards
     for (int i = 0; i < controller.getBot().getHand().size(); i++) {
@@ -174,6 +179,7 @@ public class Medium {
       hasColour[3 - cards.get(i).getColour().ordinal()]++;
     }
 
+    List<Card> skatReturn = new ArrayList<Card>();
     while (skatReturn.size() < 2) {
       int minIndex = 0;
       int minValue = hasColour[0];
@@ -250,6 +256,7 @@ public class Medium {
           case DIAMONDS:
             colourValue = 9;
             break;
+          default:
         }
         return gameLevel * colourValue;
       }
@@ -567,8 +574,14 @@ public class Medium {
     }
   }
 
+  /**
+   * PlayMode is Grand. AI decides which card to play.
+   * 
+   * @author fkleinoe
+   * @param controller
+   * @return card index
+   */
   public static int playCardGrand(AiController controller) {
-    // TODO Grand Method
     List<Card> cards = controller.getBot().getHand();
     List<Card> trick = controller.getCurrentTrick();
 
@@ -1015,65 +1028,71 @@ public class Medium {
           if (partnerCard.getNumber() == Number.JACK && (declarerCard.getNumber() != Number.JACK
               || declarerCard.getColour().ordinal() < partnerCard.getColour().ordinal())) {
             // Already won
-            if(ownTrumps > 0) {
+            if (ownTrumps > 0) {
               int index;
               int number = 7 - Number.JACK.ordinal();
-              for(int colour = 3; colour >= 0; colour--) {
-                if((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(), cards, colour, number, 0)) != -1) {
+              for (int colour = 3; colour >= 0; colour--) {
+                if ((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(),
+                    cards, colour, number, 0)) != -1) {
                   return index;
                 }
               }
-            }else {
+            } else {
               int index;
-              for(int number = 0; number < 8; number++) {
-              for(int colour = 3; colour >= 0; colour--) {
-                if((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(), cards, colour, number, 0)) != -1) {
-                  return index;
-                }
-              }
-              }
-            }
-          } else {
-            // Until now, trick is lost with trump
-            // Try to win
-            if(trick.get(0).getValue() + trick.get(1).getValue() > 7) {
-             if(ownTrumps > 0) {
-               int colourValue = 3 - declarerCard.getColour().ordinal();
-               int number = 7 - Number.JACK.ordinal();
-               int index;
-               for(int colour = 0; colour < colourValue; colour++) {
-                 if((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(), cards, colour, number, 0)) != -1) {
-                   return index;
-                 }
-               }
-               for(int colour = 3; colour > colourValue; colour--) {
-                 if((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(), cards, colour, number, 0)) != -1) {
-                   return index;
-                 }
-               }
-             }
-            }
-            // Throw low value
-            if(ownTrumps>0) {
-              int colourValue = 3 - declarerCard.getColour().ordinal();
-              int number = 7 - Number.JACK.ordinal();
-              int index;
-              for(int colour = 3; colour > colourValue; colour--) {
-                if((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(), cards, colour, number, 0)) != -1) {
-                  return index;
-                }
-              }
-            }else {
-              int index;
-              for(int number = 7; number >=0; number--) {
-                for(int colour = 3; colour >=0; colour--) {
-                  if((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(), cards, colour, number, 0)) != -1) {
+              for (int number = 0; number < 8; number++) {
+                for (int colour = 3; colour >= 0; colour--) {
+                  if ((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(),
+                      cards, colour, number, 0)) != -1) {
                     return index;
                   }
                 }
               }
             }
-            
+          } else {
+            // Until now, trick is lost with trump
+            // Try to win
+            if (trick.get(0).getValue() + trick.get(1).getValue() > 7) {
+              if (ownTrumps > 0) {
+                int colourValue = 3 - declarerCard.getColour().ordinal();
+                int number = 7 - Number.JACK.ordinal();
+                int index;
+                for (int colour = 0; colour < colourValue; colour++) {
+                  if ((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(),
+                      cards, colour, number, 0)) != -1) {
+                    return index;
+                  }
+                }
+                for (int colour = 3; colour > colourValue; colour--) {
+                  if ((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(),
+                      cards, colour, number, 0)) != -1) {
+                    return index;
+                  }
+                }
+              }
+            }
+            // Throw low value
+            if (ownTrumps > 0) {
+              int colourValue = 3 - declarerCard.getColour().ordinal();
+              int number = 7 - Number.JACK.ordinal();
+              int index;
+              for (int colour = 3; colour > colourValue; colour--) {
+                if ((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(),
+                    cards, colour, number, 0)) != -1) {
+                  return index;
+                }
+              }
+            } else {
+              int index;
+              for (int number = 7; number >= 0; number--) {
+                for (int colour = 3; colour >= 0; colour--) {
+                  if ((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(),
+                      cards, colour, number, 0)) != -1) {
+                    return index;
+                  }
+                }
+              }
+            }
+
           }
         } else {
           int colourValue = 3 - trick.get(0).getColour().ordinal();
@@ -1083,32 +1102,61 @@ public class Medium {
                       && declarerCard.getNumber() == Number.JACK)
                       || (declarerCard.getColour() == trick.get(0).getColour() && declarerCard
                           .getNumber().ordinal() < partnerCard.getNumber().ordinal())))) {
-            //Already won with colour
-            if(controller.getHasColour()[colourValue][0]) {
+            // Already won with colour
+            if (controller.getHasColour()[colourValue][0]) {
               int index;
-              for(int number = 0; number < 8; number++) {
-                if((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(), cards, colourValue, number, 0)) != -1) {
+              for (int number = 0; number < 8; number++) {
+                if ((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(),
+                    cards, colourValue, number, 0)) != -1) {
                   return index;
                 }
               }
-            }else {
+            } else {
               int index;
-              for(int number = 0; number < 8; number++) {
-              for(int colour = 3; colour >= 0; colour--) {
-                if((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(), cards, colour, number, 0)) != -1) {
-                  return index;
+              for (int number = 0; number < 8; number++) {
+                for (int colour = 3; colour >= 0; colour--) {
+                  if ((index = General.checkIfPossibleAndGetIndex(controller.getCardProbabilities(),
+                      cards, colour, number, 0)) != -1) {
+                    return index;
+                  }
                 }
               }
             }
-            }
-          }else {
+          } else {
             // Unitl now, trick is lost with colour
             // Try to win
-            if(trick.get(0).getValue() + trick.get(1).getValue() > 7) {
-              
+            if (trick.get(0).getValue() + trick.get(1).getValue() > 7) {
+              if (trick.get(1).getNumber() != Number.JACK) {
+                int value = -1;
+                if (trick.get(0).getColour() == trick.get(1).getColour()) {
+                  if (trick.get(0).getNumber().ordinal() > trick.get(1).getNumber().ordinal()) {
+                    value = 7 - trick.get(0).getNumber().ordinal();
+                  } else {
+                    value = 7 - trick.get(1).getNumber().ordinal();
+                  }
+                } else {
+                  value = 7 - trick.get(0).getNumber().ordinal();
+                }
+                int index = General.playColour(controller.getCardProbabilities(), cards,
+                    3 - trick.get(0).getColour().ordinal(), value, 0, false);
+                if (index != -1) {
+                  return index;
+                }
+              }
             }
             // Throw low value
-            //TODO
+            int index;
+            if (controller.getHasColour()[3 - trick.get(0).getColour().ordinal()][0]) {
+              if ((index = General.playColour(controller.getCardProbabilities(), cards,
+                  3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
+                return index;
+              }
+            } else {
+              if ((index = General.playValue(controller.getCardProbabilities(), cards, -1,
+                  7 - Number.JACK.ordinal(), 0, true)) != -1) {
+                return index;
+              }
+            }
           }
         }
         // Else play random
@@ -1119,28 +1167,473 @@ public class Medium {
     return General.playRandomCard(controller);
   }
 
+  /**
+   * PlayMode is Suit. AI decides which card to play.
+   * 
+   * @author fkleinoe
+   * @param controller
+   * @return card index
+   */
   public static int playCardSuit(AiController controller) {
-    // TODO Suit Method
-
+    int trumpColour = controller.getPlayState().getTrump().ordinal();
     List<Card> cards = controller.getBot().getHand();
     List<Card> trick = controller.getCurrentTrick();
-
+    Card[][] playedCards = controller.getPlayedCards();
+    double[][] cardProbabilities = controller.getCardProbabilities();
+    boolean[][] hasColour = controller.getHasColour();
+    int existingTrumps = controller.getExistingTrumps();
+    int ownTrumps = 0;
+    int number = 0;
+    int colour = 0;
+    int value = 0;
+    for (int i = 0; i < cards.size(); i++) {
+      if (cards.get(i).getNumber() == Number.JACK
+          || (3 - cards.get(i).getColour().ordinal() == trumpColour)) {
+        ownTrumps++;
+      }
+    }
+    int declarer = 0;
+    for (int i = 0; i < controller.getPlayState().getGroup().length; i++) {
+      if (controller.getPlayState().getGroup()[i].isDeclarer()) {
+        for (int j = 0; j < controller.getPlayer().size(); j++) {
+          if (controller.getPlayer().get(j).getName()
+              .equals(Integer.toString(controller.getPlayState().getGroup()[i].getId()))) {
+            declarer = j;
+          }
+        }
+      }
+    }
+    int index = -1;
     // Bot is declarer
-    // Play 2nd or 3rd card
-    // Bot has colour
-    // Colour is trump
-    // Play highest Jack
-    // Try to win with colour
-    // Try to win
-    // Else play lowest card of colour
-    // Bot does not have colour
-    // Check if he wants to and can play trump
-    // Else play low card
-    // Bot is not declarer
+    if (controller.getBot().isDeclarer()) {
+      if (trick.size() == 0) {
+        // -> Play highest Trump
+        if (ownTrumps > 0) {
+          if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour,
+              -1, 0, false)) != -1) {
+            return index;
+          }
+        }
+        // -> Play highest value of any colour
+        if ((index = General.playValue(cardProbabilities, cards, trumpColour,
+            7 - Number.JACK.ordinal(), 0, false)) != -1) {
+          return index;
+        }
+      } else {
+        // Play 2nd or 3rd card
+        // Bot has colour or number is jack
+        if (hasColour[3 - trick.get(0).getColour().ordinal()][0]
+            || trick.get(0).getNumber() == Number.JACK) {
+          // Colour is trump or number is jack
+          if (3 - trick.get(0).getColour().ordinal() == trumpColour
+              || trick.get(0).getNumber() == Number.JACK) {
+
+            Card enemyCard;
+            if (trick.size() > 1 && (trick.get(1).getNumber() == Number.JACK
+                || 3 - trick.get(1).getColour().ordinal() == trumpColour)) {
+              if ((trick.get(0).getNumber() == Number.JACK && (trick.get(1)
+                  .getNumber() != Number.JACK
+                  || (trick.get(1).getNumber() == Number.JACK
+                      && trick.get(1).getColour().ordinal() < trick.get(0).getColour().ordinal())))
+                  || (trick.get(0).getNumber() != Number.JACK
+                      && trick.get(1).getNumber() != Number.JACK
+                      && trick.get(0).getNumber().ordinal() > trick.get(1).getNumber().ordinal())) {
+                enemyCard = trick.get(0);
+              } else {
+                enemyCard = trick.get(1);
+              }
+            } else {
+              enemyCard = trick.get(0);
+            }
+            int jackColour;
+            if (enemyCard.getNumber() == Number.JACK) {
+              jackColour = 3 - enemyCard.getColour().ordinal();
+            } else {
+              jackColour = -1;
+            }
+            // Try to win with trump
+            if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour,
+                trumpColour, 7 - enemyCard.getNumber().ordinal(), 0, false)) != -1) {
+              return index;
+            }
+            // Else play low trump
+            if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour,
+                trumpColour, 7 - enemyCard.getNumber().ordinal(), 0, true)) != -1) {
+              return index;
+            }
+
+          } else {
+            Card enemyCard;
+            if (trick.size() > 1) {
+              if (trick.get(0).getColour() == trick.get(1).getColour()
+                  && trick.get(1).getNumber() != Number.JACK
+                  && trick.get(0).getNumber().ordinal() > trick.get(1).getNumber().ordinal()) {
+                enemyCard = trick.get(0);
+              } else {
+                enemyCard = trick.get(1);
+              }
+            } else {
+              enemyCard = trick.get(0);
+            }
+            // Try to win with colour
+            if ((index =
+                General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(),
+                    7 - enemyCard.getNumber().ordinal(), 0, false)) != -1) {
+              return index;
+            }
+            // Else play lowest card of colour
+            if ((index =
+                General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(),
+                    7 - enemyCard.getNumber().ordinal(), 0, true)) != -1) {
+              return index;
+            }
+          }
+        } else {
+          // Bot does not have colour
+          // Check if he wants to and can play trump
+          int trickValue = 0;
+          for (int i = 0; i < trick.size(); i++) {
+            trickValue += trick.get(i).getValue();
+          }
+          if (trickValue > 7 && ownTrumps > 0) {
+            if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour,
+                -1, 0, true)) != -1) {
+              return index;
+            }
+          }
+          // Else play low card
+          if ((index = General.playValue(cardProbabilities, cards, trumpColour,
+              7 - Number.JACK.ordinal(), 0, true)) != -1) {
+            return index;
+          }
+        }
+      }
+
+
+      // Bot is not declarer
+    } else {
+      if (trick.size() == 0) {
+        if (existingTrumps - ownTrumps == 0) {
+          if (ownTrumps > 0) {
+            if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour,
+                -1, 0, true)) != -1) {
+              return index;
+            }
+          } else {
+            if ((index = General.playValue(cardProbabilities, cards, -1, -1, 0, false)) != -1) {
+              return index;
+            }
+          }
+        }
+        if ((index = General.playValue(cardProbabilities, cards, trumpColour,
+            7 - Number.JACK.ordinal(), 0, true)) != -1) {
+          return index;
+        }
+
+      }
+      if (trick.size() == 1) {
+        // Declarer has not played yet
+        if (playedCards[playedCards.length - 1][declarer] == null) {
+          // If card played value > 3 try to win, else throw low value
+          if (trick.get(0).getValue() > 3) {
+            if (3 - trick.get(0).getColour().ordinal() == trumpColour
+                || trick.get(0).getNumber() == Number.JACK) {
+              if (ownTrumps > 0) {
+                int jackColour;
+                if (trick.get(0).getNumber() == Number.JACK) {
+                  jackColour = 3 - trick.get(0).getColour().ordinal();
+                  value = -1;
+                } else {
+                  jackColour = -1;
+                  value = 7 - trick.get(0).getNumber().ordinal();
+                }
+                if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour,
+                    trumpColour, value, 0, false)) != -1) {
+                  return index;
+                }
+                if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour,
+                    trumpColour, value, 0, true)) != -1) {
+                  return index;
+                }
+              } else {
+                if ((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
+                  return index;
+                }
+              }
+            } else {
+              if (hasColour[3 - trick.get(0).getColour().ordinal()][0]) {
+                if ((index = General.playColour(cardProbabilities, cards,
+                    3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
+                  return index;
+                }
+              } else {
+                if ((index = General.playValue(cardProbabilities, cards, trumpColour,
+                    7 - Number.JACK.ordinal(), 0, true)) != -1) {
+                  return index;
+                }
+              }
+            }
+          } else {
+            // Throw low value
+            if (3 - trick.get(0).getColour().ordinal() == trumpColour
+                || trick.get(0).getNumber() == Number.JACK) {
+              if (ownTrumps > 0) {
+                if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1,
+                    trumpColour, -1, 0, true)) != -1) {
+                  return index;
+                } else {
+                  if ((index = General.playValue(cardProbabilities, cards, trumpColour,
+                      7 - Number.JACK.ordinal(), 0, true)) != -1) {
+                    return index;
+                  }
+                }
+              }
+            } else {
+              if (hasColour[3 - trick.get(0).getColour().ordinal()][0]) {
+                if ((index = General.playColour(cardProbabilities, cards,
+                    3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
+                  return index;
+                } else {
+                  if ((index = General.playValue(cardProbabilities, cards, trumpColour,
+                      7 - Number.JACK.ordinal(), 0, true)) != -1) {
+                    return index;
+                  }
+                }
+              }
+            }
+          }
+          // Declarer has already played
+        } else {
+          colour = 3 - trick.get(0).getColour().ordinal();
+          number = 7 - trick.get(0).getNumber().ordinal();
+          // Try to win, else throw low value
+          if (colour == trumpColour || number == 7 - Number.JACK.ordinal()) {
+            if (ownTrumps > 0) {
+              int jackColour;
+              if (number == 7 - Number.JACK.ordinal()) {
+                jackColour = colour;
+                value = -1;
+              } else {
+                jackColour = -1;
+                value = number;
+              }
+              if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour,
+                  trumpColour, value, 0, false)) != -1) {
+                return index;
+              }
+              if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour,
+                  trumpColour, value, 0, true)) != -1) {
+                return index;
+              }
+            } else {
+              if ((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
+                return index;
+              }
+            }
+          } else {
+            if (hasColour[colour][0]) {
+              value = 7 - trick.get(0).getNumber().ordinal();
+              if ((index =
+                  General.playColour(cardProbabilities, cards, colour, value, 0, false)) != -1) {
+                return index;
+              }
+              if ((index =
+                  General.playColour(cardProbabilities, cards, colour, value, 0, true)) != -1) {
+                return index;
+              }
+            } else {
+              if ((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
+                return index;
+              }
+            }
+          }
+
+        }
+      }
+      if (trick.size() == 2) {
+        // If already won, throw high value
+        Card partnerCard = playedCards[playedCards.length - 1][(declarer == 1) ? 2 : 1];
+        Card opponentCard = playedCards[playedCards.length - 1][declarer];
+        boolean alreadyWon;
+        // Partner played trump
+        if (3 - partnerCard.getColour().ordinal() == trumpColour
+            || partnerCard.getNumber() == Number.JACK) {
+          // opponent did not
+          if (3 - opponentCard.getColour().ordinal() != trumpColour
+              && opponentCard.getNumber() != Number.JACK) {
+            alreadyWon = true;
+            // opponent did aswell
+          } else {
+            if (partnerCard.getNumber() == Number.JACK) {
+              if (opponentCard.getNumber() != Number.JACK) {
+                alreadyWon = true;
+              } else {
+                if (partnerCard.getColour().ordinal() > opponentCard.getColour().ordinal()) {
+                  alreadyWon = true;
+                } else {
+                  alreadyWon = false;
+                }
+              }
+            } else {
+              if (opponentCard.getNumber() != Number.JACK) {
+                if (partnerCard.getNumber().ordinal() > opponentCard.getNumber().ordinal()) {
+                  alreadyWon = true;
+                } else {
+                  alreadyWon = false;
+                }
+              } else {
+                alreadyWon = false;
+              }
+            }
+          }
+          // Partner did not play trump
+        } else {
+          // Did opponent serve colour or played trump?
+          if (trick.get(0).getColour() != opponentCard.getColour()
+              && opponentCard.getNumber() != Number.JACK
+              && 3 - opponentCard.getColour().ordinal() != trumpColour) {
+            alreadyWon = true;
+          } else {
+            // Opponent plyed trump
+            if(opponentCard.getNumber() == Number.JACK || 3 - opponentCard.getColour().ordinal() == trumpColour) {
+              alreadyWon = false;
+              // Both played colour
+            }else {
+              if(partnerCard.getNumber().ordinal() > opponentCard.getNumber().ordinal()) {
+                alreadyWon = true;
+              }else {
+                alreadyWon = false;
+              }
+            }
+          }
+        }
+
+        if (alreadyWon) {
+          // Throw high value
+          if(3 - trick.get(0).getColour().ordinal() == trumpColour || trick.get(0).getNumber() == Number.JACK) {
+            if(ownTrumps > 0) {
+              if((index = General.playColour(cardProbabilities, cards, trumpColour, -1, 0, false)) != -1) {
+                return index;
+              }
+              if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour, -1, 0, false)) != -1) {
+                return index;
+              }
+            }else {
+              if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, false)) != -1) {
+                return index;
+              }
+            }
+          }
+          if(hasColour[3 - trick.get(0).getColour().ordinal()][0]) {
+            if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), -1, 0, false)) != -1) {
+              return index;
+            }
+          }else {
+            if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, false)) != -1) {
+              return index;
+            }
+          }
+        } else {
+          // Else try to win, if value > 7
+          if(trick.get(0).getValue() + trick.get(1).getValue() > 7) {
+            int enemyColour = 3 - opponentCard.getColour().ordinal();
+            int enemyNumber = 7 - opponentCard.getNumber().ordinal();
+            int jackColour;
+            if(opponentCard.getNumber() == Number.JACK) {
+              jackColour = enemyColour;
+              value = -1;
+            }else {
+              jackColour = -1;
+              value = enemyNumber;
+            }
+            if(3 - trick.get(0).getColour().ordinal() == trumpColour || trick.get(0).getNumber() == Number.JACK) {
+              if(ownTrumps > 0) {
+                if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour, trumpColour, value, 0, true)) != -1) {
+                  return index;
+                }
+                if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour, trumpColour, value, 0, false)) != 1) {
+                  return index;
+                }
+              }else {
+                if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
+                  return index;
+                }
+              }
+            }
+            if(hasColour[3 - trick.get(0).getColour().ordinal()][0]) {
+              if(enemyColour != 3 - trick.get(0).getColour().ordinal()) {
+                if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
+                  return index;
+                }
+              }else {
+                if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), value, 0, false)) != -1) {
+                  return index;
+                }
+                if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
+                  return index;
+                }
+              }
+              // AI does not have the colour
+            }else {
+              // Declarer played trump
+              if(enemyColour != 3 - trick.get(0).getColour().ordinal()) {
+                if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour, trumpColour, value, 0, false)) != -1) {
+                  return index;
+                }
+                if((index = General.playValue(cardProbabilities, cards, trumpColour, 7 - Number.JACK.ordinal(), 0, true)) != -1) {
+                  return index;
+                }
+              }else {
+                if(ownTrumps > 0) {
+                  if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour, trumpColour, value, 0, true)) != -1) {
+                    return index;
+                  }
+                }else {
+                  if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
+                    return index;
+                  }
+                }
+              }
+            }
+            
+            // Else throw low value
+          }else {
+            if(3 - trick.get(0).getColour().ordinal() == trumpColour || trick.get(0).getNumber() == Number.JACK) {
+              if(ownTrumps > 0) {
+                if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour, -1, 0, true)) != -1) {
+                  return index;
+                }
+              }else {
+                if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
+                  return index;
+                }
+              }
+            }
+            if(hasColour[3 - trick.get(0).getColour().ordinal()][0]) {
+              if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
+                return index;
+              }
+            }else {
+              if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
+                return index;
+              }
+            }
+          }
+         
+        }
+      }
+    }
 
     return General.playRandomCard(controller);
   }
 
+  /**
+   * PlayMode is Null. AI decides which card to play.
+   * 
+   * @author fkleinoe
+   * @param controller
+   * @return Card index
+   */
   public static int playCardNull(AiController controller) {
     List<Card> cards = controller.getBot().getHand();
     List<Card> trick = controller.getCurrentTrick();

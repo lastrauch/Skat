@@ -1,12 +1,12 @@
 package ai;
 
-import logic.PlayMode;
-import logic.PlayState;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import logic.Card;
 import logic.Colour;
+import logic.PlayMode;
+import logic.PlayState;
 
 public class Easy {
 
@@ -31,9 +31,9 @@ public class Easy {
 	// askToPlayCard(AIController) : int
 	// Gives back the index of a Card on the hand, that the AI wants to play.
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// Methods called by AIController
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Checks if the easy AI wants to place a bet of passed value.
@@ -90,11 +90,6 @@ public class Easy {
 	public static PlayState askToSetPlayState(AiController controller) {
 
 		PlayState playState = controller.getPlayState();
-		List<Card> skatList = new ArrayList<Card>();
-		for (int i = 0; i < controller.getPlayState().getSkat().length; i++) {
-			skatList.add(controller.getPlayState().getSkat()[i]);
-		}
-		playState.getDeclarerStack().addCards(skatList);
 		playState.setPlayMode(PlayMode.SUIT);
 		if (controller.getSinglePlay() != null && controller.getSinglePlay().getColour() != null) {
 			playState.setTrump(controller.getSinglePlay().getColour());
@@ -127,7 +122,6 @@ public class Easy {
 			}
 			playState.setTrump(c);
 		}
-		playState.setSkat(null);
 		playState.setHandGame(false);
 		playState.setSchneiderAnnounced(false);
 		playState.setSchwarzAnnounced(false);
