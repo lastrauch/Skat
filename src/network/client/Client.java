@@ -9,8 +9,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import logic.ClientLogic;
 import logic.Player;
+import network.messages.Bet_Msg;
+import network.messages.CardPlayed_Msg;
+import network.messages.ChatMessage_Msg;
+import network.messages.ClientDisconnect_Msg;
+import network.messages.ConnectionAnswer_Msg;
+import network.messages.ConnectionRequest_Msg;
+import network.messages.DealtCards_Msg;
+import network.messages.GameSettings_Msg;
+import network.messages.Lobby_Msg;
 import network.messages.Message;
-import network.messages.*;
+import network.messages.MessageType;
+import network.messages.PlayState_Msg;
 import network.server.Server;
 
 public class Client extends Thread {
@@ -40,11 +50,13 @@ public class Client extends Thread {
       Message message;
       boolean connected = true;
       while (connected && (message = (Message) input.readObject()) != null) {
-    	if(message.getType() == MessageType.LOBBY){
+        if (message.getType() == MessageType.LOBBY) {
           Lobby_Msg msg = (Lobby_Msg) message;
-          System.out.println("Message recieved run " + this.owner.getName() + ": " + message.getType() + " (Group size: " + msg.getPlayer().length + ")");
-        }else{
-        	System.out.println("Message recieved run " + this.owner.getName() + ": " + message.getType());
+          System.out.println("Message recieved run " + this.owner.getName() + ": "
+              + message.getType() + " (Group size: " + msg.getPlayer().length + ")");
+        } else {
+          System.out
+              .println("Message recieved run " + this.owner.getName() + ": " + message.getType());
         }
         receiveMessage(message);
       }
@@ -154,7 +166,8 @@ public class Client extends Thread {
         break;
       case LOBBY:
         Lobby_Msg msg9 = (Lobby_Msg) message;
-        logic.receiveLobby(new ArrayList<>(Arrays.asList(msg9.getPlayer())), msg9.getGameSettings());
+        logic.receiveLobby(new ArrayList<>(Arrays.asList(msg9.getPlayer())),
+            msg9.getGameSettings());
         break;
       case START_GAME:
         logic.receiveStartGame();
@@ -164,11 +177,11 @@ public class Client extends Thread {
         logic.receivePlayerDisconnected(msg11.getPlayer());
         break;
       case KONTRA:
-    	  logic.receiveKontra();
-    	  break;
+        logic.receiveKontra();
+        break;
       case REKONTRA:
-    	  logic.receiveRekontra();
-    	  break;
+        logic.receiveRekontra();
+        break;
       default:
         break;
     }

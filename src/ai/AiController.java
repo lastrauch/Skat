@@ -16,9 +16,10 @@ import network.Settings;
 
 public class AiController implements InGameInterface {
 
-  // This class is the main class of the AI.
-  // It inherits the InGameInterface methods to call different actions on the AI.
-  // Available methods are:
+  /*
+   * This class is the main class of the AI. It inherits the InGameInterface methods to call
+   * different actions on the AI. Available methods are:
+   */
 
   // startPlay(List<Card>, Position) : void
   // Sets the hand and the position
@@ -71,10 +72,9 @@ public class AiController implements InGameInterface {
   private SinglePlay singlePlay; // PlayMode and colour the bot wants to play, if so; otherwise null
   private Card[][] playedCards; // Matrix of played Cards. Columns = players, rows = Cards
   /*
-   * Matrix of the probabilities, player i has card j;
-   * Player are the columns, cards are the rows.
-   * Spades(0-7), Clubs(8-15), Hearts(16-23), Diamonds(24-31)
-   * Ace(0), Ten(1), King(2), Queen(3), Jack(4), Nine(5), Eight(6), Seven(7)
+   * Matrix of the probabilities, player i has card j; Player are the columns, cards are the rows.
+   * Spades(0-7), Clubs(8-15), Hearts(16-23), Diamonds(24-31) Ace(0), Ten(1), King(2), Queen(3),
+   * Jack(4), Nine(5), Eight(6), Seven(7)
    */
   private double[][] cardProbability;
   private boolean[][] hasColour; // Columns are the players, rows are the colours

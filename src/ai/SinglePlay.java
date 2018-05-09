@@ -5,8 +5,9 @@ import logic.PlayMode;
 
 public class SinglePlay {
 
-  // This class represents the PlayMode that the AI wants to play, if it wins the
-  // auction.
+  /*
+   * This class represents the PlayMode that the AI wants to play, if it wins the auction.
+   */
 
   private PlayMode playMode;
   private Colour colour;
