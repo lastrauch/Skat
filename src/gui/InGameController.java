@@ -495,8 +495,6 @@ public class InGameController implements Initializable, InGameInterface {
         stichLinks.setImage(rueckseite);
       } else if (player.getPosition() == Position.FOREHAND) {
         stichRechts.setImage(rueckseite);
-      } else {
-
       }
     }
 
@@ -2486,8 +2484,8 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void displayAuctionScreen() {
     paneBet.setLayoutX(475);
-    paneBet.setLayoutY(128);
-    paneBet.setPrefHeight(315);
+    paneBet.setLayoutY(188);
+    paneBet.setPrefHeight(60);
     paneBet.setPrefWidth(395);
     paneBet.setStyle(
         "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
@@ -2521,8 +2519,8 @@ public class InGameController implements Initializable, InGameInterface {
       box.getChildren().add(betB);
     }
     box.setPrefHeight(44);
-    box.setLayoutX(37);
-    box.setLayoutY(158);
+    box.setLayoutX(60);
+    box.setLayoutY(108);
     box.setSpacing(100);
 
     if (!paneBet.getChildren().contains(box) && !paneBet.getChildren().contains(labelBet)) {
