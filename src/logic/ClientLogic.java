@@ -389,7 +389,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * checks if the player is supposed to bet next, if he sits middlehand.
    * 
    * @author awesch
-   * @param player
+   * @param player who bet last
    * @return
    */
   public boolean checkIfItsMyTurnAuctionMiddlehand(Player player, int bet) {
@@ -406,7 +406,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * checks if the player is supposed to bet next, if he sits rearhand.
    * 
    * @author awesch
-   * @param player
+   * @param player who bet last
    * @return
    */
   public boolean checkIfItsMyTurnAuctionRearHand(Player player, int bet) {
@@ -438,7 +438,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
    * different positions.
    * 
    * @author awesch
-   * @param player
+   * @param player who bet last
    * @return
    */
   public boolean checkIfItsMyTurnAuction(Player player, int bet) {
@@ -1310,7 +1310,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   public void sendChatMessage(String msg) {
-    this.netController.sendChatMessage(msg);
+    this.netController.sendChatMessage(this.player.copyMe(), msg);
   }
 
   /*------------------------------ BREAK ---------------------------------------------------------*/
