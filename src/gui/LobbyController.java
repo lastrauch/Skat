@@ -96,8 +96,8 @@ public class LobbyController implements Initializable {
     }
     displayStartButton();
     ButtonListener();
-//  displayAddBotButton();
-//  displayDeleteBotButton();
+  displayAddBotButton();
+  displayDeleteBotButton();
     
     
 
@@ -347,13 +347,20 @@ public class LobbyController implements Initializable {
         }
       }
     });
-//    deleteBot.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        LoginController.interfGL.deleteBot("Bot");
-//      }
-//    });
+    deleteBot.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {
+        
+        if(vbox1.getChildren().size() == 3) {
+          LoginController.interfGL.deleteBot("Bot 2");
+        } else if(vbox1.getChildren().size() == 4) {
+          LoginController.interfGL.deleteBot("Bot 3");
+        } else if(vbox1.getChildren().size() == 2) {
+          LoginController.interfGL.deleteBot("Bot 1");
+        }
+      }
+    });
     change.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override

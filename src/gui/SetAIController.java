@@ -76,8 +76,7 @@ public class SetAIController implements Initializable {
    */
   @FXML
   public void ok() {
-    anz.append("Bot ");
-    anz.append(String.valueOf(main.getLobbyCon().countBot()));
+    anz.append(String.valueOf(main.getLobbyCon().countBot()-1));
     main.displayLobby();
     System.out.println("Anz: " + anz.toString());
     LoginController.interfGL.setBot(anz.toString(), dif);
