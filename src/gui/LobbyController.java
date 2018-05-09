@@ -255,7 +255,9 @@ public class LobbyController implements Initializable {
     p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p2.setAlignment(Pos.CENTER);
 
-    vbox1.getChildren().add(p2);
+    if(!vbox1.getChildren().contains(p2)) {
+      vbox1.getChildren().add(p2);
+    }
   }
 
   public void displayThree(String name1, String name2, String name3) {
@@ -271,7 +273,9 @@ public class LobbyController implements Initializable {
     p3.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p3.setAlignment(Pos.CENTER);
 
-    vbox1.getChildren().add(p3);
+    if(!vbox1.getChildren().contains(p3)) {
+      vbox1.getChildren().add(p3);
+    }
   }
 
   public void displayFour(String name1, String name2, String name3, String name4) {
@@ -288,7 +292,9 @@ public class LobbyController implements Initializable {
     p4.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p4.setAlignment(Pos.CENTER);
 
-    vbox1.getChildren().add(p4);
+    if(!vbox1.getChildren().contains(p4)) {
+      vbox1.getChildren().add(p4);
+    }
   }
 
 
