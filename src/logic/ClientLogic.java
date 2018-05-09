@@ -771,6 +771,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
     Player trickWinner;
     List<Player> playWinner;
     List<Player> gameWinner;
+    boolean nullBreak;
 
     // check if trick is over
     if (this.playState.getCurrentTrick().isFull()) {
@@ -794,10 +795,19 @@ public class ClientLogic implements NetworkLogic, AILogic {
       this.waitFor(2000);
 
       // check if play is over
-      if (this.playState.getTrickNr() == 10
-          || ((this.playState.getPlayMode() == PlayMode.NULL) && trickWinner.isDeclarer())) {
+      nullBreak = (this.playState.getPlayMode() == PlayMode.NULL) && trickWinner.isDeclarer();
+      if (this.playState.getTrickNr() == 10 || nullBreak) {
+        
         // calculate winner play
-        playWinner = Play.calculateWinner(playState);
+        if (nullBreak) {
+          for (Player p : this.group) {
+            if (!p.isDeclarer()) {
+              playWinner.add(p);
+            }
+          }
+        }else {
+          playWinner = Play.calculateWinner(playState);
+        }
 
         System.out.println("Before calculate Points:");
         System.out.println("playWinner:");
@@ -851,7 +861,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           System.out.println(this.player.getName() + ": The game is over");
           // calculate winner game
           gameWinner = new ArrayList<Player>();
-          gameWinner.add(Game.calculateWinner(this.playState));
+          gameWinner.add(Game.calculateWinner(this.group));
 
           this.waitFor(3000);
           // show winner of game
