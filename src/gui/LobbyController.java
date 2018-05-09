@@ -94,7 +94,7 @@ public class LobbyController implements Initializable {
       setGM();
       displaydiffentGameModes();
     }
-
+    allbuttonsListener();
 
 
   }
@@ -120,7 +120,7 @@ public class LobbyController implements Initializable {
     back.setPrefWidth(214.0);
     back.setPrefHeight(41.0);
     back.setLayoutX(550.0);
-    back.setLayoutY(270.0);
+    back.setLayoutY(640.0);
     back.setText("Back");
     back.setTextFill(Color.WHITE);
     back.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
@@ -317,7 +317,7 @@ public class LobbyController implements Initializable {
   }
 
 
-  public void ButtonListener() {
+  public void allbuttonsListener() {
     start.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override

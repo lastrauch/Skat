@@ -55,7 +55,7 @@
                               <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
-                        <JFXRadioButton fx:id="ssys" layoutX="179.0" layoutY="168.0" text="Normal" textFill="WHITE">
+                        <JFXRadioButton fx:id="nsys" layoutX="179.0" layoutY="168.0" text="Normal" textFill="WHITE">
                            <font>
                               <Font size="28.0" />
                            </font>
@@ -65,7 +65,7 @@
                               <Font size="28.0" />
                            </font>
                         </JFXRadioButton>
-                        <JFXRadioButton fx:id="nsys" text="Seeger System" textFill="WHITE">
+                        <JFXRadioButton fx:id="ssys" text="Seeger System" textFill="WHITE">
                            <font>
                               <Font size="28.0" />
                            </font>

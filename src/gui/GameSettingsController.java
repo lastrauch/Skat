@@ -366,7 +366,7 @@ public class GameSettingsController implements Initializable {
     ssys.setToggleGroup(g2);
     bsys.setToggleGroup(g2);
     nsys.setToggleGroup(g2);
-    g2.selectToggle(bsys);
+    g2.selectToggle(nsys);
 
     n3.setToggleGroup(g3);
     n4.setToggleGroup(g3);
