@@ -134,6 +134,7 @@ public class ServerFinder {
           String comment = message[5];
           Server server = new Server(serverName, Settings.PORT, numPlayer, maxPlayer, comment);
           server.setIp(ip);
+          System.out.println("So viele server haben wir bisher: " + this.servers.size());
           this.servers.add(server);
         }
 
@@ -157,7 +158,6 @@ public class ServerFinder {
    * @return List(Server) to get
    */
   public List<Server> getServers() {
-    this.refresh();
     return this.servers;
   }
 
