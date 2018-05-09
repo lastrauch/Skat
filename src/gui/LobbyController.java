@@ -175,6 +175,16 @@ public class LobbyController implements Initializable {
     mainPane.getChildren().add(change);
   }
 
+  public void showChatMessage(String text, String playername) {
+    chatM.appendText(playername +": "+text + "\n");
+  }
+  
+  @FXML
+  public void sendChatMessage() {
+    String message;
+    message = textM.getText();
+    LoginController.interfGL.sendChatText(message);
+  }
 
   public void displayPlayers(int size, List<Player> name) {
     Platform.runLater(new Runnable() {
