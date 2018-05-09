@@ -22,10 +22,10 @@ public class SetAIController implements Initializable {
    * @author lstrauch
    */
   private GuiController main;
-  private int bot;
   private Label label = new Label();
-  private boolean addedBot = false;
   private BotDifficulty dif;
+  private int countBot = 0;
+  private StringBuilder anz = new StringBuilder();
   /**
    * @author lstrauch
    */
@@ -43,6 +43,7 @@ public class SetAIController implements Initializable {
    */
   public SetAIController() {
     this.main = new GuiController();
+    anz.append("Bot ");
     GuiController.prevScreen = 5;
   }
 
@@ -75,8 +76,11 @@ public class SetAIController implements Initializable {
    */
   @FXML
   public void ok() {
+    anz.append("Bot ");
+    anz.append(String.valueOf(main.getLobbyCon().countBot()));
     main.displayLobby();
-    LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
+    System.out.println("Anz: " + anz.toString());
+    LoginController.interfGL.setBot(anz.toString(), dif);
   }
 
   @Override
@@ -95,7 +99,6 @@ public class SetAIController implements Initializable {
     easy3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        bot = 3;
         if (!(l3.getText().equals("Disabled") || l3.getText().equals(""))) {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
@@ -107,7 +110,6 @@ public class SetAIController implements Initializable {
     med3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        bot = 3;
         if (!(l3.getText().equals("Disabled") || l3.getText().equals(""))) {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
@@ -119,7 +121,6 @@ public class SetAIController implements Initializable {
     dif3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        bot = 3;
         if (!(l3.getText().equals("Disabled") || l3.getText().equals(""))) {
           LoginController.interfGL.deleteBot("Bot3");
           System.out.println("Delete b3");
@@ -131,10 +132,7 @@ public class SetAIController implements Initializable {
     dis3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-        bot = 3;
         if (!(l3.getText().equals("Disabled") || l3.getText().equals(""))) {
-          LoginController.interfGL.deleteBot("Bot3");
-          System.out.println("Delete b3");
         }
         l3.setText("Disabled");
       }
