@@ -2532,7 +2532,7 @@ public class InGameController implements Initializable, InGameInterface {
 
     if (!box.getChildren().contains(qu) && !box.getChildren().contains(betB)
         && !box.getChildren().contains(pass)) {
-      box.getChildren().add(pass);
+      box.getChildren().add(qu);
       box.getChildren().add(pass);
       box.getChildren().add(betB);
     }
