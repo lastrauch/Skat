@@ -31,9 +31,9 @@ public class GameController implements GuiLogic {
   public GameController(LogicGui logicGui) {
     this.logicGui = logicGui;
     this.gameSettings = new GameSettings();
-    group = new ArrayList<Player>();
-    clientLogic = new ArrayList<ClientLogic>();
-    server = new ArrayList<Server>();
+    this.group = new ArrayList<Player>();
+    this.clientLogic = new ArrayList<ClientLogic>();
+    this.server = new ArrayList<Server>();
   }
 
   @Override
