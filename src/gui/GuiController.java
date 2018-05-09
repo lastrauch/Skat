@@ -186,11 +186,15 @@ public class GuiController extends Application {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("LobbyOnline.fxml"));
+      Thread.sleep(1000);
       this.lobbyOnline = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(lobbyOnline);
 
       lobbyOnlineCon = loader.getController();
     } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (InterruptedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
