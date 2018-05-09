@@ -85,9 +85,9 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <VBox fx:id="vboxJoin" layoutX="1115.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0" />
+      <VBox fx:id="vboxJoin" layoutX="1115.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0" spacing="40.0" />
       <VBox fx:id="vboxNr" layoutX="545.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0" spacing="40.0" />
-      <VBox fx:id="vboxUser" layoutX="721.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0" />
-      <VBox fx:id="vboxMessage" layoutX="874.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0" />
+      <VBox fx:id="vboxUser" layoutX="721.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0" spacing="40.0" />
+      <VBox fx:id="vboxMessage" layoutX="874.0" layoutY="270.0" prefHeight="361.0" prefWidth="147.0" spacing="40.0" />
    </children>
 </AnchorPane>

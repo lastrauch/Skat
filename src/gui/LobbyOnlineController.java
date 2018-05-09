@@ -93,28 +93,21 @@ public class LobbyOnlineController implements Initializable {
     for (int i = 0; i < nr.size(); i++) {
       nr.get(i).setText(String.valueOf(server.get(i).getNumPlayer()) + "/"
           + String.valueOf(server.get(i).getMaxPlayer()));
-      nr.get(i).setFont(Font.font("System", 23));
+      nr.get(i).setFont(Font.font("System", 18));
 
-      if (vboxNr.getChildren().size() > 0) {
-        if (!vboxNr.getChildren().contains(vboxNr.getChildren().get(i))) {
-          vboxNr.getChildren().add(nr.get(i));
-        }
-      } else {
+      if (!vboxNr.getChildren().contains(nr.get(i))) {
         vboxNr.getChildren().add(nr.get(i));
       }
     }
 
     for (int i = 0; i < user.size(); i++) {
       user.get(i).setText(server.get(i).getServerName());
-      user.get(i).setFont(Font.font("System", 15));
+      user.get(i).setFont(Font.font("System", 18));
 
-      if (vboxUser.getChildren().size() > 0) {
-        if (!vboxUser.getChildren().contains(vboxUser.getChildren().get(i))) {
-          vboxUser.getChildren().add(user.get(i));
-        }
-      } else {
+      if (!vboxUser.getChildren().contains(user.get(i))) {
         vboxUser.getChildren().add(user.get(i));
       }
+
     }
 
     for (int i = 0; i < join.size(); i++) {
@@ -126,11 +119,7 @@ public class LobbyOnlineController implements Initializable {
           .setStyle("-fx-background-color: peru; -fx-text-fill: white; -fx-background-radius: 20");
       join.get(i).setAlignment(Pos.CENTER);
 
-      if (vboxJoin.getChildren().size() > 0) {
-        if (!vboxJoin.getChildren().contains(vboxJoin.getChildren().get(i))) {
-          vboxNr.getChildren().add(join.get(i));
-        }
-      } else {
+      if (!vboxJoin.getChildren().contains(join.get(i))) {
         vboxJoin.getChildren().add(join.get(i));
       }
 
