@@ -12,26 +12,49 @@ import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
 
+/**
+ * Server that hosts a skat game.
+ * 
+ * @author fkleinoe
+ */
 public class Server extends Thread {
+
+  // run() : void
+  // Run server.
+
+  // stopServer() : void
+  // Stop the server.
+
   private String serverName;
   private String ip;
   private ServerSocket serverSocket;
   private int port;
   private List<ClientConnection> clientConnections;
   private boolean serverRunning = false;
-
-  private static int playerID = 1;
-  private GameSettings gs;
+  private static int playerId = 1; // Iterator the set unique player ID
+  private GameSettings gameSettings;
   private String comment;
-  private PlayState ps;
+  private PlayState playState;
   private List<Player> player;
-  private int numPlayer;
-  private int maxPlayer;
+  private int numPlayer; // Dummy value of the number of players on the server
+  private int maxPlayer; // Dummy value of the maximum number of player allowed on the server
 
-  public Server(String serverName, int port, GameSettings gs, String comment) {
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Constructor
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * Constructor.
+   * 
+   * @author fkleinoe
+   * @param serverName of the server
+   * @param port of the server
+   * @param gameSettings of the game
+   * @param comment of the server
+   */
+  public Server(String serverName, int port, GameSettings gameSettings, String comment) {
     this.serverName = serverName;
     this.port = port;
-    this.gs = gs;
+    this.gameSettings = gameSettings;
     this.comment = comment;
     this.player = new ArrayList<Player>();
     try {
@@ -50,7 +73,17 @@ public class Server extends Thread {
     Thread serverFinderThread = new Thread(ServerFinderThread.getInstance(this));
     serverFinderThread.start();
   }
-  
+
+  /**
+   * Dummy constructor to process in the gui.
+   * 
+   * @author fkleinoe
+   * @param serverName of the server
+   * @param port of the server
+   * @param numPlayer number of players on the server
+   * @param maxPlayer maximum number of allowed players
+   * @param comment of the server
+   */
   public Server(String serverName, int port, int numPlayer, int maxPlayer, String comment) {
     this.serverName = serverName;
     this.port = port;
@@ -59,6 +92,14 @@ public class Server extends Thread {
     this.comment = comment;
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Internal Methods
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * Run server.
+   * 
+   * @author fkleinoe
+   */
   public void run() {
     this.serverRunning = true;
     System.out.println("Server is running");
@@ -68,6 +109,11 @@ public class Server extends Thread {
     }
   }
 
+  /**
+   * Listen to incoming messages.
+   * 
+   * @author fkleinoe
+   */
   public void listen() {
     try {
       Socket newSocket = this.serverSocket.accept();
@@ -76,11 +122,17 @@ public class Server extends Thread {
       newClientConnection.start();
       System.out.println("New ClientConnection");
     } catch (SocketException e) {
+      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
+  /**
+   * Stop the server.
+   * 
+   * @author fkleinoe
+   */
   public void stopServer() {
     try {
       if (!this.serverSocket.isClosed()) {
@@ -88,79 +140,191 @@ public class Server extends Thread {
       }
       this.serverRunning = false;
     } catch (SocketException e1) {
+      e1.printStackTrace();
     } catch (IOException e2) {
       e2.printStackTrace();
     }
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Setter-/Getter Methods
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * Get port.
+   * 
+   * @author fkleinoe
+   * @return int to get
+   */
   public int getPort() {
     return this.port;
   }
 
+  /**
+   * Get serverName.
+   * 
+   * @author fkleinoe
+   * @return String to get
+   */
   public String getServerName() {
     return this.serverName;
   }
 
+  /**
+   * Get actual number of player on the server measured by the number of clientconnections.
+   * 
+   * @author fkleinoe
+   * @return int to get
+   */
   public int getNumberOfPlayers() {
     return this.clientConnections.size();
   }
 
+  /**
+   * Get clientConnections.
+   * 
+   * @author fkleinoe
+   * @return List(ClientConnection> to get
+   */
   public List<ClientConnection> getClientConnections() {
     return this.clientConnections;
   }
 
-  public void setGameSettings(GameSettings gs) {
-    this.gs = gs;
+  /**
+   * Set gameSettings.
+   * 
+   * @author fkleinoe
+   * @param gameSettings to set
+   */
+  public void setGameSettings(GameSettings gameSettings) {
+    this.gameSettings = gameSettings;
   }
 
+  /**
+   * Get gameSettings.
+   * 
+   * @author fkleinoe
+   * @return GameSettings to get
+   */
   public GameSettings getGameSettings() {
-    return this.gs;
+    return this.gameSettings;
   }
 
-  public void setPlayState(PlayState ps) {
-    this.ps = ps;
+  /**
+   * Set playState.
+   * 
+   * @author fkleinoe
+   * @param playState to set
+   */
+  public void setPlayState(PlayState playState) {
+    this.playState = playState;
   }
 
+  /**
+   * Get playState.
+   * 
+   * @author fkleinoe
+   * @return PlayState to get
+   */
   public PlayState getPlayState() {
-    return this.ps;
+    return this.playState;
   }
 
+  /**
+   * Get player.
+   * 
+   * @author fkleinoe
+   * @return List(Payer) to get
+   */
   public List<Player> getPlayer() {
     return this.player;
   }
 
+  /**
+   * Add player.
+   * 
+   * @author fkleinoe
+   * @param player to add
+   */
   public void addPlayer(Player player) {
     this.player.add(player);
   }
 
+  /**
+   * Remove player.
+   * 
+   * @author fkleinoe
+   * @param player to remove
+   */
   public void removePlayer(Player player) {
     this.player.remove(player);
   }
 
+  /**
+   * Remove clientConnection.
+   * 
+   * @author fkleinoe
+   * @param connection to remove
+   */
   public void removeClientConnection(ClientConnection connection) {
     this.clientConnections.remove(connection);
   }
 
+  /**
+   * Get comment.
+   * 
+   * @author fkleinoe
+   * @return String to get
+   */
   public String getComment() {
     return this.comment;
   }
-  
-  public void setIP(String ip) {
+
+  /**
+   * Set ip.
+   * 
+   * @author fkleinoe
+   * @param ip to set
+   */
+  public void setIp(String ip) {
     this.ip = ip;
   }
 
-  public String getIP() {
+  /**
+   * Get ip.
+   * 
+   * @author fkleinoe
+   * @return String to get
+   */
+  public String getIp() {
     return this.ip;
   }
-  
-  public int getNewPlayerID(){
-	  return playerID++;
+
+  /**
+   * Create new playerId.
+   * 
+   * @author fkleinoe
+   * @return int to get
+   */
+  public int getNewPlayerId() {
+    return playerId++;
   }
-  
+
+  /**
+   * Get number of player on server as dummy.
+   * 
+   * @author fkleinoe
+   * @return int to get
+   */
   public int getNumPlayer() {
     return this.numPlayer;
   }
-  
+
+  /**
+   * Get maximum number of player on the server as dummy.
+   * 
+   * @author fkleinoe
+   * @return int to get
+   */
   public int getMaxPlayer() {
     return this.maxPlayer;
   }

@@ -125,7 +125,7 @@ public class Client extends Thread {
    */
   private boolean connect() {
     try {
-      this.socket = new Socket(server.getIP(), port);
+      this.socket = new Socket(server.getIp(), port);
       this.output = new ObjectOutputStream(socket.getOutputStream());
       this.input = new ObjectInputStream(socket.getInputStream());
       System.out.println("Socket Connection established");
