@@ -742,7 +742,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
       player.setDeclarer(true);
       if (!this.player.isBot()) {
         System.out.println("hand of player who plays open (right before showOpen):");
-        for(Card c: player.getHand()) {
+        for (Card c : player.getHand()) {
           System.out.println(c.toString());
         }
       }
@@ -822,9 +822,13 @@ public class ClientLogic implements NetworkLogic, AILogic {
               pg.setPlayScore(ps.getPlayScore());
             }
           }
+          if (pg.getPosition().equals(Position.DEALER)) {
+            pg.addToPlayScore(-1);
+          }
           if (pg.getName().equals(this.player.getName())) {
             this.player.setPlayScore(pg.getPlayScore());
           }
+
         }
 
         System.out.println(this.player.getName() + " got these points: "
@@ -858,7 +862,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
           this.waitFor(3000);
 
         } else {
-          
+
           // game is not over
           this.updatePosition();
 
