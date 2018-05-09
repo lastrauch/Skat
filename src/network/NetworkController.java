@@ -1,14 +1,22 @@
 package network;
 
-import java.util.List;
 import interfaces.LogicNetwork;
+import java.util.List;
 import logic.Card;
-import logic.GameSettings;
 import logic.ClientLogic;
+import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
 import network.client.Client;
-import network.messages.*;
+import network.messages.Bet_Msg;
+import network.messages.CardPlayed_Msg;
+import network.messages.ChatMessage_Msg;
+import network.messages.DealtCards_Msg;
+import network.messages.GameSettings_Msg;
+import network.messages.Kontra_Msg;
+import network.messages.PlayState_Msg;
+import network.messages.Rekontra_Msg;
+import network.messages.StartGame_Msg;
 import network.server.Server;
 import network.server.ServerFinder;
 
@@ -45,13 +53,13 @@ public class NetworkController implements LogicNetwork {
 
   // sendPlayState(PlayState) : void
   // Sends the PlayState.
-  
+
   // sendKontra()
   // Sends a message, that the player wants to declare kontra.
 
   // sendRekontra()
   // Sends a message, that the player wants to declare rekontra.
-  
+
   // yourTurn(Player) : void
   // Sends a message, that it is players turn.
 
@@ -78,7 +86,7 @@ public class NetworkController implements LogicNetwork {
    * should speak to
    * 
    * @author fkleinoe
-   * @param logic
+   * @param logic communication interface to logic
    */
   public NetworkController(ClientLogic logic) {
     this.logic = logic;
@@ -93,10 +101,10 @@ public class NetworkController implements LogicNetwork {
    * server.
    * 
    * @author fkleinoe
-   * @param player
-   * @param gameSettings
-   * @param comment
-   * @return Server
+   * @param player that hosts the game
+   * @param gameSettings of the game
+   * @param comment of the server
+   * @return Server a hosted server
    */
   public Server hostGame(Player player, GameSettings gameSettings, String comment) {
     this.player = player;
@@ -115,9 +123,9 @@ public class NetworkController implements LogicNetwork {
    * Returns if the connections was accepted.
    * 
    * @author fkleinoe
-   * @param server
-   * @param player
-   * @return boolean
+   * @param server that should be joined
+   * @param player that wants to join
+   * @return boolean if joining worked
    */
   public boolean joinLobby(Server server, Player player) {
     this.client = new Client(server, player, server.getPort(), this.logic);
@@ -135,7 +143,7 @@ public class NetworkController implements LogicNetwork {
    * The methods returns a list of skat servers available in the network.
    * 
    * @author fkleinoe
-   * @return List(Server)
+   * @return List(Server) get all skat server in local network
    */
   public List<Server> getServer() {
     if (this.finder != null) {
@@ -151,7 +159,7 @@ public class NetworkController implements LogicNetwork {
    * This method sends a chat message to the server.
    * 
    * @author fkleinoe
-   * @param message
+   * @param message to send
    */
   public void sendChatMessage(String message) {
     ChatMessage_Msg msg = new ChatMessage_Msg(this.player, message);
@@ -163,7 +171,7 @@ public class NetworkController implements LogicNetwork {
    * This method sends the GameSettings to the server.
    * 
    * @author fkleinoe
-   * @param gameSettings
+   * @param gameSettings to send
    */
   public void sendGameSettings(GameSettings gameSettings) {
     if (isHost) {
@@ -189,9 +197,9 @@ public class NetworkController implements LogicNetwork {
    * player.
    * 
    * @author fkleinoe
-   * @param player
-   * @param cards
-   * @param playState
+   * @param player to deal the cards to
+   * @param cards that are dealed
+   * @param playState of the play
    */
   public void dealCards(Player player, List<Card> cards, PlayState playState) {
     DealtCards_Msg msg = new DealtCards_Msg(player, cards, playState);
@@ -203,8 +211,8 @@ public class NetworkController implements LogicNetwork {
    * This method sends the message, that the passed player placed the passed bet.
    * 
    * @author fkleinoe
-   * @param bet
-   * @param player
+   * @param bet that was placed
+   * @param player who placed the bet
    */
   public void bet(int bet, Player player) {
     Bet_Msg msg = new Bet_Msg(player, bet);
@@ -216,13 +224,13 @@ public class NetworkController implements LogicNetwork {
    * This method sends the PlayState to the server.
    * 
    * @author fkleinoe
-   * @param playState
+   * @param playState that will be set
    */
   public void sendPlayState(PlayState playState) {
     PlayState_Msg msg = new PlayState_Msg(playState);
     this.client.sendMessage(msg);
   }
-  
+
   @Override
   /**
    * This method sends a message, that the player announced kontra.
@@ -244,28 +252,14 @@ public class NetworkController implements LogicNetwork {
     Rekontra_Msg msg = new Rekontra_Msg();
     this.client.sendMessage(msg);
   }
-  
-//  TODO
-//  @Override
-//  /**
-//   * This method sends a message to the server, that it is the passed players turn.
-//   * 
-//   * @author fkleinoe
-//   * @param player
-//   */
-//  public void yourTurn(Player player) {
-//    YourTurn_Msg msg = new YourTurn_Msg(player);
-//    this.client.sendMessage(msg);
-//  }
-  
 
   @Override
   /**
    * This method sends a card that was played by the passed player.
    * 
    * @author fkleinoe
-   * @param card
-   * @param player
+   * @param card that was played
+   * @param player that played the card
    */
   public void sendCardPlayed(Card card, Player player) {
     CardPlayed_Msg msg = new CardPlayed_Msg(player, card);
