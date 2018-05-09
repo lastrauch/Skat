@@ -18,13 +18,13 @@ import network.Settings;
  * @author fkleinoe
  */
 public class ServerFinder {
-  
+
   // refresh() : List<Server>
   // Refresh the list of skat servers in the network.
-  
+
   // findServers() : void
   // Searches for skat servers in the local network.
-  
+
   private List<Server> servers;
   private int port;
   private DatagramSocket socket;
@@ -66,7 +66,7 @@ public class ServerFinder {
    * @author fkleinoe
    */
   private void findServers() {
-    
+
     try {
       socket = new DatagramSocket();
       socket.setBroadcast(true);
@@ -114,31 +114,32 @@ public class ServerFinder {
           + " >>> Done looping over all network interfaces. Now waiting for a reply!");
 
       try {
-        socket.setSoTimeout(1000);
-        byte[] recvBuf = new byte[15000];
-        DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
-        socket.receive(receivePacket);
+        for (int i = 1; i < 10; i++) {
+          socket.setSoTimeout(2000);
+          byte[] recvBuf = new byte[15000];
+          DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
+          socket.receive(receivePacket);
 
-        System.out.println(getClass().getName() + " >>> Broadcast response from server: "
-            + receivePacket.getAddress().getHostAddress());
+          System.out.println(getClass().getName() + " >>> Broadcast response from server: "
+              + receivePacket.getAddress().getHostAddress());
 
-        String msg = new String(receivePacket.getData()).trim();
-        System.out.println("!!!!!!!!!!!!!!!!!!!<><><><><><><>!!!!!!!!!!!! " + msg);
-        String[] message = msg.split(";");
-        System.out.println(message[0]);
-        if (message[0].equals("SKAT4")) {
-          // Servername, ip, playerAnz, maxPlayer, comment
-          String serverName = message[1];
-          String ip = message[2];
-          int numPlayer = Integer.parseInt(message[3]);
-          int maxPlayer = Integer.parseInt(message[4]);
-          String comment = message[5];
-          Server server = new Server(serverName, Settings.PORT, numPlayer, maxPlayer, comment);
-          server.setIp(ip);
-          System.out.println("So viele server haben wir bisher: " + this.servers.size());
-          this.servers.add(server);
+          String msg = new String(receivePacket.getData()).trim();
+          System.out.println("!!!!!!!!!!!!!!!!!!!<><><><><><><>!!!!!!!!!!!! " + msg);
+          String[] message = msg.split(";");
+          System.out.println(message[0]);
+          if (message[0].equals("SKAT4")) {
+            // Servername, ip, playerAnz, maxPlayer, comment
+            String serverName = message[1];
+            String ip = message[2];
+            int numPlayer = Integer.parseInt(message[3]);
+            int maxPlayer = Integer.parseInt(message[4]);
+            String comment = message[5];
+            Server server = new Server(serverName, Settings.PORT, numPlayer, maxPlayer, comment);
+            server.setIp(ip);
+            System.out.println("So viele server haben wir bisher: " + this.servers.size());
+            this.servers.add(server);
+          }
         }
-
       } catch (SocketTimeoutException e) {
         System.out.println("No server were found");
       }
