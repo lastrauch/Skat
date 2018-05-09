@@ -94,7 +94,11 @@ public class LobbyController implements Initializable {
       setGM();
 //      displaydiffentGameModes();
     }
+    displayStartButton();
     ButtonListener();
+//  displayAddBotButton();
+//  displayDeleteBotButton();
+    
     
 
   }
@@ -371,9 +375,7 @@ public class LobbyController implements Initializable {
 //  public void displaydiffentGameModes() {
 //    if(gm == GameMode.SINGLEPLAYER) {
 //      displayChangeGamesettingsButton();
-//      displayAddBotButton();
-//      displayDeleteBotButton();
-//      displayStartButton();
+
 //      mainPane.getChildren().remove(allChat);
 //      mainPane.getChildren().remove(chatM);
 //      mainPane.getChildren().remove(textM);
