@@ -15,6 +15,7 @@ public class CalValueController {
   private GuiController main;
 
   /**
+   * Constructor.
    *@author lstrauch
    */
   public CalValueController() {
@@ -22,6 +23,7 @@ public class CalValueController {
   }
 
   /**
+   * Displays the previous screen.
    * @author lstrauch
    */
   @FXML

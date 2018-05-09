@@ -7,9 +7,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,16 +20,18 @@ import javax.imageio.ImageIO;
 
 public class AccountSettingsController implements Initializable {
 
+
   /**
-   * 
+   * initialize non-FXML attributes.
    * @author lstrauch
    */
   private String username = null;
   private Image img = null;
 
 
+
   /**
-   * 
+   * initializes FXML-attributes.
    * @author lstrauch
    */
   @FXML
@@ -41,11 +43,13 @@ public class AccountSettingsController implements Initializable {
 
 
   /**
+   * Constructor.
    * @author lstrauch
    */
   public AccountSettingsController() {}
 
   /**
+   * Go back to the previous screen.
    * @author lstrauch
    */
   @FXML
@@ -69,7 +73,9 @@ public class AccountSettingsController implements Initializable {
     }
   }
 
+
   /**
+   * Updates the name and profile picture in database.
    * @author lstrauch
    */
   @FXML
@@ -77,7 +83,6 @@ public class AccountSettingsController implements Initializable {
     username = newName.getText();
     try {
       if (LoginController.interfGD.checkIfPlayerNew(username)) {
-        System.out.println("acc: " + LoginController.interfGL.getPlayer().getName());
         if (username != null) {
           LoginController.interfGD.changeName(username, LoginController.interfGL.getPlayer());
           LoginController.displayPrev();
@@ -92,7 +97,10 @@ public class AccountSettingsController implements Initializable {
     // }
   }
 
+
   /**
+   * Open an external window to choose a *.jpg or *.png picture.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -100,11 +108,11 @@ public class AccountSettingsController implements Initializable {
     FileChooser fileChooser = new FileChooser();
 
     // Set extension filter
-    FileChooser.ExtensionFilter extFilterJPG =
+    FileChooser.ExtensionFilter extFilterJpg =
         new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-    FileChooser.ExtensionFilter extFilterPNG =
+    FileChooser.ExtensionFilter extFilterPng =
         new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-    fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+    fileChooser.getExtensionFilters().addAll(extFilterJpg, extFilterPng);
 
     // Show open file dialog
     File file = fileChooser.showOpenDialog(null);

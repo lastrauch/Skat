@@ -55,17 +55,17 @@
                               <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
-                        <JFXRadioButton fx:id="sSys" layoutX="179.0" layoutY="168.0" text="Seeger System" textFill="WHITE">
+                        <JFXRadioButton fx:id="ssys" layoutX="179.0" layoutY="168.0" text="Seeger System" textFill="WHITE">
                            <font>
                               <Font size="28.0" />
                            </font>
                         </JFXRadioButton>
-                        <JFXRadioButton fx:id="bSys" layoutX="365.0" layoutY="168.0" text="Bierlachs" textFill="WHITE">
+                        <JFXRadioButton fx:id="bsys" layoutX="365.0" layoutY="168.0" text="Bierlachs" textFill="WHITE">
                            <font>
                               <Font size="28.0" />
                            </font>
                         </JFXRadioButton>
-                        <JFXRadioButton fx:id="nSys" text="Normal" textFill="WHITE">
+                        <JFXRadioButton fx:id="nsys" text="Normal" textFill="WHITE">
                            <font>
                               <Font size="28.0" />
                            </font>
@@ -112,7 +112,7 @@
                               <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
-                        <JFXToggleButton fx:id="enTL" layoutX="185.0" layoutY="271.0" prefHeight="10.0" prefWidth="323.0" text="Enable Timelimit" textFill="WHITE">
+                        <JFXToggleButton fx:id="enTl" layoutX="185.0" layoutY="271.0" prefHeight="10.0" prefWidth="323.0" text="Enable Timelimit" textFill="WHITE">
                            <font>
                               <Font size="28.0" />
                            </font>

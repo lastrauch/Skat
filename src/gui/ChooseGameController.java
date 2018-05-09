@@ -1,19 +1,19 @@
 package gui;
 
-import interfaces.GuiLogic;
 import javafx.fxml.FXML;
-import logic.GameController;
 import logic.GameMode;
 
 public class ChooseGameController {
 
   /**
+   * initializes FXML-attributes.
    * @author lstrauch
    */
   @FXML
   private GuiController main;
 
   /**
+   * initializes non-FXML-attributes.
    * @author lstrauch
    */
   private GameMode gamemode;
@@ -27,24 +27,28 @@ public class ChooseGameController {
   }
 
   /**
+   * sets gameMode = SINGLEPLAYER.
+   * opens GameSettings - screen.
    * @author lstrauch
    */
   @FXML
-  public void SinglePlayer() {
+  public void singlePlayer() {
     setGameMode(GameMode.SINGLEPLAYER);
     main.displayGameSettings();
   }
 
   /**
+   * opens lobbyOnle - screen.
    * @author lstrauch
    */
   @FXML
-  public void MultiPlayer() {
+  public void multiPlayer() {
     main.displayLobbyOnline();
 
   }
 
   /**
+   * opens Settings-screen.
    * @author lstrauch
    */
   @FXML
@@ -53,6 +57,7 @@ public class ChooseGameController {
   }
 
   /**
+   * opens Help-screen.
    * @author lstrauch
    */
   @FXML
@@ -61,6 +66,7 @@ public class ChooseGameController {
   }
 
   /**
+   * opens AccountSettings-screen.
    * @author lstrauch
    */
   @FXML
@@ -69,10 +75,20 @@ public class ChooseGameController {
   }
 
   
+  /**
+   * sets GameMode.
+   * @author lstrauch
+   * @param gm
+   */
   public void setGameMode(GameMode gm) {
     this.gamemode = gm;
   }
   
+  
+  /** returns GameMode.
+   * @author lstrauch
+   * @return this.gamemode
+   */
   public GameMode getGameMode() {
     return this.gamemode;
   }
