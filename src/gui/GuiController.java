@@ -514,6 +514,10 @@ public class GuiController extends Application {
   public Leaderboard4Controller getLead4Con() {
     return leaderboard4Con;
   }
+  
+  public SettingsController getSettingsCon() {
+    return settingsCon;
+  }
 
 
 }

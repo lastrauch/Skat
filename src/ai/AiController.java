@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import logic.Card;
+import logic.ClientLogic;
 import logic.GameSettings;
 import logic.Number;
 import logic.PlayMode;
@@ -59,6 +60,7 @@ public class AiController implements InGameInterface {
 	// Sets the probability for a single card for a specific player
 
 	private Bot bot;
+	private ClientLogic logic; // Logic on which the interface will be called on
 	private GameSettings gameSettings;
 	private PlayState playState;
 	private List<Player> player; // These are the other players
@@ -91,7 +93,8 @@ public class AiController implements InGameInterface {
 	 * @param difficulty
 	 * @param gameSettings
 	 */
-	public AiController(String name, BotDifficulty difficulty, GameSettings gameSettings) {
+	public AiController(ClientLogic logic, String name, BotDifficulty difficulty, GameSettings gameSettings) {
+	  this.logic = logic;
 		this.bot = new Bot(name, difficulty);
 		this.gameSettings = gameSettings;
 		this.player = new ArrayList<Player>();
@@ -330,21 +333,25 @@ public class AiController implements InGameInterface {
 	 * @author fkleinoe
 	 * @return boolean
 	 */
-	public boolean askToRekontra() {
+	public void askToRekontra() {
 		try {
 			Thread.sleep(Settings.DELAY);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		boolean announce = false;
 		switch (this.bot.getDifficulty()) {
 		case EASY:
-			return Easy.askToRekontra(this);
+			announce = Easy.askToRekontra(this); break;
 		case MEDIUM:
-			return Medium.askToRekontra(this);
+			announce = Medium.askToRekontra(this); break;
 		case HARD:
-			return Hard.askToRekontra(this);
+			announce = Hard.askToRekontra(this); break;
 		default:
-			return false;
+			announce = false;
+		}
+		if(announce) {
+		  logic.announceRekontra();
 		}
 	}
 
@@ -533,7 +540,18 @@ public class AiController implements InGameInterface {
 			break;
 		default:
 		}
-		Hard.decideToPlayKontra(this);
+		
+		boolean announce = false;
+		switch(this.bot.getDifficulty()) {
+		  case EASY: break;
+		  case MEDIUM: break;
+		  case HARD: announce = Hard.decideToPlayKontra(this);
+		  default:
+		}
+		
+		if(announce) {
+		  logic.announceKontra();
+		}
 	}
 
 	@Override
