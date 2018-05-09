@@ -3,7 +3,6 @@ package logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.image.Image;
 
 /**
  * this class represents a player.
@@ -14,7 +13,6 @@ public class Player implements Serializable {
   private static final long serialVersionUID = 1L;
   private int id;
   private String name;
-  private Image img;
   private Position position;
   private List<Card> hand;
   private int bet; // -1 if you passed
@@ -28,7 +26,7 @@ public class Player implements Serializable {
   /**
    * constructor.
    * 
-   * @param name
+   * @param name of the player
    */
   public Player(String name) {
     this.name = name;
@@ -42,8 +40,8 @@ public class Player implements Serializable {
   /**
    * constructor.
    * 
-   * @param name
-   * @param bot
+   * @param name of the player
+   * @param bot submethod or not
    */
   public Player(String name, boolean bot) {
     this.name = name;
@@ -57,38 +55,20 @@ public class Player implements Serializable {
   /**
    * constructor.
    * 
-   * @param name
-   * @param img
+   * @param name of the player
+   * @param id of the player
+   * @param position of the player
+   * @param hand of the player
+   * @param bet last bet
+   * @param gamePoints of the player
+   * @param declarer of the play or not
+   * @param bot or not
+   * @param playPoints of the player
    */
-  public Player(String name, Image img) {
-    this.name = name;
-    this.img = img;
-    this.bet = 0;
-    this.bot = false;
-    this.hand = new ArrayList<Card>();
-    this.setPlayScore(new ArrayList<Integer>());
-    this.declarer = false;
-  }
-
-  /**
-   * constructor.
-   * 
-   * @param name
-   * @param id
-   * @param img
-   * @param position
-   * @param hand
-   * @param bet
-   * @param gamePoints
-   * @param declarer
-   * @param bot
-   * @param playPoints
-   */
-  public Player(String name, int id, Image img, Position position, List<Card> hand, int bet,
-      int gamePoints, boolean declarer, boolean bot, List<Integer> playPoints) {
+  public Player(String name, int id, Position position, List<Card> hand, int bet, int gamePoints,
+      boolean declarer, boolean bot, List<Integer> playPoints) {
     this.name = name;
     this.id = id;
-    this.img = img;
     this.position = position;
     this.hand = hand;
     this.bet = bet;
@@ -104,7 +84,6 @@ public class Player implements Serializable {
   public Player copyMe() {
     String newName = this.name;
     int newId = this.id;
-    Image newImg = this.img;
     Position newPosition = this.position;
     List<Card> newHand = new ArrayList<Card>();
     for (Card c : this.hand) {
@@ -118,8 +97,8 @@ public class Player implements Serializable {
     for (int i : this.playScore) {
       newPlayScore.add(i);
     }
-    Player newPlayer = new Player(newName, newId, newImg, newPosition, newHand, newBet,
-        newGameScore, newDeclarer, newBot, newPlayScore);
+    Player newPlayer = new Player(newName, newId, newPosition, newHand, newBet, newGameScore,
+        newDeclarer, newBot, newPlayScore);
 
     return newPlayer;
   }
@@ -140,8 +119,8 @@ public class Player implements Serializable {
    * removes a given card from the hand.
    * 
    * @author sandfisc
-   * @param card
-   * @throws LogicException
+   * @param card to remove from hand
+   * @throws LogicException if not possible
    */
   public void removeCardFromHand(Card card) throws LogicException {
 
@@ -149,7 +128,6 @@ public class Player implements Serializable {
 
     for (int i = 0; i < this.hand.size(); i++) {
       if (this.hand.get(i).equals(card)) {
-        // System.out.println("found index for remove : " + i);
         found = true;
         this.hand.remove(i);
         break;
@@ -164,7 +142,7 @@ public class Player implements Serializable {
   /**
    * sorts the players hand.
    * 
-   * @param ps
+   * @param ps current playState
    */
   public void sortHand(PlayState ps) {
     // possible different orders : colour, grand, null(nullouvert)
@@ -288,10 +266,10 @@ public class Player implements Serializable {
    * Adds arrayList to ArrayList, created for sortHand(s).
    * 
    * @author awesch
-   * @param cardsToAdd
-   * @param hand2
-   * @param start
-   * @param length
+   * @param cardsToAdd to the hand
+   * @param hand2 to add the cards on
+   * @param start to add the cards
+   * @param length of cards
    */
   public void addToHand(ArrayList<Card> cardsToAdd, List<Card> hand2, int start, int length) {
     int counter = 0;
@@ -368,14 +346,6 @@ public class Player implements Serializable {
 
   public int getId() {
     return this.id;
-  }
-
-  public Image getImage() {
-    return img;
-  }
-
-  public void setImage(Image img) {
-    this.img = img;
   }
 
   public void setDeclarer(boolean isDeclarer) {

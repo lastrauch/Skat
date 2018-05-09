@@ -62,7 +62,7 @@ public class GameSettings implements Serializable {
   /**
    * returns true, if the settet number of plays is played.
    * 
-   * @param nrOfPlays
+   * @param nrOfPlays which are played already
    */
   public boolean checkNrOfPlays(int nrOfPlays) {
     int[] possibleNr = {1, 3, 18, 36};

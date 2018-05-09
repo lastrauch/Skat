@@ -2,7 +2,6 @@ package logic;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * in the PlayState everything is saved, that happend in the play already, it is send inbetween the
@@ -64,27 +63,27 @@ public class PlayState implements Serializable {
   /**
    * constructor.
    * 
-   * @param playingGroup
-   * @param declarerStack
-   * @param opponentsStack
-   * @param skat
-   * @param trump
-   * @param playValue
-   * @param pm
-   * @param playNr
-   * @param trickNr
-   * @param auctionPossible
-   * @param handGame
-   * @param schneider
-   * @param schneiderAnnounced
-   * @param schwarz
-   * @param schwarzAnnounced
-   * @param open
-   * @param baseValue
-   * @param currentTrick
-   * @param auction
-   * @param announcedKontra
-   * @param announcedRekontra
+   * @param playingGroup array of player in this play
+   * @param declarerStack stack of declarer
+   * @param opponentsStack stack of the opponents
+   * @param skat array of skat cards
+   * @param trump of this play
+   * @param playValue of this play
+   * @param pm playMode of this play
+   * @param playNr number of plays already played
+   * @param trickNr number of tricks already played
+   * @param auctionPossible boolean
+   * @param handGame announced
+   * @param schneider more than 90 points for declarer
+   * @param schneiderAnnounced true or false
+   * @param schwarz 0 points for opponents
+   * @param schwarzAnnounced true or false
+   * @param open true or false
+   * @param baseValue of the play
+   * @param currentTrick instance of trick
+   * @param auction of the play
+   * @param announcedKontra true or false
+   * @param announcedRekontra true or false
    */
   public PlayState(Player[] playingGroup, Stack declarerStack, Stack opponentsStack, Card[] skat,
       Colour trump, int playValue, PlayMode pm, int playNr, int trickNr, boolean auctionPossible,
@@ -115,6 +114,9 @@ public class PlayState implements Serializable {
 
   /* ------------------------- HANDLE THIS PLAYSTATE ------------------------------------------- */
 
+  /**
+   * returns a deep copy of this playState.
+   */
   public PlayState copyMe() {
     Player[] playerCopy = new Player[this.playingGroup.length];
     for (int i = 0; i < this.playingGroup.length; i++) {
@@ -190,7 +192,7 @@ public class PlayState implements Serializable {
    * sorts cards by its value for normal values (high ten), created for sortHand(s).
    * 
    * @author awesch
-   * @param cards
+   * @param cards to sort
    */
   public void sortCardsValueNorm(ArrayList<Card> cards) {
     Card temp;
@@ -209,7 +211,7 @@ public class PlayState implements Serializable {
    * sorts cards by its value for a low ten playMode, created for sortHand(s).
    * 
    * @author awesch
-   * @param cards
+   * @param cards to sort
    */
   public void sortCardsValueLowTen(ArrayList<Card> cards) {
     Card temp;
@@ -228,7 +230,7 @@ public class PlayState implements Serializable {
    * sorts cards bei their colour, order: clubs, spades, hearts, diamonds. created for sortHand(s).
    * 
    * @author awesch
-   * @param cards
+   * @param cards to sort
    */
   public void sortCardsByColour(ArrayList<Card> cards) {
     Card temp;
@@ -319,7 +321,7 @@ public class PlayState implements Serializable {
   /**
    * sets the PlayMode and initializes the baseValue, if not suit.
    * 
-   * @param pm
+   * @param pm playMode
    */
   public void setPlayMode(PlayMode pm) {
     this.pm = pm;
