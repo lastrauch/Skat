@@ -69,10 +69,8 @@ public class CreateNewAccountController {
   @FXML
   public void submit() {
     this.username = newUsername.getText();
-    if (ppicture != null) {
-      interfGd.insertPlayer(new Player(username, ppicture));
-    } else {
-      interfGd.insertPlayer(new Player(username, null));
+    if (this.username != null) {
+      interfGd.insertPlayer(new Player(username));
     }
     main.displayChooseGame();
     LoginController.interfGL.login(username, ppicture);
