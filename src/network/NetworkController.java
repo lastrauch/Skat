@@ -163,8 +163,8 @@ public class NetworkController implements LogicNetwork {
    * @author fkleinoe
    * @param message to send
    */
-  public void sendChatMessage(String message) {
-    ChatMessageMsg msg = new ChatMessageMsg(this.player, message);
+  public void sendChatMessage(Player player, String message) {
+    ChatMessageMsg msg = new ChatMessageMsg(player, message);
     this.client.sendMessage(msg);
   }
 

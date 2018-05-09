@@ -449,6 +449,7 @@ public class GuiController extends Application {
       inGame = (AnchorPane) loader.load();
       Thread.sleep(1000);
       mprimaryStage.getScene().setRoot(inGame);
+      Thread.sleep(1000);
       inGameCon = loader.getController();
       Thread.sleep(1000);
     } catch (IOException e) {
@@ -488,11 +489,13 @@ public class GuiController extends Application {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("Leaderboard3.fxml"));
+      Thread.sleep(1000);
       this.leaderboard3 = (AnchorPane) loader.load();
       Thread.sleep(1000);
       mprimaryStage.getScene().setRoot(leaderboard3);
-
+      Thread.sleep(1000);
       leaderboard3Con = loader.getController();
+      Thread.sleep(1000);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -510,11 +513,13 @@ public class GuiController extends Application {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("Leaderboard4.fxml"));
+      Thread.sleep(1000);
       leaderboard4 = (AnchorPane) loader.load();
       Thread.sleep(1000);
       mprimaryStage.getScene().setRoot(leaderboard4);
-
+      Thread.sleep(1000);
       leaderboard4Con = loader.getController();
+      Thread.sleep(1000);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

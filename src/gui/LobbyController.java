@@ -94,7 +94,11 @@ public class LobbyController implements Initializable {
       setGM();
 //      displaydiffentGameModes();
     }
+    displayStartButton();
     ButtonListener();
+//  displayAddBotButton();
+//  displayDeleteBotButton();
+    
     
 
   }
@@ -177,13 +181,14 @@ public class LobbyController implements Initializable {
 
   public void showChatMessage(String text, String playername) {
     chatM.appendText(playername +": "+text + "\n");
-    chatM.setFont(Font.font("System", FontWeight.BOLD, 19.0));
+    chatM.setFont(Font.font("System", FontWeight.BOLD, 18.0));
   }
   
   @FXML
   public void sendChatMessage() {
     String message;
     message = textM.getText();
+    textM.setFont(Font.font("System", FontWeight.BOLD, 18.0));
     LoginController.interfGL.sendChatText(message);
   }
 
@@ -370,9 +375,7 @@ public class LobbyController implements Initializable {
 //  public void displaydiffentGameModes() {
 //    if(gm == GameMode.SINGLEPLAYER) {
 //      displayChangeGamesettingsButton();
-//      displayAddBotButton();
-//      displayDeleteBotButton();
-//      displayStartButton();
+
 //      mainPane.getChildren().remove(allChat);
 //      mainPane.getChildren().remove(chatM);
 //      mainPane.getChildren().remove(textM);
@@ -399,5 +402,9 @@ public class LobbyController implements Initializable {
     notenoughpl.setAlignment(Pos.CENTER);
     
     mainPane.getChildren().add(notenoughpl);
+  }
+  
+  public int countBot() {
+    return vbox1.getChildren().size();  
   }
 }
