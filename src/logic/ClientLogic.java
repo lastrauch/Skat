@@ -1310,7 +1310,7 @@ public class ClientLogic implements NetworkLogic, AILogic {
   }
 
   public void sendChatMessage(String msg) {
-    this.netController.sendChatMessage(msg);
+    this.netController.sendChatMessage(this.player.copyMe(), msg);
   }
 
   /*------------------------------ BREAK ---------------------------------------------------------*/
