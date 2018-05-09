@@ -6,12 +6,22 @@ import java.util.Properties;
 public class CreateDatabase extends Database {
     Properties properties;
     private Statement stmt;
+    
+    public CreateDatabase() {
+      super();
+      this.createAllTables();
+    }
+    
+    private void createAllTables() {
+      this.createTableCards();
+      this.createTableCardsDark();
+      this.createTablePlayer();
+    }
 
     private void createTableCards(){
         try {
             stmt = connection.createStatement();
             String sql = "CREATE TABLE IF NOT EXISTS Cards " +
-                    "(id INTEGER PRIMARY  KEY  AUTOINCREMENT," +
                     " colour           TEXT    NOT NULL, " + 
                     " number           TEXT    NOT NULL, " + 
                     " image            BLOB  )"; 
@@ -29,7 +39,6 @@ public class CreateDatabase extends Database {
       try {
           stmt = connection.createStatement();
           String sql = "CREATE TABLE IF NOT EXISTS CardsDark " +
-                  "(id INTEGER PRIMARY  KEY  AUTOINCREMENT," +
                   " colour           TEXT    NOT NULL, " + 
                   " number           TEXT    NOT NULL, " + 
                   " image            BLOB  )"; 
