@@ -592,6 +592,10 @@ public class GuiController extends Application {
     return settingsCon;
   }
 
+  /**
+   * @author lstrauch
+   * @return
+   */
   public LobbyOnlineController getLobbyOnlineCon() {
     return lobbyOnlineCon;
   }
