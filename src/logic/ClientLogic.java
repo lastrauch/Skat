@@ -314,8 +314,9 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * @author awesch
    */
   public void receiveBet(Player player, int bet) {
-    if (!this.playState.getAuction().getLastOneWhoBet().getName().equals(this.player.getName())
-        && this.playState.getBetValue() == bet) {
+    if (!(this.playState.getAuction().getLastOneWhoBet().getName().equals(player.getName())
+        && (this.playState.getAuction().getBetValue() == bet))) {
+      
       this.inGameController.receivedNewBet(bet, player);
       this.playState.getAuction().setLastOneWhoBet(player);
       // if auction is still running
@@ -324,6 +325,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
         this.playState.getAuction().addToBets(bet);
         if (bet != -1) {
           this.playState.setBetValue(bet);
+          this.playState.getAuction().setBetValue(bet);
         }
         int newBet = this.playState.getAuction().calculateNewBet();
         // if it is my turn
@@ -348,6 +350,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
         this.setAuctionWinner();
         this.checkIfAuctionWinner();
       }
+    } else {
+      System.out.println("yoooo you changed something with your if-bedingung!");
     }
   }
 
