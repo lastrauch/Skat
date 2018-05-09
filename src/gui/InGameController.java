@@ -2520,7 +2520,7 @@ public class InGameController implements Initializable, InGameInterface {
     }
     box.setPrefHeight(44);
     box.setLayoutX(60);
-    box.setLayoutY(108);
+    box.setLayoutY(58);
     box.setSpacing(100);
 
     if (!paneBet.getChildren().contains(box) && !paneBet.getChildren().contains(labelBet)) {
