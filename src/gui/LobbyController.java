@@ -355,10 +355,31 @@ public class LobbyController implements Initializable {
 
       @Override
       public void handle(MouseEvent event) {
-        
-        if(vbox1.getChildren().size() == 2) {
-          if(!checkIfBot(p2.getText())) {
+        if(vbox1.getChildren().size()-1 == 2) {
+          if(checkIfBot(p2.getText())) {
             LoginController.interfGL.deleteBot(p2.getText());
+            vbox1.getChildren().remove(p2);
+          }
+        } else if(vbox1.getChildren().size()-1 == 3) { 
+          if(checkIfBot(p3.getText())) {
+            LoginController.interfGL.deleteBot(p3.getText());
+            vbox1.getChildren().remove(p3);
+          } else if(checkIfBot(p2.getText())) {
+            LoginController.interfGL.deleteBot(p2.getText());
+            vbox1.getChildren().remove(p2);
+          } 
+        } else if(vbox1.getChildren().size()-1 == 4) {
+          if(!checkIfBot(p4.getText())) {
+            LoginController.interfGL.deleteBot(p4.getText());
+            vbox1.getChildren().remove(p4);
+          } else if(!checkIfBot(p3.getText())) {
+            LoginController.interfGL.deleteBot(p3.getText());
+            vbox1.getChildren().remove(p3);
+          } else if(!checkIfBot(p2.getText())) {
+            LoginController.interfGL.deleteBot(p2.getText());
+            vbox1.getChildren().remove(p2);
+          } else {
+            System.out.println("noBot");
           }
         }
       }
@@ -372,12 +393,16 @@ public class LobbyController implements Initializable {
   }
 
   public boolean checkIfBot(String s) {
-    if (s.equals("Bot 1") || s.equals("Bot 2") || s.equals("Bot 3)")) {
+//    if (s.equals("Bot 1") || s.equals("Bot 2") || s.equals("Bot 3)")) {
+//      return true;
+//    }
+    System.out.println("S: " + s);
+    if (s.equals("bot1") || s.equals("bot2") || s.equals("bot3")) {
       return true;
+    }else {
+      return false; 
     }
-    return false;
   }
-
 
   /**
    * @author lstrauch
