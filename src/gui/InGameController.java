@@ -45,36 +45,35 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @author lstrauch
    */
-  AnchorPane paneBet = new AnchorPane();
-  HBox box = new HBox();
-  Label labelBet = new Label();
-  JFXButton qu = new JFXButton();
-  JFXButton pass = new JFXButton();
-  JFXButton betB = new JFXButton();
-  boolean be = false;
-  boolean notpressed = true;
+  private AnchorPane paneBet;
+  private HBox box;
+  private Label labelBet;
+  private JFXButton pass;
+  private JFXButton betB;
+  boolean be;
+  boolean notpressed;
 
   /**
    * Initialize AuctionWinnerScreen
    * 
    * @author lstrauch
    */
-  AnchorPane paneAuc = new AnchorPane();
-  JFXRadioButton diamonds = new JFXRadioButton();
-  JFXRadioButton hearts = new JFXRadioButton();
-  JFXRadioButton spades = new JFXRadioButton();
-  JFXRadioButton clubs = new JFXRadioButton();
-  JFXRadioButton nullG = new JFXRadioButton();
-  JFXRadioButton grand = new JFXRadioButton();
-  JFXButton submit = new JFXButton();
-  JFXRadioButton ouvert = new JFXRadioButton();
-  JFXRadioButton schneider = new JFXRadioButton();
-  JFXRadioButton schwarz = new JFXRadioButton();
-  HBox boxWin1 = new HBox();
-  HBox boxWin2 = new HBox();
-  HBox boxWin3 = new HBox();
-  VBox vboxWin = new VBox();
-  Label labelWin = new Label();
+  AnchorPane paneAuc;
+  JFXRadioButton diamonds;
+  JFXRadioButton hearts;
+  JFXRadioButton spades;
+  JFXRadioButton clubs;
+  JFXRadioButton nullG;
+  JFXRadioButton grand;
+  JFXButton submit;
+  JFXRadioButton ouvert;
+  JFXRadioButton schneider;
+  JFXRadioButton schwarz;
+  HBox boxWin1;
+  HBox boxWin2;
+  HBox boxWin3;
+  VBox vboxWin;
+  Label labelWin;
 
 
 
@@ -83,20 +82,20 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @author lstrauch
    */
-  private AnchorPane skatPane = new AnchorPane();
-  private AnchorPane handPane = new AnchorPane();
-  private Label skatLabel = new Label();
-  private JFXButton yes = new JFXButton();
-  private JFXButton no = new JFXButton();
-  private HBox skatHbox = new HBox();
-  private ImageView sk1 = new ImageView();
-  private ImageView sk2 = new ImageView();
-  private JFXButton ok = new JFXButton();
-  List<Card> skatLogic = new ArrayList<Card>();
-  boolean decidepressed = false;
-  boolean wantskat = false;
-  boolean skatpressed = false;
-  boolean setSettings = false;
+  private AnchorPane skatPane;
+  private AnchorPane handPane;
+  private Label skatLabel;
+  private JFXButton yes;
+  private JFXButton no;
+  private HBox skatHbox;
+  private ImageView sk1;
+  private ImageView sk2;
+  private JFXButton ok;
+  List<Card> skatLogic;
+  boolean decidepressed;
+  boolean wantskat;
+  boolean skatpressed;
+  boolean setSettings;
 
 
   /**
@@ -214,6 +213,71 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // TODO Auto-generated method stub
+    paneBet = new AnchorPane();
+    box = new HBox();
+    labelBet = new Label();
+    pass = new JFXButton();
+    betB = new JFXButton();
+    be = false;
+    notpressed = true;
+
+    paneAuc = new AnchorPane();
+    diamonds = new JFXRadioButton();
+    hearts = new JFXRadioButton();
+    spades = new JFXRadioButton();
+    clubs = new JFXRadioButton();
+    nullG = new JFXRadioButton();
+    grand = new JFXRadioButton();
+    submit = new JFXButton();
+    ouvert = new JFXRadioButton();
+    schneider = new JFXRadioButton();
+    schwarz = new JFXRadioButton();
+    boxWin1 = new HBox();
+    boxWin2 = new HBox();
+    boxWin3 = new HBox();
+    vboxWin = new VBox();
+    labelWin = new Label();
+
+    skatPane = new AnchorPane();
+    handPane = new AnchorPane();
+    skatLabel = new Label();
+    yes = new JFXButton();
+    no = new JFXButton();
+    skatHbox = new HBox();
+    sk1 = new ImageView();
+    sk2 = new ImageView();
+    ok = new JFXButton();
+    skatLogic = new ArrayList<Card>();
+    decidepressed = false;
+    wantskat = false;
+    skatpressed = false;
+    setSettings = false;
+
+
+    inte = new ImplementsGuiInterface();
+    cardlist = new ArrayList<Card>();
+    noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
+    rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
+    bubbleL = new Image(getClass().getResource("/Sprechblase_links.png").toExternalForm());
+    bubbleR = new Image(getClass().getResource("/Sprechblase_rechts.png").toExternalForm());
+    bubbleU = new Image(getClass().getResource("/Sprechblase_oben.png").toExternalForm());
+    skat = new ArrayList<Card>();
+    da = new Boolean[2];
+    clicked = false;
+    ret = new int[1];
+    countl = 10;
+    countr = 10;
+    random = false;
+
+    pfUnten =
+        new Image(getClass().getResource("/icons8-unten-eingekreist-50.png").toExternalForm());
+    pfOben = new Image(getClass().getResource("/icons8-oben-eingekreist-50.png").toExternalForm());
+
+    carray = new ImageView[10];
+    rarray = new ImageView[10];
+    larray = new ImageView[10];
+    oarray = new ImageView[10];
+
     da[0] = true;
     da[1] = true;
     carray[0] = c1;
@@ -259,6 +323,8 @@ public class InGameController implements Initializable, InGameInterface {
     oarray[7] = o8;
     oarray[8] = o9;
     oarray[9] = o10;
+
+
 
     if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
       initialize4();
@@ -429,8 +495,6 @@ public class InGameController implements Initializable, InGameInterface {
         stichLinks.setImage(rueckseite);
       } else if (player.getPosition() == Position.FOREHAND) {
         stichRechts.setImage(rueckseite);
-      } else {
-
       }
     }
 
@@ -1668,7 +1732,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
 
   public void mouseHandler() {
-    for(int i = 0; i < carray.length; i++) {
+    for (int i = 0; i < carray.length; i++) {
       int t = i;
       carray[i].setOnMousePressed(new EventHandler<MouseEvent>() {
         @Override
@@ -1855,6 +1919,7 @@ public class InGameController implements Initializable, InGameInterface {
       }
     });
   }
+
 
 
   /**
@@ -2302,6 +2367,8 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+
+
   /**
    * @author lstrauch
    * @param anz
@@ -2417,8 +2484,8 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void displayAuctionScreen() {
     paneBet.setLayoutX(475);
-    paneBet.setLayoutY(128);
-    paneBet.setPrefHeight(315);
+    paneBet.setLayoutY(188);
+    paneBet.setPrefHeight(60);
     paneBet.setPrefWidth(395);
     paneBet.setStyle(
         "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
@@ -2447,22 +2514,21 @@ public class InGameController implements Initializable, InGameInterface {
     AnchorPane.setRightAnchor(labelBet, 0.0);
     labelBet.setAlignment(Pos.CENTER);
 
-    if (!box.getChildren().contains(qu) && !box.getChildren().contains(betB)
-        && !box.getChildren().contains(pass)) {
+    if (!box.getChildren().contains(betB) && !box.getChildren().contains(pass)) {
       box.getChildren().add(pass);
       box.getChildren().add(betB);
     }
     box.setPrefHeight(44);
-    box.setLayoutX(37);
-    box.setLayoutY(158);
-    box.setSpacing(50);
+    box.setLayoutX(60);
+    box.setLayoutY(58);
+    box.setSpacing(100);
 
     if (!paneBet.getChildren().contains(box) && !paneBet.getChildren().contains(labelBet)) {
       paneBet.getChildren().add(box);
       paneBet.getChildren().add(labelBet);
     }
 
-    if(!mainPane.getChildren().contains(paneBet)) {
+    if (!mainPane.getChildren().contains(paneBet)) {
       mainPane.getChildren().add(paneBet);
     }
     if (main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
@@ -2516,10 +2582,8 @@ public class InGameController implements Initializable, InGameInterface {
     grand.setToggleGroup(g1);
     nullG.setToggleGroup(g1);
 
-    if(!boxWin1.getChildren().contains(diamonds)
-        && !boxWin1.getChildren().contains(hearts)
-        && !boxWin1.getChildren().contains(spades)
-        && !boxWin1.getChildren().contains(clubs)) {
+    if (!boxWin1.getChildren().contains(diamonds) && !boxWin1.getChildren().contains(hearts)
+        && !boxWin1.getChildren().contains(spades) && !boxWin1.getChildren().contains(clubs)) {
       boxWin1.getChildren().add(diamonds);
       boxWin1.getChildren().add(hearts);
       boxWin1.getChildren().add(spades);
@@ -2542,8 +2606,7 @@ public class InGameController implements Initializable, InGameInterface {
     nullG.setFont(Font.font("System", FontWeight.BOLD, 20));
     nullG.setStyle("-fx-background-color: tan;");
 
-    if(!boxWin2.getChildren().contains(grand)
-        && !boxWin2.getChildren().contains(nullG)) {
+    if (!boxWin2.getChildren().contains(grand) && !boxWin2.getChildren().contains(nullG)) {
       boxWin2.getChildren().add(grand);
       boxWin2.getChildren().add(nullG);
     }
@@ -2569,8 +2632,7 @@ public class InGameController implements Initializable, InGameInterface {
     schwarz.setFont(Font.font("System", 15));
     schwarz.setStyle("-fx-background-color: tan;");
 
-    if(!boxWin3.getChildren().contains(ouvert)
-        && !boxWin3.getChildren().contains(schneider)
+    if (!boxWin3.getChildren().contains(ouvert) && !boxWin3.getChildren().contains(schneider)
         && !boxWin3.getChildren().contains(schwarz)) {
       boxWin3.getChildren().add(ouvert);
       boxWin3.getChildren().add(schneider);
@@ -2582,8 +2644,7 @@ public class InGameController implements Initializable, InGameInterface {
     boxWin3.setLayoutX(28);
     boxWin3.setLayoutY(266);
 
-    if(!vboxWin.getChildren().contains(boxWin1)
-        && !vboxWin.getChildren().contains(boxWin2)
+    if (!vboxWin.getChildren().contains(boxWin1) && !vboxWin.getChildren().contains(boxWin2)
         && !vboxWin.getChildren().contains(boxWin3)) {
       vboxWin.getChildren().add(boxWin1);
       vboxWin.getChildren().add(boxWin2);
@@ -2612,15 +2673,14 @@ public class InGameController implements Initializable, InGameInterface {
     labelWin.setFont(Font.font("System", FontWeight.BOLD, 33));
     labelWin.setTextFill(Color.WHITE);
 
-    if(!paneAuc.getChildren().contains(vboxWin)
-        && !paneAuc.getChildren().contains(labelWin)
+    if (!paneAuc.getChildren().contains(vboxWin) && !paneAuc.getChildren().contains(labelWin)
         && !paneAuc.getChildren().contains(submit)) {
       paneAuc.getChildren().add(vboxWin);
       paneAuc.getChildren().add(labelWin);
       paneAuc.getChildren().add(submit);
     }
 
-    if(!mainPane.getChildren().contains(paneAuc)) {
+    if (!mainPane.getChildren().contains(paneAuc)) {
       mainPane.getChildren().add(paneAuc);
     }
   }
@@ -2662,8 +2722,7 @@ public class InGameController implements Initializable, InGameInterface {
     no.setStyle("-fx-background-color: tan;");
     no.setButtonType(ButtonType.RAISED);
 
-    if(!skatHbox.getChildren().contains(yes)
-        && !skatHbox.getChildren().contains(no)) {
+    if (!skatHbox.getChildren().contains(yes) && !skatHbox.getChildren().contains(no)) {
       skatHbox.getChildren().add(yes);
       skatHbox.getChildren().add(no);
     }
@@ -2674,8 +2733,7 @@ public class InGameController implements Initializable, InGameInterface {
     skatHbox.setLayoutY(158);
 
 
-    if(!skatPane.getChildren().contains(skatLabel)
-        && !skatPane.getChildren().contains(skatPane)
+    if (!skatPane.getChildren().contains(skatLabel) && !skatPane.getChildren().contains(skatPane)
         && !mainPane.getChildren().contains(skatHbox)) {
       skatPane.getChildren().add(skatLabel);
       skatPane.getChildren().add(skatHbox);
@@ -2723,15 +2781,14 @@ public class InGameController implements Initializable, InGameInterface {
     ok.setButtonType(ButtonType.RAISED);
 
 
-    if(!handPane.getChildren().contains(sk1)
-        && !handPane.getChildren().contains(sk2)
+    if (!handPane.getChildren().contains(sk1) && !handPane.getChildren().contains(sk2)
         && !handPane.getChildren().contains(ok)) {
       handPane.getChildren().add(sk1);
       handPane.getChildren().add(sk2);
       handPane.getChildren().add(ok);
     }
-    
-    if(!mainPane.getChildren().contains(handPane)) {
+
+    if (!mainPane.getChildren().contains(handPane)) {
       mainPane.getChildren().add(handPane);
     }
   }

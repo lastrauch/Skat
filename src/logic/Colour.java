@@ -30,7 +30,7 @@ public enum Colour implements Serializable {
    * returns 0, if comp and this colour are the same, -1 if this colour is lower in value than copm,
    * 1 if this colour is higher in value than comp.
    * 
-   * @param comp
+   * @param comp -ared with colour
    */
   public int compareColourIntern(Colour comp) {
     if (this.value == comp.value) {

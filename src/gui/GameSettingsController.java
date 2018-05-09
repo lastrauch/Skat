@@ -218,7 +218,11 @@ public class GameSettingsController implements Initializable {
    */
   public int setLimitedTime() {
     String s = sec.getText();
-    return Integer.parseInt(s);
+    if(s != null) {
+      return Integer.parseInt(s);
+    } else {
+      return 10;
+    }
   }
 
   /**
