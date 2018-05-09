@@ -53,6 +53,7 @@ public class ServerFinder {
    * @return List(Server) to get
    */
   public List<Server> refresh() {
+    System.out.println("asdasdasdasdasdasdasdasdasd refresh aufgerufen");
     this.servers.clear();
     this.findServers();
     System.out.println("asdasdasdasdasdasdasdasdasd so viele sörver " + this.servers.size());
