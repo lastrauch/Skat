@@ -72,7 +72,6 @@ public class NetworkController implements LogicNetwork {
   // Sends a message, that the player on this logic has left the game.
 
   private ClientLogic logic; // Logic class all interface methods towards the logic are called on
-  private Player player; // Player of this client
   private boolean isHost = false; // Boolean whether client is also host of the game
   private Server server; // Server that the client is connected to
   private int port = Settings.PORT; // Port of the connection
@@ -109,7 +108,6 @@ public class NetworkController implements LogicNetwork {
    * @return Server a hosted server
    */
   public Server hostGame(Player player, GameSettings gameSettings, String comment) {
-    this.player = player;
     this.isHost = true;
     this.server = new Server("Server von " + player.getName(), this.port, gameSettings, comment);
     this.server.start();
