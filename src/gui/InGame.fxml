@@ -140,11 +140,6 @@
       </Label>
       <ImageView fx:id="s3" fitHeight="205.0" fitWidth="132.0" layoutX="590.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" rotate="14.9" />
       <ImageView fx:id="s1" fitHeight="205.0" fitWidth="132.0" layoutX="533.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" rotate="125.0" />
-      <JFXButton fx:id="sendB" layoutX="1167.0" layoutY="33.0" onAction="#sendChat" opacity="0.89" prefHeight="24.0" prefWidth="113.0" style="-fx-background-color: peru; -fx-border-color: grey;" text="Send" textFill="WHITE" AnchorPane.rightAnchor="0.0">
-         <font>
-            <Font name="System Bold Italic" size="15.0" />
-         </font>
-      </JFXButton>
       <ImageView fx:id="pf" fitHeight="32.0" fitWidth="40.0" layoutX="624.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/icons8-unten-eingekreist-50.png" />
@@ -156,11 +151,6 @@
          </image>
       </ImageView>
       <ImageView fx:id="extra2" fitHeight="227.0" fitWidth="182.0" layoutX="1064.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" rotate="26.6" />
-      <JFXButton buttonType="RAISED" layoutX="1153.0" layoutY="755.0" onAction="#help" prefHeight="33.0" prefWidth="113.0" styleClass="buttonstyle" stylesheets="@images/mystyle.css" text="     Help" textFill="WHITE" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="1153.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="755.0">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </JFXButton>
       <Label fx:id="labelLeft" layoutX="78.0" layoutY="166.0">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -234,8 +224,6 @@
             <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
-      <JFXTextArea fx:id="chatM" focusColor="WHITE" layoutX="3.0" layoutY="5.0" opacity="0.33" prefHeight="35.0" prefWidth="1280.0" style="-fx-background-color: peru;" unFocusColor="PERU" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <JFXTextField fx:id="textM" layoutY="33.0" opacity="0.33" prefHeight="32.0" prefWidth="1280.0" style="-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <ImageView fx:id="bubbleLeft" fitHeight="150.0" fitWidth="200.0" layoutX="79.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="bubbleUp" fitHeight="150.0" fitWidth="200.0" layoutX="590.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="bubbleRight" fitHeight="150.0" fitWidth="200.0" layoutX="1037.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" />

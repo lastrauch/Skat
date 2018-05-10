@@ -31,7 +31,6 @@ public class LobbyController implements Initializable {
 
   private JFXButton back = new JFXButton();
   private JFXButton addBot = new JFXButton();
-  private JFXButton change = new JFXButton();
   private JFXButton start = new JFXButton();
   private JFXButton deleteBot = new JFXButton();
   private Label p1 = new Label();
@@ -183,27 +182,6 @@ public class LobbyController implements Initializable {
     mainPane.getChildren().add(deleteBot);
   }
 
-  /**
-   * define changeGameSettings-button.
-   * 
-   * @author lstrauch
-   */
-  public void displayChangeGamesettingsButton() {
-    change.setPrefWidth(214.0);
-    change.setPrefHeight(41.0);
-    change.setLayoutX(550.0);
-    change.setLayoutY(380.0);
-    change.setText("Change Gamesettings");
-    change.setTextFill(Color.WHITE);
-    change.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
-    change.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; "
-        + "-fx-background-radius: 20; -fx-border-color: #D2B48C;");
-
-    change.setButtonType(ButtonType.RAISED);
-    change.setTextAlignment(TextAlignment.CENTER);
-
-    mainPane.getChildren().add(change);
-  }
 
   public void showChatMessage(String text, String playername) {
     chatM.appendText(playername + ": " + text + "\n");
@@ -423,6 +401,7 @@ public class LobbyController implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         guiCon.displayLobbyOnline();
+        LoginController.interfGL.exitLobby();
       }
     });
     addBot.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -467,11 +446,6 @@ public class LobbyController implements Initializable {
         }
       }
     });
-    change.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {}
-    });
 
   }
 
@@ -479,7 +453,7 @@ public class LobbyController implements Initializable {
    * checks which label is a bot.
    * 
    * @author lstrauch
-   * @param s
+   * @param s s
    * @return true or false
    */
   public boolean checkIfBot(String s) {
@@ -506,13 +480,11 @@ public class LobbyController implements Initializable {
         displayStartButton();
         displayAddBotButton();
         displayDeleteBotButton();
-        displayChangeGamesettingsButton();
         displayBackButton();
       } else {
         displayBackButton();
       }
     } else {
-      displayChangeGamesettingsButton();
       displayStartButton();
       displayAddBotButton();
       displayDeleteBotButton();
@@ -523,7 +495,6 @@ public class LobbyController implements Initializable {
       mainPane.getChildren().remove(sendB);
       rec.setHeight(684);
       start.setLayoutY(262);
-      change.setLayoutY(491);
       addBot.setLayoutY(591);
       deleteBot.setLayoutY(591);
       vbox1.setLayoutY(211);
