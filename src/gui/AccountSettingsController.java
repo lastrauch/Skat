@@ -37,7 +37,7 @@ public class AccountSettingsController implements Initializable {
   @FXML
   private JFXTextField newName;
   @FXML
-  private JFXButton newPP;
+  private JFXButton newPp;
   @FXML
   private ImageView pp;
 
@@ -58,7 +58,7 @@ public class AccountSettingsController implements Initializable {
   }
 
   /**
-   * (non-Javadoc)
+   * (non-Javadoc).
    * 
    * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
    * 

@@ -26,6 +26,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * initilizes all non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private int[] rounds = new int[1];
@@ -49,6 +50,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * initializes all FXML attributes.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -84,6 +86,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * constructor.
+   * 
    * @author lstrauch
    */
   public GameSettingsController() {
@@ -93,6 +96,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * sums up all buttonListeners.
+   * 
    * @author lstrauch
    */
   public void listener() {
@@ -105,6 +109,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * adds buttonListener to rounds.
+   * 
    * @author lstrauch
    */
   public void numberOfRounds() {
@@ -136,6 +141,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * adds buttonListener to count rule.
+   * 
    * @author lstrauch
    */
   public void countRule() {
@@ -163,6 +169,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * adds buttonListener to number of players.
+   * 
    * @author lstrauch
    */
   public void numberOfPlayers() {
@@ -182,6 +189,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * adds buttonListener to kontra.
+   * 
    * @author lstrauch
    */
   public void enableKontra() {
@@ -195,6 +203,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * adds buttonListener to limitedTime.
+   * 
    * @author lstrauch
    */
   public void enableLimitedTime() {
@@ -206,19 +215,20 @@ public class GameSettingsController implements Initializable {
         showSetTime();
         if (setLimitedTime != 0) {
           setLimitedTime = setLimitedTime();
-        } 
+        }
       }
     });
   }
 
   /**
    * sets the limitedTime to the time from textField.
+   * 
    * @author lstrauch
    * @return limitedTime
    */
   public int setLimitedTime() {
     String s = sec.getText();
-    if(s != null) {
+    if (s != null) {
       return Integer.parseInt(s);
     } else {
       return 10;
@@ -227,6 +237,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * shows a TextField to put in a time.
+   * 
    * @author lstrauch
    */
   public void showSetTime() {
@@ -263,8 +274,9 @@ public class GameSettingsController implements Initializable {
 
   /**
    * sets the gameMode.
+   * 
    * @author lstrauch
-   * @param gm
+   * @param gm GameMode
    */
   public void setGameMode(GameMode gm) {
     this.gm = gm;
@@ -274,6 +286,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * sets the Gamesettings if one button of each topic is selected.
+   * 
    * @author lstrauch
    */
   public void submit() {
@@ -333,7 +346,9 @@ public class GameSettingsController implements Initializable {
 
   }
 
-  /** return the gamesettings.
+  /**
+   * return the gamesettings.
+   * 
    * @author lstrauch
    * @return GameSettings
    */
@@ -343,6 +358,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * return the gameMode.
+   * 
    * @author lstrauch
    * @return GameMode
    */
@@ -351,7 +367,7 @@ public class GameSettingsController implements Initializable {
   }
 
   /**
-   * (non-Javadoc)
+   * (non-Javadoc).
    * 
    * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
    * 
@@ -396,6 +412,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * displays a Label if no rounds-button was selected.
+   * 
    * @author lstrauch
    */
   public void displayLabelRounds() {
@@ -413,6 +430,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * displays a Label if no system-button was selected.
+   * 
    * @author lstrauch
    */
   public void displayLabelSystem() {
@@ -431,6 +449,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * displays a Label if no numberOfPlayers-button was selected.
+   * 
    * @author lstrauch
    */
   public void displayLabelPlayers() {
@@ -448,6 +467,7 @@ public class GameSettingsController implements Initializable {
 
   /**
    * sets the gameMode.
+   * 
    * @author lstrauch
    */
   public void setGm() {

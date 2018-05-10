@@ -20,15 +20,30 @@ import logic.Player;
 public class Leaderboard3Controller implements Initializable {
 
   /**
+   * non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController main;
 
 
+  /**
+   * FXML attributes.
+   * 
+   * @author lstrauch
+   */
   @FXML
-  private VBox vBoxNr, vBox1, vBox2, vBox3;
+  private VBox vboxNr;
+  @FXML
+  private VBox vBox1;
+  @FXML
+  private VBox vBox2;
+  @FXML
+  private VBox vBox3;
 
   /**
+   * Constructor.
+   * 
    * @author lstrauch
    */
   public Leaderboard3Controller() {
@@ -36,6 +51,8 @@ public class Leaderboard3Controller implements Initializable {
   }
 
   /**
+   * go back to gameMode-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -74,13 +91,21 @@ public class Leaderboard3Controller implements Initializable {
       roundsNr.add(new Label());
     }
 
-    roundsNr.get(0).setText("Nr.");
+    roundsNr.get(0).setText("");
     roundsNr.get(0).setFont(Font.font("System", 33));
     roundsNr.get(0).setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(roundsNr.get(0), 0.0);
     AnchorPane.setRightAnchor(roundsNr.get(0), 0.0);
     roundsNr.get(0).setAlignment(Pos.CENTER);
-    vBoxNr.getChildren().add(roundsNr.get(0));
+    vboxNr.getChildren().add(roundsNr.get(0));
+    
+    roundsNr.get(1).setText("Nr.");
+    roundsNr.get(1).setFont(Font.font("System", 33));
+    roundsNr.get(1).setTextFill(Color.WHITE);
+    AnchorPane.setLeftAnchor(roundsNr.get(0), 0.0);
+    AnchorPane.setRightAnchor(roundsNr.get(0), 0.0);
+    roundsNr.get(1).setAlignment(Pos.CENTER);
+    vboxNr.getChildren().add(roundsNr.get(0));
 
     rounds1.get(0).setText(main.getInGameCon().getPlayer1().getName());
     rounds1.get(0).setFont(Font.font("System", 33));
@@ -116,7 +141,7 @@ public class Leaderboard3Controller implements Initializable {
       AnchorPane.setLeftAnchor(roundsNr.get(i+1), 0.0);
       AnchorPane.setRightAnchor(roundsNr.get(i+1), 0.0);
       roundsNr.get(i+1).setAlignment(Pos.CENTER);
-      vBoxNr.getChildren().add(roundsNr.get(i+1));
+      vboxNr.getChildren().add(roundsNr.get(i+1));
 
       int points11 = LoginController.interfGL.getPlayer().getPlayScore().get(i);
       rounds1.get(i+1).setText(String.valueOf(points11));
