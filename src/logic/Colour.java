@@ -29,9 +29,9 @@ public enum Colour implements Serializable {
   /**
    * returns 0, if comp and this colour are the same, -1 if this colour is lower in value than copm,
    * 1 if this colour is higher in value than comp.
-   * 
-   * @return int (which card wins)
    * @param comp -ared with colour
+   * @return int (which card wins)
+   * 
    */
   public int compareColourIntern(Colour comp) {
     if (this.value == comp.value) {

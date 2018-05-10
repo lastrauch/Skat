@@ -68,7 +68,7 @@ public interface GuiLogic {
   /**
    * supposed to sort the cards from jack to trump to lowest value.
    * @param ps PlayState
-   * @param cardList - list of cards
+   * @param cardlist - list of cards
    * @return the sorted array of cards
    */
   public ArrayList<Card> sortHand(PlayState ps, List<Card> cardlist); 

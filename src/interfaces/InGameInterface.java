@@ -50,7 +50,7 @@ public interface InGameInterface {
    * pass?" (if bet=18).
    * 
    * @param bet the player bet
-   * @param last bet a player made.
+   * @param lastBet a player made.
    * @return if the player wants to bet the bet
    */
   public boolean askForBet(int bet, Player lastBet);

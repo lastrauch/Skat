@@ -7,11 +7,10 @@ public class Game {
 
   /**
    * calculates the winner of the whole game.
-   * 
-   * @return List of Players
-   * @param list of players
-   * @author sandfisc
+   * @author sandfisc 
    * @author awesch
+   * @param group list of players
+   * @return List of Players
    */
   public static List<Player> calculateWinner(List<Player> group) {
     List<Player> winner = new ArrayList<Player>();
