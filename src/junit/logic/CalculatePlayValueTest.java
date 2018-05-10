@@ -1,5 +1,9 @@
 package junit.logic;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
 import logic.Card;
 import logic.ClientLogic;
 import logic.Colour;
@@ -8,11 +12,7 @@ import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
 import org.junit.jupiter.api.BeforeEach;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -45,7 +45,7 @@ class CalculatePlayValueTest {
   /**
    * sets playMode suit, playmode trump and initializes.
    * 
-   * @throws Exception
+   * @throws Exception if not possible
    */
   @BeforeEach
   void setUp() throws Exception {

@@ -1,10 +1,9 @@
 
 package junit.logic;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 import logic.Card;
 import logic.Colour;
 import logic.LogicException;
@@ -13,10 +12,14 @@ import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
 import logic.Trick;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
+ * this class tests the method calculateWinner in Trick.
+ * 
  * @author sandfisc
- *
  */
 class CalculateWinnerTrickTest {
 
@@ -31,7 +34,7 @@ class CalculateWinnerTrickTest {
     p1 = new Player("P1");
     p2 = new Player("P2");
     p3 = new Player("P3");
-    
+
     ps = new PlayState(new Player[] {p1, p2, p3});
   }
 
@@ -57,7 +60,7 @@ class CalculateWinnerTrickTest {
   @Test
   void testGrand() throws LogicException {
     ps.setPlayMode(PlayMode.GRAND);
-    
+
     trick.addCard(new Card(Colour.HEARTS, Number.TEN), p1);
     trick.addCard(new Card(Colour.HEARTS, Number.JACK), p2);
     trick.addCard(new Card(Colour.CLUBS, Number.JACK), p3);

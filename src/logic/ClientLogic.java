@@ -34,7 +34,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * @param player of this clientLogic
    */
   public ClientLogic(Player player) {
-    // System.out.println("created ClientLogic for Player " + player.getName());
     this.player = player;
     this.playState = new PlayState(new Player[4]);
     this.initializeCards();
@@ -224,7 +223,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    */
   @Override
   public void receiveStartGame() {
-    System.out.println("this.gameSettings.getNrOfPlayers(): " + this.gameSettings.getNrOfPlayers());
     // check to have received the right nr of players
     if (this.group.size() == this.gameSettings.getNrOfPlayers()) {
       // Sort group
@@ -338,10 +336,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
           }
           if (this.inGameController.askForBet(newBet, player)) {
             this.netController.bet(newBet, this.player.copyMe());
-            System.out.println(this.player.getName() + "bet " + newBet);
           } else {
             this.netController.bet(-1, this.player.copyMe());
-            System.out.println(this.player.getName() + "bet " + -1);
           }
         }
         this.updateBet(player, bet);
@@ -350,9 +346,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
         this.setAuctionWinner();
         this.checkIfAuctionWinner();
       }
-    } else {
-      System.out.println("yoooo you changed something with your if-bedingung!");
-    }
+    } 
   }
 
   /**
@@ -506,9 +500,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
     // change to id if setted by network !!!!!!!
     if (this.playState.getAuction().getWinner().getName().equals(this.player.getName())) {
       // this player is declarer
-      System.out.println(this.player.getName() + " won auction");
       this.player.setDeclarer(true);
-      System.out.println(this.player.isDeclarer());
       // the others not(update after the last auction) ... maybe not important later (if we reset
       // everything after one play)
       for (Player p : this.group) {
@@ -538,7 +530,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
       this.playState = this.inGameController.askToSetPlayState(this.playState);
 
       this.playState.setPlayValue(this.calculatePlayValue());
-      System.out.println("playValue before sendPlayState: " + this.playState.getPlayValue());
       this.netController.sendPlayState(this.playState.copyMe());
     } else {
 
@@ -690,7 +681,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
             try {
               this.player.removeCardFromHand(playedCard);
               if (!this.player.isBot()) {
-                System.out.println("And here is my new hand:");
                 for (Card c : this.player.getHand()) {
                   System.out.println(c.toString());
                 }
@@ -754,12 +744,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
         && player.getName().equals(this.playState.getAuction().getWinner().getName())
         && !this.player.isDeclarer()) {
       player.setDeclarer(true);
-      if (!this.player.isBot()) {
-        System.out.println("hand of player who plays open (right before showOpen):");
-        for (Card c : player.getHand()) {
-          System.out.println(c.toString());
-        }
-      }
       this.inGameController.showOpen(player);
     }
     try {
@@ -792,7 +776,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
       // trick is over
       // calculate winner trick
       trickWinner = this.playState.getCurrentTrick().calculateWinner(playState);
-      System.out.println("TrickWinner: " + trickWinner.getName());
 
       // put cards on winners stack
       if (trickWinner.isDeclarer()) {
@@ -822,20 +805,15 @@ public class ClientLogic implements NetworkLogic, AiLogic {
         } else {
           playWinner = Play.calculateWinner(playState);
         }
-
-        System.out.println("Before calculate Points:");
-        System.out.println("playWinner:");
         for (Player p : playWinner) {
           System.out.print(p.getName() + " ");
         }
         // calculate points
         if (playWinner.get(0).isDeclarer()) {
           // calculate points: declarer won
-          System.out.println("Punkte f�r den declarer werden berechnet");
           this.playState = Play.calculatePoints(this.playState, this.gameSettings, true);
         } else {
           // calculate points: opponents won
-          System.out.println("Punkte f�r die Opponents werden berechnet");
           this.playState = Play.calculatePoints(this.playState, this.gameSettings, false);
         }
 
@@ -855,17 +833,9 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
         }
 
-        System.out.println(this.player.getName() + " got these points: "
-            + this.player.getPlayScore().get(this.playState.getPlayNr() - 1));
-
         // show winner of play
         // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
         this.inGameController.showScore(this.group);
-        this.waitFor(1000);
-        if (playWinner.get(0).getName().equals(this.player.getName())
-            || playWinner.get(0).getName().equals(this.player.getName())) {
-          System.out.println(this.player.getName() + ": I won the play!!");
-        }
         this.waitFor(3000);
 
         // check if the whole game is over
@@ -873,16 +843,12 @@ public class ClientLogic implements NetworkLogic, AiLogic {
             || this.checkIfGameOverBierlachs()) {
 
           // game is over
-          System.out.println(this.player.getName() + ": The game is over");
           // calculate winner game
           gameWinner = Game.calculateWinner(this.group);
 
           this.waitFor(3000);
           // show winner of game
           this.inGameController.showScore(this.group);
-          if (gameWinner.get(0).getName().equals(this.player.getName())) {
-            System.out.println(this.player.getName() + ": I won the game!!");
-          }
           this.waitFor(3000);
 
         } else {
@@ -900,8 +866,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
               this.player.setPosition(p.getPosition());
             }
           }
-          System.out.println(this.player.getName() + " the play is over and I sit position "
-              + this.player.getPosition());
 
           // restart inGameController
           if (!this.player.isBot()) {
@@ -911,7 +875,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
           // with start play you deal out cards and in receive cards the auction will start
           if (this.player.getPosition() == Position.FOREHAND) {
-            System.out.println(this.player.getName() + " I'll start the new play now ;)");
             this.startPlay();
           }
 
@@ -923,16 +886,11 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
         // if "i am" winner of last trick --> ask inGameController to play new card
         if (this.player.getName().equals(trickWinner.getName())) {
-          System.out.println(this.player.getName() + ": I won the Trick!!");
           this.playCard(null);
         }
       }
     } else if (this.checkIfMyTurnTrick(playedLastCard)) {
-      // if (this.playState.getCurrentTrick().getTrickCards().size() == 0) {
-      // this.playCard(null);
-      // } else {
       this.playCard(this.playState.getCurrentTrick().getFirstCard());
-      // }
     }
   }
 
