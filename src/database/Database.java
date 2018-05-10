@@ -20,8 +20,12 @@ public class Database {
   protected Connection connection;
   Properties properties;
 
+  /**
+   * constructor.
+   * 
+   * @author awesch
+   */
   public Database() {
-
     String path = "Skat.db";
     try {
       this.connection = DriverManager.getConnection("jdbc:sqlite:" + path);
@@ -40,30 +44,35 @@ public class Database {
     }
   }
 
+  /**
+   * creates the database.
+   * 
+   * @author awesch
+   * @throws SQLException if not possible
+   */
   public void createDb() throws SQLException {
     Statement stmt = this.connection.createStatement();
     stmt.executeUpdate("PRAGMA foreign_keys=OFF;\r\n" + "BEGIN TRANSACTION;\r\n"
         + "CREATE TABLE `Player` (\r\n" + "    `name`  TEXT\r\n" + ");\r\n" + "COMMIT;\r\n" + "");
     stmt.close();
   }
-
-
-//  /**
-//   * Connects Database with Java.
-//   * 
-//   * @param file name and path of database
-//   * @author dpervane
-//   */
-//  private void connect(String file) {
-//    try {
-//      Class.forName("org.sqlite.JDBC");
-//      this.connection = DriverManager.getConnection("jdbc:sqlite:" + file);
-//    } catch (ClassNotFoundException e) {
-//      e.printStackTrace();
-//    } catch (SQLException e) {
-//      e.printStackTrace();
-//    }
-//  }
+  
+  // /**
+  // * Connects Database with Java.
+  // *
+  // * @param file name and path of database
+  // * @author dpervane
+  // */
+  // private void connect(String file) {
+  // try {
+  // Class.forName("org.sqlite.JDBC");
+  // this.connection = DriverManager.getConnection("jdbc:sqlite:" + file);
+  // } catch (ClassNotFoundException e) {
+  // e.printStackTrace();
+  // } catch (SQLException e) {
+  // e.printStackTrace();
+  // }
+  // }
 }
 
 

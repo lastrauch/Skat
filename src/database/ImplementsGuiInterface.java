@@ -1,18 +1,10 @@
 package database;
 
 import interfaces.GuiData;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javax.imageio.ImageIO;
 import logic.Card;
 import logic.Player;
 
@@ -55,9 +47,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     PngReader pr = new PngReader();
     this.cards = pr.readAll();
   }
-
-  private PngReader pr;
-
+  
   /**
    * returns the image of a card.
    * 
