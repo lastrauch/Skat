@@ -787,7 +787,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
       }
 
       // show winner of trick
-      this.waitFor(1000);
+      this.waitFor(2000);
       this.inGameController.showWinnerTrick(trickWinner);
       this.waitFor(2000);
 
