@@ -12,9 +12,8 @@ public interface GuiData {
    * Returns the image of the given Card.
    * 
    * @author dpervane
-   * @param colour of the card
-   * @param number of the card
-   * @return img
+   * @param card the image is searched for.
+   * @return Image of the card
    */
   public Image getImage(Card card);
 
@@ -22,9 +21,8 @@ public interface GuiData {
    * Should return the darker image of the Card.
    * 
    * @author dpervane
-   * @param colour of the card
-   * @param number of the card
-   * @return img
+   * @param card the image is searched for.
+   * @return Image of the card
    */
   public Image getImageDarker(Card card);
 
