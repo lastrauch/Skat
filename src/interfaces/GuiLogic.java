@@ -3,9 +3,7 @@ package interfaces;
 import java.util.List;
 import java.util.ArrayList;
 import ai.BotDifficulty;
-import javafx.scene.image.Image;
 import logic.Card;
-import logic.GameMode;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
@@ -48,6 +46,11 @@ public interface GuiLogic {
    * @param message the over players get.
    */
   public void sendChatText(String message);
+  
+  /**
+   * should exit the lobby.
+   */
+  public void exitLobby() ;
   
   /**
    * The client joins a lobby.

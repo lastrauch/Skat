@@ -171,4 +171,9 @@ public class GameController implements GuiLogic {
 
   }
 
+  @Override
+  public void exitLobby() {
+    this.networkController.exitGame();
+  }
+
 }
