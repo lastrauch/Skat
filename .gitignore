@@ -14,7 +14,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-SkatData.db
+Skat.db
 
 
 # External tool builders

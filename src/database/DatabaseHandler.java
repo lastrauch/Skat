@@ -44,12 +44,6 @@ public class DatabaseHandler extends Database {
       selectPlayerName =
           con.prepareStatement("SELECT * FROM Player WHERE (name LIKE ?) " + "ORDER BY name;");
 
-      selectCard = con
-          .prepareStatement("SELECT * FROM Cards WHERE (colour LIKE ?) " + "AND (number LIKE ?);");
-
-      selectCardDarker = con.prepareStatement(
-          "SELECT * FROM CardsDark WHERE (colour LIKE ?) " + "AND (number LIKE ?);");
-
       changeName = con.prepareStatement("UPDATE Player SET name = ? WHERE (name LIKE ?);");
 
     } catch (SQLException e) {

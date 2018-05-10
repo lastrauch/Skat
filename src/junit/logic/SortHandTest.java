@@ -1,6 +1,9 @@
 package junit.logic;
 
+import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
 import logic.Card;
 import logic.Colour;
 import logic.Number;
@@ -9,16 +12,12 @@ import logic.PlayState;
 import logic.Player;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.assertEquals;
 
 /**
  * this class tests the method sort hand in player.
  * 
  * @author awesch
- *
  */
 
 class SortHandTest {
@@ -66,7 +65,7 @@ class SortHandTest {
   /**
    * initializes the cards.
    * 
-   * @throws Exception
+   * @throws Exception if not possible
    */
   @BeforeEach
   void setUp() throws Exception {
@@ -176,7 +175,7 @@ class SortHandTest {
   /**
    * to help with the other methods.
    * 
-   * @param goodHand
+   * @param goodHand which is expected
    */
   void test(List<Card> goodHand) {
     player.sortHand(ps);

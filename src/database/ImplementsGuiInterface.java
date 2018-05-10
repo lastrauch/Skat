@@ -1,18 +1,10 @@
 package database;
 
 import interfaces.GuiData;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javax.imageio.ImageIO;
 import logic.Card;
 import logic.Player;
 
@@ -55,32 +47,15 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     PngReader pr = new PngReader();
     this.cards = pr.readAll();
   }
-
-  private PngReader pr;
-
+  
   /**
-   * Gives back the image of the card, which is called by UI.
+   * returns the image of a card.
    * 
-   * @author dpervane
-   * @param colour of the card
-   * @param number of the card
-   * @return img
+   * @author awesch
    */
   @Override
   public Image getImage(Card card) {
     Image img = null;
-    // try {
-    // selectCard.setString(1, colour);
-    // selectCard.setString(2, number);
-    // ResultSet rs = selectCard.executeQuery();
-    // while (rs.next()) {
-    // InputStream in = rs.getBinaryStream("image");
-    // img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
-    // }
-    // rs.close();
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
 
     for (CardImage ci : this.cards) {
       if (ci.getCard().equals(card) && !ci.isDark()) {
@@ -91,28 +66,13 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
   }
 
   /**
-   * Gives back the darker version of the card, which is called by UI.
+   * returns the dark image of a card.
    * 
-   * @author dpervane
-   * @param colour of the card
-   * @param number of the card
-   * @return img
+   * @author awesch
    */
   @Override
   public Image getImageDarker(Card card) {
     Image img = null;
-    // try {
-    // selectCardDarker.setString(1, colour);
-    // selectCardDarker.setString(2, number);
-    // ResultSet rs = selectCardDarker.executeQuery();
-    // while (rs.next()) {
-    // InputStream in = rs.getBinaryStream("image");
-    // img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
-    // }
-    // rs.close();
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
 
     for (CardImage ci : this.cards) {
       if (ci.getCard().equals(card) && ci.isDark()) {

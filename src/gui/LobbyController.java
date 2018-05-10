@@ -25,7 +25,6 @@ import javafx.scene.text.TextAlignment;
 import logic.GameMode;
 import logic.GameSettings;
 import logic.Player;
-
 public class LobbyController implements Initializable {
 
   private JFXButton back = new JFXButton();
@@ -40,6 +39,7 @@ public class LobbyController implements Initializable {
   private Label notenoughpl = new Label();
   private GuiController guiCon;
   private GameSettings gs;
+  private GameMode gm;
   private static int nrofplayers = 1;
 
   @FXML

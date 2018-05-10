@@ -91,8 +91,14 @@ public class Card implements Serializable {
     return this.colour.compareColourIntern(comp.getColour());
   }
 
+  /**
+   * Checks if the current instance and the given card are equal.
+   * @param card which is compared to current instances
+   * @return if the current instance is equal to the parameter
+   * @author sandfisc
+   */
   public boolean equals(Card card) {
-    if ( this.colour.equals(card.getColour()) && this.number.equals(card.getNumber())) {
+    if (this.colour.equals(card.getColour()) && this.number.equals(card.getNumber())) {
       return true;
     }
     return false;
