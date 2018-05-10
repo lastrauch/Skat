@@ -1,8 +1,8 @@
 package interfaces;
 
 import gui.InGameController;
-import logic.GameSettings;
 import java.util.List;
+import logic.GameSettings;
 import logic.Player;
 
 // Logic to GUI, implemented by GUI
@@ -23,16 +23,16 @@ public interface LogicGui {
   /**
    * should update the lobbyscreen, if recieved new one.
    * 
-   * @param gs
-   * @param group
+   * @param gs gameSettings
+   * @param group players in lobby
    */
   public void updateLobby(GameSettings gs, List<Player> group);
 
   /**
    * should show chat message to user.
    * 
-   * @param mgs
-   * @param player
+   * @param mgs message sent
+   * @param player who sends the message
    */
   public void showReceivedChatMessage(String mgs, Player player);
 

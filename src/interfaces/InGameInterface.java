@@ -14,7 +14,7 @@ public interface InGameInterface {
    * should open the InGameScreen and show the Player his cards and his position.
    * 
    * @param hand of the player
-   * @param position 
+   * @param position of the player
    */
   public void startPlay(List<Card> hand, Position position);
 
@@ -47,63 +47,65 @@ public interface InGameInterface {
    * supposed to ask the Player if he wants to go with the bet or if he wants to pass like "18 or
    * pass?" (if bet=18).
    * 
-   * @param bet
+   * @param bet the player bet
    */
   public boolean askForBet(int bet, Player lastBet);
 
   /**
    * updates the last bet (you don't need to be part of the conversation).
    * 
-   * @param bet
-   * @param player
+   * @param bet which was bet
+   * @param player who bet
    */
   public void receivedNewBet(int bet, Player player);
 
   /**
    * should reload the hand cards in the given order.
    * 
-   * @param list
+   * @param list new hand
    */
   public void updateHand(List<Card> list);
 
   /**
    * updates the current trick with the last played card and the Player, who played it.
    * 
-   * @param currentTrick
+   * @param card which was just played
+   * @param player who played it
    */
   public void receivedNewCard(Card card, Player player);
 
   /**
    * sets the gameSettings, before game starts.
    * 
-   * @param gs
+   * @param gs GameSettings
    */
   public void setGameSettings(GameSettings gs);
 
   /**
    * stops the game and tells why.
    * 
-   * @param reason
+   * @param reason why the game is supposed to stop
    */
   public void stopGame(String reason);
 
   /**
    * especially important for ai, shows trick winner.
    * 
-   * @param player
+   * @param player who won the last trick
    */
   public void showWinnerTrick(Player player);
 
   /**
    * shows the points of all players.
-   * @param player
+   * 
+   * @param player s to extract their pionts
    */
   public void showScore(List<Player> player);
 
   /**
    * only relevant for the ui.
    * 
-   * @param bet
+   * @param bet which will be asked
    */
   public void openAskForBet(int bet);
 
@@ -120,7 +122,7 @@ public interface InGameInterface {
   /**
    * only relevant for the ui.
    * 
-   * @param ps
+   * @param ps PlayState to get skat
    */
   public void openSwitchSkat(PlayState ps);
 
@@ -128,7 +130,7 @@ public interface InGameInterface {
    * relevant for the ai and the ui, returns the two cards so lay on the declarers stack, only if
    * askToTakeUpSkat returns true.
    * 
-   * @param ps
+   * @param ps PlayState
    * @return layedDownCards
    */
   public List<Card> switchSkat(PlayState ps);
@@ -136,8 +138,8 @@ public interface InGameInterface {
   /**
    * relevant for the ai and the ui, returns the changed PlayState after the Player won the auction.
    * 
-   * @param ps
-   * @return newPlayState
+   * @param ps PlayState
+   * @return PlayState
    */
   public PlayState askToSetPlayState(PlayState ps);
 
@@ -156,7 +158,7 @@ public interface InGameInterface {
    * @param cards.
    */
   public void showPossibleCards(List<Card> cards);
-  
+
   /**
    * should show the cards of the given player, who plays open.
    * 
