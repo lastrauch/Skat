@@ -1,10 +1,10 @@
 package interfaces;
 
+import java.util.List;
 import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;
 import logic.Player;
-import java.util.List;
 import logic.Position;
 
 
@@ -13,8 +13,8 @@ public interface InGameInterface {
   /**
    * should open the InGameScreen and show the Player his cards and his position.
    * 
-   * @param hand
-   * @param position
+   * @param hand of the player
+   * @param position 
    */
   public void startPlay(List<Card> hand, Position position);
 

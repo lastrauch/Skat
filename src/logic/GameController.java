@@ -9,7 +9,6 @@ import interfaces.LogicGui;
 import interfaces.LogicNetwork;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.image.Image;
 import network.NetworkController;
 import network.server.Server;
 
@@ -43,7 +42,7 @@ public class GameController implements GuiLogic {
    * @author awesch
    * @see interfaces.GuiLogic#login(java.lang.String)
    */
-  public void login(String username, Image profilepicture) {
+  public void login(String username) {
     Player p = new Player(username);
     this.group.add(p);
     System.out.println("yoo I just created a Player " + p.getName() + " (login)");

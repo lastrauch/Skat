@@ -346,7 +346,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
         this.setAuctionWinner();
         this.checkIfAuctionWinner();
       }
-    } 
+    }
   }
 
   /**
@@ -768,7 +768,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
     Player trickWinner;
     List<Player> playWinner = new ArrayList<Player>();
-    List<Player> gameWinner;
+    List<Player> gameWinner = new ArrayList<Player>();
     boolean nullBreak;
 
     // check if trick is over
