@@ -266,7 +266,12 @@ public class Server extends Thread {
    * @param connection to remove
    */
   public void removeClientConnection(ClientConnection connection) {
+    System.out
+        .println("CC wird entfernt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     this.clientConnections.remove(connection);
+    if (this.clientConnections.size() == 0) {
+      this.stopServer();
+    }
   }
 
   /**
