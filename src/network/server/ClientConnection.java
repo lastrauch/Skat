@@ -110,8 +110,6 @@ public class ClientConnection extends Thread {
     try {
       Message message;
       while (this.running && (message = (Message) input.readObject()) != null) {
-        System.out.println("Message empfangen: " + message.getType().name());
-
         receiveMessage(message);
       }
     } catch (ClassNotFoundException e) {
@@ -141,9 +139,6 @@ public class ClientConnection extends Thread {
    * @author fkleinoe
    */
   private void disconnect() {
-    if (this.player != null) {
-      System.out.println(this.player.getName() + " CC disconnect.");
-    }
     this.running = false;
     this.interrupt();
     try {
@@ -228,7 +223,6 @@ public class ClientConnection extends Thread {
       // Falls ja, f�ge Spieler dem Server hinzu
       // Falls ja, sende GameSettings und andere Spieler an alle
       this.player = message.getPlayer();
-      this.setName("CC of " + this.player.getName());
       System.out.println(
           "Message send to " + message.getPlayer().getName() + ": CONNECTION_ANSWER(true)");
       this.player.setId(this.server.getNewPlayerId());

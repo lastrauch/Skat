@@ -53,10 +53,8 @@ public class ServerFinder {
    * @return List(Server) to get
    */
   public List<Server> refresh() {
-    System.out.println("asdasdasdasdasdasdasdasdasd refresh aufgerufen");
     this.servers.clear();
     this.findServers();
-    System.out.println("asdasdasdasdasdasdasdasdasd so viele sörver " + this.servers.size());
     return this.servers;
   }
 
@@ -124,7 +122,7 @@ public class ServerFinder {
               + receivePacket.getAddress().getHostAddress());
 
           String msg = new String(receivePacket.getData()).trim();
-          System.out.println("!!!!!!!!!!!!!!!!!!!<><><><><><><>!!!!!!!!!!!! " + msg);
+          System.out.println(getClass().getName() + " >>> Skat server message: " + msg);
           String[] message = msg.split(";");
           System.out.println(message[0]);
           if (message[0].equals("SKAT4")) {
@@ -136,7 +134,6 @@ public class ServerFinder {
             String comment = message[5];
             Server server = new Server(serverName, Settings.PORT, numPlayer, maxPlayer, comment);
             server.setIp(ip);
-            System.out.println("So viele server haben wir bisher: " + this.servers.size());
             this.servers.add(server);
           }
         }
