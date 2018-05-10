@@ -14,6 +14,7 @@ public class PngReader {
 
   /**
    * constructor.
+   * 
    * @author sandfisc
    */
   public PngReader() {
@@ -24,6 +25,7 @@ public class PngReader {
 
   /**
    * Colours of a card game are saved in colours.
+   * 
    * @author sandfisc
    */
   public void fillColours() {
@@ -36,6 +38,7 @@ public class PngReader {
 
   /**
    * Numbers of skat are saved in numbers.
+   * 
    * @author sandfisc
    */
   public void fillNumbers() {
@@ -52,6 +55,7 @@ public class PngReader {
 
   /**
    * darkLight gets filled with the two opportunities cards are shown to the player.
+   * 
    * @author sandfisc
    */
   public void fillDarkLight() {
@@ -62,6 +66,7 @@ public class PngReader {
 
   /**
    * Reads all images of the skat cards.
+   * 
    * @return list of all CardImages.
    * @author sandfisc
    */
@@ -70,8 +75,12 @@ public class PngReader {
     for (String colour : this.colours) {
       for (String number : this.numbers) {
         for (String darkLight : this.darkLight) {
-          cards.add(new CardImage(colour, number, darkLight, new Image(getClass().getResource(
-              "cards/" + colour + seperator + number + seperator + darkLight + ".png").toExternalForm())));
+          cards
+              .add(
+                  new CardImage(colour, number, darkLight,
+                      new Image(getClass().getResource(
+                          "cards/" + colour + seperator + number + seperator + darkLight + ".png")
+                          .toExternalForm())));
         }
       }
     }
