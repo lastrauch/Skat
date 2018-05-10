@@ -1,8 +1,8 @@
 package interfaces;
 
-import java.util.List;
-import java.util.ArrayList;
 import ai.BotDifficulty;
+import java.util.ArrayList;
+import java.util.List;
 import logic.Card;
 import logic.GameSettings;
 import logic.PlayState;
@@ -50,7 +50,7 @@ public interface GuiLogic {
   /**
    * should exit the lobby.
    */
-  public void exitLobby() ;
+  public void exitLobby();
   
   /**
    * The client joins a lobby.
