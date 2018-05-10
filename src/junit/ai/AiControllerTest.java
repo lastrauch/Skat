@@ -1,7 +1,9 @@
 package junit.ai;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import ai.AiController;
 import ai.Bot;
 import ai.BotDifficulty;
@@ -10,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import logic.Card;
 import logic.ClientLogic;
+import logic.Colour;
 import logic.GameSettings;
+import logic.Number;
 import logic.PlayMode;
 import logic.PlayState;
 import logic.Player;
@@ -18,6 +22,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests methods of the AiController class.
+ * 
+ * @author fkleinoe
+ */
 class AiControllerTest {
   static AiController controller;
   static ClientLogic logic;
@@ -37,6 +46,12 @@ class AiControllerTest {
   int existingTrumps;
   List<Card> currentTrick;
 
+  /**
+   * Set up before class.
+   * 
+   * @author fkleinoe
+   * @throws Exception e
+   */
   @BeforeAll
   static void setUpBeforeClass() throws Exception {
     logic = new ClientLogic(new Player("Felix"));
@@ -45,12 +60,18 @@ class AiControllerTest {
     bot = controller.getBot();
   }
 
+  /**
+   * Set up before each method.
+   * 
+   * @author fkleinoe
+   * @throws Exception e
+   */
   @BeforeEach
   void setUp() throws Exception {
     player = new ArrayList<Player>();
     player.add(bot);
     controller.setPlayer(player);
-    
+
     opponents = new ArrayList<Player>();
     bets = new int[3];
     playedCards = new Card[1][3];
@@ -61,7 +82,12 @@ class AiControllerTest {
   }
 
 
-
+  /**
+   * Check if player are added correctly.
+   * 
+   * @author fkleinoe
+   * @throws Exception e
+   */
   @Test
   void testAskForBet() {
     Player p = new Player("1");
@@ -74,6 +100,12 @@ class AiControllerTest {
     assertEquals(p.getName(), Integer.toString(controller.getPlayer().get(1).getId()));
   }
 
+  /**
+   * Check if player are added correctly.
+   * 
+   * @author fkleinoe
+   * @throws Exception e
+   */
   @Test
   void testReceivedNewBet() {
     Player p = new Player("1");
@@ -81,37 +113,86 @@ class AiControllerTest {
     List<Player> after = new ArrayList<Player>();
     after.add(p);
 
-    assertEquals(after.size() + 1, controller.getPlayer().size());
+    assertEquals(after.size(), controller.getPlayer().size());
     controller.askForBet(18, p);
     assertEquals(p.getName(), Integer.toString(controller.getPlayer().get(1).getId()));
   }
 
+  /**
+   * Check for different observations by player p playing card c.
+   * 
+   * @author fkleinoe
+   * @throws Exception e
+   */
   @Test
   void testReceivedNewCard() {
-    //playedCard
-    //Probabilities
-    //hasColour
-    //existingTrump
-    //hasTrump
-  }
-
-  @Test
-  void testSetPlaySettingsAfterAuction() {
-    //Check partner and opponents
     Player partner = new Player("Partner");
     partner.setId(200);
     Player opponent = new Player("Opponent");
     opponent.setId(300);
     opponent.setDeclarer(true);
+    // Ask for bet just to set correct ids
     controller.askForBet(18, partner);
     controller.askForBet(20, opponent);
     Player[] group = new Player[3];
-    PlayState playState = new PlayState(controller.getPlayer().toArray(group));
+    group[0] = bot;
+    group[1] = partner;
+    group[2] = opponent;
+    PlayState playState = new PlayState(group);
     playState.setPlayMode(PlayMode.GRAND);
+    List<Card> currentTrick = new ArrayList<Card>();
+    currentTrick.add(new Card(Colour.HEARTS, Number.TEN));
+    controller.setCurrentTrick(currentTrick);
+    controller.setExistingTrumps(4);
+
+    Card card = new Card(Colour.SPADES, Number.JACK);
+    int colour = 3 - Colour.SPADES.ordinal();
+    int number = 7 - Number.JACK.ordinal();
+    controller.receivedNewCard(card, opponent);
+    // playedCard
+    assertEquals(card, controller.getPlayedCards()[controller.getPlayedCards().length - 1][2]);
+
+    // Card probability
+    assertEquals(0, controller.getCardProbabilities()[colour * 8 + number][2], 0);
+
+    // hasColour
+    int serveColour = 3 - Colour.HEARTS.ordinal();
+    assertFalse(controller.getHasColour()[serveColour][2]);
+
+    // hasTrump
+    assertTrue(controller.getHasTrump()[2]);
     
+    // existingTrumps
+    assertEquals(3, controller.getExistingTrumps());
+  }
+
+  /**
+   * Check if opponent and partner are set correctly.
+   * 
+   * @author fkleinoe
+   * @throws Exception e
+   */
+  @Test
+  void testSetPlaySettingsAfterAuction() {
+    // Check partner and opponents
+    Player partner = new Player("Partner");
+    partner.setId(200);
+    Player opponent = new Player("Opponent");
+    opponent.setId(300);
+    opponent.setDeclarer(true);
+    Player[] group = new Player[3];
+    group[0] = bot;
+    group[1] = partner;
+    group[2] = opponent;
+    // Ask for bet just to set correct ids
+    controller.askForBet(18, partner);
+    controller.askForBet(20, opponent);
+
+    PlayState playState = new PlayState(group);
+    playState.setPlayMode(PlayMode.GRAND);
+
     controller.setPlaySettingsAfterAuction(playState);
-    
-    assertEquals(partner.getId(), controller.getPartner().getName());
+    assertEquals(Integer.toString(partner.getId()), controller.getPartner().getName());
   }
 
 }
