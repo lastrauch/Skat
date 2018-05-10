@@ -463,6 +463,7 @@ public class GuiController extends Application {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("InGame.fxml"));
+      Thread.sleep(1000);
       inGame = (AnchorPane) loader.load();
       Thread.sleep(1000);
       mprimaryStage.getScene().setRoot(inGame);
@@ -504,23 +505,21 @@ public class GuiController extends Application {
    * @author lstrauch
    */
   public void displayLeaderboard3() {
-    try {
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("Leaderboard3.fxml"));
-      Thread.sleep(1000);
-      this.leaderboard3 = (AnchorPane) loader.load();
-      Thread.sleep(1000);
-      mprimaryStage.getScene().setRoot(leaderboard3);
-      Thread.sleep(1000);
-      leaderboard3Con = loader.getController();
-      Thread.sleep(1000);
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          FXMLLoader loader = new FXMLLoader();
+          loader.setLocation(getClass().getResource("Leaderboard3.fxml"));
+          leaderboard3 = (AnchorPane) loader.load();
+          mprimaryStage.getScene().setRoot(leaderboard3);
+          leaderboard3Con = loader.getController();
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        } 
+      }
+    });
   }
 
   /**
@@ -529,23 +528,22 @@ public class GuiController extends Application {
    * @author lstrauch
    */
   public void displayLeaderboard4() {
-    try {
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("Leaderboard4.fxml"));
-      Thread.sleep(1000);
-      leaderboard4 = (AnchorPane) loader.load();
-      Thread.sleep(1000);
-      mprimaryStage.getScene().setRoot(leaderboard4);
-      Thread.sleep(1000);
-      leaderboard4Con = loader.getController();
-      Thread.sleep(1000);
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          FXMLLoader loader = new FXMLLoader();
+          loader.setLocation(getClass().getResource("Leaderboard4.fxml"));
+          leaderboard4 = (AnchorPane) loader.load();
+          mprimaryStage.getScene().setRoot(leaderboard4);
+          leaderboard4Con = loader.getController();
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        } 
+      }
+    });
+
   }
 
   /**

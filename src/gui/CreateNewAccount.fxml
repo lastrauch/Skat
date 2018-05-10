@@ -12,17 +12,17 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="372.0" layoutY="194.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../resources/bar.png" />
+            <Image url="@images/bar.png" />
          </image>
       </ImageView>
       <AnchorPane layoutX="296.0" layoutY="88.0" opacity="0.91" prefHeight="633.0" prefWidth="708.0" style="-fx-background-color: #8B4513; -fx-background-radius: 20;">
          <children>
             <ImageView fitHeight="77.0" fitWidth="51.0" layoutX="65.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resources/icons8-benutzer-filled-50.png" />
+                  <Image url="@images/icons8-benutzer-filled-50.png" />
                </image>
             </ImageView>
-            <JFXTextField fx:id="newUsername" focusColor="WHITE" layoutX="141.0" layoutY="223.0" prefHeight="31.0" prefWidth="427.0" promptText="New Username" styleClass="prompttext" stylesheets="@../../resources/mystyle.css" unFocusColor="WHITE">
+            <JFXTextField fx:id="newUsername" focusColor="WHITE" layoutX="141.0" layoutY="223.0" prefHeight="31.0" prefWidth="427.0" promptText="New Username" styleClass="prompttext" stylesheets="@images/mystyle.css" unFocusColor="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
@@ -34,7 +34,7 @@
             </JFXButton>
             <ImageView fx:id="pp" fitHeight="77.0" fitWidth="51.0" layoutX="65.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resources/user-image-with-black-background.png" />
+                  <Image url="@images/user-image-with-black-background.png" />
                </image>
             </ImageView>
             <JFXButton buttonType="RAISED" layoutX="299.0" layoutY="441.0" onAction="#submit" style="-fx-border-color: white; -fx-background-color: peru; -fx-border-radius: 10; -fx-background-radius: 10;" text="Submit" textFill="WHITE">

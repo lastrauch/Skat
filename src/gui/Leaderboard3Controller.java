@@ -68,10 +68,10 @@ public class Leaderboard3Controller implements Initializable {
 
 
     for (int i = 0; i < main.getLobbyCon().getGS().getNrOfPlays() + 1; i++) {
-      roundsNr.add(new Label());
       rounds1.add(new Label());
       rounds2.add(new Label());
       rounds3.add(new Label());
+      roundsNr.add(new Label());
     }
 
     roundsNr.get(0).setText("Nr.");
@@ -82,7 +82,7 @@ public class Leaderboard3Controller implements Initializable {
     roundsNr.get(0).setAlignment(Pos.CENTER);
     vBoxNr.getChildren().add(roundsNr.get(0));
 
-    rounds1.get(0).setText("Me");
+    rounds1.get(0).setText(main.getInGameCon().getPlayer1().getName());
     rounds1.get(0).setFont(Font.font("System", 33));
     rounds1.get(0).setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(rounds1.get(0), 0.0);
@@ -90,7 +90,7 @@ public class Leaderboard3Controller implements Initializable {
     rounds1.get(0).setAlignment(Pos.CENTER);
     vBox1.getChildren().add(rounds1.get(0));
 
-    rounds2.get(0).setText(main.getInGameCon().getPlayer1().getName());
+    rounds2.get(0).setText(main.getInGameCon().getPlayer2().getName());
     rounds2.get(0).setFont(Font.font("System", 33));
     rounds2.get(0).setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(rounds2.get(0), 0.0);
@@ -98,7 +98,7 @@ public class Leaderboard3Controller implements Initializable {
     rounds2.get(0).setAlignment(Pos.CENTER);
     vBox2.getChildren().add(rounds2.get(0));
 
-    rounds3.get(0).setText(main.getInGameCon().getPlayer2().getName());
+    rounds3.get(0).setText(main.getInGameCon().getPlayer3().getName());
     rounds3.get(0).setFont(Font.font("System", 33));
     rounds3.get(0).setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(rounds3.get(0), 0.0);

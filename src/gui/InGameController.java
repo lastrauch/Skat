@@ -104,33 +104,21 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    */
   private GuiController main;
-  private Player pl1, pl2, pl3;
-  private GuiData inte = new ImplementsGuiInterface();
-  private List<Card> cardlist = new ArrayList<Card>();
-  private Image noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
-  private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
-  private Image bubbleL =
-      new Image(getClass().getResource("/Sprechblase_links.png").toExternalForm());
-  private Image bubbleR =
-      new Image(getClass().getResource("/Sprechblase_rechts.png").toExternalForm());
-  private Image bubbleU =
-      new Image(getClass().getResource("/Sprechblase_oben.png").toExternalForm());
-  private List<Card> skat = new ArrayList<Card>();
-  private Boolean[] da = new Boolean[2];
-  private boolean clicked = false;
-  int[] ret = new int[1];
-  private int countl = 10;
-  private int countr = 10;
-  private boolean random = false;
-
-
-  /**
-   * Initialize ChatScreen
-   */
-  private Image pfUnten =
-      new Image(getClass().getResource("/icons8-unten-eingekreist-50.png").toExternalForm());
-  private Image pfOben =
-      new Image(getClass().getResource("/icons8-oben-eingekreist-50.png").toExternalForm());
+  private Player pl1, pl2, pl3, pl4;
+  private GuiData inte;
+  private List<Card> cardlist;
+  private Image noCard;
+  private Image rueckseite;
+  private Image bubbleL;
+  private Image bubbleR;
+  private Image bubbleU;
+  private List<Card> skat;
+  private Boolean[] da;
+  private boolean clicked;
+  int[] ret;
+  private int countl;
+  private int countr;
+  private boolean random;
 
 
   /**
@@ -138,16 +126,16 @@ public class InGameController implements Initializable, InGameInterface {
    */
   @FXML
   private ImageView c1, c2, c3, c4, c5, c6, c7, c8, c9, c10;
-  private ImageView[] carray = new ImageView[10];
+  private ImageView[] carray;
   @FXML
   private ImageView r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, stichRechts;
-  private ImageView[] rarray = new ImageView[10];
+  private ImageView[] rarray;
   @FXML
   private ImageView l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, stichLinks;
-  private ImageView[] larray = new ImageView[10];
+  private ImageView[] larray;
   @FXML
   private ImageView o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, stichOben;
-  private ImageView[] oarray = new ImageView[10];
+  private ImageView[] oarray;
   @FXML
   private ImageView s1, s2, s3;
   @FXML
@@ -256,11 +244,11 @@ public class InGameController implements Initializable, InGameInterface {
 
     inte = new ImplementsGuiInterface();
     cardlist = new ArrayList<Card>();
-    noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
-    rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
-    bubbleL = new Image(getClass().getResource("/Sprechblase_links.png").toExternalForm());
-    bubbleR = new Image(getClass().getResource("/Sprechblase_rechts.png").toExternalForm());
-    bubbleU = new Image(getClass().getResource("/Sprechblase_oben.png").toExternalForm());
+    noCard = new Image(getClass().getResource("images/grey.jpg").toExternalForm());
+    rueckseite = new Image(getClass().getResource("images/rueckseite.jpg").toExternalForm());
+    bubbleL = new Image(getClass().getResource("images/Sprechblase_links.png").toExternalForm());
+    bubbleR = new Image(getClass().getResource("images/Sprechblase_rechts.png").toExternalForm());
+    bubbleU = new Image(getClass().getResource("images/Sprechblase_oben.png").toExternalForm());
     skat = new ArrayList<Card>();
     da = new Boolean[2];
     clicked = false;
@@ -268,10 +256,6 @@ public class InGameController implements Initializable, InGameInterface {
     countl = 10;
     countr = 10;
     random = false;
-
-    pfUnten =
-        new Image(getClass().getResource("/icons8-unten-eingekreist-50.png").toExternalForm());
-    pfOben = new Image(getClass().getResource("/icons8-oben-eingekreist-50.png").toExternalForm());
 
     carray = new ImageView[10];
     rarray = new ImageView[10];
@@ -509,6 +493,10 @@ public class InGameController implements Initializable, InGameInterface {
 
   public Player getPlayer3() {
     return this.pl3;
+  }
+  
+  public Player getPlayer4() {
+    return this.pl4;
   }
 
 
@@ -1133,13 +1121,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showOpen(Player player) {
     // TODO Auto-generated method stub
-    for (int i = 0; i < player.getHand().size(); i++) {
-      System.out.println("OUVERT HAND: " + player.getHand().get(i));
-    }
-    System.out.println("OPEN!!!!!!!!!!!!!!!!!!!!!!");
-
     if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
-      System.out.println("OPEN2!!!!!!");
       if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
         if (player.getPosition() == Position.MIDDLEHAND) {
           rearrangeCardsLeft(player.getHand());
@@ -1168,7 +1150,6 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     } else {
-      System.out.println("OPEN2!!!!!!");
       if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
         if (player.getPosition() == Position.MIDDLEHAND) {
           rearrangeCardsLeft(player.getHand());
@@ -1259,14 +1240,16 @@ public class InGameController implements Initializable, InGameInterface {
     // TODO Auto-generated method stub
     System.out.println("SHOW SCORE!!!");
     if (player.size() == 3) {
-      this.pl1 = player.get(1);
-      this.pl2 = player.get(2);
+      this.pl1 = player.get(0);
+      this.pl2 = player.get(1);
+      this.pl3 = player.get(2);
       main.displayLeaderboard3();
     } else {
       System.out.println("Leaderboard 4");
-      this.pl1 = player.get(1);
-      this.pl2 = player.get(2);
-      this.pl3 = player.get(3);
+      this.pl1 = player.get(0);
+      this.pl2 = player.get(1);
+      this.pl3 = player.get(2);
+      this.pl4 = player.get(3);
       main.displayLeaderboard4();
       // main.getLead4Con().start();
     }

@@ -13,40 +13,40 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="551.0" layoutY="333.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../resources/vonaussen.png" />
+            <Image url="@images/vonaussen.png" />
          </image>
       </ImageView>
       <Rectangle fx:id="rec" arcHeight="5.0" arcWidth="5.0" fill="TAN" height="684.0" layoutX="27.0" layoutY="67.0" opacity="0.55" stroke="WHITE" strokeType="INSIDE" style="-fx-ackground-color: tan; -fx-border-radius: 0.2;" width="1227.0" />
-      <AnchorPane minHeight="-Infinity" prefHeight="44.0" prefWidth="1280.0" style="-fx-background-color: tan;" stylesheets="@../../resources/mystyle.css">
+      <AnchorPane minHeight="-Infinity" prefHeight="44.0" prefWidth="1280.0" style="-fx-background-color: tan;" stylesheets="@images/mystyle.css">
          <children>
-            <JFXButton buttonType="RAISED" layoutX="31.0" layoutY="12.0" onAction="#settings" prefHeight="36.0" prefWidth="122.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="       Settings" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="1131.0" AnchorPane.topAnchor="6.0">
+            <JFXButton buttonType="RAISED" layoutX="31.0" layoutY="12.0" onAction="#settings" prefHeight="36.0" prefWidth="122.0" styleClass="buttonstyle" stylesheets="@images/mystyle.css" text="       Settings" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="1131.0" AnchorPane.topAnchor="6.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="542.0" layoutY="8.0" onAction="#accountSettings" prefHeight="35.0" prefWidth="141.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="     Account" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="541.0" AnchorPane.rightAnchor="598.0" AnchorPane.topAnchor="6.0">
+            <JFXButton layoutX="542.0" layoutY="8.0" onAction="#accountSettings" prefHeight="35.0" prefWidth="141.0" styleClass="buttonstyle" stylesheets="@images/mystyle.css" text="     Account" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="541.0" AnchorPane.rightAnchor="598.0" AnchorPane.topAnchor="6.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="1156.0" layoutY="5.0" onAction="#help" prefHeight="24.0" prefWidth="101.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="     Help" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="1155.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="6.0">
+            <JFXButton layoutX="1156.0" layoutY="5.0" onAction="#help" prefHeight="24.0" prefWidth="101.0" styleClass="buttonstyle" stylesheets="@images/mystyle.css" text="     Help" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="1155.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="6.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
             <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="21.0" layoutY="8.0" style="-fx-background: Peru;" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
                <image>
-                  <Image url="@../../resources/settings.png" />
+                  <Image url="@images/settings.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="554.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
                <image>
-                  <Image url="@../../resources/user.png" />
+                  <Image url="@images/user.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="1169.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
                <image>
-                  <Image url="@../../resources/info.png" />
+                  <Image url="@images/info.png" />
                </image>
             </ImageView>
          </children>
@@ -64,7 +64,7 @@
          </font></Label>
       <VBox fx:id="vbox1" alignment="TOP_CENTER" layoutX="85.0" layoutY="100.0" maxHeight="379.0" maxWidth="459.0" minHeight="379.0" minWidth="459.0" prefHeight="379.0" prefWidth="459.0" spacing="30.0" style="-fx-background-color: tan; -fx-border-color: white;">
          <children>
-            <Label alignment="CENTER" layoutX="88.0" layoutY="79.0" prefHeight="67.0" prefWidth="457.0" styleClass="buttonsstyle2" stylesheets="@../../resources/mystyle.css" text="Players" textFill="WHITE" underline="true">
+            <Label alignment="CENTER" layoutX="88.0" layoutY="79.0" prefHeight="67.0" prefWidth="457.0" styleClass="buttonsstyle2" stylesheets="@images/mystyle.css" text="Players" textFill="WHITE" underline="true">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -73,19 +73,19 @@
       </VBox>
       <VBox fx:id="vbox2" layoutX="768.0" layoutY="100.0" prefHeight="379.0" prefWidth="459.0" spacing="30.0" style="-fx-background-color: tan; -fx-border-color: white;">
          <children>
-            <Label alignment="CENTER" layoutX="768.0" layoutY="100.0" prefHeight="67.0" prefWidth="459.0" style="-fx-border-radius: 0;" styleClass="buttonsstyle2" stylesheets="@../../resources/mystyle.css" text="Gamesettings" textFill="WHITE" underline="true">
+            <Label alignment="CENTER" layoutX="768.0" layoutY="100.0" prefHeight="67.0" prefWidth="459.0" style="-fx-border-radius: 0;" styleClass="buttonsstyle2" stylesheets="@images/mystyle.css" text="Gamesettings" textFill="WHITE" underline="true">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
             <HBox alignment="CENTER_LEFT" spacing="50.0">
                <children>
-                  <Label alignment="CENTER" layoutX="768.0" layoutY="147.0" prefHeight="51.0" prefWidth="213.0" styleClass="buttonsstyle2" stylesheets="@../../resources/mystyle.css" text="Rounds:" textFill="WHITE">
+                  <Label alignment="CENTER" layoutX="768.0" layoutY="147.0" prefHeight="51.0" prefWidth="213.0" styleClass="buttonsstyle2" stylesheets="@images/mystyle.css" text="Rounds:" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="rounds" alignment="CENTER" prefHeight="43.0" prefWidth="156.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="3" textFill="WHITE">
+                  <Label fx:id="rounds" alignment="CENTER" prefHeight="43.0" prefWidth="156.0" styleClass="buttonstyle" stylesheets="@images/mystyle.css" text="3" textFill="WHITE">
                      <font>
                         <Font size="19.0" />
                      </font></Label>
@@ -93,12 +93,12 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="50.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="51.0" prefWidth="213.0" styleClass="buttonsstyle2" stylesheets="@../../resources/mystyle.css" text="Count Rule:" textFill="WHITE">
+                  <Label alignment="CENTER" prefHeight="51.0" prefWidth="213.0" styleClass="buttonsstyle2" stylesheets="@images/mystyle.css" text="Count Rule:" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="system" alignment="CENTER" prefHeight="43.0" prefWidth="156.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Seeger System" textFill="WHITE">
+                  <Label fx:id="system" alignment="CENTER" prefHeight="43.0" prefWidth="156.0" styleClass="buttonstyle" stylesheets="@images/mystyle.css" text="Seeger System" textFill="WHITE">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -107,12 +107,12 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="50.0">
                <children>
-                  <Label alignment="CENTER" layoutX="768.0" layoutY="259.0" prefHeight="51.0" prefWidth="213.0" styleClass="buttonsstyle2" stylesheets="@../../resources/mystyle.css" text="Kontra:" textFill="WHITE">
+                  <Label alignment="CENTER" layoutX="768.0" layoutY="259.0" prefHeight="51.0" prefWidth="213.0" styleClass="buttonsstyle2" stylesheets="@images/mystyle.css" text="Kontra:" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="kontra" alignment="CENTER" prefHeight="43.0" prefWidth="156.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Disabled" textFill="WHITE">
+                  <Label fx:id="kontra" alignment="CENTER" prefHeight="43.0" prefWidth="156.0" styleClass="buttonstyle" stylesheets="@images/mystyle.css" text="Disabled" textFill="WHITE">
                      <font>
                         <Font size="19.0" />
                      </font></Label>
@@ -120,12 +120,12 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="50.0">
                <children>
-                  <Label alignment="CENTER" layoutX="768.0" layoutY="354.0" prefHeight="51.0" prefWidth="213.0" styleClass="buttonsstyle2" stylesheets="@../../resources/mystyle.css" text="Timelimit:" textFill="WHITE">
+                  <Label alignment="CENTER" layoutX="768.0" layoutY="354.0" prefHeight="51.0" prefWidth="213.0" styleClass="buttonsstyle2" stylesheets="@images/mystyle.css" text="Timelimit:" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="timelimit" alignment="CENTER" prefHeight="43.0" prefWidth="156.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="Disabled" textFill="WHITE">
+                  <Label fx:id="timelimit" alignment="CENTER" prefHeight="43.0" prefWidth="156.0" styleClass="buttonstyle" stylesheets="@images/mystyle.css" text="Disabled" textFill="WHITE">
                      <font>
                         <Font size="19.0" />
                      </font></Label>

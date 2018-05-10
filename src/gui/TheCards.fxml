@@ -12,10 +12,10 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="282.0" layoutY="253.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../resources/bar.png" />
+            <Image url="@images/bar.png" />
          </image>
       </ImageView>
-      <TabPane layoutX="28.0" layoutY="28.0" prefHeight="754.0" prefWidth="1237.0" styleClass="background" stylesheets="@../../resources/mystyle.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+      <TabPane layoutX="28.0" layoutY="28.0" prefHeight="754.0" prefWidth="1237.0" styleClass="background" stylesheets="@images/mystyle.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
         <tabs>
           <Tab style="-fx-background-color: tan;" text="2. The Cards">
                <content>
@@ -37,37 +37,37 @@
                                  <children>
                                     <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="56.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../resources/icons8-kreuz-filled-50.png" />
+                                          <Image url="@images/icons8-kreuz-filled-50.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="62.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../resources/icons8-pik-26.png" />
+                                          <Image url="@images/icons8-pik-26.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="56.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../resources/icons8-herzen-26.png" />
+                                          <Image url="@images/icons8-herzen-26.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="48.0" layoutY="458.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../resources/diamond.png" />
+                                          <Image url="@images/diamond.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="48.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../resources/icons8-k-26.png" />
+                                          <Image url="@images/icons8-k-26.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="48.0" layoutY="571.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../resources/icons8-q-26.png" />
+                                          <Image url="@images/icons8-q-26.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="40.0" fitWidth="52.0" layoutX="56.0" layoutY="626.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../resources/icons8-j-26.png" />
+                                          <Image url="@images/icons8-j-26.png" />
                                        </image>
                                     </ImageView>
                                  </children>
