@@ -82,19 +82,19 @@ public class LoginController implements Initializable {
     System.out.println("Tada");
     username = textField.getText();
     
-    try {
-      if (!interfGD.checkIfPlayerNew(username)) {
+//    try {
+//      if (!interfGD.checkIfPlayerNew(username)) {
         main.displayChooseGame();
         interfGL.login(username, null);
-      } else {
-        if(!pane.getChildren().contains(noUsername)) {
-          displayNoUser(); 
-        }
-      }
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+//      } else {
+//        if(!pane.getChildren().contains(noUsername)) {
+//          displayNoUser(); 
+//        }
+//      }
+//    } catch (SQLException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    }
     
 //    main.displayChooseGame();
   }
