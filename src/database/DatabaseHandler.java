@@ -4,11 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DatabaseHandler extends Database{
-  
-  // This class has one method, which includes all SQL Statements.
-  
+public class DatabaseHandler extends Database {
   /**
+   * This class includes all Statements for SQL Database.
+   * 
    * @author dpervane
    */
   protected static PreparedStatement insertPlayer;
@@ -16,42 +15,44 @@ public class DatabaseHandler extends Database{
   protected static PreparedStatement selectCard;
   protected static PreparedStatement selectCardDarker;
   protected static PreparedStatement changeName;
-  protected static PreparedStatement changeImage;
 
-  private Connection c = null;
-  
+  private Connection con = null;
+
+
   /**
-   * @author dpervane
-   */
-  public DatabaseHandler() {
-    
-    super();
-    this.c = super.connection;
-    this.prepareStatements();
-  }
-  
-  /** SQL Statements, which stores or changes Data from Database
+   * Connects this class with Database.
    * 
    * @author dpervane
    */
-  
+  public DatabaseHandler() {
+
+    super();
+    this.con = super.connection;
+    this.prepareStatements();
+  }
+
+  /**
+   * SQL Statements, which stores or changes Data from Database.
+   * 
+   * @author dpervane
+   */
   public void prepareStatements() {
     try {
-        
-        insertPlayer = c.prepareStatement("INSERT INTO Player (name, score, profilePicture) VALUES (?,?,?);");    
-        
-        selectPlayerName = c.prepareStatement("SELECT * FROM Player WHERE (name LIKE ?) ORDER BY name;");
-        
-        selectCard = c.prepareStatement("SELECT * FROM Cards WHERE (colour LIKE ?) AND (number LIKE ?);");
-        
-        selectCardDarker = c.prepareStatement("SELECT * FROM CardsDark WHERE (colour LIKE ?) AND (number LIKE ?);");      
-        
-        changeName = c.prepareStatement("UPDATE Player SET name = ? WHERE (name LIKE ?);");
-        
-        changeImage = c.prepareStatement("UPDATE Player SET profilePicture = ? WHERE (name LIKE ?);");
-        
-    }
-    catch(SQLException e) {
+      insertPlayer = con.prepareStatement(
+          "INSERT INTO Player (name) " + "VALUES (?);");
+
+      selectPlayerName =
+          con.prepareStatement("SELECT * FROM Player WHERE (name LIKE ?) " + "ORDER BY name;");
+
+      selectCard = con
+          .prepareStatement("SELECT * FROM Cards WHERE (colour LIKE ?) " + "AND (number LIKE ?);");
+
+      selectCardDarker = con.prepareStatement(
+          "SELECT * FROM CardsDark WHERE (colour LIKE ?) " + "AND (number LIKE ?);");
+
+      changeName = con.prepareStatement("UPDATE Player SET name = ? WHERE (name LIKE ?);");
+
+    } catch (SQLException e) {
       e.printStackTrace();
     }
   }

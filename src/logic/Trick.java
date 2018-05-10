@@ -1,9 +1,9 @@
 package logic;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Trick implements Serializable {
 
@@ -81,7 +81,7 @@ public class Trick implements Serializable {
    * adds the given card to the trickCards.
    * 
    * @author sandfisc
-   * @param card
+   * @param card to add
    */
   public void addCard(Card card, Player player) {
     this.trickCards.add(card);
@@ -110,7 +110,7 @@ public class Trick implements Serializable {
    * calculateWinnerColour(), calculateWinnerGrand(), calculateWinnerNull()).
    * 
    * @author sandfisc
-   * @throws LogicException
+   * @throws LogicException if not possible
    */
   public Player calculateWinner(PlayState ps) throws LogicException {
 
@@ -198,8 +198,8 @@ public class Trick implements Serializable {
    * compares two cards with the current trump.
    * 
    * @author sandfisc
-   * @param card1
-   * @param card2
+   * @param card1 to compare
+   * @param card2 to compare
    * @return which card won (0 = card1, 1= card2)
    */
   public int compareCardsSuit(Card card1, Card card2, PlayState ps) {
@@ -238,8 +238,8 @@ public class Trick implements Serializable {
    * compares two cards when the only trump cards are jacks.
    * 
    * @author sandfisc
-   * @param card1
-   * @param card2
+   * @param card1 to compare
+   * @param card2 to compare
    * @return which card won (0 = card1, 1= card2)
    */
   public int compareCardsGrand(Card card1, Card card2) {
@@ -265,8 +265,8 @@ public class Trick implements Serializable {
    * higher.
    * 
    * @author sandfisc
-   * @param card1
-   * @param card2
+   * @param card1 to compare
+   * @param card2 to compare
    * @return which card won (0 = card1, 1= card2)
    */
   public int compareNumber(Card card1, Card card2) {
@@ -291,8 +291,8 @@ public class Trick implements Serializable {
    * higher (with low ten).
    * 
    * @author sandfisc
-   * @param card1
-   * @param card2
+   * @param card1 to compare
+   * @param card2 to compare
    * @return which card won (0 = card1, 1= card2)
    */
   public int compareNumberLowTen(Card card1, Card card2) {
@@ -316,8 +316,8 @@ public class Trick implements Serializable {
    * only used to compare jacks, the one with the higher Colour wins.
    * 
    * @author sandfisc
-   * @param card1
-   * @param card2
+   * @param card1 to compare
+   * @param card2 to compare
    * @return which card won (0 = card1, 1= card2)
    */
   public int compareJacks(Card card1, Card card2) {
@@ -330,6 +330,9 @@ public class Trick implements Serializable {
 
   /* ----------------------------- COPY --------------------------------------------------- */
 
+  /**
+   * returns a deep copy of this trick.
+   */
   public Trick copyMe() {
     List<Card> newTrickCards = new ArrayList<Card>();
     for (Card c : this.trickCards) {

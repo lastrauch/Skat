@@ -314,37 +314,44 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * @author awesch
    */
   public void receiveBet(Player player, int bet) {
-    this.inGameController.receivedNewBet(bet, player);
+    if (!(this.playState.getAuction().getLastOneWhoBet().getName().equals(player.getName())
+        && (this.playState.getAuction().getBetValue() == bet))) {
 
-    // if auction is still running
-    if (!this.checkIfAuctionIsOver(bet)) {
-      // Update in auction
-      this.playState.getAuction().addToBets(bet);
-      if (bet != -1) {
-        this.playState.setBetValue(bet);
-      }
-      int newBet = this.playState.getAuction().calculateNewBet();
-      // if it is my turn
-      if (this.checkIfItsMyTurnAuction(player, bet)) {
-        // if the player goes with the bet
-        if (this.player.getBet() == 0) {
-          this.inGameController.openAskForBet(newBet);
-        } else {
-          this.inGameController.openAskForBet(newBet);
+      this.inGameController.receivedNewBet(bet, player);
+      this.playState.getAuction().setLastOneWhoBet(player);
+      // if auction is still running
+      if (!this.checkIfAuctionIsOver(bet)) {
+        // Update in auction
+        this.playState.getAuction().addToBets(bet);
+        if (bet != -1) {
+          this.playState.setBetValue(bet);
+          this.playState.getAuction().setBetValue(bet);
         }
-        if (this.inGameController.askForBet(newBet, player)) {
-          this.netController.bet(newBet, this.player.copyMe());
-          System.out.println(this.player.getName() + "bet " + newBet);
-        } else {
-          this.netController.bet(-1, this.player.copyMe());
-          System.out.println(this.player.getName() + "bet " + -1);
+        int newBet = this.playState.getAuction().calculateNewBet();
+        // if it is my turn
+        if (this.checkIfItsMyTurnAuction(player, bet)) {
+          // if the player goes with the bet
+          if (this.player.getBet() == 0) {
+            this.inGameController.openAskForBet(newBet);
+          } else {
+            this.inGameController.openAskForBet(newBet);
+          }
+          if (this.inGameController.askForBet(newBet, player)) {
+            this.netController.bet(newBet, this.player.copyMe());
+            System.out.println(this.player.getName() + "bet " + newBet);
+          } else {
+            this.netController.bet(-1, this.player.copyMe());
+            System.out.println(this.player.getName() + "bet " + -1);
+          }
         }
+        this.updateBet(player, bet);
+      } else {
+        this.updateBet(player, bet);
+        this.setAuctionWinner();
+        this.checkIfAuctionWinner();
       }
-      this.updateBet(player, bet);
     } else {
-      this.updateBet(player, bet);
-      this.setAuctionWinner();
-      this.checkIfAuctionWinner();
+      System.out.println("yoooo you changed something with your if-bedingung!");
     }
   }
 
@@ -389,7 +396,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * checks if the player is supposed to bet next, if he sits middlehand.
    * 
    * @author awesch
-   * @param player
+   * @param player who bet last
    * @return
    */
   public boolean checkIfItsMyTurnAuctionMiddlehand(Player player, int bet) {
@@ -406,7 +413,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * checks if the player is supposed to bet next, if he sits rearhand.
    * 
    * @author awesch
-   * @param player
+   * @param player who bet last
    * @return
    */
   public boolean checkIfItsMyTurnAuctionRearHand(Player player, int bet) {
@@ -438,7 +445,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * different positions.
    * 
    * @author awesch
-   * @param player
+   * @param player who bet last
    * @return
    */
   public boolean checkIfItsMyTurnAuction(Player player, int bet) {
@@ -461,7 +468,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * returns true if the auction is over.
    * 
    * @author awesch
-   * @param bet
+   * @param bet which came in last
    */
   public boolean checkIfAuctionIsOver(int bet) {
     if (bet == -1 && this.oneOfThePlayersPassedAlready()) {
@@ -568,8 +575,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   public void receivePlayState(PlayState ps) {
     // TODO Auto-generated method stub
     this.playState = ps;
-    // !!!!!TEST
-    this.playState.setOpen(true);
 
     this.player.sortHand(this.playState);
     this.inGameController.updateHand(this.player.getHand());
@@ -636,7 +641,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * to wait with the ui methods.
    * 
    * @author awesch
-   * @param time
+   * @param time to wait
    */
   public void waitFor(long time) {
     try {
@@ -712,8 +717,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   /**
    * called, after the controller wanted to play a card, he's not allowed to play.
    * 
-   * @param firstCard
-   * @throws LogicException
+   * @param firstCard on current trick
+   * @throws LogicException if card not possible
    */
   public void showPossibleCards(Card firstCard) throws LogicException {
     List<Card> cards = new ArrayList<Card>();
@@ -730,7 +735,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   /**
    * adds the points to the players score.
    * 
-   * @param points
+   * @param points to add
    */
   public void addToGamePoints(int points) {
     this.player.addToGamePoints(points);
@@ -769,9 +774,9 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * calculates the respective winners, also checks if this player is supposed to play the next
    * card.
    * 
-   * @param playedLastCard
-   * @param card
-   * @throws LogicException
+   * @param playedLastCard player
+   * @param card he played
+   * @throws LogicException if something goes wrong
    */
   public void checkWhatHappensNext(Player playedLastCard, Card card) throws LogicException {
 
@@ -922,10 +927,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
           this.playCard(null);
         }
       }
-    }
-    // trick is not over
-    // check if it is "my" turn
-    else if (this.checkIfMyTurnTrick(playedLastCard)) {
+    } else if (this.checkIfMyTurnTrick(playedLastCard)) {
       // if (this.playState.getCurrentTrick().getTrickCards().size() == 0) {
       // this.playCard(null);
       // } else {
@@ -991,7 +993,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * returns true if the played card comes from the player with the position, who plays before this
    * player.
    * 
-   * @param playedLastCard
+   * @param playedLastCard player
    */
   public boolean checkIfMyTurnTrick(Player playedLastCard) {
     if (this.player.getPosition() == Position.FOREHAND
@@ -1009,10 +1011,9 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   }
 
   /**
-   * @author sandfisc
+   * returns the three players of this group who are part of the next play.
    * 
-   * @param group2
-   * @return the three players of this group who are part of the next play
+   * @author sandfisc
    */
   public Player[] getPlayingGroup() {
     // the playing group consists of forehand, middlehand, rarehand, NOT dealer
@@ -1036,7 +1037,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * @param card (the player wants to play)
    * @param firstCard (the first played card in the current trick)
    * @return if card can be played
-   * @throws LogicException
+   * @throws LogicException if card not allowed to play
    * @author sandfisc
    */
   public static boolean checkIfCardPossible(Card card, Card firstCard, PlayState playState,
@@ -1082,8 +1083,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * same color, returns true if served.
    * 
    * @author sandfisc
-   * @param servingCard
-   * @param servedCard
+   * @param servingCard new card
+   * @param servedCard first card of trick
    */
   public static boolean checkIfServedColour(Card servingCard, Card servedCard,
       PlayState playState) {
@@ -1135,8 +1136,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * color.
    * 
    * @author sandfisc
-   * @param servingCard
-   * @param servedCard
+   * @param servingCard new card
+   * @param servedCard first card on trick
    * @return if card serves grand
    */
   public static boolean checkIfServedGrand(Card servingCard, Card servedCard) {
@@ -1179,7 +1180,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
     }
   }
 
-  /*-------------------------  CALCULATE PLAY VALUE -----------------------------------------------*/
+  /*-------------------------  CALCULATE PLAY VALUE ----------------------------------------------*/
 
   /**
    * calculates the the Matadors the hand has to be sorted before! with the (chosen/possible) trump.
@@ -1202,9 +1203,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
           return with;
         }
       }
-    }
-    // play against(if first card is not clubs jack)
-    else {
+    } else {
       // matadorValue of first card is number
       against = this.player.getHand().get(0).getMatadorValue();
       return against;
@@ -1216,7 +1215,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * calculates the multiplier to calculate the value of a suit or grand game.
    * 
    * @author awesch
-   * @param ps
    * @return multiplier
    */
   public int calculateMultiplier() {
@@ -1256,7 +1254,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * calculates the play value for suit or grand plays.
    * 
    * @author awesch
-   * @param ps
    * @return play value
    */
   public int calculatePlayValueSuitorGrand() {
@@ -1268,7 +1265,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * initializes the play value for a null play.
    * 
    * @author awesch
-   * @param ps
    * @return play value
    */
   public int calculatePlayValueNull() {
@@ -1289,7 +1285,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * calculates the play value with the other methods implemented for the special contracts.
    * 
    * @author awesch
-   * @param ps
    * @return play value
    */
   public int calculatePlayValue() {
@@ -1303,24 +1298,25 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   }
 
 
-  /*------------------------------  CHAT ------------------------------------------------------------*/
+  /*------------------------------  CHAT ---------------------------------------------------------*/
   @Override
   public void receiveChatMessage(Player player, String msg) {
     this.guiController.showReceivedChatMessage(msg, player);
   }
 
   public void sendChatMessage(String msg) {
-    this.netController.sendChatMessage(msg);
+    this.netController.sendChatMessage(this.player.copyMe(), msg);
   }
 
   /*------------------------------ BREAK ---------------------------------------------------------*/
   @Override
   public void receivePlayerDisconnected(Player player) {
-    // TODO Auto-generated method stub
-    this.inGameController.stopGame("player disconnected");
+    if (this.inGame) {
+      this.inGameController.stopGame("player disconnected");
+    }
   }
 
-  /*---------------------  SETTER AND GETTER  -------------------------------*/
+  /*------------------------  SETTER AND GETTER  -------------------------------------------------*/
 
   public void setGameSetting(GameSettings gs) {
     this.gameSettings = gs;

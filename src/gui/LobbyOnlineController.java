@@ -4,8 +4,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
-import interfaces.GuiLogic;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,10 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
-import logic.GameController;
-import logic.GameMode;
-import logic.GameSettings;
+import network.server.Server;
 
 public class LobbyOnlineController implements Initializable {
 
@@ -30,7 +25,8 @@ public class LobbyOnlineController implements Initializable {
   ArrayList<Label> user = new ArrayList<Label>();
   ArrayList<Label> message = new ArrayList<Label>();
   ArrayList<JFXButton> join = new ArrayList<JFXButton>();
-  private boolean abletojoin = true;
+  private boolean hostgame = false;
+  ArrayList<Server> server = new ArrayList<Server>();
 
 
   public LobbyOnlineController() {
@@ -70,12 +66,14 @@ public class LobbyOnlineController implements Initializable {
   public void startNewGame() {
     // LoginController.interfGL.hostGame("Hi", new GameSettings());
     // main.getGameSetCon().setGameMode(GameMode.MULTIPLAYER);
+    this.hostgame = true;
     main.displayGameSettings();
   }
 
   @FXML
   public void refresh() {
-    if (LoginController.interfGL.lobbyInformation().size() > 0) {
+    server = LoginController.interfGL.lobbyInformation();
+    if (server.size() > 0) {
       displayServer();
     } else {
       System.out.println("No new server");
@@ -84,28 +82,32 @@ public class LobbyOnlineController implements Initializable {
 
 
   public void displayServer() {
-    System.out.println("Size: " + LoginController.interfGL.lobbyInformation().size());
-    for (int i = 0; i < LoginController.interfGL.lobbyInformation().size(); i++) {
+    System.out.println("Size: " + server.size());
+    for (int i = 0; i < server.size(); i++) {
       nr.add(new Label());
       user.add(new Label());
       message.add(new Label());
       join.add(new JFXButton());
     }
-    for (int i = 0; i < nr.size(); i++) {
-      nr.get(i)
-          .setText(String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer())
-              + "/"
-              + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer()));
-      nr.get(i).setFont(Font.font("System", 23));
 
-      vboxNr.getChildren().add(nr.get(i));
+    for (int i = 0; i < nr.size(); i++) {
+      nr.get(i).setText(String.valueOf(server.get(i).getNumPlayer()) + "/"
+          + String.valueOf(server.get(i).getMaxPlayer()));
+      nr.get(i).setFont(Font.font("System", 18));
+
+      if (!vboxNr.getChildren().contains(nr.get(i))) {
+        vboxNr.getChildren().add(nr.get(i));
+      }
     }
 
     for (int i = 0; i < user.size(); i++) {
-      user.get(i).setText(LoginController.interfGL.lobbyInformation().get(i).getServerName());
-      user.get(i).setFont(Font.font("System", 15));
+      user.get(i).setText(server.get(i).getServerName());
+      user.get(i).setFont(Font.font("System", 18));
 
-      vboxUser.getChildren().add(user.get(i));
+      if (!vboxUser.getChildren().contains(user.get(i))) {
+        vboxUser.getChildren().add(user.get(i));
+      }
+
     }
 
     for (int i = 0; i < join.size(); i++) {
@@ -117,7 +119,9 @@ public class LobbyOnlineController implements Initializable {
           .setStyle("-fx-background-color: peru; -fx-text-fill: white; -fx-background-radius: 20");
       join.get(i).setAlignment(Pos.CENTER);
 
-      vboxJoin.getChildren().add(join.get(i));
+      if (!vboxJoin.getChildren().contains(join.get(i))) {
+        vboxJoin.getChildren().add(join.get(i));
+      }
 
       int[] p = new int[1];
       p[0] = i;
@@ -145,6 +149,10 @@ public class LobbyOnlineController implements Initializable {
     // TODO Auto-generated method stub
     // displayServer();
 
+  }
+
+  public boolean getHostegame() {
+    return hostgame;
   }
 
 

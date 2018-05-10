@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="-13.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../resources/tisch2.png" />
+            <Image url="@images/tisch2.png" />
          </image>
       </ImageView>
       <ImageView fx:id="stichRechts" fitHeight="150.0" fitWidth="200.0" layoutX="1180.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
@@ -20,22 +20,22 @@
       <ImageView fx:id="extra1" fitHeight="227.0" fitWidth="182.0" layoutX="57.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" rotate="-26.6" />
       <ImageView fx:id="l1" fitHeight="150.0" fitWidth="200.0" layoutX="-67.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="r1" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-67.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="l2" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="c1" fitHeight="227.0" fitWidth="182.0" layoutX="125.0" layoutY="527.0" pickOnBounds="true" preserveRatio="true" rotate="-17.4" />
@@ -50,80 +50,80 @@
       <ImageView fx:id="c10" fitHeight="227.0" fitWidth="182.0" layoutX="1025.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" rotate="17.4" />
       <ImageView fx:id="r2" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" AnchorPane.leftAnchor="1250.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image></ImageView>
       <ImageView fx:id="l3" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image></ImageView>
       <ImageView fx:id="l4" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image></ImageView>
       <ImageView fx:id="l5" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image></ImageView>
       <ImageView fx:id="l6" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image></ImageView>
       <ImageView fx:id="l7" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image></ImageView>
       <ImageView fx:id="l8" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image></ImageView>
       <ImageView fx:id="l9" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="l10" fitHeight="150.0" fitWidth="200.0" layoutX="-66.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="r3" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" AnchorPane.leftAnchor="1250.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="r4" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="r5" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="r6" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="r7" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="r8" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="r9" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="r10" fitHeight="150.0" fitWidth="200.0" layoutX="1250.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../resources/rueckseite.jpg" />
+            <Image url="@images/rueckseite.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="s2" fitHeight="205.0" fitWidth="132.0" layoutX="619.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" rotate="91.7" />
@@ -149,16 +149,16 @@
       </JFXButton>
       <ImageView fx:id="pf" fitHeight="32.0" fitWidth="40.0" layoutX="624.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/icons8-unten-eingekreist-50.png" />
+            <Image url="@images/icons8-unten-eingekreist-50.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="1167.0" layoutY="759.0" AnchorPane.bottomAnchor="17.0" AnchorPane.topAnchor="759.0">
          <image>
-            <Image url="@../../resources/info.png" />
+            <Image url="@images/info.png" />
          </image>
       </ImageView>
       <ImageView fx:id="extra2" fitHeight="227.0" fitWidth="182.0" layoutX="1064.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true" rotate="26.6" />
-      <JFXButton buttonType="RAISED" layoutX="1153.0" layoutY="755.0" onAction="#help" prefHeight="33.0" prefWidth="113.0" styleClass="buttonstyle" stylesheets="@../../resources/mystyle.css" text="     Help" textFill="WHITE" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="1153.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="755.0">
+      <JFXButton buttonType="RAISED" layoutX="1153.0" layoutY="755.0" onAction="#help" prefHeight="33.0" prefWidth="113.0" styleClass="buttonstyle" stylesheets="@images/mystyle.css" text="     Help" textFill="WHITE" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="1153.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="755.0">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

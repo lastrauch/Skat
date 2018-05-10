@@ -10,8 +10,8 @@ public class Tools {
    * returns a resorted hand.
    * 
    * @author awesch
-   * @param hand
-   * @param ps
+   * @param hand to sort
+   * @param ps playState
    */
   public static ArrayList<Card> sortHand(ArrayList<Card> hand, PlayState ps) {
     // possible different orders : colour, grand, null(nullouvert)
@@ -136,10 +136,10 @@ public class Tools {
    * Adds arrayList to ArrayList, created for sortHand(s).
    * 
    * @author awesch
-   * @param cardsToAdd
-   * @param hand2
-   * @param start
-   * @param length
+   * @param cardsToAdd to the hand
+   * @param hand2 hand to add them on
+   * @param start where to start the play
+   * @param length how long the period is
    */
   public static void addToHand(ArrayList<Card> cardsToAdd, List<Card> hand2, int start,
       int length) {

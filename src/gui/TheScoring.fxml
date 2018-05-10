@@ -12,10 +12,10 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="282.0" layoutY="253.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../resources/bar.png" />
+            <Image url="@images/bar.png" />
          </image>
       </ImageView>
-      <TabPane layoutX="24.0" layoutY="34.0" prefHeight="700.0" prefWidth="1229.0" styleClass="background" stylesheets="@../../resources/mystyle.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="24.0" layoutY="34.0" prefHeight="700.0" prefWidth="1229.0" styleClass="background" stylesheets="@images/mystyle.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab style="-fx-background-color: tan;" text="8. Scoring">
             <content>
@@ -61,7 +61,7 @@
                         </JFXTextField>
                         <ImageView fitHeight="247.0" fitWidth="772.0" layoutX="42.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../resources/seeger%20system.png" />
+                              <Image url="@images/seeger%20system.png" />
                            </image>
                         </ImageView>
                         <Label layoutX="464.0" layoutY="78.0" text="Seeger System" textFill="WHITE" underline="true">

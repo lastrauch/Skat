@@ -26,14 +26,14 @@ public class GameController implements GuiLogic {
   /**
    * constructor.
    * 
-   * @param logicGui
+   * @param logicGui interface
    */
   public GameController(LogicGui logicGui) {
     this.logicGui = logicGui;
     this.gameSettings = new GameSettings();
-    group = new ArrayList<Player>();
-    clientLogic = new ArrayList<ClientLogic>();
-    server = new ArrayList<Server>();
+    this.group = new ArrayList<Player>();
+    this.clientLogic = new ArrayList<ClientLogic>();
+    this.server = new ArrayList<Server>();
   }
 
   @Override
@@ -44,7 +44,7 @@ public class GameController implements GuiLogic {
    * @see interfaces.GuiLogic#login(java.lang.String)
    */
   public void login(String username, Image profilepicture) {
-    Player p = new Player(username, profilepicture);
+    Player p = new Player(username);
     this.group.add(p);
     System.out.println("yoo I just created a Player " + p.getName() + " (login)");
     ClientLogic clientLogic = new ClientLogic(p);
@@ -75,12 +75,11 @@ public class GameController implements GuiLogic {
    * @author awesch
    */
   public void setBot(String botname, BotDifficulty difficulty) {
-    String name = "bot" + this.group.size();
-    Player p = new Bot(name, difficulty);
+    Player p = new Bot(botname, difficulty);
     this.group.add(p);
     ClientLogic clientLogic = new ClientLogic(p);
     InGameInterface inGameController =
-        new AiController(clientLogic, name, difficulty, this.gameSettings);
+        new AiController(clientLogic, botname, difficulty, this.gameSettings);
     LogicNetwork networkController = new NetworkController(clientLogic);
     clientLogic.setInGameController(inGameController);
     clientLogic.setNetworkController(networkController);

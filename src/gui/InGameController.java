@@ -45,36 +45,35 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @author lstrauch
    */
-  AnchorPane paneBet = new AnchorPane();
-  HBox box = new HBox();
-  Label labelBet = new Label();
-  JFXButton qu = new JFXButton();
-  JFXButton pass = new JFXButton();
-  JFXButton betB = new JFXButton();
-  boolean be = false;
-  boolean notpressed = true;
+  private AnchorPane paneBet;
+  private HBox box;
+  private Label labelBet;
+  private JFXButton pass;
+  private JFXButton betB;
+  boolean be;
+  boolean notpressed;
 
   /**
    * Initialize AuctionWinnerScreen
    * 
    * @author lstrauch
    */
-  AnchorPane paneAuc = new AnchorPane();
-  JFXRadioButton diamonds = new JFXRadioButton();
-  JFXRadioButton hearts = new JFXRadioButton();
-  JFXRadioButton spades = new JFXRadioButton();
-  JFXRadioButton clubs = new JFXRadioButton();
-  JFXRadioButton nullG = new JFXRadioButton();
-  JFXRadioButton grand = new JFXRadioButton();
-  JFXButton submit = new JFXButton();
-  JFXRadioButton ouvert = new JFXRadioButton();
-  JFXRadioButton schneider = new JFXRadioButton();
-  JFXRadioButton schwarz = new JFXRadioButton();
-  HBox boxWin1 = new HBox();
-  HBox boxWin2 = new HBox();
-  HBox boxWin3 = new HBox();
-  VBox vboxWin = new VBox();
-  Label labelWin = new Label();
+  AnchorPane paneAuc;
+  JFXRadioButton diamonds;
+  JFXRadioButton hearts;
+  JFXRadioButton spades;
+  JFXRadioButton clubs;
+  JFXRadioButton nullG;
+  JFXRadioButton grand;
+  JFXButton submit;
+  JFXRadioButton ouvert;
+  JFXRadioButton schneider;
+  JFXRadioButton schwarz;
+  HBox boxWin1;
+  HBox boxWin2;
+  HBox boxWin3;
+  VBox vboxWin;
+  Label labelWin;
 
 
 
@@ -83,20 +82,20 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @author lstrauch
    */
-  private AnchorPane skatPane = new AnchorPane();
-  private AnchorPane handPane = new AnchorPane();
-  private Label skatLabel = new Label();
-  private JFXButton yes = new JFXButton();
-  private JFXButton no = new JFXButton();
-  private HBox skatHbox = new HBox();
-  private ImageView sk1 = new ImageView();
-  private ImageView sk2 = new ImageView();
-  private JFXButton ok = new JFXButton();
-  List<Card> skatLogic = new ArrayList<Card>();
-  boolean decidepressed = false;
-  boolean wantskat = false;
-  boolean skatpressed = false;
-  boolean setSettings = false;
+  private AnchorPane skatPane;
+  private AnchorPane handPane;
+  private Label skatLabel;
+  private JFXButton yes;
+  private JFXButton no;
+  private HBox skatHbox;
+  private ImageView sk1;
+  private ImageView sk2;
+  private JFXButton ok;
+  List<Card> skatLogic;
+  boolean decidepressed;
+  boolean wantskat;
+  boolean skatpressed;
+  boolean setSettings;
 
 
   /**
@@ -105,33 +104,21 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    */
   private GuiController main;
-  private Player pl1, pl2, pl3;
-  private GuiData inte = new ImplementsGuiInterface();
-  private List<Card> cardlist = new ArrayList<Card>();
-  private Image noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
-  private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
-  private Image bubbleL =
-      new Image(getClass().getResource("/Sprechblase_links.png").toExternalForm());
-  private Image bubbleR =
-      new Image(getClass().getResource("/Sprechblase_rechts.png").toExternalForm());
-  private Image bubbleU =
-      new Image(getClass().getResource("/Sprechblase_oben.png").toExternalForm());
-  private List<Card> skat = new ArrayList<Card>();
-  private Boolean[] da = new Boolean[2];
-  private boolean clicked = false;
-  int[] ret = new int[1];
-  private int countl = 10;
-  private int countr = 10;
-  private boolean random = false;
-
-
-  /**
-   * Initialize ChatScreen
-   */
-  private Image pfUnten =
-      new Image(getClass().getResource("/icons8-unten-eingekreist-50.png").toExternalForm());
-  private Image pfOben =
-      new Image(getClass().getResource("/icons8-oben-eingekreist-50.png").toExternalForm());
+  private Player pl1, pl2, pl3, pl4;
+  private GuiData inte;
+  private List<Card> cardlist;
+  private Image noCard;
+  private Image rueckseite;
+  private Image bubbleL;
+  private Image bubbleR;
+  private Image bubbleU;
+  private List<Card> skat;
+  private Boolean[] da;
+  private boolean clicked;
+  int[] ret;
+  private int countl;
+  private int countr;
+  private boolean random;
 
 
   /**
@@ -139,16 +126,16 @@ public class InGameController implements Initializable, InGameInterface {
    */
   @FXML
   private ImageView c1, c2, c3, c4, c5, c6, c7, c8, c9, c10;
-  private ImageView[] carray = new ImageView[10];
+  private ImageView[] carray;
   @FXML
   private ImageView r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, stichRechts;
-  private ImageView[] rarray = new ImageView[10];
+  private ImageView[] rarray;
   @FXML
   private ImageView l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, stichLinks;
-  private ImageView[] larray = new ImageView[10];
+  private ImageView[] larray;
   @FXML
   private ImageView o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, stichOben;
-  private ImageView[] oarray = new ImageView[10];
+  private ImageView[] oarray;
   @FXML
   private ImageView s1, s2, s3;
   @FXML
@@ -214,6 +201,67 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // TODO Auto-generated method stub
+    paneBet = new AnchorPane();
+    box = new HBox();
+    labelBet = new Label();
+    pass = new JFXButton();
+    betB = new JFXButton();
+    be = false;
+    notpressed = true;
+
+    paneAuc = new AnchorPane();
+    diamonds = new JFXRadioButton();
+    hearts = new JFXRadioButton();
+    spades = new JFXRadioButton();
+    clubs = new JFXRadioButton();
+    nullG = new JFXRadioButton();
+    grand = new JFXRadioButton();
+    submit = new JFXButton();
+    ouvert = new JFXRadioButton();
+    schneider = new JFXRadioButton();
+    schwarz = new JFXRadioButton();
+    boxWin1 = new HBox();
+    boxWin2 = new HBox();
+    boxWin3 = new HBox();
+    vboxWin = new VBox();
+    labelWin = new Label();
+
+    skatPane = new AnchorPane();
+    handPane = new AnchorPane();
+    skatLabel = new Label();
+    yes = new JFXButton();
+    no = new JFXButton();
+    skatHbox = new HBox();
+    sk1 = new ImageView();
+    sk2 = new ImageView();
+    ok = new JFXButton();
+    skatLogic = new ArrayList<Card>();
+    decidepressed = false;
+    wantskat = false;
+    skatpressed = false;
+    setSettings = false;
+
+
+    inte = new ImplementsGuiInterface();
+    cardlist = new ArrayList<Card>();
+    noCard = new Image(getClass().getResource("images/grey.jpg").toExternalForm());
+    rueckseite = new Image(getClass().getResource("images/rueckseite.jpg").toExternalForm());
+    bubbleL = new Image(getClass().getResource("images/Sprechblase_links.png").toExternalForm());
+    bubbleR = new Image(getClass().getResource("images/Sprechblase_rechts.png").toExternalForm());
+    bubbleU = new Image(getClass().getResource("images/Sprechblase_oben.png").toExternalForm());
+    skat = new ArrayList<Card>();
+    da = new Boolean[2];
+    clicked = false;
+    ret = new int[1];
+    countl = 10;
+    countr = 10;
+    random = false;
+
+    carray = new ImageView[10];
+    rarray = new ImageView[10];
+    larray = new ImageView[10];
+    oarray = new ImageView[10];
+
     da[0] = true;
     da[1] = true;
     carray[0] = c1;
@@ -260,6 +308,8 @@ public class InGameController implements Initializable, InGameInterface {
     oarray[8] = o9;
     oarray[9] = o10;
 
+
+
     if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
       initialize4();
     } else {
@@ -267,9 +317,6 @@ public class InGameController implements Initializable, InGameInterface {
         oarray[i].setImage(null);
       }
     }
-
-    chatButtonListener();
-
   }
 
 
@@ -429,8 +476,6 @@ public class InGameController implements Initializable, InGameInterface {
         stichLinks.setImage(rueckseite);
       } else if (player.getPosition() == Position.FOREHAND) {
         stichRechts.setImage(rueckseite);
-      } else {
-
       }
     }
 
@@ -448,6 +493,10 @@ public class InGameController implements Initializable, InGameInterface {
 
   public Player getPlayer3() {
     return this.pl3;
+  }
+  
+  public Player getPlayer4() {
+    return this.pl4;
   }
 
 
@@ -1072,13 +1121,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showOpen(Player player) {
     // TODO Auto-generated method stub
-    for (int i = 0; i < player.getHand().size(); i++) {
-      System.out.println("OUVERT HAND: " + player.getHand().get(i));
-    }
-    System.out.println("OPEN!!!!!!!!!!!!!!!!!!!!!!");
-
     if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
-      System.out.println("OPEN2!!!!!!");
       if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
         if (player.getPosition() == Position.MIDDLEHAND) {
           rearrangeCardsLeft(player.getHand());
@@ -1107,7 +1150,6 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     } else {
-      System.out.println("OPEN2!!!!!!");
       if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
         if (player.getPosition() == Position.MIDDLEHAND) {
           rearrangeCardsLeft(player.getHand());
@@ -1198,14 +1240,16 @@ public class InGameController implements Initializable, InGameInterface {
     // TODO Auto-generated method stub
     System.out.println("SHOW SCORE!!!");
     if (player.size() == 3) {
-      this.pl1 = player.get(1);
-      this.pl2 = player.get(2);
+      this.pl1 = player.get(0);
+      this.pl2 = player.get(1);
+      this.pl3 = player.get(2);
       main.displayLeaderboard3();
     } else {
       System.out.println("Leaderboard 4");
-      this.pl1 = player.get(1);
-      this.pl2 = player.get(2);
-      this.pl3 = player.get(3);
+      this.pl1 = player.get(0);
+      this.pl2 = player.get(1);
+      this.pl3 = player.get(2);
+      this.pl4 = player.get(3);
       main.displayLeaderboard4();
       // main.getLead4Con().start();
     }
@@ -1668,87 +1712,16 @@ public class InGameController implements Initializable, InGameInterface {
    */
 
   public void mouseHandler() {
-    c1.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 0;
-        clicked = true;
-      }
-    });
-    c2.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 1;
-        clicked = true;
-      }
-    });
-    c3.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 2;
-        clicked = true;
-      }
-    });
-    c4.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 3;
-        clicked = true;
-      }
-    });
-    c5.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 4;
-        clicked = true;
-      }
-    });
-    c6.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 5;
-        clicked = true;
-      }
-    });
-    c7.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 6;
-        clicked = true;
-
-      }
-    });
-    c8.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 7;
-        clicked = true;
-      }
-    });
-    c9.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 8;
-        clicked = true;
-      }
-    });
-    c10.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent event) {
-        ret[0] = 9;
-        clicked = true;
-      }
-    });
+    for (int i = 0; i < carray.length; i++) {
+      int t = i;
+      carray[i].setOnMousePressed(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          ret[0] = t;
+          clicked = true;
+        }
+      });
+    }
   }
 
 
@@ -1758,12 +1731,6 @@ public class InGameController implements Initializable, InGameInterface {
    * @return
    */
   public void buttonListener() {
-    qu.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        System.out.println("qu");
-      }
-    });
     pass.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -1901,37 +1868,8 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
-  /**
-   * Buttonlistener Chat-button
-   */
-  /**
-   * @author lstrauch
-   */
-  public void chatButtonListener() {
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        sendB.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent e) {
-            sendChat();
-          }
-        });
-        pf.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 
-          @Override
-          public void handle(MouseEvent event) {
-            if (pf.getImage().equals(pfUnten)) {
-              displayChatScreenOpen();
-            } else {
-              displayChatClosed();
-            }
-            System.out.println(pf.getImage());
-          }
-        });
-      }
-    });
-  }
+
 
 
   /**
@@ -2379,6 +2317,8 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+
+
   /**
    * @author lstrauch
    * @param anz
@@ -2494,61 +2434,54 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void displayAuctionScreen() {
     paneBet.setLayoutX(475);
-    paneBet.setLayoutY(128);
-    paneBet.setPrefHeight(315);
+    paneBet.setLayoutY(188);
+    paneBet.setPrefHeight(200);
     paneBet.setPrefWidth(395);
     paneBet.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+        "-fx-background-color: tan; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20");
 
-    qu.setId("?");
-    qu.setPrefHeight(44);
-    qu.setPrefWidth(69);
-    qu.setText("?");
-    qu.setFont(Font.font("System", FontWeight.BOLD, 20));
-    qu.setTextFill(Color.WHITE);
-    qu.setStyle("-fx-background-color: tan;");
-    pass.setId("pass");
     pass.setPrefHeight(44);
-    pass.setPrefWidth(69);
+    pass.setPrefWidth(75);
     pass.setText("Pass");
     pass.setFont(Font.font("System", FontWeight.BOLD, 20));
     pass.setTextFill(Color.WHITE);
-    pass.setStyle("-fx-background-color: tan;");
-    betB.setId("value");
+    pass.setStyle("-fx-background-color: peru;");
     betB.setPrefHeight(44);
-    betB.setPrefWidth(69);
+    betB.setPrefWidth(75);
     betB.setFont(Font.font("System", FontWeight.BOLD, 20));
     betB.setTextFill(Color.WHITE);
-    betB.setStyle("-fx-background-color: tan;");
+    betB.setStyle("-fx-background-color: peru;");
 
     labelBet.setPrefHeight(53);
     labelBet.setLayoutX(88);
-    labelBet.setLayoutY(36);
-    labelBet.setText("");
-    labelBet.setFont(Font.font("System", FontWeight.BOLD, 36));
+    labelBet.setLayoutY(20);
+    labelBet.setText("Auction");
+    labelBet.setFont(Font.font("System", FontWeight.BOLD, 30));
     labelBet.setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(labelBet, 0.0);
     AnchorPane.setRightAnchor(labelBet, 0.0);
     labelBet.setAlignment(Pos.CENTER);
 
-    if (!box.getChildren().contains(qu) && !box.getChildren().contains(betB)
-        && !box.getChildren().contains(pass)) {
-      System.out.println("Drin");
-      box.getChildren().add(qu);
+    if (!box.getChildren().contains(betB) && !box.getChildren().contains(pass)) {
       box.getChildren().add(pass);
       box.getChildren().add(betB);
     }
     box.setPrefHeight(44);
-    box.setLayoutX(37);
-    box.setLayoutY(158);
-    box.setSpacing(50);
+    box.setLayoutX(60);
+    box.setLayoutY(58);
+    box.setSpacing(100);
+    box.setAlignment(Pos.CENTER);
 
     if (!paneBet.getChildren().contains(box) && !paneBet.getChildren().contains(labelBet)) {
       paneBet.getChildren().add(box);
       paneBet.getChildren().add(labelBet);
+      AnchorPane.setLeftAnchor(box, 0.0);
+      AnchorPane.setRightAnchor(box, 0.0);
+      AnchorPane.setTopAnchor(box, 0.0);
+      AnchorPane.setBottomAnchor(box, 0.0);
     }
 
-    if(!mainPane.getChildren().contains(paneBet)) {
+    if (!mainPane.getChildren().contains(paneBet)) {
       mainPane.getChildren().add(paneBet);
     }
     if (main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
@@ -2567,33 +2500,40 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    */
   public void displayAuctionWinnerScreen() {
-    paneAuc.setPrefHeight(315);
-    paneAuc.setPrefWidth(582);
+    paneAuc.setPrefHeight(330);
+    paneAuc.setPrefWidth(700);
     paneAuc.setLayoutX(334);
     paneAuc.setLayoutY(128);
     paneAuc.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+        "-fx-background-color: tan; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20");
 
-    diamonds.setPrefHeight(42);
-    diamonds.setPrefWidth(117);
-    diamonds.setText("Diamonds");
-    diamonds.setFont(Font.font("System", FontWeight.BOLD, 20));
-    diamonds.setStyle("-fx-background-color: tan;");
-    hearts.setPrefHeight(42);
-    hearts.setPrefWidth(117);
-    hearts.setText("Hearts");
-    hearts.setFont(Font.font("System", FontWeight.BOLD, 20));
-    hearts.setStyle("-fx-background-color: tan;");
-    spades.setPrefHeight(42);
-    spades.setPrefWidth(117);
-    spades.setText("Spades");
-    spades.setFont(Font.font("System", FontWeight.BOLD, 20));
-    spades.setStyle("-fx-background-color: tan;");
-    clubs.setPrefHeight(42);
-    clubs.setPrefWidth(117);
+    clubs.setPrefHeight(130);
+    clubs.setPrefWidth(130);
     clubs.setText("Clubs");
-    clubs.setFont(Font.font("System", FontWeight.BOLD, 20));
-    clubs.setStyle("-fx-background-color: tan;");
+    clubs.setTextFill(Color.WHITE);
+    clubs.setAlignment(Pos.CENTER);
+    clubs.setFont(Font.font("System", FontWeight.BOLD, 16));
+    clubs.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
+    spades.setPrefHeight(42);
+    spades.setPrefWidth(130);
+    spades.setText("Spades");
+    spades.setTextFill(Color.WHITE);
+    spades.setAlignment(Pos.CENTER);
+    spades.setFont(Font.font("System", FontWeight.BOLD, 16));
+    spades.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
+    hearts.setPrefHeight(42);
+    hearts.setPrefWidth(130);
+    hearts.setText("Hearts");
+    hearts.setTextFill(Color.WHITE);
+    hearts.setAlignment(Pos.CENTER);
+    hearts.setFont(Font.font("System", FontWeight.BOLD, 16));
+    hearts.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
+    diamonds.setPrefHeight(42);
+    diamonds.setPrefWidth(130);
+    diamonds.setText("Diamonds");
+    diamonds.setTextFill(Color.WHITE);
+    diamonds.setFont(Font.font("System", FontWeight.BOLD, 16));
+    diamonds.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     ToggleGroup g1 = new ToggleGroup();
     diamonds.setToggleGroup(g1);
     hearts.setToggleGroup(g1);
@@ -2602,90 +2542,91 @@ public class InGameController implements Initializable, InGameInterface {
     grand.setToggleGroup(g1);
     nullG.setToggleGroup(g1);
 
-    if(!boxWin1.getChildren().contains(diamonds)
-        && !boxWin1.getChildren().contains(hearts)
-        && !boxWin1.getChildren().contains(spades)
-        && !boxWin1.getChildren().contains(clubs)) {
-      boxWin1.getChildren().add(diamonds);
-      boxWin1.getChildren().add(hearts);
-      boxWin1.getChildren().add(spades);
+    if (!boxWin1.getChildren().contains(diamonds) && !boxWin1.getChildren().contains(hearts)
+        && !boxWin1.getChildren().contains(spades) && !boxWin1.getChildren().contains(clubs)) {
       boxWin1.getChildren().add(clubs);
+      boxWin1.getChildren().add(spades);
+      boxWin1.getChildren().add(hearts);
+      boxWin1.getChildren().add(diamonds);
     }
     boxWin1.setSpacing(20);
-    boxWin1.setPrefWidth(528);
+    boxWin1.setPrefWidth(650);
     boxWin1.setPrefHeight(42);
     boxWin1.setLayoutX(28);
     boxWin1.setLayoutY(60);
 
     grand.setPrefHeight(42);
-    grand.setPrefWidth(117);
+    grand.setPrefWidth(130);
     grand.setText("Grand");
-    grand.setFont(Font.font("System", FontWeight.BOLD, 20));
-    grand.setStyle("-fx-background-color: tan;");
+    grand.setTextFill(Color.WHITE);
+    grand.setFont(Font.font("System", FontWeight.BOLD, 16));
+    grand.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     nullG.setPrefHeight(42);
-    nullG.setPrefWidth(117);
+    nullG.setPrefWidth(130);
     nullG.setText("Null");
-    nullG.setFont(Font.font("System", FontWeight.BOLD, 20));
-    nullG.setStyle("-fx-background-color: tan;");
+    nullG.setTextFill(Color.WHITE);
+    nullG.setFont(Font.font("System", FontWeight.BOLD, 16));
+    nullG.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
 
-    if(!boxWin2.getChildren().contains(grand)
-        && !boxWin2.getChildren().contains(nullG)) {
+    if (!boxWin2.getChildren().contains(grand) && !boxWin2.getChildren().contains(nullG)) {
       boxWin2.getChildren().add(grand);
       boxWin2.getChildren().add(nullG);
     }
-    boxWin2.setSpacing(158);
-    boxWin2.setPrefWidth(528);
+    boxWin2.setSpacing(165);
+    boxWin2.setPrefWidth(650);
     boxWin2.setPrefHeight(42);
     boxWin2.setLayoutX(28);
     boxWin2.setLayoutY(158);
 
     ouvert.setPrefHeight(21);
-    ouvert.setPrefWidth(102);
+    ouvert.setPrefWidth(120);
     ouvert.setText("Ouvert");
+    ouvert.setTextFill(Color.WHITE);
     ouvert.setFont(Font.font("System", 15));
-    ouvert.setStyle("-fx-background-color: tan;");
+    ouvert.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     schneider.setPrefHeight(21);
-    schneider.setPrefWidth(102);
+    schneider.setPrefWidth(120);
     schneider.setText("Schneider");
+    schneider.setTextFill(Color.WHITE);
     schneider.setFont(Font.font("System", 15));
-    schneider.setStyle("-fx-background-color: tan;");
+    schneider.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     schwarz.setPrefHeight(21);
-    schwarz.setPrefWidth(102);
+    schwarz.setPrefWidth(120);
     schwarz.setText("Schwarz");
+    schwarz.setTextFill(Color.WHITE);
     schwarz.setFont(Font.font("System", 15));
-    schwarz.setStyle("-fx-background-color: tan;");
+    schwarz.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
 
-    if(!boxWin3.getChildren().contains(ouvert)
-        && !boxWin3.getChildren().contains(schneider)
+    if (!boxWin3.getChildren().contains(ouvert) && !boxWin3.getChildren().contains(schneider)
         && !boxWin3.getChildren().contains(schwarz)) {
       boxWin3.getChildren().add(ouvert);
       boxWin3.getChildren().add(schneider);
       boxWin3.getChildren().add(schwarz);
     }
     boxWin3.setSpacing(35);
-    boxWin3.setPrefWidth(528);
+    boxWin3.setPrefWidth(650);
     boxWin3.setPrefHeight(21);
     boxWin3.setLayoutX(28);
     boxWin3.setLayoutY(266);
 
-    if(!vboxWin.getChildren().contains(boxWin1)
-        && !vboxWin.getChildren().contains(boxWin2)
+    if (!vboxWin.getChildren().contains(boxWin1) && !vboxWin.getChildren().contains(boxWin2)
         && !vboxWin.getChildren().contains(boxWin3)) {
       vboxWin.getChildren().add(boxWin1);
       vboxWin.getChildren().add(boxWin2);
       vboxWin.getChildren().add(boxWin3);
     }
     vboxWin.setPrefHeight(185);
-    vboxWin.setPrefWidth(528);
+    vboxWin.setPrefWidth(650);
     vboxWin.setLayoutX(14);
     vboxWin.setLayoutY(97);
     vboxWin.setSpacing(40);
 
     submit.setPrefHeight(33);
-    submit.setPrefWidth(69);
+    submit.setPrefWidth(112);
     submit.setText("Submit");
+    submit.setTextFill(Color.WHITE);
     submit.setFont(Font.font("System", 15));
-    submit.setStyle("-fx-background-color: tan; -fx-border-color: black;");
+    submit.setStyle("-fx-background-color: peru; -fx-border-color: black;");
     submit.setButtonType(ButtonType.RAISED);
     submit.setLayoutX(499);
     submit.setLayoutY(268);
@@ -2698,15 +2639,14 @@ public class InGameController implements Initializable, InGameInterface {
     labelWin.setFont(Font.font("System", FontWeight.BOLD, 33));
     labelWin.setTextFill(Color.WHITE);
 
-    if(!paneAuc.getChildren().contains(vboxWin)
-        && !paneAuc.getChildren().contains(labelWin)
+    if (!paneAuc.getChildren().contains(vboxWin) && !paneAuc.getChildren().contains(labelWin)
         && !paneAuc.getChildren().contains(submit)) {
       paneAuc.getChildren().add(vboxWin);
       paneAuc.getChildren().add(labelWin);
       paneAuc.getChildren().add(submit);
     }
 
-    if(!mainPane.getChildren().contains(paneAuc)) {
+    if (!mainPane.getChildren().contains(paneAuc)) {
       mainPane.getChildren().add(paneAuc);
     }
   }
@@ -2722,7 +2662,7 @@ public class InGameController implements Initializable, InGameInterface {
     skatPane.setLayoutX(334);
     skatPane.setLayoutY(128);
     skatPane.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+        "-fx-background-color: tan; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20");
 
     skatLabel.setPrefHeight(49);
     skatLabel.setPrefWidth(467);
@@ -2739,17 +2679,16 @@ public class InGameController implements Initializable, InGameInterface {
     yes.setPrefWidth(154);
     yes.setText("Yes");
     yes.setFont(Font.font("System", FontWeight.BOLD, 25));
-    yes.setStyle("-fx-background-color: tan;");
+    yes.setStyle("-fx-background-color: peru;-fx-background-radius: 20");
     yes.setButtonType(ButtonType.RAISED);
     no.setPrefHeight(123);
     no.setPrefWidth(154);
-    no.setText("No");
+    no.setText("no");
     no.setFont(Font.font("System", FontWeight.BOLD, 25));
-    no.setStyle("-fx-background-color: tan;");
+    no.setStyle("-fx-background-color: peru; -fx-background-radius: 20");
     no.setButtonType(ButtonType.RAISED);
 
-    if(!skatHbox.getChildren().contains(yes)
-        && !skatHbox.getChildren().contains(no)) {
+    if (!skatHbox.getChildren().contains(yes) && !skatHbox.getChildren().contains(no)) {
       skatHbox.getChildren().add(yes);
       skatHbox.getChildren().add(no);
     }
@@ -2760,8 +2699,7 @@ public class InGameController implements Initializable, InGameInterface {
     skatHbox.setLayoutY(158);
 
 
-    if(!skatPane.getChildren().contains(skatLabel)
-        && !skatPane.getChildren().contains(skatPane)
+    if (!skatPane.getChildren().contains(skatLabel) && !skatPane.getChildren().contains(skatPane)
         && !mainPane.getChildren().contains(skatHbox)) {
       skatPane.getChildren().add(skatLabel);
       skatPane.getChildren().add(skatHbox);
@@ -2782,13 +2720,12 @@ public class InGameController implements Initializable, InGameInterface {
     handPane.setLayoutX(334);
     handPane.setLayoutY(128);
     handPane.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+        "-fx-background-color: tan; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20");
 
     sk1.setFitHeight(227);
     sk1.setFitWidth(182);
     sk1.setLayoutX(83);
     sk1.setLayoutY(37);
-    sk1.setStyle("-fx-background-color: black");
     sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
         ps.getSkat()[1].getNumber().toString().toLowerCase()));
 
@@ -2796,7 +2733,6 @@ public class InGameController implements Initializable, InGameInterface {
     sk2.setFitWidth(182);
     sk2.setLayoutX(326);
     sk2.setLayoutY(37);
-    sk2.setStyle("-fx-background-color: black");
     sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
         ps.getSkat()[0].getNumber().toString().toLowerCase()));
 
@@ -2809,101 +2745,16 @@ public class InGameController implements Initializable, InGameInterface {
     ok.setButtonType(ButtonType.RAISED);
 
 
-    if(!handPane.getChildren().contains(sk1)
-        && !handPane.getChildren().contains(sk2)
+    if (!handPane.getChildren().contains(sk1) && !handPane.getChildren().contains(sk2)
         && !handPane.getChildren().contains(ok)) {
       handPane.getChildren().add(sk1);
       handPane.getChildren().add(sk2);
       handPane.getChildren().add(ok);
     }
-    
-    if(!mainPane.getChildren().contains(handPane)) {
+
+    if (!mainPane.getChildren().contains(handPane)) {
       mainPane.getChildren().add(handPane);
     }
-  }
-
-  /**
-   * @author lstrauch
-   */
-  public void displayChatScreenOpen() {
-    chatM.setPrefWidth(1280);
-    chatM.setPrefHeight(97);
-    chatM.setLayoutX(3);
-    chatM.setLayoutY(5);
-    chatM.setStyle("-fx-background-color: peru");
-    chatM.setEditable(false);
-    chatM.setUnFocusColor(Color.PERU);
-    chatM.setFocusColor(Color.WHITE);
-    chatM.setOpacity(0.33);
-
-    textM.setPrefHeight(50);
-    textM.setPrefWidth(1280);
-    textM.setLayoutX(3);
-    textM.setLayoutY(97);
-    textM.setStyle("-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2");
-    textM.setOpacity(0.33);
-
-    pf.setImage(pfOben);
-    pf.setFitHeight(32);
-    pf.setFitWidth(40);
-    pf.setLayoutX(624);
-    pf.setLayoutY(130);
-    pf.toFront();
-
-    sendB.setLayoutX(1167);
-    sendB.setLayoutY(97);
-    sendB.setPrefHeight(50);
-    sendB.setPrefWidth(113);
-    sendB.setFont(Font.font("System", 20));
-
-
-    s1.setLayoutX(533);
-    s1.setLayoutY(149);
-    s2.setLayoutX(590);
-    s2.setLayoutY(184);
-    s3.setLayoutX(619);
-    s3.setLayoutY(200);
-  }
-
-  /**
-   * @author lstrauch
-   */
-  public void displayChatClosed() {
-    chatM.setPrefWidth(1280);
-    chatM.setPrefHeight(35);
-    chatM.setLayoutX(3);
-    chatM.setLayoutY(5);
-    chatM.setStyle("-fx-background-color: peru");
-    chatM.setEditable(false);
-    chatM.setUnFocusColor(Color.PERU);
-    chatM.setFocusColor(Color.WHITE);
-    chatM.setOpacity(0.33);
-
-    textM.setPrefHeight(32);
-    textM.setPrefWidth(1280);
-    textM.setLayoutX(3);
-    textM.setLayoutY(33);
-    textM.setStyle("-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2");
-    textM.setOpacity(0.33);
-
-    pf.setImage(pfUnten);
-    pf.setFitHeight(32);
-    pf.setFitWidth(40);
-    pf.setLayoutX(624);
-    pf.setLayoutY(52);
-
-    sendB.setLayoutX(1167);
-    sendB.setLayoutY(33);
-    sendB.setPrefHeight(32);
-    sendB.setPrefWidth(113);
-    sendB.setFont(Font.font("System", 15));
-
-    s1.setLayoutX(533);
-    s1.setLayoutY(89);
-    s2.setLayoutX(590);
-    s2.setLayoutY(114);
-    s3.setLayoutX(619);
-    s3.setLayoutY(140);
   }
 
   public void displayBubbleLeft(int bet) {
@@ -2949,5 +2800,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
 }
+
+
+
 
 

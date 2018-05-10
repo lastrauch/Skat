@@ -13,6 +13,7 @@ public class Auction implements Serializable {
 
   private static final long serialVersionUID = 1L;
   private Player winner; // winner of the auction
+  private Player lastOneWhoBet;
   private int[] possibleBets; // list of the possible bets
   private int betValue;
   private int indexOfBetValue;
@@ -28,6 +29,7 @@ public class Auction implements Serializable {
     this.betValue = 18;
     this.indexOfBetValue = 0;
     this.initializePossibleBets();
+    this.lastOneWhoBet = new Player(" ");
   }
 
   /**
@@ -145,6 +147,14 @@ public class Auction implements Serializable {
 
   public int getIndexOfBetValue() {
     return indexOfBetValue;
+  }
+
+  public Player getLastOneWhoBet() {
+    return lastOneWhoBet;
+  }
+
+  public void setLastOneWhoBet(Player lastOneWhoBet) {
+    this.lastOneWhoBet = lastOneWhoBet;
   }
 
 

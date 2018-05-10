@@ -67,10 +67,6 @@ public class AccountSettingsController implements Initializable {
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
-    System.out.println(LoginController.interfGL.getPlayer());
-    if (LoginController.interfGL.getPlayer().getImage() != null) {
-      pp.setImage(LoginController.interfGL.getPlayer().getImage());
-    }
   }
 
 
