@@ -1,0 +1,12 @@
+ai
+database
+gui
+interfaces
+junit.ai
+junit.logic
+logic
+main
+network
+network.client
+network.messages
+network.server

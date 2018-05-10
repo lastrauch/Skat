@@ -82,6 +82,7 @@ public class Trick implements Serializable {
    * 
    * @author sandfisc
    * @param card to add
+   * @param player who played it
    */
   public void addCard(Card card, Player player) {
     this.trickCards.add(card);
@@ -110,6 +111,8 @@ public class Trick implements Serializable {
    * calculateWinnerColour(), calculateWinnerGrand(), calculateWinnerNull()).
    * 
    * @author sandfisc
+   * @param ps PlayState
+   * @return winner of the trick
    * @throws LogicException if not possible
    */
   public Player calculateWinner(PlayState ps) throws LogicException {
@@ -130,6 +133,7 @@ public class Trick implements Serializable {
    * calulates the winning card in the playmode Suit.
    * 
    * @author sandfisc
+   * @param ps PlayState
    * @return index of the winning card
    */
   public int calculateWinnerSuit(PlayState ps) {
@@ -200,6 +204,7 @@ public class Trick implements Serializable {
    * @author sandfisc
    * @param card1 to compare
    * @param card2 to compare
+   * @param ps PlayState
    * @return which card won (0 = card1, 1= card2)
    */
   public int compareCardsSuit(Card card1, Card card2, PlayState ps) {
@@ -332,6 +337,8 @@ public class Trick implements Serializable {
 
   /**
    * returns a deep copy of this trick.
+   * 
+   * @return copy of this trick
    */
   public Trick copyMe() {
     List<Card> newTrickCards = new ArrayList<Card>();

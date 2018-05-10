@@ -38,6 +38,8 @@ public class PlayState implements Serializable {
   /**
    * constructor (default) the attributes are initialized but we want the player(s) to change them
    * during the game.
+   * 
+   * @param group which plays
    */
   public PlayState(Player[] group) {
     this.playingGroup = group;
@@ -116,6 +118,8 @@ public class PlayState implements Serializable {
 
   /**
    * returns a deep copy of this playState.
+   * 
+   * @return PlayState to be copied
    */
   public PlayState copyMe() {
     Player[] playerCopy = new Player[this.playingGroup.length];
@@ -337,6 +341,8 @@ public class PlayState implements Serializable {
 
   /**
    * sets trump and initializes the base value.
+   * 
+   * @param trump colour which is played in suit
    */
   public void setTrump(Colour trump) {
     this.trump = trump;

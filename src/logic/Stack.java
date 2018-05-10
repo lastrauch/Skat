@@ -44,6 +44,7 @@ public class Stack implements Serializable {
    * returns the points of a variable stack of cards, created for calculateWinner.
    * 
    * @author awesch
+   * @return poins of the stack
    */
   public int calculatePointsOfStack() {
     int sum = 0;
@@ -59,6 +60,7 @@ public class Stack implements Serializable {
    * Returns the stack.
    * 
    * @author sandfisc
+   * @return this stack
    */
   public List<Card> getStack() {
     return this.stack;

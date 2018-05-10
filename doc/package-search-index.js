@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"ai"},{"l":"database"},{"l":"gui"},{"l":"interfaces"},{"l":"junit.ai"},{"l":"junit.logic"},{"l":"logic"},{"l":"main"},{"l":"network"},{"l":"network.client"},{"l":"network.messages"},{"l":"network.server"}]

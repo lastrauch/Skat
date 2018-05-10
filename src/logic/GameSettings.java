@@ -36,9 +36,12 @@ public class GameSettings implements Serializable {
   }
 
   /**
-   * creates random nr between 0-2 or 0-3.
+   * constructor.
    * 
-   * @author awesch
+   * @param countRule of game
+   * @param nrOfPlayers in game
+   * @param nrOfPlays of game
+   * @throws LogicException if not possible
    */
   public GameSettings(CountRule countRule, int nrOfPlayers, int nrOfPlays) throws LogicException {
     // if the count rule is bierlachs we need an end score where the game determines
@@ -63,6 +66,7 @@ public class GameSettings implements Serializable {
    * returns true, if the settet number of plays is played.
    * 
    * @param nrOfPlays which are played already
+   * @return true if settet is played
    */
   public boolean checkNrOfPlays(int nrOfPlays) {
     int[] possibleNr = {1, 3, 18, 36};

@@ -34,6 +34,7 @@ public class Card implements Serializable {
    * returns true, if card is higher as comp with a high ten.
    * 
    * @param comp card to compare with
+   * @return true if higher
    */
   public boolean isHigherAsNorm(Card comp) {
     if (this.number.getRankingNorm() > comp.getNumber().getRankingNorm()) {
@@ -47,6 +48,7 @@ public class Card implements Serializable {
    * returns true, if card is lower as copm with a high ten.
    * 
    * @param comp card to compare with
+   * @return true if card lower
    */
   public boolean isLowerAsNorm(Card comp) {
     if (this.number.getRankingNorm() < comp.getNumber().getRankingNorm()) {
@@ -60,6 +62,7 @@ public class Card implements Serializable {
    * returns true, if card is higher than comp with a low ten.
    * 
    * @param comp card to compare with
+   * @return true if higher
    */
   public boolean isHigherAsLowTen(Card comp) {
     if (this.number.getRankingLowTen() > comp.getNumber().getRankingLowTen()) {
@@ -73,6 +76,7 @@ public class Card implements Serializable {
    * returns true, if card is lower than comp with a low ten.
    * 
    * @param comp card to compare with
+   * @return true if lower
    */
   public boolean isLowerAsLowTen(Card comp) {
     if (this.number.getRankingLowTen() < comp.getNumber().getRankingLowTen()) {
@@ -86,6 +90,7 @@ public class Card implements Serializable {
    * returns 0 for same colour -1.
    * 
    * @param comp card to compare with
+   * @return higher or smaller
    */
   public int compareColour(Card comp) {
     return this.colour.compareColourIntern(comp.getColour());
@@ -108,6 +113,7 @@ public class Card implements Serializable {
 
   /**
    * returns the matador value.
+   * @return matador
    */
   public int getMatadorValue() {
     int value = 0;
