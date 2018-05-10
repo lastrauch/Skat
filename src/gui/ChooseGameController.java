@@ -7,6 +7,7 @@ public class ChooseGameController {
 
   /**
    * initializes FXML-attributes.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -14,12 +15,15 @@ public class ChooseGameController {
 
   /**
    * initializes non-FXML-attributes.
+   * 
    * @author lstrauch
    */
   private GameMode gamemode;
 
   /**
-   *@author lstrauch
+   * Constructor.
+   * 
+   * @author lstrauch
    */
   public ChooseGameController() {
     this.main = new GuiController();
@@ -27,8 +31,8 @@ public class ChooseGameController {
   }
 
   /**
-   * sets gameMode = SINGLEPLAYER.
-   * opens GameSettings - screen.
+   * sets gameMode = SINGLEPLAYER. opens GameSettings - screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -39,6 +43,7 @@ public class ChooseGameController {
 
   /**
    * opens lobbyOnle - screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -49,6 +54,7 @@ public class ChooseGameController {
 
   /**
    * opens Settings-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -58,6 +64,7 @@ public class ChooseGameController {
 
   /**
    * opens Help-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -67,6 +74,7 @@ public class ChooseGameController {
 
   /**
    * opens AccountSettings-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -74,18 +82,21 @@ public class ChooseGameController {
     main.displayAccountSettings();
   }
 
-  
+
   /**
    * sets GameMode.
+   * 
    * @author lstrauch
    * @param gm GameMode
    */
   public void setGameMode(GameMode gm) {
     this.gamemode = gm;
   }
-  
-  
-  /** returns GameMode.
+
+
+  /**
+   * returns GameMode.
+   * 
    * @author lstrauch
    * @return this.gamemode
    */

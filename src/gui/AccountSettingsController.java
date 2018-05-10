@@ -23,6 +23,7 @@ public class AccountSettingsController implements Initializable {
 
   /**
    * initialize non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private String username = null;
@@ -32,6 +33,7 @@ public class AccountSettingsController implements Initializable {
 
   /**
    * initializes FXML-attributes.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -44,12 +46,14 @@ public class AccountSettingsController implements Initializable {
 
   /**
    * Constructor.
+   * 
    * @author lstrauch
    */
   public AccountSettingsController() {}
 
   /**
    * Go back to the previous screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -72,6 +76,7 @@ public class AccountSettingsController implements Initializable {
 
   /**
    * Updates the name and profile picture in database.
+   * 
    * @author lstrauch
    */
   @FXML

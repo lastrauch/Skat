@@ -16,9 +16,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.GameMode;
 
-public class SetAIController implements Initializable {
+public class SetAiController implements Initializable {
 
   /**
+   * non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController main;
@@ -26,11 +28,21 @@ public class SetAIController implements Initializable {
   private BotDifficulty dif;
   private int countBot = 0;
   private StringBuilder anz = new StringBuilder();
+
+
   /**
+   * FXML attributes.
+   * 
    * @author lstrauch
    */
   @FXML
-  private JFXRadioButton easy3, med3, dif3, dis3;
+  private JFXRadioButton easy3;
+  @FXML
+  private JFXRadioButton med3;
+  @FXML
+  private JFXRadioButton dif3;
+  @FXML
+  private JFXRadioButton dis3;
   @FXML
   Label bot3;
   @FXML
@@ -39,15 +51,19 @@ public class SetAIController implements Initializable {
   AnchorPane p;
 
   /**
-   *@author lstrauch
+   * Constructor.
+   * 
+   * @author lstrauch
    */
-  public SetAIController() {
+  public SetAiController() {
     this.main = new GuiController();
     anz.append("Bot ");
     GuiController.prevScreen = 5;
   }
 
   /**
+   * display settings-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -56,6 +72,8 @@ public class SetAIController implements Initializable {
   }
 
   /**
+   * display help-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -64,6 +82,8 @@ public class SetAIController implements Initializable {
   }
 
   /**
+   * display accountSettings-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -72,13 +92,14 @@ public class SetAIController implements Initializable {
   }
 
   /**
+   * display lobby-screen. sets ai in logic.
+   * 
    * @author lstrauch
    */
   @FXML
   public void ok() {
-    anz.append(String.valueOf(main.getLobbyCon().countBot()-1));
+    anz.append(String.valueOf(main.getLobbyCon().countBot() - 1));
     main.displayLobby();
-    System.out.println("Anz: " + anz.toString());
     LoginController.interfGL.setBot(anz.toString(), dif);
   }
 
@@ -92,6 +113,8 @@ public class SetAIController implements Initializable {
 
 
   /**
+   * enables buttonHandler.
+   * 
    * @author lstrauch
    */
   public void buttonHandler() {
@@ -141,6 +164,8 @@ public class SetAIController implements Initializable {
 
 
   /**
+   * sets toggle-group.
+   * 
    * @author lstrauch
    */
   public void alreadyClicked() {
@@ -153,21 +178,6 @@ public class SetAIController implements Initializable {
     dis3.setToggleGroup(group3);
 
   }
-  
-  /**
-   * @author lstrauch
-   */
-  public void displayLabel() {
-    label.setLayoutX(497);
-    label.setLayoutY(206);
-    label.setPrefHeight(31);
-    label.setPrefWidth(758);
-    label.setText("You have to select at least 2 Computers!");
-    label.setFont(Font.font("System", FontWeight.BOLD, 15));
-    label.setStyle("-fx-background-color: white; -fx-text-fill: red");
-    label.setAlignment(Pos.CENTER);
-    
-    p.getChildren().add(label);
-  }
+
 
 }

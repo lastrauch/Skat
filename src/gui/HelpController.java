@@ -6,13 +6,15 @@ public class HelpController {
 
   /**
    * initializes non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController main;
 
   /**
    * Constructor.
-   *@author lstrauch
+   * 
+   * @author lstrauch
    */
   public HelpController() {
     this.main = new GuiController();
@@ -20,6 +22,7 @@ public class HelpController {
 
   /**
    * main.display Overwiew-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -30,6 +33,7 @@ public class HelpController {
 
   /**
    * main.display TheCards-Screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -40,6 +44,7 @@ public class HelpController {
 
   /**
    * main.display TheDeal.screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -49,6 +54,7 @@ public class HelpController {
 
   /**
    * main.display TheAuctionScreen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -58,6 +64,7 @@ public class HelpController {
 
   /**
    * main.display ThePossibleContracts-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -67,6 +74,7 @@ public class HelpController {
 
   /**
    * main.display ThePlay-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -76,6 +84,7 @@ public class HelpController {
 
   /**
    * main.display CalValue-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -85,6 +94,7 @@ public class HelpController {
 
   /**
    * main.display TheScoring-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -94,6 +104,7 @@ public class HelpController {
 
   /**
    * main.display Variations-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -103,6 +114,7 @@ public class HelpController {
 
   /**
    * goes back to previous screen.
+   * 
    * @author lstrauch
    */
   @FXML

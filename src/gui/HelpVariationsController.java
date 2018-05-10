@@ -6,13 +6,15 @@ public class HelpVariationsController {
 
   /**
    * initializes non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController main;
 
   /**
    * Constructor.
-   *@author lstrauch
+   * 
+   * @author lstrauch
    */
   public HelpVariationsController() {
     this.main = new GuiController();
@@ -20,6 +22,7 @@ public class HelpVariationsController {
 
   /**
    * main.display Help-screen.
+   * 
    * @author lstrauch
    */
   @FXML

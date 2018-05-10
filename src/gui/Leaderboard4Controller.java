@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,7 +37,7 @@ public class Leaderboard4Controller extends Thread implements Initializable {
   private VBox vbox2;
   @FXML
   private VBox vbox3;
-  @FXML 
+  @FXML
   private VBox vbox4;
 
   /**

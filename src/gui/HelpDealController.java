@@ -7,13 +7,15 @@ public class HelpDealController {
 
   /**
    * initializes non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController main;
 
   /**
    * Constructor.
-   *@author lstrauch
+   * 
+   * @author lstrauch
    */
   public HelpDealController() {
     this.main = new GuiController();
@@ -21,6 +23,7 @@ public class HelpDealController {
 
   /**
    * main.display HelpScreen.
+   * 
    * @author lstrauch
    */
   @FXML

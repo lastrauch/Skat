@@ -6,13 +6,15 @@ public class HelpPosController {
 
   /**
    * initializes non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController main;
 
   /**
    * Constructor.
-   *@author lstrauch
+   * 
+   * @author lstrauch
    */
   public HelpPosController() {
     this.main = new GuiController();
@@ -20,6 +22,7 @@ public class HelpPosController {
 
   /**
    * main.display Help-screen.
+   * 
    * @author lstrauch
    */
   @FXML

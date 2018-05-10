@@ -4,7 +4,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXTextField;
-//import com.sun.prism.paint.Color;
+// import com.sun.prism.paint.Color;
 import database.ImplementsGuiInterface;
 import interfaces.GuiData;
 import interfaces.GuiLogic;
@@ -24,6 +24,8 @@ import logic.Card;
 public class LoginController implements Initializable {
 
   /**
+   * non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private static GuiController main;
@@ -36,18 +38,28 @@ public class LoginController implements Initializable {
 
 
   /**
+   * FXML attributes.
+   * 
    * @author lstrauch
    */
   @FXML
-  JFXTextField textField;
+  private JFXTextField textField;
   @FXML
-  ImageView jclubs, jspades, jhearts, jdiamonds;
+  private ImageView jclubs;
+  @FXML
+  private ImageView jspades;
+  @FXML
+  private ImageView jhearts;
+  @FXML
+  private ImageView jdiamonds;
   @FXML
   private AnchorPane pane;
 
-  
+
   /**
-   *@author lstrauch
+   * Constructor.
+   * 
+   * @author lstrauch
    */
   public LoginController() {
     this.main = new GuiController();
@@ -56,6 +68,8 @@ public class LoginController implements Initializable {
 
 
   /**
+   * displays createNewAccount-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -63,7 +77,9 @@ public class LoginController implements Initializable {
     main.displayCreateNewAccount();
   }
 
-  /** (non-Javadoc)
+  /**
+   * (non-Javadoc).
+   * 
    * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
    * 
    * @author lstrauch
@@ -75,48 +91,47 @@ public class LoginController implements Initializable {
   }
 
   /**
+   * displays gameMode-Screen.
+   * 
    * @author lstrauch
    */
   @FXML
   public void login() {
-    System.out.println("Tada");
     username = textField.getText();
-    
-//    try {
-//      if (!interfGD.checkIfPlayerNew(username)) {
-        main.displayChooseGame();
-        interfGL.login(username, null);
-//      } else {
-//        if(!pane.getChildren().contains(noUsername)) {
-//          displayNoUser(); 
-//        }
-//      }
-//    } catch (SQLException e) {
-//      // TODO Auto-generated catch block
-//      e.printStackTrace();
-//    }
-    
-//    main.displayChooseGame();
+
+    // try {
+    // if (!interfGD.checkIfPlayerNew(username)) {
+    main.displayChooseGame();
+    interfGL.login(username, null);
+    // } else {
+    // if(!pane.getChildren().contains(noUsername)) {
+    // displayNoUser();
+    // }
+    // }
+    // } catch (SQLException e) {
+    // // TODO Auto-generated catch block
+    // e.printStackTrace();
+    // }
+
+    // main.displayChooseGame();
   }
 
   /**
+   * setc jack pictures at the top.
+   * 
    * @author lstrauch
    */
   public void setImages() {
     GuiData inte = new ImplementsGuiInterface();
-//    Card clubsJ = new Card(Colour.CLUBS, Number.JACK);
-//    jclubs.setImage(inte.getImage("clubs", "jack"));
-//    jspades.setImage(inte.getImage("spades", "jack"));
-//    jhearts.setImage(inte.getImage("hearts", "jack"));
-//    jdiamonds.setImage(inte.getImage("diamonds", "jack"));
-//    
-    jclubs.setImage(inte.getImage(new Card(Colour.CLUBS, Number.JACK)));
-    jspades.setImage(inte.getImage(new Card(Colour.SPADES, Number.JACK)));
-    jhearts.setImage(inte.getImage(new Card(Colour.HEARTS, Number.JACK)));
-    jdiamonds.setImage(inte.getImage(new Card(Colour.DIAMONDS, Number.JACK)));
+    jclubs.setImage(interfGD.getImage(new Card(Colour.CLUBS, Number.JACK)));
+    jspades.setImage(interfGD.getImage(new Card(Colour.SPADES, Number.JACK)));
+    jhearts.setImage(interfGD.getImage(new Card(Colour.HEARTS, Number.JACK)));
+    jdiamonds.setImage(interfGD.getImage(new Card(Colour.DIAMONDS, Number.JACK)));
   }
 
   /**
+   * defines label no user
+   * 
    * @author lstrauch
    */
   public void displayNoUser() {
@@ -128,20 +143,25 @@ public class LoginController implements Initializable {
     noUsername.setFont(Font.font("System", FontWeight.BOLD, 21));
     noUsername.setStyle("-fx-background-color: white; -fx-text-fill: red");
     noUsername.setAlignment(Pos.CENTER);
-    
+
     pane.getChildren().add(noUsername);
   }
 
-  
+
+  /**
+   * displays previous screen.
+   * 
+   * @author lstrauch
+   */
   public static void displayPrev() {
-//    1: ChooseGame
-//    2: LobbyOnline
-//    3: GameSettings
-//    4: Lobby
-//    5: SetAI
-//    6: InGame
-//    7: 
-    switch(GuiController.prevScreen) {
+    // 1: ChooseGame
+    // 2: LobbyOnline
+    // 3: GameSettings
+    // 4: Lobby
+    // 5: SetAI
+    // 6: InGame
+    // 7:
+    switch (GuiController.prevScreen) {
       case 1:
         main.displayChooseGame();
         break;
@@ -153,6 +173,8 @@ public class LoginController implements Initializable {
         break;
       case 4:
         main.displayInGame();
+        break;
+      default:
         break;
     }
   }

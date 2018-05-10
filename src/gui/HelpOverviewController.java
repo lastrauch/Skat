@@ -10,13 +10,15 @@ public class HelpOverviewController {
 
   /**
    * initializes non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController main;
 
   /**
    * Constructor.
-   *@author lstrauch
+   * 
+   * @author lstrauch
    */
   public HelpOverviewController() {
     this.main = new GuiController();
@@ -24,6 +26,7 @@ public class HelpOverviewController {
 
   /**
    * main.display Help-screen.
+   * 
    * @author lstrauch
    */
   @FXML

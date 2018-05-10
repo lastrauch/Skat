@@ -13,9 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import logic.Player;
 
 public class Leaderboard3Controller implements Initializable {
 
@@ -89,7 +86,7 @@ public class Leaderboard3Controller implements Initializable {
     List<Label> rounds3 = new ArrayList<Label>();
 
 
-    for (int i = 0; i < main.getLobbyCon().getGS().getNrOfPlays() + 1; i++) {
+    for (int i = 0; i < main.getLobbyCon().getGs().getNrOfPlays() + 1; i++) {
       rounds1.add(new Label());
       rounds2.add(new Label());
       rounds3.add(new Label());

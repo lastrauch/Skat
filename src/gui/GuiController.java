@@ -36,7 +36,7 @@ public class GuiController extends Application {
   private static LobbyController lobbyCon;
   private AnchorPane lobby = null;
 
-  private static SetAIController lobbyLocalCon;
+  private static SetAiController lobbyLocalCon;
   private AnchorPane lobbyLocal = null;
 
   private static LobbyOnlineController lobbyOnlineCon;
@@ -520,7 +520,7 @@ public class GuiController extends Application {
         } catch (IOException e) {
           // TODO Auto-generated catch block
           e.printStackTrace();
-        } 
+        }
       }
     });
   }
@@ -543,7 +543,7 @@ public class GuiController extends Application {
         } catch (IOException e) {
           // TODO Auto-generated catch block
           e.printStackTrace();
-        } 
+        }
       }
     });
 

@@ -41,7 +41,7 @@ import logic.Position;
 public class InGameController implements Initializable, InGameInterface {
 
   /**
-   * Initialize Betting-screen
+   * Initialize Betting-screen.
    * 
    * @author lstrauch
    */
@@ -54,7 +54,7 @@ public class InGameController implements Initializable, InGameInterface {
   boolean notpressed;
 
   /**
-   * Initialize AuctionWinnerScreen
+   * Initialize AuctionWinnerScreen.
    * 
    * @author lstrauch
    */
@@ -78,7 +78,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Initialize takeSkat and siwtchSkat
+   * Initialize takeSkat and siwtchSkat.
    * 
    * @author lstrauch
    */
@@ -99,12 +99,15 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Initialize all non-FXML attributes
+   * Initialize all non-FXML attributes.
    * 
    * @author lstrauch
    */
   private GuiController main;
-  private Player pl1, pl2, pl3, pl4;
+  private Player pl1;
+  private Player pl2;
+  private Player pl3;
+  private Player pl4;
   private GuiData inte;
   private List<Card> cardlist;
   private Image noCard;
@@ -122,24 +125,110 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Initialize all FXML attributes
+   * Initialize all FXML attributes.
+   * 
+   * @author lstrauch
    */
   @FXML
-  private ImageView c1, c2, c3, c4, c5, c6, c7, c8, c9, c10;
+  private ImageView c1;
+  @FXML
+  private ImageView c2;
+  @FXML
+  private ImageView c3;
+  @FXML
+  private ImageView c4;
+  @FXML
+  private ImageView c5;
+  @FXML
+  private ImageView c6;
+  @FXML
+  private ImageView c7;
+  @FXML
+  private ImageView c8;
+  @FXML
+  private ImageView c9;
+  @FXML
+  private ImageView c10;
   private ImageView[] carray;
   @FXML
-  private ImageView r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, stichRechts;
+  private ImageView r1;
+  @FXML
+  private ImageView r2;
+  @FXML
+  private ImageView r3;
+  @FXML
+  private ImageView r4;
+  @FXML
+  private ImageView r5;
+  @FXML
+  private ImageView r6;
+  @FXML
+  private ImageView r7;
+  @FXML
+  private ImageView r8;
+  @FXML
+  private ImageView r9;
+  @FXML
+  private ImageView r10;
+  @FXML
+  private ImageView stichRechts;
   private ImageView[] rarray;
   @FXML
-  private ImageView l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, stichLinks;
+  private ImageView l1;
+  @FXML
+  private ImageView l2;
+  @FXML
+  private ImageView l3;
+  @FXML
+  private ImageView l4;
+  @FXML
+  private ImageView l5;
+  @FXML
+  private ImageView l6;
+  @FXML
+  private ImageView l7;
+  @FXML
+  private ImageView l8;
+  @FXML
+  private ImageView l9;
+  @FXML
+  private ImageView l10;
+  @FXML
+  private ImageView stichLinks;
   private ImageView[] larray;
   @FXML
-  private ImageView o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, stichOben;
+  private ImageView o1;
+  @FXML
+  private ImageView o2;
+  @FXML
+  private ImageView o3;
+  @FXML
+  private ImageView o4;
+  @FXML
+  private ImageView o5;
+  @FXML
+  private ImageView o6;
+  @FXML
+  private ImageView o7;
+  @FXML
+  private ImageView o8;
+  @FXML
+  private ImageView o9;
+  @FXML
+  private ImageView o10;
+  @FXML
+  private ImageView stichOben;
   private ImageView[] oarray;
   @FXML
-  private ImageView s1, s2, s3;
+  private ImageView s1;
   @FXML
-  private ImageView extra1, extra2;
+  private ImageView s2;
+  @FXML
+  private ImageView s3;
+  @FXML
+  private ImageView extra1;
+  @FXML
+  private ImageView extra2;
   @FXML
   private AnchorPane mainPane;
   @FXML
@@ -153,13 +242,25 @@ public class InGameController implements Initializable, InGameInterface {
   @FXML
   private JFXTextField textM;
   @FXML
-  private Label labelLeft, labelRight, labelMiddle, labelMe;
+  private Label labelLeft;
   @FXML
-  private ImageView profilepictureLeft, profilepictureRight;
+  private Label labelRight;
   @FXML
-  private ImageView bubbleLeft, bubbleRight, bubbleUp;
+  private Label labelMiddle;
   @FXML
-  private Label betLeft, betUp, betRight;
+  private Label labelMe;
+  @FXML
+  private ImageView bubbleLeft;
+  @FXML
+  private ImageView bubbleRight;
+  @FXML
+  private ImageView bubbleUp;
+  @FXML
+  private Label betLeft;
+  @FXML
+  private Label betUp;
+  @FXML
+  private Label betRight;
   @FXML
   private Label timeUp;
   @FXML
@@ -183,7 +284,9 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Initiliazise GuiController and Implements class
+   * Initialize GuiController and Implements class.
+   * 
+   * @author lstrauch
    */
   public InGameController() {
     this.main = new GuiController();
@@ -191,7 +294,7 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
-   * (non-Javadoc)
+   * (non-Javadoc).
    * 
    * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
    * 
@@ -310,7 +413,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
 
-    if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
+    if (main.getLobbyCon().getGs().getNrOfPlayers() == 4) {
       initialize4();
     } else {
       for (int i = 0; i < 10; i++) {
@@ -321,54 +424,19 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * 
-   * Deletes the pane on the mainpane, so we can display the new one
+   * Deletes the pane on the mainpane, so we can display the new one.
    * 
    * @author lstrauch
-   * @param tpane
+   * @param tpane AnchorPane
    */
   public void deletePane(AnchorPane tpane) {
     mainPane.getChildren().remove(tpane);
   }
 
 
-
   /**
+   * starts the play.
    * 
-   * @author lstrauch
-   */
-  public void showChat() {
-    JFXTextField rmes = new JFXTextField();
-    // rMes.setText((LoginController.interfGL.getChatText()));
-    chatM.appendText(rmes + "\n");
-
-  }
-
-  /**
-   * @author lstrauch
-   */
-  public void sendChat() {
-    String message;
-    message = textM.getText();
-    LoginController.interfGL.sendChatText(message);
-
-  }
-
-
-
-  /**
-   * 
-   * 
-   * 
-   * 
-   * The next part implements all the methods from inGameInterface
-   * 
-   * 
-   * 
-   * 
-   */
-
-  /**
    * @author lstrauch
    */
   /*
@@ -393,6 +461,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * updates the hand.
+   * 
    * @author lstrauch
    */
   /*
@@ -410,9 +480,6 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
-  /**
-   * @author lstrauch
-   */
   /*
    * (non-Javadoc)
    * 
@@ -427,6 +494,8 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
+   * displays who won the trick.
+   * 
    * @author lstrauch
    */
   /*
@@ -502,6 +571,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * displays rekontra-button.
+   * 
    * @author lstrauch
    */
   /*
@@ -527,6 +598,11 @@ public class InGameController implements Initializable, InGameInterface {
     });
   }
 
+  /**
+   * initializes the gae screen with 4 players.
+   * 
+   * @author lstrauch
+   */
   public void initialize4() {
     if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
       for (int i = 0; i < 10; i++) {
@@ -546,7 +622,7 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
-   * Auction
+   * Auction.
    * 
    * @author lstrauch
    */
@@ -559,7 +635,6 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void openAskForBet(int bet) {
     // TODO Auto-generated method stub
-    System.out.println("OPENASKFORBET");
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -570,6 +645,8 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
+   * enables buttonListener.
+   * 
    * @author lstrauch
    */
   /*
@@ -721,7 +798,7 @@ public class InGameController implements Initializable, InGameInterface {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        if (main.getLobbyCon().getGS().isEnableKontra()
+        if (main.getLobbyCon().getGs().isEnableKontra()
             && !LoginController.interfGL.getPlayer().isDeclarer()) {
           displayKontra();
           kontra.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
@@ -743,7 +820,7 @@ public class InGameController implements Initializable, InGameInterface {
         deletePane(handPane);
         deletePane(paneAuc);
         rearrangeCardsDark(cardlist);
-        if (main.getLobbyCon().getGS().getNrOfPlayers() == 3) {
+        if (main.getLobbyCon().getGs().getNrOfPlayers() == 3) {
           if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
             if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
               if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
@@ -957,7 +1034,7 @@ public class InGameController implements Initializable, InGameInterface {
         betLeft.setText(null);
         betUp.setText(null);
         deletePane(paneBet);
-        if (main.getLobbyCon().getGS().getNrOfPlayers() == 3) {
+        if (main.getLobbyCon().getGs().getNrOfPlayers() == 3) {
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
             if (player.getPosition() == Position.MIDDLEHAND) {
               bubbleLeft.setImage(bubbleL);
@@ -1127,7 +1204,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showOpen(Player player) {
     // TODO Auto-generated method stub
-    if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
+    if (main.getLobbyCon().getGs().getNrOfPlayers() == 4) {
       if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
         if (player.getPosition() == Position.MIDDLEHAND) {
           rearrangeCardsLeft(player.getHand());
@@ -1198,7 +1275,7 @@ public class InGameController implements Initializable, InGameInterface {
 
     while (clicked == false) {
       // TODO Auto-generated method stub
-      if (main.getLobbyCon().getGS().isLimitedTime()) {
+      if (main.getLobbyCon().getGs().isLimitedTime()) {
         while (System.currentTimeMillis() / 1000 < end && clicked == false) {
           mouseHandler();
         }
@@ -1303,7 +1380,7 @@ public class InGameController implements Initializable, InGameInterface {
           // TODO Auto-generated catch block
           e.printStackTrace();
         }
-        if (main.getLobbyCon().getGS().getNrOfPlayers() == 3) {
+        if (main.getLobbyCon().getGs().getNrOfPlayers() == 3) {
           rearrangeCardsDark(cardlist);
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
             if (player.getPosition() == Position.MIDDLEHAND) {
@@ -1425,7 +1502,7 @@ public class InGameController implements Initializable, InGameInterface {
           timeUp.setText(null);
         }
         random = false;
-        if (main.getLobbyCon().getGS().isEnableKontra()) {
+        if (main.getLobbyCon().getGs().isEnableKontra()) {
           mainPane.getChildren().remove(kontra);
         }
       }
@@ -1640,11 +1717,9 @@ public class InGameController implements Initializable, InGameInterface {
       }
     }
     if (list.get(list.size() - 1) != null) {
-      carray[list.size() - 1].setImage(
-          inte.getImageDarker(list.get(list.size() - 1)));
+      carray[list.size() - 1].setImage(inte.getImageDarker(list.get(list.size() - 1)));
     } else {
-      carray[list.size() - 1]
-          .setImage(inte.getImage(list.get(list.size() - 1)));
+      carray[list.size() - 1].setImage(inte.getImage(list.get(list.size() - 1)));
     }
   }
 

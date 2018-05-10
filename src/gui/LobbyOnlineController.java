@@ -18,15 +18,21 @@ import network.server.Server;
 public class LobbyOnlineController implements Initializable {
 
   @FXML
-  private VBox vboxNr, vboxUser, vboxMessage, vboxJoin;
+  private VBox vboxNr;
+  @FXML
+  private VBox vboxUser;
+  @FXML
+  private VBox vboxMessage;
+  @FXML
+  private VBox vboxJoin;
 
   private GuiController main;
-  ArrayList<Label> nr = new ArrayList<Label>();
-  ArrayList<Label> user = new ArrayList<Label>();
-  ArrayList<Label> message = new ArrayList<Label>();
-  ArrayList<JFXButton> join = new ArrayList<JFXButton>();
+  private ArrayList<Label> nr = new ArrayList<Label>();
+  private ArrayList<Label> user = new ArrayList<Label>();
+  private ArrayList<Label> message = new ArrayList<Label>();
+  private ArrayList<JFXButton> join = new ArrayList<JFXButton>();
   private boolean hostgame = false;
-  ArrayList<Server> server = new ArrayList<Server>();
+  private ArrayList<Server> server = new ArrayList<Server>();
 
 
   public LobbyOnlineController() {
@@ -36,6 +42,8 @@ public class LobbyOnlineController implements Initializable {
 
 
   /**
+   * display settings-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -44,6 +52,8 @@ public class LobbyOnlineController implements Initializable {
   }
 
   /**
+   * display help-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -52,6 +62,8 @@ public class LobbyOnlineController implements Initializable {
   }
 
   /**
+   * display account-settings-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -60,27 +72,35 @@ public class LobbyOnlineController implements Initializable {
   }
 
   /**
+   * starts a new game.
+   * 
    * @author lstrauch
    */
   @FXML
   public void startNewGame() {
-    // LoginController.interfGL.hostGame("Hi", new GameSettings());
-    // main.getGameSetCon().setGameMode(GameMode.MULTIPLAYER);
     this.hostgame = true;
     main.displayGameSettings();
   }
 
+  /**
+   * refreshes lobby to display open server.
+   * 
+   * @author lstrauch
+   */
   @FXML
   public void refresh() {
     server = LoginController.interfGL.lobbyInformation();
     if (server.size() > 0) {
       displayServer();
-    } else {
-      System.out.println("No new server");
     }
   }
 
 
+  /**
+   * displays open server.
+   * 
+   * @author lstrauch
+   */
   public void displayServer() {
     System.out.println("Size: " + server.size());
     for (int i = 0; i < server.size(); i++) {

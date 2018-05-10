@@ -25,6 +25,8 @@ import javafx.scene.text.TextAlignment;
 import logic.GameMode;
 import logic.GameSettings;
 import logic.Player;
+
+
 public class LobbyController implements Initializable {
 
   private JFXButton back = new JFXButton();
@@ -69,10 +71,14 @@ public class LobbyController implements Initializable {
 
 
 
+  /**
+   * Constructor.
+   * 
+   * @author lstrauch
+   */
   public LobbyController() {
     guiCon = new GuiController();
     GuiController.prevScreen = 4;
-    // setGameSettingsLabel();
   }
 
   /*
@@ -84,7 +90,7 @@ public class LobbyController implements Initializable {
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
     if (guiCon.getGameSetCon() != null) {
-      setGM();
+      setGm();
       displaydiffentGameModes();
     }
     allbuttonsListener();
@@ -93,6 +99,11 @@ public class LobbyController implements Initializable {
   }
 
 
+  /**
+   * defines start-button.
+   * 
+   * @author lstrauch
+   */
   public void displayStartButton() {
     start.setPrefWidth(214.0);
     start.setPrefHeight(41.0);
@@ -101,14 +112,19 @@ public class LobbyController implements Initializable {
     start.setText("Start");
     start.setTextFill(Color.WHITE);
     start.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
-    start.setStyle(
-        "-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
+    start.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20;"
+        + " -fx-background-radius: 20; -fx-border-color: #D2B48C;");
     start.setButtonType(ButtonType.RAISED);
     start.setTextAlignment(TextAlignment.CENTER);
 
     mainPane.getChildren().add(start);
   }
 
+  /**
+   * define back-button.
+   * 
+   * @author lstrauch
+   */
   public void displayBackButton() {
     back.setPrefWidth(214.0);
     back.setPrefHeight(41.0);
@@ -117,14 +133,19 @@ public class LobbyController implements Initializable {
     back.setText("Back");
     back.setTextFill(Color.WHITE);
     back.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
-    back.setStyle(
-        "-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
+    back.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; "
+        + "-fx-background-radius: 20; -fx-border-color: #D2B48C;");
     back.setButtonType(ButtonType.RAISED);
     back.setTextAlignment(TextAlignment.CENTER);
 
     mainPane.getChildren().add(back);
   }
 
+  /**
+   * defines add-button.
+   * 
+   * @author lstrauch
+   */
   public void displayAddBotButton() {
     addBot.setPrefWidth(214.0);
     addBot.setPrefHeight(41.0);
@@ -133,14 +154,19 @@ public class LobbyController implements Initializable {
     addBot.setText("Add Bot");
     addBot.setTextFill(Color.WHITE);
     addBot.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18));
-    addBot.setStyle(
-        "-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
+    addBot.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20;"
+        + " -fx-background-radius: 20; -fx-border-color: #D2B48C;");
     addBot.setButtonType(ButtonType.RAISED);
     addBot.setTextAlignment(TextAlignment.CENTER);
 
     mainPane.getChildren().add(addBot);
   }
 
+  /**
+   * define delete-button.
+   * 
+   * @author lstrauch
+   */
   public void displayDeleteBotButton() {
     deleteBot.setPrefWidth(214);
     deleteBot.setPrefHeight(41);
@@ -149,14 +175,19 @@ public class LobbyController implements Initializable {
     deleteBot.setText("Delte Bot");
     deleteBot.setTextFill(Color.WHITE);
     deleteBot.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18));
-    deleteBot.setStyle(
-        "-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
+    deleteBot.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20;"
+        + " -fx-background-radius: 20; -fx-border-color: #D2B48C;");
     deleteBot.setButtonType(ButtonType.RAISED);
     deleteBot.setTextAlignment(TextAlignment.CENTER);
 
     mainPane.getChildren().add(deleteBot);
   }
 
+  /**
+   * define changeGameSettings-button.
+   * 
+   * @author lstrauch
+   */
   public void displayChangeGamesettingsButton() {
     change.setPrefWidth(214.0);
     change.setPrefHeight(41.0);
@@ -165,8 +196,8 @@ public class LobbyController implements Initializable {
     change.setText("Change Gamesettings");
     change.setTextFill(Color.WHITE);
     change.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
-    change.setStyle(
-        "-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
+    change.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; "
+        + "-fx-background-radius: 20; -fx-border-color: #D2B48C;");
 
     change.setButtonType(ButtonType.RAISED);
     change.setTextAlignment(TextAlignment.CENTER);
@@ -179,6 +210,11 @@ public class LobbyController implements Initializable {
     chatM.setFont(Font.font("System", FontWeight.BOLD, 18.0));
   }
 
+  /**
+   * send the written chat message.
+   * 
+   * @author lstrauch
+   */
   @FXML
   public void sendChatMessage() {
     String message;
@@ -187,6 +223,13 @@ public class LobbyController implements Initializable {
     LoginController.interfGL.sendChatText(message);
   }
 
+  /**
+   * displays the right amount of players.
+   * 
+   * @author lstrauch
+   * @param size number of player
+   * @param name playerlist
+   */
   public void displayPlayers(int size, List<Player> name) {
     Platform.runLater(new Runnable() {
       @Override
@@ -210,6 +253,8 @@ public class LobbyController implements Initializable {
                 name.get(3).getName());
             nrofplayers = 4;
             break;
+          default:
+            break;
         }
       }
 
@@ -217,6 +262,12 @@ public class LobbyController implements Initializable {
 
   }
 
+  /**
+   * defines p1.
+   * 
+   * @author lstrauch
+   * @param name playername
+   */
   public void displayOne(String name) {
     p1.setPrefWidth(213);
     p1.setPrefHeight(51);
@@ -229,11 +280,18 @@ public class LobbyController implements Initializable {
 
     System.out.println("ADDED ONE: " + p1.getText());
 
-    if(!vbox1.getChildren().contains(p1)) {
+    if (!vbox1.getChildren().contains(p1)) {
       vbox1.getChildren().add(p1);
     }
   }
 
+  /**
+   * displays p1, p2.
+   * 
+   * @author lstrauch
+   * @param name1 player1-name
+   * @param name2 player2-name
+   */
   public void displayTwo(String name1, String name2) {
     if (!vbox1.getChildren().contains(p1)) {
       displayOne(name1);
@@ -248,11 +306,19 @@ public class LobbyController implements Initializable {
     p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p2.setAlignment(Pos.CENTER);
 
-    if(!vbox1.getChildren().contains(p2)) {
+    if (!vbox1.getChildren().contains(p2)) {
       vbox1.getChildren().add(p2);
     }
   }
 
+  /**
+   * define p1,p2,p3.
+   * 
+   * @author lstrauch
+   * @param name1 player1-name
+   * @param name2 player2-name
+   * @param name3 player3-name
+   */
   public void displayThree(String name1, String name2, String name3) {
     if (!vbox1.getChildren().contains(p1) && !vbox2.getChildren().contains(p2)) {
       displayTwo(name1, name2);
@@ -266,11 +332,20 @@ public class LobbyController implements Initializable {
     p3.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p3.setAlignment(Pos.CENTER);
 
-    if(!vbox1.getChildren().contains(p3)) {
+    if (!vbox1.getChildren().contains(p3)) {
       vbox1.getChildren().add(p3);
     }
   }
 
+  /**
+   * define p1,p2,p3.
+   * 
+   * @author lstrauch
+   * @param name1 player1-name
+   * @param name2 player2-name
+   * @param name3 player3-name
+   * @param name4 player4-name
+   */
   public void displayFour(String name1, String name2, String name3, String name4) {
     if (!vbox1.getChildren().contains(p1) && !vbox1.getChildren().contains(p2)
         && !vbox1.getChildren().contains(p3)) {
@@ -285,12 +360,18 @@ public class LobbyController implements Initializable {
     p4.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p4.setAlignment(Pos.CENTER);
 
-    if(!vbox1.getChildren().contains(p4)) {
+    if (!vbox1.getChildren().contains(p4)) {
       vbox1.getChildren().add(p4);
     }
   }
 
 
+  /**
+   * sets/displays current GameSettings ob LobbyScreen.
+   * 
+   * @author lstrauch
+   * @param gs current
+   */
   public void setGameSettingsLabel(GameSettings gs) {
     this.gs = gs;
     Platform.runLater(new Runnable() {
@@ -313,23 +394,28 @@ public class LobbyController implements Initializable {
     });
   }
 
-  public GameSettings getGS() {
+  /**
+   * returns GameSettings.
+   * 
+   * @author lstrauch
+   * @return GameSettings
+   */
+  public GameSettings getGs() {
     return this.gs;
   }
 
 
+  /**
+   * adds Listener to different buttons.
+   * 
+   * @author lstrauch
+   */
   public void allbuttonsListener() {
     start.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-        // if(nrofplayers == 3 || nrofplayers == 4) {
-        // LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
-        // LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
         LoginController.interfGL.startGame(gs);
-        // } else {
-        // System.out.println("Not enough players selected");
-        // }
       }
     });
     back.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -389,25 +475,34 @@ public class LobbyController implements Initializable {
 
   }
 
+  /**
+   * checks which label is a bot.
+   * 
+   * @author lstrauch
+   * @param s
+   * @return true or false
+   */
   public boolean checkIfBot(String s) {
-     if (s.equals("Bot 1") || s.equals("Bot 2") || s.equals("Bot 3)")) {
-     return true;
-     } else {
-       return false;
-     }
+    if (s.equals("Bot 1") || s.equals("Bot 2") || s.equals("Bot 3)")) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  /**
-   * @author lstrauch
-   */
 
-  public void setGM() {
+  public void setGm() {
     this.gm = guiCon.getGameSetCon().getGm();
   }
 
+  /**
+   * depending in which mode you are, show different styles.
+   * 
+   * @author lstrauch
+   */
   public void displaydiffentGameModes() {
-    if(guiCon.getLobbyOnlineCon() != null) {
-      if(guiCon.getLobbyOnlineCon().getHostegame()) {
+    if (guiCon.getLobbyOnlineCon() != null) {
+      if (guiCon.getLobbyOnlineCon().getHostegame()) {
         displayStartButton();
         displayAddBotButton();
         displayDeleteBotButton();
@@ -437,9 +532,11 @@ public class LobbyController implements Initializable {
   }
 
 
-
-  // }
-
+  /**
+   * displays a label if not enough player are added.
+   * 
+   * @author lstrauch
+   */
   public void displayNoUser() {
     notenoughpl.setLayoutX(14);
     notenoughpl.setLayoutY(375);

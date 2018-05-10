@@ -6,20 +6,23 @@ public class HelpPlayController {
 
   /**
    * initializes non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController main;
 
   /**
    * Constructor.
-   *@author lstrauch
+   * 
+   * @author lstrauch
    */
   public HelpPlayController() {
     this.main = new GuiController();
   }
 
-  /** 
+  /**
    * main.display Help-screen.
+   * 
    * @author lstrauch
    */
   @FXML

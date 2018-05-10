@@ -7,13 +7,15 @@ public class HelpCardsController {
 
   /**
    * initializes non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController main;
 
   /**
    * Constructor.
-   *@author lstrauch
+   * 
+   * @author lstrauch
    */
   public HelpCardsController() {
     this.main = new GuiController();
@@ -21,6 +23,7 @@ public class HelpCardsController {
 
   /**
    * go back to Help-screen.
+   * 
    * @author lstrauch
    */
   @FXML
