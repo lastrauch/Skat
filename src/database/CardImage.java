@@ -13,9 +13,9 @@ public class CardImage {
   public CardImage(String colour, String number, String dark, Image image) {
     Colour col = this.setColour(colour);
     Number nr = this.setNumber(number);
-    this.setCard(new Card(col, nr));
-    this.setDark(this.setDark(dark));
-    this.setImg(image);
+    this.card = new Card(col, nr);
+    this.dark = this.setDark(dark);
+    this.img = image;
   }
 
   public Colour setColour(String col) {
@@ -102,6 +102,6 @@ public class CardImage {
   public void setImg(Image img) {
     this.img = img;
   }
-  
+
 
 }
