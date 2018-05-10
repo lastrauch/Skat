@@ -2,6 +2,7 @@ package interfaces;
 
 import java.sql.SQLException;
 import javafx.scene.image.Image;
+import logic.Card;
 import logic.Player;
 
 // Gui to Database, implemented by Database
@@ -15,7 +16,7 @@ public interface GuiData {
    * @param number of the card
    * @return img
    */
-  public Image getImage(String colour, String number);
+  public Image getImage(Card card);
 
   /**
    * Should return the darker image of the Card.
@@ -25,7 +26,7 @@ public interface GuiData {
    * @param number of the card
    * @return img
    */
-  public Image getImageDarker(String colour, String number);
+  public Image getImageDarker(Card card);
 
   /**
    * Saves a player profile in the Database.
