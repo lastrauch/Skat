@@ -9,6 +9,7 @@ public class ImplementsLogicGui implements LogicGui {
 
   /**
    * initializes non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController guiCon = new GuiController();
@@ -24,7 +25,7 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public void updateLobby(GameSettings gs, List<Player> group) {
     System.out.println("group.size: " + group.size());
-    for(int i = 0; i < group.size(); i++) {
+    for (int i = 0; i < group.size(); i++) {
       System.out.println("group(" + i + "): " + group.get(i));
     }
     guiCon.getLobbyCon().displayPlayers(group.size(), group);
@@ -55,7 +56,7 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public void startInGameScreen() {
     // TODO Auto-generated method stub
-    
+
     guiCon.displayInGame();
   }
 

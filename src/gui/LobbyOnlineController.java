@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import network.server.Server;
 
 public class LobbyOnlineController implements Initializable {
 
@@ -25,6 +26,7 @@ public class LobbyOnlineController implements Initializable {
   ArrayList<Label> message = new ArrayList<Label>();
   ArrayList<JFXButton> join = new ArrayList<JFXButton>();
   private boolean hostgame = false;
+  ArrayList<Server> server = new ArrayList<Server>();
 
 
   public LobbyOnlineController() {
@@ -70,7 +72,8 @@ public class LobbyOnlineController implements Initializable {
 
   @FXML
   public void refresh() {
-    if (LoginController.interfGL.lobbyInformation().size() > 0) {
+    server = LoginController.interfGL.lobbyInformation();
+    if (server.size() > 0) {
       displayServer();
     } else {
       System.out.println("No new server");
@@ -79,32 +82,32 @@ public class LobbyOnlineController implements Initializable {
 
 
   public void displayServer() {
-    System.out.println("Size: " + LoginController.interfGL.lobbyInformation().size());
-    for (int i = 0; i < LoginController.interfGL.lobbyInformation().size(); i++) {
+    System.out.println("Size: " + server.size());
+    for (int i = 0; i < server.size(); i++) {
       nr.add(new Label());
       user.add(new Label());
       message.add(new Label());
       join.add(new JFXButton());
     }
-    for (int i = 0; i < nr.size(); i++) {
-      nr.get(i)
-          .setText(String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getNumPlayer())
-              + "/"
-              + String.valueOf(LoginController.interfGL.lobbyInformation().get(i).getMaxPlayer()));
-      nr.get(i).setFont(Font.font("System", 23));
 
-      if(!vboxNr.getChildren().contains(vboxNr.getChildren().get(i))) {
+    for (int i = 0; i < nr.size(); i++) {
+      nr.get(i).setText(String.valueOf(server.get(i).getNumPlayer()) + "/"
+          + String.valueOf(server.get(i).getMaxPlayer()));
+      nr.get(i).setFont(Font.font("System", 18));
+
+      if (!vboxNr.getChildren().contains(nr.get(i))) {
         vboxNr.getChildren().add(nr.get(i));
       }
     }
 
     for (int i = 0; i < user.size(); i++) {
-      user.get(i).setText(LoginController.interfGL.lobbyInformation().get(i).getServerName());
-      user.get(i).setFont(Font.font("System", 15));
+      user.get(i).setText(server.get(i).getServerName());
+      user.get(i).setFont(Font.font("System", 18));
 
-      if(!vboxUser.getChildren().contains(vboxUser.getChildren().get(i))) {
-        vboxNr.getChildren().add(user.get(i));
+      if (!vboxUser.getChildren().contains(user.get(i))) {
+        vboxUser.getChildren().add(user.get(i));
       }
+
     }
 
     for (int i = 0; i < join.size(); i++) {
@@ -116,7 +119,7 @@ public class LobbyOnlineController implements Initializable {
           .setStyle("-fx-background-color: peru; -fx-text-fill: white; -fx-background-radius: 20");
       join.get(i).setAlignment(Pos.CENTER);
 
-      if(!vboxJoin.getChildren().contains(vboxJoin.getChildren().get(i))) {
+      if (!vboxJoin.getChildren().contains(join.get(i))) {
         vboxJoin.getChildren().add(join.get(i));
       }
 
@@ -147,7 +150,7 @@ public class LobbyOnlineController implements Initializable {
     // displayServer();
 
   }
-  
+
   public boolean getHostegame() {
     return hostgame;
   }

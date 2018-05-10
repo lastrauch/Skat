@@ -104,33 +104,21 @@ public class InGameController implements Initializable, InGameInterface {
    * @author lstrauch
    */
   private GuiController main;
-  private Player pl1, pl2, pl3;
-  private GuiData inte = new ImplementsGuiInterface();
-  private List<Card> cardlist = new ArrayList<Card>();
-  private Image noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
-  private Image rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
-  private Image bubbleL =
-      new Image(getClass().getResource("/Sprechblase_links.png").toExternalForm());
-  private Image bubbleR =
-      new Image(getClass().getResource("/Sprechblase_rechts.png").toExternalForm());
-  private Image bubbleU =
-      new Image(getClass().getResource("/Sprechblase_oben.png").toExternalForm());
-  private List<Card> skat = new ArrayList<Card>();
-  private Boolean[] da = new Boolean[2];
-  private boolean clicked = false;
-  int[] ret = new int[1];
-  private int countl = 10;
-  private int countr = 10;
-  private boolean random = false;
-
-
-  /**
-   * Initialize ChatScreen
-   */
-  private Image pfUnten =
-      new Image(getClass().getResource("/icons8-unten-eingekreist-50.png").toExternalForm());
-  private Image pfOben =
-      new Image(getClass().getResource("/icons8-oben-eingekreist-50.png").toExternalForm());
+  private Player pl1, pl2, pl3, pl4;
+  private GuiData inte;
+  private List<Card> cardlist;
+  private Image noCard;
+  private Image rueckseite;
+  private Image bubbleL;
+  private Image bubbleR;
+  private Image bubbleU;
+  private List<Card> skat;
+  private Boolean[] da;
+  private boolean clicked;
+  int[] ret;
+  private int countl;
+  private int countr;
+  private boolean random;
 
 
   /**
@@ -138,16 +126,16 @@ public class InGameController implements Initializable, InGameInterface {
    */
   @FXML
   private ImageView c1, c2, c3, c4, c5, c6, c7, c8, c9, c10;
-  private ImageView[] carray = new ImageView[10];
+  private ImageView[] carray;
   @FXML
   private ImageView r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, stichRechts;
-  private ImageView[] rarray = new ImageView[10];
+  private ImageView[] rarray;
   @FXML
   private ImageView l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, stichLinks;
-  private ImageView[] larray = new ImageView[10];
+  private ImageView[] larray;
   @FXML
   private ImageView o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, stichOben;
-  private ImageView[] oarray = new ImageView[10];
+  private ImageView[] oarray;
   @FXML
   private ImageView s1, s2, s3;
   @FXML
@@ -256,11 +244,11 @@ public class InGameController implements Initializable, InGameInterface {
 
     inte = new ImplementsGuiInterface();
     cardlist = new ArrayList<Card>();
-    noCard = new Image(getClass().getResource("/grey.jpg").toExternalForm());
-    rueckseite = new Image(getClass().getResource("/rueckseite.jpg").toExternalForm());
-    bubbleL = new Image(getClass().getResource("/Sprechblase_links.png").toExternalForm());
-    bubbleR = new Image(getClass().getResource("/Sprechblase_rechts.png").toExternalForm());
-    bubbleU = new Image(getClass().getResource("/Sprechblase_oben.png").toExternalForm());
+    noCard = new Image(getClass().getResource("images/grey.jpg").toExternalForm());
+    rueckseite = new Image(getClass().getResource("images/rueckseite.jpg").toExternalForm());
+    bubbleL = new Image(getClass().getResource("images/Sprechblase_links.png").toExternalForm());
+    bubbleR = new Image(getClass().getResource("images/Sprechblase_rechts.png").toExternalForm());
+    bubbleU = new Image(getClass().getResource("images/Sprechblase_oben.png").toExternalForm());
     skat = new ArrayList<Card>();
     da = new Boolean[2];
     clicked = false;
@@ -268,10 +256,6 @@ public class InGameController implements Initializable, InGameInterface {
     countl = 10;
     countr = 10;
     random = false;
-
-    pfUnten =
-        new Image(getClass().getResource("/icons8-unten-eingekreist-50.png").toExternalForm());
-    pfOben = new Image(getClass().getResource("/icons8-oben-eingekreist-50.png").toExternalForm());
 
     carray = new ImageView[10];
     rarray = new ImageView[10];
@@ -333,9 +317,6 @@ public class InGameController implements Initializable, InGameInterface {
         oarray[i].setImage(null);
       }
     }
-
-    chatButtonListener();
-
   }
 
 
@@ -514,6 +495,10 @@ public class InGameController implements Initializable, InGameInterface {
     return this.pl3;
   }
 
+  public Player getPlayer4() {
+    return this.pl4;
+  }
+
 
 
   /**
@@ -606,7 +591,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Do you want to take the Skat?
+   * Do you want to take the Skat?.
    * 
    * @author lstrauch
    */
@@ -626,8 +611,9 @@ public class InGameController implements Initializable, InGameInterface {
     });
   }
 
-
   /**
+   * asks if you want to take the Skat.
+   * 
    * @author lstrauch
    */
   /*
@@ -648,7 +634,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Declarer Stack
+   * Declarer Stack.
    * 
    * @author lstrauch
    */
@@ -670,6 +656,8 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
+   * enables the siwtchSat-Listener.
+   * 
    * @author lstrauch
    */
   /*
@@ -691,6 +679,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * opens AuctionWinner-screen.
+   * 
    * @author lstrauch
    */
   /*
@@ -715,8 +705,10 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * displays the set trump on the right position.
+   * 
    * @author lstrauch
-   * @param ps
+   * @param ps PlayState
    */
   /*
    * (non-Javadoc)
@@ -739,7 +731,6 @@ public class InGameController implements Initializable, InGameInterface {
             }
           });
         }
-        System.out.println("SETPLAYSETTINGSAFTERAUCTION");
         disableTraining();
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
@@ -811,7 +802,6 @@ public class InGameController implements Initializable, InGameInterface {
 
           // 4 Players
         } else {
-          System.out.println("playmode");
           if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
             if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
               if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
@@ -890,6 +880,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * turns cards light if it's your turn.
+   * 
    * @author lstrauch
    */
   /*
@@ -910,21 +902,23 @@ public class InGameController implements Initializable, InGameInterface {
           training.setLayoutY(388);
           if (LoginController.interfGL.getPlayer().isDeclarer()
               && LoginController.interfGL.getPlayer().getPosition() != Position.DEALER) {
-            displayTraining(
-                "1.   Play your trumps! When the opponents lost all their trumps, you are unstoppable like a train without brakes.\n"
-                    + "2.  Be brave! If a color was not played yet and you have an Ass, play it and save the points!\n"
-                    + "3.  Save your own ASS and TEN! And you will be the winner then!\n"
-                    + "4.  Have you seen ASS and TEN do not play this color again!\n"
-                    + "5.  Count the Trumps! This is important like a condom at a One-Night-Stand.");
+            displayTraining("1.   Play your trumps! When the opponents lost all their trumps, "
+                + "you are unstoppable like a train without brakes.\n"
+                + "2.  Be brave! If a color was not played "
+                + "yet and you have an Ass, play it and save the points!\n"
+                + "3.  Save your own ASS and TEN! And you will be the winner then!\n"
+                + "4.  Have you seen ASS and TEN do not play this color again!\n"
+                + "5.  Count the Trumps! This is important like"
+                + " a condom at a One-Night-Stand.");
             training.toFront();
           } else if (!LoginController.interfGL.getPlayer().isDeclarer()
               && LoginController.interfGL.getPlayer().getPosition() != Position.DEALER) {
-            displayTraining(
-                "1. Be brave! If a Suit was not played yet and you have an Ass, play it and save the points!\n"
-                    + "2.  Save your own ASS and TEN! And you will be the winner then!\n"
-                    + "3.  Have you seen ASS and TEN do not play this color again!\n"
-                    + "4.  Count the Trumps! This is important like a condom at a One-Night-Stand.\n"
-                    + "5.  Keep the declarer in the middle!");
+            displayTraining("1. Be brave! If a Suit was not played yet and you have an Ass,"
+                + " play it and save the points!\n"
+                + "2.  Save your own ASS and TEN! And you will be the winner then!\n"
+                + "3.  Have you seen ASS and TEN do not play this color again!\n"
+                + "4.  Count the Trumps! This is important like a"
+                + " condom at a One-Night-Stand.\n" + "5.  Keep the declarer in the middle!");
             training.toFront();
           }
         }
@@ -935,22 +929,9 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * lstrauch
-   */
-
-  /*
-   * (non-Javadoc)
+   * display the new bet from opponent.
    * 
-   * @see interfaces.InGameInterface#showSecondsLeftToPlayCard(int)
-   */
-  @Override
-  public void showSecondsLeftToPlayCard(int seconds) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /**
-   * lstrauch
+   * @author lstrauch
    */
   /*
    * (non-Javadoc)
@@ -1117,6 +1098,11 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+  /**
+   * turns cards dark if it's not possible to play the clicked one.
+   * 
+   * @author lstrauch
+   */
   /*
    * (non-Javadoc)
    * 
@@ -1128,6 +1114,11 @@ public class InGameController implements Initializable, InGameInterface {
     rearrangeCardsNotPossible(cards);
   }
 
+  /**
+   * displays opponents cards if ouvert was selected.
+   * 
+   * @author lstrauch
+   */
   /*
    * (non-Javadoc)
    * 
@@ -1136,13 +1127,7 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showOpen(Player player) {
     // TODO Auto-generated method stub
-    for (int i = 0; i < player.getHand().size(); i++) {
-      System.out.println("OUVERT HAND: " + player.getHand().get(i));
-    }
-    System.out.println("OPEN!!!!!!!!!!!!!!!!!!!!!!");
-
     if (main.getLobbyCon().getGS().getNrOfPlayers() == 4) {
-      System.out.println("OPEN2!!!!!!");
       if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
         if (player.getPosition() == Position.MIDDLEHAND) {
           rearrangeCardsLeft(player.getHand());
@@ -1171,7 +1156,6 @@ public class InGameController implements Initializable, InGameInterface {
         }
       }
     } else {
-      System.out.println("OPEN2!!!!!!");
       if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
         if (player.getPosition() == Position.MIDDLEHAND) {
           rearrangeCardsLeft(player.getHand());
@@ -1194,6 +1178,12 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /**
+   * enables MouseHandler to make it able to play a card. plays random card after a certain time if
+   * limited time is set.
+   * 
+   * @author lstrauch
+   */
   /*
    * (non-Javadoc)
    * 
@@ -1225,6 +1215,14 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
+  /**
+   * selects a possile random card from hand.
+   * 
+   * @author lstrauch
+   * @param ps PlayState
+   * @param player Player
+   * @return cardindex of played card
+   */
   public static int playRandomCard(PlayState ps, Player player) {
     List<Card> cards = LoginController.interfGL.getPlayer().getHand();
     List<Card> possibleCards = new ArrayList<Card>();
@@ -1252,6 +1250,11 @@ public class InGameController implements Initializable, InGameInterface {
     return index;
   }
 
+  /**
+   * displays Leaderboard.
+   * 
+   * @author lstrauch
+   */
   /*
    * (non-Javadoc)
    * 
@@ -1262,14 +1265,16 @@ public class InGameController implements Initializable, InGameInterface {
     // TODO Auto-generated method stub
     System.out.println("SHOW SCORE!!!");
     if (player.size() == 3) {
-      this.pl1 = player.get(1);
-      this.pl2 = player.get(2);
+      this.pl1 = player.get(0);
+      this.pl2 = player.get(1);
+      this.pl3 = player.get(2);
       main.displayLeaderboard3();
     } else {
       System.out.println("Leaderboard 4");
-      this.pl1 = player.get(1);
-      this.pl2 = player.get(2);
-      this.pl3 = player.get(3);
+      this.pl1 = player.get(0);
+      this.pl2 = player.get(1);
+      this.pl3 = player.get(2);
+      this.pl4 = player.get(3);
       main.displayLeaderboard4();
       // main.getLead4Con().start();
     }
@@ -1277,7 +1282,9 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
-   * lstrauch
+   * displays the just played card on stack.
+   * 
+   * @author lstrauch
    */
   /*
    * (non-Javadoc)
@@ -1448,7 +1455,9 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
-   * lstrauch
+   * enables playsettings-listener.
+   * 
+   * @author lstrauch
    */
   /*
    * (non-Javadoc)
@@ -1483,6 +1492,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * displays help screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -1490,28 +1501,54 @@ public class InGameController implements Initializable, InGameInterface {
     main.displayHelp();
   }
 
+  /**
+   * displays trainingsmode.
+   * 
+   * @author lstrauch
+   * @param s
+   */
   public void displayTraining(String s) {
     training.setStyle(
         "-fx-background-color: tan; -fx-background-radius: 10; -fx-border-color: peru; -fx-border-radius: 10");
     training.setText(s);
   }
 
+  /**
+   * removes trainingsmode label.
+   * 
+   * @author lstrauch
+   */
   public void disableTraining() {
     training.setStyle(null);
     training.setText(null);
   }
 
+  /**
+   * displays kontra-button.
+   * 
+   * @author lstrauch
+   */
   public void displayKontra() {
     kontra.setText("KONTRA");
     kontra.setStyle(
         "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10");
   }
 
+  /**
+   * removes kontrabutton.
+   * 
+   * @author lstrauch
+   */
   public void deleteKontra() {
     kontra.setText(null);
     kontra.setStyle(null);
   }
 
+  /**
+   * displays rekontra-button.
+   * 
+   * @author lstrauch
+   */
   public void displayRekontra() {
     kontra.setText("KONTRA");
     kontra.setStyle(
@@ -1521,9 +1558,10 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * displays light cards.
+   * 
    * @author lstrauch
-   * @param size
-   * @param list
+   * @param list List
    */
   public void rearrangeCardsLight(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
@@ -1538,7 +1576,12 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
-
+  /**
+   * displays light dark.
+   * 
+   * @author lstrauch
+   * @param list List
+   */
   public void rearrangeCardsDark(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       carray[i].setImage(inte.getImageDarker(list.get(i).getColour().toString().toLowerCase(),
@@ -1551,6 +1594,12 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /**
+   * displays light on the left side if ouvert.
+   * 
+   * @author lstrauch
+   * @param list List
+   */
   public void rearrangeCardsLeft(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       larray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
@@ -1563,6 +1612,12 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /**
+   * displays light on the right side if ouvert.
+   * 
+   * @author lstrauch
+   * @param list List
+   */
   public void rearrangeCardsRight(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       rarray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
@@ -1575,6 +1630,12 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /**
+   * displays light on the left side if ouvert and 4 players.
+   * 
+   * @author lstrauch
+   * @param list List
+   */
   public void rearrangeCardsUp(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       oarray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
@@ -1587,6 +1648,12 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /**
+   * turns the not playable cards dark.
+   * 
+   * @author lstrauch
+   * @param list List
+   */
   public void rearrangeCardsNotPossible(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       if (list.get(i) != null) {
@@ -1612,8 +1679,10 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
+   * removes opponentscard on the right side after played.
+   * 
    * @author lstrauch
-   * @param anz
+   * @param anz anz
    */
   public void removeOpponentCardsRight(int anz) {
     switch (anz) {
@@ -1653,8 +1722,10 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
+   * removes opponentscard on the left side after played.
+   * 
    * @author lstrauch
-   * @param anz
+   * @param anz anz
    */
   public void removeOpponentCardsLeft(int anz) {
     switch (anz) {
@@ -1693,11 +1764,6 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
-  /**
-   * @author lstrauch
-   * @param size
-   * @param list
-   */
 
 
   /**
@@ -1723,10 +1789,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Hier wird definiert was passiert wenn man auf eine seiner jeweiligen Spielkarten klickt
-   * 
-   * ImageView sets Image to null Method AnzStichblatte wird aufgerufen, sodass Karten auf Stich
-   * gelegt werden gibt an Logik den Index der geklickten Karte weiter
+   * adds mouselistener to Imageview.
    * 
    * @author lstrauch
    */
@@ -1747,6 +1810,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * adds buttonlistener to bet-Buttons.
+   * 
    * @author lstrauch
    * @return
    */
@@ -1773,13 +1838,10 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * ButtonListener AuctionWinnerScree-buttons
+   * ButtonListener AuctionWinnerScree-buttons.
    * 
-   * @param ps
-   */
-  /**
    * @author lstrauch
-   * @param ps
+   * @param ps PlayState
    */
   public PlayState buttonListenerPlaySettings(PlayState ps) {
     boolean[] pressed = new boolean[1];
@@ -1861,14 +1923,10 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Button Listener WantSkat-buttons
+   * Button Listener WantSkat-buttons.
    * 
-   * @param ps
-   */
-  /**
    * @author lstrauch
-   * @param ps
-   * @return
+   * @param ps PlayState
    */
   public void buttonListenerWantSkat() {
     yes.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
@@ -1888,46 +1946,12 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
+
   /**
-   * Buttonlistener Chat-button
-   */
-  /**
+   * ButtonListener to switch Skat.
+   *
    * @author lstrauch
-   */
-  public void chatButtonListener() {
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        sendB.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent e) {
-            sendChat();
-          }
-        });
-        pf.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-
-          @Override
-          public void handle(MouseEvent event) {
-            if (pf.getImage().equals(pfUnten)) {
-              displayChatScreenOpen();
-            } else {
-              displayChatClosed();
-            }
-            System.out.println(pf.getImage());
-          }
-        });
-      }
-    });
-  }
-
-
-
-  /**
-   * ButtonListener to switch Skat
-   */
-  /**
-   * @author lstrauch
-   * @param ps
+   * @param ps PlayState
    */
   public void switchSkatListener(PlayState ps) {
 
@@ -2370,9 +2394,11 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * displays Cards for switchSkat.
+   * 
    * @author lstrauch
-   * @param anz
-   * @param cardlist2
+   * @param anz anz
+   * @param cardlist2 cardlist
    */
   public void displayCards(int anz, List<Card> cardlist2) {
     Platform.runLater(new Runnable() {
@@ -2478,37 +2504,35 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Display Auction part
+   * Display Auction part.
    * 
    * @author lstrauch
    */
   public void displayAuctionScreen() {
     paneBet.setLayoutX(475);
     paneBet.setLayoutY(188);
-    paneBet.setPrefHeight(60);
+    paneBet.setPrefHeight(200);
     paneBet.setPrefWidth(395);
-    paneBet.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+    paneBet.setStyle("-fx-background-color: tan; -fx-background-radius: 20; "
+        + "-fx-border-color: white; -fx-border-radius: 20");
 
-    pass.setId("pass");
     pass.setPrefHeight(44);
-    pass.setPrefWidth(69);
+    pass.setPrefWidth(75);
     pass.setText("Pass");
     pass.setFont(Font.font("System", FontWeight.BOLD, 20));
     pass.setTextFill(Color.WHITE);
-    pass.setStyle("-fx-background-color: tan;");
-    betB.setId("value");
+    pass.setStyle("-fx-background-color: peru;");
     betB.setPrefHeight(44);
-    betB.setPrefWidth(69);
+    betB.setPrefWidth(75);
     betB.setFont(Font.font("System", FontWeight.BOLD, 20));
     betB.setTextFill(Color.WHITE);
-    betB.setStyle("-fx-background-color: tan;");
+    betB.setStyle("-fx-background-color: peru;");
 
     labelBet.setPrefHeight(53);
     labelBet.setLayoutX(88);
-    labelBet.setLayoutY(36);
-    labelBet.setText("");
-    labelBet.setFont(Font.font("System", FontWeight.BOLD, 36));
+    labelBet.setLayoutY(20);
+    labelBet.setText("Auction");
+    labelBet.setFont(Font.font("System", FontWeight.BOLD, 30));
     labelBet.setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(labelBet, 0.0);
     AnchorPane.setRightAnchor(labelBet, 0.0);
@@ -2520,23 +2544,28 @@ public class InGameController implements Initializable, InGameInterface {
     }
     box.setPrefHeight(44);
     box.setLayoutX(60);
-    box.setLayoutY(108);
+    box.setLayoutY(58);
     box.setSpacing(100);
+    box.setAlignment(Pos.CENTER);
 
     if (!paneBet.getChildren().contains(box) && !paneBet.getChildren().contains(labelBet)) {
       paneBet.getChildren().add(box);
       paneBet.getChildren().add(labelBet);
+      AnchorPane.setLeftAnchor(box, 0.0);
+      AnchorPane.setRightAnchor(box, 0.0);
+      AnchorPane.setTopAnchor(box, 0.0);
+      AnchorPane.setBottomAnchor(box, 0.0);
     }
 
     if (!mainPane.getChildren().contains(paneBet)) {
       mainPane.getChildren().add(paneBet);
     }
     if (main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
-      displayTraining(
-          "1.   Be realistic! You won’t win the next round, if you don’t get at least six tricks and you won’t get the girl, when she didn’t drink at least six drinks.\n"
-              + "2.  You have more than two Jacks?  You’re either a slut or a winner!\n"
-              + "3.  You only have two Jacks? Hopefully they are the blacks.\n"
-              + "4.  Know your highest possible bet! Only a noob’s bet and Snoop Dog are higher. ");
+      displayTraining("1.   Be realistic! You won’t win the next round, if you don’t get at least "
+          + "six tricks and you won’t get the girl, when she didn’t drink at least six drinks.\n"
+          + "2.  You have more than two Jacks?  You’re either a slut or a winner!\n"
+          + "3.  You only have two Jacks? Hopefully they are the blacks.\n"
+          + "4.  Know your highest possible bet! Only a noob’s bet and Snoop Dog are higher. ");
       training.toFront();
     }
   }
@@ -2544,36 +2573,45 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * initializes aucionwinner-pane.
+   * 
    * @author lstrauch
    */
   public void displayAuctionWinnerScreen() {
-    paneAuc.setPrefHeight(315);
-    paneAuc.setPrefWidth(582);
+    paneAuc.setPrefHeight(330);
+    paneAuc.setPrefWidth(700);
     paneAuc.setLayoutX(334);
     paneAuc.setLayoutY(128);
-    paneAuc.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+    paneAuc.setStyle("-fx-background-color: tan; -fx-background-radius: 20; "
+        + "-fx-border-color: white; -fx-border-radius: 20");
 
-    diamonds.setPrefHeight(42);
-    diamonds.setPrefWidth(117);
-    diamonds.setText("Diamonds");
-    diamonds.setFont(Font.font("System", FontWeight.BOLD, 20));
-    diamonds.setStyle("-fx-background-color: tan;");
-    hearts.setPrefHeight(42);
-    hearts.setPrefWidth(117);
-    hearts.setText("Hearts");
-    hearts.setFont(Font.font("System", FontWeight.BOLD, 20));
-    hearts.setStyle("-fx-background-color: tan;");
-    spades.setPrefHeight(42);
-    spades.setPrefWidth(117);
-    spades.setText("Spades");
-    spades.setFont(Font.font("System", FontWeight.BOLD, 20));
-    spades.setStyle("-fx-background-color: tan;");
-    clubs.setPrefHeight(42);
-    clubs.setPrefWidth(117);
+    clubs.setPrefHeight(130);
+    clubs.setPrefWidth(130);
     clubs.setText("Clubs");
-    clubs.setFont(Font.font("System", FontWeight.BOLD, 20));
-    clubs.setStyle("-fx-background-color: tan;");
+    clubs.setTextFill(Color.WHITE);
+    clubs.setAlignment(Pos.CENTER);
+    clubs.setFont(Font.font("System", FontWeight.BOLD, 16));
+    clubs.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
+    spades.setPrefHeight(42);
+    spades.setPrefWidth(130);
+    spades.setText("Spades");
+    spades.setTextFill(Color.WHITE);
+    spades.setAlignment(Pos.CENTER);
+    spades.setFont(Font.font("System", FontWeight.BOLD, 16));
+    spades.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
+    hearts.setPrefHeight(42);
+    hearts.setPrefWidth(130);
+    hearts.setText("Hearts");
+    hearts.setTextFill(Color.WHITE);
+    hearts.setAlignment(Pos.CENTER);
+    hearts.setFont(Font.font("System", FontWeight.BOLD, 16));
+    hearts.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
+    diamonds.setPrefHeight(42);
+    diamonds.setPrefWidth(130);
+    diamonds.setText("Diamonds");
+    diamonds.setTextFill(Color.WHITE);
+    diamonds.setFont(Font.font("System", FontWeight.BOLD, 16));
+    diamonds.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     ToggleGroup g1 = new ToggleGroup();
     diamonds.setToggleGroup(g1);
     hearts.setToggleGroup(g1);
@@ -2584,53 +2622,58 @@ public class InGameController implements Initializable, InGameInterface {
 
     if (!boxWin1.getChildren().contains(diamonds) && !boxWin1.getChildren().contains(hearts)
         && !boxWin1.getChildren().contains(spades) && !boxWin1.getChildren().contains(clubs)) {
-      boxWin1.getChildren().add(diamonds);
-      boxWin1.getChildren().add(hearts);
-      boxWin1.getChildren().add(spades);
       boxWin1.getChildren().add(clubs);
+      boxWin1.getChildren().add(spades);
+      boxWin1.getChildren().add(hearts);
+      boxWin1.getChildren().add(diamonds);
     }
     boxWin1.setSpacing(20);
-    boxWin1.setPrefWidth(528);
+    boxWin1.setPrefWidth(650);
     boxWin1.setPrefHeight(42);
     boxWin1.setLayoutX(28);
     boxWin1.setLayoutY(60);
 
     grand.setPrefHeight(42);
-    grand.setPrefWidth(117);
+    grand.setPrefWidth(130);
     grand.setText("Grand");
-    grand.setFont(Font.font("System", FontWeight.BOLD, 20));
-    grand.setStyle("-fx-background-color: tan;");
+    grand.setTextFill(Color.WHITE);
+    grand.setFont(Font.font("System", FontWeight.BOLD, 16));
+    grand.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     nullG.setPrefHeight(42);
-    nullG.setPrefWidth(117);
+    nullG.setPrefWidth(130);
     nullG.setText("Null");
-    nullG.setFont(Font.font("System", FontWeight.BOLD, 20));
-    nullG.setStyle("-fx-background-color: tan;");
+    nullG.setTextFill(Color.WHITE);
+    nullG.setFont(Font.font("System", FontWeight.BOLD, 16));
+    nullG.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
 
     if (!boxWin2.getChildren().contains(grand) && !boxWin2.getChildren().contains(nullG)) {
       boxWin2.getChildren().add(grand);
       boxWin2.getChildren().add(nullG);
     }
-    boxWin2.setSpacing(158);
-    boxWin2.setPrefWidth(528);
+    boxWin2.setSpacing(165);
+    boxWin2.setPrefWidth(650);
     boxWin2.setPrefHeight(42);
     boxWin2.setLayoutX(28);
     boxWin2.setLayoutY(158);
 
     ouvert.setPrefHeight(21);
-    ouvert.setPrefWidth(102);
+    ouvert.setPrefWidth(120);
     ouvert.setText("Ouvert");
+    ouvert.setTextFill(Color.WHITE);
     ouvert.setFont(Font.font("System", 15));
-    ouvert.setStyle("-fx-background-color: tan;");
+    ouvert.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     schneider.setPrefHeight(21);
-    schneider.setPrefWidth(102);
+    schneider.setPrefWidth(120);
     schneider.setText("Schneider");
+    schneider.setTextFill(Color.WHITE);
     schneider.setFont(Font.font("System", 15));
-    schneider.setStyle("-fx-background-color: tan;");
+    schneider.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
     schwarz.setPrefHeight(21);
-    schwarz.setPrefWidth(102);
+    schwarz.setPrefWidth(120);
     schwarz.setText("Schwarz");
+    schwarz.setTextFill(Color.WHITE);
     schwarz.setFont(Font.font("System", 15));
-    schwarz.setStyle("-fx-background-color: tan;");
+    schwarz.setStyle("-fx-background-color: peru; -fx-background-radius: 20;");
 
     if (!boxWin3.getChildren().contains(ouvert) && !boxWin3.getChildren().contains(schneider)
         && !boxWin3.getChildren().contains(schwarz)) {
@@ -2639,7 +2682,7 @@ public class InGameController implements Initializable, InGameInterface {
       boxWin3.getChildren().add(schwarz);
     }
     boxWin3.setSpacing(35);
-    boxWin3.setPrefWidth(528);
+    boxWin3.setPrefWidth(650);
     boxWin3.setPrefHeight(21);
     boxWin3.setLayoutX(28);
     boxWin3.setLayoutY(266);
@@ -2651,16 +2694,17 @@ public class InGameController implements Initializable, InGameInterface {
       vboxWin.getChildren().add(boxWin3);
     }
     vboxWin.setPrefHeight(185);
-    vboxWin.setPrefWidth(528);
+    vboxWin.setPrefWidth(650);
     vboxWin.setLayoutX(14);
     vboxWin.setLayoutY(97);
     vboxWin.setSpacing(40);
 
     submit.setPrefHeight(33);
-    submit.setPrefWidth(69);
+    submit.setPrefWidth(112);
     submit.setText("Submit");
+    submit.setTextFill(Color.WHITE);
     submit.setFont(Font.font("System", 15));
-    submit.setStyle("-fx-background-color: tan; -fx-border-color: black;");
+    submit.setStyle("-fx-background-color: peru; -fx-border-color: black;");
     submit.setButtonType(ButtonType.RAISED);
     submit.setLayoutX(499);
     submit.setLayoutY(268);
@@ -2688,6 +2732,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * initializes wantSkat-pane.
+   * 
    * @author lstrauch
    */
   public void displayWannaTakeSkat() {
@@ -2695,8 +2741,8 @@ public class InGameController implements Initializable, InGameInterface {
     skatPane.setPrefWidth(582);
     skatPane.setLayoutX(334);
     skatPane.setLayoutY(128);
-    skatPane.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+    skatPane.setStyle("-fx-background-color: tan; -fx-background-radius: 20; "
+        + "-fx-border-color: white; -fx-border-radius: 20");
 
     skatLabel.setPrefHeight(49);
     skatLabel.setPrefWidth(467);
@@ -2713,13 +2759,13 @@ public class InGameController implements Initializable, InGameInterface {
     yes.setPrefWidth(154);
     yes.setText("Yes");
     yes.setFont(Font.font("System", FontWeight.BOLD, 25));
-    yes.setStyle("-fx-background-color: tan;");
+    yes.setStyle("-fx-background-color: peru;-fx-background-radius: 20");
     yes.setButtonType(ButtonType.RAISED);
     no.setPrefHeight(123);
     no.setPrefWidth(154);
-    no.setText("No");
+    no.setText("no");
     no.setFont(Font.font("System", FontWeight.BOLD, 25));
-    no.setStyle("-fx-background-color: tan;");
+    no.setStyle("-fx-background-color: peru; -fx-background-radius: 20");
     no.setButtonType(ButtonType.RAISED);
 
     if (!skatHbox.getChildren().contains(yes) && !skatHbox.getChildren().contains(no)) {
@@ -2742,25 +2788,23 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
-   * display part in which the player can choose the cards he wants to put on the skat
-   */
-  /**
+   * display part in which the player can choose the cards he wants to put on the skat.
+   *
    * @author lstrauch
-   * @param ps
+   * @param ps PlayState
    */
   public void displaySwitchSkat(PlayState ps) {
     handPane.setPrefHeight(315);
     handPane.setPrefWidth(582);
     handPane.setLayoutX(334);
     handPane.setLayoutY(128);
-    handPane.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 20; -fx-border-color: tan; -fx-border-radius: 20");
+    handPane.setStyle("-fx-background-color: tan; -fx-background-radius: 20; "
+        + "-fx-border-color: white; -fx-border-radius: 20");
 
     sk1.setFitHeight(227);
     sk1.setFitWidth(182);
     sk1.setLayoutX(83);
     sk1.setLayoutY(37);
-    sk1.setStyle("-fx-background-color: black");
     sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
         ps.getSkat()[1].getNumber().toString().toLowerCase()));
 
@@ -2768,7 +2812,6 @@ public class InGameController implements Initializable, InGameInterface {
     sk2.setFitWidth(182);
     sk2.setLayoutX(326);
     sk2.setLayoutY(37);
-    sk2.setStyle("-fx-background-color: black");
     sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
         ps.getSkat()[0].getNumber().toString().toLowerCase()));
 
@@ -2791,90 +2834,6 @@ public class InGameController implements Initializable, InGameInterface {
     if (!mainPane.getChildren().contains(handPane)) {
       mainPane.getChildren().add(handPane);
     }
-  }
-
-  /**
-   * @author lstrauch
-   */
-  public void displayChatScreenOpen() {
-    chatM.setPrefWidth(1280);
-    chatM.setPrefHeight(97);
-    chatM.setLayoutX(3);
-    chatM.setLayoutY(5);
-    chatM.setStyle("-fx-background-color: peru");
-    chatM.setEditable(false);
-    chatM.setUnFocusColor(Color.PERU);
-    chatM.setFocusColor(Color.WHITE);
-    chatM.setOpacity(0.33);
-
-    textM.setPrefHeight(50);
-    textM.setPrefWidth(1280);
-    textM.setLayoutX(3);
-    textM.setLayoutY(97);
-    textM.setStyle("-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2");
-    textM.setOpacity(0.33);
-
-    pf.setImage(pfOben);
-    pf.setFitHeight(32);
-    pf.setFitWidth(40);
-    pf.setLayoutX(624);
-    pf.setLayoutY(130);
-    pf.toFront();
-
-    sendB.setLayoutX(1167);
-    sendB.setLayoutY(97);
-    sendB.setPrefHeight(50);
-    sendB.setPrefWidth(113);
-    sendB.setFont(Font.font("System", 20));
-
-
-    s1.setLayoutX(533);
-    s1.setLayoutY(149);
-    s2.setLayoutX(590);
-    s2.setLayoutY(184);
-    s3.setLayoutX(619);
-    s3.setLayoutY(200);
-  }
-
-  /**
-   * @author lstrauch
-   */
-  public void displayChatClosed() {
-    chatM.setPrefWidth(1280);
-    chatM.setPrefHeight(35);
-    chatM.setLayoutX(3);
-    chatM.setLayoutY(5);
-    chatM.setStyle("-fx-background-color: peru");
-    chatM.setEditable(false);
-    chatM.setUnFocusColor(Color.PERU);
-    chatM.setFocusColor(Color.WHITE);
-    chatM.setOpacity(0.33);
-
-    textM.setPrefHeight(32);
-    textM.setPrefWidth(1280);
-    textM.setLayoutX(3);
-    textM.setLayoutY(33);
-    textM.setStyle("-fx-background-color: peru; -fx-border-color: black; -fx-border-width: 2");
-    textM.setOpacity(0.33);
-
-    pf.setImage(pfUnten);
-    pf.setFitHeight(32);
-    pf.setFitWidth(40);
-    pf.setLayoutX(624);
-    pf.setLayoutY(52);
-
-    sendB.setLayoutX(1167);
-    sendB.setLayoutY(33);
-    sendB.setPrefHeight(32);
-    sendB.setPrefWidth(113);
-    sendB.setFont(Font.font("System", 15));
-
-    s1.setLayoutX(533);
-    s1.setLayoutY(89);
-    s2.setLayoutX(590);
-    s2.setLayoutY(114);
-    s3.setLayoutX(619);
-    s3.setLayoutY(140);
   }
 
   public void displayBubbleLeft(int bet) {
@@ -2909,7 +2868,9 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Not necessary for InGameController
+   * Not necessary for InGameController.
+   * 
+   * @author lstrauch
    */
   @Override
   public void setGameSettings(GameSettings gs) {

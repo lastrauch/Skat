@@ -12,10 +12,10 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="282.0" layoutY="253.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../resources/bar.png" />
+            <Image url="@images/bar.png" />
          </image>
       </ImageView>
-      <TabPane layoutX="29.0" layoutY="27.0" prefHeight="740.0" prefWidth="1223.0" styleClass="background" stylesheets="@../../resources/mystyle.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="29.0" layoutY="27.0" prefHeight="740.0" prefWidth="1223.0" styleClass="background" stylesheets="@images/mystyle.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab style="-fx-background-color: tan;" text="7.1 Suit and Grand Contracts">
             <content>
@@ -105,7 +105,7 @@
                         </JFXTextArea>
                         <ImageView fitHeight="328.0" fitWidth="581.0" layoutX="25.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../resources/multiplier.png" />
+                              <Image url="@images/multiplier.png" />
                            </image>
                         </ImageView>
                         <JFXTextField layoutX="642.0" layoutY="262.0" prefHeight="44.0" prefWidth="561.0" style="-fx-text-fill: white;" text="Note that all applicable multipliers count - for example " unFocusColor="WHITE">
