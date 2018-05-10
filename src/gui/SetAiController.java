@@ -155,8 +155,8 @@ public class SetAiController implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         if (!(l3.getText().equals("Disabled") || l3.getText().equals(""))) {
+          l3.setText("Disabled");
         }
-        l3.setText("Disabled");
       }
     });
   }
