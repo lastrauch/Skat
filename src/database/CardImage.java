@@ -10,6 +10,15 @@ public class CardImage {
   private boolean dark;
   private Image img;
 
+  /**
+   * constructor.
+   * 
+   * @param colour of the card
+   * @param number of the card
+   * @param dark or white
+   * @param image of the card
+   * @author awesch
+   */
   public CardImage(String colour, String number, String dark, Image image) {
     Colour col = this.setColour(colour);
     Number nr = this.setNumber(number);
@@ -18,6 +27,12 @@ public class CardImage {
     this.img = image;
   }
 
+  /**
+   * returns the matching colour enum.
+   * 
+   * @author awesch
+   * @param col -our in a string
+   */
   public Colour setColour(String col) {
     Colour c = Colour.CLUBS;
     switch (col) {
@@ -39,6 +54,12 @@ public class CardImage {
     return c;
   }
 
+  /**
+   * returns the matching Number enum.
+   * 
+   * @author awesch
+   * @param nr in a string
+   */
   public Number setNumber(String nr) {
     Number number = Number.SEVEN;
     switch (nr) {
@@ -72,6 +93,12 @@ public class CardImage {
     return number;
   }
 
+  /**
+   * returns the matching boolean.
+   * 
+   * @author awesch
+   * @param dark in a string
+   */
   public boolean setDark(String dark) {
     if (dark.equals("dark")) {
       return true;
@@ -83,24 +110,12 @@ public class CardImage {
     return card;
   }
 
-  public void setCard(Card card) {
-    this.card = card;
-  }
-
   public boolean isDark() {
     return dark;
   }
 
-  public void setDark(boolean dark) {
-    this.dark = dark;
-  }
-
   public Image getImg() {
     return img;
-  }
-
-  public void setImg(Image img) {
-    this.img = img;
   }
 
 
