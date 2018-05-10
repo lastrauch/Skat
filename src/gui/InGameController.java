@@ -601,7 +601,7 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
-   * initializes the gae screen with 4 players.
+   * initializes the game screen with 4 players.
    * 
    * @author lstrauch
    */
@@ -735,7 +735,7 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
-   * enables the siwtchSat-Listener.
+   * enables the switchSkat-Listener.
    * 
    * @author lstrauch
    */
@@ -1532,22 +1532,6 @@ public class InGameController implements Initializable, InGameInterface {
     return ps;
   }
 
-  /**
-   * 
-   * 
-   * 
-   * 
-   * 
-   * Methoden um im Menü auf die verschiedenen Buttons clicken zu können und zum jeweiligen Screen
-   * zurück zu gelangen
-   * 
-   * @author lstrauch
-   * 
-   * 
-   * 
-   * 
-   */
-
 
   /**
    * displays help screen.
@@ -1563,11 +1547,12 @@ public class InGameController implements Initializable, InGameInterface {
    * displays trainingsmode.
    * 
    * @author lstrauch
-   * @param s
+   * @param s string
    */
   public void displayTraining(String s) {
     training.setStyle(
-        "-fx-background-color: tan; -fx-background-radius: 10; -fx-border-color: peru; -fx-border-radius: 10");
+        "-fx-background-color: tan; -fx-background-radius: 10; "
+        + "-fx-border-color: peru; -fx-border-radius: 10");
     training.setText(s);
   }
 
@@ -1589,7 +1574,8 @@ public class InGameController implements Initializable, InGameInterface {
   public void displayKontra() {
     kontra.setText("KONTRA");
     kontra.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10");
+        "-fx-background-color: peru; -fx-background-radius: 10; "
+        + "-fx-border-color: black; -fx-border-radius: 10");
   }
 
   /**
@@ -1610,7 +1596,8 @@ public class InGameController implements Initializable, InGameInterface {
   public void displayRekontra() {
     kontra.setText("KONTRA");
     kontra.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10");
+        "-fx-background-color: peru; -fx-background-radius: 10; "
+        + "-fx-border-color: black; -fx-border-radius: 10");
   }
 
 
@@ -1973,7 +1960,6 @@ public class InGameController implements Initializable, InGameInterface {
    * Button Listener WantSkat-buttons.
    * 
    * @author lstrauch
-   * @param ps PlayState
    */
   public void buttonListenerWantSkat() {
     yes.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
@@ -2006,7 +1992,7 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         if (cardlist.size() == 11) {
-          // Nur eine Karte auf dem Skat
+          //Only one card on the skat
           if (da[0] == false) {
             sk1.setImage(c1.getImage());
             skat.set(0, cardlist.get(1));
@@ -2023,7 +2009,7 @@ public class InGameController implements Initializable, InGameInterface {
             da[1] = true;
           }
         } else if (cardlist.size() == 12) {
-          // Skat leer
+          // skat empty
           sk1.setImage(c1.getImage());
           skat.set(0, cardlist.get(0));
           cardlist.remove(cardlist.get(0));
@@ -2575,11 +2561,11 @@ public class InGameController implements Initializable, InGameInterface {
       mainPane.getChildren().add(paneBet);
     }
     if (main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
-      displayTraining("1.   Be realistic! You won’t win the next round, if you don’t get at least "
-          + "six tricks and you won’t get the girl, when she didn’t drink at least six drinks.\n"
-          + "2.  You have more than two Jacks?  You’re either a slut or a winner!\n"
+      displayTraining("1.   Be realistic! You will not win the next round, if you do not get at least "
+          + "six tricks and you will not get the girl, when she did not drink at least six drinks.\n"
+          + "2.  You have more than two Jacks?  You are either a slut or a winner!\n"
           + "3.  You only have two Jacks? Hopefully they are the blacks.\n"
-          + "4.  Know your highest possible bet! Only a noob’s bet and Snoop Dog are higher. ");
+          + "4.  Know your highest possible bet! Only a noobs bet and Snoop Dog are higher. ");
       training.toFront();
     }
   }
