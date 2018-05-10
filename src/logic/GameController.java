@@ -58,6 +58,8 @@ public class GameController implements GuiLogic {
 
   @Override
   /**
+   * deletes bot and exits the game.
+   * 
    * @author awesch
    */
   public void deleteBot(String botname) {
@@ -71,6 +73,8 @@ public class GameController implements GuiLogic {
 
   @Override
   /**
+   * sets bot, creates ClientLogic and jions the lobby.
+   * 
    * @author awesch
    */
   public void setBot(String botname, BotDifficulty difficulty) {
@@ -88,6 +92,8 @@ public class GameController implements GuiLogic {
 
   @Override
   /**
+   * joins the lobby.
+   * 
    * @author awesch
    */
   public void joinGame(String ip) {
@@ -113,8 +119,6 @@ public class GameController implements GuiLogic {
         this.networkController.hostGame(this.clientLogic.get(0).player, this.gameSettings, comment);
     this.clientLogic.get(0).setGameSetting(gs);
   }
-
-
 
   @Override
   public void startGame(GameSettings gs) {
