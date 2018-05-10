@@ -407,7 +407,7 @@ public class AiController implements InGameInterface {
       if (this.player.get(i).getName().equals(Integer.toString(player.getId()))) {
         if (this.playedCards[this.playedCards.length - 1][this.player.get(i).getId()] == null) {
           this.playedCards[this.playedCards.length - 1][this.player.get(i).getId()] = card;
-          return;
+          break;
         } else {
           Card[][] playedCards = new Card[this.playedCards.length + 1][3];
           for (int row = 0; row < this.playedCards.length; row++) {
@@ -419,7 +419,7 @@ public class AiController implements InGameInterface {
           }
           playedCards[playedCards.length - 1][this.player.get(i).getId()] = card;
           this.playedCards = playedCards;
-          return;
+          break;
         }
       }
     }
@@ -431,7 +431,7 @@ public class AiController implements InGameInterface {
     }
     // Update hasColour
     if (this.currentTrick.get(0).getNumber() != Number.JACK
-        && (this.playState.getPlayMode() == PlayMode.SUIT
+        || (this.playState.getPlayMode() == PlayMode.SUIT
             && this.currentTrick.get(0).getColour() != this.playState.getTrump())) {
       if (card.getColour() != this.currentTrick.get(0).getColour()) {
         for (int i = 0; i < this.player.size(); i++) {
