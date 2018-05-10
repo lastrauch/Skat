@@ -50,8 +50,8 @@ public interface InGameInterface {
    * pass?" (if bet=18).
    * 
    * @param bet the player bet
-   * @lastBet last bet a player made.
-   * @return if the player wanst to bet the bet
+   * @param last bet a player made.
+   * @return if the player wants to bet the bet
    */
   public boolean askForBet(int bet, Player lastBet);
 
@@ -102,7 +102,7 @@ public interface InGameInterface {
   /**
    * shows the points of all players.
    * 
-   * @param player s to extract their pionts
+   * @param player s to extract their points
    */
   public void showScore(List<Player> player);
 

@@ -64,7 +64,7 @@ public class Auction implements Serializable {
 
   /**
    * returns the new bet.
-   * @param int - new bet
+   * @return int - new bet
    */
   public int calculateNewBet() {
     if (this.bets.size() == 1) {

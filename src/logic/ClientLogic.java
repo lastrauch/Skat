@@ -965,8 +965,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * returns true if the played card comes from the player with the position, who plays before this
    * player.
    * 
-   * @return boolean
    * @param playedLastCard player
+   * @return boolean
    */
   public boolean checkIfMyTurnTrick(Player playedLastCard) {
     if (this.player.getPosition() == Position.FOREHAND
@@ -1009,8 +1009,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * 
    * @param card (the player wants to play)
    * @param firstCard (the first played card in the current trick)
-   * @param playState
-   * @param player
+   * @param playState ps 
+   * @param player p
    * @return if card can be played
    * @throws LogicException if card not allowed to play
    * @author sandfisc
@@ -1033,7 +1033,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * @author sandfisc
    * @param card (the player wants to play)
    * @param firstCard (the first played card in the current trick)
-   * @param ps - playState
+   * @param playState ps
    * @param player (who wants to play the card)
    * @return if card is possible in PlayMode Colour
    */
@@ -1091,7 +1091,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * @param card (the player wants to play)
    * @param firstCard (the first played card in the current trick)
    * @param player (who wants to play the card)
-   * @param playState(ps)
+   * @param playState ps
    * @return if card is possible in PlayMode Grand
    */
   public static boolean checkIfCardPossibleGrand(Card card, Card firstCard, Player player,
