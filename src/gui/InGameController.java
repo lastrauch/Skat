@@ -1,8 +1,5 @@
 package gui;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.controls.JFXRadioButton;
@@ -11,6 +8,9 @@ import com.jfoenix.controls.JFXTextField;
 import database.ImplementsGuiInterface;
 import interfaces.GuiData;
 import interfaces.InGameInterface;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
