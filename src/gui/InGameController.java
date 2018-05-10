@@ -494,7 +494,7 @@ public class InGameController implements Initializable, InGameInterface {
   public Player getPlayer3() {
     return this.pl3;
   }
-  
+
   public Player getPlayer4() {
     return this.pl4;
   }
@@ -591,7 +591,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Do you want to take the Skat?
+   * Do you want to take the Skat?.
    * 
    * @author lstrauch
    */
@@ -611,8 +611,9 @@ public class InGameController implements Initializable, InGameInterface {
     });
   }
 
-
   /**
+   * asks if you want to take the Skat.
+   * 
    * @author lstrauch
    */
   /*
@@ -633,7 +634,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Declarer Stack
+   * Declarer Stack.
    * 
    * @author lstrauch
    */
@@ -655,6 +656,8 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
+   * enables the siwtchSat-Listener.
+   * 
    * @author lstrauch
    */
   /*
@@ -676,6 +679,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * opens AuctionWinner-screen.
+   * 
    * @author lstrauch
    */
   /*
@@ -700,8 +705,10 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * displays the set trump on the right position.
+   * 
    * @author lstrauch
-   * @param ps
+   * @param ps PlayState
    */
   /*
    * (non-Javadoc)
@@ -724,7 +731,6 @@ public class InGameController implements Initializable, InGameInterface {
             }
           });
         }
-        System.out.println("SETPLAYSETTINGSAFTERAUCTION");
         disableTraining();
         bubbleLeft.setImage(null);
         bubbleRight.setImage(null);
@@ -796,7 +802,6 @@ public class InGameController implements Initializable, InGameInterface {
 
           // 4 Players
         } else {
-          System.out.println("playmode");
           if (ps.getPlayMode() == PlayMode.GRAND || ps.getPlayMode() == PlayMode.NULL) {
             if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
               if (ps.getAuction().getWinner().getPosition() == Position.MIDDLEHAND) {
@@ -875,6 +880,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * turns cards light if it's your turn.
+   * 
    * @author lstrauch
    */
   /*
@@ -895,21 +902,23 @@ public class InGameController implements Initializable, InGameInterface {
           training.setLayoutY(388);
           if (LoginController.interfGL.getPlayer().isDeclarer()
               && LoginController.interfGL.getPlayer().getPosition() != Position.DEALER) {
-            displayTraining(
-                "1.   Play your trumps! When the opponents lost all their trumps, you are unstoppable like a train without brakes.\n"
-                    + "2.  Be brave! If a color was not played yet and you have an Ass, play it and save the points!\n"
-                    + "3.  Save your own ASS and TEN! And you will be the winner then!\n"
-                    + "4.  Have you seen ASS and TEN do not play this color again!\n"
-                    + "5.  Count the Trumps! This is important like a condom at a One-Night-Stand.");
+            displayTraining("1.   Play your trumps! When the opponents lost all their trumps, "
+                + "you are unstoppable like a train without brakes.\n"
+                + "2.  Be brave! If a color was not played "
+                + "yet and you have an Ass, play it and save the points!\n"
+                + "3.  Save your own ASS and TEN! And you will be the winner then!\n"
+                + "4.  Have you seen ASS and TEN do not play this color again!\n"
+                + "5.  Count the Trumps! This is important like"
+                + " a condom at a One-Night-Stand.");
             training.toFront();
           } else if (!LoginController.interfGL.getPlayer().isDeclarer()
               && LoginController.interfGL.getPlayer().getPosition() != Position.DEALER) {
-            displayTraining(
-                "1. Be brave! If a Suit was not played yet and you have an Ass, play it and save the points!\n"
-                    + "2.  Save your own ASS and TEN! And you will be the winner then!\n"
-                    + "3.  Have you seen ASS and TEN do not play this color again!\n"
-                    + "4.  Count the Trumps! This is important like a condom at a One-Night-Stand.\n"
-                    + "5.  Keep the declarer in the middle!");
+            displayTraining("1. Be brave! If a Suit was not played yet and you have an Ass,"
+                + " play it and save the points!\n"
+                + "2.  Save your own ASS and TEN! And you will be the winner then!\n"
+                + "3.  Have you seen ASS and TEN do not play this color again!\n"
+                + "4.  Count the Trumps! This is important like a"
+                + " condom at a One-Night-Stand.\n" + "5.  Keep the declarer in the middle!");
             training.toFront();
           }
         }
@@ -920,22 +929,9 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * lstrauch
-   */
-
-  /*
-   * (non-Javadoc)
+   * display the new bet from opponent.
    * 
-   * @see interfaces.InGameInterface#showSecondsLeftToPlayCard(int)
-   */
-  @Override
-  public void showSecondsLeftToPlayCard(int seconds) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /**
-   * lstrauch
+   * @author lstrauch
    */
   /*
    * (non-Javadoc)
@@ -1102,6 +1098,11 @@ public class InGameController implements Initializable, InGameInterface {
 
   }
 
+  /**
+   * turns cards dark if it's not possible to play the clicked one.
+   * 
+   * @author lstrauch
+   */
   /*
    * (non-Javadoc)
    * 
@@ -1113,6 +1114,11 @@ public class InGameController implements Initializable, InGameInterface {
     rearrangeCardsNotPossible(cards);
   }
 
+  /**
+   * displays opponents cards if ouvert was selected.
+   * 
+   * @author lstrauch
+   */
   /*
    * (non-Javadoc)
    * 
@@ -1172,6 +1178,12 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /**
+   * enables MouseHandler to make it able to play a card. plays random card after a certain time if
+   * limited time is set.
+   * 
+   * @author lstrauch
+   */
   /*
    * (non-Javadoc)
    * 
@@ -1203,6 +1215,14 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
+  /**
+   * selects a possile random card from hand.
+   * 
+   * @author lstrauch
+   * @param ps PlayState
+   * @param player Player
+   * @return cardindex of played card
+   */
   public static int playRandomCard(PlayState ps, Player player) {
     List<Card> cards = LoginController.interfGL.getPlayer().getHand();
     List<Card> possibleCards = new ArrayList<Card>();
@@ -1230,6 +1250,11 @@ public class InGameController implements Initializable, InGameInterface {
     return index;
   }
 
+  /**
+   * displays Leaderboard.
+   * 
+   * @author lstrauch
+   */
   /*
    * (non-Javadoc)
    * 
@@ -1257,7 +1282,9 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
-   * lstrauch
+   * displays the just played card on stack.
+   * 
+   * @author lstrauch
    */
   /*
    * (non-Javadoc)
@@ -1428,7 +1455,9 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
-   * lstrauch
+   * enables playsettings-listener.
+   * 
+   * @author lstrauch
    */
   /*
    * (non-Javadoc)
@@ -1463,6 +1492,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * displays help screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -1470,28 +1501,54 @@ public class InGameController implements Initializable, InGameInterface {
     main.displayHelp();
   }
 
+  /**
+   * displays trainingsmode.
+   * 
+   * @author lstrauch
+   * @param s
+   */
   public void displayTraining(String s) {
     training.setStyle(
         "-fx-background-color: tan; -fx-background-radius: 10; -fx-border-color: peru; -fx-border-radius: 10");
     training.setText(s);
   }
 
+  /**
+   * removes trainingsmode label.
+   * 
+   * @author lstrauch
+   */
   public void disableTraining() {
     training.setStyle(null);
     training.setText(null);
   }
 
+  /**
+   * displays kontra-button.
+   * 
+   * @author lstrauch
+   */
   public void displayKontra() {
     kontra.setText("KONTRA");
     kontra.setStyle(
         "-fx-background-color: peru; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10");
   }
 
+  /**
+   * removes kontrabutton.
+   * 
+   * @author lstrauch
+   */
   public void deleteKontra() {
     kontra.setText(null);
     kontra.setStyle(null);
   }
 
+  /**
+   * displays rekontra-button.
+   * 
+   * @author lstrauch
+   */
   public void displayRekontra() {
     kontra.setText("KONTRA");
     kontra.setStyle(
@@ -1501,9 +1558,10 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * displays light cards.
+   * 
    * @author lstrauch
-   * @param size
-   * @param list
+   * @param list List
    */
   public void rearrangeCardsLight(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
@@ -1518,7 +1576,12 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
 
-
+  /**
+   * displays light dark.
+   * 
+   * @author lstrauch
+   * @param list List
+   */
   public void rearrangeCardsDark(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       carray[i].setImage(inte.getImageDarker(list.get(i).getColour().toString().toLowerCase(),
@@ -1531,6 +1594,12 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /**
+   * displays light on the left side if ouvert.
+   * 
+   * @author lstrauch
+   * @param list List
+   */
   public void rearrangeCardsLeft(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       larray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
@@ -1543,6 +1612,12 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /**
+   * displays light on the right side if ouvert.
+   * 
+   * @author lstrauch
+   * @param list List
+   */
   public void rearrangeCardsRight(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       rarray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
@@ -1555,6 +1630,12 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /**
+   * displays light on the left side if ouvert and 4 players.
+   * 
+   * @author lstrauch
+   * @param list List
+   */
   public void rearrangeCardsUp(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       oarray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
@@ -1567,6 +1648,12 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /**
+   * turns the not playable cards dark.
+   * 
+   * @author lstrauch
+   * @param list List
+   */
   public void rearrangeCardsNotPossible(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       if (list.get(i) != null) {
@@ -1592,8 +1679,10 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
+   * removes opponentscard on the right side after played.
+   * 
    * @author lstrauch
-   * @param anz
+   * @param anz anz
    */
   public void removeOpponentCardsRight(int anz) {
     switch (anz) {
@@ -1633,8 +1722,10 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
+   * removes opponentscard on the left side after played.
+   * 
    * @author lstrauch
-   * @param anz
+   * @param anz anz
    */
   public void removeOpponentCardsLeft(int anz) {
     switch (anz) {
@@ -1673,11 +1764,6 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
-  /**
-   * @author lstrauch
-   * @param size
-   * @param list
-   */
 
 
   /**
@@ -1703,10 +1789,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Hier wird definiert was passiert wenn man auf eine seiner jeweiligen Spielkarten klickt
-   * 
-   * ImageView sets Image to null Method AnzStichblatte wird aufgerufen, sodass Karten auf Stich
-   * gelegt werden gibt an Logik den Index der geklickten Karte weiter
+   * adds mouselistener to Imageview.
    * 
    * @author lstrauch
    */
@@ -1727,6 +1810,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * adds buttonlistener to bet-Buttons.
+   * 
    * @author lstrauch
    * @return
    */
@@ -1753,13 +1838,10 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * ButtonListener AuctionWinnerScree-buttons
+   * ButtonListener AuctionWinnerScree-buttons.
    * 
-   * @param ps
-   */
-  /**
    * @author lstrauch
-   * @param ps
+   * @param ps PlayState
    */
   public PlayState buttonListenerPlaySettings(PlayState ps) {
     boolean[] pressed = new boolean[1];
@@ -1841,14 +1923,10 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Button Listener WantSkat-buttons
+   * Button Listener WantSkat-buttons.
    * 
-   * @param ps
-   */
-  /**
    * @author lstrauch
-   * @param ps
-   * @return
+   * @param ps PlayState
    */
   public void buttonListenerWantSkat() {
     yes.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
@@ -1869,15 +1947,11 @@ public class InGameController implements Initializable, InGameInterface {
 
 
 
-
-
-
   /**
-   * ButtonListener to switch Skat
-   */
-  /**
+   * ButtonListener to switch Skat.
+   *
    * @author lstrauch
-   * @param ps
+   * @param ps PlayState
    */
   public void switchSkatListener(PlayState ps) {
 
@@ -2320,9 +2394,11 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * displays Cards for switchSkat.
+   * 
    * @author lstrauch
-   * @param anz
-   * @param cardlist2
+   * @param anz anz
+   * @param cardlist2 cardlist
    */
   public void displayCards(int anz, List<Card> cardlist2) {
     Platform.runLater(new Runnable() {
@@ -2428,7 +2504,7 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Display Auction part
+   * Display Auction part.
    * 
    * @author lstrauch
    */
@@ -2437,8 +2513,8 @@ public class InGameController implements Initializable, InGameInterface {
     paneBet.setLayoutY(188);
     paneBet.setPrefHeight(200);
     paneBet.setPrefWidth(395);
-    paneBet.setStyle(
-        "-fx-background-color: tan; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20");
+    paneBet.setStyle("-fx-background-color: tan; -fx-background-radius: 20; "
+        + "-fx-border-color: white; -fx-border-radius: 20");
 
     pass.setPrefHeight(44);
     pass.setPrefWidth(75);
@@ -2485,11 +2561,11 @@ public class InGameController implements Initializable, InGameInterface {
       mainPane.getChildren().add(paneBet);
     }
     if (main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
-      displayTraining(
-          "1.   Be realistic! You won’t win the next round, if you don’t get at least six tricks and you won’t get the girl, when she didn’t drink at least six drinks.\n"
-              + "2.  You have more than two Jacks?  You’re either a slut or a winner!\n"
-              + "3.  You only have two Jacks? Hopefully they are the blacks.\n"
-              + "4.  Know your highest possible bet! Only a noob’s bet and Snoop Dog are higher. ");
+      displayTraining("1.   Be realistic! You won’t win the next round, if you don’t get at least "
+          + "six tricks and you won’t get the girl, when she didn’t drink at least six drinks.\n"
+          + "2.  You have more than two Jacks?  You’re either a slut or a winner!\n"
+          + "3.  You only have two Jacks? Hopefully they are the blacks.\n"
+          + "4.  Know your highest possible bet! Only a noob’s bet and Snoop Dog are higher. ");
       training.toFront();
     }
   }
@@ -2497,6 +2573,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * initializes aucionwinner-pane.
+   * 
    * @author lstrauch
    */
   public void displayAuctionWinnerScreen() {
@@ -2504,8 +2582,8 @@ public class InGameController implements Initializable, InGameInterface {
     paneAuc.setPrefWidth(700);
     paneAuc.setLayoutX(334);
     paneAuc.setLayoutY(128);
-    paneAuc.setStyle(
-        "-fx-background-color: tan; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20");
+    paneAuc.setStyle("-fx-background-color: tan; -fx-background-radius: 20; "
+        + "-fx-border-color: white; -fx-border-radius: 20");
 
     clubs.setPrefHeight(130);
     clubs.setPrefWidth(130);
@@ -2654,6 +2732,8 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
+   * initializes wantSkat-pane.
+   * 
    * @author lstrauch
    */
   public void displayWannaTakeSkat() {
@@ -2661,8 +2741,8 @@ public class InGameController implements Initializable, InGameInterface {
     skatPane.setPrefWidth(582);
     skatPane.setLayoutX(334);
     skatPane.setLayoutY(128);
-    skatPane.setStyle(
-        "-fx-background-color: tan; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20");
+    skatPane.setStyle("-fx-background-color: tan; -fx-background-radius: 20; "
+        + "-fx-border-color: white; -fx-border-radius: 20");
 
     skatLabel.setPrefHeight(49);
     skatLabel.setPrefWidth(467);
@@ -2708,19 +2788,18 @@ public class InGameController implements Initializable, InGameInterface {
   }
 
   /**
-   * display part in which the player can choose the cards he wants to put on the skat
-   */
-  /**
+   * display part in which the player can choose the cards he wants to put on the skat.
+   *
    * @author lstrauch
-   * @param ps
+   * @param ps PlayState
    */
   public void displaySwitchSkat(PlayState ps) {
     handPane.setPrefHeight(315);
     handPane.setPrefWidth(582);
     handPane.setLayoutX(334);
     handPane.setLayoutY(128);
-    handPane.setStyle(
-        "-fx-background-color: tan; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20");
+    handPane.setStyle("-fx-background-color: tan; -fx-background-radius: 20; "
+        + "-fx-border-color: white; -fx-border-radius: 20");
 
     sk1.setFitHeight(227);
     sk1.setFitWidth(182);
@@ -2789,7 +2868,9 @@ public class InGameController implements Initializable, InGameInterface {
 
 
   /**
-   * Not necessary for InGameController
+   * Not necessary for InGameController.
+   * 
+   * @author lstrauch
    */
   @Override
   public void setGameSettings(GameSettings gs) {
@@ -2800,8 +2881,5 @@ public class InGameController implements Initializable, InGameInterface {
 
 
 }
-
-
-
 
 

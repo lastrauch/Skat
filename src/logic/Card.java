@@ -91,6 +91,13 @@ public class Card implements Serializable {
     return this.colour.compareColourIntern(comp.getColour());
   }
 
+  public boolean equals(Card card) {
+    if ( this.colour.equals(card.getColour()) && this.number.equals(card.getNumber())) {
+      return true;
+    }
+    return false;
+  }
+  
   /* ------------------------- GETTER AND SETTER ------------------------------------- */
 
   /**

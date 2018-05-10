@@ -20,15 +20,30 @@ import logic.Player;
 public class Leaderboard3Controller implements Initializable {
 
   /**
+   * non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController main;
 
 
+  /**
+   * FXML attributes.
+   * 
+   * @author lstrauch
+   */
   @FXML
-  private VBox vBoxNr, vBox1, vBox2, vBox3;
+  private VBox vboxNr;
+  @FXML
+  private VBox vbox1;
+  @FXML
+  private VBox vbox2;
+  @FXML
+  private VBox vbox3;
 
   /**
+   * Constructor.
+   * 
    * @author lstrauch
    */
   public Leaderboard3Controller() {
@@ -36,6 +51,8 @@ public class Leaderboard3Controller implements Initializable {
   }
 
   /**
+   * go back to gameMode-screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -60,6 +77,11 @@ public class Leaderboard3Controller implements Initializable {
 
   }
 
+  /**
+   * shows the score.
+   * 
+   * @author lstrauch
+   */
   public void showLeaderboard() {
     List<Label> roundsNr = new ArrayList<Label>();
     List<Label> rounds1 = new ArrayList<Label>();
@@ -74,13 +96,21 @@ public class Leaderboard3Controller implements Initializable {
       roundsNr.add(new Label());
     }
 
-    roundsNr.get(0).setText("Nr.");
+    roundsNr.get(0).setText("");
     roundsNr.get(0).setFont(Font.font("System", 33));
     roundsNr.get(0).setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(roundsNr.get(0), 0.0);
     AnchorPane.setRightAnchor(roundsNr.get(0), 0.0);
     roundsNr.get(0).setAlignment(Pos.CENTER);
-    vBoxNr.getChildren().add(roundsNr.get(0));
+    vboxNr.getChildren().add(roundsNr.get(0));
+
+    roundsNr.get(1).setText("Nr.");
+    roundsNr.get(1).setFont(Font.font("System", 33));
+    roundsNr.get(1).setTextFill(Color.WHITE);
+    AnchorPane.setLeftAnchor(roundsNr.get(0), 0.0);
+    AnchorPane.setRightAnchor(roundsNr.get(0), 0.0);
+    roundsNr.get(1).setAlignment(Pos.CENTER);
+    vboxNr.getChildren().add(roundsNr.get(0));
 
     rounds1.get(0).setText(main.getInGameCon().getPlayer1().getName());
     rounds1.get(0).setFont(Font.font("System", 33));
@@ -88,7 +118,7 @@ public class Leaderboard3Controller implements Initializable {
     AnchorPane.setLeftAnchor(rounds1.get(0), 0.0);
     AnchorPane.setRightAnchor(rounds1.get(0), 0.0);
     rounds1.get(0).setAlignment(Pos.CENTER);
-    vBox1.getChildren().add(rounds1.get(0));
+    vbox1.getChildren().add(rounds1.get(0));
 
     rounds2.get(0).setText(main.getInGameCon().getPlayer2().getName());
     rounds2.get(0).setFont(Font.font("System", 33));
@@ -96,7 +126,7 @@ public class Leaderboard3Controller implements Initializable {
     AnchorPane.setLeftAnchor(rounds2.get(0), 0.0);
     AnchorPane.setRightAnchor(rounds2.get(0), 0.0);
     rounds2.get(0).setAlignment(Pos.CENTER);
-    vBox2.getChildren().add(rounds2.get(0));
+    vbox2.getChildren().add(rounds2.get(0));
 
     rounds3.get(0).setText(main.getInGameCon().getPlayer3().getName());
     rounds3.get(0).setFont(Font.font("System", 33));
@@ -104,70 +134,70 @@ public class Leaderboard3Controller implements Initializable {
     AnchorPane.setLeftAnchor(rounds3.get(0), 0.0);
     AnchorPane.setRightAnchor(rounds3.get(0), 0.0);
     rounds3.get(0).setAlignment(Pos.CENTER);
-    vBox3.getChildren().add(rounds3.get(0));
+    vbox3.getChildren().add(rounds3.get(0));
 
- 
+
     for (int i = 0; i < LoginController.interfGL.getPlayer().getPlayScore().size(); i++) {
       System.out.println("in forschleife");
       int count = i + 1;
       roundsNr.get(i).setText(String.valueOf(count));
-      roundsNr.get(i+1).setFont(Font.font("System", 33));
-      roundsNr.get(i+1).setTextFill(Color.WHITE);
-      AnchorPane.setLeftAnchor(roundsNr.get(i+1), 0.0);
-      AnchorPane.setRightAnchor(roundsNr.get(i+1), 0.0);
-      roundsNr.get(i+1).setAlignment(Pos.CENTER);
-      vBoxNr.getChildren().add(roundsNr.get(i+1));
+      roundsNr.get(i + 1).setFont(Font.font("System", 33));
+      roundsNr.get(i + 1).setTextFill(Color.WHITE);
+      AnchorPane.setLeftAnchor(roundsNr.get(i + 1), 0.0);
+      AnchorPane.setRightAnchor(roundsNr.get(i + 1), 0.0);
+      roundsNr.get(i + 1).setAlignment(Pos.CENTER);
+      vboxNr.getChildren().add(roundsNr.get(i + 1));
 
       int points11 = LoginController.interfGL.getPlayer().getPlayScore().get(i);
-      rounds1.get(i+1).setText(String.valueOf(points11));
-      rounds1.get(i+1).setFont(Font.font("System", 33));
+      rounds1.get(i + 1).setText(String.valueOf(points11));
+      rounds1.get(i + 1).setFont(Font.font("System", 33));
       if (points11 < 0) {
-        rounds1.get(i+1).setTextFill(Color.RED);
+        rounds1.get(i + 1).setTextFill(Color.RED);
       }
       if (points11 > 0) {
-        rounds1.get(i+1).setTextFill(Color.GREEN);
+        rounds1.get(i + 1).setTextFill(Color.GREEN);
       }
       if (points11 == 0) {
-        rounds1.get(i+1).setTextFill(Color.WHITE);
+        rounds1.get(i + 1).setTextFill(Color.WHITE);
       }
-      AnchorPane.setLeftAnchor(rounds1.get(i+1), 0.0);
-      AnchorPane.setRightAnchor(rounds1.get(i+1), 0.0);
-      rounds1.get(i+1).setAlignment(Pos.CENTER);
-      vBox1.getChildren().add(rounds1.get(i+1));
+      AnchorPane.setLeftAnchor(rounds1.get(i + 1), 0.0);
+      AnchorPane.setRightAnchor(rounds1.get(i + 1), 0.0);
+      rounds1.get(i + 1).setAlignment(Pos.CENTER);
+      vbox1.getChildren().add(rounds1.get(i + 1));
 
       int points21 = main.getInGameCon().getPlayer1().getPlayScore().get(i);
-      rounds2.get(i+1).setText(String.valueOf(points21));
-      rounds2.get(i+1).setFont(Font.font("System", 33));
+      rounds2.get(i + 1).setText(String.valueOf(points21));
+      rounds2.get(i + 1).setFont(Font.font("System", 33));
       if (points21 < 0) {
-        rounds2.get(i+1).setTextFill(Color.RED);
+        rounds2.get(i + 1).setTextFill(Color.RED);
       }
       if (points21 > 0) {
-        rounds2.get(i+1).setTextFill(Color.GREEN);
+        rounds2.get(i + 1).setTextFill(Color.GREEN);
       }
       if (points21 == 0) {
-        rounds2.get(i+1).setTextFill(Color.WHITE);
+        rounds2.get(i + 1).setTextFill(Color.WHITE);
       }
-      AnchorPane.setLeftAnchor(rounds2.get(i+1), 0.0);
-      AnchorPane.setRightAnchor(rounds2.get(i+1), 0.0);
-      rounds2.get(i+1).setAlignment(Pos.CENTER);
-      vBox2.getChildren().add(rounds2.get(i+1));
+      AnchorPane.setLeftAnchor(rounds2.get(i + 1), 0.0);
+      AnchorPane.setRightAnchor(rounds2.get(i + 1), 0.0);
+      rounds2.get(i + 1).setAlignment(Pos.CENTER);
+      vbox2.getChildren().add(rounds2.get(i + 1));
 
       int points31 = main.getInGameCon().getPlayer2().getPlayScore().get(i);
-      rounds3.get(i+1).setText(String.valueOf(points31));
-      rounds3.get(i+1).setFont(Font.font("System", 33));
+      rounds3.get(i + 1).setText(String.valueOf(points31));
+      rounds3.get(i + 1).setFont(Font.font("System", 33));
       if (points31 < 0) {
-        rounds3.get(i+1).setTextFill(Color.RED);
+        rounds3.get(i + 1).setTextFill(Color.RED);
       }
       if (points31 > 0) {
-        rounds3.get(i+1).setTextFill(Color.GREEN);
+        rounds3.get(i + 1).setTextFill(Color.GREEN);
       }
       if (points31 == 0) {
-        rounds3.get(i+1).setTextFill(Color.WHITE);
+        rounds3.get(i + 1).setTextFill(Color.WHITE);
       }
-      AnchorPane.setLeftAnchor(rounds3.get(i+1), 0.0);
-      AnchorPane.setRightAnchor(rounds3.get(i+1), 0.0);
-      rounds3.get(i+1).setAlignment(Pos.CENTER);
-      vBox3.getChildren().add(rounds3.get(i+1));
+      AnchorPane.setLeftAnchor(rounds3.get(i + 1), 0.0);
+      AnchorPane.setRightAnchor(rounds3.get(i + 1), 0.0);
+      rounds3.get(i + 1).setAlignment(Pos.CENTER);
+      vbox3.getChildren().add(rounds3.get(i + 1));
     }
   }
 

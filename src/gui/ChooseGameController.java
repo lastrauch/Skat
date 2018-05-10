@@ -78,7 +78,7 @@ public class ChooseGameController {
   /**
    * sets GameMode.
    * @author lstrauch
-   * @param gm
+   * @param gm GameMode
    */
   public void setGameMode(GameMode gm) {
     this.gamemode = gm;

@@ -36,12 +36,6 @@ public interface InGameInterface {
    */
   public int askToPlayCard(int timeToPlay, PlayState ps);
 
-  /**
-   * should show the number "seconds" at the corner of the screen.
-   * 
-   * @param seconds
-   */
-  public void showSecondsLeftToPlayCard(int seconds);
 
   /**
    * asks the player if he wants to take up the skat.

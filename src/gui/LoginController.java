@@ -16,7 +16,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import logic.Colour;
 import logic.GameController;
+import logic.Number;
+import logic.Card;
 
 public class LoginController implements Initializable {
 
@@ -101,11 +104,16 @@ public class LoginController implements Initializable {
    */
   public void setImages() {
     GuiData inte = new ImplementsGuiInterface();
-    jclubs.setImage(inte.getImage("clubs", "jack"));
-    jspades.setImage(inte.getImage("spades", "jack"));
-    jhearts.setImage(inte.getImage("hearts", "jack"));
-    jdiamonds.setImage(inte.getImage("diamonds", "jack"));
-
+//    Card clubsJ = new Card(Colour.CLUBS, Number.JACK);
+//    jclubs.setImage(inte.getImage("clubs", "jack"));
+//    jspades.setImage(inte.getImage("spades", "jack"));
+//    jhearts.setImage(inte.getImage("hearts", "jack"));
+//    jdiamonds.setImage(inte.getImage("diamonds", "jack"));
+//    
+    jclubs.setImage(inte.getImage(new Card(Colour.CLUBS, Number.JACK)));
+    jspades.setImage(inte.getImage(new Card(Colour.SPADES, Number.JACK)));
+    jhearts.setImage(inte.getImage(new Card(Colour.HEARTS, Number.JACK)));
+    jdiamonds.setImage(inte.getImage(new Card(Colour.DIAMONDS, Number.JACK)));
   }
 
   /**

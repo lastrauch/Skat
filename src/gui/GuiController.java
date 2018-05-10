@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 public class GuiController extends Application {
 
   /**
-   * 
    * Initializes all Controllers and their panes.
    * 
    * @author lstrauch
@@ -437,7 +436,6 @@ public class GuiController extends Application {
    * opens GameSettings-screen.
    * 
    * @author lstrauch
-   * @param gm
    */
   public void displayGameSettings() {
     try {
@@ -466,7 +464,12 @@ public class GuiController extends Application {
       Thread.sleep(1000);
       inGame = (AnchorPane) loader.load();
       Thread.sleep(1000);
-      mprimaryStage.getScene().setRoot(inGame);
+      Platform.runLater(new Runnable() {
+        @Override
+        public void run() {
+          mprimaryStage.getScene().setRoot(inGame);
+        }
+      });
       Thread.sleep(1000);
       inGameCon = loader.getController();
     } catch (IOException e) {
@@ -597,7 +600,7 @@ public class GuiController extends Application {
   }
 
   /**
-   * returns Leaderboard4Controller
+   * returns Leaderboard4Controller.
    * 
    * @author lstrauch
    * @return leaderboard4Con
@@ -617,8 +620,10 @@ public class GuiController extends Application {
   }
 
   /**
+   * returns lobbyOnlineCon.
+   * 
    * @author lstrauch
-   * @return
+   * @return lobbyOnlineCon
    */
   public LobbyOnlineController getLobbyOnlineCon() {
     return lobbyOnlineCon;
