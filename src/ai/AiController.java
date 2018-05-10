@@ -100,6 +100,7 @@ public class AiController implements InGameInterface {
     this.bot = new Bot(name, difficulty);
     this.gameSettings = gameSettings;
     this.player = new ArrayList<Player>();
+    this.player.add(this.bot);
     this.opponents = new ArrayList<Player>();
     this.bets = new int[3];
     this.maxBet = 0;
@@ -159,7 +160,7 @@ public class AiController implements InGameInterface {
       e.printStackTrace();
     }
     if (player != null) {
-      if (this.player.size() < 2) {
+      if (this.player.size() < 3) {
         boolean existing = false;
         for (int i = 0; i < this.player.size(); i++) {
           if (this.player.get(i).getName().equals(Integer.toString(player.getId()))) {
@@ -197,7 +198,7 @@ public class AiController implements InGameInterface {
    * @param player that placed the last bet
    */
   public void receivedNewBet(int bet, Player player) {
-    if (this.player.size() < 2) {
+    if (this.player.size() < 3) {
       boolean existing = false;
       for (int i = 0; i < this.player.size(); i++) {
         if (this.player.get(i).getName().equals(Integer.toString(player.getId()))) {
@@ -304,7 +305,7 @@ public class AiController implements InGameInterface {
     this.setPartner(null);
     // Update opponents
     List<Player> opponents = new ArrayList<Player>();
-    for (int i = 0; i < this.getPlayer().size(); i++) {
+    for (int i = 1; i < this.getPlayer().size(); i++) {
       opponents.add(this.getPlayer().get(i));
     }
     this.setOpponents(opponents);
@@ -594,6 +595,8 @@ public class AiController implements InGameInterface {
     this.playedCards = new Card[1][3];
     this.cardProbability = new double[32][3];
     this.partner = null;
+    this.player = new ArrayList<Player>();
+    this.player.add(this.bot);
     this.opponents = new ArrayList<Player>();
     this.hasColour = new boolean[4][3];
     this.hasTrump = new boolean[3];
