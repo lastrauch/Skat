@@ -18,10 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-/**
- * @author lstrauch
- *
- */
 public class Leaderboard4Controller extends Thread implements Initializable {
 
   /**
