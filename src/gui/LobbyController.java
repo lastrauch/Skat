@@ -1,16 +1,12 @@
 package gui;
 
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import javax.swing.GroupLayout.Alignment;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
-import ai.BotDifficulty;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,7 +25,6 @@ import javafx.scene.text.TextAlignment;
 import logic.GameMode;
 import logic.GameSettings;
 import logic.Player;
-
 public class LobbyController implements Initializable {
 
   private JFXButton back = new JFXButton();
@@ -37,17 +32,15 @@ public class LobbyController implements Initializable {
   private JFXButton change = new JFXButton();
   private JFXButton start = new JFXButton();
   private JFXButton deleteBot = new JFXButton();
-  Label p1 = new Label();
-  Label p2 = new Label();
-  Label p3 = new Label();
-  Label p4 = new Label();
-  Label notenoughpl = new Label();
-  private GameMode gm;
+  private Label p1 = new Label();
+  private Label p2 = new Label();
+  private Label p3 = new Label();
+  private Label p4 = new Label();
+  private Label notenoughpl = new Label();
   private GuiController guiCon;
   private GameSettings gs;
-  // private static GameSettings gs;
+  private GameMode gm;
   private static int nrofplayers = 1;
-  // private static List<Player> list = new ArrayList<Player>();
 
   @FXML
   private Label rounds;
@@ -402,11 +395,6 @@ public class LobbyController implements Initializable {
      } else {
        return false;
      }
-//    if (s.equals("bot1") || s.equals("bot2") || s.equals("bot3")) {
-//      return true;
-//    } else {
-//      return false;
-//    }
   }
 
   /**

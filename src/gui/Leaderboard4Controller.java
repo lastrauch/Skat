@@ -1,6 +1,3 @@
-/**
- * @author lstrauch
- */
 package gui;
 
 import java.net.URL;
@@ -21,6 +18,8 @@ import javafx.scene.text.Font;
 public class Leaderboard4Controller extends Thread implements Initializable {
 
   /**
+   * initialize non-FXML attributes.
+   * 
    * @author lstrauch
    */
   private GuiController main;
@@ -32,9 +31,19 @@ public class Leaderboard4Controller extends Thread implements Initializable {
 
 
   @FXML
-  private VBox vBoxNr, vBox1, vBox2, vBox3, vBox4;
+  private VBox vboxNr;
+  @FXML
+  private VBox vbox1;
+  @FXML
+  private VBox vbox2;
+  @FXML
+  private VBox vbox3;
+  @FXML 
+  private VBox vbox4;
 
   /**
+   * Constructor.
+   * 
    * @author lstrauch
    */
   public Leaderboard4Controller() {
@@ -42,6 +51,8 @@ public class Leaderboard4Controller extends Thread implements Initializable {
   }
 
   /**
+   * go back to gameMode- screen.
+   * 
    * @author lstrauch
    */
   @FXML
@@ -66,6 +77,11 @@ public class Leaderboard4Controller extends Thread implements Initializable {
     });
   }
 
+  /**
+   * shows score.
+   * 
+   * @author lstrauch
+   */
   public void showLeaderboard() {
 
     for (int i = 0; i < main.getGameSetCon().getGs().getNrOfPlays() + 1; i++) {
@@ -112,11 +128,11 @@ public class Leaderboard4Controller extends Thread implements Initializable {
     AnchorPane.setRightAnchor(rounds4.get(0), 0.0);
     rounds4.get(0).setAlignment(Pos.CENTER);
 
-    vBoxNr.getChildren().add(roundsNr.get(0));
-    vBox1.getChildren().add(rounds1.get(0));
-    vBox2.getChildren().add(rounds2.get(0));
-    vBox3.getChildren().add(rounds3.get(0));
-    vBox4.getChildren().add(rounds4.get(0));
+    vboxNr.getChildren().add(roundsNr.get(0));
+    vbox1.getChildren().add(rounds1.get(0));
+    vbox2.getChildren().add(rounds2.get(0));
+    vbox3.getChildren().add(rounds3.get(0));
+    vbox4.getChildren().add(rounds4.get(0));
 
     System.out.println("Size: " + main.getInGameCon().getPlayer1().getPlayScore().size());
     for (int i = 0; i < main.getInGameCon().getPlayer1().getPlayScore().size(); i++) {
@@ -128,7 +144,7 @@ public class Leaderboard4Controller extends Thread implements Initializable {
       AnchorPane.setLeftAnchor(roundsNr.get(i + 1), 0.0);
       AnchorPane.setRightAnchor(roundsNr.get(i + 1), 0.0);
       roundsNr.get(i + 1).setAlignment(Pos.CENTER);
-      vBoxNr.getChildren().add(roundsNr.get(i + 1));
+      vboxNr.getChildren().add(roundsNr.get(i + 1));
 
       int points11 = LoginController.interfGL.getPlayer().getPlayScore().get(i);
       rounds1.get(i + 1).setText(String.valueOf(points11));
@@ -145,7 +161,7 @@ public class Leaderboard4Controller extends Thread implements Initializable {
       AnchorPane.setLeftAnchor(rounds1.get(i + 1), 0.0);
       AnchorPane.setRightAnchor(rounds1.get(i + 1), 0.0);
       rounds1.get(i + 1).setAlignment(Pos.CENTER);
-      vBox1.getChildren().add(rounds1.get(i + 1));
+      vbox1.getChildren().add(rounds1.get(i + 1));
 
       int points21 = main.getInGameCon().getPlayer1().getPlayScore().get(i);
       rounds2.get(i + 1).setText(String.valueOf(points21));
@@ -162,7 +178,7 @@ public class Leaderboard4Controller extends Thread implements Initializable {
       AnchorPane.setLeftAnchor(rounds2.get(i + 1), 0.0);
       AnchorPane.setRightAnchor(rounds2.get(i + 1), 0.0);
       rounds2.get(i + 1).setAlignment(Pos.CENTER);
-      vBox2.getChildren().add(rounds2.get(i + 1));
+      vbox2.getChildren().add(rounds2.get(i + 1));
 
       int points31 = main.getInGameCon().getPlayer2().getPlayScore().get(i);
       rounds3.get(i + 1).setText(String.valueOf(points31));
@@ -179,7 +195,7 @@ public class Leaderboard4Controller extends Thread implements Initializable {
       AnchorPane.setLeftAnchor(rounds3.get(i + 1), 0.0);
       AnchorPane.setRightAnchor(rounds3.get(i + 1), 0.0);
       rounds3.get(i + 1).setAlignment(Pos.CENTER);
-      vBox3.getChildren().add(rounds3.get(i + 1));
+      vbox3.getChildren().add(rounds3.get(i + 1));
 
       int points41 = main.getInGameCon().getPlayer2().getPlayScore().get(i);
       rounds4.get(i + 1).setText(String.valueOf(points41));
@@ -196,7 +212,7 @@ public class Leaderboard4Controller extends Thread implements Initializable {
       AnchorPane.setLeftAnchor(rounds4.get(i + 1), 0.0);
       AnchorPane.setRightAnchor(rounds4.get(i + 1), 0.0);
       rounds4.get(i + 1).setAlignment(Pos.CENTER);
-      vBox4.getChildren().add(rounds4.get(i + 1));
+      vbox4.getChildren().add(rounds4.get(i + 1));
     }
 
 

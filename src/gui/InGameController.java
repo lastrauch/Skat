@@ -1307,56 +1307,47 @@ public class InGameController implements Initializable, InGameInterface {
           rearrangeCardsDark(cardlist);
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
             if (player.getPosition() == Position.MIDDLEHAND) {
-              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s1.setImage(inte.getImage(card));
               removeOpponentCardsLeft(countl);
               countl--;
               s1.toFront();
             } else if (player.getPosition() == Position.REARHAND) {
-              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s3.setImage(inte.getImage(card));
               removeOpponentCardsRight(countr);
               countr--;
               s3.toFront();
             } else {
-              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s2.setImage(inte.getImage(card));
               s2.toFront();
             }
           } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
             if (player.getPosition() == Position.MIDDLEHAND) {
-              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s3.setImage(inte.getImage(card));
               removeOpponentCardsRight(countr);
               countr--;
               s3.toFront();
             } else if (player.getPosition() == Position.FOREHAND) {
-              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s1.setImage(inte.getImage(card));
               removeOpponentCardsLeft(countl);
               countl--;
               s1.toFront();
             } else {
-              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s2.setImage(inte.getImage(card));
               s2.toFront();
             }
           } else {
             if (player.getPosition() == Position.REARHAND) {
-              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s1.setImage(inte.getImage(card));
               removeOpponentCardsLeft(countl);
               countl--;
               s1.toFront();
             } else if (player.getPosition() == Position.FOREHAND) {
-              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s3.setImage(inte.getImage(card));
               removeOpponentCardsRight(countr);
               countr--;
               s3.toFront();
             } else {
-              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s2.setImage(inte.getImage(card));
               s2.toFront();
             }
           }
@@ -1368,74 +1359,62 @@ public class InGameController implements Initializable, InGameInterface {
           rearrangeCardsDark(cardlist);
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
             if (player.getPosition() == Position.MIDDLEHAND) {
-              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s1.setImage(inte.getImage(card));
               removeOpponentCardsLeft(countl);
               countl--;
               s1.toFront();
             } else if (player.getPosition() == Position.REARHAND) {
-              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s3.setImage(inte.getImage(card));
               removeOpponentCardsRight(countr);
               countr--;
               s3.toFront();
             } else {
-              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s2.setImage(inte.getImage(card));
               s2.toFront();
             }
           } else if (LoginController.interfGL.getPlayer().getPosition() == Position.REARHAND) {
             if (player.getPosition() == Position.MIDDLEHAND) {
-              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s3.setImage(inte.getImage(card));
               removeOpponentCardsRight(countr);
               countr--;
               s3.toFront();
             } else if (player.getPosition() == Position.FOREHAND) {
-              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s2.setImage(inte.getImage(card));
               removeOpponentCardsLeft(countl);
               countl--;
               s1.toFront();
             } else {
-              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s2.setImage(inte.getImage(card));
               s2.toFront();
             }
           } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
             if (player.getPosition() == Position.FOREHAND) {
-              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s1.setImage(inte.getImage(card));
               removeOpponentCardsLeft(countl);
               countl--;
               s1.toFront();
             } else if (player.getPosition() == Position.MIDDLEHAND) {
-              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s2.setImage(inte.getImage(card));
               removeOpponentCardsRight(countr);
               countr--;
               s2.toFront();
             } else {
-              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s3.setImage(inte.getImage(card));
               s3.toFront();
             }
           } else {
             if (player.getPosition() == Position.REARHAND) {
-              s3.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s3.setImage(inte.getImage(card));
               removeOpponentCardsLeft(countl);
               countl--;
               s3.toFront();
             } else if (player.getPosition() == Position.FOREHAND) {
-              s1.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s1.setImage(inte.getImage(card));
               removeOpponentCardsRight(countr);
               countr--;
               s1.toFront();
             } else {
-              s2.setImage(inte.getImage(card.getColour().toString().toLowerCase(),
-                  card.getNumber().toString().toLowerCase()));
+              s2.setImage(inte.getImage(card));
               s2.toFront();
             }
           }
@@ -1565,8 +1544,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void rearrangeCardsLight(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
-      carray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
-          (list.get(i).getNumber().toString().toLowerCase())));
+      carray[i].setImage(inte.getImage(list.get(i)));
     }
     if (list.size() != 10) {
       for (int i = list.size(); i < 10; i++) {
@@ -1584,8 +1562,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void rearrangeCardsDark(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
-      carray[i].setImage(inte.getImageDarker(list.get(i).getColour().toString().toLowerCase(),
-          (list.get(i).getNumber().toString().toLowerCase())));
+      carray[i].setImage(inte.getImageDarker(list.get(i)));
     }
     if (list.size() != 10) {
       for (int i = list.size(); i < 10; i++) {
@@ -1602,8 +1579,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void rearrangeCardsLeft(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
-      larray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
-          (list.get(i).getNumber().toString().toLowerCase())));
+      larray[i].setImage(inte.getImage(list.get(i)));
     }
     if (list.size() != 10) {
       for (int i = list.size(); i < 10; i++) {
@@ -1620,8 +1596,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void rearrangeCardsRight(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
-      rarray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
-          (list.get(i).getNumber().toString().toLowerCase())));
+      rarray[i].setImage(inte.getImage(list.get(i)));
     }
     if (list.size() != 10) {
       for (int i = list.size(); i < 10; i++) {
@@ -1638,8 +1613,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void rearrangeCardsUp(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
-      oarray[i].setImage(inte.getImage(list.get(i).getColour().toString().toLowerCase(),
-          (list.get(i).getNumber().toString().toLowerCase())));
+      oarray[i].setImage(inte.getImage(list.get(i)));
     }
     if (list.size() != 10) {
       for (int i = list.size(); i < 10; i++) {
@@ -1658,23 +1632,19 @@ public class InGameController implements Initializable, InGameInterface {
     for (int i = 0; i < list.size(); i++) {
       if (list.get(i) != null) {
         System.out.println("cArray[" + i + "] - Dark: " + carray[i]);
-        carray[i].setImage(inte.getImageDarker(list.get(i).getColour().toString().toLowerCase(),
-            (list.get(i).getNumber().toString().toLowerCase())));
+        carray[i].setImage(inte.getImageDarker(list.get(i)));
 
       } else {
         System.out.println("cArray[" + i + "] - Light: " + carray[i]);
-        carray[i].setImage(inte.getImage(cardlist.get(i).getColour().toString().toLowerCase(),
-            (cardlist.get(i).getNumber().toString().toLowerCase())));
+        carray[i].setImage(inte.getImage(cardlist.get(i)));
       }
     }
     if (list.get(list.size() - 1) != null) {
       carray[list.size() - 1].setImage(
-          inte.getImageDarker(list.get(list.size() - 1).getColour().toString().toLowerCase(),
-              (list.get(list.size() - 1).getNumber().toString().toLowerCase())));
+          inte.getImageDarker(list.get(list.size() - 1)));
     } else {
       carray[list.size() - 1]
-          .setImage(inte.getImage(list.get(list.size() - 1).getColour().toString().toLowerCase(),
-              (list.get(list.size() - 1).getNumber().toString().toLowerCase())));
+          .setImage(inte.getImage(list.get(list.size() - 1)));
     }
   }
 
@@ -2407,79 +2377,46 @@ public class InGameController implements Initializable, InGameInterface {
         switch (anz) {
           case (10):
             extra1.setImage(null);
-            c1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
-                (cardlist2.get(0).getNumber().toString().toLowerCase())));
-            c2.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
-                (cardlist2.get(1).getNumber().toString().toLowerCase())));
-            c3.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
-                (cardlist2.get(2).getNumber().toString().toLowerCase())));
-            c4.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
-                (cardlist2.get(3).getNumber().toString().toLowerCase())));
-            c5.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
-                (cardlist2.get(4).getNumber().toString().toLowerCase())));
-            c6.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
-                (cardlist2.get(5).getNumber().toString().toLowerCase())));
-            c7.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
-                (cardlist2.get(6).getNumber().toString().toLowerCase())));
-            c8.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
-                (cardlist2.get(7).getNumber().toString().toLowerCase())));
-            c9.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
-                (cardlist2.get(8).getNumber().toString().toLowerCase())));
-            c10.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
-                (cardlist2.get(9).getNumber().toString().toLowerCase())));
+            c1.setImage(inte.getImage(cardlist2.get(0)));
+            c2.setImage(inte.getImage(cardlist2.get(1)));
+            c3.setImage(inte.getImage(cardlist2.get(2)));
+            c4.setImage(inte.getImage(cardlist2.get(3)));
+            c5.setImage(inte.getImage(cardlist2.get(4)));
+            c6.setImage(inte.getImage(cardlist2.get(5)));
+            c7.setImage(inte.getImage(cardlist2.get(6)));
+            c8.setImage(inte.getImage(cardlist2.get(7)));
+            c9.setImage(inte.getImage(cardlist2.get(8)));
+            c10.setImage(inte.getImage(cardlist2.get(9)));
             extra2.setImage(null);
             break;
           case (11):
             System.out.println("11");
-            extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
-                (cardlist2.get(0).getNumber().toString().toLowerCase())));
-            c1.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
-                (cardlist2.get(1).getNumber().toString().toLowerCase())));
-            c2.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
-                (cardlist2.get(2).getNumber().toString().toLowerCase())));
-            c3.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
-                (cardlist2.get(3).getNumber().toString().toLowerCase())));
-            c4.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
-                (cardlist2.get(4).getNumber().toString().toLowerCase())));
-            c5.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
-                (cardlist2.get(5).getNumber().toString().toLowerCase())));
-            c6.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
-                (cardlist2.get(6).getNumber().toString().toLowerCase())));
-            c7.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
-                (cardlist2.get(7).getNumber().toString().toLowerCase())));
-            c8.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
-                (cardlist2.get(8).getNumber().toString().toLowerCase())));
-            c9.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
-                (cardlist2.get(9).getNumber().toString().toLowerCase())));
-            c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
-                (cardlist2.get(10).getNumber().toString().toLowerCase())));
+            extra1.setImage(inte.getImage(cardlist2.get(0)));
+            c1.setImage(inte.getImage(cardlist2.get(1)));
+            c2.setImage(inte.getImage(cardlist2.get(2)));
+            c3.setImage(inte.getImage(cardlist2.get(3)));
+            c4.setImage(inte.getImage(cardlist2.get(4)));
+            c5.setImage(inte.getImage(cardlist2.get(5)));
+            c6.setImage(inte.getImage(cardlist2.get(6)));
+            c7.setImage(inte.getImage(cardlist2.get(7)));
+            c8.setImage(inte.getImage(cardlist2.get(8)));
+            c9.setImage(inte.getImage(cardlist2.get(9)));
+            c10.setImage(inte.getImage(cardlist2.get(10)));
             extra2.setImage(null);
             break;
           case (12):
-            extra1.setImage(inte.getImage(cardlist2.get(0).getColour().toString().toLowerCase(),
-                (cardlist2.get(0).getNumber().toString().toLowerCase())));
-            c1.setImage(inte.getImage(cardlist2.get(1).getColour().toString().toLowerCase(),
-                (cardlist2.get(1).getNumber().toString().toLowerCase())));
-            c2.setImage(inte.getImage(cardlist2.get(2).getColour().toString().toLowerCase(),
-                (cardlist2.get(2).getNumber().toString().toLowerCase())));
-            c3.setImage(inte.getImage(cardlist2.get(3).getColour().toString().toLowerCase(),
-                (cardlist2.get(3).getNumber().toString().toLowerCase())));
-            c4.setImage(inte.getImage(cardlist2.get(4).getColour().toString().toLowerCase(),
-                (cardlist2.get(4).getNumber().toString().toLowerCase())));
-            c5.setImage(inte.getImage(cardlist2.get(5).getColour().toString().toLowerCase(),
-                (cardlist2.get(5).getNumber().toString().toLowerCase())));
-            c6.setImage(inte.getImage(cardlist2.get(6).getColour().toString().toLowerCase(),
-                (cardlist2.get(6).getNumber().toString().toLowerCase())));
-            c7.setImage(inte.getImage(cardlist2.get(7).getColour().toString().toLowerCase(),
-                (cardlist2.get(7).getNumber().toString().toLowerCase())));
-            c8.setImage(inte.getImage(cardlist2.get(8).getColour().toString().toLowerCase(),
-                (cardlist2.get(8).getNumber().toString().toLowerCase())));
-            c9.setImage(inte.getImage(cardlist2.get(9).getColour().toString().toLowerCase(),
-                (cardlist2.get(9).getNumber().toString().toLowerCase())));
-            c10.setImage(inte.getImage(cardlist2.get(10).getColour().toString().toLowerCase(),
-                (cardlist2.get(10).getNumber().toString().toLowerCase())));
-            extra2.setImage(inte.getImage(cardlist2.get(11).getColour().toString().toLowerCase(),
-                (cardlist2.get(11).getNumber().toString().toLowerCase())));
+            extra1.setImage(inte.getImage(cardlist2.get(0)));
+            c1.setImage(inte.getImage(cardlist2.get(1)));
+            c2.setImage(inte.getImage(cardlist2.get(2)));
+            c3.setImage(inte.getImage(cardlist2.get(3)));
+            c4.setImage(inte.getImage(cardlist2.get(4)));
+            c5.setImage(inte.getImage(cardlist2.get(5)));
+            c6.setImage(inte.getImage(cardlist2.get(6)));
+            c7.setImage(inte.getImage(cardlist2.get(7)));
+            c8.setImage(inte.getImage(cardlist2.get(8)));
+            c9.setImage(inte.getImage(cardlist2.get(9)));
+            c10.setImage(inte.getImage(cardlist2.get(10)));
+            extra2.setImage(inte.getImage(cardlist2.get(11)));
             break;
           default:
             break;
@@ -2805,15 +2742,13 @@ public class InGameController implements Initializable, InGameInterface {
     sk1.setFitWidth(182);
     sk1.setLayoutX(83);
     sk1.setLayoutY(37);
-    sk2.setImage(inte.getImage(ps.getSkat()[1].getColour().toString().toLowerCase(),
-        ps.getSkat()[1].getNumber().toString().toLowerCase()));
+    sk2.setImage(inte.getImage(ps.getSkat()[1]));
 
     sk2.setFitHeight(227);
     sk2.setFitWidth(182);
     sk2.setLayoutX(326);
     sk2.setLayoutY(37);
-    sk1.setImage(inte.getImage(ps.getSkat()[0].getColour().toString().toLowerCase(),
-        ps.getSkat()[0].getNumber().toString().toLowerCase()));
+    sk1.setImage(inte.getImage(ps.getSkat()[0]));
 
     ok.setPrefHeight(31);
     ok.setPrefWidth(67);

@@ -82,19 +82,19 @@ public class LoginController implements Initializable {
     System.out.println("Tada");
     username = textField.getText();
     
-    try {
-      if (!interfGD.checkIfPlayerNew(username)) {
+//    try {
+//      if (!interfGD.checkIfPlayerNew(username)) {
         main.displayChooseGame();
         interfGL.login(username, null);
-      } else {
-        if(!pane.getChildren().contains(noUsername)) {
-          displayNoUser(); 
-        }
-      }
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+//      } else {
+//        if(!pane.getChildren().contains(noUsername)) {
+//          displayNoUser(); 
+//        }
+//      }
+//    } catch (SQLException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    }
     
 //    main.displayChooseGame();
   }
@@ -104,6 +104,12 @@ public class LoginController implements Initializable {
    */
   public void setImages() {
     GuiData inte = new ImplementsGuiInterface();
+//    Card clubsJ = new Card(Colour.CLUBS, Number.JACK);
+//    jclubs.setImage(inte.getImage("clubs", "jack"));
+//    jspades.setImage(inte.getImage("spades", "jack"));
+//    jhearts.setImage(inte.getImage("hearts", "jack"));
+//    jdiamonds.setImage(inte.getImage("diamonds", "jack"));
+//    
     jclubs.setImage(inte.getImage(new Card(Colour.CLUBS, Number.JACK)));
     jspades.setImage(inte.getImage(new Card(Colour.SPADES, Number.JACK)));
     jhearts.setImage(inte.getImage(new Card(Colour.HEARTS, Number.JACK)));
