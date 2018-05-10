@@ -227,46 +227,50 @@ public class Medium {
     }
 
     List<Card> skatReturn = new ArrayList<Card>();
-    while (skatReturn.size() < 2) {
-      int minIndex = 0;
-      int minValue = hasColour[0];
-      for (int i = 1; i < hasColour.length; i++) {
-        if (hasColour[i] < minValue && hasColour[i] > 0) {
-          minIndex = i;
-          minValue = hasColour[i];
-        }
+    int minIndex = 0;
+    int minValue = hasColour[0];
+    for (int i = 1; i < hasColour.length; i++) {
+      if (hasColour[i] < minValue && hasColour[i] > 0) {
+        minIndex = i;
+        minValue = hasColour[i];
       }
-      if (playMode == PlayMode.GRAND || playMode == PlayMode.SUIT) {
-        int j = 7;
-        while (j >= 0 && skatReturn.size() < 2) {
-          if (controller.getCardProbabilities()[minIndex * 8 + j][0] == 1) {
-            controller.setCardProbability(0, minIndex, j, 0);
-            hasColour[minIndex]--;
-            for (int i = 0; i < cards.size(); i++) {
-              if ((3 - cards.get(i).getColour().ordinal()) == minIndex
-                  && (7 - cards.get(i).getNumber().ordinal()) == j) {
-                skatReturn.add(cards.get(i));
-              }
+    }
+    if (playMode == PlayMode.GRAND || playMode == PlayMode.SUIT) {
+      int j = 7;
+      while (j >= 0 && skatReturn.size() < 2) {
+        if (controller.getCardProbabilities()[minIndex * 8 + j][0] == 1) {
+          controller.setCardProbability(0, minIndex, j, 0);
+          hasColour[minIndex]--;
+          for (int i = 0; i < cards.size(); i++) {
+            if ((3 - cards.get(i).getColour().ordinal()) == minIndex
+                && (7 - cards.get(i).getNumber().ordinal()) == j) {
+              skatReturn.add(cards.get(i));
+              cards.remove(i);
             }
           }
-          j--;
         }
-      } else {
-        int j = 0;
-        while (j < 8 && skatReturn.size() < 2) {
-          if (controller.getCardProbabilities()[minIndex * 8 + j][0] == 1) {
-            controller.setCardProbability(0, minIndex, j, 0);
-            hasColour[minIndex]--;
-            for (int i = 0; i < cards.size(); i++) {
-              if ((3 - cards.get(i).getColour().ordinal()) == minIndex
-                  && (7 - cards.get(i).getNumber().ordinal()) == j) {
-                skatReturn.add(cards.get(i));
-              }
+        j--;
+      }
+    } else {
+      int j = 0;
+      while (j < 8 && skatReturn.size() < 2) {
+        if (controller.getCardProbabilities()[minIndex * 8 + j][0] == 1) {
+          controller.setCardProbability(0, minIndex, j, 0);
+          hasColour[minIndex]--;
+          for (int i = 0; i < cards.size(); i++) {
+            if ((3 - cards.get(i).getColour().ordinal()) == minIndex
+                && (7 - cards.get(i).getNumber().ordinal()) == j) {
+              skatReturn.add(cards.get(i));
+              cards.remove(i);
             }
           }
-          j++;
         }
+        j++;
       }
+    }
+    for (int i = skatReturn.size(); i < 2; i++) {
+      skatReturn.add(cards.get((int) Math.random() * cards.size()));
+      cards.remove(i);
     }
 
     for (int i = 0; i < skatReturn.size(); i++) {
