@@ -90,6 +90,7 @@ public class AiController implements InGameInterface {
    * Constructs an instance of the AIController and initializes parameters, sets up Lists.
    * 
    * @author fkleinoe
+   * @param logic connection to logic
    * @param name of the AI
    * @param difficulty of the AI
    * @param gameSettings of the game

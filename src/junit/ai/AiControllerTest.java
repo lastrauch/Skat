@@ -86,7 +86,6 @@ class AiControllerTest {
    * Check if player are added correctly.
    * 
    * @author fkleinoe
-   * @throws Exception e
    */
   @Test
   void testAskForBet() {
@@ -104,7 +103,6 @@ class AiControllerTest {
    * Check if player are added correctly.
    * 
    * @author fkleinoe
-   * @throws Exception e
    */
   @Test
   void testReceivedNewBet() {
@@ -122,7 +120,6 @@ class AiControllerTest {
    * Check for different observations by player p playing card c.
    * 
    * @author fkleinoe
-   * @throws Exception e
    */
   @Test
   void testReceivedNewCard() {
@@ -170,7 +167,6 @@ class AiControllerTest {
    * Check if opponent and partner are set correctly.
    * 
    * @author fkleinoe
-   * @throws Exception e
    */
   @Test
   void testSetPlaySettingsAfterAuction() {

@@ -95,7 +95,7 @@ public class General {
    * @author fkleinoe
    * @param controller with all information
    * @param playMode highest possible bet with current hand
-   * @return
+   * @return int the highest possible bet
    */
   public static int getHighestPossibleBet(AiController controller, PlayMode playMode) {
     if (playMode == PlayMode.NULL) {

@@ -183,7 +183,7 @@ public class Server extends Thread {
    * Get clientConnections.
    * 
    * @author fkleinoe
-   * @return List(ClientConnection> to get
+   * @return List(ClientConnection) to get
    */
   public List<ClientConnection> getClientConnections() {
     return this.clientConnections;

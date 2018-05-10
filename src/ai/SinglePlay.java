@@ -60,7 +60,7 @@ public class SinglePlay {
   /**
    * Get PlayMode.
    * 
-   * @fkleinoe
+   * @author fkleinoe
    * @return PlayMode to get
    */
   public PlayMode getPlayMode() {

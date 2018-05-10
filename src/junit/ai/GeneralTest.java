@@ -64,7 +64,6 @@ class GeneralTest {
    * Plays a random card.
    * 
    * @author fkleinoe
-   * @throws Exception e
    */
   @Test
   void testPlayRandomCard() {
@@ -75,7 +74,6 @@ class GeneralTest {
    * Tests the highest possible bet value with the current hand.
    * 
    * @author fkleinoe
-   * @throws Exception e
    */
   @Test
   void testGetHighestPossibleBetAiControllerPlayMode() {
@@ -86,7 +84,6 @@ class GeneralTest {
    * Tests the game value of the current hand.
    * 
    * @author fkleinoe
-   * @throws Exception e
    */
   @Test
   void testGetGameLevel() {
@@ -97,7 +94,6 @@ class GeneralTest {
    * Tests if the correct index is given back.
    * 
    * @author fkleinoe
-   * @throws Exception e
    */
   @Test
   void testCheckIfPossibleAndGetIndex() {
@@ -109,7 +105,6 @@ class GeneralTest {
    * Tests playing colour.
    * 
    * @author fkleinoe
-   * @throws Exception e
    */
   @Test
   void testPlayColour() {
@@ -121,7 +116,6 @@ class GeneralTest {
    * Tests playing trump.
    * 
    * @author fkleinoe
-   * @throws Exception e
    */
   @Test
   void testPlayTrump() {
@@ -133,7 +127,6 @@ class GeneralTest {
    * Tests playing value.
    * 
    * @author fkleinoe
-   * @throws Exception e
    */
   @Test
   void testPlayValue() {
