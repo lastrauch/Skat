@@ -24,10 +24,6 @@ public class ImplementsLogicGui implements LogicGui {
    */
   @Override
   public void updateLobby(GameSettings gs, List<Player> group) {
-    System.out.println("group.size: " + group.size());
-    for (int i = 0; i < group.size(); i++) {
-      System.out.println("group(" + i + "): " + group.get(i));
-    }
     guiCon.getLobbyCon().displayPlayers(group.size(), group);
     guiCon.getLobbyCon().setGameSettingsLabel(gs);
 
@@ -43,8 +39,6 @@ public class ImplementsLogicGui implements LogicGui {
   @Override
   public void showReceivedChatMessage(String mgs, Player player) {
     // TODO Auto-generated method stub
-    System.out.println("Playername: " + player.getName());
-    System.out.println("text: " + mgs);
     guiCon.getLobbyCon().showChatMessage(mgs, player.getName());
   }
 

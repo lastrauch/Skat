@@ -101,14 +101,6 @@ public class Leaderboard3Controller implements Initializable {
     roundsNr.get(0).setAlignment(Pos.CENTER);
     vboxNr.getChildren().add(roundsNr.get(0));
 
-//    roundsNr.get(1).setText("Nr.");
-//    roundsNr.get(1).setFont(Font.font("System", 33));
-//    roundsNr.get(1).setTextFill(Color.WHITE);
-//    AnchorPane.setLeftAnchor(roundsNr.get(0), 0.0);
-//    AnchorPane.setRightAnchor(roundsNr.get(0), 0.0);
-//    roundsNr.get(1).setAlignment(Pos.CENTER);
-//    vboxNr.getChildren().add(roundsNr.get(0));
-
     rounds1.get(0).setText(main.getInGameCon().getPlayer1().getName());
     rounds1.get(0).setFont(Font.font("System", 33));
     rounds1.get(0).setTextFill(Color.WHITE);

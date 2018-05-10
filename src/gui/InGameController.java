@@ -121,6 +121,7 @@ public class InGameController implements Initializable, InGameInterface {
   int[] ret;
   private int countl;
   private int countr;
+  private int counto;
   private boolean random;
 
 
@@ -360,6 +361,7 @@ public class InGameController implements Initializable, InGameInterface {
     ret = new int[1];
     countl = 10;
     countr = 10;
+    counto = 10;
     random = false;
 
     carray = new ImageView[10];
@@ -770,7 +772,6 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void openAuctionWinnerScreen() {
     // TODO Auto-generated method stub
-    System.out.println("AUCTIONWINNERSCREEN");
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -1342,20 +1343,17 @@ public class InGameController implements Initializable, InGameInterface {
   @Override
   public void showScore(List<Player> player) {
     // TODO Auto-generated method stub
-    System.out.println("SHOW SCORE!!!");
     if (player.size() == 3) {
       this.pl1 = player.get(0);
       this.pl2 = player.get(1);
       this.pl3 = player.get(2);
       main.displayLeaderboard3();
     } else {
-      System.out.println("Leaderboard 4");
       this.pl1 = player.get(0);
       this.pl2 = player.get(1);
       this.pl3 = player.get(2);
       this.pl4 = player.get(3);
       main.displayLeaderboard4();
-      // main.getLead4Con().start();
     }
 
   }
@@ -1416,12 +1414,12 @@ public class InGameController implements Initializable, InGameInterface {
             }
           } else {
             if (player.getPosition() == Position.REARHAND) {
-              s1.setImage(inte.getImage(card));
+              s3.setImage(inte.getImage(card));
               removeOpponentCardsLeft(countl);
               countl--;
               s1.toFront();
             } else if (player.getPosition() == Position.FOREHAND) {
-              s3.setImage(inte.getImage(card));
+              s1.setImage(inte.getImage(card));
               removeOpponentCardsRight(countr);
               countr--;
               s3.toFront();
@@ -1430,10 +1428,7 @@ public class InGameController implements Initializable, InGameInterface {
               s2.toFront();
             }
           }
-
-
           // 4 Players:
-
         } else {
           rearrangeCardsDark(cardlist);
           if (LoginController.interfGL.getPlayer().getPosition() == Position.FOREHAND) {
@@ -1444,8 +1439,8 @@ public class InGameController implements Initializable, InGameInterface {
               s1.toFront();
             } else if (player.getPosition() == Position.REARHAND) {
               s3.setImage(inte.getImage(card));
-              removeOpponentCardsRight(countr);
-              countr--;
+              removeOpponentCardsUp(counto);
+              counto--;
               s3.toFront();
             } else {
               s2.setImage(inte.getImage(card));
@@ -1459,27 +1454,43 @@ public class InGameController implements Initializable, InGameInterface {
               s3.toFront();
             } else if (player.getPosition() == Position.FOREHAND) {
               s2.setImage(inte.getImage(card));
-              removeOpponentCardsLeft(countl);
-              countl--;
+              removeOpponentCardsUp(counto);
+              counto--;
               s1.toFront();
             } else {
               s2.setImage(inte.getImage(card));
               s2.toFront();
             }
-          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.DEALER) {
             if (player.getPosition() == Position.FOREHAND) {
               s1.setImage(inte.getImage(card));
               removeOpponentCardsLeft(countl);
               countl--;
               s1.toFront();
-            } else if (player.getPosition() == Position.MIDDLEHAND) {
-              s2.setImage(inte.getImage(card));
+            } else if (player.getPosition() == Position.REARHAND) {
+              s3.setImage(inte.getImage(card));
               removeOpponentCardsRight(countr);
               countr--;
-              s2.toFront();
-            } else {
-              s3.setImage(inte.getImage(card));
               s3.toFront();
+            } else {
+              s2.setImage(inte.getImage(card));
+              removeOpponentCardsUp(counto);
+              s2.toFront();
+            }
+          } else if (LoginController.interfGL.getPlayer().getPosition() == Position.MIDDLEHAND) {
+            if (player.getPosition() == Position.FOREHAND) {
+              s3.setImage(inte.getImage(card));
+              removeOpponentCardsRight(countl);
+              countl--;
+              s3.toFront();
+            } else if (player.getPosition() == Position.REARHAND) {
+              s1.setImage(inte.getImage(card));
+              removeOpponentCardsLeft(countr);
+              countr--;
+              s1.toFront();
+            } else {
+              s2.setImage(inte.getImage(card));
+              s2.toFront();
             }
           } else {
             if (player.getPosition() == Position.REARHAND) {
@@ -1527,7 +1538,6 @@ public class InGameController implements Initializable, InGameInterface {
     // TODO Auto-generated method stub
     while (setSettings == false) {
       buttonListenerPlaySettings(ps);
-
     }
     return ps;
   }
@@ -1550,8 +1560,7 @@ public class InGameController implements Initializable, InGameInterface {
    * @param s string
    */
   public void displayTraining(String s) {
-    training.setStyle(
-        "-fx-background-color: tan; -fx-background-radius: 10; "
+    training.setStyle("-fx-background-color: tan; -fx-background-radius: 10; "
         + "-fx-border-color: peru; -fx-border-radius: 10");
     training.setText(s);
   }
@@ -1573,8 +1582,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void displayKontra() {
     kontra.setText("KONTRA");
-    kontra.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 10; "
+    kontra.setStyle("-fx-background-color: peru; -fx-background-radius: 10; "
         + "-fx-border-color: black; -fx-border-radius: 10");
   }
 
@@ -1595,8 +1603,7 @@ public class InGameController implements Initializable, InGameInterface {
    */
   public void displayRekontra() {
     kontra.setText("KONTRA");
-    kontra.setStyle(
-        "-fx-background-color: peru; -fx-background-radius: 10; "
+    kontra.setStyle("-fx-background-color: peru; -fx-background-radius: 10; "
         + "-fx-border-color: black; -fx-border-radius: 10");
   }
 
@@ -1697,11 +1704,9 @@ public class InGameController implements Initializable, InGameInterface {
   public void rearrangeCardsNotPossible(List<Card> list) {
     for (int i = 0; i < list.size(); i++) {
       if (list.get(i) != null) {
-        System.out.println("cArray[" + i + "] - Dark: " + carray[i]);
         carray[i].setImage(inte.getImageDarker(list.get(i)));
 
       } else {
-        System.out.println("cArray[" + i + "] - Light: " + carray[i]);
         carray[i].setImage(inte.getImage(cardlist.get(i)));
       }
     }
@@ -1798,6 +1803,49 @@ public class InGameController implements Initializable, InGameInterface {
     }
   }
 
+  /**
+   * removes opponentscard on the left side after played.
+   * 
+   * @author lstrauch
+   * @param anz anz
+   */
+  public void removeOpponentCardsUp(int anz) {
+    switch (anz) {
+      case 1:
+        mainPane.getChildren().remove(o1);
+        break;
+      case 2:
+        mainPane.getChildren().remove(o2);
+        break;
+      case 3:
+        mainPane.getChildren().remove(o3);
+        break;
+      case 4:
+        mainPane.getChildren().remove(o4);
+        break;
+      case 5:
+        mainPane.getChildren().remove(o5);
+        break;
+      case 6:
+        mainPane.getChildren().remove(o6);
+        break;
+      case 7:
+        mainPane.getChildren().remove(o7);
+        break;
+      case 8:
+        mainPane.getChildren().remove(o8);
+        break;
+      case 9:
+        mainPane.getChildren().remove(o9);
+        break;
+      case 10:
+        mainPane.getChildren().remove(o10);
+        break;
+      default:
+        break;
+    }
+  }
+
 
 
   /**
@@ -1847,7 +1895,6 @@ public class InGameController implements Initializable, InGameInterface {
    * adds buttonlistener to bet-Buttons.
    * 
    * @author lstrauch
-   * @return
    */
   public void buttonListener() {
     pass.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
@@ -1876,6 +1923,7 @@ public class InGameController implements Initializable, InGameInterface {
    * 
    * @author lstrauch
    * @param ps PlayState
+   * @return playstate
    */
   public PlayState buttonListenerPlaySettings(PlayState ps) {
     boolean[] pressed = new boolean[1];
@@ -1992,7 +2040,7 @@ public class InGameController implements Initializable, InGameInterface {
       @Override
       public void handle(MouseEvent event) {
         if (cardlist.size() == 11) {
-          //Only one card on the skat
+          // Only one card on the skat
           if (da[0] == false) {
             sk1.setImage(c1.getImage());
             skat.set(0, cardlist.get(1));
@@ -2561,11 +2609,13 @@ public class InGameController implements Initializable, InGameInterface {
       mainPane.getChildren().add(paneBet);
     }
     if (main.getSettingsCon() != null && main.getSettingsCon().getTrainingsmode()) {
-      displayTraining("1.   Be realistic! You will not win the next round, if you do not get at least "
-          + "six tricks and you will not get the girl, when she did not drink at least six drinks.\n"
-          + "2.  You have more than two Jacks?  You are either a slut or a winner!\n"
-          + "3.  You only have two Jacks? Hopefully they are the blacks.\n"
-          + "4.  Know your highest possible bet! Only a noobs bet and Snoop Dog are higher. ");
+      displayTraining(
+          "1.   Be realistic! You will not win the next round," + " if you do not get at least "
+              + "six tricks and you will not get the girl, when she did"
+              + " not drink at least six drinks.\n"
+              + "2.  You have more than two Jacks?  You are either a slut or a winner!\n"
+              + "3.  You only have two Jacks? Hopefully they are the blacks.\n"
+              + "4.  Know your highest possible bet! Only a noobs bet and Snoop Dog are higher. ");
       training.toFront();
     }
   }

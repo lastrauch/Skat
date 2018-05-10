@@ -33,7 +33,7 @@
                   <VBox fx:id="vboxNr" layoutX="70.0" layoutY="170.0" prefWidth="108.0" spacing="15.0" />
                   <VBox fx:id="vbox1" layoutX="120.0" layoutY="181.0" prefWidth="108.0" spacing="15.0" />
                   <VBox fx:id="vbox2" layoutX="220.0" layoutY="188.0" prefWidth="108.0" spacing="15.0" />
-                  <VBox fx:id="vBox3" layoutX="286.0" layoutY="10.0" prefWidth="108.0" spacing="15.0" />
+                  <VBox fx:id="vbox3" layoutX="286.0" layoutY="10.0" prefWidth="108.0" spacing="15.0" />
                </children>
             </HBox>
             <Line endX="716.0" layoutY="447.0" startX="44.0" stroke="WHITE" AnchorPane.rightAnchor="43.5" />

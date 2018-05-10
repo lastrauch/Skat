@@ -19,7 +19,6 @@ public class GuiController extends Application {
    */
 
   static Stage mprimaryStage;
-  private AnchorPane root;
 
   private static InGameController inGameCon;
   private AnchorPane inGame = null;

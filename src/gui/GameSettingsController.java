@@ -1,10 +1,10 @@
 package gui;
 
-import java.net.URL;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -338,8 +338,6 @@ public class GameSettingsController implements Initializable {
       }
       guiCon.displayLobby();
       if (guiCon.getLobbyCon() != null) {
-        System.out
-            .println("gs screen Gamesettings: " + gs.getNrOfPlays() + "  " + gs.getCountRule());
         LoginController.interfGL.hostGame(ms, gs);
       }
     }

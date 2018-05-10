@@ -1,5 +1,7 @@
 package gui;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -7,8 +9,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -93,9 +93,6 @@ public class AccountSettingsController implements Initializable {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    // if(img != null) {
-    // LoginController.interfGD.changeImage(LoginController.interfGL.getPlayer(), img);
-    // }
   }
 
 
