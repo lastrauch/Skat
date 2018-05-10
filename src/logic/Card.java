@@ -92,9 +92,9 @@ public class Card implements Serializable {
   }
 
   /**
-   * Checks if the current instance und the given card are equal.
-   * @param card which is compared to current instancs
-   * @return if the current instance is equal to the param
+   * Checks if the current instance and the given card are equal.
+   * @param card which is compared to current instances
+   * @return if the current instance is equal to the parameter
    * @author sandfisc
    */
   public boolean equals(Card card) {
