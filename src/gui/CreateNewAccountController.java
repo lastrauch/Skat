@@ -73,7 +73,7 @@ public class CreateNewAccountController {
       interfGd.insertPlayer(new Player(username));
     }
     main.displayChooseGame();
-    LoginController.interfGL.login(username, ppicture);
+    LoginController.interfGL.login(username);
   }
 
   /**
