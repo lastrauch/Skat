@@ -15,22 +15,22 @@ import network.server.Server;
 public interface GuiLogic {
 
   /**
-   * 
-   * @param username
+   * The user starts the program and logs in with a username.
+   * @param username of the user
    */
-  public void login(String username, Image profilepicture);
+  public void login(String username);
   
   /**
-   * So the logic knows the new username, in case it has changed
+   * So the logic knows the new username, in case it has changed.
    * 
    * @author lstrauch
-   * @param username
+   * @param username that has to be set.
    */
   public void setUsername(String username);
   
   
   /**
-   * Should delete an already existing bot if difficulty has changed
+   * Should delete an already existing bot if difficulty has changed.
    * @param botname
    */
   public void deleteBot(String botname); 
