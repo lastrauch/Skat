@@ -40,6 +40,7 @@ public interface GuiData {
    * @author dpervane
    * @param username of the Player
    * @return boolean
+   * @throws SQLException
    */
   public boolean checkIfPlayerNew(String username) throws SQLException;
 
@@ -48,7 +49,7 @@ public interface GuiData {
    * 
    * @author dpervane
    * @param player is the player
-   * @return
+   * @return player
    */
   public Player getPlayer(Player player);
   
@@ -56,8 +57,8 @@ public interface GuiData {
    * Finds the player with the given name and return him.
    * 
    * @author dpervane
-   * @param playername is the player
-   * @return playername
+   * @param player name is the player
+   * @return player name
    */
   
   public Player getPlayer(String playername);

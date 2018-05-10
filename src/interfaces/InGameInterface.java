@@ -32,14 +32,16 @@ public interface InGameInterface {
 
   /**
    * asks the player to play a card.
-   * 
+   * @param timeToPlay Time the player has to play a card.
+   * @param ps PlayState
+   * @return int the played card
    */
   public int askToPlayCard(int timeToPlay, PlayState ps);
 
 
   /**
    * asks the player if he wants to take up the skat.
-   * 
+   * @return if the player wants to take up the skat.
    */
   public boolean askToTakeUpSkat();
 
@@ -48,6 +50,8 @@ public interface InGameInterface {
    * pass?" (if bet=18).
    * 
    * @param bet the player bet
+   * @lastBet last bet a player made.
+   * @return if the player wanst to bet the bet
    */
   public boolean askForBet(int bet, Player lastBet);
 

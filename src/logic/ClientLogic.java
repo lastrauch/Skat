@@ -211,6 +211,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
   /**
    * sets the gameSettings.
+   * @param gs GameSettings
    */
   @Override
   public void receiveGameSettings(GameSettings gs) {
@@ -271,8 +272,13 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   }
 
   @Override
+  /**
+   * copys the given player
+   * @param player that should be copied
+   * @return 
+   */
   public Player copyPlayer(Player player) {
-    return this.player.copyMe();
+    return player.copyMe();
   }
 
   /**
@@ -374,7 +380,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * 
    * @author awesch
    * @param player who bet last
-   * @return
+   * @param bet (int)
+   * @return boolean if forehand should play next card
    */
   public boolean checkIfItsMyTurnAuctionForehand(Player player, int bet) {
     if (player.getPosition() == Position.MIDDLEHAND && this.player.getBet() != -1 && bet != -1) {
@@ -391,7 +398,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * 
    * @author awesch
    * @param player who bet last
-   * @return
+   * @param bet (int)
+   * @return boolean if forehand should play next card
    */
   public boolean checkIfItsMyTurnAuctionMiddlehand(Player player, int bet) {
     if (player.getPosition() == Position.FOREHAND && bet != -1 && this.player.getBet() != -1) {
@@ -408,7 +416,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * 
    * @author awesch
    * @param player who bet last
-   * @return
+   * @param bet (int)
+   * @return boolean
    */
   public boolean checkIfItsMyTurnAuctionRearHand(Player player, int bet) {
     if (bet == -1) {
@@ -423,6 +432,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   /**
    * returns true, if one player passed already.
    * 
+   * @return boolean (someone already passed)
    * @author awesch
    */
   public boolean oneOfThePlayersPassedAlready() {
@@ -440,7 +450,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * 
    * @author awesch
    * @param player who bet last
-   * @return
+   * @return boolean
    */
   public boolean checkIfItsMyTurnAuction(Player player, int bet) {
     if (this.player.getPosition() == Position.FOREHAND
@@ -463,6 +473,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * 
    * @author awesch
    * @param bet which came in last
+   * @return boolean.
    */
   public boolean checkIfAuctionIsOver(int bet) {
     if (bet == -1 && this.oneOfThePlayersPassedAlready()) {
@@ -914,6 +925,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
   /**
    * to help update position, returns the index where the forehand sits.
+   * @return int 
    */
   public int searchForehand() {
     for (int i = 0; i < this.group.size(); i++) {
@@ -926,6 +938,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
   /**
    * returns true if the game score is over the bierlachs piont limit.
+   * @return boolean
    */
   public boolean checkIfGameOverBierlachs() {
     for (Player p : this.playState.getGroup()) {
@@ -938,6 +951,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
   /**
    * returns true if the currentTrick is full.
+   * @return boolean
    */
   public boolean checkIfTrickIsFull() {
     if (this.playState.getCurrentTrick().isFull()) {
@@ -951,6 +965,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * returns true if the played card comes from the player with the position, who plays before this
    * player.
    * 
+   * @return boolean
    * @param playedLastCard player
    */
   public boolean checkIfMyTurnTrick(Player playedLastCard) {
@@ -970,7 +985,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
   /**
    * returns the three players of this group who are part of the next play.
-   * 
+   * @return Player[] 
    * @author sandfisc
    */
   public Player[] getPlayingGroup() {
@@ -994,6 +1009,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * 
    * @param card (the player wants to play)
    * @param firstCard (the first played card in the current trick)
+   * @param playState
+   * @param player
    * @return if card can be played
    * @throws LogicException if card not allowed to play
    * @author sandfisc
@@ -1016,6 +1033,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * @author sandfisc
    * @param card (the player wants to play)
    * @param firstCard (the first played card in the current trick)
+   * @param ps - playState
    * @param player (who wants to play the card)
    * @return if card is possible in PlayMode Colour
    */
@@ -1037,13 +1055,16 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   }
 
   /**
-   * checks if the serving card serves the served card --> checks if both are trump/jack or have the
+   * checks if the serving card serves the served card - checks if both are trump/jack or have the
    * same color, returns true if served.
    * 
    * @author sandfisc
    * @param servingCard new card
    * @param servedCard first card of trick
-   */
+   * @param playState (ps)
+   * @return boolean
+   * 
+   * */
   public static boolean checkIfServedColour(Card servingCard, Card servedCard,
       PlayState playState) {
 
@@ -1070,6 +1091,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * @param card (the player wants to play)
    * @param firstCard (the first played card in the current trick)
    * @param player (who wants to play the card)
+   * @param playState(ps)
    * @return if card is possible in PlayMode Grand
    */
   public static boolean checkIfCardPossibleGrand(Card card, Card firstCard, Player player,
@@ -1090,7 +1112,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   }
 
   /**
-   * checks if the serving card serves the served card --> checks is both are jack or have the same
+   * checks if the serving card serves the served card - checks is both are jack or have the same
    * color.
    * 
    * @author sandfisc

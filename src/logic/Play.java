@@ -8,6 +8,8 @@ public class Play {
   /**
    * returns true if declarer over bid false if not.
    * 
+   * @param ps PlayState
+   * @return boolean
    * @author sandfisc
    */
   public static boolean checkOverBid(PlayState ps) {
@@ -25,6 +27,8 @@ public class Play {
    * Calculates the winner of the play, and saves it in the boolean singlePlayerWins uses
    * calculatePoinsOfStack.
    * 
+   * @param ps PlayState
+   * @return List of players
    * @author awesch
    * @author sandfisc
    */
@@ -84,6 +88,10 @@ public class Play {
   /**
    * calculates the value of the game.
    * 
+   * @param ps Playstate
+   * @param gameSettings (settings of the game)
+   * @param declarerWins (tells the methos id the declarer wins
+   * @return Playstate (updated)
    * @author sandfisc
    * @throws LogicException if not possible
    */
@@ -109,6 +117,9 @@ public class Play {
   /**
    * The amount subtracted from the declarer's score is twice the least multiple of the base value
    * of the game actually played which would have fulfilled the bid.
+   * 
+   * @param ps PlayState
+   * @return PlayState (updated)
    */
   public static PlayState calculatePointsOverBit(PlayState ps) {
     int points = ps.getBaseValue();
@@ -129,6 +140,9 @@ public class Play {
    * if declarer won, the value of the game is added to his/her gamePoints else twice the value is
    * subtracted from his/her score.
    * 
+   * @param ps PlayState
+   * @param declarerWins (boolean)
+   * @return PlayState (updated)
    * @author sandfisc
    */
   public static PlayState calculatePointsNormal(PlayState ps, boolean declarerWins) {
@@ -155,6 +169,9 @@ public class Play {
   /**
    * only minuspoints here for the player/s who won.
    * 
+   * @param declarerWins (boolean)
+   * @param ps PlayState
+   * @return PlayState
    * @author sandfisc
    */
   public static PlayState calculatePointsBierlachs(PlayState ps, boolean declarerWins) {
@@ -180,6 +197,9 @@ public class Play {
   /**
    * declarer gets or looses (the playValue + 50).
    * 
+   * @param declarerWins (boolean)
+   * @param ps PlayState
+   * @return PlayState
    * @author sandfisc
    */
   public static PlayState calculatePointsSeegerfabian(PlayState ps, boolean declarerWins) {

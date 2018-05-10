@@ -32,6 +32,7 @@ public class CardImage {
    * 
    * @author awesch
    * @param col -our in a string
+   * @return colour 
    */
   public Colour setColour(String col) {
     Colour c = Colour.CLUBS;
@@ -59,6 +60,7 @@ public class CardImage {
    * 
    * @author awesch
    * @param nr in a string
+   * @return number
    */
   public Number setNumber(String nr) {
     Number number = Number.SEVEN;
@@ -98,6 +100,7 @@ public class CardImage {
    * 
    * @author awesch
    * @param dark in a string
+   * @return boolean (false - > dark, true -> light)
    */
   public boolean setDark(String dark) {
     if (dark.equals("dark")) {

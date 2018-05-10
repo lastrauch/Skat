@@ -61,12 +61,14 @@ public interface GuiLogic {
   /**
    * A new skat server is started.
    * @param comment the host uses to describe his/her server.
+   * @param gs GameSettings
    */
   public void hostGame(String comment, GameSettings gs);
   
   /**
    * supposed to sort the cards from jack to trump to lowest value.
    * @param ps PlayState
+   * @param cardList - list of cards
    * @return the sorted array of cards
    */
   public ArrayList<Card> sortHand(PlayState ps, List<Card> cardlist); 

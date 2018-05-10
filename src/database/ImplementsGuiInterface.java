@@ -127,7 +127,7 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
    * 
    * @author dpervane
    * @param player is the player
-   * @retrun player
+   * @return player
    */
   @Override
   public Player getPlayer(Player player) {

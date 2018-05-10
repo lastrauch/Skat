@@ -80,6 +80,7 @@ public class Player implements Serializable {
 
   /**
    * returns a deep copy of the player.
+   * @return player (deep copy)
    */
   public Player copyMe() {
     String newName = this.name;
@@ -109,6 +110,7 @@ public class Player implements Serializable {
 
   /**
    * returns a random index of the hand.
+   * @return Card (random)
    */
   public Card chooseRandomCardFromHand() {
     int index = (int) (Math.random() * this.hand.size());
@@ -331,6 +333,7 @@ public class Player implements Serializable {
 
   /**
    * returns a deep copy of the players hand.
+   * @return deep copied hand
    */
   public List<Card> getDeepCopyHand() {
     List<Card> copyHand = new ArrayList<Card>();

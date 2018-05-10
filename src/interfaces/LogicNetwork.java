@@ -40,6 +40,7 @@ public interface LogicNetwork {
    * sends a chat message to the other clients.
    * 
    * @param message to the others
+   * @param player who send message
    */
   public void sendChatMessage(Player player, String message);
 

@@ -8,6 +8,8 @@ public class Game {
   /**
    * calculates the winner of the whole game.
    * 
+   * @return List of Players
+   * @param list of players
    * @author sandfisc
    * @author awesch
    */
