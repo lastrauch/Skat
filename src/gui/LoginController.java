@@ -103,11 +103,17 @@ public class LoginController implements Initializable {
    * @author lstrauch
    */
   public void setImages() {
-    GuiData inte = new ImplementsGuiInterface();
-    jclubs.setImage(inte.getImage(new Card(Colour.CLUBS, Number.JACK)));
-    jspades.setImage(inte.getImage(new Card(Colour.SPADES, Number.JACK)));
-    jhearts.setImage(inte.getImage(new Card(Colour.HEARTS, Number.JACK)));
-    jdiamonds.setImage(inte.getImage(new Card(Colour.DIAMONDS, Number.JACK)));
+//    GuiData inte = new ImplementsGuiInterface();
+//    Card clubsJ = new Card(Colour.CLUBS, Number.JACK);
+//    jclubs.setImage(inte.getImage("clubs", "jack"));
+//    jspades.setImage(inte.getImage("spades", "jack"));
+//    jhearts.setImage(inte.getImage("hearts", "jack"));
+//    jdiamonds.setImage(inte.getImage("diamonds", "jack"));
+//    
+//    jclubs.setImage(inte.getImage(new Card(Colour.CLUBS, Number.JACK)));
+//    jspades.setImage(inte.getImage(new Card(Colour.SPADES, Number.JACK)));
+//    jhearts.setImage(inte.getImage(new Card(Colour.HEARTS, Number.JACK)));
+//    jdiamonds.setImage(inte.getImage(new Card(Colour.DIAMONDS, Number.JACK)));
   }
 
   /**
