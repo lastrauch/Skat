@@ -12,6 +12,7 @@ public class Tools {
    * @author awesch
    * @param hand to sort
    * @param ps playState
+   * @return list of cards
    */
   public static ArrayList<Card> sortHand(ArrayList<Card> hand, PlayState ps) {
     // possible different orders : colour, grand, null(nullouvert)
