@@ -149,6 +149,8 @@ public class InGameController implements Initializable, InGameInterface {
   private ImageView c9;
   @FXML
   private ImageView c10;
+  @FXML
+  private ImageView stichMid;
   private ImageView[] carray;
   @FXML
   private ImageView r1;
