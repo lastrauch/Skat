@@ -9,70 +9,87 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
+import logic.Card;
 import logic.Player;
 
-public class ImplementsGuiInterface extends DatabaseHandler implements GuiData { 
-  
+public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
+
   // This class implements all requested methods for UI.
   // Avaliable methods are:
-  
+
   // getImage(String colour, String number) : Image
   // Gives back the image of the Card, which is called by UI
-  
+
   // getImageDarker(String colour, String number) : Image
   // Gives back the darker version of the Card, which is called by UI
-  
+
   // insertPlayer(Player player)
   // Stores a new player profile in the database, after creating a new player in UI
-  
+
   // checkIfPlayerNew(String username) : boolean
   // Returns true if the player is not found in database false if already in database
-  
+
   // getPlayer(Player player) : Player
   // Finds the player with the given name and return him
-  
+
   // changeName(String neu, Player original)
   // Changes the players name
-  
+
   // changeImage(Player player, Image img)
   // Changes the players profile picture
-  
+
   // getPlayer(String playername): Player
   // Finds the player with the given name and return him
-  
+
   //////////////////////////////////////////////////////////////////////////////////////////////////
-  // Methods called by GuiData                                                 
+  // Methods called by GuiData
   //////////////////////////////////////////////////////////////////////////////////////////////////
-  
-  /** 
+
+  private List<CardImage> cards;
+
+  public ImplementsGuiInterface() {
+    PngReader pr = new PngReader();
+    this.cards = pr.readAll();
+  }
+
+  private PngReader pr;
+
+  /**
    * Gives back the image of the card, which is called by UI.
    * 
    * @author dpervane
    * @param colour of the card
    * @param number of the card
    * @return img
-   */ 
+   */
   @Override
-  public Image getImage(String colour, String number) {
+  public Image getImage(Card card) {
     Image img = null;
-    try {
-      selectCard.setString(1, colour);
-      selectCard.setString(2, number);
-      ResultSet rs = selectCard.executeQuery();
-      while (rs.next()) {
-        InputStream in = rs.getBinaryStream("image");
-        img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
+    // try {
+    // selectCard.setString(1, colour);
+    // selectCard.setString(2, number);
+    // ResultSet rs = selectCard.executeQuery();
+    // while (rs.next()) {
+    // InputStream in = rs.getBinaryStream("image");
+    // img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
+    // }
+    // rs.close();
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+
+    for (CardImage ci : this.cards) {
+      if (ci.getCard().equals(card) && !ci.isDark()) {
+        return ci.getImg();
       }
-      rs.close();
-    } catch (Exception e) {
-      e.printStackTrace();
     }
     return img;
   }
-  
+
   /**
    * Gives back the darker version of the card, which is called by UI.
    * 
@@ -80,49 +97,55 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
    * @param colour of the card
    * @param number of the card
    * @return img
-   */ 
+   */
   @Override
-  public Image getImageDarker(String colour, String number) {
+  public Image getImageDarker(Card card) {
     Image img = null;
-    try {
-      selectCardDarker.setString(1, colour);
-      selectCardDarker.setString(2, number);
-      ResultSet rs = selectCardDarker.executeQuery();
-      while (rs.next()) {
-        InputStream in = rs.getBinaryStream("image");
-        img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
+    // try {
+    // selectCardDarker.setString(1, colour);
+    // selectCardDarker.setString(2, number);
+    // ResultSet rs = selectCardDarker.executeQuery();
+    // while (rs.next()) {
+    // InputStream in = rs.getBinaryStream("image");
+    // img = SwingFXUtils.toFXImage(ImageIO.read(in), null);
+    // }
+    // rs.close();
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+
+    for (CardImage ci : this.cards) {
+      if (ci.getCard().equals(card) && ci.isDark()) {
+        return ci.getImg();
       }
-      rs.close();
-    } catch (Exception e) {
-      e.printStackTrace();
-    } 
+    }
     return img;
   }
-  
+
   /**
    * Stores a new player profile in the database, after creating a new player in UI.
    * 
    * @author dpervane
-   * @param  player is the new player
+   * @param player is the new player
    */
   @Override
   public void insertPlayer(Player player) {
     try {
       insertPlayer.setString(1, player.getName());
       insertPlayer.executeUpdate();
-      
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
-  }  
-  
-  /** 
+  }
+
+  /**
    * Returns true if the player is not found in database false if already in database.
    * 
    * @author dpervane
-   * @param  username of the player
+   * @param username of the player
    * @return boolean
-   */  
+   */
   @Override
   public boolean checkIfPlayerNew(String username) throws SQLException {
     try {
@@ -137,15 +160,15 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
       e.printStackTrace();
     }
     return true;
-  } 
-  
+  }
+
   /**
    * Finds the player with the given name and return him.
    * 
    * @author dpervane
-   * @param  player is the player
+   * @param player is the player
    * @retrun player
-   */ 
+   */
   @Override
   public Player getPlayer(Player player) {
     try {
@@ -156,31 +179,31 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     }
     return player;
   }
-  
+
   /**
    * Finds the player with the given name and return him.
    * 
    * @author dpervane
-   * @param  playername is the player
+   * @param playername is the player
    * @return playername
    */
   @Override
   public Player getPlayer(String playername) {
-    Player playerName = null;   
-    try {     
+    Player playerName = null;
+    try {
       selectPlayerName.setString(1, playername);
       selectPlayerName.execute();
-      ResultSet rs = selectPlayerName.executeQuery(); 
+      ResultSet rs = selectPlayerName.executeQuery();
       while (rs.next()) {
         playerName = new Player(playername);
       }
     } catch (SQLException e) {
-      e.printStackTrace();  
+      e.printStackTrace();
     }
     System.out.println(playerName);
     return playerName;
   }
- 
+
   /**
    * Changes the players name.
    *
@@ -199,5 +222,5 @@ public class ImplementsGuiInterface extends DatabaseHandler implements GuiData {
     }
   }
 }
- 
+
 
