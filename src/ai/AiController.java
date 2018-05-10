@@ -619,18 +619,6 @@ public class AiController implements InGameInterface {
 
   @Override
   /**
-   * Passes the seconds that the bot has left, to play a card. Only important for a human player.
-   * 
-   * @author fkleinoe
-   * @param seconds left to play
-   */
-  public void showSecondsLeftToPlayCard(int seconds) {
-    // Do nothing
-  }
-
-
-  @Override
-  /**
    * Only important for the ui.
    * 
    * @author fkleinoe
