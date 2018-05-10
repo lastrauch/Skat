@@ -92,7 +92,7 @@ public class Card implements Serializable {
   }
 
   public boolean equals(Card card) {
-    if ( this.colour.equals(card.getNumber()) && this.number.equals(card.getNumber())) {
+    if ( this.colour.equals(card.getColour()) && this.number.equals(card.getNumber())) {
       return true;
     }
     return false;
