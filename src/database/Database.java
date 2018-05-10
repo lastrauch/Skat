@@ -29,7 +29,6 @@ public class Database {
    * @param file name and path of database         
    * @author dpervane
    */
-  
   private void connect(String file) {
     try {
       Class.forName("org.sqlite.JDBC");

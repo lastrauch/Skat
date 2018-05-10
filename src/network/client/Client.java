@@ -9,19 +9,68 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import logic.ClientLogic;
 import logic.Player;
+import network.messages.BetMsg;
+import network.messages.CardPlayedMsg;
+import network.messages.ChatMessageMsg;
+import network.messages.ClientDisconnectMsg;
+import network.messages.ConnectionAnswerMsg;
+import network.messages.ConnectionRequestMsg;
+import network.messages.DealtCardsMsg;
+import network.messages.GameSettingsMsg;
+import network.messages.LobbyMsg;
 import network.messages.Message;
-import network.messages.*;
+import network.messages.MessageType;
+import network.messages.PlayStateMsg;
 import network.server.Server;
 
+/**
+ * This class represents a client. Each player is assigned to a client. Incoming messages are
+ * handled here.
+ * 
+ * @author fkleinoe
+ */
 public class Client extends Thread {
-  private Server server;
-  private int port;
-  private Socket socket;
-  private Player owner;
+
+  // run() : void
+  // Client Thread that reads incoming messages.
+
+  // connect() : boolean
+  // Tries to connect to server.
+
+  // disconnect() : void
+  // Disconnect from server.
+
+  // sendMessage(Message) : void
+  // Send message to server.
+
+  // requestConnection() : boolean
+  // Request whether client is allowed to join Lobby.
+
+  // receiveMessage(Message) : void
+  // Handler of received message.
+
+  private Server server; // The server the client is connected to. May be a dummy.
+  private int port; // The port the connection is running on
+  private Socket socket; // The socket that is used to comunicate
+  private Player owner; // Player the client is representing
   private ObjectOutputStream output; // Output to Server
   private ObjectInputStream input; // Input from Server
-  private ClientLogic logic;
+  private ClientLogic logic; // Interface to logic
+  private boolean connected;
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Constructor
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * Constructor of the client. It also tries to connect to the passed server. If the connection
+   * could not be established, the client will be closed.
+   * 
+   * @author fkleinoe
+   * @param server to connect to
+   * @param player who wants to connect
+   * @param port to connect over
+   * @param logic interface to logic
+   */
   public Client(Server server, Player player, int port, ClientLogic logic) {
     this.setName("Client of " + player.getName());
     this.server = server;
@@ -35,18 +84,29 @@ public class Client extends Thread {
     }
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Internal Methods
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * Client Thread that reads incoming messages.
+   * 
+   * @author fkleinoe
+   */
   public void run() {
     try {
       Message message;
-      boolean connected = true;
-      while (connected && (message = (Message) input.readObject()) != null) {
-    	if(message.getType() == MessageType.LOBBY){
-          Lobby_Msg msg = (Lobby_Msg) message;
-          System.out.println("Message recieved run " + this.owner.getName() + ": " + message.getType() + " (Group size: " + msg.getPlayer().length + ")");
-        }else{
-        	System.out.println("Message recieved run " + this.owner.getName() + ": " + message.getType());
+      while (this.connected) {
+        if ((message = (Message) input.readObject()) != null) {
+          if (message.getType() == MessageType.LOBBY) {
+            LobbyMsg msg = (LobbyMsg) message;
+            System.out.println("Message recieved run " + this.owner.getName() + ": "
+                + message.getType() + " (Group size: " + msg.getPlayer().length + ")");
+          } else {
+            System.out
+                .println("Message recieved run " + this.owner.getName() + ": " + message.getType());
+          }
+          receiveMessage(message);
         }
-        receiveMessage(message);
       }
     } catch (ClassCastException e) {
       System.out.println("Client run(); ClassCastException");
@@ -54,14 +114,20 @@ public class Client extends Thread {
       System.out.println("Client run(): ClassNotFoundException");
       e.printStackTrace();
     } catch (IOException e) {
-      System.out.println("Client run(): IOException");
-      e.printStackTrace();
+      System.out.println(this.owner.getName() + " Client run(): IOException " + connected);
+      // e.printStackTrace();
     }
   }
 
+  /**
+   * Tries to connect to server.
+   * 
+   * @author fkleinoe
+   * @return boolean whether connection was established
+   */
   private boolean connect() {
     try {
-      this.socket = new Socket(server.getIP(), port);
+      this.socket = new Socket(server.getIp(), port);
       this.output = new ObjectOutputStream(socket.getOutputStream());
       this.input = new ObjectInputStream(socket.getInputStream());
       System.out.println("Socket Connection established");
@@ -72,13 +138,21 @@ public class Client extends Thread {
       e.printStackTrace();
       return false;
     }
+    this.connected = true;
     return true;
   }
 
+  /**
+   * Disconnect from server.
+   * 
+   * @author fkleinoe
+   */
   public void disconnect() {
+    this.connected = false;
+    this.interrupt();
     System.out.println(this.owner.getName() + " client disconnect.");
     try {
-      this.output.writeObject(new ClientDisconnect_Msg(this.owner));
+      this.output.writeObject(new ClientDisconnectMsg(this.owner));
       this.output.close();
       this.input.close();
       this.socket.close();
@@ -88,6 +162,12 @@ public class Client extends Thread {
 
   }
 
+  /**
+   * Send message to server.
+   * 
+   * @author fkleinoe
+   * @param message to send
+   */
   public void sendMessage(Message message) {
     try {
       this.output.writeObject(message);
@@ -96,9 +176,15 @@ public class Client extends Thread {
     }
   }
 
+  /**
+   * Request whether client is allowed to join Lobby.
+   * 
+   * @author fkleinoe
+   * @return boolean whether client is allowed to join
+   */
   public boolean requestConnection() {
     try {
-      output.writeObject(new ConnectionRequest_Msg(this.owner));
+      output.writeObject(new ConnectionRequestMsg(this.owner));
       Message serverOutput;
       boolean receivedAnswer = false;
       while (!receivedAnswer && (serverOutput = (Message) input.readObject()) != null) {
@@ -106,8 +192,8 @@ public class Client extends Thread {
             + serverOutput.getType());
         if (serverOutput.getType() == MessageType.CONNECTION_ANSWER) {
           receivedAnswer = true;
-          ConnectionAnswer_Msg m = (ConnectionAnswer_Msg) serverOutput;
-          this.owner.setId(m.getID());
+          ConnectionAnswerMsg m = (ConnectionAnswerMsg) serverOutput;
+          this.owner.setId(m.getId());
           this.start();
           return m.getAccepted();
         } else {
@@ -125,50 +211,57 @@ public class Client extends Thread {
     return false;
   }
 
+  /**
+   * Handler of received messages.
+   * 
+   * @author fkleinoe
+   * @param message that was received
+   */
   private synchronized void receiveMessage(Message message) {
     switch (message.getType()) {
       case CARD_PLAYED:
-        CardPlayed_Msg msg2 = (CardPlayed_Msg) message;
+        CardPlayedMsg msg2 = (CardPlayedMsg) message;
         logic.receiveCardPlayed(msg2.getPlayer(), msg2.getCard());
         break;
       case BET:
-        Bet_Msg msg3 = (Bet_Msg) message;
+        BetMsg msg3 = (BetMsg) message;
         logic.receiveBet(msg3.getPlayer(), msg3.getBet());
         break;
       case CHAT_MESSAGE:
-        ChatMessage_Msg msg4 = (ChatMessage_Msg) message;
+        ChatMessageMsg msg4 = (ChatMessageMsg) message;
         logic.receiveChatMessage(msg4.getPlayer(), msg4.getMsg());
         break;
       case GAME_SETTINGS:
-        GameSettings_Msg msg5 = (GameSettings_Msg) message;
+        GameSettingsMsg msg5 = (GameSettingsMsg) message;
         logic.receiveGameSettings(msg5.getGameSettings());
         break;
       case PLAY_STATE:
-        PlayState_Msg msg6 = (PlayState_Msg) message;
+        PlayStateMsg msg6 = (PlayStateMsg) message;
         logic.receivePlayState(msg6.getPlayState());
         break;
       case DEALT_CARDS:
-        DealtCards_Msg msg7 = (DealtCards_Msg) message;
+        DealtCardsMsg msg7 = (DealtCardsMsg) message;
         System.out.println(this.owner.getName() + " received his/her cards.");
         logic.receiveCards(new ArrayList<>(Arrays.asList(msg7.getCards())), msg7.getPlayState());
         break;
       case LOBBY:
-        Lobby_Msg msg9 = (Lobby_Msg) message;
-        logic.receiveLobby(new ArrayList<>(Arrays.asList(msg9.getPlayer())), msg9.getGameSettings());
+        LobbyMsg msg9 = (LobbyMsg) message;
+        logic.receiveLobby(new ArrayList<>(Arrays.asList(msg9.getPlayer())),
+            msg9.getGameSettings());
         break;
       case START_GAME:
         logic.receiveStartGame();
         break;
       case CLIENT_DISCONNECT:
-        ClientDisconnect_Msg msg11 = (ClientDisconnect_Msg) message;
+        ClientDisconnectMsg msg11 = (ClientDisconnectMsg) message;
         logic.receivePlayerDisconnected(msg11.getPlayer());
         break;
       case KONTRA:
-    	  logic.receiveKontra();
-    	  break;
+        logic.receiveKontra();
+        break;
       case REKONTRA:
-    	  logic.receiveRekontra();
-    	  break;
+        logic.receiveRekontra();
+        break;
       default:
         break;
     }

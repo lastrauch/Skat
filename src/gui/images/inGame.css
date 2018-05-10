@@ -1,0 +1,20 @@
+#paneBet {
+	-fx-border-color: tan;
+	-fx-border-radius: 20;
+	-fx-background-color: peru;
+	-fx-background-radius: 20;
+}
+
+#skatPane{
+	-fx-border-color: tan;
+	-fx-border-radius: 20;
+	-fx-background-color: peru;
+	-fx-background-radius: 20;
+}
+
+#paneAuc {
+	-fx-border-color: tan;
+	-fx-border-radius: 20;
+	-fx-background-color: peru;
+	-fx-background-radius: 20;
+}

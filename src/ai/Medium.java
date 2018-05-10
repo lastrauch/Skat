@@ -9,10 +9,12 @@ import logic.Number;
 import logic.PlayMode;
 import logic.PlayState;
 
+/**
+ * This is a static class to implement methods to play with a medium AI. Available methods are:
+ * 
+ * @author fkleinoe
+ */
 public class Medium {
-
-  // This is a static class to implement methods to play with a medium AI.
-  // Available methods are:
 
   // askForBet(AIController, int) : boolean
   // Checks if the easy AI wants to place a bet of passed value.
@@ -32,10 +34,54 @@ public class Medium {
   // askToPlayCard(AIController) : int
   // Gives back the index of a Card on the hand, that the AI wants to play.
 
-  // TODO Description for internal methods
+  // returnSkat(AIController, PlayMode) : List<Card>
+  // Determines which cards to put back into the Skat.
 
-  private static final int minTrickValue = 7; // The value the trick needs to have, so that the AI
-                                              // wants to win it
+  // calculateBet(AIController) : int
+  // Calculates the maximum bet the AI wants to place.
+
+  // playSingle(AIController) : SinglePlay
+  // Determines the PlayMode the AI wants to play as a declarer
+
+  // playCardGrand(AIController) : int
+  // Decides which card to play, if play mode is Grand
+
+  // playCardSuit(AIController) : int
+  // Decides which card to play, if play mode is Suit.
+
+  // playCardNull(AIController) : int
+  // Decides which card to play, if play mode is Null.
+
+
+  private static final int minTrickValue = 7; // min value of trick, so AI wants to win
+
+  private static final double minCertGrand = 25;
+  private static final int jackSpadesGrand = 9;
+  private static final int jackClubsGrand = 7;
+  private static final int jackHeartsGrand = 5;
+  private static final int jackDiamondsGrand = 3;
+  private static final int aceGrand = 2;
+  private static final int tenGrand = 1;
+  private static final int twoJacksButNotSpadesAndClubs = -5;
+  private static final double rowFactorPerCardGrand = 1.25;
+
+  private static final double minCertSuit = 25;
+  private static final int jackSpadesSuit = 9;
+  private static final int jackClubsSuit = 7;
+  private static final int jackHeartsSuit = 5;
+  private static final int jackDiamondsSuit = 3;
+  private static final int aceSuit = 2;
+  private static final int tenSuit = 1;
+  private static final int missingColourSuit = 3;
+  private static final double colourFactorPerCardSuit = 1.25;
+
+  private static final double minCertNull = 25;
+  private static final int sevenNull = 4;
+  private static final int eightNull = sevenNull;
+  private static final int nineNull = 2;
+  private static final int tenNull = 1;
+  private static final int missingColourNull = 3;
+  private static final double rowFactorPerCardNull = 1.25;
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Methods called by AIController
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,9 +90,9 @@ public class Medium {
    * Checks if the easy AI wants to place a bet of passed value.
    * 
    * @author fkleinoe
-   * @param controller
-   * @param bet
-   * @return boolean
+   * @param controller with all information
+   * @param bet to be placed
+   * @return boolean whether the AI wants to place the bet
    */
   public static boolean askForBet(AiController controller, int bet) {
     if (controller.getMaxBet() == 0) {
@@ -66,8 +112,8 @@ public class Medium {
    * Checks if the AI wants to pick up the skat.
    * 
    * @author fkleinoe
-   * @param controller
-   * @return boolean
+   * @param controller with all information
+   * @return boolean whether the AI wants to take up the skat
    */
   public static boolean askToTakeUpSkat(AiController controller) {
     return true;
@@ -77,8 +123,8 @@ public class Medium {
    * Gives back the cards, the AI wants to put on the skat after picking it up.
    * 
    * @author fkleinoe
-   * @param controller
-   * @return List(Card)
+   * @param controller with all information
+   * @return List(Card) that should be returned in the skat
    */
   public static List<Card> switchSkat(AiController controller) {
     if (controller.getSinglePlay() != null && controller.getSinglePlay().getPlayMode() != null) {
@@ -89,11 +135,11 @@ public class Medium {
   }
 
   /**
-   * If the AI won the auction, it needs to return a PlayState.
+   * If the AI won the auction, it needs to set a PlayState.
    * 
    * @author fkleinoe
-   * @param controller
-   * @return PlayState
+   * @param controller with all information
+   * @return PlayState that will be set
    */
   public static PlayState askToSetPlayState(AiController controller) {
     if (controller.getSinglePlay() == null || controller.getSinglePlay().getPlayMode() == null) {
@@ -120,8 +166,8 @@ public class Medium {
    * If someone called Kontra, check if the AI wants to call Rekontra.
    * 
    * @author fkleinoe
-   * @param controller
-   * @return boolean
+   * @param controller with all information
+   * @return boolean whether the AI wants to declare rekontra
    */
   public static boolean askToRekontra(AiController controller) {
     if (controller.getSinglePlay().getCertainty() > 9) {
@@ -135,8 +181,8 @@ public class Medium {
    * Gives back the index of a Card on the hand, that the AI wants to play.
    * 
    * @author fkleinoe
-   * @param controller
-   * @return int
+   * @param controller with all information
+   * @return int index of the played card
    */
   public static int askToPlayCard(AiController controller) {
     switch (controller.getPlayState().getPlayMode()) {
@@ -146,6 +192,7 @@ public class Medium {
         return Medium.playCardSuit(controller);
       case NULL:
         return Medium.playCardNull(controller);
+      default:
     }
     return General.playRandomCard(controller);
   }
@@ -157,9 +204,9 @@ public class Medium {
    * Determines which cards to put back into the Skat.
    * 
    * @author fkleinoe
-   * @param controller
-   * @param playMode
-   * @return Skat
+   * @param controller with all information
+   * @param playMode play mode that is played
+   * @return List(Card) the skat the should be put away
    */
   public static List<Card> returnSkat(AiController controller, PlayMode playMode) {
     List<Card> skat = Arrays.asList(controller.getPlayState().getSkat());
@@ -265,7 +312,6 @@ public class Medium {
   }
 
   private static SinglePlay playSingle(AiController controller) {
-    List<Card> cards = controller.getBot().getHand();
 
     boolean wantsGrand = false;
     boolean wantsSuit = false;
@@ -274,50 +320,41 @@ public class Medium {
     double certSuit = 0; // Certainty to play Suit, integer in [0;10]
     double certNull = 0; // Certainty to play Null, integer in [0;10]
 
-    boolean hasColour[] = new boolean[4];
-    boolean hasJack[] = new boolean[4];
+    boolean[] hasColour = new boolean[4];
+    boolean[] hasJack = new boolean[4];
 
-    // TODO put the values as global variables
-    // TODO change names to jackSpadesGrand etc.
     // Check if AI wants to play Grand
-    double minCertGrand = 25;
-    int jackSpades = 9;
-    int jackClubs = 7;
-    int jackHearts = 5;
-    int jackDiamonds = 3;
-    int ace = 2;
-    int ten = 1;
-    int twoJacksButNotSpadesAndClubs = -5;
-    double rowFactorPerCard = 1.25;
-
     // Highest certainty value one can get for grand
     double scaleGrand = 0;
-    scaleGrand += jackSpades + jackClubs + jackHearts + jackDiamonds; // Bot has four jacks
-    scaleGrand += 4 * ace + 2 * ten; // Bot has four aces and two tens
-    scaleGrand += 2 * rowFactorPerCard; // RowFactor because of the two tens
+    // Bot has four jacks
+    scaleGrand += jackSpadesGrand + jackClubsGrand + jackHeartsGrand + jackDiamondsGrand;
+    scaleGrand += 4 * aceGrand + 2 * tenGrand; // Bot has four aceGrands and two tenGrands
+    scaleGrand += 2 * rowFactorPerCardGrand; // RowFactor because of the two tenGrands
 
     // Single Cards value
     if (controller.getCardProbabilities()[4][0] == 1) {
-      certGrand += jackSpades;
+      certGrand += jackSpadesGrand;
       hasJack[0] = true;
     }
     if (controller.getCardProbabilities()[12][0] == 1) {
-      certGrand += jackClubs;
+      certGrand += jackClubsGrand;
       hasJack[1] = true;
     }
     if (controller.getCardProbabilities()[20][0] == 1) {
-      certGrand += jackHearts;
+      certGrand += jackHeartsGrand;
       hasJack[2] = true;
     }
     if (controller.getCardProbabilities()[28][0] == 1) {
-      certGrand += jackDiamonds;
+      certGrand += jackDiamondsGrand;
       hasJack[3] = true;
     }
+
+    List<Card> cards = controller.getBot().getHand();
     for (int i = 0; i < cards.size(); i++) {
-      // Aces getting checked in the deck values in row-rule
-      // Ten should also be worth something, even no ace is in the hand
+      // aceGrands getting checked in the deck values in row-rule
+      // tenGrand should also be worth something, even no aceGrand is in the hand
       if (cards.get(i).getNumber() == Number.TEN) {
-        certGrand += ten;
+        certGrand += tenGrand;
       }
       if (cards.get(i).getNumber() != Number.JACK) {
         hasColour[3 - cards.get(i).getColour().ordinal()] = true;
@@ -325,61 +362,55 @@ public class Medium {
     }
 
     // Deck value
-    if (!hasJack[0] && !hasJack[1])
+    if (!hasJack[0] && !hasJack[1]) {
       certGrand += twoJacksButNotSpadesAndClubs;
+    }
     for (int i = 0; i < 4; i++) {
       int j = 0;
-      double row = ace / rowFactorPerCard;
+      double row = aceGrand / rowFactorPerCardGrand;
       while (j < 8 && controller.getCardProbabilities()[8 * i + j][0] == 1) {
-        row *= rowFactorPerCard;
+        row *= rowFactorPerCardGrand;
         j++;
       }
       certGrand += row;
     }
 
-    if (certGrand >= minCertGrand)
+    if (certGrand >= minCertGrand) {
       wantsGrand = true;
+    }
     certGrand = (certGrand / scaleGrand) * 10;
 
     // Check if AI wants to play Suit
-    double minCertSuit = 25;
     Colour suitColour = Colour.CLUBS;
     int[] numberOfColour = new int[4];
-    jackSpades = 9;
-    jackClubs = 7;
-    jackHearts = 5;
-    jackDiamonds = 3;
-    ace = 2;
-    ten = 1;
-    int missingColour = 3;
-    double colourFactorPerCard = 1.25;
 
     // Highest certainty value one can get for suit
     double scaleSuit = 0;
-    scaleSuit += jackSpades + jackClubs + jackHearts + jackDiamonds; // Bot has four Jacks
-    scaleSuit += 1 * ace + 1 * ten; // Bot has one ace and one ten
-    scaleSuit += 3 * missingColour; // Bot has three colours missing (ignoring jacks)
-    scaleSuit += Math.pow(colourFactorPerCard, 6); // Bot has six cards from the same colour
+    // Bot has four jacks
+    scaleSuit += jackSpadesSuit + jackClubsSuit + jackHeartsSuit + jackDiamondsSuit;
+    scaleSuit += 1 * aceSuit + 1 * tenSuit; // Bot has one aceSuit and one tenSuit
+    scaleSuit += 3 * missingColourSuit; // Bot has three colours missing (ignoring jacks)
+    scaleSuit += Math.pow(colourFactorPerCardSuit, 6); // Bot has six cards from the same colour
 
     // Single Cards value
     if (hasJack[0]) {
-      certSuit += jackSpades;
+      certSuit += jackSpadesSuit;
     }
     if (hasJack[1]) {
-      certSuit += jackClubs;
+      certSuit += jackClubsSuit;
     }
     if (hasJack[2]) {
-      certSuit += jackHearts;
+      certSuit += jackHeartsSuit;
     }
     if (hasJack[3]) {
-      certSuit += jackDiamonds;
+      certSuit += jackDiamondsSuit;
     }
     for (int i = 0; i < cards.size(); i++) {
       if (cards.get(i).getNumber() == Number.ASS) {
-        certSuit += ace;
+        certSuit += aceSuit;
       }
       if (cards.get(i).getNumber() == Number.TEN) {
-        certSuit += ten;
+        certSuit += tenSuit;
       }
       if (cards.get(i).getNumber() != Number.JACK) {
         numberOfColour[3 - cards.get(i).getColour().ordinal()]++;
@@ -388,8 +419,9 @@ public class Medium {
 
     // Deck value
     for (int i = 0; i < hasColour.length; i++) {
-      if (!hasColour[i])
-        certSuit += missingColour;
+      if (!hasColour[i]) {
+        certSuit += missingColourSuit;
+      }
     }
     int maxNumber = 0;
     for (int i = 0; i < numberOfColour.length; i++) {
@@ -398,50 +430,49 @@ public class Medium {
         switch (i) {
           case 0:
             suitColour = Colour.SPADES;
+            break;
           case 1:
             suitColour = Colour.CLUBS;
+            break;
           case 2:
             suitColour = Colour.HEARTS;
+            break;
           case 3:
             suitColour = Colour.DIAMONDS;
+            break;
+          default:
         }
       }
     }
-    certSuit += Math.pow(colourFactorPerCard, maxNumber);
+    certSuit += Math.pow(colourFactorPerCardSuit, maxNumber);
 
-    if (certSuit >= minCertSuit)
+    if (certSuit >= minCertSuit) {
       wantsSuit = true;
+    }
     certSuit = (certSuit / scaleSuit) * 10;
 
     // CHeck if AI wants to play Null
-    double minCertNull = 25;
-    int seven = 4;
-    int eight = seven; // You can not win a trick if you have an eight
-    int nine = 2;
-    ten = 1;
-    missingColour = 3;
-    rowFactorPerCard = 1.25;
-    int gap[] = new int[4]; // If the row has just one missing card, it is as good as a full row
+    int[] gap = new int[4]; // If the row has just one missing card, it is as good as a full row
 
     double scaleNull = 0;
-    scaleNull += 4 * seven + 4 * eight + 2 * nine; // Bot has four sevens, four eights and two nines
-    scaleNull += 2 * Math.pow(1.25, 3) + 2 * Math.pow(1.25, 2); // Therefore the bot has two rows of
-                                                                // length three and two rows of
-                                                                // length two
+    // Bot has four sevens, four eights and two nines
+    scaleNull += 4 * sevenNull + 4 * eightNull + 2 * nineNull;
+    // Therefore the bot has two rows of length three and two rows of length two
+    scaleNull += 2 * Math.pow(1.25, 3) + 2 * Math.pow(1.25, 2);
 
     for (int i = 0; i < cards.size(); i++) {
       switch (cards.get(i).getNumber()) {
         case SEVEN:
-          certNull += seven;
+          certNull += sevenNull;
           break;
         case EIGHT:
-          certNull += eight;
+          certNull += eightNull;
           break;
         case NINE:
-          certNull += nine;
+          certNull += nineNull;
           break;
         case TEN:
-          certNull += ten;
+          certNull += tenNull;
           break;
         default:
       }
@@ -453,7 +484,7 @@ public class Medium {
         double row = 1;
         while (j < 8 && gap[i] < 2) {
           if (controller.getCardProbabilities()[8 * i + j][0] == 1) {
-            row *= rowFactorPerCard;
+            row *= rowFactorPerCardNull;
           } else {
             gap[i]++;
           }
@@ -463,15 +494,16 @@ public class Medium {
           certNull += row;
         }
       } else {
-        certNull += missingColour;
+        certNull += missingColourNull;
       }
     }
 
-    if (certNull >= minCertNull)
+    if (certNull >= minCertNull) {
       wantsNull = true;
+    }
     certNull = (certNull / scaleNull) * 10;
 
-    SinglePlay sP;
+    SinglePlay singlePlay;
     // If AI wants to play Grand and Suit, and certainty is the same, check
     // what has the higher game value and play this, set other to not
     // wanted.
@@ -498,6 +530,7 @@ public class Medium {
           case DIAMONDS:
             colourValue = 9;
             break;
+          default:
         }
         int betSuit = gameLevel * colourValue;
         if (betGrand >= betSuit) {
@@ -534,6 +567,7 @@ public class Medium {
           case DIAMONDS:
             colourValue = 9;
             break;
+          default:
         }
         int betSuit = gameLevel * colourValue;
         if (betNull > betSuit) {
@@ -560,14 +594,14 @@ public class Medium {
     if ((wantsGrand ^ wantsSuit ^ wantsNull)
         && ((wantsGrand != wantsSuit) || (wantsGrand != wantsNull))) {
       if (wantsGrand) {
-        sP = new SinglePlay(PlayMode.GRAND, null, certGrand);
-        return sP;
+        singlePlay = new SinglePlay(PlayMode.GRAND, null, certGrand);
+        return singlePlay;
       } else if (wantsNull) {
-        sP = new SinglePlay(PlayMode.NULL, null, certNull);
-        return sP;
+        singlePlay = new SinglePlay(PlayMode.NULL, null, certNull);
+        return singlePlay;
       } else {
-        sP = new SinglePlay(PlayMode.SUIT, suitColour, certSuit);
-        return sP;
+        singlePlay = new SinglePlay(PlayMode.SUIT, suitColour, certSuit);
+        return singlePlay;
       }
     } else {
       return null;
@@ -578,8 +612,8 @@ public class Medium {
    * PlayMode is Grand. AI decides which card to play.
    * 
    * @author fkleinoe
-   * @param controller
-   * @return card index
+   * @param controller with all information
+   * @return int card index
    */
   public static int playCardGrand(AiController controller) {
     List<Card> cards = controller.getBot().getHand();
@@ -1051,7 +1085,7 @@ public class Medium {
           } else {
             // Until now, trick is lost with trump
             // Try to win
-            if (trick.get(0).getValue() + trick.get(1).getValue() > 7) {
+            if (trick.get(0).getValue() + trick.get(1).getValue() > minTrickValue) {
               if (ownTrumps > 0) {
                 int colourValue = 3 - declarerCard.getColour().ordinal();
                 int number = 7 - Number.JACK.ordinal();
@@ -1125,7 +1159,7 @@ public class Medium {
           } else {
             // Unitl now, trick is lost with colour
             // Try to win
-            if (trick.get(0).getValue() + trick.get(1).getValue() > 7) {
+            if (trick.get(0).getValue() + trick.get(1).getValue() > minTrickValue) {
               if (trick.get(1).getNumber() != Number.JACK) {
                 int value = -1;
                 if (trick.get(0).getColour() == trick.get(1).getColour()) {
@@ -1171,8 +1205,8 @@ public class Medium {
    * PlayMode is Suit. AI decides which card to play.
    * 
    * @author fkleinoe
-   * @param controller
-   * @return card index
+   * @param controller with all information
+   * @return int card index
    */
   public static int playCardSuit(AiController controller) {
     int trumpColour = controller.getPlayState().getTrump().ordinal();
@@ -1295,7 +1329,7 @@ public class Medium {
           for (int i = 0; i < trick.size(); i++) {
             trickValue += trick.get(i).getValue();
           }
-          if (trickValue > 7 && ownTrumps > 0) {
+          if (trickValue > minTrickValue && ownTrumps > 0) {
             if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour,
                 -1, 0, true)) != -1) {
               return index;
@@ -1495,13 +1529,14 @@ public class Medium {
             alreadyWon = true;
           } else {
             // Opponent plyed trump
-            if(opponentCard.getNumber() == Number.JACK || 3 - opponentCard.getColour().ordinal() == trumpColour) {
+            if (opponentCard.getNumber() == Number.JACK
+                || 3 - opponentCard.getColour().ordinal() == trumpColour) {
               alreadyWon = false;
               // Both played colour
-            }else {
-              if(partnerCard.getNumber().ordinal() > opponentCard.getNumber().ordinal()) {
+            } else {
+              if (partnerCard.getNumber().ordinal() > opponentCard.getNumber().ordinal()) {
                 alreadyWon = true;
-              }else {
+              } else {
                 alreadyWon = false;
               }
             }
@@ -1510,116 +1545,133 @@ public class Medium {
 
         if (alreadyWon) {
           // Throw high value
-          if(3 - trick.get(0).getColour().ordinal() == trumpColour || trick.get(0).getNumber() == Number.JACK) {
-            if(ownTrumps > 0) {
-              if((index = General.playColour(cardProbabilities, cards, trumpColour, -1, 0, false)) != -1) {
+          if (3 - trick.get(0).getColour().ordinal() == trumpColour
+              || trick.get(0).getNumber() == Number.JACK) {
+            if (ownTrumps > 0) {
+              if ((index =
+                  General.playColour(cardProbabilities, cards, trumpColour, -1, 0, false)) != -1) {
                 return index;
               }
-              if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour, -1, 0, false)) != -1) {
+              if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1,
+                  trumpColour, -1, 0, false)) != -1) {
                 return index;
               }
-            }else {
-              if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, false)) != -1) {
+            } else {
+              if ((index = General.playValue(cardProbabilities, cards, -1, -1, 0, false)) != -1) {
                 return index;
               }
             }
           }
-          if(hasColour[3 - trick.get(0).getColour().ordinal()][0]) {
-            if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), -1, 0, false)) != -1) {
+          if (hasColour[3 - trick.get(0).getColour().ordinal()][0]) {
+            if ((index = General.playColour(cardProbabilities, cards,
+                3 - trick.get(0).getColour().ordinal(), -1, 0, false)) != -1) {
               return index;
             }
-          }else {
-            if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, false)) != -1) {
+          } else {
+            if ((index = General.playValue(cardProbabilities, cards, -1, -1, 0, false)) != -1) {
               return index;
             }
           }
         } else {
-          // Else try to win, if value > 7
-          if(trick.get(0).getValue() + trick.get(1).getValue() > 7) {
+          // Else try to win, if value > minTrickValue
+          if (trick.get(0).getValue() + trick.get(1).getValue() > minTrickValue) {
             int enemyColour = 3 - opponentCard.getColour().ordinal();
             int enemyNumber = 7 - opponentCard.getNumber().ordinal();
             int jackColour;
-            if(opponentCard.getNumber() == Number.JACK) {
+            if (opponentCard.getNumber() == Number.JACK) {
               jackColour = enemyColour;
               value = -1;
-            }else {
+            } else {
               jackColour = -1;
               value = enemyNumber;
             }
-            if(3 - trick.get(0).getColour().ordinal() == trumpColour || trick.get(0).getNumber() == Number.JACK) {
-              if(ownTrumps > 0) {
-                if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour, trumpColour, value, 0, true)) != -1) {
+            if (3 - trick.get(0).getColour().ordinal() == trumpColour
+                || trick.get(0).getNumber() == Number.JACK) {
+              if (ownTrumps > 0) {
+                if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour,
+                    trumpColour, value, 0, true)) != -1) {
                   return index;
                 }
-                if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour, trumpColour, value, 0, false)) != 1) {
+                if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour,
+                    trumpColour, value, 0, false)) != 1) {
                   return index;
                 }
-              }else {
-                if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
+              } else {
+                if ((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
                   return index;
                 }
               }
             }
-            if(hasColour[3 - trick.get(0).getColour().ordinal()][0]) {
-              if(enemyColour != 3 - trick.get(0).getColour().ordinal()) {
-                if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
+            if (hasColour[3 - trick.get(0).getColour().ordinal()][0]) {
+              if (enemyColour != 3 - trick.get(0).getColour().ordinal()) {
+                if ((index = General.playColour(cardProbabilities, cards,
+                    3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
                   return index;
                 }
-              }else {
-                if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), value, 0, false)) != -1) {
+              } else {
+                if ((index = General.playColour(cardProbabilities, cards,
+                    3 - trick.get(0).getColour().ordinal(), value, 0, false)) != -1) {
                   return index;
                 }
-                if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
+                if ((index = General.playColour(cardProbabilities, cards,
+                    3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
                   return index;
                 }
               }
               // AI does not have the colour
-            }else {
+            } else {
               // Declarer played trump
-              if(enemyColour != 3 - trick.get(0).getColour().ordinal()) {
-                if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour, trumpColour, value, 0, false)) != -1) {
+              if (enemyColour != 3 - trick.get(0).getColour().ordinal()) {
+                if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour,
+                    trumpColour, value, 0, false)) != -1) {
                   return index;
                 }
-                if((index = General.playValue(cardProbabilities, cards, trumpColour, 7 - Number.JACK.ordinal(), 0, true)) != -1) {
+                if ((index = General.playValue(cardProbabilities, cards, trumpColour,
+                    7 - Number.JACK.ordinal(), 0, true)) != -1) {
                   return index;
                 }
-              }else {
-                if(ownTrumps > 0) {
-                  if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, jackColour, trumpColour, value, 0, true)) != -1) {
+              } else {
+                if (ownTrumps > 0) {
+                  if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards,
+                      jackColour, trumpColour, value, 0, true)) != -1) {
                     return index;
                   }
-                }else {
-                  if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
+                } else {
+                  if ((index =
+                      General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
                     return index;
                   }
                 }
               }
             }
-            
+
             // Else throw low value
-          }else {
-            if(3 - trick.get(0).getColour().ordinal() == trumpColour || trick.get(0).getNumber() == Number.JACK) {
-              if(ownTrumps > 0) {
-                if((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1, trumpColour, -1, 0, true)) != -1) {
+          } else {
+            if (3 - trick.get(0).getColour().ordinal() == trumpColour
+                || trick.get(0).getNumber() == Number.JACK) {
+              if (ownTrumps > 0) {
+                if ((index = General.playTrump(PlayMode.SUIT, cardProbabilities, cards, -1,
+                    trumpColour, -1, 0, true)) != -1) {
                   return index;
                 }
-              }else {
-                if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
+              } else {
+                if ((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
                   return index;
                 }
               }
             }
-            if(hasColour[3 - trick.get(0).getColour().ordinal()][0]) {
-              if((index = General.playColour(cardProbabilities, cards, 3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
+            if (hasColour[3 - trick.get(0).getColour().ordinal()][0]) {
+              if ((index = General.playColour(cardProbabilities, cards,
+                  3 - trick.get(0).getColour().ordinal(), -1, 0, true)) != -1) {
                 return index;
               }
-            }else {
-              if((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
+            } else {
+              if ((index = General.playValue(cardProbabilities, cards, -1, -1, 0, true)) != -1) {
                 return index;
               }
             }
           }
-         
+
         }
       }
     }
@@ -1631,8 +1683,8 @@ public class Medium {
    * PlayMode is Null. AI decides which card to play.
    * 
    * @author fkleinoe
-   * @param controller
-   * @return Card index
+   * @param controller with all information
+   * @return int Card index
    */
   public static int playCardNull(AiController controller) {
     List<Card> cards = controller.getBot().getHand();
@@ -1653,12 +1705,12 @@ public class Medium {
       // Bot does not play the first card, so he needs to react to the first card
     } else {
       // Bot does not have colour
-      if (controller.getHasColour()[4 - trick.get(0).getColour().ordinal()][0]) {
+      if (controller.getHasColour()[3 - trick.get(0).getColour().ordinal()][0]) {
 
         // Play highest Card of colour, where amount is < 3
         int[] hasColour = new int[4];
         for (int i = 0; i < cards.size(); i++) {
-          hasColour[4 - trick.get(0).getColour().ordinal()]++;
+          hasColour[3 - trick.get(0).getColour().ordinal()]++;
         }
         for (int colour = 0; colour < hasColour.length; colour++) {
           if (hasColour[colour] < 3 && hasColour[colour] > 0) {
@@ -1667,8 +1719,8 @@ public class Medium {
               number++;
             }
             for (int h = 0; h < cards.size(); h++) {
-              if ((8 - cards.get(h).getNumber().ordinal()) == number
-                  && (4 - cards.get(h).getColour().ordinal()) == colour) {
+              if ((7 - cards.get(h).getNumber().ordinal()) == number
+                  && (3 - cards.get(h).getColour().ordinal()) == colour) {
                 return h;
               }
             }

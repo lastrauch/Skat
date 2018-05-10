@@ -2,7 +2,7 @@ package gui;
 
 import java.io.IOException;
 import javafx.application.Application;
-
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -96,8 +96,7 @@ public class GuiController extends Application {
 
 
   /**
-   * starts the first screen (Login).
-   * (non-Javadoc)
+   * starts the first screen (Login). (non-Javadoc)
    * 
    * @see javafx.application.Application#start(javafx.stage.Stage)
    * 
@@ -126,6 +125,7 @@ public class GuiController extends Application {
 
   /**
    * opens CreateNewAccount-screen.
+   * 
    * @author lstrauch
    */
   public void displayCreateNewAccount() {
@@ -144,6 +144,7 @@ public class GuiController extends Application {
 
   /**
    * opens ChooseGame-screen.
+   * 
    * @author lstrauch
    */
   public void displayChooseGame() {
@@ -162,6 +163,7 @@ public class GuiController extends Application {
 
   /**
    * opens SetAi-screen.
+   * 
    * @author lstrauch
    */
   public void displayAi() {
@@ -180,17 +182,22 @@ public class GuiController extends Application {
 
   /**
    * opens LobbyOnline-screen.
+   * 
    * @author lstrauch
    */
   public void displayLobbyOnline() {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("LobbyOnline.fxml"));
+      Thread.sleep(1000);
       this.lobbyOnline = (AnchorPane) loader.load();
       mprimaryStage.getScene().setRoot(lobbyOnline);
 
       lobbyOnlineCon = loader.getController();
     } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (InterruptedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
@@ -199,6 +206,7 @@ public class GuiController extends Application {
 
   /**
    * opens Lobby-screen.
+   * 
    * @author lstrauch
    */
   public void displayLobby() {
@@ -217,6 +225,7 @@ public class GuiController extends Application {
 
   /**
    * opens AccountSettings-screen.
+   * 
    * @author lstrauch
    */
   public void displayAccountSettings() {
@@ -236,6 +245,7 @@ public class GuiController extends Application {
 
   /**
    * opens Help-screen.
+   * 
    * @author lstrauch
    */
   public void displayHelp() {
@@ -254,6 +264,7 @@ public class GuiController extends Application {
 
   /**
    * opens Overiew-screen.
+   * 
    * @author lstrauch
    */
   public void displayHelp_Overview() {
@@ -272,6 +283,7 @@ public class GuiController extends Application {
 
   /**
    * opens TheCards-screen.
+   * 
    * @author lstrauch
    */
   public void displayHelp_Cards() {
@@ -290,6 +302,7 @@ public class GuiController extends Application {
 
   /**
    * opens TheDeal-screen.
+   * 
    * @author lstrauch
    */
   public void displayHelp_Deal() {
@@ -308,6 +321,7 @@ public class GuiController extends Application {
 
   /**
    * opens TheAuction-screen.
+   * 
    * @author lstrauch
    */
   public void displayHelp_Auction() {
@@ -326,6 +340,7 @@ public class GuiController extends Application {
 
   /**
    * opens ThePossibleContracts-screen.
+   * 
    * @author lstrauch
    */
   public void displayHelp_PossibleContracts() {
@@ -344,6 +359,7 @@ public class GuiController extends Application {
 
   /**
    * opens ThePlay-screen.
+   * 
    * @author lstrauch
    */
   public void displayHelp_Play() {
@@ -362,6 +378,7 @@ public class GuiController extends Application {
 
   /**
    * opens CalValue-screen.
+   * 
    * @author lstrauch
    */
   public void displayHelp_CalculateValue() {
@@ -380,6 +397,7 @@ public class GuiController extends Application {
 
   /**
    * opens TheScoring-screen.
+   * 
    * @author lstrauch
    */
   public void displayHelp_Scoring() {
@@ -398,6 +416,7 @@ public class GuiController extends Application {
 
   /**
    * opens Varations-screen.
+   * 
    * @author lstrauch
    */
   public void displayHelp_Variations() {
@@ -416,6 +435,7 @@ public class GuiController extends Application {
 
   /**
    * opens GameSettings-screen.
+   * 
    * @author lstrauch
    * @param gm
    */
@@ -436,15 +456,18 @@ public class GuiController extends Application {
 
   /**
    * opens InGame-screen.
+   * 
    * @author lstrauch
    */
   public void displayInGame() {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("InGame.fxml"));
+      Thread.sleep(1000);
       inGame = (AnchorPane) loader.load();
       Thread.sleep(1000);
       mprimaryStage.getScene().setRoot(inGame);
+      Thread.sleep(1000);
       inGameCon = loader.getController();
     } catch (IOException e) {
       // TODO Auto-generated catch block
@@ -459,6 +482,7 @@ public class GuiController extends Application {
 
   /**
    * opens Settings-screen.
+   * 
    * @author lstrauch
    */
   public void displaySettings() {
@@ -477,50 +501,54 @@ public class GuiController extends Application {
 
   /**
    * opens Leaderboard3-screen.
+   * 
    * @author lstrauch
    */
   public void displayLeaderboard3() {
-    try {
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("Leaderboard3.fxml"));
-      this.leaderboard3 = (AnchorPane) loader.load();
-      Thread.sleep(1000);
-      mprimaryStage.getScene().setRoot(leaderboard3);
-
-      leaderboard3Con = loader.getController();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          FXMLLoader loader = new FXMLLoader();
+          loader.setLocation(getClass().getResource("Leaderboard3.fxml"));
+          leaderboard3 = (AnchorPane) loader.load();
+          mprimaryStage.getScene().setRoot(leaderboard3);
+          leaderboard3Con = loader.getController();
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        } 
+      }
+    });
   }
 
   /**
    * opens Leaderboard4-screen.
+   * 
    * @author lstrauch
    */
   public void displayLeaderboard4() {
-    try {
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("Leaderboard4.fxml"));
-      leaderboard4 = (AnchorPane) loader.load();
-      Thread.sleep(1000);
-      mprimaryStage.getScene().setRoot(leaderboard4);
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          FXMLLoader loader = new FXMLLoader();
+          loader.setLocation(getClass().getResource("Leaderboard4.fxml"));
+          leaderboard4 = (AnchorPane) loader.load();
+          mprimaryStage.getScene().setRoot(leaderboard4);
+          leaderboard4Con = loader.getController();
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        } 
+      }
+    });
 
-      leaderboard4Con = loader.getController();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
   }
 
   /**
    * returns InGameController.
+   * 
    * @author lstrauch
    * @return inGameCon
    */
@@ -530,6 +558,7 @@ public class GuiController extends Application {
 
   /**
    * returns GameSettingsController.
+   * 
    * @author lstrauch
    * @return gameSettingsCon;
    */
@@ -539,6 +568,7 @@ public class GuiController extends Application {
 
   /**
    * returns LobbyController.
+   * 
    * @author lstrauch
    * @return lobbyCon
    */
@@ -548,6 +578,7 @@ public class GuiController extends Application {
 
   /**
    * returns ChooseGameController.
+   * 
    * @author lstrauch
    * @return gameModeCon
    */
@@ -557,6 +588,7 @@ public class GuiController extends Application {
 
   /**
    * returns InGameController.
+   * 
    * @author lstrauch
    * @return inGameCon
    */
@@ -566,15 +598,17 @@ public class GuiController extends Application {
 
   /**
    * returns Leaderboard4Controller
+   * 
    * @author lstrauch
    * @return leaderboard4Con
    */
   public Leaderboard4Controller getLead4Con() {
     return leaderboard4Con;
   }
-  
+
   /**
    * returns SettingsCon.
+   * 
    * @author lstrauch
    * @return settingsCon
    */
@@ -582,6 +616,13 @@ public class GuiController extends Application {
     return settingsCon;
   }
 
+  /**
+   * @author lstrauch
+   * @return
+   */
+  public LobbyOnlineController getLobbyOnlineCon() {
+    return lobbyOnlineCon;
+  }
 
 }
 

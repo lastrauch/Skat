@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="330.0" layoutY="352.0" opacity="0.87" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../resources/tisch.png" />
+            <Image url="@images/tisch.png" />
          </image>
       </ImageView>
       <AnchorPane fx:id="pane" layoutX="257.0" layoutY="35.0" opacity="0.86" prefHeight="717.0" prefWidth="855.0" style="-fx-background-color: peru; -fx-background-radius: 20;">
@@ -55,7 +55,7 @@
                               <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
-                        <JFXRadioButton fx:id="ssys" layoutX="179.0" layoutY="168.0" text="Seeger System" textFill="WHITE">
+                        <JFXRadioButton fx:id="nsys" layoutX="179.0" layoutY="168.0" text="Normal" textFill="WHITE">
                            <font>
                               <Font size="28.0" />
                            </font>
@@ -65,7 +65,7 @@
                               <Font size="28.0" />
                            </font>
                         </JFXRadioButton>
-                        <JFXRadioButton fx:id="nsys" text="Normal" textFill="WHITE">
+                        <JFXRadioButton fx:id="ssys" text="Seeger System" textFill="WHITE">
                            <font>
                               <Font size="28.0" />
                            </font>
@@ -91,7 +91,7 @@
                         </JFXRadioButton>
                      </children>
                   </HBox>
-                  <HBox layoutX="34.0" layoutY="211.0" spacing="75.0">
+                  <HBox alignment="CENTER_LEFT" layoutX="34.0" layoutY="211.0" spacing="75.0">
                      <children>
                         <Label layoutX="34.0" layoutY="231.0" text="Kontra:" textFill="WHITE">
                            <font>
@@ -105,7 +105,7 @@
                         </JFXToggleButton>
                      </children>
                   </HBox>
-                  <HBox layoutX="34.0" layoutY="271.0" spacing="25.0">
+                  <HBox alignment="CENTER_LEFT" layoutX="34.0" layoutY="271.0" spacing="25.0">
                      <children>
                         <Label layoutX="34.0" layoutY="301.0" text="Timelimit:" textFill="WHITE">
                            <font>

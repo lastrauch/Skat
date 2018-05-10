@@ -15,7 +15,6 @@ public class DatabaseHandler extends Database {
   protected static PreparedStatement selectCard;
   protected static PreparedStatement selectCardDarker;
   protected static PreparedStatement changeName;
-  protected static PreparedStatement changeImage;
 
   private Connection con = null;
 
@@ -40,7 +39,7 @@ public class DatabaseHandler extends Database {
   public void prepareStatements() {
     try {
       insertPlayer = con.prepareStatement(
-          "INSERT INTO Player (name, score, profilePicture) " + "VALUES (?,?,?);");
+          "INSERT INTO Player (name) " + "VALUES (?);");
 
       selectPlayerName =
           con.prepareStatement("SELECT * FROM Player WHERE (name LIKE ?) " + "ORDER BY name;");
@@ -52,9 +51,6 @@ public class DatabaseHandler extends Database {
           "SELECT * FROM CardsDark WHERE (colour LIKE ?) " + "AND (number LIKE ?);");
 
       changeName = con.prepareStatement("UPDATE Player SET name = ? WHERE (name LIKE ?);");
-
-      changeImage =
-          con.prepareStatement("UPDATE Player SET profilePicture = ? " + "WHERE (name LIKE ?);");
 
     } catch (SQLException e) {
       e.printStackTrace();

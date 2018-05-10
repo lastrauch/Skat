@@ -73,7 +73,7 @@ public class LobbyController implements Initializable {
   private JFXButton sendB;
   @FXML
   private Rectangle rec;
-  
+
 
 
   public LobbyController() {
@@ -90,12 +90,12 @@ public class LobbyController implements Initializable {
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
     // TODO Auto-generated method stub
-    if(guiCon.getGameSetCon() != null) {
+    if (guiCon.getGameSetCon() != null) {
       setGM();
       displaydiffentGameModes();
     }
-    ButtonListener();
-    
+    allbuttonsListener();
+
 
   }
 
@@ -108,21 +108,24 @@ public class LobbyController implements Initializable {
     start.setText("Start");
     start.setTextFill(Color.WHITE);
     start.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
-    start.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
+    start.setStyle(
+        "-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
     start.setButtonType(ButtonType.RAISED);
     start.setTextAlignment(TextAlignment.CENTER);
 
     mainPane.getChildren().add(start);
   }
+
   public void displayBackButton() {
     back.setPrefWidth(214.0);
     back.setPrefHeight(41.0);
     back.setLayoutX(550.0);
-    back.setLayoutY(270.0);
+    back.setLayoutY(375.0);
     back.setText("Back");
     back.setTextFill(Color.WHITE);
     back.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
-    back.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
+    back.setStyle(
+        "-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
     back.setButtonType(ButtonType.RAISED);
     back.setTextAlignment(TextAlignment.CENTER);
 
@@ -137,7 +140,8 @@ public class LobbyController implements Initializable {
     addBot.setText("Add Bot");
     addBot.setTextFill(Color.WHITE);
     addBot.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18));
-    addBot.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
+    addBot.setStyle(
+        "-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
     addBot.setButtonType(ButtonType.RAISED);
     addBot.setTextAlignment(TextAlignment.CENTER);
 
@@ -152,7 +156,8 @@ public class LobbyController implements Initializable {
     deleteBot.setText("Delte Bot");
     deleteBot.setTextFill(Color.WHITE);
     deleteBot.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18));
-    deleteBot.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
+    deleteBot.setStyle(
+        "-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
     deleteBot.setButtonType(ButtonType.RAISED);
     deleteBot.setTextAlignment(TextAlignment.CENTER);
 
@@ -167,14 +172,27 @@ public class LobbyController implements Initializable {
     change.setText("Change Gamesettings");
     change.setTextFill(Color.WHITE);
     change.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 18.0));
-    change.setStyle("-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
-   
+    change.setStyle(
+        "-fx-background-color: #CD853F; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #D2B48C;");
+
     change.setButtonType(ButtonType.RAISED);
     change.setTextAlignment(TextAlignment.CENTER);
 
     mainPane.getChildren().add(change);
   }
 
+  public void showChatMessage(String text, String playername) {
+    chatM.appendText(playername + ": " + text + "\n");
+    chatM.setFont(Font.font("System", FontWeight.BOLD, 18.0));
+  }
+
+  @FXML
+  public void sendChatMessage() {
+    String message;
+    message = textM.getText();
+    textM.setFont(Font.font("System", FontWeight.BOLD, 18.0));
+    LoginController.interfGL.sendChatText(message);
+  }
 
   public void displayPlayers(int size, List<Player> name) {
     Platform.runLater(new Runnable() {
@@ -203,7 +221,7 @@ public class LobbyController implements Initializable {
       }
 
     });
-    
+
   }
 
   public void displayOne(String name) {
@@ -218,11 +236,15 @@ public class LobbyController implements Initializable {
 
     System.out.println("ADDED ONE: " + p1.getText());
 
-    vbox1.getChildren().add(p1);
+    if(!vbox1.getChildren().contains(p1)) {
+      vbox1.getChildren().add(p1);
+    }
   }
 
   public void displayTwo(String name1, String name2) {
-    displayOne(name1);
+    if (!vbox1.getChildren().contains(p1)) {
+      displayOne(name1);
+    }
 
     p2.setPrefWidth(213);
     p2.setPrefHeight(51);
@@ -233,11 +255,15 @@ public class LobbyController implements Initializable {
     p2.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p2.setAlignment(Pos.CENTER);
 
-    vbox1.getChildren().add(p2);
+    if(!vbox1.getChildren().contains(p2)) {
+      vbox1.getChildren().add(p2);
+    }
   }
 
   public void displayThree(String name1, String name2, String name3) {
-    displayTwo(name1, name2);
+    if (!vbox1.getChildren().contains(p1) && !vbox2.getChildren().contains(p2)) {
+      displayTwo(name1, name2);
+    }
     p3.setPrefWidth(213);
     p3.setPrefHeight(51);
     p3.setLayoutX(88);
@@ -247,11 +273,16 @@ public class LobbyController implements Initializable {
     p3.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p3.setAlignment(Pos.CENTER);
 
-    vbox1.getChildren().add(p3);
+    if(!vbox1.getChildren().contains(p3)) {
+      vbox1.getChildren().add(p3);
+    }
   }
 
   public void displayFour(String name1, String name2, String name3, String name4) {
-    displayThree(name1, name2, name3);
+    if (!vbox1.getChildren().contains(p1) && !vbox1.getChildren().contains(p2)
+        && !vbox1.getChildren().contains(p3)) {
+      displayThree(name1, name2, name3);
+    }
     p4.setPrefWidth(213);
     p4.setPrefHeight(51);
     p4.setLayoutX(88);
@@ -261,7 +292,9 @@ public class LobbyController implements Initializable {
     p4.setStyle("-fx-background-color: peru; -fx-font-style: italic; -fx-text-fill: white");
     p4.setAlignment(Pos.CENTER);
 
-    vbox1.getChildren().add(p4);
+    if(!vbox1.getChildren().contains(p4)) {
+      vbox1.getChildren().add(p4);
+    }
   }
 
 
@@ -292,18 +325,18 @@ public class LobbyController implements Initializable {
   }
 
 
-  public void ButtonListener() {
+  public void allbuttonsListener() {
     start.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
-//        if(nrofplayers == 3 || nrofplayers == 4) {
-//        LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
-//        LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
-          LoginController.interfGL.startGame(gs); 
-//        } else {
-//          System.out.println("Not enough players selected");
-//        }
+        // if(nrofplayers == 3 || nrofplayers == 4) {
+        // LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
+        // LoginController.interfGL.setBot("Bot", BotDifficulty.EASY);
+        LoginController.interfGL.startGame(gs);
+        // } else {
+        // System.out.println("Not enough players selected");
+        // }
       }
     });
     back.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -322,22 +355,59 @@ public class LobbyController implements Initializable {
         }
       }
     });
-//    deleteBot.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//
-//      @Override
-//      public void handle(MouseEvent event) {
-//        LoginController.interfGL.deleteBot("Bot");
-//      }
-//    });
-    change.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    deleteBot.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
       @Override
       public void handle(MouseEvent event) {
+        if (vbox1.getChildren().size() - 1 == 2) {
+          if (checkIfBot(p2.getText())) {
+            LoginController.interfGL.deleteBot(p2.getText());
+            vbox1.getChildren().remove(p2);
+          }
+        } else if (vbox1.getChildren().size() - 1 == 3) {
+          if (checkIfBot(p3.getText())) {
+            LoginController.interfGL.deleteBot(p3.getText());
+            vbox1.getChildren().remove(p3);
+          } else if (checkIfBot(p2.getText())) {
+            LoginController.interfGL.deleteBot(p2.getText());
+            vbox1.getChildren().remove(p2);
+          }
+        } else if (vbox1.getChildren().size() - 1 == 4) {
+          if (!checkIfBot(p4.getText())) {
+            LoginController.interfGL.deleteBot(p4.getText());
+            vbox1.getChildren().remove(p4);
+          } else if (!checkIfBot(p3.getText())) {
+            LoginController.interfGL.deleteBot(p3.getText());
+            vbox1.getChildren().remove(p3);
+          } else if (!checkIfBot(p2.getText())) {
+            LoginController.interfGL.deleteBot(p2.getText());
+            vbox1.getChildren().remove(p2);
+          } else {
+            System.out.println("noBot");
+          }
+        }
       }
     });
-    
+    change.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+      @Override
+      public void handle(MouseEvent event) {}
+    });
+
   }
 
+  public boolean checkIfBot(String s) {
+     if (s.equals("Bot 1") || s.equals("Bot 2") || s.equals("Bot 3)")) {
+     return true;
+     } else {
+       return false;
+     }
+//    if (s.equals("bot1") || s.equals("bot2") || s.equals("bot3")) {
+//      return true;
+//    } else {
+//      return false;
+//    }
+  }
 
   /**
    * @author lstrauch
@@ -346,13 +416,24 @@ public class LobbyController implements Initializable {
   public void setGM() {
     this.gm = guiCon.getGameSetCon().getGm();
   }
-  
+
   public void displaydiffentGameModes() {
-    if(gm == GameMode.SINGLEPLAYER) {
+    if(guiCon.getLobbyOnlineCon() != null) {
+      if(guiCon.getLobbyOnlineCon().getHostegame()) {
+        displayStartButton();
+        displayAddBotButton();
+        displayDeleteBotButton();
+        displayChangeGamesettingsButton();
+        displayBackButton();
+      } else {
+        displayBackButton();
+      }
+    } else {
       displayChangeGamesettingsButton();
+      displayStartButton();
       displayAddBotButton();
       displayDeleteBotButton();
-      displayStartButton();
+      displayBackButton();
       mainPane.getChildren().remove(allChat);
       mainPane.getChildren().remove(chatM);
       mainPane.getChildren().remove(textM);
@@ -365,9 +446,12 @@ public class LobbyController implements Initializable {
       vbox1.setLayoutY(211);
       vbox2.setLayoutY(211);
     }
-    
   }
-  
+
+
+
+  // }
+
   public void displayNoUser() {
     notenoughpl.setLayoutX(14);
     notenoughpl.setLayoutY(375);
@@ -377,7 +461,41 @@ public class LobbyController implements Initializable {
     notenoughpl.setFont(Font.font("System", FontWeight.BOLD, 21));
     notenoughpl.setStyle("-fx-background-color: white; -fx-text-fill: red");
     notenoughpl.setAlignment(Pos.CENTER);
-    
+
     mainPane.getChildren().add(notenoughpl);
+  }
+
+  public int countBot() {
+    return vbox1.getChildren().size();
+  }
+
+  /**
+   * opens Settings-screen.
+   * 
+   * @author lstrauch
+   */
+  @FXML
+  public void settings() {
+    guiCon.displaySettings();
+  }
+
+  /**
+   * opens Help-screen.
+   * 
+   * @author lstrauch
+   */
+  @FXML
+  public void help() {
+    guiCon.displayHelp();
+  }
+
+  /**
+   * opens AccountSettings-screen.
+   * 
+   * @author lstrauch
+   */
+  @FXML
+  public void accountSettings() {
+    guiCon.displayAccountSettings();
   }
 }

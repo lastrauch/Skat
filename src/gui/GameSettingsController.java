@@ -218,7 +218,11 @@ public class GameSettingsController implements Initializable {
    */
   public int setLimitedTime() {
     String s = sec.getText();
-    return Integer.parseInt(s);
+    if(s != null) {
+      return Integer.parseInt(s);
+    } else {
+      return 10;
+    }
   }
 
   /**
@@ -366,7 +370,7 @@ public class GameSettingsController implements Initializable {
     ssys.setToggleGroup(g2);
     bsys.setToggleGroup(g2);
     nsys.setToggleGroup(g2);
-    g2.selectToggle(bsys);
+    g2.selectToggle(nsys);
 
     n3.setToggleGroup(g3);
     n4.setToggleGroup(g3);
@@ -376,13 +380,12 @@ public class GameSettingsController implements Initializable {
     enT[0] = false;
     rounds[0] = 3;
     numbOfPl = 3;
-    cr[0] = CountRule.BIERLACHS;
+    cr[0] = CountRule.NORMAL;
 
     setGm();
     if (gm == GameMode.SINGLEPLAYER) {
       pane.getChildren().remove(message);
       pane.getChildren().remove(messageLabel);
-
     }
 
 

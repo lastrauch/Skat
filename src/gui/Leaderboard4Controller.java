@@ -87,14 +87,14 @@ public class Leaderboard4Controller extends Thread implements Initializable {
     AnchorPane.setRightAnchor(roundsNr.get(0), 0.0);
     roundsNr.get(0).setAlignment(Pos.CENTER);
 
-    rounds1.get(0).setText("Me");
+    rounds1.get(0).setText(main.getInGameCon().getPlayer1().getName());
     rounds1.get(0).setFont(Font.font("System", 33));
     rounds1.get(0).setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(rounds1.get(0), 0.0);
     AnchorPane.setRightAnchor(rounds1.get(0), 0.0);
     rounds1.get(0).setAlignment(Pos.CENTER);
 
-    rounds2.get(0).setText(main.getInGameCon().getPlayer1().getName());
+    rounds2.get(0).setText(main.getInGameCon().getPlayer2().getName());
     rounds2.get(0).setFont(Font.font("System", 33));
     rounds2.get(0).setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(rounds2.get(0), 0.0);
@@ -102,14 +102,14 @@ public class Leaderboard4Controller extends Thread implements Initializable {
     rounds2.get(0).setAlignment(Pos.CENTER);
 
 
-    rounds3.get(0).setText(main.getInGameCon().getPlayer2().getName());
+    rounds3.get(0).setText(main.getInGameCon().getPlayer3().getName());
     rounds3.get(0).setFont(Font.font("System", 33));
     rounds3.get(0).setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(rounds3.get(0), 0.0);
     AnchorPane.setRightAnchor(rounds3.get(0), 0.0);
     rounds3.get(0).setAlignment(Pos.CENTER);
 
-    rounds4.get(0).setText(main.getInGameCon().getPlayer3().getName());
+    rounds4.get(0).setText(main.getInGameCon().getPlayer4().getName());
     rounds4.get(0).setFont(Font.font("System", 33));
     rounds4.get(0).setTextFill(Color.WHITE);
     AnchorPane.setLeftAnchor(rounds4.get(0), 0.0);
