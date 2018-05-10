@@ -1,54 +1,57 @@
 package junit.ai;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import ai.AiController;
+
+import ai.Bot;
+import ai.BotDifficulty;
+import logic.ClientLogic;
+import logic.GameSettings;
+import logic.PlayState;
+import logic.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 class EasyTest {
+  AiController aiEasy;
+  static ClientLogic logic;
+  static GameSettings gameSettings;
+  static Bot bot;
+  PlayState ps;
 
-  @BeforeAll
-  static void setUpBeforeClass() throws Exception {}
-
-  @AfterAll
-  static void tearDownAfterClass() throws Exception {}
 
   @BeforeEach
-  void setUp() throws Exception {}
-
-  @AfterEach
-  void tearDown() throws Exception {}
+  void setUp() throws Exception {
+    logic = new ClientLogic(new Player("testname"));
+    gameSettings = new GameSettings();
+    aiEasy = new AiController(logic, "Name", BotDifficulty.EASY, gameSettings);
+    bot = aiEasy.getBot();
+    ps = new PlayState(null);
+  }
 
   @Test
   void testAskForBet() {
-    fail("Not yet implemented");
+    aiEasy.askForBet(18, null);
   }
 
   @Test
   void testAskToTakeUpSkat() {
-    fail("Not yet implemented");
+    aiEasy.askToTakeUpSkat();
   }
 
   @Test
   void testSwitchSkat() {
-    fail("Not yet implemented");
+    aiEasy.switchSkat(ps);
   }
 
   @Test
   void testAskToSetPlayState() {
-    fail("Not yet implemented");
+    aiEasy.askToSetPlayState(ps);
   }
 
   @Test
   void testAskToRekontra() {
-    fail("Not yet implemented");
-  }
-
-  @Test
-  void testAskToPlayCard() {
-    fail("Not yet implemented");
+    aiEasy.askToRekontra();
   }
 
 }
