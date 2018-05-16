@@ -40,8 +40,6 @@ public class SetAiController implements Initializable {
   @FXML
   private JFXRadioButton med3;
   @FXML
-  private JFXRadioButton dif3;
-  @FXML
   private JFXRadioButton dis3;
   @FXML
   Label bot3;
@@ -140,17 +138,6 @@ public class SetAiController implements Initializable {
         l3.setText("Medium");
       }
     });
-    dif3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        if (!(l3.getText().equals("Disabled") || l3.getText().equals(""))) {
-          LoginController.interfGL.deleteBot("Bot3");
-          System.out.println("Delete b3");
-        }
-        dif = BotDifficulty.HARD;
-        l3.setText("Hard");
-      }
-    });
     dis3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -174,7 +161,6 @@ public class SetAiController implements Initializable {
 
     easy3.setToggleGroup(group3);
     med3.setToggleGroup(group3);
-    dif3.setToggleGroup(group3);
     dis3.setToggleGroup(group3);
 
   }

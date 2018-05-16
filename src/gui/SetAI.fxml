@@ -78,11 +78,6 @@
                   <Font size="21.0" />
                </font>
             </JFXRadioButton>
-            <JFXRadioButton fx:id="dif3" layoutX="1016.0" layoutY="571.0" prefHeight="52.0" prefWidth="97.0" style="-fx-background-color: peru;" text="Hard" textFill="WHITE">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </JFXRadioButton>
             <JFXRadioButton fx:id="dis3" layoutX="1135.0" layoutY="571.0" prefHeight="52.0" prefWidth="122.0" style="-fx-background-color: peru;" text="Disable" textFill="WHITE">
                <font>
                   <Font size="21.0" />
@@ -90,7 +85,7 @@
             </JFXRadioButton>
          </children>
       </HBox>
-      <Label fx:id="l3" alignment="CENTER" layoutX="509.0" layoutY="413.0" prefHeight="35.0" prefWidth="170.0" style="-fx-background-color: tan; -fx-border-radius: 10;" text="Disabled" textFill="WHITE">
+      <Label fx:id="l3" alignment="CENTER" layoutX="571.0" layoutY="413.0" prefHeight="35.0" prefWidth="170.0" style="-fx-background-color: tan; -fx-border-radius: 10;" text="Disabled" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="24.0" />
          </font>

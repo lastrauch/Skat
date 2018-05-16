@@ -126,7 +126,7 @@ public class Leaderboard3Controller implements Initializable {
     vbox3.getChildren().add(rounds3.get(0));
 
 
-    for (int i = 0; i < LoginController.interfGL.getPlayer().getPlayScore().size(); i++) {
+    for (int i = 0; i < main.getInGameCon().getPlayer1().getPlayScore().size(); i++) {
       System.out.println("in forschleife");
       int count = i + 1;
       roundsNr.get(i + 1).setText(String.valueOf(count));
@@ -137,7 +137,7 @@ public class Leaderboard3Controller implements Initializable {
       roundsNr.get(i + 1).setAlignment(Pos.CENTER);
       vboxNr.getChildren().add(roundsNr.get(i + 1));
 
-      int points11 = LoginController.interfGL.getPlayer().getPlayScore().get(i);
+      int points11 = main.getInGameCon().getPlayer1().getPlayScore().get(i);
       rounds1.get(i + 1).setText(String.valueOf(points11));
       rounds1.get(i + 1).setFont(Font.font("System", 33));
       if (points11 < -1) {
@@ -158,14 +158,18 @@ public class Leaderboard3Controller implements Initializable {
       rounds1.get(i + 1).setAlignment(Pos.CENTER);
       vbox1.getChildren().add(rounds1.get(i + 1));
 
-      int points21 = main.getInGameCon().getPlayer1().getPlayScore().get(i);
+      int points21 = main.getInGameCon().getPlayer2().getPlayScore().get(i);
       rounds2.get(i + 1).setText(String.valueOf(points21));
       rounds2.get(i + 1).setFont(Font.font("System", 33));
-      if (points21 < 0) {
+      if (points21 < -1) {
         rounds2.get(i + 1).setTextFill(Color.RED);
       }
       if (points21 > 0) {
         rounds2.get(i + 1).setTextFill(Color.GREEN);
+      }
+      if (points21 == -1) {
+        rounds2.get(i + 1).setTextFill(Color.WHITE);
+        rounds2.get(i + 1).setText("0");
       }
       if (points21 == 0) {
         rounds2.get(i + 1).setTextFill(Color.WHITE);
@@ -175,14 +179,18 @@ public class Leaderboard3Controller implements Initializable {
       rounds2.get(i + 1).setAlignment(Pos.CENTER);
       vbox2.getChildren().add(rounds2.get(i + 1));
 
-      int points31 = main.getInGameCon().getPlayer2().getPlayScore().get(i);
+      int points31 = main.getInGameCon().getPlayer3().getPlayScore().get(i);
       rounds3.get(i + 1).setText(String.valueOf(points31));
       rounds3.get(i + 1).setFont(Font.font("System", 33));
-      if (points31 < 0) {
+      if (points31 < -1) {
         rounds3.get(i + 1).setTextFill(Color.RED);
       }
       if (points31 > 0) {
         rounds3.get(i + 1).setTextFill(Color.GREEN);
+      }
+      if (points31 == -1) {
+        rounds3.get(i + 1).setTextFill(Color.WHITE);
+        rounds3.get(i + 1).setText("0");
       }
       if (points31 == 0) {
         rounds3.get(i + 1).setTextFill(Color.WHITE);
