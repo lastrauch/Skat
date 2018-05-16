@@ -1417,12 +1417,12 @@ public class InGameController implements Initializable, InGameInterface {
               s3.setImage(inte.getImage(card));
               removeOpponentCardsLeft(countl);
               countl--;
-              s1.toFront();
+              s3.toFront();
             } else if (player.getPosition() == Position.FOREHAND) {
               s1.setImage(inte.getImage(card));
               removeOpponentCardsRight(countr);
               countr--;
-              s3.toFront();
+              s1.toFront();
             } else {
               s2.setImage(inte.getImage(card));
               s2.toFront();
