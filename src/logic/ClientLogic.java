@@ -841,6 +841,11 @@ public class ClientLogic implements NetworkLogic, AiLogic {
           if (pg.getName().equals(this.player.getName())) {
             this.player.setPlayScore(pg.getPlayScore());
           }
+          
+          System.out.println("I have the name: "+this.player.getName()+" and the points ");
+          for(int score: this.player.getPlayScore()) {
+            System.out.println(score);
+          }
 
         }
 
