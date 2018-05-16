@@ -154,6 +154,10 @@ public class Leaderboard4Controller extends Thread implements Initializable {
       if (points11 > 0) {
         rounds1.get(i + 1).setTextFill(Color.GREEN);
       }
+      if (points11 == -1) {
+        rounds1.get(i + 1).setTextFill(Color.WHITE);
+        rounds1.get(i + 1).setText("0");
+      }
       if (points11 == 0) {
         rounds1.get(i + 1).setTextFill(Color.WHITE);
       }

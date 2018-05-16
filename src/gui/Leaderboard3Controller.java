@@ -129,7 +129,7 @@ public class Leaderboard3Controller implements Initializable {
     for (int i = 0; i < LoginController.interfGL.getPlayer().getPlayScore().size(); i++) {
       System.out.println("in forschleife");
       int count = i + 1;
-      roundsNr.get(i).setText(String.valueOf(count));
+      roundsNr.get(i + 1).setText(String.valueOf(count));
       roundsNr.get(i + 1).setFont(Font.font("System", 33));
       roundsNr.get(i + 1).setTextFill(Color.WHITE);
       AnchorPane.setLeftAnchor(roundsNr.get(i + 1), 0.0);
@@ -145,6 +145,10 @@ public class Leaderboard3Controller implements Initializable {
       }
       if (points11 > 0) {
         rounds1.get(i + 1).setTextFill(Color.GREEN);
+      }
+      if (points11 == -1) {
+        rounds1.get(i + 1).setTextFill(Color.WHITE);
+        rounds1.get(i + 1).setText("0");
       }
       if (points11 == 0) {
         rounds1.get(i + 1).setTextFill(Color.WHITE);
