@@ -1192,6 +1192,12 @@ public class InGameController implements Initializable, InGameInterface {
   public void showPossibleCards(List<Card> cards) {
     // TODO Auto-generated method stub
     rearrangeCardsNotPossible(cards);
+    try {
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -1710,11 +1716,11 @@ public class InGameController implements Initializable, InGameInterface {
         carray[i].setImage(inte.getImage(cardlist.get(i)));
       }
     }
-    if (list.get(list.size() - 1) != null) {
-      carray[list.size() - 1].setImage(inte.getImageDarker(list.get(list.size() - 1)));
-    } else {
-      carray[list.size() - 1].setImage(inte.getImage(list.get(list.size() - 1)));
-    }
+//    if (list.get(list.size() - 1) != null) {
+//      carray[list.size() - 1].setImage(inte.getImageDarker(list.get(list.size() - 1)));
+//    } else {
+//      carray[list.size() - 1].setImage(inte.getImage(list.get(list.size() - 1)));
+//    }
   }
 
   /**
