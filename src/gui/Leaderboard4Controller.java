@@ -148,7 +148,7 @@ public class Leaderboard4Controller extends Thread implements Initializable {
       int points11 = LoginController.interfGL.getPlayer().getPlayScore().get(i);
       rounds1.get(i + 1).setText(String.valueOf(points11));
       rounds1.get(i + 1).setFont(Font.font("System", 33));
-      if (points11 < 0) {
+      if (points11 < -1) {
         rounds1.get(i + 1).setTextFill(Color.RED);
       }
       if (points11 > 0) {
