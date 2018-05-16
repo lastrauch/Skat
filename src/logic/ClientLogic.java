@@ -211,7 +211,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
   /**
    * sets the gameSettings.
-   * 
    * @param gs GameSettings
    */
   @Override
@@ -275,9 +274,8 @@ public class ClientLogic implements NetworkLogic, AiLogic {
   @Override
   /**
    * copys the given player
-   * 
    * @param player that should be copied
-   * @return
+   * @return 
    */
   public Player copyPlayer(Player player) {
     return player.copyMe();
@@ -816,7 +814,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
             }
           }
         } else {
-          playWinner = Play.calculateWinner(playState);
+          playWinner = Play.calculateWinner(this.playState);
         }
         for (Player p : playWinner) {
           System.out.print(p.getName() + " ");
@@ -843,47 +841,50 @@ public class ClientLogic implements NetworkLogic, AiLogic {
           if (pg.getName().equals(this.player.getName())) {
             this.player.setPlayScore(pg.getPlayScore());
           }
-
-          System.out.println("I have the name: " + this.player.getName() + " and the points ");
-          for (int score : this.player.getPlayScore()) {
-            System.out.println(score);
-          }
+//          
+//          System.out.println("I have the name: "+this.player.getName()+" and the points ");
+//          for(int score: this.player.getPlayScore()) {
+//            System.out.println(score);
+//          }
 
         }
 
-
-
-        // TEST TEST TEST !!!!
-        ArrayList<Player> gruppe = new ArrayList<Player>();
-        ArrayList<Integer> scoreMe = new ArrayList<Integer>();
-        scoreMe.add(-46);
-        scoreMe.add(-1);
-        scoreMe.add(23);
-        this.player.setPlayScore(scoreMe);
-        Player bot1 = new Player("Bot 1");
-        ArrayList<Integer> scoreBot1 = new ArrayList<Integer>();
-        scoreBot1.add(-1);
-        scoreBot1.add(-1);
-        scoreBot1.add(-1);
-        bot1.setPlayScore(scoreBot1);
-        Player bot2 = new Player("Bot 2");
-        ArrayList<Integer> scoreBot2 = new ArrayList<Integer>();
-        scoreBot2.add(-1);
-        scoreBot2.add(22);
-        scoreBot2.add(-1);
-        bot2.setPlayScore(scoreBot2);
-
-        gruppe.add(this.player);
-        gruppe.add(bot1);
-        gruppe.add(bot2);
-
-        this.inGameController.showScore(gruppe);
-
-
-
+//        
+//       
+//        
+//        
+//        //TEST TEST TEST !!!!
+//        ArrayList<Player> gruppe= new ArrayList<Player>();
+//        ArrayList<Integer> scoreMe = new ArrayList<Integer>();
+//        scoreMe.add(-46);
+//        scoreMe.add(-1);
+//        scoreMe.add(23);
+//        this.player.setPlayScore(scoreMe);
+//        Player bot1 = new Player("Bot 1");
+//        ArrayList<Integer> scoreBot1 = new ArrayList<Integer>();
+//        scoreBot1.add(-1);
+//        scoreBot1.add(-1);
+//        scoreBot1.add(-1);
+//        bot1.setPlayScore(scoreBot1);
+//        Player bot2 = new Player("Bot 2");
+//        ArrayList<Integer> scoreBot2 = new ArrayList<Integer>();
+//        scoreBot2.add(-1);
+//        scoreBot2.add(22);
+//        scoreBot2.add(-1);
+//        bot2.setPlayScore(scoreBot2);
+//        
+//        gruppe.add(this.player);
+//        gruppe.add(bot1);
+//        gruppe.add(bot2);
+//        
+//        this.inGameController.showScore(gruppe);
+//        
+//        
+//        
+//        
         // show winner of play
         // this.inGameController.showWinnerPlay(playWinner[0], playWinner[1]);
-        // this.inGameController.showScore(this.group);
+        this.inGameController.showScore(this.group);
         this.waitFor(3000);
 
         // check if the whole game is over
@@ -962,8 +963,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
   /**
    * to help update position, returns the index where the forehand sits.
-   * 
-   * @return int
+   * @return int 
    */
   public int searchForehand() {
     for (int i = 0; i < this.group.size(); i++) {
@@ -976,7 +976,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
   /**
    * returns true if the game score is over the bierlachs piont limit.
-   * 
    * @return boolean
    */
   public boolean checkIfGameOverBierlachs() {
@@ -990,7 +989,6 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
   /**
    * returns true if the currentTrick is full.
-   * 
    * @return boolean
    */
   public boolean checkIfTrickIsFull() {
@@ -1025,8 +1023,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
 
   /**
    * returns the three players of this group who are part of the next play.
-   * 
-   * @return Player[]
+   * @return Player[] 
    * @author sandfisc
    */
   public Player[] getPlayingGroup() {
@@ -1050,7 +1047,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * 
    * @param card (the player wants to play)
    * @param firstCard (the first played card in the current trick)
-   * @param playState ps
+   * @param playState ps 
    * @param player p
    * @return if card can be played
    * @throws LogicException if card not allowed to play
@@ -1105,7 +1102,7 @@ public class ClientLogic implements NetworkLogic, AiLogic {
    * @param playState (ps)
    * @return boolean
    * 
-   */
+   * */
   public static boolean checkIfServedColour(Card servingCard, Card servedCard,
       PlayState playState) {
 
