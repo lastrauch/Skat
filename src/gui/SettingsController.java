@@ -13,7 +13,6 @@ public class SettingsController implements Initializable {
    * 
    * @author lstrauch
    */
-  private GuiController main;
   private boolean trainingmode = false;
 
 
@@ -33,7 +32,6 @@ public class SettingsController implements Initializable {
    * @author lstrauch
    */
   public SettingsController() {
-    this.main = new GuiController();
   }
 
   /**
